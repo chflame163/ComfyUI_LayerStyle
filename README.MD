@@ -13,7 +13,7 @@ Generate shadow
 
 Node options:
 * background_image<sup>1</sup>: The background image.
-* layer_image<sup>1</sup>: Layer images for composite.
+* layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1</sup>: Mask for layer_image, shadows are generated according to their shape.
 * invert_mask: Whether to reverse the mask.
 * blend_mode: Blending method of shadows, there are **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
