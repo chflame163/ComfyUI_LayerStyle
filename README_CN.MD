@@ -10,9 +10,9 @@ Drop Shadow是首个完成的节点，后续工作进行中。
 
 
 选项说明：   
-* background_image^1^: 背景图像。
-* layer_image^1^: 用于合成的层图像。
-* layer_mask^1^: 层图像的遮罩，阴影按此生成。
+* background_image<sup>1</sup>: 背景图像。
+* layer_image<sup>1</sup>: 用于合成的层图像。
+* layer_mask<sup>1</sup>: 层图像的遮罩，阴影按此生成。
 * invert_mask: 是否反转遮罩。
 * blend_mode: 阴影的混合方式，包括normal、multply、screen、add、subtract、difference、darker和lighter。
 * opacity: 阴影的不透明度。
@@ -22,7 +22,7 @@ Drop Shadow是首个完成的节点，后续工作进行中。
 * blur：阴影模糊程度。
 * shadow_color: 阴影颜色，使用16进制RGB格式描述。
 
-^1^  background_image, layer_image, layer_mask这三项必须是相同的尺寸。
+<sup>1</sup>  background_image, layer_image, layer_mask这三项必须是相同的尺寸。
 
 输出：
 * image：完成的图像。

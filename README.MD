@@ -12,9 +12,9 @@ Generate shadow
 
 
 Node options:
-* background_image^1^: The background image.
-* layer_image^1^: Layer images for composite.
-* layer_mask^1^: Mask for layer_image, shadows are generated according to their shape.
+* background_image<sup>1</sup>: The background image.
+* layer_image<sup>1</sup>: Layer images for composite.
+* layer_mask<sup>1</sup>: Mask for layer_image, shadows are generated according to their shape.
 * invert_mask: Whether to reverse the mask.
 * blend_mode: Blending method of shadows, there are **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
 * opacity: Opacity of shadow.
@@ -24,7 +24,7 @@ Node options:
 * blur：Shadow blur level.
 * shadow_color: Shadow color, described in hexadecimal RGB format.
  
-^1^  The layer_image, layer_mask and the background_image, These three items must be of the same size.
+<sup>1</sup>  The layer_image, layer_mask and the background_image, These three items must be of the same size.
 
 Output type：
 * image：Completed image.
