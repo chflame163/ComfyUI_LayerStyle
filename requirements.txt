@@ -1,0 +1,5 @@
+numpy
+pillow
+torch
+matplotlib
+Scipy

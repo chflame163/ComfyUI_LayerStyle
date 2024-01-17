@@ -1,0 +1,341 @@
+{
+  "last_node_id": 20,
+  "last_link_id": 49,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        237,
+        -31
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            45
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            46
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512.png",
+        "image"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "RGB_Picker",
+      "pos": [
+        332,
+        -180
+      ],
+      "size": {
+        "0": 210,
+        "1": 94
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "links": [
+            49
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RGB_Picker"
+      },
+      "widgets_values": [
+        "#2b0303",
+        "HEX"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "PreviewImage",
+      "pos": [
+        955,
+        -13
+      ],
+      "size": {
+        "0": 210,
+        "1": 246
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 47
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 20,
+      "type": "LayerStyle_DropShadow",
+      "pos": [
+        576,
+        -21
+      ],
+      "size": [
+        355.20001220703125,
+        266
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 44
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 45
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 46
+        },
+        {
+          "name": "shadow_color",
+          "type": "STRING",
+          "link": 49,
+          "widget": {
+            "name": "shadow_color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            47
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "shadow_mask",
+          "type": "MASK",
+          "links": [
+            48
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle_DropShadow"
+      },
+      "widgets_values": [
+        true,
+        "multply",
+        52,
+        43,
+        45,
+        2,
+        20,
+        "#000000"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        -102,
+        -33
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            44
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512bkgd.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "MaskToImage",
+      "pos": [
+        957,
+        282
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 48
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      }
+    },
+    {
+      "id": 11,
+      "type": "PreviewImage",
+      "pos": [
+        1188,
+        -15
+      ],
+      "size": {
+        "0": 210,
+        "1": 246
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      11,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      44,
+      3,
+      0,
+      20,
+      0,
+      "IMAGE"
+    ],
+    [
+      45,
+      2,
+      0,
+      20,
+      1,
+      "IMAGE"
+    ],
+    [
+      46,
+      2,
+      1,
+      20,
+      2,
+      "MASK"
+    ],
+    [
+      47,
+      20,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      48,
+      20,
+      1,
+      10,
+      0,
+      "MASK"
+    ],
+    [
+      49,
+      17,
+      0,
+      20,
+      3,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
