@@ -33,7 +33,8 @@ def image2mask(image:Image) -> torch.Tensor:
     alpha = _image.split() [0]
     bg = Image.new("L", _image.size)
     _image = Image.merge('RGBA', (bg, bg, bg, alpha))
-    return pil2tensor(_image)[0, :, :, 3]
+    ret_mask = torch.tensor([pil2tensor(_image)[0, :, :, 3].tolist()])
+    return ret_mask
 
 def mask2image(mask:torch.Tensor)  -> Image:
     masks = tensor2np(mask)
@@ -115,7 +116,8 @@ def expand_mask(mask:torch.Tensor, grow:int, blur:int, expandrate:int) -> torch.
             out[idx] = pil2tensor(pil_image)
 
     blurred = torch.cat(out, dim=0)
-    return blurred
+    ret_mask = torch.tensor([blurred.tolist()])
+    return ret_mask
 
 class DropShadow:
 
