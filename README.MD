@@ -1,5 +1,7 @@
 # ComfyUI Layer Style
 A set of nodes for ComfyUI that generate image like Adobe Photoshop's Layer Style.
+
+
 the Drop Shadow is first completed node, and follow-up work is in progress.
 
 [中文说明点这里](./README_CN.MD)
