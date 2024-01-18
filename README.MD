@@ -7,7 +7,9 @@ Currently completed Drop Shadow and OuterGlow nodes, and follow-up work is in pr
 [中文说明点这里](./README_CN.MD)
 
 ## Update
-Remove the mask channel output from the DropShadow node; Add the OuterGlow node.
+* Commit ImageBlend node.
+* Remove the mask channel output from the DropShadow node; Commit OuterGlow node.
+* Commit DropShadow node.
 
 ## Node Description
 
@@ -33,7 +35,7 @@ Node options:
  
 <sup>1</sup>  The layer_image, layer_mask and the background_image, These three items must be of the same size.
 
-Output type：
+Output type:
 * image
 
 
@@ -55,7 +57,26 @@ Node options:
 
 <sup>1</sup>  The layer_image, layer_mask and the background_image, These three items must be of the same size.
 
-输出：
+Output type:
+* image
+
+### ImageBlend：
+Composit  layer image and background image, multiple blend modes are available for option, and transparency can be set.
+![image](image/image_blend_example.png)
+
+Node options:
+![image](image/image_blend_node.png)
+* background_image<sup>1</sup>: The background image.
+* layer_image<sup>1</sup>: Layer image for composite.
+* layer_mask<sup>1</sup>: Mask for layer_image.
+* invert_mask: Whether to reverse the mask.
+* blend_mode: Blending method of glow, there are **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
+* opacity: Opacity of blend.
+
+
+<sup>1</sup>  The layer_image, layer_mask and the background_image, These three items must be of the same size.。
+
+Output type:
 * image
 
 ## Example workflow
