@@ -3,7 +3,8 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 当前已完成Drop Shadow和OuterGlow节点，后续工作进行中。
 
 ## 更新说明：
-* 现在layer_mask不是输入必选。不输入将使用layer_image的alpha通道。允许使用形状不同的layer和mask，但是尺寸必须一致。
+* 添加ImageOpacity节点。
+* layer_mask不是输入必选。不输入将使用layer_image的alpha通道。允许使用形状不同的layer和mask，但是尺寸必须一致。
 ![image](image/title.png)
 * 添加ImageBlend节点
 * DropShadow节点去掉调试mask通道输出；添加OuterGlow节点。
@@ -75,6 +76,20 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 输出：
 * image
+
+### ImageOpacity：
+调整图像不透明度。
+![image](image/image_opacity_example.png)
+
+节点选项说明：   
+* image: 图像输入，支持RGB和RGBA输入。如果输入的是RGB，将自动添加整个图像的alpha通道。
+* mask: 遮罩输入。注意如果image输入有alpha通道且同时输入了不同的mask，原本的alpha通道将被mask覆盖。
+* invert_mask: 是否反转遮罩。
+* opacity: 不透明度。
+
+输出：
+* image(RGBA)
+* mask
 
 ## 使用示例：
 

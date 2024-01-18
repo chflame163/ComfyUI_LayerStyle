@@ -81,6 +81,20 @@ Node options:
 Output type:
 * image
 
+### ImageOpacity：
+Adjust image opacity
+![image](image/image_opacity_example.png)
+
+Node option:   
+* image: Image input, supporting RGB and RGBA. if is RGB, the alpha channel of the entire image will be automatically added.
+* mask: Mask input. Attention that if the image input has alpha channel and different masks are input simultaneously, the original alpha channel will be overwritten by the mask.
+* invert_mask: Whether to reverse the mask.
+* opacity: Opacity of image.
+
+Output type:
+* image(RGBA)
+* mask
+
 ## Example workflow
 image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
 
