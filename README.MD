@@ -7,6 +7,8 @@ Currently completed Drop Shadow and OuterGlow nodes, and follow-up work is in pr
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Now, layer_mask is not a mandatory input. without inputting will use the layer_image's alpha channel. It is allowed to use layers and masks with different shapes, but the size must be consistent.
+![image](image/title.png)
 * Commit ImageBlend node.
 * Remove the mask channel output from the DropShadow node; Commit OuterGlow node.
 * Commit DropShadow node.

@@ -3,6 +3,8 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 当前已完成Drop Shadow和OuterGlow节点，后续工作进行中。
 
 ## 更新说明：
+* 现在layer_mask不是输入必选。不输入将使用layer_image的alpha通道。允许使用形状不同的layer和mask，但是尺寸必须一致。
+![image](image/title.png)
 * 添加ImageBlend节点
 * DropShadow节点去掉调试mask通道输出；添加OuterGlow节点。
 * DropShadow节点上线。

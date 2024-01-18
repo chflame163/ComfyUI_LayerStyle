@@ -35,7 +35,6 @@ def image2mask(image:Image) -> torch.Tensor:
 
 def mask2image(mask:torch.Tensor)  -> Image:
     masks = tensor2np(mask)
-    # images = []
     for m in masks:
         _mask = Image.fromarray(m).convert("L")
         _image = Image.new("RGBA", _mask.size, color='white')
