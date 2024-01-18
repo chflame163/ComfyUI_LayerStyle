@@ -115,8 +115,8 @@ def expand_mask(mask:torch.Tensor, grow:int, blur:int, expandrate:int) -> torch.
             pil_image = pil_image.filter(ImageFilter.GaussianBlur(blur))
             out[idx] = pil2tensor(pil_image)
 
-    blurred = torch.cat(out, dim=0)
-    ret_mask = torch.tensor([blurred.tolist()])
+    ret_mask = torch.cat(out, dim=0)
+    # ret_mask = torch.tensor([ret_mask.tolist()])
     return ret_mask
 
 class DropShadow:
@@ -137,7 +137,7 @@ class DropShadow:
                 "opacity": ("INT", {"default": 50, "min": 0, "max": 100, "step": 1}),  # 透明度
                 "distance_x": ("INT", {"default": 5, "min": -9999, "max": 9999, "step": 1}),  # x_偏移
                 "distance_y": ("INT", {"default": 5, "min": -9999, "max": 9999, "step": 1}),  # y_偏移
-                "grow": ("INT", {"default": 2, "min": -9999, "max": 9999, "step": 1}),  # 扩散
+                "grow": ("INT", {"default": 2, "min": -9999, "max": 9999, "step": 1}),  # 扩张
                 "blur": ("INT", {"default": 15, "min": 0, "max": 100, "step": 1}),  # 模糊
                 "shadow_color": ("STRING", {"default": "#000000"}),  # 背景颜色
             },
@@ -165,7 +165,7 @@ class DropShadow:
         _mask = mask2image(layer_mask)
         if distance_x != 0 or distance_y != 0:
             _mask = shift_image(_mask, distance_x, distance_y)  # 位移
-        shadow_mask = expand_mask(image2mask(_mask), grow, blur, 0)  #扩边，模糊，膨胀
+        shadow_mask = expand_mask(image2mask(_mask), grow, blur, 0)  #扩张，模糊
 
         # 合成阴影
         shadow_color = Image.new("RGB", _layer.size, color=shadow_color)
