@@ -50,9 +50,11 @@ def shift_image(image:Image, distance_x:int, distance_y:int) -> Image:
     ret_image = Image.new('RGB', size=(width, height), color=bkcolor)
     for x in range(width):
         for y in range(height):
-            if x + distance_x < width and y + distance_y < height:
-                pixel = image.getpixel((x + distance_x, y + distance_y))
-                ret_image.putpixel((x, y), pixel)
+            if x > -distance_x and y > -distance_y:
+                if x + distance_x < width and y + distance_y < height:
+                    # print(f"x={x}, y={y}, distance_x={distance_x}, distance_y={distance_y}")
+                    pixel = image.getpixel((x + distance_x, y + distance_y))
+                    ret_image.putpixel((x, y), pixel)
     return ret_image
 
 def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
