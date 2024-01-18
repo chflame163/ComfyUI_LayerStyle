@@ -23,12 +23,13 @@ class DropShadow:
                 "shadow_color": ("STRING", {"default": "#000000"}),  # 背景颜色
             },
             "optional": {
-                # "test_mask": ("MASK",),  #
             }
         }
 
-    RETURN_TYPES = ("IMAGE", "MASK",)
-    RETURN_NAMES = ("image", "shadow_mask",)
+    # RETURN_TYPES = ("IMAGE", "MASK",)
+    # RETURN_NAMES = ("image", "shadow_mask",)
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("image",)
     FUNCTION = 'drop_shadow'
     CATEGORY = '😺dzNodes'
     OUTPUT_NODE = True
@@ -61,12 +62,13 @@ class DropShadow:
 
         ret_image = _canvas
         ret_mask = shadow_mask
-        return (pil2tensor(ret_image), ret_mask,)
+        # return (pil2tensor(ret_image), ret_mask,)
+        return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerStyle_DropShadow": DropShadow
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_DropShadow": "Layer Style: Drop Shadow"
+    "LayerStyle_DropShadow": "LayerStyle: DropShadow"
 }

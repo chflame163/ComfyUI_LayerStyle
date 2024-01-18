@@ -1,63 +1,7 @@
 {
-  "last_node_id": 23,
-  "last_link_id": 58,
+  "last_node_id": 24,
+  "last_link_id": 62,
   "nodes": [
-    {
-      "id": 22,
-      "type": "LayerStyle_DropShadow",
-      "pos": [
-        540,
-        -660
-      ],
-      "size": {
-        "0": 315,
-        "1": 266
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "background_image",
-          "type": "IMAGE",
-          "link": 54
-        },
-        {
-          "name": "layer_image",
-          "type": "IMAGE",
-          "link": 55
-        },
-        {
-          "name": "layer_mask",
-          "type": "MASK",
-          "link": 56
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            58
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerStyle_DropShadow"
-      },
-      "widgets_values": [
-        true,
-        "normal",
-        50,
-        5,
-        5,
-        2,
-        15,
-        "#000000"
-      ]
-    },
     {
       "id": 23,
       "type": "SaveImage",
@@ -76,54 +20,12 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 58
+          "link": 62
         }
       ],
       "properties": {},
       "widgets_values": [
         "ComfyUI"
-      ]
-    },
-    {
-      "id": 2,
-      "type": "LoadImage",
-      "pos": [
-        180,
-        -680
-      ],
-      "size": {
-        "0": 315,
-        "1": 314
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            55
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": [
-            56
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "512x512.png",
-        "image"
       ]
     },
     {
@@ -138,14 +40,14 @@
         "1": 314
       },
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            54
+            59
           ],
           "shape": 3,
           "slot_index": 0
@@ -164,36 +66,132 @@
         "512x512bkgd.jpg",
         "image"
       ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        180,
+        -680
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            60
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            61
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512.png",
+        "image"
+      ]
+    },
+    {
+      "id": 24,
+      "type": "LayerStyle_OuterGlow",
+      "pos": [
+        536,
+        -631
+      ],
+      "size": {
+        "0": 315,
+        "1": 218
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 59
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 60
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 61
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            62
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle_OuterGlow"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        16,
+        20,
+        "#FFFFFF"
+      ]
     }
   ],
   "links": [
     [
-      54,
+      59,
       3,
       0,
-      22,
+      24,
       0,
       "IMAGE"
     ],
     [
-      55,
+      60,
       2,
       0,
-      22,
+      24,
       1,
       "IMAGE"
     ],
     [
-      56,
+      61,
       2,
       1,
-      22,
+      24,
       2,
       "MASK"
     ],
     [
-      58,
-      22,
+      62,
+      24,
       0,
       23,
       0,
