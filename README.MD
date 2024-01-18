@@ -88,7 +88,7 @@ Adjust image opacity
 
 Node option:   
 * image: Image input, supporting RGB and RGBA. if is RGB, the alpha channel of the entire image will be automatically added.
-* mask: Mask input. Attention that if the image input has alpha channel and different masks are input simultaneously, the original alpha channel will be overwritten by the mask.
+* mask: Mask input. this is not a mandatory input item. attention that if the image input has alpha channel and different masks are input simultaneously, the original alpha channel will be overwritten by the mask.
 * invert_mask: Whether to reverse the mask.
 * opacity: Opacity of image.
 

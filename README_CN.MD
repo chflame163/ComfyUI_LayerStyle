@@ -83,7 +83,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 节点选项说明：   
 * image: 图像输入，支持RGB和RGBA输入。如果输入的是RGB，将自动添加整个图像的alpha通道。
-* mask: 遮罩输入。注意如果image输入有alpha通道且同时输入了不同的mask，原本的alpha通道将被mask覆盖。
+* mask: 遮罩输入，这不是必须的输入项。注意如果image输入有alpha通道且同时输入了不同的mask，原本的alpha通道将被mask覆盖。
 * invert_mask: 是否反转遮罩。
 * opacity: 不透明度。
 
