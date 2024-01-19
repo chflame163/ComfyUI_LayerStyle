@@ -15,9 +15,9 @@ class Stroke:
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_mode": (chop_mode,),  # 混合模式
                 "opacity": ("INT", {"default": 100, "min": 0, "max": 100, "step": 1}),  # 透明度
-                "shrink": ("INT", {"default": 1, "min": 0, "max": 9999, "step": 1}),  # 收缩值
-                "expansion": ("INT", {"default": 1, "min": 0, "max": 9999, "step": 1}),  # 扩张值
-                "blur": ("INT", {"default": 5, "min": 0, "max": 100, "step": 1}),  # 模糊
+                "shrink": ("INT", {"default": 2, "min": 0, "max": 9999, "step": 1}),  # 收缩值
+                "expansion": ("INT", {"default": 2, "min": 0, "max": 9999, "step": 1}),  # 扩张值
+                "blur": ("INT", {"default": 0, "min": 0, "max": 100, "step": 1}),  # 模糊
                 "stroke_color": ("STRING", {"default": "#FF0000"}),  # 描边颜色
             },
             "optional": {
