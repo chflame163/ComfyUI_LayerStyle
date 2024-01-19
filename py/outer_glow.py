@@ -48,7 +48,6 @@ class OuterGlow:
             _mask = mask2image(layer_mask).convert('L')
 
         glow_mask = expand_mask(image2mask(_mask), grow, blur, 0)  #扩张，模糊
-
         # 合成glow
         glow_color = Image.new("RGB", _layer.size, color=glow_color)
         alpha = tensor2pil(glow_mask).convert('L')
@@ -57,7 +56,6 @@ class OuterGlow:
 
         # 合成layer
         _canvas.paste(_layer, mask=_mask)
-
         ret_image = _canvas
         # ret_mask = glow_mask
         # return (pil2tensor(ret_image), ret_mask,)

@@ -31,15 +31,14 @@ class ImageOpacity:
 
         _image = tensor2pil(image).convert('RGB')
         _mask = tensor2pil(image).convert('RGBA').split()[-1]
+
         if mask is not None:
             _mask = mask2image(mask).convert('L')
-
-        # 设置透明度
         if invert_mask:
             _color = Image.new("L", _image.size, color=(255))
         else:
             _color = Image.new("L", _image.size, color=(0))
-        # opacity
+
         ret_mask = _mask
         if opacity == 0:
             ret_mask = _color

@@ -1,6 +1,6 @@
 from .imagefunc import *
 
-class ImageBlend:
+class Stroke:
 
     def __init__(self):
         pass
@@ -15,6 +15,10 @@ class ImageBlend:
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_mode": (chop_mode,),  # 混合模式
                 "opacity": ("INT", {"default": 100, "min": 0, "max": 100, "step": 1}),  # 透明度
+                "shrink": ("INT", {"default": 1, "min": 0, "max": 9999, "step": 1}),  # 收缩值
+                "expansion": ("INT", {"default": 1, "min": 0, "max": 9999, "step": 1}),  # 扩张值
+                "blur": ("INT", {"default": 5, "min": 0, "max": 100, "step": 1}),  # 模糊
+                "stroke_color": ("STRING", {"default": "#FF0000"}),  # 描边颜色
             },
             "optional": {
                 "layer_mask": ("MASK",),  #
@@ -23,12 +27,13 @@ class ImageBlend:
 
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
-    FUNCTION = 'image_blend'
+    FUNCTION = 'stroke'
     CATEGORY = '😺dzNodes'
     OUTPUT_NODE = True
 
-    def image_blend(self, background_image, layer_image,
+    def stroke(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,
+                  shrink, expansion, blur, stroke_color,
                   layer_mask=None,
                   ):
 
@@ -40,17 +45,20 @@ class ImageBlend:
                 layer_mask = 1 - layer_mask
             _mask = mask2image(layer_mask).convert('L')
 
-        # 合成layer
-        _comp = chop_image(_canvas, _layer, blend_mode, opacity)
-        _canvas.paste(_comp, mask=_mask)
+        shink_mask = expand_mask(image2mask(_mask), -shrink, blur)
+        expansion_mask = expand_mask(image2mask(_mask), expansion, blur)
+        strock_mask = subtract_mask(expansion_mask, shink_mask)
+        color_image = Image.new('RGB', size=_layer.size, color=stroke_color)
+        blend_image = chop_image(_layer, color_image, blend_mode, opacity)
+        _canvas.paste(_layer, mask=_mask)
+        _canvas.paste(blend_image, mask=tensor2pil(strock_mask))
         ret_image = _canvas
-
         return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_ImageBlend": ImageBlend
+    "LayerStyle_Stroke": Stroke
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_ImageBlend": "LayerStyle: ImageBlend"
+    "LayerStyle_Stroke": "LayerStyle: Stroke"
 }

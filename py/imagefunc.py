@@ -1,12 +1,24 @@
+'''Image process functions for ComfyUI nodes
+by chflame https://github.com/chflame163
+'''
 import numpy as np
 import torch
 import scipy.ndimage
+import cv2
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops
 
 def log(message):
-    name = 'Layer Style'
-    print(f"# 😺dzNodes: {name} ->  {message}")
+    name = 'LayerStyle'
+    print(f"# 😺dzNodes: {name} -> {message}")
+
+def cv22pil(cv2_img:np.ndarray) -> Image:
+    cv2_img = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
+    return Image.fromarray(cv2_img)
+
+def pil2cv2(pil_img:Image) -> np.array:
+    np_img_array = np.asarray(pil_img)
+    return cv2.cvtColor(np_img_array, cv2.COLOR_RGB2BGR)
 
 def pil2tensor(image:Image) -> torch.Tensor:
     return torch.from_numpy(np.array(image).astype(np.float32) / 255.0).unsqueeze(0)
@@ -51,7 +63,6 @@ def shift_image(image:Image, distance_x:int, distance_y:int) -> Image:
         for y in range(height):
             if x > -distance_x and y > -distance_y:
                 if x + distance_x < width and y + distance_y < height:
-                    # print(f"x={x}, y={y}, distance_x={distance_x}, distance_y={distance_y}")
                     pixel = image.getpixel((x + distance_x, y + distance_y))
                     ret_image.putpixel((x, y), pixel)
     return ret_image
@@ -85,7 +96,7 @@ def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacit
 
     return ret_image
 
-def expand_mask(mask:torch.Tensor, grow:int, blur:int, expandrate:int) -> torch.Tensor:
+def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
     # grow
     c = 0
     kernel = np.array([[c, 1, c],
@@ -100,19 +111,23 @@ def expand_mask(mask:torch.Tensor, grow:int, blur:int, expandrate:int) -> torch.
                 output = scipy.ndimage.grey_erosion(output, footprint=kernel)
             else:
                 output = scipy.ndimage.grey_dilation(output, footprint=kernel)
-        if grow < 0:
-            grow -= abs(expandrate)
-        else:
-            grow += abs(expandrate)
         output = torch.from_numpy(output)
         out.append(output)
     # blur
-    if blur != 0:
-        for idx, tensor in enumerate(out):
-            pil_image = tensor2pil(tensor.cpu().detach())
-            pil_image = pil_image.filter(ImageFilter.GaussianBlur(blur))
-            out[idx] = pil2tensor(pil_image)
+    for idx, tensor in enumerate(out):
+        pil_image = tensor2pil(tensor.cpu().detach())
+        pil_image = pil_image.filter(ImageFilter.GaussianBlur(blur))
+        out[idx] = pil2tensor(pil_image)
 
     ret_mask = torch.cat(out, dim=0)
-    # ret_mask = torch.tensor([ret_mask.tolist()])
     return ret_mask
+
+def remove_background(image:Image, mask:Image, color:str) -> Image:
+    width = image.width
+    height = image.height
+    ret_image = Image.new('RGB', size=(width, height), color=color)
+    ret_image.paste(image, mask=mask)
+    return ret_image
+
+def subtract_mask(masks_a, masks_b):
+    return torch.clamp(masks_a - masks_b, 0, 255)

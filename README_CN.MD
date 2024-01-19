@@ -1,14 +1,16 @@
 # ComfyUI Layer Style：
 ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
-当前已完成Drop Shadow和OuterGlow节点，后续工作进行中。
+
+当前已完成Drop Shadow和OuterGlow节点和一些辅助节点，后续工作进行中。
 
 ## 更新说明：
+* 添加Stroke节点。
+* 添加MaskPreview节点。
 * 添加ImageOpacity节点。
-* layer_mask不是输入必选。不输入将使用layer_image的alpha通道。允许使用形状不同的layer和mask，但是尺寸必须一致。
-![image](image/title.png)
-* 添加ImageBlend节点
-* DropShadow节点去掉调试mask通道输出；添加OuterGlow节点。
-* DropShadow节点上线。
+* layer_mask修改为非必选, 默认使用layer_image的alpha通道，允许通过输入mask改变之，但是尺寸必须一致。
+* 添加ImageBlend节点。
+* 添加OuterGlow节点。
+* 首个节点DropShadow提交。
 
 ## 节点说明：
 
@@ -17,14 +19,13 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 ![image](image/drop_shadow_example.png)
 
 
-
 节点选项说明：   
 ![image](image/drop_shadow_node.png)
 * background_image<sup>1</sup>: 背景图像。
 * layer_image<sup>1</sup>: 用于合成的层图像。
-* layer_mask<sup>1</sup>: 层图像的遮罩，阴影按此生成。
+* layer_mask<sup>1,2</sup>: 层图像的遮罩，阴影按此生成。
 * invert_mask: 是否反转遮罩。
-* blend_mode: 阴影的混合模式，包括normal、multply、screen、add、subtract、difference、darker和lighter。
+* blend_mode<sup>3</sup>: 阴影的混合模式。
 * opacity: 阴影的不透明度。
 * distance_x: 阴影的水平方向偏移量。
 * distance_y: 阴影的垂直方向偏移量。
@@ -32,7 +33,6 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * blur：阴影模糊程度。
 * shadow_color: 阴影颜色，使用16进制RGB格式描述。
 
-<sup>1</sup>  background_image, layer_image, layer_mask这三项必须是相同的尺寸。
 
 输出：
 * image
@@ -47,13 +47,34 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * layer_image<sup>1</sup>: 用于合成的层图像。
 * layer_mask<sup>1</sup>: 层图像的遮罩，外发光按此生成。
 * invert_mask: 是否反转遮罩。
-* blend_mode: 发光的混合模式，包括normal、multply、screen、add、subtract、difference、darker和lighter。
+* blend_mode<sup>3</sup>: 发光的混合模式。
 * opacity: 发光的不透明度。
 * grow: 发光扩张幅度。
 * blur：发光模糊程度。
 * glow_color: 发光颜色，使用16进制RGB格式描述。
 
-<sup>1</sup>  background_image, layer_image, layer_mask这三项必须是相同的尺寸。
+
+输出：
+* image
+
+### Stroke：
+生成描边。
+![image](image/stroke_example.png)
+
+节点选项说明：   
+![image](image/stroke_node.png)
+* background_image<sup>1</sup>: 背景图像。
+* layer_image<sup>1</sup>: 用于合成的层图像。
+* layer_mask<sup>1</sup>: 层图像的遮罩，描边按此生成。
+* invert_mask: 是否反转遮罩。
+* blend_mode<sup>3</sup>: 描边的混合模式。
+* opacity: 不透明度。
+* shrink<sup>*</sup>: 描边收缩幅度。
+* expansion<sup>*</sup>：描边扩张幅度。
+* stroke_color: 描边颜色，使用16进制RGB格式描述。
+
+<sup>*</sup>描边的宽度等于收缩值加上扩张值。两个值分开设置能更方便的调整边框范围。
+
 
 输出：
 * image
@@ -68,22 +89,20 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * layer_image<sup>1</sup>: 用于合成的层图像。
 * layer_mask<sup>1</sup>: 层图像的遮罩。
 * invert_mask: 是否反转遮罩。
-* blend_mode: 图层混合模式，包括normal、multply、screen、add、subtract、difference、darker和lighter。
+* blend_mode<sup>3</sup>: 图层混合模式。
 * opacity: 不透明度。
 
-
-<sup>1</sup>  background_image, layer_image, layer_mask这三项必须是相同的尺寸。
 
 输出：
 * image
 
-### ImageOpacity：
+### ImageOpacity:
 调整图像不透明度。
 ![image](image/image_opacity_example.png)
 
 节点选项说明：   
-* image: 图像输入，支持RGB和RGBA输入。如果输入的是RGB，将自动添加整个图像的alpha通道。
-* mask: 遮罩输入，这不是必须的输入项。注意如果image输入有alpha通道且同时输入了不同的mask，原本的alpha通道将被mask覆盖。
+* image: 图像输入，支持RGB和RGBA输入。
+* mask: 遮罩输入。
 * invert_mask: 是否反转遮罩。
 * opacity: 不透明度。
 
@@ -91,9 +110,38 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * image(RGBA)
 * mask
 
+### MaskPreview:
+预览mask
+![image](image/mask_preview_example.png)
+
+输入：mask
+
+### 节点选项注解：
+<sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
+<sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
+<sup>3</sup>: 混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
+
 ## 使用示例：
 
 在workflow目录下有json格式的工作流示例文件。
+
+## 以下工作在计划列表中
+### Layer Style节点：
+* Inner Shadow
+* Inner Glow
+* Stroke
+* Texture
+* Color Overlay
+* Gradient Overlay
+* Neon
+### 辅助节点：
+* invert mask
+* invert image
+* load image+
+* mask soft crop
+* mask motion blur
+* mask radial blur
+
 
 ## 安装方法：  
 

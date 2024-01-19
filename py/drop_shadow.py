@@ -52,7 +52,7 @@ class DropShadow:
 
         if distance_x != 0 or distance_y != 0:
             __mask = shift_image(_mask, distance_x, distance_y)  # 位移
-        shadow_mask = expand_mask(image2mask(__mask), grow, blur, 0)  #扩张，模糊
+        shadow_mask = expand_mask(image2mask(__mask), grow, blur)  #扩张，模糊
 
         # 合成阴影
         shadow_color = Image.new("RGB", _layer.size, color=shadow_color)
