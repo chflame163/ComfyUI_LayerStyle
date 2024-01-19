@@ -68,7 +68,7 @@ Node options:
 ![image](image/stroke_node.png)
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
-* layer_mask<sup>1,2</sup><sup>2</sup>: Mask for layer_image, shadows are generated according to their shape.
+* layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode of stroke.
 * opacity: Opacity of stroke.

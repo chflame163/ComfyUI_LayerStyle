@@ -45,7 +45,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 ![image](image/outer_glow_node.png)
 * background_image<sup>1</sup>: 背景图像。
 * layer_image<sup>1</sup>: 用于合成的层图像。
-* layer_mask<sup>1</sup>: 层图像的遮罩，外发光按此生成。
+* layer_mask<sup>1,2</sup>: 层图像的遮罩，外发光按此生成。
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 发光的混合模式。
 * opacity: 发光的不透明度。
@@ -65,7 +65,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 ![image](image/stroke_node.png)
 * background_image<sup>1</sup>: 背景图像。
 * layer_image<sup>1</sup>: 用于合成的层图像。
-* layer_mask<sup>1</sup>: 层图像的遮罩，描边按此生成。
+* layer_mask<sup>1，2</sup>: 层图像的遮罩，描边按此生成。
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 描边的混合模式。
 * opacity: 不透明度。
@@ -87,7 +87,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 ![image](image/image_blend_node.png)
 * background_image<sup>1</sup>: 背景图像。
 * layer_image<sup>1</sup>: 用于合成的层图像。
-* layer_mask<sup>1</sup>: 层图像的遮罩。
+* layer_mask<sup>1,2</sup>: 层图像的遮罩。
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 图层混合模式。
 * opacity: 不透明度。
