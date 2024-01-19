@@ -152,21 +152,14 @@ mask反转
 在workflow目录下有json格式的工作流示例文件。
 
 ## 以下工作在计划列表中
-### Layer Style节点：
+
 * Inner Shadow
 * Inner Glow
 * Stroke
 * Texture
 * Color Overlay
 * Gradient Overlay
-* Neon
-### 辅助节点：
-* invert mask
-* invert image
-* load image+
-* mask soft crop
-* mask motion blur
-* mask radial blur
+
 
 
 ## 安装方法：  
