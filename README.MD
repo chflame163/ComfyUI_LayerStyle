@@ -73,11 +73,11 @@ Node options:
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode of stroke.
 * opacity: Opacity of stroke.
-* shrink<sup>*</sup>: Stroke shrinkage amplitude.
-* expansion<sup>*</sup>: Stroke expansion amplitude.
+* inner_stroke<sup>*</sup>: Stroke shrinkage amplitude.
+* outer_stroke<sup>*</sup>: Stroke expansion amplitude.
 * stroke_color: Stroke color, described in hexadecimal RGB format.
 
-<sup>*</sup>The width of the stroke is equal to shrink plus expansion value. Setting two values separately can make it more convenient to adjust the border range.
+<sup>*</sup>The width of the stroke is equal to inner_stroke plus outer_stroke value. Setting two values separately can make it more convenient to adjust the border range.
 
 Output type:
 * image

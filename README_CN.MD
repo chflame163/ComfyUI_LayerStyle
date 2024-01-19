@@ -70,8 +70,8 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 描边的混合模式。
 * opacity: 不透明度。
-* shrink<sup>*</sup>: 描边收缩幅度。
-* expansion<sup>*</sup>：描边扩张幅度。
+* inner_stroke<sup>*</sup>: 描边向内收缩幅度。
+* outer_stroke<sup>*</sup>：描边向外扩张幅度。
 * stroke_color: 描边颜色，使用16进制RGB格式描述。
 
 <sup>*</sup>描边的宽度等于收缩值加上扩张值。两个值分开设置能更方便的调整边框范围。
