@@ -6,6 +6,7 @@ Currently completed the Drop Shadow, OuterGlow, and some auxiliary nodes. follow
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit ColorPick node.
 * Commit Stroke node.
 * Commit MaskPreview node.
 * Commit ImageOpacity node.
@@ -116,6 +117,17 @@ Preview the input mask
 ![image](image/mask_preview_example.png)
 
 input：mask
+
+### ColorPicker:
+Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values.
+![image](image/color_picker.png)
+
+Node options:
+* mode： The output format is available in hexadecimal (HEX) and decimal (DEC).  
+
+Output Type： 
+* string
+
 
 ### Annotation:
 <sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.。

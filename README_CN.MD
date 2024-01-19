@@ -116,6 +116,19 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 输入：mask
 
+### ColorPicker:
+在色板上选取颜色并输出。
+改自[mtb nodes](https://github.com/melMass/comfy_mtb)的web extensions。
+![image](image/color_picker.png)
+
+节点选项说明：
+* mode： 输出格式，可选十六进制(HEX)或十进制(DEC)。
+
+输出： 
+* string
+
+
+
 ### 节点选项注解：
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
