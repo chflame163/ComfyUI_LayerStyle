@@ -6,6 +6,7 @@ Currently completed the Drop Shadow, OuterGlow, and some auxiliary nodes. follow
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit MaskInvert node.
 * Commit ColorPick node.
 * Commit Stroke node.
 * Commit MaskPreview node.
@@ -117,6 +118,16 @@ Preview the input mask
 ![image](image/mask_preview_example.png)
 
 input：mask
+
+### MaskInvert:
+Invert the mask
+![image](image/mask_invert.png)
+
+Input:
+* mask
+
+Output type: 
+* mask
 
 ### ColorPicker:
 Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values.

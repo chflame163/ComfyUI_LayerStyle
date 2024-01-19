@@ -54,6 +54,10 @@ def mask2image(mask:torch.Tensor)  -> Image:
             _image, Image.new("RGBA", _mask.size, color='black'), _mask)
     return _image
 
+def mask_invert(mask:torch.Tensor) -> torch.Tensor:
+    _image = mask2image(mask)
+    return image2mask(ImageChops.invert(_image))
+
 def shift_image(image:Image, distance_x:int, distance_y:int) -> Image:
     bkcolor = (0, 0, 0)
     width = image.width

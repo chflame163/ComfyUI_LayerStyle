@@ -4,6 +4,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 当前已完成Drop Shadow和OuterGlow节点和一些辅助节点，后续工作进行中。
 
 ## 更新说明：
+* 添加MaskInvert节点。
 * 添加Stroke节点。
 * 添加MaskPreview节点。
 * 添加ImageOpacity节点。
@@ -114,7 +115,19 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 预览mask
 ![image](image/mask_preview_example.png)
 
-输入：mask
+输入：
+* mask
+
+### MaskInvert:
+mask反转
+![image](image/mask_invert.png)
+
+输入：
+* mask
+
+输出： 
+* mask
+
 
 ### ColorPicker:
 在色板上选取颜色并输出。
