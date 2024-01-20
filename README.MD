@@ -9,7 +9,6 @@ The completed nodes are as follows, and further work is in progress.
 ## Update
 * Commit InnerGlow, InnerShadow and MotionBlur nodes.
 * Renaming all completed nodes, the nodes are divided into 4 groups：LayerStyle, LayerMask, LayerUtility, LayerFilter. workflows containing old version nodes need to be manually replaced with new version nodes.
-* Fix OuterGlow, add 3 new options: brightness, light_color and glow_color.
 * OuterGlow node has undergone significant modifications by adding options for **_brightness_**, **_light_color_**, and **_glow_color_**.
 * Commit MaskInvert node.
 * Commit ColorPick node.
@@ -50,14 +49,14 @@ Node options:
 ![image](image/outer_glow_node.png)
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
-* layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
+* layer_mask<sup>1,2</sup>: Mask for layer_image, grow are generated according to their shape.
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode of glow.
 * opacity: Opacity of glow.
 * brightness: Luminance of light.
 * glow_range: range of glow.
 * blur：blur of glow.
-* light_color<sup>4</sup>: Light color.
+* light_color<sup>4</sup>: Center part color of glow.
 * glow_color<sup>4</sup>: Edge part color of glow.
 
 ### InnerShadow:
@@ -86,15 +85,16 @@ Node options:
 ![image](image/inner_glow_node.png)
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
-* layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
+* layer_mask<sup>1,2</sup>: Mask for layer_image, grow are generated according to their shape.
 * invert_mask: Whether to reverse the mask.
-* blend_mode<sup>3</sup>: Blending mode of shadows.
-* opacity: Opacity of shadow.
-* distance_x: Horizontal offset of shadow.
-* distance_y: Vertical offset of shadow.
-* grow: Shadow expansion amplitude.
-* blur: Shadow blur level.
-* shadow_color<sup>4</sup>: Shadow color.
+* blend_mode<sup>3</sup>: Blending mode of glow.
+* opacity: Opacity of glow.
+* brightness: Luminance of light.
+* glow_range: range of glow.
+* blur：blur of glow.
+* light_color<sup>4</sup>: Center part color of glow.
+* glow_color<sup>4</sup>: Edge part color of glow.
+
 
 ### Stroke:
 Generate a stroke of layer。
@@ -104,7 +104,7 @@ Node options:
 ![image](image/stroke_node.png)
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
-* layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
+* layer_mask<sup>1,2</sup>: Mask for layer_image, stroke are generated according to their shape.
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode of stroke.
 * opacity: Opacity of stroke.
@@ -130,6 +130,7 @@ Preview the input mask
 
 ### MaskInvert:
 Invert the mask
+![image](image/mask_invert_node.png)
 
 
 # LayerUtility
