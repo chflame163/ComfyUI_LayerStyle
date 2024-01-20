@@ -167,7 +167,7 @@ Node options:
 Output Type： 
 * string
 
-# LayerUtility
+# LayerFilter
 
 ### MotionBlur:
 Make the image motion blur

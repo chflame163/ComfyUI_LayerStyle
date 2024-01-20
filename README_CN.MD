@@ -160,7 +160,7 @@ mask反转
 输出： 
 * string
 
-# LayerUtility
+# LayerFilter
 
 ### MotionBlur:
 运动模糊。
