@@ -32,6 +32,7 @@ class ImageBlend:
                   layer_mask=None,
                   ):
 
+        log('ImageBlend Processing...')
         _canvas = tensor2pil(background_image).convert('RGB')
         _layer = tensor2pil(layer_image).convert('RGB')
         _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]

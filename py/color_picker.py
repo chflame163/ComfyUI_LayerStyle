@@ -1,12 +1,7 @@
 
-mode_list = ['HEX', 'DEC']
+from .imagefunc import Hex_to_RGB
 
-def hex_to_dec(inhex):
-    rval = inhex[1:3]
-    gval = inhex[3:5]
-    bval = inhex[5:]
-    rgbval = (int(rval, 16), int(gval, 16), int(bval, 16))
-    return rgbval
+mode_list = ['HEX', 'DEC']
 
 class ColorPicker:
 
@@ -33,8 +28,10 @@ class ColorPicker:
 
     def picker(self, color, mode,):
         ret = color
+        if ret == 'white':
+            ret = "#FFFFFF"
         if mode == 'DEC':
-            ret = hex_to_dec(color)
+            ret = Hex_to_RGB(ret)
         return (ret,)
 
 

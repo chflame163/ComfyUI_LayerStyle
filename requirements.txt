@@ -3,3 +3,4 @@ pillow
 torch
 matplotlib
 Scipy
+opencv-python

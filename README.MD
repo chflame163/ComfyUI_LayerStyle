@@ -6,6 +6,7 @@ Currently completed the Drop Shadow, OuterGlow, and some auxiliary nodes. follow
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* OuterGlow node has undergone significant modifications by adding options for **_brightness_**, **_light_color_**, and **_glow_color_**. workflows containing old version nodes need to be manually replaced with new version nodes.
 * Commit MaskInvert node.
 * Commit ColorPick node.
 * Commit Stroke node.
@@ -35,7 +36,7 @@ Node options:
 * distance_y: Vertical offset of shadow.
 * grow: Shadow expansion amplitude.
 * blur: Shadow blur level.
-* shadow_color: Shadow color, described in hexadecimal RGB format.
+* shadow_color<sup>4</sup>: Shadow color.
 
 Output type:
 * image
@@ -53,9 +54,11 @@ Node options:
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode of glow.
 * opacity: Opacity of glow.
-* grow: Glow expansion amplitude.
-* blur: Gkow blur level.
-* glow_color: Glow color, described in hexadecimal RGB format.
+* brightness: Luminance of light.
+* glow_range: range of glow.
+* blur：blur of glow.
+* light_color<sup>4</sup>: Light color.
+* glow_color<sup>4</sup>: Edge part color of glow.
 
 
 Output type:
@@ -75,7 +78,7 @@ Node options:
 * opacity: Opacity of stroke.
 * inner_stroke<sup>*</sup>: Stroke shrinkage amplitude.
 * outer_stroke<sup>*</sup>: Stroke expansion amplitude.
-* stroke_color: Stroke color, described in hexadecimal RGB format.
+* stroke_color<sup>4</sup>: Stroke color, described in hexadecimal RGB format.
 
 <sup>*</sup>The width of the stroke is equal to inner_stroke plus outer_stroke value. Setting two values separately can make it more convenient to adjust the border range.
 
@@ -147,6 +150,8 @@ Output Type：
 
 <sup>3</sup>  The blend mode include **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
 
+<sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
+
 ## Example workflow
 image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
 
@@ -157,7 +162,6 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 * Texture
 * Color Overlay
 * Gradient Overlay
-
 
 
 ## How to install 

@@ -26,6 +26,7 @@ class DropShadow:
             }
         }
 
+    log('DropShadow Processing...')
     # RETURN_TYPES = ("IMAGE", "MASK",)
     # RETURN_NAMES = ("image", "shadow_mask",)
     RETURN_TYPES = ("IMAGE",)

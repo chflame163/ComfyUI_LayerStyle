@@ -135,3 +135,41 @@ def remove_background(image:Image, mask:Image, color:str) -> Image:
 
 def subtract_mask(masks_a, masks_b):
     return torch.clamp(masks_a - masks_b, 0, 255)
+
+def RGB_to_Hex(RGB):
+    # _rgb = tuple(map(int, RGB[1:-1].split(',')))
+    _rgb = RGB
+    color = '#'
+    for i in _rgb:
+        num = int(i)
+        color += str(hex(num))[-2:].replace('x', '0').upper()
+    return color
+
+def Hex_to_RGB(inhex):
+    rval = inhex[1:3]
+    gval = inhex[3:5]
+    bval = inhex[5:]
+    rgb = (int(rval, 16), int(gval, 16), int(bval, 16))
+    return tuple(rgb)
+
+def step_value(start_value, end_value, total_step, step):
+    factor = step / total_step
+    return int((end_value - start_value) * factor) + start_value
+
+def step_color(start_color, end_color, total_step, step):
+    if isinstance(start_color, str):
+        start_color = tuple(Hex_to_RGB(start_color))
+
+    if isinstance(end_color, str):
+        end_color = tuple(Hex_to_RGB(end_color))
+
+    start_R, start_G, start_B = start_color[0], start_color[1], start_color[2]
+    end_R, end_G, end_B = end_color[0], end_color[1], end_color[2]
+    ret_color = (step_value(start_R, end_R, total_step, step),
+                 step_value(start_G, end_G, total_step, step),
+                 step_value(start_B, end_B, total_step, step),
+                 )
+    if isinstance(start_color, str):
+        return RGB_to_Hex(ret_color)
+    else:
+        return ret_color

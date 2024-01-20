@@ -4,6 +4,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 当前已完成Drop Shadow和OuterGlow节点和一些辅助节点，后续工作进行中。
 
 ## 更新说明：
+* OuterGlow节点重大修改，增加亮度、灯光颜色、辉光颜色选项。包含旧版节点的工作流需手动替换新版节点。
 * 添加MaskInvert节点。
 * 添加Stroke节点。
 * 添加MaskPreview节点。
@@ -32,7 +33,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * distance_y: 阴影的垂直方向偏移量。
 * grow: 阴影扩张幅度。
 * blur：阴影模糊程度。
-* shadow_color: 阴影颜色，使用16进制RGB格式描述。
+* shadow_color<sup>4</sup>: 阴影颜色。
 
 
 输出：
@@ -50,9 +51,11 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 发光的混合模式。
 * opacity: 发光的不透明度。
-* grow: 发光扩张幅度。
+* brightness: 发光亮度。
+* glow_range: 发光范围。
 * blur：发光模糊程度。
-* glow_color: 发光颜色，使用16进制RGB格式描述。
+* light_color<sup>4</sup>: 发光中心颜色。
+* glow_colo<sup>4</sup>: 辉光外围颜色。
 
 
 输出：
@@ -72,7 +75,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * opacity: 不透明度。
 * inner_stroke<sup>*</sup>: 描边向内收缩幅度。
 * outer_stroke<sup>*</sup>：描边向外扩张幅度。
-* stroke_color: 描边颜色，使用16进制RGB格式描述。
+* stroke_color<sup>4</sup>: 描边颜色。
 
 <sup>*</sup>描边的宽度等于收缩值加上扩张值。两个值分开设置能更方便的调整边框范围。
 
@@ -146,6 +149,7 @@ mask反转
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
 <sup>3</sup>: 混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
+<sup>4</sup>: 颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
 
 ## 使用示例：
 
@@ -155,13 +159,11 @@ mask反转
 
 * Inner Shadow
 * Inner Glow
-* Stroke
 * Texture
 * Color Overlay
 * Gradient Overlay
 
-
-
+* 
 ## 安装方法：  
 
 * 在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```安装。或者下载解压zip文件，将得到的文件夹复制到 ComfyUI\custom_nodes\

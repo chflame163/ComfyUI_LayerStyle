@@ -19,6 +19,7 @@ class ImageOpacity:
             }
         }
 
+    log('ImageOpacity Processing...')
     RETURN_TYPES = ("IMAGE", "MASK",)
     RETURN_NAMES = ("image", "mask",)
     FUNCTION = 'image_opacity'
