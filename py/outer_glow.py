@@ -65,9 +65,9 @@ class OuterGlow:
         return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_OuterGlow": OuterGlow
+    "LayerStyle: OuterGlow": OuterGlow
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_OuterGlow": "LayerStyle: OuterGlow"
+    "LayerStyle: OuterGlow": "LayerStyle: OuterGlow"
 }

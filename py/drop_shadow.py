@@ -63,9 +63,9 @@ class DropShadow:
         return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_DropShadow": DropShadow
+    "LayerStyle: DropShadow": DropShadow
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_DropShadow": "LayerStyle: DropShadow"
+    "LayerStyle: DropShadow": "LayerStyle: DropShadow"
 }
