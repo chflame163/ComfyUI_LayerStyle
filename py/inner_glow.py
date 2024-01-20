@@ -1,6 +1,6 @@
 from .imagefunc import *
 
-class OuterGlow:
+class InnerGlow:
 
     def __init__(self):
         pass
@@ -28,11 +28,11 @@ class OuterGlow:
 
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
-    FUNCTION = 'outer_glow'
+    FUNCTION = 'inner_glow'
     CATEGORY = '😺dzNodes/LayerStyle'
     OUTPUT_NODE = True
 
-    def outer_glow(self, background_image, layer_image,
+    def inner_glow(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,
                   brightness, glow_range, blur, light_color, glow_color,
                   layer_mask=None
@@ -46,28 +46,30 @@ class OuterGlow:
             if invert_mask:
                 layer_mask = 1 - layer_mask
             _mask = mask2image(layer_mask).convert('L')
+
         blur_factor = blur / 20.0
         grow = glow_range
+        inner_mask = _mask
         for x in range(brightness):
             blur = int(grow * blur_factor)
             _color = step_color(glow_color, light_color, brightness, x)
-            glow_mask = expand_mask(image2mask(_mask), grow, blur)  #扩张，模糊
+            glow_mask = expand_mask(image2mask(inner_mask), -grow, blur)  #扩张，模糊
             # 合成glow
             color_image = Image.new("RGB", _layer.size, color=_color)
-            alpha = tensor2pil(glow_mask).convert('L')
-            _glow = chop_image(_canvas, color_image, blend_mode, int(step_value(1, opacity, brightness, x)))
-            _canvas.paste(_glow, mask=alpha)
+            alpha = tensor2pil(mask_invert(glow_mask)).convert('L')
+            _glow = chop_image(_layer, color_image, blend_mode, int(step_value(1, opacity, brightness, x)))
+            _layer.paste(_glow, mask=alpha)
             grow = grow - int(glow_range/brightness)
         # 合成layer
-        _canvas.paste(_layer, mask=_mask)
-        ret_image = _canvas
-        log('OuterGLow Advance Processed.')
+        _layer.paste(_canvas, mask=ImageChops.invert(_mask))
+        ret_image = _layer
+        log('InnerGLow Advance Processed.')
         return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_OuterGlow": OuterGlow
+    "LayerStyle: InnerGlow": InnerGlow
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_OuterGlow": "LayerStyle: OuterGlow"
+    "LayerStyle: InnerGlow": "LayerStyle: InnerGlow"
 }

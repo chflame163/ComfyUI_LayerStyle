@@ -1,10 +1,13 @@
 # ComfyUI Layer Style：
 ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
-当前已完成Drop Shadow和OuterGlow节点和一些辅助节点，后续工作进行中。
+已完成的节点如下，后续工作进行中。
+![image](image/title.png)
 
 ## 更新说明：
-* OuterGlow节点重大修改，增加亮度、灯光颜色、辉光颜色选项。包含旧版节点的工作流需手动替换新版节点。
+* 添加InnerGlow, InnerShadow, MotionBlur节点。
+* 所有已完成的节点重新命名，节点分为4组：LayerStyle, LayerMask, LayerUtility, LayerFilter。因为重新命名，包含旧版节点的工作流需手动替换新版节点。
+* OuterGlow节点修改，增加亮度、灯光颜色、辉光颜色选项。
 * 添加MaskInvert节点。
 * 添加Stroke节点。
 * 添加MaskPreview节点。
@@ -14,12 +17,11 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * 添加OuterGlow节点。
 * 首个节点DropShadow提交。
 
-## 节点说明：
+# LayerStyle
 
 ### DropShadow:
 生成阴影。
 ![image](image/drop_shadow_example.png)
-
 
 节点选项说明：   
 ![image](image/drop_shadow_node.png)
@@ -34,10 +36,6 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * grow: 阴影扩张幅度。
 * blur：阴影模糊程度。
 * shadow_color<sup>4</sup>: 阴影颜色。
-
-
-输出：
-* image
 
 ### OuterGlow：
 生成外发光。
@@ -57,10 +55,6 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * light_color<sup>4</sup>: 发光中心颜色。
 * glow_colo<sup>4</sup>: 辉光外围颜色。
 
-
-输出：
-* image
-
 ### Stroke：
 生成描边。
 ![image](image/stroke_example.png)
@@ -73,15 +67,28 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 描边的混合模式。
 * opacity: 不透明度。
-* inner_stroke<sup>*</sup>: 描边向内收缩幅度。
-* outer_stroke<sup>*</sup>：描边向外扩张幅度。
+* stroke_grow<sup></sup>: 描边扩张/收缩幅度，正值是扩张，负值是收缩。
+* stroke_width<sup></sup>：描边宽度。
 * stroke_color<sup>4</sup>: 描边颜色。
 
-<sup>*</sup>描边的宽度等于收缩值加上扩张值。两个值分开设置能更方便的调整边框范围。
+
+#### 节点选项注解：
+<sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
+<sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
+<sup>3</sup>: 混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
+<sup>4</sup>: 颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
+
+# LayerMask
+
+### MaskPreview:
+预览mask
+![image](image/mask_invert.png)
+
+### MaskInvert:
+mask反转
 
 
-输出：
-* image
+# LayerUtility
 
 ### ImageBlend：
 用于合成图层，提供多种混合模式供选择，可设置透明度。
@@ -96,10 +103,6 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * blend_mode<sup>3</sup>: 图层混合模式。
 * opacity: 不透明度。
 
-
-输出：
-* image
-
 ### ImageOpacity:
 调整图像不透明度。
 ![image](image/image_opacity_example.png)
@@ -109,28 +112,6 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * mask: 遮罩输入。
 * invert_mask: 是否反转遮罩。
 * opacity: 不透明度。
-
-输出：
-* image(RGBA)
-* mask
-
-### MaskPreview:
-预览mask
-![image](image/mask_preview_example.png)
-
-输入：
-* mask
-
-### MaskInvert:
-mask反转
-![image](image/mask_invert.png)
-
-输入：
-* mask
-
-输出： 
-* mask
-
 
 ### ColorPicker:
 在色板上选取颜色并输出。
@@ -143,13 +124,15 @@ mask反转
 输出： 
 * string
 
+# LayerUtility
 
+### MotionBlur:
+运动模糊。
 
-### 节点选项注解：
-<sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
-<sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
-<sup>3</sup>: 混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
-<sup>4</sup>: 颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
+节点选项说明：
+* angle: 模糊角度。
+* blur: 模糊大小。
+
 
 ## 使用示例：
 
@@ -157,13 +140,9 @@ mask反转
 
 ## 以下工作在计划列表中
 
-* Inner Shadow
-* Inner Glow
-* Texture
 * Color Overlay
 * Gradient Overlay
 
-* 
 ## 安装方法：  
 
 * 在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```安装。或者下载解压zip文件，将得到的文件夹复制到 ComfyUI\custom_nodes\

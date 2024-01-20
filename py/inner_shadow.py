@@ -1,6 +1,6 @@
 from .imagefunc import *
 
-class DropShadow:
+class InnerShadow:
 
     def __init__(self):
         pass
@@ -15,10 +15,10 @@ class DropShadow:
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_mode": (chop_mode,),  # 混合模式
                 "opacity": ("INT", {"default": 50, "min": 0, "max": 100, "step": 1}),  # 透明度
-                "distance_x": ("INT", {"default": 25, "min": -9999, "max": 9999, "step": 1}),  # x_偏移
-                "distance_y": ("INT", {"default": 25, "min": -9999, "max": 9999, "step": 1}),  # y_偏移
-                "grow": ("INT", {"default": 6, "min": -9999, "max": 9999, "step": 1}),  # 扩张
-                "blur": ("INT", {"default": 18, "min": 0, "max": 100, "step": 1}),  # 模糊
+                "distance_x": ("INT", {"default": 5, "min": -9999, "max": 9999, "step": 1}),  # x_偏移
+                "distance_y": ("INT", {"default": 5, "min": -9999, "max": 9999, "step": 1}),  # y_偏移
+                "grow": ("INT", {"default": 2, "min": -9999, "max": 9999, "step": 1}),  # 扩张
+                "blur": ("INT", {"default": 15, "min": 0, "max": 100, "step": 1}),  # 模糊
                 "shadow_color": ("STRING", {"default": "#000000"}),  # 背景颜色
             },
             "optional": {
@@ -26,13 +26,14 @@ class DropShadow:
             }
         }
 
+
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
-    FUNCTION = 'drop_shadow'
+    FUNCTION = 'inner_shadow'
     CATEGORY = '😺dzNodes/LayerStyle'
     OUTPUT_NODE = True
 
-    def drop_shadow(self, background_image, layer_image,
+    def inner_shadow(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity, distance_x, distance_y,
                   grow, blur, shadow_color,
                   layer_mask=None
@@ -54,18 +55,18 @@ class DropShadow:
         # 合成阴影
         shadow_color = Image.new("RGB", _layer.size, color=shadow_color)
         alpha = tensor2pil(shadow_mask).convert('L')
-        _shadow = chop_image(_canvas, shadow_color, blend_mode, opacity)
-        _canvas.paste(_shadow, mask=alpha)
+        _shadow = chop_image(_layer, shadow_color, blend_mode, opacity)
+        _layer.paste(_shadow, mask=ImageChops.invert(alpha))
         # 合成layer
         _canvas.paste(_layer, mask=_mask)
         ret_image = _canvas
-        log('DropShadow Processed.')
+        log('InnerShadow Processed.')
         return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_DropShadow": DropShadow
+    "LayerStyle: InnerShadow": InnerShadow
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_DropShadow": "LayerStyle: DropShadow"
+    "LayerStyle: InnerShadow": "LayerStyle: InnerShadow"
 }

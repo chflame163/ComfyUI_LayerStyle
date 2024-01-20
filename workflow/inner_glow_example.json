@@ -1,6 +1,6 @@
 {
-  "last_node_id": 21,
-  "last_link_id": 47,
+  "last_node_id": 16,
+  "last_link_id": 27,
   "nodes": [
     {
       "id": 4,
@@ -20,7 +20,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 47
+          "link": 27
         }
       ],
       "properties": {
@@ -46,7 +46,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            44
+            24
           ],
           "shape": 3,
           "slot_index": 0
@@ -71,7 +71,7 @@
       "type": "LoadImage",
       "pos": [
         660,
-        399
+        394
       ],
       "size": {
         "0": 315,
@@ -85,7 +85,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            45
+            25
           ],
           "shape": 3,
           "slot_index": 0
@@ -94,7 +94,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            46
+            26
           ],
           "shape": 3,
           "slot_index": 1
@@ -109,15 +109,15 @@
       ]
     },
     {
-      "id": 21,
-      "type": "LayerStyle: Stroke",
+      "id": 16,
+      "type": "LayerStyle: InnerGlow",
       "pos": [
-        1016,
-        434
+        1013,
+        419
       ],
       "size": {
         "0": 315,
-        "1": 242
+        "1": 266
       },
       "flags": {},
       "order": 2,
@@ -126,17 +126,17 @@
         {
           "name": "background_image",
           "type": "IMAGE",
-          "link": 44
+          "link": 24
         },
         {
           "name": "layer_image",
           "type": "IMAGE",
-          "link": 45
+          "link": 25
         },
         {
           "name": "layer_mask",
           "type": "MASK",
-          "link": 46
+          "link": 26
         }
       ],
       "outputs": [
@@ -144,54 +144,55 @@
           "name": "image",
           "type": "IMAGE",
           "links": [
-            47
+            27
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "LayerStyle: Stroke"
+        "Node name for S&R": "LayerStyle: InnerGlow"
       },
       "widgets_values": [
         true,
-        "normal",
+        "screen",
         100,
-        0,
-        8,
-        0,
-        "#FF0088"
+        12,
+        26,
+        12,
+        "#FFBF30",
+        "#FE0000"
       ]
     }
   ],
   "links": [
     [
-      44,
+      24,
       2,
       0,
-      21,
+      16,
       0,
       "IMAGE"
     ],
     [
-      45,
+      25,
       15,
       0,
-      21,
+      16,
       1,
       "IMAGE"
     ],
     [
-      46,
+      26,
       15,
       1,
-      21,
+      16,
       2,
       "MASK"
     ],
     [
-      47,
-      21,
+      27,
+      16,
       0,
       4,
       0,

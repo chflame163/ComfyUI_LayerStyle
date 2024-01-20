@@ -17,16 +17,16 @@ class MaskPreview(SaveImage):
         }
 
     FUNCTION = "mask_preview"
-    CATEGORY = '😺dzNodes'
+    CATEGORY = '😺dzNodes/LayerMask'
 
     def mask_preview(self, mask):
         preview = mask.reshape((-1, 1, mask.shape[-2], mask.shape[-1])).movedim(1, -1).expand(-1, -1, -1, 3)
         return self.save_images(preview, "MaskPreview")
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_MaskPreview": MaskPreview
+    "LayerMask: MaskPreview": MaskPreview
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_MaskPreview": "LayerStyle: MaskPreview"
+    "LayerMask: MaskPreview": "LayerMask: MaskPreview"
 }

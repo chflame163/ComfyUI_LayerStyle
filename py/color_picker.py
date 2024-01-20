@@ -23,10 +23,10 @@ class ColorPicker:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("value",)
     FUNCTION = 'picker'
-    CATEGORY = '😺dzNodes'
+    CATEGORY = '😺dzNodes/LayerUtility'
     OUTPUT_NODE = True
 
-    def picker(self, color, mode,):
+    def picker(self, color, mode):
         ret = color
         if ret == 'white':
             ret = "#FFFFFF"
@@ -36,9 +36,9 @@ class ColorPicker:
 
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_ColorPicker": ColorPicker
+    "LayerUtility: ColorPicker": ColorPicker
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_ColorPicker": "LayerStyle: ColorPicker"
+    "LayerUtility: ColorPicker": "LayerUtility: ColorPicker"
 }

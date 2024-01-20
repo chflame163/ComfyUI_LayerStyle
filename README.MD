@@ -1,12 +1,16 @@
 # ComfyUI Layer Style
 A set of nodes for ComfyUI that generate image like Adobe Photoshop's Layer Style.
 
-Currently completed the Drop Shadow, OuterGlow, and some auxiliary nodes. follow-up work is in progress.
+The completed nodes are as follows, and further work is in progress.
+![image](image/title.png)
 
 [中文说明点这里](./README_CN.MD)
 
 ## Update
-* OuterGlow node has undergone significant modifications by adding options for **_brightness_**, **_light_color_**, and **_glow_color_**. workflows containing old version nodes need to be manually replaced with new version nodes.
+* Commit InnerGlow, InnerShadow and MotionBlur nodes.
+* Renaming all completed nodes, the nodes are divided into 4 groups：LayerStyle, LayerMask, LayerUtility, LayerFilter. workflows containing old version nodes need to be manually replaced with new version nodes.
+* Fix OuterGlow, add 3 new options: brightness, light_color and glow_color.
+* OuterGlow node has undergone significant modifications by adding options for **_brightness_**, **_light_color_**, and **_glow_color_**.
 * Commit MaskInvert node.
 * Commit ColorPick node.
 * Commit Stroke node.
@@ -17,7 +21,7 @@ Currently completed the Drop Shadow, OuterGlow, and some auxiliary nodes. follow
 * Commit OuterGlow node.
 * Commit DropShadow node.
 
-## Node Description
+# LayerStyle
 
 ### DropShadow:
 Generate shadow
@@ -38,10 +42,6 @@ Node options:
 * blur: Shadow blur level.
 * shadow_color<sup>4</sup>: Shadow color.
 
-Output type:
-* image
-
-
 ### OuterGlow:
 Generate outer glow
 ![image](image/outer_glow_example.png)
@@ -60,10 +60,6 @@ Node options:
 * light_color<sup>4</sup>: Light color.
 * glow_color<sup>4</sup>: Edge part color of glow.
 
-
-Output type:
-* image
-
 ### Stroke:
 Generate a stroke of layer。
 ![image](image/stroke_example.png)
@@ -76,14 +72,31 @@ Node options:
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode of stroke.
 * opacity: Opacity of stroke.
-* inner_stroke<sup>*</sup>: Stroke shrinkage amplitude.
-* outer_stroke<sup>*</sup>: Stroke expansion amplitude.
+* stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
+* stroke_width: Stroke width.
 * stroke_color<sup>4</sup>: Stroke color, described in hexadecimal RGB format.
 
-<sup>*</sup>The width of the stroke is equal to inner_stroke plus outer_stroke value. Setting two values separately can make it more convenient to adjust the border range.
 
-Output type:
-* image
+#### Annotation for LayerStyle nodes:
+<sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.。
+
+<sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.
+
+<sup>3</sup>  The blend mode include **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
+
+<sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
+
+# LayerMask
+
+### MaskPreview:
+Preview the input mask
+![image](image/mask_invert.png)
+
+### MaskInvert:
+Invert the mask
+
+
+# LayerUtility
 
 ### ImageBlend:
 Composit  layer image and background image, multiple blend modes are available for option, and transparency can be set.
@@ -98,9 +111,6 @@ Node options:
 * blend_mode<sup>3</sup>: Blending mode.
 * opacity: Opacity of blend.
 
-Output type:
-* image
-
 ### ImageOpacity:
 Adjust image opacity
 ![image](image/image_opacity_example.png)
@@ -110,27 +120,6 @@ Node option:
 * mask<sup>1,2</sup> : Mask input.
 * invert_mask: Whether to reverse the mask.
 * opacity: Opacity of image.
-
-Output type:
-* image(RGBA)
-* mask
-
-
-### MaskPreview:
-Preview the input mask
-![image](image/mask_preview_example.png)
-
-input：mask
-
-### MaskInvert:
-Invert the mask
-![image](image/mask_invert.png)
-
-Input:
-* mask
-
-Output type: 
-* mask
 
 ### ColorPicker:
 Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values.
@@ -142,24 +131,20 @@ Node options:
 Output Type： 
 * string
 
+# LayerUtility
 
-### Annotation:
-<sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.。
+### MotionBlur:
+Make the image motion blur
 
-<sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.
-
-<sup>3</sup>  The blend mode include **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
-
-<sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
+Node options:
+* angle: The angle of blur.
+* blur: The size of blur.
 
 ## Example workflow
 image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
 
 ## The following tasks are in the planned list
 
-* Inner Shadow
-* Inner Glow
-* Texture
 * Color Overlay
 * Gradient Overlay
 

@@ -19,11 +19,10 @@ class ImageOpacity:
             }
         }
 
-    log('ImageOpacity Processing...')
     RETURN_TYPES = ("IMAGE", "MASK",)
     RETURN_NAMES = ("image", "mask",)
     FUNCTION = 'image_opacity'
-    CATEGORY = '😺dzNodes'
+    CATEGORY = '😺dzNodes/LayerUtility'
     OUTPUT_NODE = True
 
     def image_opacity(self, image, opacity, invert_mask,
@@ -51,13 +50,13 @@ class ImageOpacity:
             ret_image = Image.merge('RGBA', (R, G, B, ImageChops.invert(ret_mask)))
         else:
             ret_image = Image.merge('RGBA', (R, G, B, ret_mask))
-
+        log('ImageOpacity Processed.')
         return (pil2tensor(ret_image), image2mask(ret_mask),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle_ImageOpacity": ImageOpacity
+    "LayerUtility: ImageOpacity": ImageOpacity
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle_ImageOpacity": "LayerStyle: ImageOpacity"
+    "LayerUtility: ImageOpacity": "LayerUtility: ImageOpacity"
 }

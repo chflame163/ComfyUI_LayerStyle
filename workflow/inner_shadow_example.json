@@ -1,6 +1,6 @@
 {
-  "last_node_id": 21,
-  "last_link_id": 47,
+  "last_node_id": 19,
+  "last_link_id": 39,
   "nodes": [
     {
       "id": 4,
@@ -20,7 +20,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 47
+          "link": 39
         }
       ],
       "properties": {
@@ -46,7 +46,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            44
+            36
           ],
           "shape": 3,
           "slot_index": 0
@@ -85,7 +85,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            45
+            37
           ],
           "shape": 3,
           "slot_index": 0
@@ -94,7 +94,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            46
+            38
           ],
           "shape": 3,
           "slot_index": 1
@@ -109,15 +109,15 @@
       ]
     },
     {
-      "id": 21,
-      "type": "LayerStyle: Stroke",
+      "id": 19,
+      "type": "LayerStyle: InnerShadow",
       "pos": [
-        1016,
-        434
+        1014,
+        417
       ],
       "size": {
         "0": 315,
-        "1": 242
+        "1": 266
       },
       "flags": {},
       "order": 2,
@@ -126,17 +126,17 @@
         {
           "name": "background_image",
           "type": "IMAGE",
-          "link": 44
+          "link": 36
         },
         {
           "name": "layer_image",
           "type": "IMAGE",
-          "link": 45
+          "link": 37
         },
         {
           "name": "layer_mask",
           "type": "MASK",
-          "link": 46
+          "link": 38
         }
       ],
       "outputs": [
@@ -144,54 +144,55 @@
           "name": "image",
           "type": "IMAGE",
           "links": [
-            47
+            39
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "LayerStyle: Stroke"
+        "Node name for S&R": "LayerStyle: InnerShadow"
       },
       "widgets_values": [
         true,
         "normal",
         100,
-        0,
-        8,
-        0,
-        "#FF0088"
+        5,
+        5,
+        2,
+        15,
+        "#000000"
       ]
     }
   ],
   "links": [
     [
-      44,
+      36,
       2,
       0,
-      21,
+      19,
       0,
       "IMAGE"
     ],
     [
-      45,
+      37,
       15,
       0,
-      21,
+      19,
       1,
       "IMAGE"
     ],
     [
-      46,
+      38,
       15,
       1,
-      21,
+      19,
       2,
       "MASK"
     ],
     [
-      47,
-      21,
+      39,
+      19,
       0,
       4,
       0,

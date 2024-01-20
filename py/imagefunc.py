@@ -12,6 +12,8 @@ def log(message):
     name = 'LayerStyle'
     print(f"# 😺dzNodes: {name} -> {message}")
 
+'''Converter'''
+
 def cv22pil(cv2_img:np.ndarray) -> Image:
     cv2_img = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
     return Image.fromarray(cv2_img)
@@ -54,9 +56,7 @@ def mask2image(mask:torch.Tensor)  -> Image:
             _image, Image.new("RGBA", _mask.size, color='black'), _mask)
     return _image
 
-def mask_invert(mask:torch.Tensor) -> torch.Tensor:
-    _image = mask2image(mask)
-    return image2mask(ImageChops.invert(_image))
+'''Image Functions'''
 
 def shift_image(image:Image, distance_x:int, distance_y:int) -> Image:
     bkcolor = (0, 0, 0)
@@ -65,14 +65,13 @@ def shift_image(image:Image, distance_x:int, distance_y:int) -> Image:
     ret_image = Image.new('RGB', size=(width, height), color=bkcolor)
     for x in range(width):
         for y in range(height):
-            if x > -distance_x and y > -distance_y:
-                if x + distance_x < width and y + distance_y < height:
+            if x > -distance_x and y > -distance_y:  # 防止回转
+                if x + distance_x < width and y + distance_y < height:  # 防止越界
                     pixel = image.getpixel((x + distance_x, y + distance_y))
                     ret_image.putpixel((x, y), pixel)
     return ret_image
 
 def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
-
     ret_image = background_image
     if blend_mode == 'normal':
         ret_image = layer_image
@@ -90,15 +89,42 @@ def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacit
         ret_image = ImageChops.darker(background_image, layer_image)
     if blend_mode == 'lighter':
         ret_image = ImageChops.lighter(background_image, layer_image)
-
     # opacity
     if opacity == 0:
         ret_image = background_image
     elif opacity < 100:
         alpha = 1.0 - float(opacity) / 100
         ret_image = Image.blend(ret_image, background_image, alpha)
-
     return ret_image
+
+def remove_background(image:Image, mask:Image, color:str) -> Image:
+    width = image.width
+    height = image.height
+    ret_image = Image.new('RGB', size=(width, height), color=color)
+    ret_image.paste(image, mask=mask)
+    return ret_image
+
+def motion_blur(image:Image, angle:int, blur:int) -> Image:
+    angle += 45
+    blur *= 5
+    image = np.array(pil2cv2(image))
+    M = cv2.getRotationMatrix2D((blur / 2, blur / 2), angle, 1)
+    motion_blur_kernel = np.diag(np.ones(blur))
+    motion_blur_kernel = cv2.warpAffine(motion_blur_kernel, M, (blur, blur))
+    motion_blur_kernel = motion_blur_kernel / blur
+    blurred = cv2.filter2D(image, -1, motion_blur_kernel)
+    # convert to uint8
+    cv2.normalize(blurred, blurred, 0, 255, cv2.NORM_MINMAX)
+    blurred = np.array(blurred, dtype=np.uint8)
+    ret_image = cv22pil(blurred)
+    return ret_image
+
+def direction_blur(image:Image, angle:int, blur:int, color:str) -> Image:
+
+    ret_image = image
+    return ret_image
+
+'''Mask Functions'''
 
 def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
     # grow
@@ -122,52 +148,48 @@ def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
         pil_image = tensor2pil(tensor.cpu().detach())
         pil_image = pil_image.filter(ImageFilter.GaussianBlur(blur))
         out[idx] = pil2tensor(pil_image)
-
     ret_mask = torch.cat(out, dim=0)
     return ret_mask
 
-def remove_background(image:Image, mask:Image, color:str) -> Image:
-    width = image.width
-    height = image.height
-    ret_image = Image.new('RGB', size=(width, height), color=color)
-    ret_image.paste(image, mask=mask)
-    return ret_image
+def mask_invert(mask:torch.Tensor) -> torch.Tensor:
+    _image = mask2image(mask)
+    return image2mask(ImageChops.invert(_image))
 
-def subtract_mask(masks_a, masks_b):
+def subtract_mask(masks_a:torch.Tensor, masks_b:torch.Tensor) -> torch.Tensor:
     return torch.clamp(masks_a - masks_b, 0, 255)
 
-def RGB_to_Hex(RGB):
-    # _rgb = tuple(map(int, RGB[1:-1].split(',')))
-    _rgb = RGB
+'''Color Functions'''
+
+def RGB_to_Hex(RGB) -> str:
     color = '#'
-    for i in _rgb:
+    for i in RGB:
         num = int(i)
         color += str(hex(num))[-2:].replace('x', '0').upper()
     return color
 
-def Hex_to_RGB(inhex):
+def Hex_to_RGB(inhex) -> tuple:
     rval = inhex[1:3]
     gval = inhex[3:5]
     bval = inhex[5:]
     rgb = (int(rval, 16), int(gval, 16), int(bval, 16))
     return tuple(rgb)
 
-def step_value(start_value, end_value, total_step, step):
-    factor = step / total_step
-    return int((end_value - start_value) * factor) + start_value
+'''Value Functions'''
 
-def step_color(start_color, end_color, total_step, step):
+def step_value(start_value, end_value, total_step, step) -> float:  # 按当前步数在总步数中的位置返回比例值
+    factor = step / total_step
+    return (end_value - start_value) * factor + start_value
+
+def step_color(start_color, end_color, total_step, step):  # 按当前步数在总步数中的位置返回比例颜色
     if isinstance(start_color, str):
         start_color = tuple(Hex_to_RGB(start_color))
-
     if isinstance(end_color, str):
         end_color = tuple(Hex_to_RGB(end_color))
-
     start_R, start_G, start_B = start_color[0], start_color[1], start_color[2]
     end_R, end_G, end_B = end_color[0], end_color[1], end_color[2]
-    ret_color = (step_value(start_R, end_R, total_step, step),
-                 step_value(start_G, end_G, total_step, step),
-                 step_value(start_B, end_B, total_step, step),
+    ret_color = (int(step_value(start_R, end_R, total_step, step)),
+                 int(step_value(start_G, end_G, total_step, step)),
+                 int(step_value(start_B, end_B, total_step, step)),
                  )
     if isinstance(start_color, str):
         return RGB_to_Hex(ret_color)

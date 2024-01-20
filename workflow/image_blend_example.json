@@ -1,13 +1,141 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 5,
+  "last_node_id": 10,
+  "last_link_id": 17,
   "nodes": [
     {
-      "id": 1,
+      "id": 6,
+      "type": "LayerUtility: ImageBlend",
+      "pos": [
+        1030,
+        370
+      ],
+      "size": {
+        "0": 315,
+        "1": 146
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 6
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 7
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            9
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlend"
+      },
+      "widgets_values": [
+        true,
+        "subtract",
+        31
+      ]
+    },
+    {
+      "id": 4,
+      "type": "SaveImage",
+      "pos": [
+        1370,
+        120
+      ],
+      "size": [
+        282.3333740234375,
+        289.66668701171875
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "LayerUtility: ImageBlend",
+      "pos": [
+        1030,
+        570
+      ],
+      "size": {
+        "0": 315,
+        "1": 146
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 10
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 11
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlend"
+      },
+      "widgets_values": [
+        true,
+        "lighter",
+        100
+      ]
+    },
+    {
+      "id": 2,
       "type": "LoadImage",
       "pos": [
-        327,
-        175
+        670,
+        370
       ],
       "size": {
         "0": 315,
@@ -21,7 +149,106 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1
+            7,
+            11,
+            15
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            8,
+            12,
+            16
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512 (5).png",
+        "image"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "LayerUtility: ImageBlend",
+      "pos": [
+        1030,
+        760
+      ],
+      "size": {
+        "0": 315,
+        "1": 146
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 14
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 15
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            17
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlend"
+      },
+      "widgets_values": [
+        true,
+        "multply",
+        68
+      ]
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        320,
+        370
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            6,
+            10,
+            14
           ],
           "shape": 3,
           "slot_index": 0
@@ -42,117 +269,50 @@
       ]
     },
     {
-      "id": 2,
-      "type": "LoadImage",
-      "pos": [
-        680,
-        176
-      ],
-      "size": {
-        "0": 315,
-        "1": 314
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            2
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": [
-            5
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "512x512 (5).png",
-        "image"
-      ]
-    },
-    {
-      "id": 3,
-      "type": "LayerStyle_ImageBlend",
-      "pos": [
-        1041,
-        203
-      ],
-      "size": {
-        "0": 315,
-        "1": 146
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "background_image",
-          "type": "IMAGE",
-          "link": 1
-        },
-        {
-          "name": "layer_image",
-          "type": "IMAGE",
-          "link": 2
-        },
-        {
-          "name": "layer_mask",
-          "type": "MASK",
-          "link": 5
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            4
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerStyle_ImageBlend"
-      },
-      "widgets_values": [
-        true,
-        "subtract",
-        50
-      ]
-    },
-    {
-      "id": 4,
+      "id": 8,
       "type": "SaveImage",
       "pos": [
-        1401,
-        195
+        1371,
+        453
       ],
-      "size": [
-        315,
-        270
-      ],
+      "size": {
+        "0": 282.3333740234375,
+        "1": 289.66668701171875
+      },
       "flags": {},
-      "order": 3,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 4
+          "link": 13
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "SaveImage",
+      "pos": [
+        1370,
+        786
+      ],
+      "size": {
+        "0": 282.3333740234375,
+        "1": 289.66668701171875
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 17
         }
       ],
       "properties": {},
@@ -163,36 +323,100 @@
   ],
   "links": [
     [
-      1,
+      6,
       1,
       0,
-      3,
+      6,
       0,
       "IMAGE"
     ],
     [
-      2,
+      7,
       2,
       0,
-      3,
+      6,
       1,
       "IMAGE"
     ],
     [
-      4,
-      3,
-      0,
-      4,
-      0,
-      "IMAGE"
-    ],
-    [
-      5,
+      8,
       2,
       1,
-      3,
+      6,
       2,
       "MASK"
+    ],
+    [
+      9,
+      6,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      10,
+      1,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      2,
+      0,
+      7,
+      1,
+      "IMAGE"
+    ],
+    [
+      12,
+      2,
+      1,
+      7,
+      2,
+      "MASK"
+    ],
+    [
+      13,
+      7,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      14,
+      1,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      15,
+      2,
+      0,
+      9,
+      1,
+      "IMAGE"
+    ],
+    [
+      16,
+      2,
+      1,
+      9,
+      2,
+      "MASK"
+    ],
+    [
+      17,
+      9,
+      0,
+      10,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],

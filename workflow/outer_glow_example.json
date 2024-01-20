@@ -1,16 +1,41 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 4,
+  "last_node_id": 20,
+  "last_link_id": 43,
   "nodes": [
     {
-      "id": 1,
+      "id": 4,
+      "type": "PreviewImage",
+      "pos": [
+        1360,
+        390
+      ],
+      "size": [
+        310.00006103515625,
+        308.33331298828125
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 43
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 2,
       "type": "LoadImage",
       "pos": [
-        279,
-        378
+        310,
+        390
       ],
       "size": {
-        "0": 279.00006103515625,
+        "0": 315,
         "1": 314
       },
       "flags": {},
@@ -21,8 +46,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1,
-            2
+            40
           ],
           "shape": 3,
           "slot_index": 0
@@ -38,120 +62,81 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "D04QPvc (7).jpg",
+        "512x512bk.jpg",
         "image"
       ]
     },
     {
-      "id": 2,
-      "type": "Image Remove Background Rembg (mtb)",
+      "id": 15,
+      "type": "LoadImage",
       "pos": [
-        597,
-        405
+        660,
+        399
       ],
       "size": {
-        "0": 294,
-        "1": 230
+        "0": 315,
+        "1": 314
       },
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 1
-        }
-      ],
       "outputs": [
         {
-          "name": "Image (rgba)",
+          "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            3
+            41
           ],
           "shape": 3,
           "slot_index": 0
         },
         {
-          "name": "Mask",
+          "name": "MASK",
           "type": "MASK",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "Image",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
+          "links": [
+            42
+          ],
+          "shape": 3,
+          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "Image Remove Background Rembg (mtb)"
+        "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        false,
-        240,
-        10,
-        10,
-        false,
-        "#000000"
+        "512x512 (14).png",
+        "image"
       ]
     },
     {
-      "id": 4,
-      "type": "PreviewImage",
-      "pos": [
-        1284,
-        380
-      ],
-      "size": {
-        "0": 434.666748046875,
-        "1": 290.66668701171875
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 4
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 3,
+      "id": 20,
       "type": "LayerStyle_OuterGlow",
       "pos": [
-        925,
-        381
+        1012,
+        423
       ],
       "size": {
         "0": 315,
         "1": 266
       },
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
           "name": "background_image",
           "type": "IMAGE",
-          "link": 2
+          "link": 40
         },
         {
           "name": "layer_image",
           "type": "IMAGE",
-          "link": 3
+          "link": 41
         },
         {
           "name": "layer_mask",
           "type": "MASK",
-          "link": null
+          "link": 42
         }
       ],
       "outputs": [
@@ -159,7 +144,7 @@
           "name": "image",
           "type": "IMAGE",
           "links": [
-            4
+            43
           ],
           "shape": 3,
           "slot_index": 0
@@ -178,89 +163,36 @@
         "#FFBF30",
         "#FE0000"
       ]
-    },
-    {
-      "id": 5,
-      "type": "LayerStyle_OuterGlow",
-      "pos": [
-        2165.2059106060115,
-        401.76576118268605
-      ],
-      "size": {
-        "0": 315,
-        "1": 266
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "background_image",
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "layer_image",
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "layer_mask",
-          "type": "MASK",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerStyle_OuterGlow"
-      },
-      "widgets_values": [
-        true,
-        "screen",
-        100,
-        5,
-        48,
-        25,
-        "#FFBF30",
-        "#FE0000"
-      ]
     }
   ],
   "links": [
     [
-      1,
-      1,
-      0,
+      40,
       2,
+      0,
+      20,
       0,
       "IMAGE"
     ],
     [
-      2,
-      1,
+      41,
+      15,
       0,
-      3,
-      0,
-      "IMAGE"
-    ],
-    [
-      3,
-      2,
-      0,
-      3,
+      20,
       1,
       "IMAGE"
     ],
     [
-      4,
-      3,
+      42,
+      15,
+      1,
+      20,
+      2,
+      "MASK"
+    ],
+    [
+      43,
+      20,
       0,
       4,
       0,
