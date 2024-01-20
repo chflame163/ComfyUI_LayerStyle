@@ -55,6 +55,42 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * light_color<sup>4</sup>: 发光中心颜色。
 * glow_colo<sup>4</sup>: 辉光外围颜色。
 
+### InnerShadow:
+生成内阴影。
+![image](image/inner_shadow_example.png)
+
+节点选项说明：   
+![image](image/inner_shadow_node.png)
+* background_image<sup>1</sup>: 背景图像。
+* layer_image<sup>1</sup>: 用于合成的层图像。
+* layer_mask<sup>1,2</sup>: 层图像的遮罩，阴影按此生成。
+* invert_mask: 是否反转遮罩。
+* blend_mode<sup>3</sup>: 阴影的混合模式。
+* opacity: 阴影的不透明度。
+* distance_x: 阴影的水平方向偏移量。
+* distance_y: 阴影的垂直方向偏移量。
+* grow: 阴影扩张幅度。
+* blur：阴影模糊程度。
+* shadow_color<sup>4</sup>: 阴影颜色。
+
+### InnerGlow：
+生成内发光。
+![image](image/inner_glow_example.png)
+
+节点选项说明：   
+![image](image/inner_glow_node.png)
+* background_image<sup>1</sup>: 背景图像。
+* layer_image<sup>1</sup>: 用于合成的层图像。
+* layer_mask<sup>1,2</sup>: 层图像的遮罩，外发光按此生成。
+* invert_mask: 是否反转遮罩。
+* blend_mode<sup>3</sup>: 发光的混合模式。
+* opacity: 发光的不透明度。
+* brightness: 发光亮度。
+* glow_range: 发光范围。
+* blur：发光模糊程度。
+* light_color<sup>4</sup>: 发光中心颜色。
+* glow_colo<sup>4</sup>: 辉光外围颜色。
+
 ### Stroke：
 生成描边。
 ![image](image/stroke_example.png)
@@ -128,6 +164,7 @@ mask反转
 
 ### MotionBlur:
 运动模糊。
+![image](image/motion_blur_example.png)
 
 节点选项说明：
 * angle: 模糊角度。

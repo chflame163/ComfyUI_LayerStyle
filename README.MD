@@ -60,6 +60,42 @@ Node options:
 * light_color<sup>4</sup>: Light color.
 * glow_color<sup>4</sup>: Edge part color of glow.
 
+### InnerShadow:
+Generate inner shadow
+![image](image/inner_shadow_example.png)
+
+Node options:
+![image](image/inner_shadow_node.png)
+* background_image<sup>1</sup>: The background image.
+* layer_image<sup>1</sup>: Layer image for composite.
+* layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
+* invert_mask: Whether to reverse the mask.
+* blend_mode<sup>3</sup>: Blending mode of shadows.
+* opacity: Opacity of shadow.
+* distance_x: Horizontal offset of shadow.
+* distance_y: Vertical offset of shadow.
+* grow: Shadow expansion amplitude.
+* blur: Shadow blur level.
+* shadow_color<sup>4</sup>: Shadow color.
+
+### InnerGlow：
+Generate inner glow
+![image](image/inner_glow_example.png)
+
+Node options:  
+![image](image/inner_glow_node.png)
+* background_image<sup>1</sup>: The background image.
+* layer_image<sup>1</sup>: Layer image for composite.
+* layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
+* invert_mask: Whether to reverse the mask.
+* blend_mode<sup>3</sup>: Blending mode of shadows.
+* opacity: Opacity of shadow.
+* distance_x: Horizontal offset of shadow.
+* distance_y: Vertical offset of shadow.
+* grow: Shadow expansion amplitude.
+* blur: Shadow blur level.
+* shadow_color<sup>4</sup>: Shadow color.
+
 ### Stroke:
 Generate a stroke of layer。
 ![image](image/stroke_example.png)
@@ -135,6 +171,7 @@ Output Type：
 
 ### MotionBlur:
 Make the image motion blur
+![image](image/motion_blur_example.png)
 
 Node options:
 * angle: The angle of blur.
