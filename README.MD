@@ -219,26 +219,28 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 
 ## The following tasks are in the planned list
 
-* LayerUtility:
-imageblend advance
-color image
-gradient image
+ LayerUtility:
+* imageblend advance
+* color image
+* gradient image
+* image channel split
+* image channel merge
 
-* LayerMask:
-text mask
-gradient mask
-mask grow&blur
-mask subtract
-mask combine
-mask diffrent
-mask gradient
-mask softedge
+LayerMask:
+* text mask
+* gradient mask
+* mask grow&blur
+* mask subtract
+* mask combine
+* mask diffrent
+* mask gradient
+* mask softedge
 
-* LayerFilter:
-bulr
-emboss
-contour
-findedge
+LayerFilter:
+* bulr
+* emboss
+* contour
+* findedge
 
 
 ## How to install 

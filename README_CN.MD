@@ -214,26 +214,28 @@ mask反转
 
 ## 以下工作在计划列表中
 
-* LayerUtility:
-imageblend advance
-color image
-gradient image
+ LayerUtility:
+* imageblend advance
+* color image
+* gradient image
+* image channel split
+* image channel merge
 
-* LayerMask:
-text mask
-gradient mask
-mask grow&blur
-mask subtract
-mask combine
-mask diffrent
-mask gradient
-mask softedge
+LayerMask:
+* text mask
+* gradient mask
+* mask grow&blur
+* mask subtract
+* mask combine
+* mask diffrent
+* mask gradient
+* mask softedge
 
-* LayerFilter:
-bulr
-emboss
-contour
-findedge
+LayerFilter:
+* bulr
+* emboss
+* contour
+* findedge
 
 ## 安装方法：  
 
