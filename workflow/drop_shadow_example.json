@@ -1,6 +1,6 @@
 {
-  "last_node_id": 18,
-  "last_link_id": 35,
+  "last_node_id": 19,
+  "last_link_id": 41,
   "nodes": [
     {
       "id": 4,
@@ -9,10 +9,10 @@
         1360,
         390
       ],
-      "size": [
-        310.00006103515625,
-        308.33331298828125
-      ],
+      "size": {
+        "0": 310.00006103515625,
+        "1": 308.33331298828125
+      },
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -20,12 +20,68 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 34
+          "link": 39
         }
       ],
       "properties": {
         "Node name for S&R": "PreviewImage"
       }
+    },
+    {
+      "id": 19,
+      "type": "LayerStyle: DropShadow",
+      "pos": [
+        1009,
+        406
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 36
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 37
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            39
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: DropShadow"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        50,
+        25,
+        25,
+        6,
+        18,
+        "#000000"
+      ]
     },
     {
       "id": 2,
@@ -46,7 +102,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            32
+            36
           ],
           "shape": 3,
           "slot_index": 0
@@ -54,8 +110,9 @@
         {
           "name": "MASK",
           "type": "MASK",
-          "links": null,
-          "shape": 3
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
         }
       ],
       "properties": {
@@ -67,67 +124,11 @@
       ]
     },
     {
-      "id": 18,
-      "type": "LayerStyle_DropShadow",
-      "pos": [
-        1013,
-        414
-      ],
-      "size": {
-        "0": 315,
-        "1": 266
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "background_image",
-          "type": "IMAGE",
-          "link": 32
-        },
-        {
-          "name": "layer_image",
-          "type": "IMAGE",
-          "link": 33
-        },
-        {
-          "name": "layer_mask",
-          "type": "MASK",
-          "link": 35
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            34
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerStyle_DropShadow"
-      },
-      "widgets_values": [
-        true,
-        "normal",
-        50,
-        25,
-        25,
-        6,
-        18,
-        "#000000"
-      ]
-    },
-    {
       "id": 15,
       "type": "LoadImage",
       "pos": [
-        660,
-        399
+        662,
+        397
       ],
       "size": {
         "0": 315,
@@ -141,7 +142,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            33
+            37
           ],
           "shape": 3,
           "slot_index": 0
@@ -150,7 +151,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            35
+            41
           ],
           "shape": 3,
           "slot_index": 1
@@ -167,34 +168,34 @@
   ],
   "links": [
     [
-      32,
+      36,
       2,
       0,
-      18,
+      19,
       0,
       "IMAGE"
     ],
     [
-      33,
+      37,
       15,
       0,
-      18,
+      19,
       1,
       "IMAGE"
     ],
     [
-      34,
-      18,
+      39,
+      19,
       0,
       4,
       0,
       "IMAGE"
     ],
     [
-      35,
+      41,
       15,
       1,
-      18,
+      19,
       2,
       "MASK"
     ]

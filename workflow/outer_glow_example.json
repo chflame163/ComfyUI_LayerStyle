@@ -1,6 +1,6 @@
 {
-  "last_node_id": 20,
-  "last_link_id": 43,
+  "last_node_id": 21,
+  "last_link_id": 49,
   "nodes": [
     {
       "id": 4,
@@ -9,10 +9,10 @@
         1360,
         390
       ],
-      "size": [
-        310.00006103515625,
-        308.33331298828125
-      ],
+      "size": {
+        "0": 310.00006103515625,
+        "1": 308.33331298828125
+      },
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -20,7 +20,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 43
+          "link": 47
         }
       ],
       "properties": {
@@ -46,7 +46,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            40
+            44
           ],
           "shape": 3,
           "slot_index": 0
@@ -54,8 +54,9 @@
         {
           "name": "MASK",
           "type": "MASK",
-          "links": null,
-          "shape": 3
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
         }
       ],
       "properties": {
@@ -64,6 +65,62 @@
       "widgets_values": [
         "512x512bk.jpg",
         "image"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "LayerStyle: OuterGlow",
+      "pos": [
+        1011,
+        406
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 44
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 45
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 49
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            47
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: OuterGlow"
+      },
+      "widgets_values": [
+        true,
+        "screen",
+        100,
+        5,
+        48,
+        25,
+        "#FFBF30",
+        "#FE0000"
       ]
     },
     {
@@ -85,7 +142,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            41
+            45
           ],
           "shape": 3,
           "slot_index": 0
@@ -94,7 +151,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            42
+            49
           ],
           "shape": 3,
           "slot_index": 1
@@ -107,96 +164,40 @@
         "512x512 (14).png",
         "image"
       ]
-    },
-    {
-      "id": 20,
-      "type": "LayerStyle_OuterGlow",
-      "pos": [
-        1012,
-        423
-      ],
-      "size": {
-        "0": 315,
-        "1": 266
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "background_image",
-          "type": "IMAGE",
-          "link": 40
-        },
-        {
-          "name": "layer_image",
-          "type": "IMAGE",
-          "link": 41
-        },
-        {
-          "name": "layer_mask",
-          "type": "MASK",
-          "link": 42
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            43
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerStyle_OuterGlow"
-      },
-      "widgets_values": [
-        true,
-        "screen",
-        100,
-        8,
-        48,
-        25,
-        "#FFBF30",
-        "#FE0000"
-      ]
     }
   ],
   "links": [
     [
-      40,
+      44,
       2,
       0,
-      20,
+      21,
       0,
       "IMAGE"
     ],
     [
-      41,
+      45,
       15,
       0,
-      20,
+      21,
       1,
       "IMAGE"
     ],
     [
-      42,
-      15,
-      1,
-      20,
-      2,
-      "MASK"
-    ],
-    [
-      43,
-      20,
+      47,
+      21,
       0,
       4,
       0,
       "IMAGE"
+    ],
+    [
+      49,
+      15,
+      1,
+      21,
+      2,
+      "MASK"
     ]
   ],
   "groups": [],
