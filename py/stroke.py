@@ -37,13 +37,21 @@ class Stroke:
                   layer_mask=None
                   ):
 
+        # preprocess
         _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image).convert('RGB')
-        _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
+        _layer = tensor2pil(layer_image)
+        if _layer.mode == 'RGBA':
+            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
+        else:
+            _mask = Image.new('L', _layer.size, 'white')
+        _layer = _layer.convert('RGB')
         if layer_mask is not None:
             if invert_mask:
                 layer_mask = 1 - layer_mask
             _mask = mask2image(layer_mask).convert('L')
+        if _mask.size != _layer.size:
+            _mask = Image.new('L', _layer.size, 'white')
+            log('Warning: mask mismatch, droped!')
 
         grow_offset = int(stroke_width / 2)
         inner_stroke = stroke_grow - grow_offset

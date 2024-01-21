@@ -6,7 +6,7 @@ import torch
 import scipy.ndimage
 import cv2
 from typing import Union, List
-from PIL import Image, ImageFilter, ImageChops
+from PIL import Image, ImageFilter, ImageChops, ImageDraw
 
 def log(message):
     name = 'LayerStyle'
@@ -119,9 +119,70 @@ def motion_blur(image:Image, angle:int, blur:int) -> Image:
     ret_image = cv22pil(blurred)
     return ret_image
 
-def direction_blur(image:Image, angle:int, blur:int, color:str) -> Image:
+def __rotate_expand(image:Image, angle:float, SSAA:int=0) -> Image:
+    images = pil2tensor(image)
+    expand = "true"
+    height, width = images[0, :, :, 0].shape
 
-    ret_image = image
+    def rotate_tensor(tensor):
+        resize_sampler = Image.LANCZOS
+        rotate_sampler = Image.BICUBIC
+        if SSAA > 1:
+            img = tensor.tensor_to_image()
+            img_us_scaled = img.resize((width * SSAA, height * SSAA), resize_sampler)
+            img_rotated = img_us_scaled.rotate(angle, rotate_sampler, expand == "true", fillcolor=(0, 0, 0, 0))
+            img_down_scaled = img_rotated.resize((img_rotated.width // SSAA, img_rotated.height // SSAA), resize_sampler)
+            result = img_down_scaled.image_to_tensor()
+        else:
+            img = tensor.tensor_to_image()
+            img_rotated = img.rotate(angle, rotate_sampler, expand == "true", fillcolor=(0, 0, 0, 0))
+            result = img_rotated.image_to_tensor()
+        return result
+
+    if angle == 0.0 or angle == 360.0:
+        return tensor2pil(images)
+    else:
+        rotated_tensor = torch.stack([rotate_tensor(images[i]) for i in range(len(images))])
+        return tensor2pil(rotated_tensor).convert('RGB')
+
+def image_rotate_extend_with_alpha(image:Image, alpha:Image, angle:float, SSAA:int=0) -> tuple:
+    _image = __rotate_expand(image.convert('RGB'), angle, SSAA)
+    _alpha = __rotate_expand(alpha.convert('RGB'), angle, SSAA)
+    R, G, B = _image.split()
+    A = _alpha.convert('L')
+    ret_image = Image.merge('RGBA', (R, G, B, A))
+    return (_image, _alpha, ret_image)
+
+
+def create_gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int) -> Image:
+    start_color = Hex_to_RGB(start_color_inhex)
+    end_color = Hex_to_RGB(end_color_inhex)
+    ret_image = Image.new("RGB", (width, height), start_color)
+    draw = ImageDraw.Draw(ret_image)
+    for i in range(height):
+        R = int(start_color[0] * (height - i) / height + end_color[0] * i / height)
+        G = int(start_color[1] * (height - i) / height + end_color[1] * i / height)
+        B = int(start_color[2] * (height - i) / height + end_color[2] * i / height)
+        color = (R, G, B)
+        draw.line((0, i, width, i), fill=color)
+    return ret_image
+
+def gradint(start_color_inhex:str, end_color_inhex:str, width:int, height:int, angle:float, ) -> Image:
+    radius = int((width + height) / 4)
+    g = create_gradient(start_color_inhex, end_color_inhex, radius, radius)
+    _canvas = Image.new('RGB', size=(radius, radius*3), color=start_color_inhex)
+    top = Image.new('RGB', size=(radius, radius), color=start_color_inhex)
+    bottom = Image.new('RGB', size=(radius, radius),color=end_color_inhex)
+    _canvas.paste(top, box=(0, 0, radius, radius))
+    _canvas.paste(g, box=(0, radius, radius, radius * 2))
+    _canvas.paste(bottom,box=(0, radius * 2, radius, radius * 3))
+    _canvas = _canvas.resize((radius * 3, radius * 3))
+    _canvas = __rotate_expand(_canvas,angle)
+    center = int(_canvas.width / 2)
+    _x = int(width / 3)
+    _y = int(height / 3)
+    ret_image = _canvas.crop((center - _x, center - _y, center + _x, center + _y))
+    ret_image = ret_image.resize((width, height))
     return ret_image
 
 '''Mask Functions'''
@@ -180,18 +241,15 @@ def step_value(start_value, end_value, total_step, step) -> float:  # 按当前�
     factor = step / total_step
     return (end_value - start_value) * factor + start_value
 
-def step_color(start_color, end_color, total_step, step):  # 按当前步数在总步数中的位置返回比例颜色
-    if isinstance(start_color, str):
-        start_color = tuple(Hex_to_RGB(start_color))
-    if isinstance(end_color, str):
-        end_color = tuple(Hex_to_RGB(end_color))
+def step_color(start_color_inhex:str, end_color_inhex:str, total_step:int, step:int) -> str:  # 按当前步数在总步数中的位置返回比例颜色
+    start_color = tuple(Hex_to_RGB(start_color_inhex))
+    end_color = tuple(Hex_to_RGB(end_color_inhex))
     start_R, start_G, start_B = start_color[0], start_color[1], start_color[2]
     end_R, end_G, end_B = end_color[0], end_color[1], end_color[2]
     ret_color = (int(step_value(start_R, end_R, total_step, step)),
                  int(step_value(start_G, end_G, total_step, step)),
                  int(step_value(start_B, end_B, total_step, step)),
                  )
-    if isinstance(start_color, str):
-        return RGB_to_Hex(ret_color)
-    else:
-        return ret_color
+    return RGB_to_Hex(ret_color)
+
+

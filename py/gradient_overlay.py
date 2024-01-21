@@ -1,6 +1,6 @@
 from .imagefunc import *
 
-class InnerShadow:
+class GradientOverlay:
 
     def __init__(self):
         pass
@@ -14,28 +14,27 @@ class InnerShadow:
                 "layer_image": ("IMAGE",),  #
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_mode": (chop_mode,),  # 混合模式
-                "opacity": ("INT", {"default": 50, "min": 0, "max": 100, "step": 1}),  # 透明度
-                "distance_x": ("INT", {"default": 5, "min": -9999, "max": 9999, "step": 1}),  # x_偏移
-                "distance_y": ("INT", {"default": 5, "min": -9999, "max": 9999, "step": 1}),  # y_偏移
-                "grow": ("INT", {"default": 2, "min": -9999, "max": 9999, "step": 1}),  # 扩张
-                "blur": ("INT", {"default": 15, "min": 0, "max": 100, "step": 1}),  # 模糊
-                "shadow_color": ("STRING", {"default": "#000000"}),  # 背景颜色
+                "opacity": ("INT", {"default": 100, "min": 0, "max": 100, "step": 1}),  # 透明度
+                "start_color": ("STRING", {"default": "#FFBF30"}),  # 渐变开始颜色
+                "start_alpha": ("INT", {"default": 255, "min": 0, "max": 255, "step": 1}),
+                "end_color": ("STRING", {"default": "#FE0000"}),  # 渐变结束颜色
+                "end_alpha": ("INT", {"default": 255, "min": 0, "max": 255, "step": 1}),
+                "angle": ("INT", {"default": 0, "min": -180, "max": 180, "step": 1}),  # 渐变角度
             },
             "optional": {
                 "layer_mask": ("MASK",),  #
             }
         }
 
-
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
-    FUNCTION = 'inner_shadow'
+    FUNCTION = 'gradient_overlay'
     CATEGORY = '😺dzNodes/LayerStyle'
     OUTPUT_NODE = True
 
-    def inner_shadow(self, background_image, layer_image,
-                  invert_mask, blend_mode, opacity, distance_x, distance_y,
-                  grow, blur, shadow_color,
+    def gradient_overlay(self, background_image, layer_image,
+                  invert_mask, blend_mode, opacity,
+                  start_color, start_alpha, end_color, end_alpha, angle,
                   layer_mask=None
                   ):
 
@@ -55,26 +54,26 @@ class InnerShadow:
             _mask = Image.new('L', _layer.size, 'white')
             log('Warning: mask mismatch, droped!')
 
-        distance_x = -distance_x
-        distance_y = -distance_y
-        if distance_x != 0 or distance_y != 0:
-            __mask = shift_image(_mask, distance_x, distance_y)  # 位移
-        shadow_mask = expand_mask(image2mask(__mask), grow, blur)  #扩张，模糊
-        # 合成阴影
-        shadow_color = Image.new("RGB", _layer.size, color=shadow_color)
-        alpha = tensor2pil(shadow_mask).convert('L')
-        _shadow = chop_image(_layer, shadow_color, blend_mode, opacity)
-        _layer.paste(_shadow, mask=ImageChops.invert(alpha))
+        _gradient = gradint(start_color, end_color, _layer.width, _layer.height, float(angle))
+
         # 合成layer
-        _canvas.paste(_layer, mask=_mask)
+        _comp = chop_image(_layer, _gradient, blend_mode, opacity)
+        if start_alpha < 255 or end_alpha < 255:
+            #
+            start_color = RGB_to_Hex((start_alpha, start_alpha, start_alpha))
+            end_color = RGB_to_Hex((end_alpha, end_alpha, end_alpha))
+            comp_alpha = gradint(start_color, end_color, _layer.width, _layer.height, float(angle))
+            comp_alpha = ImageChops.invert(comp_alpha).convert('L')
+            _comp.paste(_layer, comp_alpha)
+        _canvas.paste(_comp, mask=_mask)
         ret_image = _canvas
-        log('InnerShadow Processed.')
+        log('GradientOverlay Processed.')
         return (pil2tensor(ret_image),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerStyle: InnerShadow": InnerShadow
+    "LayerStyle: GradientOverlay": GradientOverlay
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerStyle: InnerShadow": "LayerStyle: InnerShadow"
+    "LayerStyle: GradientOverlay": "LayerStyle: GradientOverlay"
 }

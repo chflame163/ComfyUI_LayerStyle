@@ -38,16 +38,24 @@ class DropShadow:
                   layer_mask=None
                   ):
 
-        distance_x = -distance_x
-        distance_y = -distance_y
+        # preprocess
         _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image).convert('RGB')
-        _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
-        # 处理mask
+        _layer = tensor2pil(layer_image)
+        if _layer.mode == 'RGBA':
+            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
+        else:
+            _mask = Image.new('L', _layer.size, 'white')
+        _layer = _layer.convert('RGB')
         if layer_mask is not None:
             if invert_mask:
                 layer_mask = 1 - layer_mask
             _mask = mask2image(layer_mask).convert('L')
+        if _mask.size != _layer.size:
+            _mask = Image.new('L', _layer.size, 'white')
+            log('Warning: mask mismatch, droped!')
+
+        distance_x = -distance_x
+        distance_y = -distance_y
         if distance_x != 0 or distance_y != 0:
             __mask = shift_image(_mask, distance_x, distance_y)  # 位移
         shadow_mask = expand_mask(image2mask(__mask), grow, blur)  #扩张，模糊

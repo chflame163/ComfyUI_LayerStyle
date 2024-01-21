@@ -7,6 +7,7 @@ The completed nodes are as follows, and further work is in progress.
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Add GradientOverlay and ColorOverlay nodes. Add invalid mask input judgment and ignore it when invalid mask is input.
 * Commit InnerGlow, InnerShadow and MotionBlur nodes.
 * Renaming all completed nodes, the nodes are divided into 4 groups：LayerStyle, LayerMask, LayerUtility, LayerFilter. workflows containing old version nodes need to be manually replaced with new version nodes.
 * OuterGlow node has undergone significant modifications by adding options for **_brightness_**, **_light_color_**, and **_glow_color_**.
@@ -21,8 +22,9 @@ The completed nodes are as follows, and further work is in progress.
 * Commit DropShadow node.
 
 # LayerStyle
+![image](image/layerstyle_nodes.png)
 
-### DropShadow:
+### DropShadow
 Generate shadow
 ![image](image/drop_shadow_example.png)
 
@@ -41,7 +43,7 @@ Node options:
 * blur: Shadow blur level.
 * shadow_color<sup>4</sup>: Shadow color.
 
-### OuterGlow:
+### OuterGlow
 Generate outer glow
 ![image](image/outer_glow_example.png)
 
@@ -59,7 +61,7 @@ Node options:
 * light_color<sup>4</sup>: Center part color of glow.
 * glow_color<sup>4</sup>: Edge part color of glow.
 
-### InnerShadow:
+### InnerShadow
 Generate inner shadow
 ![image](image/inner_shadow_example.png)
 
@@ -77,7 +79,7 @@ Node options:
 * blur: Shadow blur level.
 * shadow_color<sup>4</sup>: Shadow color.
 
-### InnerGlow：
+### InnerGlow
 Generate inner glow
 ![image](image/inner_glow_example.png)
 
@@ -96,7 +98,7 @@ Node options:
 * glow_color<sup>4</sup>: Edge part color of glow.
 
 
-### Stroke:
+### Stroke
 Generate a stroke of layer。
 ![image](image/stroke_example.png)
 
@@ -112,6 +114,37 @@ Node options:
 * stroke_width: Stroke width.
 * stroke_color<sup>4</sup>: Stroke color, described in hexadecimal RGB format.
 
+### GradientOverlay
+Generate gradient overlay
+![image](image/gradient_overlay_example.png)
+
+Node options:   
+* background_image<sup>1</sup>: The background image.
+* layer_image<sup>1</sup>: Layer image for composite.
+* layer_mask<sup>1,2</sup>: Mask for layer_image.
+* invert_mask: Whether to reverse the mask.
+* blend_mode<sup>3</sup>: Blending mode of gradient.
+* opacity: Opacity of stroke.
+* start_color: Color at the beginning of the gradient.
+* start_alpha: Transparency at the beginning of the gradient.
+* end_color: Color at the end of the gradient.
+* end_alpha: Transparency at the end of the gradient.
+* angle: Gradient rotation angle.
+
+### ColorOverlay
+Generate color overlay
+![image](image/color_overlay_example.png)
+
+Node options:
+![image](image/color_overlay_node.png)
+* background_image<sup>1</sup>: The background image.
+* layer_image<sup>1</sup>: Layer image for composite.
+* layer_mask<sup>1,2</sup>: Mask for layer_image.
+* invert_mask: Whether to reverse the mask.
+* blend_mode<sup>3</sup>: Blending mode of color.
+* opacity: Opacity of stroke.
+* color: Color of overlay.
+
 
 #### Annotation for LayerStyle nodes:
 <sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.。
@@ -123,6 +156,7 @@ Node options:
 <sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
 
 # LayerMask
+![image](image/layermask_nodes.png)
 
 ### MaskPreview:
 Preview the input mask
@@ -134,6 +168,7 @@ Invert the mask
 
 
 # LayerUtility
+![image](image/layerutility_nodes.png)
 
 ### ImageBlend:
 Composit  layer image and background image, multiple blend modes are available for option, and transparency can be set.
@@ -169,6 +204,7 @@ Output Type：
 * string
 
 # LayerFilter
+![image](image/layerfilter_nodes.png)
 
 ### MotionBlur:
 Make the image motion blur
@@ -183,8 +219,26 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 
 ## The following tasks are in the planned list
 
-* Color Overlay
-* Gradient Overlay
+* LayerUtility:
+imageblend advance
+color image
+gradient image
+
+* LayerMask:
+text mask
+gradient mask
+mask grow&blur
+mask subtract
+mask combine
+mask diffrent
+mask gradient
+mask softedge
+
+* LayerFilter:
+bulr
+emboss
+contour
+findedge
 
 
 ## How to install 

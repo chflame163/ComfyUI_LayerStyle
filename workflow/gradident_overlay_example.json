@@ -1,0 +1,207 @@
+{
+  "last_node_id": 29,
+  "last_link_id": 66,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "PreviewImage",
+      "pos": [
+        1358,
+        386
+      ],
+      "size": {
+        "0": 310.00006103515625,
+        "1": 308.33331298828125
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 66
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        307,
+        382
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            62
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512bk.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "LoadImage",
+      "pos": [
+        659,
+        386
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            63
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            64
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512 (14).png",
+        "image"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "LayerStyle: GradientOverlay",
+      "pos": [
+        1015,
+        408
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 62
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 63
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 64
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            66
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: GradientOverlay"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        "#FFBF30",
+        60,
+        "#FE0000",
+        255,
+        0
+      ]
+    }
+  ],
+  "links": [
+    [
+      62,
+      2,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      63,
+      15,
+      0,
+      27,
+      1,
+      "IMAGE"
+    ],
+    [
+      64,
+      15,
+      1,
+      27,
+      2,
+      "MASK"
+    ],
+    [
+      66,
+      27,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
