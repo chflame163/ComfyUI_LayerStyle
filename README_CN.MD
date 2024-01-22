@@ -47,7 +47,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * grow: 阴影扩张幅度。
 * blur:阴影模糊程度。
 * shadow_color<sup>4</sup>: 阴影颜色。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 ### <a id="table1">OuterGlow</a>
@@ -67,7 +67,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * blur:发光模糊程度。
 * light_color<sup>4</sup>: 发光中心颜色。
 * glow_colo<sup>4</sup>: 辉光外围颜色。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 ### <a id="table1">InnerShadow</a>
@@ -87,7 +87,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * grow: 阴影扩张幅度。
 * blur:阴影模糊程度。
 * shadow_color<sup>4</sup>: 阴影颜色。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 ### <a id="table1">InnerGlow</a>
@@ -107,7 +107,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * blur:发光模糊程度。
 * light_color<sup>4</sup>: 发光中心颜色。
 * glow_colo<sup>4</sup>: 辉光外围颜色。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 ### <a id="table1">Stroke</a>
@@ -125,7 +125,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * stroke_grow: 描边扩张/收缩幅度，正值是扩张，负值是收缩。
 * stroke_width: 描边宽度。
 * stroke_color<sup>4</sup>: 描边颜色。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 ### <a id="table1">GradientOverlay</a>
@@ -145,7 +145,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * end_color: 渐变结束端的颜色。
 * end_alpha: 渐变结束端的透明度。
 * angle: 渐变旋转角度。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 ### <a id="table1">ColorOverlay</a>
@@ -161,7 +161,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * blend_mode<sup>3</sup>: 描边的混合模式。
 * opacity: 不透明度。
 * color: 覆盖的颜色。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 
 
@@ -207,7 +207,7 @@ mask反转
 * rotate: 图层旋转度数。
 * transform_method: 用于图层放大和旋转的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。不同的采样方法会影响合成的画质和画面处理时间。
 * anti_aliasing: 抗锯齿，范围从0-16，数值越大，锯齿越不明显。过高的数值将显著降低节点的处理速度。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 ### <a id="table1">ImageBlend</a>
 一个用于合成图层的简单节点，提供多种混合模式供选择，可设置透明度。
@@ -221,7 +221,7 @@ mask反转
 * invert_mask: 是否反转遮罩。
 * blend_mode<sup>3</sup>: 图层混合模式。
 * opacity: 不透明度。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 ### <a id="table1">ImageOpacity</a>
 调整图像不透明度。
@@ -232,7 +232,7 @@ mask反转
 * mask<sup>2,5</sup>: 遮罩输入。
 * invert_mask: 是否反转遮罩。
 * opacity: 不透明度。
-[节点注解](#节点注解)
+*[节点注解](#节点注解)
 
 ### <a id="table1">ColorPicker</a>
 在色板上选取颜色并输出。
@@ -244,7 +244,6 @@ mask反转
 
 输出:
 * string
-
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
@@ -265,7 +264,7 @@ mask反转
 * angle: 模糊角度。
 * blur: 模糊大小。
 
-#### <a id="table1">节点注解</a>
+## <a id="table1">节点注解</a>
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
 <sup>3</sup>: 混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
