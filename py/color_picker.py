@@ -13,7 +13,7 @@ class ColorPicker:
 
         return {
             "required": {
-                "color": ("COLOR", {"default": "white"},),
+                "color": ("COLOR", {"default": "#FFFFFF"},),
                 "mode": (mode_list,),  # 输出模式
             },
             "optional": {

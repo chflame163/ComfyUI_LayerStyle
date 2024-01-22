@@ -9,6 +9,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[ExtendCanvas](#ExtendCanvas)节点。
 * 添加[ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
   添加[PrintInfo](#PrintInfo)节点作为工作流调试辅助工具。
 * 添加[GradientOverlay](#GradientOverlay),[ColorOverlay](#ColorOverlay)节点。增加无效mask输入判断，当输入无效mask时将其忽略。
@@ -245,6 +246,20 @@ mask反转
 输出:
 * string
 
+### <a id="table1">ExtendCanvas</a>
+扩展画布。
+![image](image/extend_canvas_example.png)
+
+节点选项说明:
+![image](image/extend_canvas_node.png)
+* invert_mask: 是否反转遮罩。
+* top: 顶部扩展值。
+* bottom: 底部扩展值。
+* left: 左侧扩展值。
+* right: 右侧扩展值。
+* color; 画布颜色
+
+
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
 用于给工作流调试提供辅助。当运行时，任何接上这个节点的对象的属性将被打印到控制台。
@@ -294,7 +309,7 @@ LayerMask:
 * mask softedge
 
 LayerFilter:
-* bulr
+* blur
 * emboss
 * contour
 * findedge

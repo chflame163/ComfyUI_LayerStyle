@@ -12,6 +12,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Add [ExtendCanvas](#ExtendCanvas) node.
 * Add [ImageBlendAdvance](#ImageBlendAdvance) node. This node allows for the synthesis of background images and layers of different sizes, providing a more free synthesis experience. 
 Add [PrintInfo](#PrintInfo) node as a workflow debugging aid.
 * Add [GradientOverlay](#GradientOverlay) and [ColorOverlay](#ColorOverlay) nodes. 
@@ -248,6 +249,20 @@ Node options:
 Output Type： 
 * string
 
+### <a id="table1">ExtendCanvas</a>
+Extend the canvas
+![image](image/extend_canvas_example.png)
+
+Node options:
+![image](image/extend_canvas_node.png)
+* invert_mask: Whether to reverse the mask.
+* top: Top extension value.
+* bottom: Bottom extension value.
+* left: Left extension value.
+* right: Right extension value.
+* color; Color of canvas.
+
+
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
 Used to provide assistance for workflow debugging. When running, the properties of any object connected to this node will be printed to the console.
@@ -301,7 +316,7 @@ LayerMask:
 * mask softedge
 
 LayerFilter:
-* bulr
+* blur
 * emboss
 * contour
 * findedge
