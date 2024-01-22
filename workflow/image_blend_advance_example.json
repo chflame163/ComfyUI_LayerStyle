@@ -1,0 +1,252 @@
+{
+  "last_node_id": 28,
+  "last_link_id": 30,
+  "nodes": [
+    {
+      "id": 9,
+      "type": "LoadImage",
+      "pos": [
+        736,
+        -176
+      ],
+      "size": {
+        "0": 350.14056396484375,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "3840x2160car.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "LoadImage",
+      "pos": [
+        810,
+        223
+      ],
+      "size": {
+        "0": 261.82659912109375,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512 (16).png",
+        "image"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "LayerUtility: ImageBlendAdvance",
+      "pos": [
+        1150,
+        57
+      ],
+      "size": {
+        "0": 315,
+        "1": 338
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 11
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 12
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            28
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            30
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlendAdvance"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        73.67,
+        27.7,
+        "horizontal",
+        2,
+        1,
+        25.28,
+        "lanczos",
+        2
+      ]
+    },
+    {
+      "id": 23,
+      "type": "PreviewImage",
+      "pos": [
+        1559,
+        -239
+      ],
+      "size": [
+        643.1714141845705,
+        387.9265393676759
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 28,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        1553,
+        198
+      ],
+      "size": [
+        646.8334141845708,
+        388.80453936767594
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 30
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    }
+  ],
+  "links": [
+    [
+      11,
+      9,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      12,
+      8,
+      0,
+      19,
+      1,
+      "IMAGE"
+    ],
+    [
+      13,
+      8,
+      1,
+      19,
+      2,
+      "MASK"
+    ],
+    [
+      28,
+      19,
+      0,
+      23,
+      0,
+      "IMAGE"
+    ],
+    [
+      30,
+      19,
+      1,
+      28,
+      0,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

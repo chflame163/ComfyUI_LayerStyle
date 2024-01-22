@@ -119,7 +119,7 @@ def motion_blur(image:Image, angle:int, blur:int) -> Image:
     ret_image = cv22pil(blurred)
     return ret_image
 
-def __rotate_expand(image:Image, angle:float, SSAA:int=0) -> Image:
+def __rotate_expand(image:Image, angle:float, SSAA:int=0, method:str="lanczos") -> Image:
     images = pil2tensor(image)
     expand = "true"
     height, width = images[0, :, :, 0].shape
@@ -127,6 +127,21 @@ def __rotate_expand(image:Image, angle:float, SSAA:int=0) -> Image:
     def rotate_tensor(tensor):
         resize_sampler = Image.LANCZOS
         rotate_sampler = Image.BICUBIC
+        if method == "bicubic":
+            resize_sampler = Image.BICUBIC
+            rotate_sampler = Image.BICUBIC
+        elif method == "hamming":
+            resize_sampler = Image.HAMMING
+            rotate_sampler = Image.BILINEAR
+        elif method == "bilinear":
+            resize_sampler = Image.BILINEAR
+            rotate_sampler = Image.BILINEAR
+        elif method == "box":
+            resize_sampler = Image.BOX
+            rotate_sampler = Image.NEAREST
+        elif method == "nearest":
+            resize_sampler = Image.NEAREST
+            rotate_sampler = Image.NEAREST
         if SSAA > 1:
             img = tensor.tensor_to_image()
             img_us_scaled = img.resize((width * SSAA, height * SSAA), resize_sampler)
@@ -145,12 +160,13 @@ def __rotate_expand(image:Image, angle:float, SSAA:int=0) -> Image:
         rotated_tensor = torch.stack([rotate_tensor(images[i]) for i in range(len(images))])
         return tensor2pil(rotated_tensor).convert('RGB')
 
-def image_rotate_extend_with_alpha(image:Image, alpha:Image, angle:float, SSAA:int=0) -> tuple:
-    _image = __rotate_expand(image.convert('RGB'), angle, SSAA)
-    _alpha = __rotate_expand(alpha.convert('RGB'), angle, SSAA)
-    R, G, B = _image.split()
-    A = _alpha.convert('L')
-    ret_image = Image.merge('RGBA', (R, G, B, A))
+def image_rotate_extend_with_alpha(image:Image, angle:float, alpha:Image=None, method:str="lanczos", SSAA:int=0) -> tuple:
+    _image = __rotate_expand(image.convert('RGB'), angle, SSAA, method)
+    if angle is not None:
+        _alpha = __rotate_expand(alpha.convert('RGB'), angle, SSAA, method)
+        ret_image = RGB2RGBA(_image, _alpha)
+    else:
+        ret_image = _image
     return (_image, _alpha, ret_image)
 
 
@@ -218,6 +234,10 @@ def mask_invert(mask:torch.Tensor) -> torch.Tensor:
 
 def subtract_mask(masks_a:torch.Tensor, masks_b:torch.Tensor) -> torch.Tensor:
     return torch.clamp(masks_a - masks_b, 0, 255)
+
+def RGB2RGBA(image:Image, mask:Image) -> Image:
+    (R, G, B) = image.convert('RGB').split()
+    return Image.merge('RGBA', (R, G, B, mask.convert('L')))
 
 '''Color Functions'''
 
