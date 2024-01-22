@@ -51,7 +51,7 @@ Node options:
 * grow: Shadow expansion amplitude.
 * blur: Shadow blur level.
 * shadow_color<sup>4</sup>: Shadow color.
-*[note](#Annotation)
+* [note](#notes)
 
 
 ### <a id="table1">OuterGlow</a>
@@ -71,7 +71,7 @@ Node options:
 * blur：blur of glow.
 * light_color<sup>4</sup>: Center part color of glow.
 * glow_color<sup>4</sup>: Edge part color of glow.
-*[note](#Annotation)
+* [note](#notes)
 
 
 ### <a id="table1">InnerShadow</a>
@@ -91,7 +91,7 @@ Node options:
 * grow: Shadow expansion amplitude.
 * blur: Shadow blur level.
 * shadow_color<sup>4</sup>: Shadow color.
-*[note](#Annotation)
+* [note](#notes)
 
 
 ### <a id="table1">InnerGlow</a>
@@ -111,7 +111,7 @@ Node options:
 * blur：blur of glow.
 * light_color<sup>4</sup>: Center part color of glow.
 * glow_color<sup>4</sup>: Edge part color of glow.
-*[note](#Annotation)
+* [note](#notes)
 
 
 ### <a id="table1">Stroke</a>
@@ -129,7 +129,7 @@ Node options:
 * stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
 * stroke_width: Stroke width.
 * stroke_color<sup>4</sup>: Stroke color, described in hexadecimal RGB format.
-*[note](#Annotation)
+* [note](#notes)
 
 
 ### <a id="table1">GradientOverlay</a>
@@ -148,7 +148,7 @@ Node options:
 * end_color: Color at the end of the gradient.
 * end_alpha: Transparency at the end of the gradient.
 * angle: Gradient rotation angle.
-*[note](#Annotation)
+* [note](#notes)
 
 
 ### <a id="table1">ColorOverlay</a>
@@ -164,7 +164,7 @@ Node options:
 * blend_mode<sup>3</sup>: Blending mode of color.
 * opacity: Opacity of stroke.
 * color: Color of overlay.
-*[note](#Annotation)
+* [note](#notes)
 
 
 
@@ -211,7 +211,7 @@ Node options:
 * rotate: Layer rotation degree.
 * Sampling methods for layer enlargement and rotation, including lanczos, bicubic, hamming, bilinear, box and nearest. Different sampling methods can affect the image quality and processing time of the synthesized image.
 * anti_aliasing: Anti aliasing, ranging from 0 to 16, the larger the value, the less obvious the aliasing. An excessively high value will significantly reduce the processing speed of the node.
-*[note](#Annotation)
+* [note](#notes)
 
 ### <a id="table1">ImageBlend</a>
 A simple node for composit layer image and background image, multiple blend modes are available for option, and transparency can be set.
@@ -225,7 +225,7 @@ Node options:
 * invert_mask: Whether to reverse the mask.
 * blend_mode<sup>3</sup>: Blending mode.
 * opacity: Opacity of blend.
-*[note](#Annotation)
+* [note](#notes)
 
 ### <a id="table1">ImageOpacity</a>
 Adjust image opacity
@@ -236,7 +236,7 @@ Node option:
 * mask<sup>2,5</sup> : Mask input.
 * invert_mask: Whether to reverse the mask.
 * opacity: Opacity of image.
-*[note](#Annotation)
+* [note](#notes)
 
 ### <a id="table1">ColorPicker</a>
 Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values.
@@ -268,7 +268,7 @@ Node options:
 * blur: The size of blur.
 
 
-## <a id="table1">Annotation</a> for nodes
+## Annotation for <a id="table1">notes</a>
 <sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.
 
 <sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.
