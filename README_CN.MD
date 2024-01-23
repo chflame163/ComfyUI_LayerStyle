@@ -9,6 +9,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[X,Y to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
 * 添加[ExtendCanvas](#ExtendCanvas)节点。
 * 添加[ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
   添加[PrintInfo](#PrintInfo)节点作为工作流调试辅助工具。
@@ -169,6 +170,26 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 # <a id="table1">LayerMask</a>
 ![image](image/layermask_nodes.png)
 
+### <a id="table1">MaskBoxDetect</a>
+探测mask所在区域，并输出位置和大小。
+![image](image/mask_box_detect_example.png)
+
+节点选项说明:  
+![image](image/mask_box_detect_node.png)
+* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
+* x_adjust: 修正探测之后的水平偏移。
+* y_adjust: 修正探测之后的垂直偏移。
+* scale_adjust: 修正探测之后的缩放偏移。
+
+输出：
+* box_preview: 探测结果预览图。红色表示探测到的结果，绿色表示加上修正后的输出结果。
+* x_percent: 水平位置以百分比输出。
+* y_percent: 垂直位置以百分比输出。
+* width: 宽度输出。
+* height: 高度输出。
+* x: 左上角位置x坐标输出。
+* y: 左上角位置y坐标输出。
+
 
 ### <a id="table1">MaskPreview</a>
 预览mask
@@ -259,6 +280,18 @@ mask反转
 * right: 右侧扩展值。
 * color; 画布颜色
 
+### X,Y to <a id="table1">Percent</a>
+![image](image/xy2percent_example.png)
+将绝对坐标转换为百分比坐标。
+
+![image](image/xy2percent_node.png)
+节点选项说明:
+* x: 坐标x值。
+* y: 坐标y值。
+
+### <a id="table1">GetImageSize</a>
+![image](image/get_image_size_node.png)
+获取图片的宽度和高度。
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
@@ -279,6 +312,13 @@ mask反转
 * angle: 模糊角度。
 * blur: 模糊大小。
 
+### <a id="table1">GaussianBlur</a>
+高斯模糊。
+![image](image/gaussian_blur_example.png)
+
+节点选项说明:
+* blur: 模糊大小。
+
 ## <a id="table1">节点注解</a>
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
@@ -290,7 +330,7 @@ mask反转
 
 在workflow目录下有json格式的工作流示例文件。
 
-## 以下工作在计划列表中
+## 以下工作计划中
 
  LayerUtility:
 * color image
@@ -309,7 +349,6 @@ LayerMask:
 * mask softedge
 
 LayerFilter:
-* blur
 * emboss
 * contour
 * findedge

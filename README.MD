@@ -12,10 +12,14 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
-* Add [ExtendCanvas](#ExtendCanvas) node.
-* Add [ImageBlendAdvance](#ImageBlendAdvance) node. This node allows for the synthesis of background images and layers of different sizes, providing a more free synthesis experience. 
-Add [PrintInfo](#PrintInfo) node as a workflow debugging aid.
-* Add [GradientOverlay](#GradientOverlay) and [ColorOverlay](#ColorOverlay) nodes. 
+* Commit [MaskBoxDetect](#MaskBoxDetect)node, which can automatically detect the position through the mask and output it to the composite node.
+Commit [X,Y to Percent](#Percent) node to convert absolute coordinates to percent coordinates.
+Commit [GaussianBlur](#GaussianBlur)node.
+Commit [GetImageSize](#GetImageSize)node.
+* Commit [ExtendCanvas](#ExtendCanvas) node.
+* Commit [ImageBlendAdvance](#ImageBlendAdvance) node. This node allows for the synthesis of background images and layers of different sizes, providing a more free synthesis experience. 
+Commit [PrintInfo](#PrintInfo) node as a workflow debugging aid.
+* Commit [GradientOverlay](#GradientOverlay) and [ColorOverlay](#ColorOverlay) nodes. 
 Add invalid mask input judgment and ignore it when invalid mask is input.
 * Commit [InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow) and [MotionBlur](#MotionBlur) nodes.
 * Renaming all completed nodes, the nodes are divided into 4 groups：LayerStyle, LayerMask, LayerUtility, LayerFilter. workflows containing old version nodes need to be manually replaced with new version nodes.
@@ -173,6 +177,26 @@ Node options:
 # <a id="table1">LayerMask</a>
 ![image](image/layermask_nodes.png)
 
+### <a id="table1">MaskBoxDetect</a>
+Detect the area where the mask is located and output its position and size.
+![image](image/mask_box_detect_example.png)
+
+Node options:  
+![image](image/mask_box_detect_node.png)
+* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
+* x_adjust: Adjust of horizontal deviation after detection.
+* y_adjust: Adjust of vertical offset after detection.
+* scale_adjust: Adjust the scaling offset after detection.
+
+Output:
+* box_preview: Preview image of detection results. Red represents the detected result, and green represents the adjust output result.
+* x_percent: Horizontal position output in percentage.
+* y_percent: Vertical position output in percentage.
+* width: Width.
+* height: Height.
+* x: The x-coordinate of the top left corner position.
+* y: The y-coordinate of the top left corner position.
+
 
 ### <a id="table1">MaskPreview</a>
 Preview the input mask
@@ -261,6 +285,19 @@ Node options:
 * left: Left extension value.
 * right: Right extension value.
 * color; Color of canvas.
+
+### X,Y to <a id="table1">Percent</a>
+![image](image/xy2percent_example.png)
+Convert absolute coordinates to percentage coordinates.
+
+![image](image/xy2percent_node.png)
+Node options:
+* x: Value of X
+* y: Value of Y
+
+### <a id="table1">GetImageSize</a>
+![image](image/get_image_size_node.png)
+Obtain the width and height of the image.
 
 
 ### <a id="table1">PrintInfo</a>

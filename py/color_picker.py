@@ -28,8 +28,6 @@ class ColorPicker:
 
     def picker(self, color, mode):
         ret = color
-        if ret == 'white':
-            ret = "#FFFFFF"
         if mode == 'DEC':
             ret = Hex_to_RGB(ret)
         return (ret,)

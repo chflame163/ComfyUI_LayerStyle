@@ -104,6 +104,11 @@ def remove_background(image:Image, mask:Image, color:str) -> Image:
     ret_image.paste(image, mask=mask)
     return ret_image
 
+def gaussian_blur(image:Image, radius:int) -> Image:
+    image = image.convert("RGBA")
+    ret_image = image.filter(ImageFilter.GaussianBlur(radius=radius))
+    return ret_image
+
 def motion_blur(image:Image, angle:int, blur:int) -> Image:
     angle += 45
     blur *= 5
@@ -201,6 +206,14 @@ def gradint(start_color_inhex:str, end_color_inhex:str, width:int, height:int, a
     ret_image = ret_image.resize((width, height))
     return ret_image
 
+def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, line_width:int,
+              box_color:str=None) -> Image:
+    image = image.convert('RGBA')
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((x, y, x + width, y + height), fill=box_color, outline=line_color, width=line_width, )
+    return image
+
+
 '''Mask Functions'''
 
 def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
@@ -238,6 +251,63 @@ def subtract_mask(masks_a:torch.Tensor, masks_b:torch.Tensor) -> torch.Tensor:
 def RGB2RGBA(image:Image, mask:Image) -> Image:
     (R, G, B) = image.convert('RGB').split()
     return Image.merge('RGBA', (R, G, B, mask.convert('L')))
+
+def min_bounding_rect(image:Image) -> tuple:
+    cv2_image = pil2cv2(image)
+    gray = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2GRAY)
+    ret, thresh = cv2.threshold(gray, 127, 255, 0)
+    contours, _ = cv2.findContours(thresh, 1, 2)
+    x, y, width, height = 0, 0, 0, 0
+    area = 0
+    for contour in contours:
+        _x, _y, _w, _h = cv2.boundingRect(contour)
+        _area = _w * _h
+        if _area > area:
+            area = _area
+            x, y, width, height = _x, _y, _w, _h
+
+    return (x, y, width, height)
+
+def max_inscribed_rect(image:Image) -> tuple:
+    img = pil2cv2(image)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    ret, img_bin = cv2.threshold(img_gray, 127, 255, cv2.THRESH_BINARY)
+    contours, _ = cv2.findContours(img_bin, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+    contour = contours[0].reshape(len(contours[0]), 2)
+    rect = []
+    for i in range(len(contour)):
+        x1, y1 = contour[i]
+        for j in range(len(contour)):
+            x2, y2 = contour[j]
+            area = abs(y2 - y1) * abs(x2 - x1)
+            rect.append(((x1, y1), (x2, y2), area))
+    all_rect = sorted(rect, key=lambda x: x[2], reverse=True)
+    if all_rect:
+        best_rect_found = False
+        index_rect = 0
+        nb_rect = len(all_rect)
+        while not best_rect_found and index_rect < nb_rect:
+            rect = all_rect[index_rect]
+            (x1, y1) = rect[0]
+            (x2, y2) = rect[1]
+            valid_rect = True
+            x = min(x1, x2)
+            while x < max(x1, x2) + 1 and valid_rect:
+                if any(img[y1, x]) == 0 or any(img[y2, x]) == 0:
+                    valid_rect = False
+                x += 1
+            y = min(y1, y2)
+            while y < max(y1, y2) + 1 and valid_rect:
+                if any(img[y, x1]) == 0 or any(img[y, x2]) == 0:
+                    valid_rect = False
+                y += 1
+            if valid_rect:
+                best_rect_found = True
+            index_rect += 1
+    #较小的数值排前面
+    log(f"x1={x1}, y1={y1},x2={x2}, y2={y2}")
+    x1, y1, x2, y2 = min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
+    return (x1, y1, x2 - x1, y2 - y1)
 
 '''Color Functions'''
 
