@@ -39,9 +39,9 @@ class XYtoPercent:
         return (x_percent, y_percent,)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerUtility: X,Y to Percent": XYtoPercent
+    "LayerUtility: XY to Percent": XYtoPercent
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerUtility: X,Y to Percent": "LayerUtility: X,Y to Percent"
+    "LayerUtility: XY to Percent": "LayerUtility: XY to Percent"
 }
