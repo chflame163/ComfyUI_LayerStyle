@@ -13,7 +13,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 
 ## Update
 * Commit [GetColorTone](#GetColorTone) node, can obtain the main color or average color of the image. 
-Commit [MaskGrow](#MaskGrow) and [MaskEdgeShink](#MaskEdgeShrink) nodes.
+Commit [MaskGrow](#MaskGrow) and [MaskEdgeShrink](#MaskEdgeShrink) nodes.
 * Commit [MaskBoxDetect](#MaskBoxDetect) node, which can automatically detect the position through the mask and output it to the composite node.
 Commit [XY to Percent](#Percent) node to convert absolute coordinates to percent coordinates.
 Commit [GaussianBlur](#GaussianBlur) node.
