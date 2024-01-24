@@ -1,9 +1,5 @@
 from .imagefunc import *
 
-def process(image:Image) -> Image:
-
-    return image
-
 class XYtoPercent:
 
     def __init__(self):

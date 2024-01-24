@@ -1,8 +1,6 @@
 
 from .imagefunc import Hex_to_RGB
 
-mode_list = ['HEX', 'DEC']
-
 class ColorPicker:
 
     def __init__(self):
@@ -10,7 +8,7 @@ class ColorPicker:
 
     @classmethod
     def INPUT_TYPES(self):
-
+        mode_list = ['HEX', 'DEC']
         return {
             "required": {
                 "color": ("COLOR", {"default": "#FFFFFF"},),

@@ -12,10 +12,12 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
-* Commit [MaskBoxDetect](#MaskBoxDetect)node, which can automatically detect the position through the mask and output it to the composite node.
-Commit [X,Y to Percent](#Percent) node to convert absolute coordinates to percent coordinates.
-Commit [GaussianBlur](#GaussianBlur)node.
-Commit [GetImageSize](#GetImageSize)node.
+* Commit [GetColorTone](#GetColorTone) node, can obtain the main color or average color of the image. 
+Commit [MaskGrow](#MaskGrow) and [MaskEdgeShink](#MaskEdgeShrink) nodes.
+* Commit [MaskBoxDetect](#MaskBoxDetect) node, which can automatically detect the position through the mask and output it to the composite node.
+Commit [XY to Percent](#Percent) node to convert absolute coordinates to percent coordinates.
+Commit [GaussianBlur](#GaussianBlur) node.
+Commit [GetImageSize](#GetImageSize) node.
 * Commit [ExtendCanvas](#ExtendCanvas) node.
 * Commit [ImageBlendAdvance](#ImageBlendAdvance) node. This node allows for the synthesis of background images and layers of different sizes, providing a more free synthesis experience. 
 Commit [PrintInfo](#PrintInfo) node as a workflow debugging aid.
@@ -173,7 +175,6 @@ Node options:
 
 
 
-
 # <a id="table1">LayerMask</a>
 ![image](image/layermask_nodes.png)
 
@@ -196,6 +197,30 @@ Output:
 * height: Height.
 * x: The x-coordinate of the top left corner position.
 * y: The y-coordinate of the top left corner position.
+
+
+### <a id="table1">MaskGrow</a>
+Grow and shrink edges and blur the mask
+
+Node options:
+![image](image/mask_grow_node.png)
+* invert_mask: Whether to reverse the mask.
+* grow: Positive values expand outward, while negative values contract inward.
+* blur: Blur the edge.
+
+### <a id="table1">MaskEdgeShrink</a>
+Smooth transition and shrink the mask edges while preserving edge details.
+
+Node options:
+![image](image/mask_edge_shrink_node.png)
+* invert_mask: Whether to reverse the mask.
+* shrink_level: Shrink the smoothness level.
+* soft: Smooth amplitude.
+* edge_shrink: Edge shrinkage amplitude.
+* edge_reserve: Preserve the amplitude of edge details, 100 represents complete preservation, and 0 represents no preservation at all.
+
+Comparison of MaskGrow and MaskEdgeShrink
+![image](image/mask_edge_compare.png)
 
 
 ### <a id="table1">MaskPreview</a>
@@ -270,7 +295,18 @@ Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Se
 Node options:
 * mode： The output format is available in hexadecimal (HEX) and decimal (DEC).  
 
-Output Type： 
+Output type: 
+* string
+
+### <a id="table1">GetColorTone</a>
+Obtain the main color or average color from the image and output RGB values.
+![image](image/get_color_tone_example.png)
+
+Node options:
+![image](image/get_color_tone_node.png)
+* mode： There are two modes to choose from, with the main color and average color.
+
+Output type:
 * string
 
 ### <a id="table1">ExtendCanvas</a>
@@ -286,7 +322,7 @@ Node options:
 * right: Right extension value.
 * color; Color of canvas.
 
-### X,Y to <a id="table1">Percent</a>
+### XY to <a id="table1">Percent</a>
 ![image](image/xy2percent_example.png)
 Convert absolute coordinates to percentage coordinates.
 
@@ -337,27 +373,26 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 ## The following tasks are in the planned list
 
  LayerUtility:
-* color image
-* gradient image
 * image channel split
 * image channel merge
 
 LayerMask:
 * text mask
-* gradient mask
-* mask grow&blur
 * mask subtract
 * mask combine
 * mask diffrent
 * mask gradient
-* mask softedge
 
 LayerFilter:
-* blur
 * emboss
 * contour
 * findedge
 
+LayerColor:
+RGB adjust
+HSV adjust
+brightness & contrast adjust
+LUT apply
 
 ## How to install 
 

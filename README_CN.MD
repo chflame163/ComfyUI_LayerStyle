@@ -9,7 +9,8 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
-* 添加[MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[X,Y to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
+* 添加[GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShink](#MaskEdgeShrink)节点。
+* 添加[MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[XY to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
 * 添加[ExtendCanvas](#ExtendCanvas)节点。
 * 添加[ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
   添加[PrintInfo](#PrintInfo)节点作为工作流调试辅助工具。
@@ -190,6 +191,28 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * x: 左上角位置x坐标输出。
 * y: 左上角位置y坐标输出。
 
+### <a id="table1">MaskGrow</a>
+对mask进行扩张收缩边缘和模糊处理
+
+节点选项说明:  
+![image](image/mask_grow_node.png)
+* invert_mask: 是否反转遮罩。
+* grow: 扩张幅度。正值是向外扩张，负值是向内收缩。
+* blur: 模糊。
+
+### <a id="table1">MaskEdgeShrink</a>
+使mask边缘平滑地过渡收缩，并保留边缘细节。
+
+节点选项说明:  
+![image](image/mask_edge_shrink_node.png)
+* invert_mask: 是否反转遮罩。
+* shrink_level: 收缩平滑级别。
+* soft: 平滑幅度。
+* edge_shrink: 边缘收缩幅度。
+* edge_reserve: 保留边缘细节幅度, 100为完全保留，0为完全不保留。
+
+MaskGrow与MaskEdgeShrink效果对比
+![image](image/mask_edge_compare.png)
 
 ### <a id="table1">MaskPreview</a>
 预览mask
@@ -267,6 +290,17 @@ mask反转
 输出:
 * string
 
+### <a id="table1">GetColorTone</a>
+从图片中获取主颜色或平均色。
+![image](image/get_color_tone_example.png)
+
+节点选项说明:
+![image](image/get_color_tone_node.png)
+* mode： 模式，有两种可选择，主颜色main_color和平均色average。
+
+输出:
+* string
+
 ### <a id="table1">ExtendCanvas</a>
 扩展画布。
 ![image](image/extend_canvas_example.png)
@@ -280,7 +314,7 @@ mask反转
 * right: 右侧扩展值。
 * color; 画布颜色
 
-### X,Y to <a id="table1">Percent</a>
+### XY to <a id="table1">Percent</a>
 ![image](image/xy2percent_example.png)
 将绝对坐标转换为百分比坐标。
 
@@ -333,25 +367,26 @@ mask反转
 ## 以下工作计划中
 
  LayerUtility:
-* color image
-* gradient image
 * image channel split
 * image channel merge
 
 LayerMask:
 * text mask
-* gradient mask
-* mask grow&blur
 * mask subtract
 * mask combine
 * mask diffrent
 * mask gradient
-* mask softedge
 
 LayerFilter:
 * emboss
 * contour
 * findedge
+
+LayerColor:
+RGB adjust
+HSV adjust
+brightness & contrast adjust
+LUT apply
 
 ## 安装方法
 

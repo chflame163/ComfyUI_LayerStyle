@@ -7,6 +7,7 @@ import scipy.ndimage
 import cv2
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw
+import colorsys
 
 def log(message):
     name = 'LayerStyle'
@@ -213,6 +214,42 @@ def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, 
     draw.rectangle((x, y, x + width, y + height), fill=box_color, outline=line_color, width=line_width, )
     return image
 
+def get_image_color_tone(image:Image) -> str:
+    image = image.convert('RGB')
+    max_score = 0.0001
+    dominant_color = None
+    for count, (r, g, b) in image.getcolors(image.size[0] * image.size[1]):
+        saturation = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)[1]
+        y = min(abs(r * 2104 + g * 4130 + b * 802 + 4096 + 131072) >> 13,235)
+        y = (y - 16.0) / (235 - 16)
+        if y>0.9:
+            continue
+        score = (saturation+0.1)*count
+        if score > max_score:
+            max_score = score
+            dominant_color = (r, g, b)
+        ret_color = RGB_to_Hex(dominant_color)
+    return ret_color
+
+def get_image_color_average(image:Image) -> str:
+    image = image.convert('RGB')
+    width, height = image.size
+    total_red = 0
+    total_green = 0
+    total_blue = 0
+    for y in range(height):
+        for x in range(width):
+            rgb = image.getpixel((x, y))
+            total_red += rgb[0]
+            total_green += rgb[1]
+            total_blue += rgb[2]
+
+    average_red = total_red // (width * height)
+    average_green = total_green // (width * height)
+    average_blue = total_blue // (width * height)
+    color = (average_red, average_green, average_blue)
+    ret_color = RGB_to_Hex(color)
+    return ret_color
 
 '''Mask Functions'''
 
