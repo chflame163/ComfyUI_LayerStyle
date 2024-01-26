@@ -149,7 +149,8 @@ def __rotate_expand(image:Image, angle:float, SSAA:int=0, method:str="lanczos") 
             resize_sampler = Image.NEAREST
             rotate_sampler = Image.NEAREST
         if SSAA > 1:
-            img = tensor.tensor_to_image()
+            # img = tensor.tensor_to_image()
+            img = tensor2pil(tensor)
             img_us_scaled = img.resize((width * SSAA, height * SSAA), resize_sampler)
             img_rotated = img_us_scaled.rotate(angle, rotate_sampler, expand == "true", fillcolor=(0, 0, 0, 0))
             img_down_scaled = img_rotated.resize((img_rotated.width // SSAA, img_rotated.height // SSAA), resize_sampler)
