@@ -27,6 +27,15 @@ app.registerExtension({
   name: 'mtb.Debug',
   async beforeRegisterNodeDef(nodeType, nodeData, app) {
     if (nodeData.name === 'Debug (mtb)') {
+      const onNodeCreated = nodeType.prototype.onNodeCreated
+      nodeType.prototype.onNodeCreated = function () {
+        const r = onNodeCreated
+          ? onNodeCreated.apply(this, arguments)
+          : undefined
+        this.addInput(`anything_1`, '*')
+        return r
+      }
+
       const onConnectionsChange = nodeType.prototype.onConnectionsChange
       nodeType.prototype.onConnectionsChange = function (
         type,
@@ -66,11 +75,14 @@ app.registerExtension({
           // const pos = this.widgets.findIndex((w) => w.name === "anything_1");
           // if (pos !== -1) {
           for (let i = 0; i < this.widgets.length; i++) {
-            this.widgets[i].onRemoved?.()
+            if (this.widgets[i].name !== 'output_to_console') {
+              this.widgets[i].onRemoved?.()
+            }
           }
-          this.widgets.length = 0
+          this.widgets.length = 1
         }
         let widgetI = 1
+
         if (message.text) {
           for (const txt of message.text) {
             const w = this.addCustomWidget(
@@ -100,6 +112,7 @@ app.registerExtension({
             if (this.widgets[y].canvas) {
               this.widgets[y].canvas.remove()
             }
+            shared.cleanupNode(this)
             this.widgets[y].onRemoved?.()
           }
         }

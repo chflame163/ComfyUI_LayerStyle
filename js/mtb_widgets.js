@@ -7,10 +7,12 @@
  *
  */
 
+// TODO: Use the builtin addDOMWidget everywhere appropriate
+
 import { app } from '../../scripts/app.js'
 import { api } from '../../scripts/api.js'
 
-import parseCss from './parse-css.js'
+import parseCss from './extern/parse-css.js'
 import * as shared from './comfy_shared.js'
 import { log } from './comfy_shared.js'
 
@@ -193,7 +195,7 @@ export const MtbWidgets = {
                     try {
                       //solve the equation if possible
                       v = eval(v)
-                    } catch (e) {}
+                    } catch (e) { }
                   }
                   this.value = Number(v)
                   shared.inner_value_change(this, this.value, event)
@@ -417,7 +419,7 @@ const mtb_widgets = {
   setup: () => {
     app.ui.settings.addSetting({
       id: 'mtb.Debug.enabled',
-      name: '[mtb] Enable Debug (py and js)',
+      name: '[⚡mtb] Enable Debug (py and js)',
       type: 'boolean',
       defaultValue: false,
 
@@ -443,7 +445,7 @@ const mtb_widgets = {
               enabled: value,
             }),
           })
-          .then((response) => {})
+          .then((response) => { })
           .catch((error) => {
             console.error('Error:', error)
           })
@@ -559,6 +561,10 @@ const mtb_widgets = {
 
         return r
       }
+    }
+
+    if (!nodeData.name.endsWith('(mtb)')) {
+      return
     }
 
     //- Extending Python Nodes
@@ -717,8 +723,7 @@ const mtb_widgets = {
             onReset() // this could maybe be a setting or checkbox
             app.queuePrompt(0, total_frames.value * loop_count.value)
             window.MTB?.notify?.(
-              `Started a queue of ${total_frames.value} frames (for ${
-                loop_count.value
+              `Started a queue of ${total_frames.value} frames (for ${loop_count.value
               } loop, so ${total_frames.value * loop_count.value})`,
               5000
             )
@@ -733,16 +738,14 @@ const mtb_widgets = {
             this.value++
             raw_loop.value = Math.floor(this.value / total_frames.value)
 
-            value_preview.value = `frame: ${
-              raw_iteration.value % total_frames.value
-            } / ${total_frames.value - 1}`
+            value_preview.value = `frame: ${raw_iteration.value % total_frames.value
+              } / ${total_frames.value - 1}`
 
             if (raw_loop.value + 1 > loop_count.value) {
               loop_preview.value = 'Done 😎!'
             } else {
-              loop_preview.value = `current loop: ${raw_loop.value + 1}/${
-                loop_count.value
-              }`
+              loop_preview.value = `current loop: ${raw_loop.value + 1}/${loop_count.value
+                }`
             }
           }
 
@@ -873,6 +876,71 @@ const mtb_widgets = {
             },
           ]
           options.push(...extracters)
+        }
+
+        break
+      }
+      case 'Add To Playlist (mtb)': {
+        shared.setupDynamicConnections(nodeType, 'video', 'VIDEO')
+        break
+      }
+      case 'Stack Images (mtb)':
+      case 'Concat Images (mtb)': {
+        shared.setupDynamicConnections(nodeType, 'image', 'IMAGE')
+
+        break
+      }
+      case 'Batch Float Assemble (mtb)':
+      case 'Plot Batch Float (mtb)': {
+        shared.setupDynamicConnections(nodeType, 'floats', 'FLOATS')
+        break
+      }
+      case 'Batch Merge (mtb)': {
+        shared.setupDynamicConnections(nodeType, 'batches', 'IMAGE')
+
+        break
+      }
+      // TODO: remove this, recommend pythongoss's version that is much better
+      case 'Math Expression (mtb)': {
+        const onNodeCreated = nodeType.prototype.onNodeCreated
+        nodeType.prototype.onNodeCreated = function () {
+          const r = onNodeCreated
+            ? onNodeCreated.apply(this, arguments)
+            : undefined
+          this.addInput(`x`, '*')
+          return r
+        }
+
+        const onConnectionsChange = nodeType.prototype.onConnectionsChange
+        nodeType.prototype.onConnectionsChange = function (
+          type,
+          index,
+          connected,
+          link_info
+        ) {
+          const r = onConnectionsChange
+            ? onConnectionsChange.apply(this, arguments)
+            : undefined
+          shared.dynamic_connection(this, index, connected, 'var_', '*', [
+            'x',
+            'y',
+            'z',
+          ])
+
+          //- infer type
+          if (link_info) {
+            const fromNode = this.graph._nodes.find(
+              (otherNode) => otherNode.id == link_info.origin_id
+            )
+            const type = fromNode.outputs[link_info.origin_slot].type
+            this.inputs[index].type = type
+            // this.inputs[index].label = type.toLowerCase()
+          }
+          //- restore dynamic input
+          if (!connected) {
+            this.inputs[index].type = '*'
+            this.inputs[index].label = `number_${index + 1}`
+          }
         }
 
         break
