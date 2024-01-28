@@ -12,6 +12,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [ChannelShake](#ChannelShake) node, that is filter, can produce channel dislocation effect similar like Tiktok logo.
 * Commit [MaskGradient](#MaskGradient) node, can create a gradient in the mask.
 * Commit [GetColorTone](#GetColorTone) node, can obtain the main color or average color of the image. 
 Commit [MaskGrow](#MaskGrow) and [MaskEdgeShrink](#MaskEdgeShrink) nodes.
@@ -385,6 +386,16 @@ This node allows any type of input.
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
 
+
+### <a id="table1">ChannelShake</a>
+Channel misalignment. similar to the effect of Tiktok logo.
+![image](image/channel_shake_example.png)
+
+Node options:
+![image](image/channel_shake_node.png)
+* distance: Distance of channel separation.
+* angle: Angle of channel separation.
+* mode: Channel shift arrangement order.
 
 ### <a id="table1">MotionBlur</a>
 Make the image motion blur
