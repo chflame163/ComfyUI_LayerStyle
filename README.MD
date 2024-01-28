@@ -353,9 +353,9 @@ Generate an image of a specified color and size.
 
 ![image](image/color_image_node.png)
 Node options:
-width: Width of the image.
-height: Height of the image.
-color<sup>4</sup>: Color of the image.
+* width: Width of the image.
+* height: Height of the image.
+* color<sup>4</sup>: Color of the image.
 
 ### <a id="table1">GradientImage</a>
 ![image](image/gradient_image_example.png)
@@ -363,11 +363,11 @@ Generate an image with a specified size and color gradient.
 
 ![image](image/gradient_image_node.png)
 Node options:
-width: Width of the image.
-height: Height of the image.
-angle: Angle of gradient.
-start_color<sup>4</sup>: Color of the begging.
-end_color<sup>4</sup>: Color of the ending.
+* width: Width of the image.
+* height: Height of the image.
+* angle: Angle of gradient.
+* start_color<sup>4</sup>: Color of the begging.
+* end_color<sup>4</sup>: Color of the ending.
 
 
 ### <a id="table1">GetImageSize</a>
@@ -433,10 +433,9 @@ LayerFilter:
 * findedge
 
 LayerColor:
-RGB adjust
-HSV adjust
-brightness & contrast adjust
-LUT apply
+* RGB adjust
+* HSV adjust
+* brightness & contrast adjust
 
 ## How to install 
 

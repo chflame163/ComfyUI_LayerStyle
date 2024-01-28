@@ -345,9 +345,9 @@ mask反转
 
 ![image](image/color_image_node.png)
 节点选项说明:
-width: 图像宽度。
-height: 图像高度。
-color<sup>4</sup>: 颜色。
+* width: 图像宽度。
+* height: 图像高度。
+* color<sup>4</sup>: 颜色。
 
 ### <a id="table1">GradientImage</a>
 ![image](image/gradient_image_example.png)
@@ -355,11 +355,11 @@ color<sup>4</sup>: 颜色。
 
 ![image](image/gradient_image_node.png)
 节点选项说明:
-width: 图像宽度。
-height: 图像高度。
-angle: 渐变角度。
-start_color<sup>4</sup>: 开始端颜色。
-end_color<sup>4</sup>: 结束端颜色。
+* width: 图像宽度。
+* height: 图像高度。
+* angle: 渐变角度。
+* start_color<sup>4</sup>: 开始端颜色。
+* end_color<sup>4</sup>: 结束端颜色。
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)
@@ -420,10 +420,10 @@ LayerFilter:
 * findedge
 
 LayerColor:
-RGB adjust
-HSV adjust
-brightness & contrast adjust
-LUT apply
+* RGB adjust
+* HSV adjust
+* brightness & contrast adjust
+
 
 ## 安装方法
 
