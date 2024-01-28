@@ -9,6 +9,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[MaskGradient](#MaskGradient)节点，可使mask产生渐变。
 * 添加[GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
 * 添加[MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[XY to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
 * 添加[ExtendCanvas](#ExtendCanvas)节点。
@@ -213,6 +214,18 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 MaskGrow与MaskEdgeShrink效果对比
 ![image](image/mask_edge_compare.png)
+
+### <a id="table1">MaskGradient</a>
+使mask从一侧产生渐变。
+![image](image/mask_gradient_example.png)
+
+节点选项说明:  
+![image](image/mask_gradient_node.png)
+* invert_mask: 是否反转遮罩。
+* gradient_side: 从哪个边产生渐变。有四个方向：顶侧top、底侧bottom、左侧left、右侧right。
+* gradient_scale: 渐变距离。默认值100表示渐变产生一侧完全透明，另一侧完全不透明。数值越小，从透明到不透明的距离越短。
+* gradient_offset: 渐变位置偏移。
+* opacity: 渐变的不透明度。
 
 ### <a id="table1">MaskPreview</a>
 预览mask

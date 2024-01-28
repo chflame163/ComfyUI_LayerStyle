@@ -188,7 +188,7 @@ def create_gradient(start_color_inhex:str, end_color_inhex:str, width:int, heigh
         draw.line((0, i, width, i), fill=color)
     return ret_image
 
-def gradint(start_color_inhex:str, end_color_inhex:str, width:int, height:int, angle:float, ) -> Image:
+def gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, angle:float, ) -> Image:
     radius = int((width + height) / 4)
     g = create_gradient(start_color_inhex, end_color_inhex, radius, radius)
     _canvas = Image.new('RGB', size=(radius, radius*3), color=start_color_inhex)

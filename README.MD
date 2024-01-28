@@ -12,6 +12,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [MaskGradient](#MaskGradient) node, can create a gradient in the mask.
 * Commit [GetColorTone](#GetColorTone) node, can obtain the main color or average color of the image. 
 Commit [MaskGrow](#MaskGrow) and [MaskEdgeShrink](#MaskEdgeShrink) nodes.
 * Commit [MaskBoxDetect](#MaskBoxDetect) node, which can automatically detect the position through the mask and output it to the composite node.
@@ -221,6 +222,19 @@ Node options:
 
 Comparison of MaskGrow and MaskEdgeShrink
 ![image](image/mask_edge_compare.png)
+
+
+### <a id="table1">MaskGradient</a>
+Create a gradient for the mask from one side.
+![image](image/mask_gradient_example.png)
+
+Node options:
+![image](image/mask_gradient_node.png)
+* invert_mask: Whether to reverse the mask.
+* gradient_side: Generate gradient from which edge. There are four directions: top, bottom, left and right.
+* gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
+* gradient_offset: Gradient position offset.
+* opacity: The opacity of the gradient.
 
 
 ### <a id="table1">MaskPreview</a>

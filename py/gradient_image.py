@@ -28,7 +28,7 @@ class GradientImage:
 
     def gradient_image(self, width, height, angle, start_color, end_color, ):
 
-        ret_image = gradint(start_color, end_color, width, height, angle)
+        ret_image = gradient(start_color, end_color, width, height, angle)
 
         return (pil2tensor(ret_image), )
 

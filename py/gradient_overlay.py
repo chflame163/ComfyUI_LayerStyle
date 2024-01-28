@@ -54,7 +54,7 @@ class GradientOverlay:
             _mask = Image.new('L', _layer.size, 'white')
             log('Warning: mask mismatch, droped!')
 
-        _gradient = gradint(start_color, end_color, _layer.width, _layer.height, float(angle))
+        _gradient = gradient(start_color, end_color, _layer.width, _layer.height, float(angle))
 
         # 合成layer
         _comp = chop_image(_layer, _gradient, blend_mode, opacity)
