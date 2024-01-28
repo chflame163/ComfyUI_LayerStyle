@@ -11,10 +11,12 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 ## 更新说明
 * 添加[MaskGradient](#MaskGradient)节点，可使mask产生渐变。
 * 添加[GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
+
 * 添加[MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[XY to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
 * 添加[ExtendCanvas](#ExtendCanvas)节点。
 * 添加[ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
   添加[PrintInfo](#PrintInfo)节点作为工作流调试辅助工具。
+* 添加[ColorImage](#ColorImage)和[GradientImage](#GradientImage)节点，用于生成纯色和渐变色图像。
 * 添加[GradientOverlay](#GradientOverlay),[ColorOverlay](#ColorOverlay)节点。增加无效mask输入判断，当输入无效mask时将其忽略。
 * 添加[InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow), [MotionBlur](#MotionBlur)节点。
 * 所有已完成的节点重新命名，节点分为4组：LayerStyle, LayerMask, LayerUtility, LayerFilter。
@@ -336,6 +338,28 @@ mask反转
 * x: 坐标x值。
 * y: 坐标y值。
 
+### <a id="table1">ColorImage</a>
+![image](image/color_image_example.png)
+生成一张指定颜色和大小的图片。
+
+![image](image/color_image_node.png)
+节点选项说明:
+width: 图像宽度。
+height: 图像高度。
+color<sup>4</sup>: 颜色。
+
+### <a id="table1">GradientImage</a>
+![image](image/gradient_image_example.png)
+生成一张指定大小和指定颜色渐变的图片。
+
+![image](image/gradient_image_node.png)
+节点选项说明:
+width: 图像宽度。
+height: 图像高度。
+angle: 渐变角度。
+start_color<sup>4</sup>: 开始端颜色。
+end_color<sup>4</sup>: 结束端颜色。
+
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)
 获取图片的宽度和高度。
@@ -369,8 +393,8 @@ mask反转
 ## <a id="table1">节点注解</a>
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
-<sup>3</sup>: 混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
-<sup>4</sup>: 颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
+<sup>3</sup>  混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
+<sup>4</sup>  颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
 <sup>5</sup>  image和mask这两项必须是相同的尺寸。
 
 ## 使用示例
@@ -388,7 +412,6 @@ LayerMask:
 * mask subtract
 * mask combine
 * mask diffrent
-* mask gradient
 
 LayerFilter:
 * emboss

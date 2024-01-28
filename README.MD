@@ -22,6 +22,7 @@ Commit [GetImageSize](#GetImageSize) node.
 * Commit [ExtendCanvas](#ExtendCanvas) node.
 * Commit [ImageBlendAdvance](#ImageBlendAdvance) node. This node allows for the synthesis of background images and layers of different sizes, providing a more free synthesis experience. 
 Commit [PrintInfo](#PrintInfo) node as a workflow debugging aid.
+* Commit [ColorImage](#ColorImage) and [GradientImage](#GradientImage) nodes, Used to generate solid and gradient color images.
 * Commit [GradientOverlay](#GradientOverlay) and [ColorOverlay](#ColorOverlay) nodes. 
 Add invalid mask input judgment and ignore it when invalid mask is input.
 * Commit [InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow) and [MotionBlur](#MotionBlur) nodes.
@@ -345,6 +346,29 @@ Node options:
 * x: Value of X
 * y: Value of Y
 
+### <a id="table1">ColorImage</a>
+![image](image/color_image_example.png)
+Generate an image of a specified color and size.
+
+![image](image/color_image_node.png)
+Node options:
+width: Width of the image.
+height: Height of the image.
+color<sup>4</sup>: Color of the image.
+
+### <a id="table1">GradientImage</a>
+![image](image/gradient_image_example.png)
+Generate an image with a specified size and color gradient.
+
+![image](image/gradient_image_node.png)
+Node options:
+width: Width of the image.
+height: Height of the image.
+angle: Angle of gradient.
+start_color<sup>4</sup>: Color of the begging.
+end_color<sup>4</sup>: Color of the ending.
+
+
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)
 Obtain the width and height of the image.
@@ -369,6 +393,12 @@ Node options:
 * angle: The angle of blur.
 * blur: The size of blur.
 
+### <a id="table1">GaussianBlur</a>
+Make the image gaussian blur
+![image](image/gaussian_blur_example.png)
+
+Node options:
+* blur: The size of blur.
 
 ## Annotation for <a id="table1">notes</a>
 <sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.
@@ -395,7 +425,6 @@ LayerMask:
 * mask subtract
 * mask combine
 * mask diffrent
-* mask gradient
 
 LayerFilter:
 * emboss
