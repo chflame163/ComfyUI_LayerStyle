@@ -9,6 +9,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[ChannelShake](#ChannelShake)节点，这是一个滤镜，能产生类似抖音logo的通道错位效果。
 * 添加[MaskGradient](#MaskGradient)节点，可使mask产生渐变。
 * 添加[GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
 
@@ -375,6 +376,16 @@ mask反转
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
 
+
+### <a id="table1">ChannelShake</a>
+通道错位。类似抖音logo的效果。
+![image](image/channel_shake_example.png)
+
+节点选项说明:
+![image](image/channel_shake_node.png)
+* distance: 通道分离的距离。
+* angle: 通道分离的角度。
+* mode: 通道错位排列顺序。
 
 ### <a id="table1">MotionBlur</a>
 运动模糊。
