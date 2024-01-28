@@ -33,6 +33,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 
 # <a id="table1">LayerStyle</a>
+![image](image/layerstyle_title.png)
 ![image](image/layerstyle_nodes.png)
 
 

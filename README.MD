@@ -40,6 +40,7 @@ Add invalid mask input judgment and ignore it when invalid mask is input.
 
 
 # <a id="table1">LayerStyle</a>
+![image](image/layerstyle_title.png)
 ![image](image/layerstyle_nodes.png)
 
 
