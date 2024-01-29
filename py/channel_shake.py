@@ -14,7 +14,7 @@ class ChannelShake:
             "required": {
                 "image": ("IMAGE", ),  #
                 "distance": ("INT", {"default": 20, "min": 1, "max": 999, "step": 1}),  # 距离
-                "angle": ("FLOAT", {"default": 40, "min": -360, "max": 360, "step": 0.01}),  # 角度
+                "angle": ("FLOAT", {"default": 40, "min": -360, "max": 360, "step": 0.1}),  # 角度
                 "mode": (channel_mode,),  # 模式
             },
             "optional": {

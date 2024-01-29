@@ -250,6 +250,19 @@ def get_image_color_average(image:Image) -> str:
     ret_color = RGB_to_Hex(color)
     return ret_color
 
+def get_image_bright_average(image:Image) -> int:
+    image = image.convert('L')
+    width, height = image.size
+    total_bright = 0
+    pixels = 0
+    for y in range(height):
+        for x in range(width):
+            b = image.getpixel((x, y))
+            if b > 1:  # 排除死黑
+                pixels += 1
+                total_bright += b
+    return int(total_bright / pixels)
+
 '''Mask Functions'''
 
 def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
@@ -344,6 +357,17 @@ def max_inscribed_rect(image:Image) -> tuple:
     log(f"x1={x1}, y1={y1},x2={x2}, y2={y2}")
     x1, y1, x2, y2 = min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
     return (x1, y1, x2 - x1, y2 - y1)
+
+def gray_threshold(image:Image, thresh:int=127, otsu:bool=False) -> Image:
+    cv2_image = pil2cv2(image)
+    gray = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2GRAY)
+    if otsu:
+        _, thresh =  cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    else:
+        _, thresh = cv2.threshold(gray, thresh, 255, cv2.THRESH_TOZERO)
+
+    return cv22pil(thresh).convert('L')
+
 
 '''Color Functions'''
 

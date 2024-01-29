@@ -9,6 +9,8 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[MaskMotionBlur](#MaskMotionBlur)节点。
+* 添加[SoftLight](#SoftLight)节点。
 * 添加[ChannelShake](#ChannelShake)节点，这是一个滤镜，能产生类似抖音logo的通道错位效果。
 * 添加[MaskGradient](#MaskGradient)节点，可使mask产生渐变。
 * 添加[GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
@@ -198,6 +200,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 ### <a id="table1">MaskGrow</a>
 对mask进行扩张收缩边缘和模糊处理
+![image](image/mask_grow_example.png)
 
 节点选项说明:  
 ![image](image/mask_grow_node.png)
@@ -207,6 +210,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 ### <a id="table1">MaskEdgeShrink</a>
 使mask边缘平滑地过渡收缩，并保留边缘细节。
+![image](image/mask_edge_shrink_example.png)
 
 节点选项说明:  
 ![image](image/mask_edge_shrink_node.png)
@@ -218,6 +222,16 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 
 MaskGrow与MaskEdgeShrink效果对比
 ![image](image/mask_edge_compare.png)
+
+### <a id="table1">MaskMotionBlur</a>
+使mask产生运动模糊。
+![image](image/mask_motion_blur_example.png)
+
+节点选项说明:  
+![image](image/mask_motion_blur_node.png)
+* invert_mask: 是否反转遮罩。
+* blur: 模糊大小。
+* angle: 模糊角度。
 
 ### <a id="table1">MaskGradient</a>
 使mask从一侧产生渐变。
@@ -377,6 +391,16 @@ mask反转
 ![image](image/layerfilter_nodes.png)
 
 
+### <a id="table1">SoftLight</a>
+柔光效果。
+![image](image/soft_light_example.png)
+
+节点选项说明:
+![image](image/soft_light_node.png)
+* soft: 柔光大小。
+* threshold: 柔光范围。柔光从画面最明亮的部分呈现。数值越低范围越大，越高范围越小。
+* opacity: 柔光的不透明度。
+
 ### <a id="table1">ChannelShake</a>
 通道错位。类似抖音logo的效果。
 ![image](image/channel_shake_example.png)
@@ -421,9 +445,6 @@ mask反转
 
 LayerMask:
 * text mask
-* mask subtract
-* mask combine
-* mask diffrent
 
 LayerFilter:
 * emboss

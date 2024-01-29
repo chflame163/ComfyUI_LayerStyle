@@ -12,6 +12,8 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [MaskMotionBlur](#MaskMotionBlur) node.
+* Commit [SoftLight](#SoftLight) node.
 * Commit [ChannelShake](#ChannelShake) node, that is filter, can produce channel dislocation effect similar like Tiktok logo.
 * Commit [MaskGradient](#MaskGradient) node, can create a gradient in the mask.
 * Commit [GetColorTone](#GetColorTone) node, can obtain the main color or average color of the image. 
@@ -205,6 +207,7 @@ Output:
 
 ### <a id="table1">MaskGrow</a>
 Grow and shrink edges and blur the mask
+![image](image/mask_grow_example.png)
 
 Node options:
 ![image](image/mask_grow_node.png)
@@ -214,6 +217,7 @@ Node options:
 
 ### <a id="table1">MaskEdgeShrink</a>
 Smooth transition and shrink the mask edges while preserving edge details.
+![image](image/mask_edge_shrink_example.png)
 
 Node options:
 ![image](image/mask_edge_shrink_node.png)
@@ -226,6 +230,15 @@ Node options:
 Comparison of MaskGrow and MaskEdgeShrink
 ![image](image/mask_edge_compare.png)
 
+### <a id="table1">MaskMotionBlur</a>
+Create motion blur on the mask.
+![image](image/mask_motion_blur_example.png)
+
+Node options:  
+![image](image/mask_motion_blur_node.png)
+* invert_mask: Whether to reverse the mask.
+* blur: The size of blur.
+* angle: The angle of blur.
 
 ### <a id="table1">MaskGradient</a>
 Create a gradient for the mask from one side.
@@ -385,6 +398,17 @@ This node allows any type of input.
 
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
+
+
+### <a id="table1">SoftLight</a>
+Soft light effect, the bright highlights on the screen appear blurry.
+![image](image/soft_light_example.png)
+
+Node options:
+![image](image/soft_light_node.png)
+* soft: Size of soft light.
+* threshold: Soft light range. the light appears from the brightest part of the picture. in lower value, the range will be larger, and in higher value, the range will be smaller.
+* opacity: Opacity of the soft light.
 
 
 ### <a id="table1">ChannelShake</a>
