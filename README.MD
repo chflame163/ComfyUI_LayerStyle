@@ -5,6 +5,7 @@ A set of nodes for ComfyUI that generate image like Adobe Photoshop's Layer Styl
 
 Nodes are divided into four groups according to their functions: LayerStyle, LayerMask, LayerUtility and LayerFilter.
 * [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
+* [LayerColor](#LayerColor) node group provides color adjustment functionality.
 * [LayerMask](#LayerMask) nodes provides mask assistance tools.
 * [LayerUtility](#LayerUtility) nodes provides auxiliary nodes related to layer composit tools and workflows.
 * [LayerFilter](#LayerFilter) nodes provides image effect filters.
@@ -12,6 +13,8 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Add [LayerColor](#LayerColor) node group, used to adjust image color. it include [LUT Apply](#LUT), [Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB) adn [HSV](#HSV).
+* Commit [ImageChannelSplit](#ImageChannelSplit) and [ImageChannelMerge](#ImageChannelMerge) nodes.
 * Commit [MaskMotionBlur](#MaskMotionBlur) node.
 * Commit [SoftLight](#SoftLight) node.
 * Commit [ChannelShake](#ChannelShake) node, that is filter, can produce channel dislocation effect similar like Tiktok logo.
@@ -179,6 +182,71 @@ Node options:
 * color: Color of overlay.
 * [note](#notes)
 
+# <a id="table1">LayerColor</a>
+![image](image/layercolor_nodes.png)
+
+### <a id="table1">LUT</a> Apply
+Apply LUT to the image. only supports .cube format.
+
+Node options:  
+![image](image/lut_apply_node.png)
+* LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
+
+<sup>*</sup>LUT folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
+Open the text editing software and find the line starting with "LUT dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
+
+### <a id="table1">Gamma</a>
+Change the gamma value of the image.
+
+Node options:  
+![image](image/gamma_node.png)
+* gamma: Value of the Gamma.
+
+### <a id="table1">Brightness</a> & Contrast
+Change the brightness, contrast, and saturation of the image.
+
+Node options:  
+![image](image/brightness_&_contrast_node.png)
+* brightness: Value of brightness.
+* contrast: Value of contrast.
+* saturation: Value of saturation.
+
+### <a id="table1">RGB</a>
+Adjust the RGB channels of the image.
+
+Node options:  
+![image](image/RGB_node.png)
+* R: R channel.
+* G: G channel.
+* B: B channel.
+
+### <a id="table1">YUV</a>
+Adjust the YUV channels of the image.
+
+Node options:  
+![image](image/YUV_node.png)
+* Y: Y channel.
+* U: U channel.
+* V: V channel.
+
+### <a id="table1">LAB</a>
+Adjust the LAB channels of the image.
+
+Node options:  
+![image](image/LAB_node.png)
+* L: L channel.
+* A: A channel.
+* B: B channel.
+
+### <a id="table1">HSV</a>
+Adjust the HSV channels of the image.
+
+Node options:  
+![image](image/HSV_node.png)
+* H: H channel.
+* S: S channel.
+* V: V channel.
 
 
 # <a id="table1">LayerMask</a>
@@ -383,6 +451,21 @@ Node options:
 * start_color<sup>4</sup>: Color of the begging.
 * end_color<sup>4</sup>: Color of the ending.
 
+### <a id="table1">ImageChannelSplit</a>
+![image](image/image_channel_split_example.png)
+Split the image channel into individual images.
+
+Node options:
+![image](image/image_channel_split_node.png)
+* mode: Channel mode, include RGBA, YCbCr, LAB adn HSV.
+
+### <a id="table1">ImageChannelMerge</a>
+![image](image/image_channel_merge_example.png)
+Merge each channel image into one image.
+
+Node options:
+![image](image/image_channel_merge_node.png)
+* mode: Channel mode, include RGBA, YCbCr, LAB adn HSV.
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)

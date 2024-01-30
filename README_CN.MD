@@ -4,11 +4,14 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 ![image](image/title.png)
 节点按照功能分为4组：LayerStyle, LayerMask, LayerUtility和LayerFilter。
 * [LayerStyle](#LayerStyle)节点组提供仿照Adobe Photoshop的图层样式。
+* [LayerColor](#LayerColor)节点组提供调整颜色功能。
 * [LayerMask](#LayerMask)节点组提供Mask辅助工具。
 * [LayerUtility](#LayerUtility)节点组提供图层合成工具和工作流相关的辅助节点。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[LayerColor](#LayerColor)节点组，用于调整图像颜色。包括[LUT Apply](#LUT)，[Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB)和[HSV](#HSV)。
+* 添加[ImageChannelSplit](#ImageChannelSplit)和[ImageChannelMerge](#ImageChannelMerge)节点。
 * 添加[MaskMotionBlur](#MaskMotionBlur)节点。
 * 添加[SoftLight](#SoftLight)节点。
 * 添加[ChannelShake](#ChannelShake)节点，这是一个滤镜，能产生类似抖音logo的通道错位效果。
@@ -173,7 +176,69 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * color: 覆盖的颜色。
 * [节点注解](#节点注解)
 
+# <a id="table1">LayerColor</a>
+![image](image/layercolor_nodes.png)
 
+### <a id="table1">LUT</a> Apply
+将LUT应用到图像。仅支持.cube格式的LUT文件。
+
+节点选项说明:  
+![image](image/lut_apply_node.png)
+* LUT<sup>*</sup>: 这里列出了LUT文件夹中可用的.cube文件列表，选中的LUT文件将被应用到图像。
+
+<sup>*</sup>LUT文件夹在resource_dir.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。
+
+### <a id="table1">Gamma</a>
+改变图像的Gamma值。
+
+节点选项说明:  
+![image](image/gamma_node.png)
+* gamma: 图像的Gamma值。
+
+### <a id="table1">Brightness</a> & Contrast
+改变图像的亮度、对比度和饱和度。
+
+节点选项说明:  
+![image](image/brightness_&_contrast_node.png)
+* brightness: 图像的亮度。
+* contrast: 图像的对比度。
+* saturation: 图像的色彩饱和度。
+
+### <a id="table1">RGB</a>
+对图像的RGB各通道进行调整。
+
+节点选项说明:  
+![image](image/RGB_node.png)
+* R: 图像的R通道。
+* G: 图像的G通道。
+* B: 图像的B通道。
+
+### <a id="table1">YUV</a>
+对图像的YUV各通道进行调整。
+
+节点选项说明:  
+![image](image/YUV_node.png)
+* Y: 图像的Y通道。
+* U: 图像的U通道。
+* V: 图像的V通道。
+
+### <a id="table1">LAB</a>
+对图像的LAB各通道进行调整。
+
+节点选项说明:  
+![image](image/LAB_node.png)
+* L: 图像的L通道。
+* A: 图像的A通道。
+* B: 图像的B通道。
+
+### <a id="table1">HSV</a>
+对图像的HSV各通道进行调整。
+
+节点选项说明:  
+![image](image/HSV_node.png)
+* H: 图像的H通道。
+* S: 图像的S通道。
+* V: 图像的V通道。
 
 # <a id="table1">LayerMask</a>
 ![image](image/layermask_nodes.png)
@@ -375,6 +440,22 @@ mask反转
 * angle: 渐变角度。
 * start_color<sup>4</sup>: 开始端颜色。
 * end_color<sup>4</sup>: 结束端颜色。
+
+### <a id="table1">ImageChannelSplit</a>
+![image](image/image_channel_split_example.png)
+将图像通道拆分为单独的图片。
+
+节点选项说明:
+![image](image/image_channel_split_node.png)
+* mode: 通道模式。包含RGBA, YCbCr, LAB和HSV。
+
+### <a id="table1">ImageChannelMerge</a>
+![image](image/image_channel_merge_example.png)
+将各通道合并为一张图片。
+
+节点选项说明:
+![image](image/image_channel_merge_node.png)
+* mode: 通道模式。包含RGBA, YCbCr, LAB和HSV。
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)

@@ -1,6 +1,8 @@
 '''Image process functions for ComfyUI nodes
 by chflame https://github.com/chflame163
 '''
+
+import re
 import numpy as np
 import torch
 import scipy.ndimage
@@ -263,6 +265,111 @@ def get_image_bright_average(image:Image) -> int:
                 total_bright += b
     return int(total_bright / pixels)
 
+def image_channel_split(image:Image, mode = 'RGBA') -> tuple:
+    _image = image.convert('RGBA')
+    channel1 = Image.new('L', size=_image.size, color='black')
+    channel2 = Image.new('L', size=_image.size, color='black')
+    channel3 = Image.new('L', size=_image.size, color='black')
+    channel4 = Image.new('L', size=_image.size, color='black')
+    if mode == 'RGBA':
+        channel1, channel2, channel3, channel4 = _image.split()
+    if mode == 'RGB':
+        channel1, channel2, channel3 = _image.convert('RGB').split()
+    if mode == 'YCbCr':
+        channel1, channel2, channel3 = _image.convert('YCbCr').split()
+    if mode == 'LAB':
+        channel1, channel2, channel3 = _image.convert('LAB').split()
+    if mode == 'HSV':
+        channel1, channel2, channel3 = _image.convert('HSV').split()
+    return channel1, channel2, channel3, channel4
+
+def image_channel_merge(channels:tuple, mode = 'RGB' ) -> Image:
+    channel1 = channels[0].convert('L')
+    channel2 = channels[1].convert('L')
+    channel3 = channels[2].convert('L')
+    channel4 = Image.new('L', size=channel1.size, color='white')
+    if mode == 'RGBA':
+        if len(channels) > 3:
+            channel4 = channels[3].convert('L')
+        ret_image = Image.merge('RGBA',[channel1, channel2, channel3, channel4])
+    elif mode == 'RGB':
+        ret_image = Image.merge('RGB', [channel1, channel2, channel3])
+    elif mode == 'YCbCr':
+        ret_image = Image.merge('YCbCr', [channel1, channel2, channel3]).convert('RGB')
+    elif mode == 'LAB':
+        ret_image = Image.merge('LAB', [channel1, channel2, channel3]).convert('RGB')
+    elif mode == 'HSV':
+        ret_image = Image.merge('HSV', [channel1, channel2, channel3]).convert('RGB')
+    return ret_image
+
+def image_gray_offset(image:Image, offset:int) -> Image:
+    image = image.convert('L')
+    width = image.width
+    height = image.height
+    ret_image = Image.new('L', size=(width, height), color='black')
+    for x in range(width):
+        for y in range(height):
+                pixel = image.getpixel((x, y))
+                _pixel = pixel + offset
+                if _pixel > 255:
+                    _pixel = 255
+                if _pixel < 0:
+                    _pixel = 0
+                ret_image.putpixel((x, y), _pixel)
+    return ret_image
+
+def image_hue_offset(image:Image, offset:int) -> Image:
+    image = image.convert('L')
+    width = image.width
+    height = image.height
+    ret_image = Image.new('L', size=(width, height), color='black')
+    for x in range(width):
+        for y in range(height):
+                pixel = image.getpixel((x, y))
+                _pixel = pixel + offset
+                if _pixel > 255:
+                    _pixel -= 256
+                if _pixel < 0:
+                    _pixel += 256
+                ret_image.putpixel((x, y), _pixel)
+    return ret_image
+
+
+def gamma_trans(image:Image, gamma:float) -> Image:
+    cv2_image = pil2cv2(image)
+    gamma_table = [np.power(x/255.0,gamma)*255.0 for x in range(256)]
+    gamma_table = np.round(np.array(gamma_table)).astype(np.uint8)
+    _corrected = cv2.LUT(cv2_image,gamma_table)
+    return cv22pil(_corrected)
+
+def lut_apply(image:Image, lut_file:str) -> Image:
+    _image = image.convert('RGB')
+    width = _image.width
+    height = _image.height
+    lut_cube = []
+    with open(lut_file, 'r') as f:
+        lut = f.readlines()
+        for line in lut:
+            if not has_letters(line):
+                li = line.strip('\n').split(' ')
+                # B
+                li[0] = float(li[0]) * 255
+                # G
+                li[1] = float(li[1]) * 255
+                # R
+                li[2] = float(li[2]) * 255
+                lut_cube.append(li)
+    for x in range(width):
+        for y in range(height):
+            pixel = _image.getpixel((x, y))
+            R_pos = round(pixel[0] / 255 * 32)
+            G_pos = round(pixel[1] / 255 * 32)
+            B_pos = round(pixel[2] / 255 * 32)
+            index = R_pos + G_pos * 33 + B_pos * 33 * 33
+            new_pixel = (round(lut_cube[index][0]), round(lut_cube[index][1]), round(lut_cube[index][2]))
+            _image.putpixel((x, y), new_pixel)
+    return _image
+
 '''Mask Functions'''
 
 def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
@@ -402,4 +509,10 @@ def step_color(start_color_inhex:str, end_color_inhex:str, total_step:int, step:
                  )
     return RGB_to_Hex(ret_color)
 
-
+def has_letters(string:str) -> bool:
+    pattern = r'[a-zA-Z]'
+    match = re.search(pattern, string)
+    if match:
+        return True
+    else:
+        return False
