@@ -58,11 +58,11 @@ class Stroke:
         outer_stroke = inner_stroke + stroke_width
         inner_mask = expand_mask(image2mask(_mask), inner_stroke, blur)
         outer_mask = expand_mask(image2mask(_mask), outer_stroke, blur)
-        strock_mask = subtract_mask(outer_mask, inner_mask)
+        stroke_mask = subtract_mask(outer_mask, inner_mask)
         color_image = Image.new('RGB', size=_layer.size, color=stroke_color)
         blend_image = chop_image(_layer, color_image, blend_mode, opacity)
         _canvas.paste(_layer, mask=_mask)
-        _canvas.paste(blend_image, mask=tensor2pil(strock_mask))
+        _canvas.paste(blend_image, mask=tensor2pil(stroke_mask))
         ret_image = _canvas
         log('Stroke Processed.')
         return (pil2tensor(ret_image),)

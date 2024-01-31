@@ -10,6 +10,9 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[CropByMask](#CropByMask) 和 [RestoreCropBox](#RestoreCropBox)节点。此二者配合可将图片局部裁切重绘然后还原。
+* 添加[ColorAdapter](#ColorAdapter) 节点，可自动调整图片色调。
+* 添加[MaskStroke](#MaskStroke) 节点，可产生mask描边。
 * 添加[LayerColor](#LayerColor)节点组，用于调整图像颜色。包括[LUT Apply](#LUT)，[Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB)和[HSV](#HSV)。
 * 添加[ImageChannelSplit](#ImageChannelSplit)和[ImageChannelMerge](#ImageChannelMerge)节点。
 * 添加[MaskMotionBlur](#MaskMotionBlur)节点。
@@ -137,6 +140,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * opacity: 不透明度。
 * stroke_grow: 描边扩张/收缩幅度，正值是扩张，负值是收缩。
 * stroke_width: 描边宽度。
+* blur: 描边模糊。
 * stroke_color<sup>4</sup>: 描边颜色。
 * [节点注解](#节点注解)
 
@@ -187,6 +191,14 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * LUT<sup>*</sup>: 这里列出了LUT文件夹中可用的.cube文件列表，选中的LUT文件将被应用到图像。
 
 <sup>*</sup>LUT文件夹在resource_dir.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。
+
+### <a id="table1">ColorAdapter</a>
+自动调整图片色调，使之与参考图片相似。
+![image](image/color_adapter_example.png)
+
+节点选项说明:  
+![image](image/color_adapter_node.png)
+* opacity: 图像调整色调之后的不透明度。
 
 ### <a id="table1">Gamma</a>
 改变图像的Gamma值。
@@ -310,6 +322,17 @@ MaskGrow与MaskEdgeShrink效果对比
 * gradient_offset: 渐变位置偏移。
 * opacity: 渐变的不透明度。
 
+### <a id="table1">MaskStroke</a>
+产生mask轮廓描边。
+![image](image/mask_stroke_example.png)
+
+节点选项说明:  
+![image](image/mask_stroke_node.png)
+* invert_mask: 是否反转遮罩。
+* stroke_grow: 描边扩张/收缩幅度，正值是扩张，负值是收缩。
+* stroke_width: 描边宽度。
+* blur: 描边模糊。
+
 ### <a id="table1">MaskPreview</a>
 预览mask
 ![image](image/mask_invert.png)
@@ -348,6 +371,40 @@ mask反转
 * rotate: 图层旋转度数。
 * transform_method: 用于图层放大和旋转的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。不同的采样方法会影响合成的画质和画面处理时间。
 * anti_aliasing: 抗锯齿，范围从0-16，数值越大，锯齿越不明显。过高的数值将显著降低节点的处理速度。
+* [节点注解](#节点注解)
+
+### <a id="table1">CropByMask</a>
+将图片按照mask范围裁切，可设置四周边框保留大小。这个节点与[RestoreCropBox](#RestoreCropBox)节点配合使用，可以对图片的局部进行裁切修改，然后贴回原处。
+![image](image/corp_by_mask_example.png)
+
+节点选项说明:   
+![image](image/corp_by_mask_node.png)
+* image<sup>5</sup>: 输入的图像。
+* mask_for_crop<sup>5</sup>: image的遮罩，将自动按照遮罩范围进行裁切。
+* invert_mask: 是否反转遮罩。
+* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
+* top_reserve: 裁切顶端保留大小。
+* bottom_reserve: 裁切底部保留大小。
+* left_reserve: 裁切左侧保留大小。
+* right_reserve: 裁切右侧保留大小。
+* [节点注解](#节点注解)
+
+输出:
+* croped_image: 裁切后的图片。
+* croped_mask: 裁切后的遮罩。
+* crop_box: 裁切box数据，在RestoreCropBox节点恢复时使用。
+* box_preview: 裁切位置预览图，红色是探测到的范围，绿色是加上保留边框后裁切的范围。
+
+### <a id="table1">RestoreCropBox</a>
+将被[CropByMask](#CropByMask)裁切后的图片恢复到原图。
+
+节点选项说明:   
+![image](image/restore_crop_box_node.png)
+* background_image: 裁切前的原图。
+* croped_image<sup>5</sup>: 裁切后的图片。如果中间经过放大处理，恢复前需将尺寸还原。
+* croped_mask<sup>5</sup>: 裁切后的遮罩。
+* crop_box: 裁切时的box数据。
+* invert_mask: 是否反转遮罩。
 * [节点注解](#节点注解)
 
 ### <a id="table1">ImageBlend</a>
@@ -520,22 +577,15 @@ mask反转
 
 ## 以下工作计划中
 
- LayerUtility:
-* image channel split
-* image channel merge
-
 LayerMask:
-* text mask
+* TextMask
 
 LayerFilter:
-* emboss
-* contour
-* findedge
-
-LayerColor:
-* RGB adjust
-* HSV adjust
-* brightness & contrast adjust
+* Emboss
+* Contour
+* Findedge
+* PhotoStyle
+* ColorMap
 
 
 ## 安装方法

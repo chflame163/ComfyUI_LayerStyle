@@ -13,6 +13,9 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [CropByMask](#CropByMask) and [RestoreCropBox](#RestoreCropBox) nodes. The combination of these two can partially crop and redraw the image before restoring it.
+* Commit [ColorAdapter](#ColorAdapter) node, that can automatically adjust the color tone of the image.
+* Commit [MaskStroke](#MaskStroke) node, it can generate mask contour strokes.
 * Add [LayerColor](#LayerColor) node group, used to adjust image color. it include [LUT Apply](#LUT), [Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB) adn [HSV](#HSV).
 * Commit [ImageChannelSplit](#ImageChannelSplit) and [ImageChannelMerge](#ImageChannelMerge) nodes.
 * Commit [MaskMotionBlur](#MaskMotionBlur) node.
@@ -144,6 +147,7 @@ Node options:
 * opacity: Opacity of stroke.
 * stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
 * stroke_width: Stroke width.
+* blur: Blur of stroke.
 * stroke_color<sup>4</sup>: Stroke color, described in hexadecimal RGB format.
 * [note](#notes)
 
@@ -195,6 +199,14 @@ Node options:
 <sup>*</sup>LUT folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
 Open the text editing software and find the line starting with "LUT dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
+
+### <a id="table1">ColorAdapter</a>
+Auto adjust the color tone of the image to resemble the reference image.
+![image](image/color_adapter_example.png)
+
+Node options:  
+![image](image/color_adapter_node.png)
+* opacity: The opacity of an image after adjusting its color tone.
 
 ### <a id="table1">Gamma</a>
 Change the gamma value of the image.
@@ -320,6 +332,16 @@ Node options:
 * gradient_offset: Gradient position offset.
 * opacity: The opacity of the gradient.
 
+### <a id="table1">MaskStroke</a>
+Generate mask contour strokes.
+![image](image/mask_stroke_example.png)
+
+Node options:  
+![image](image/mask_stroke_node.png)
+* invert_mask: Whether to reverse the mask.
+* stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
+* stroke_width: Stroke width.
+* blur: Blur of stroke.
 
 ### <a id="table1">MaskPreview</a>
 Preview the input mask
@@ -359,6 +381,41 @@ Node options:
 * rotate: Layer rotation degree.
 * Sampling methods for layer enlargement and rotation, including lanczos, bicubic, hamming, bilinear, box and nearest. Different sampling methods can affect the image quality and processing time of the synthesized image.
 * anti_aliasing: Anti aliasing, ranging from 0 to 16, the larger the value, the less obvious the aliasing. An excessively high value will significantly reduce the processing speed of the node.
+* [note](#notes)
+
+### <a id="table1">CropByMask</a>
+Crop the image according to the mask range, and set the size of the surrounding borders to be retained.
+This node can be used in conjunction with the [RestoreCropBox](#RestoreCropBox) node to crop and modify parts of an image, and then paste them back in place.
+![image](image/corp_by_mask_example.png)
+
+Node options:   
+![image](image/corp_by_mask_node.png)
+* image<sup>5</sup>: The input image.
+* mask_for_crop<sup>5</sup>: Mask of the image, it will automatically be cut according to the mask range.
+* invert_mask: Whether to reverse the mask.
+* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
+* top_reserve: Cut the top to preserve size.
+* bottom_reserve: Cut the bottom to preserve size.
+* left_reserve: Cut the left to preserve size.
+* right_reserve: Cut the right to preserve size.
+* [note](#notes)
+
+Output:
+* croped_image: The image after crop.
+* croped_mask: The mask after crop.
+* crop_box: The trimmed box data is used when restoring the RestoreCropBox node.
+* box_preview: Preview image of cutting position, red represents the detected range, and green represents the cutting range after adding the reserved border.
+
+### <a id="table1">RestoreCropBox</a>
+Restore the cropped image to the original image by [CropByMask](#CropByMask).
+
+Node options:   
+![image](image/restore_crop_box_node.png)
+* background_image: The original image before cutting.
+* croped_image<sup>5</sup>: The cropped image. If the middle is enlarged, the size needs to be restored before restoration.
+* croped_mask<sup>5</sup>: The cut mask.
+* crop_box: Box data during cutting.
+* invert_mask: Whether to reverse the mask.
 * [note](#notes)
 
 ### <a id="table1">ImageBlend</a>
@@ -535,25 +592,16 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 
 ## The following tasks are in the planned list
 
- LayerUtility:
-* image channel split
-* image channel merge
-
 LayerMask:
-* text mask
-* mask subtract
-* mask combine
-* mask diffrent
+* TextMask
 
 LayerFilter:
-* emboss
-* contour
-* findedge
+* Emboss
+* Contour
+* Findedge
+* PhotoStyle
+* ColorMap
 
-LayerColor:
-* RGB adjust
-* HSV adjust
-* brightness & contrast adjust
 
 ## How to install 
 

@@ -334,7 +334,6 @@ def image_hue_offset(image:Image, offset:int) -> Image:
                 ret_image.putpixel((x, y), _pixel)
     return ret_image
 
-
 def gamma_trans(image:Image, gamma:float) -> Image:
     cv2_image = pil2cv2(image)
     gamma_table = [np.power(x/255.0,gamma)*255.0 for x in range(256)]
@@ -369,6 +368,26 @@ def lut_apply(image:Image, lut_file:str) -> Image:
             new_pixel = (round(lut_cube[index][0]), round(lut_cube[index][1]), round(lut_cube[index][2]))
             _image.putpixel((x, y), new_pixel)
     return _image
+
+
+def color_adapter(image:Image, ref_image:Image) -> Image:
+    image = pil2cv2(image)
+    ref_image = pil2cv2(ref_image)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+    image_mean, image_std = calculate_mean_std(image)
+    ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2LAB)
+    ref_image_mean, ref_image_std = calculate_mean_std(ref_image)
+    _image = ((image - image_mean) * (ref_image_std / image_std)) + ref_image_mean
+    np.putmask(_image, _image > 255, values=255)
+    np.putmask(_image, _image < 0, values=0)
+    ret_image = cv2.cvtColor(cv2.convertScaleAbs(_image), cv2.COLOR_LAB2BGR)
+    return cv22pil(ret_image)
+
+def calculate_mean_std(image:Image):
+    mean, std = cv2.meanStdDev(image)
+    mean = np.hstack(np.around(mean, decimals=2))
+    std = np.hstack(np.around(std, decimals=2))
+    return mean, std
 
 '''Mask Functions'''
 

@@ -1,0 +1,472 @@
+{
+  "last_node_id": 34,
+  "last_link_id": 75,
+  "nodes": [
+    {
+      "id": 27,
+      "type": "PreviewImage",
+      "pos": [
+        2360,
+        430
+      ],
+      "size": [
+        516.973361206055,
+        302.7666168212892
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 56
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 28,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        2360,
+        780
+      ],
+      "size": [
+        511.933361206055,
+        312.2199255371095
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 57
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 4,
+      "type": "PreviewImage",
+      "pos": [
+        1500,
+        250
+      ],
+      "size": [
+        385.7333923339845,
+        246
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 64
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 22,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        1920,
+        250
+      ],
+      "size": [
+        380.6532714843752,
+        246
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 65
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 16,
+      "type": "Image Remove Background Rembg (mtb)",
+      "pos": [
+        780,
+        670
+      ],
+      "size": {
+        "0": 294,
+        "1": 230
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Image (rgba)",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "Mask",
+          "type": "MASK",
+          "links": [
+            59
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "Image",
+          "type": "IMAGE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Image Remove Background Rembg (mtb)"
+      },
+      "widgets_values": [
+        false,
+        240,
+        10,
+        10,
+        false,
+        "#000000"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "PreviewImage",
+      "pos": [
+        1490,
+        810
+      ],
+      "size": [
+        369.95327148437514,
+        246
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 63
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 29,
+      "type": "LayerUtility: CropByMask",
+      "pos": [
+        1130,
+        570
+      ],
+      "size": {
+        "0": 330,
+        "1": 238
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 58
+        },
+        {
+          "name": "mask_for_crop",
+          "type": "MASK",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "croped_image",
+          "type": "IMAGE",
+          "links": [
+            64,
+            75
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "croped_mask",
+          "type": "MASK",
+          "links": [
+            61,
+            65
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "links": [
+            62
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "box_preview",
+          "type": "IMAGE",
+          "links": [
+            63
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: CropByMask"
+      },
+      "widgets_values": [
+        false,
+        "min_bounding_rect",
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    {
+      "id": 26,
+      "type": "LayerUtility: RestoreCropBox",
+      "pos": [
+        1950,
+        560
+      ],
+      "size": {
+        "0": 315,
+        "1": 118
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 67
+        },
+        {
+          "name": "croped_image",
+          "type": "IMAGE",
+          "link": 75
+        },
+        {
+          "name": "croped_mask",
+          "type": "MASK",
+          "link": 61
+        },
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "link": 62
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            56
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            57
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: RestoreCropBox"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        410,
+        400
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22,
+            58,
+            67
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "3840x2160car (13).jpg",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      22,
+      2,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      56,
+      26,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      57,
+      26,
+      1,
+      28,
+      0,
+      "MASK"
+    ],
+    [
+      58,
+      2,
+      0,
+      29,
+      0,
+      "IMAGE"
+    ],
+    [
+      59,
+      16,
+      1,
+      29,
+      1,
+      "MASK"
+    ],
+    [
+      61,
+      29,
+      1,
+      26,
+      2,
+      "MASK"
+    ],
+    [
+      62,
+      29,
+      2,
+      26,
+      3,
+      "BOX"
+    ],
+    [
+      63,
+      29,
+      3,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      64,
+      29,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      65,
+      29,
+      1,
+      22,
+      0,
+      "MASK"
+    ],
+    [
+      67,
+      2,
+      0,
+      26,
+      0,
+      "IMAGE"
+    ],
+    [
+      75,
+      29,
+      0,
+      26,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
