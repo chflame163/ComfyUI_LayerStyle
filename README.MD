@@ -13,6 +13,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [ImageMaskScaleAs](#ImageMaskScaleAs) node to adjust the image or mask size based on the reference image.
 * Commit [ImageScaleRestore](#ImageScaleRestore) node to work with CropByMask for local upscale and repair works.
 * Commit [CropByMask](#CropByMask) and [RestoreCropBox](#RestoreCropBox) nodes. The combination of these two can partially crop and redraw the image before restoring it.
 * Commit [ColorAdapter](#ColorAdapter) node, that can automatically adjust the color tone of the image.
@@ -188,6 +189,7 @@ Node options:
 * [note](#notes)
 
 # <a id="table1">LayerColor</a>
+![image](image/layercolor_title.png)
 ![image](image/layercolor_nodes.png)
 
 ### <a id="table1">LUT</a> Apply
@@ -435,6 +437,28 @@ Node options:
 Outputs:
 * image: The scaled image.
 * mask: If have mask input, the scaled mask will be output.
+* original_size: The original size data of the image is used for subsequent node recovery.
+
+### <a id="table1">ImageMaskScaleAs</a>
+Scale the image or mask to the size of the reference image (or reference mask).
+![image](image/image_mask_scale_as_example.png)
+
+Node options:
+![image](image/image_mask_scale_as_node.png)
+* scale_as<sup>*</sup>: Reference size. It can be an image or a mask.
+* image: Image to be scaled. this option is optional input. if there is no input, a black image will be output.
+* mask: Mask to be scaled. this option is optional input. if there is no input, a black mask will be output.
+* fit: Scale aspect ratio mode. when the width to height ratio of the original image does not match the scaled size, there are three modes to choose from, 
+The _letterbox_ mode retains the complete frame and fills in the blank spaces with black; 
+The _crop_ mode retains the complete short edge, and any excess of the long edge will be cut off;
+The _fill_ mode does not maintain frame ratio and fills the screen with width and height.
+* method: Scaling sampling methods, including lanczos, bicubic, hamming, bilinear, box, and nearest.
+
+<sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
+
+Outputs:
+* image: If there is an image input, the scaled image will be output.
+* mask: If there is a mask input, the scaled mask will be output.
 * original_size: The original size data of the image is used for subsequent node recovery.
 
 ### <a id="table1">ImageBlend</a>

@@ -127,6 +127,33 @@ def motion_blur(image:Image, angle:int, blur:int) -> Image:
     ret_image = cv22pil(blurred)
     return ret_image
 
+def fit_resize_image(image:Image, target_width:int, target_height:int, fit:str, resize_sampler:str) -> Image:
+    image = image.convert('RGB')
+    orig_width, orig_height = image.size
+    if image is not None:
+        if fit == 'letterbox':
+            if orig_width / orig_height > target_width / target_height:  # 更宽，上下留黑
+                fit_width = target_width
+                fit_height = int(target_width / orig_width * orig_height)
+            else:  # 更瘦，左右留黑
+                fit_height = target_height
+                fit_width = int(target_height / orig_height * orig_width)
+            fit_image = image.resize((fit_width, fit_height), resize_sampler)
+            ret_image = Image.new('RGB', size=(target_width, target_height), color='black')
+            ret_image.paste(fit_image, box=((target_width - fit_width)//2, (target_height - fit_height)//2))
+        elif fit == 'crop':
+            if orig_width / orig_height > target_width / target_height:  # 更宽，裁左右
+                fit_width = int(orig_height * target_width / target_height)
+                fit_image = image.crop(
+                    ((orig_width - fit_width)//2, 0, (orig_width - fit_width)//2 + fit_width, orig_height))
+            else:   # 更瘦，裁上下
+                fit_height = int(orig_width * target_height / target_width)
+                fit_image = image.crop(
+                    (0, (orig_height-fit_height)//2, orig_width, (orig_height-fit_height)//2 + fit_height))
+            ret_image = fit_image.resize((target_width, target_height), resize_sampler)
+        else:
+            ret_image = image.resize((target_width, target_height), resize_sampler)
+    return  ret_image
 
 def __rotate_expand(image:Image, angle:float, SSAA:int=0, method:str="lanczos") -> Image:
     images = pil2tensor(image)
@@ -536,3 +563,8 @@ def has_letters(string:str) -> bool:
         return True
     else:
         return False
+
+class AnyType(str):
+  """A special class that is always equal in not equal comparisons. Credit to pythongosssss"""
+  def __ne__(self, __value: object) -> bool:
+    return False

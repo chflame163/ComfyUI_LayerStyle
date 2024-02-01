@@ -10,6 +10,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[ImageMaskScaleAs](#ImageMaskScaleAs) 节点，可根据参考图片调整图像或遮罩大小。
 * 添加[ImageScaleRestore](#ImageScaleRestore) 节点，用于配合CropByMask进行局部放大修复工作。
 * 添加[CropByMask](#CropByMask) 和 [RestoreCropBox](#RestoreCropBox)节点。此二者配合可将图片局部裁切重绘然后还原。
 * 添加[ColorAdapter](#ColorAdapter) 节点，可自动调整图片色调。
@@ -182,6 +183,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [节点注解](#节点注解)
 
 # <a id="table1">LayerColor</a>
+![image](image/layercolor_title.png)
 ![image](image/layercolor_nodes.png)
 
 ### <a id="table1">LUT</a> Apply
@@ -425,6 +427,25 @@ mask反转
 输出:
 * image: 缩放后的图像。
 * mask: 如果有mask输入，将输出缩放后的mask。
+* original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+### <a id="table1">ImageMaskScaleAs</a>
+将图像或遮罩缩放到参考图像（或遮罩）的大小。
+![image](image/image_mask_scale_as_example.png)
+
+节点选项说明:   
+![image](image/image_mask_scale_as_node.png)
+* scale_as<sup>*</sup>: 参考大小。可以是图像image，也可以是遮罩mask。
+* image: 待缩放的图像。此选项为可选输入，如果没有输入将输出纯黑图片。
+* mask: 待缩放的遮罩。此选项为可选输入，如果没有输入将输出纯黑遮罩。
+* fit: 缩放画幅宽高比模式。当原图与缩放尺寸画幅宽高比例不一致时，有3种模式可以选择, letterbox模式保留完整的画幅，空白处用黑色补足；crop模式保留完整的短边，长边超出部分将被切除；fill模式不保持画幅比例，宽高各自填满画面。
+* method: 缩放的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+
+输出:
+* image: 如果有image输入，将输出缩放后的图像。
+* mask: 如果有mask输入，将输出缩放后的遮罩。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
 
 ### <a id="table1">ImageBlend</a>
