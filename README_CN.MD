@@ -10,6 +10,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[ImageScaleRestore](#ImageScaleRestore) 节点，用于配合CropByMask进行局部放大修复工作。
 * 添加[CropByMask](#CropByMask) 和 [RestoreCropBox](#RestoreCropBox)节点。此二者配合可将图片局部裁切重绘然后还原。
 * 添加[ColorAdapter](#ColorAdapter) 节点，可自动调整图片色调。
 * 添加[MaskStroke](#MaskStroke) 节点，可产生mask描边。
@@ -374,7 +375,7 @@ mask反转
 * [节点注解](#节点注解)
 
 ### <a id="table1">CropByMask</a>
-将图片按照mask范围裁切，可设置四周边框保留大小。这个节点与[RestoreCropBox](#RestoreCropBox)节点配合使用，可以对图片的局部进行裁切修改，然后贴回原处。
+将图片按照mask范围裁切，可设置四周边框保留大小。这个节点与[RestoreCropBox](#RestoreCropBox)和[ImageScaleRestore](#ImageScaleRestore)配合使用，可以对图片的局部进行裁切，放大修改后贴回原处。
 ![image](image/corp_by_mask_example.png)
 
 节点选项说明:   
@@ -402,10 +403,29 @@ mask反转
 ![image](image/restore_crop_box_node.png)
 * background_image: 裁切前的原图。
 * croped_image<sup>5</sup>: 裁切后的图片。如果中间经过放大处理，恢复前需将尺寸还原。
-* croped_mask<sup>5</sup>: 裁切后的遮罩。
+* croped_mask<sup>2,5</sup>: 裁切后的遮罩。
 * crop_box: 裁切时的box数据。
 * invert_mask: 是否反转遮罩。
 * [节点注解](#节点注解)
+
+### <a id="table1">ImageScaleRestore</a>
+图像缩放。此节点成对使用时，在第二个节点可自动还原图像到原始大小。
+![image](image/image_scale_restore_example.png)
+
+节点选项说明:   
+![image](image/image_scale_restore_node.png)
+* image<sup>5</sup>: 输入的图像。
+* mask<sup>2,5</sup>: 图像的遮罩。
+* original_size: 可选输入，用于恢复图片到原始大小。
+* scale: 缩放比例。当有original_size输入，或者scale_by_longest_side设置为True时，此项设置将被忽略。
+* scale_by_longest_side: 允许按长边尺寸缩放。
+* longest_side: scale_by_longest_side被设置为True时，此项将作为是图像长边的长度。当有original_size输入时，此项设置将被忽略。
+* [节点注解](#节点注解)
+
+输出:
+* image: 缩放后的图像。
+* mask: 如果有mask输入，将输出缩放后的mask。
+* original_size: 图像的原始大小数据，用于后续节点进行恢复。
 
 ### <a id="table1">ImageBlend</a>
 一个用于合成图层的简单节点，提供多种混合模式供选择，可设置透明度。

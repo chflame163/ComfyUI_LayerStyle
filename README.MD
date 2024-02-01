@@ -13,6 +13,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [ImageScaleRestore](#ImageScaleRestore) node to work with CropByMask for local upscale and repair works.
 * Commit [CropByMask](#CropByMask) and [RestoreCropBox](#RestoreCropBox) nodes. The combination of these two can partially crop and redraw the image before restoring it.
 * Commit [ColorAdapter](#ColorAdapter) node, that can automatically adjust the color tone of the image.
 * Commit [MaskStroke](#MaskStroke) node, it can generate mask contour strokes.
@@ -385,7 +386,7 @@ Node options:
 
 ### <a id="table1">CropByMask</a>
 Crop the image according to the mask range, and set the size of the surrounding borders to be retained.
-This node can be used in conjunction with the [RestoreCropBox](#RestoreCropBox) node to crop and modify parts of an image, and then paste them back in place.
+This node can be used in conjunction with the [RestoreCropBox](#RestoreCropBox) and [ImageScaleRestore](#ImageScaleRestore) nodes to crop and modify upscale parts of image, and then paste them back in place.
 ![image](image/corp_by_mask_example.png)
 
 Node options:   
@@ -417,6 +418,24 @@ Node options:
 * crop_box: Box data during cutting.
 * invert_mask: Whether to reverse the mask.
 * [note](#notes)
+
+### <a id="table1">ImageScaleRestore</a>
+Image scaling. when this node is used in pairs, the image can be automatically restored to its original size on the second node.
+![image](image/image_scale_restore_example.png)
+
+Node options:   
+![image](image/image_scale_restore_node.png)
+* image<sup>5</sup>: The input image.
+* mask<sup>2,5</sup>: Mask of image.
+* original_size: Optional input, used to restore the image to its original size.
+* scale: Scale ratio. when the original_size have input, or scale_ by_longest_side is set to True, this setting will be ignored.
+* scale_by_longest_side: Allow scaling by long edge size.
+* longest_side: When the scale_by_longest_side is set to True, this will be used this value to the long edge of the image. when the original_size have input, this setting will be ignored.
+
+Outputs:
+* image: The scaled image.
+* mask: If have mask input, the scaled mask will be output.
+* original_size: The original size data of the image is used for subsequent node recovery.
 
 ### <a id="table1">ImageBlend</a>
 A simple node for composit layer image and background image, multiple blend modes are available for option, and transparency can be set.

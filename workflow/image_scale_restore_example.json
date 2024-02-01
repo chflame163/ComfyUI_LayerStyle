@@ -1,0 +1,444 @@
+{
+  "last_node_id": 25,
+  "last_link_id": 36,
+  "nodes": [
+    {
+      "id": 24,
+      "type": "LayerMask: MaskInvert",
+      "pos": [
+        680,
+        900
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 34
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            35,
+            36
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskInvert"
+      }
+    },
+    {
+      "id": 16,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        950,
+        940
+      ],
+      "size": {
+        "0": 319.8067626953125,
+        "1": 260.7267150878906
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 36
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 4,
+      "type": "PreviewImage",
+      "pos": [
+        1340,
+        240
+      ],
+      "size": {
+        "0": 423.4709167480469,
+        "1": 426.53302001953125
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 7
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        310,
+        690
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            34
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "512x512 (31).png",
+        "image"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LayerUtility: ImageScaleRestore",
+      "pos": [
+        950,
+        700
+      ],
+      "size": {
+        "0": 342.5999755859375,
+        "1": 170
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 35
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            7,
+            25
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            13,
+            26
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": [
+            27
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageScaleRestore"
+      },
+      "widgets_values": [
+        2,
+        "lanczos",
+        false,
+        1024
+      ]
+    },
+    {
+      "id": 22,
+      "type": "LayerUtility: ImageScaleRestore",
+      "pos": [
+        1453,
+        802
+      ],
+      "size": {
+        "0": 342.5999755859375,
+        "1": 170
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 25
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 26
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            28
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            29
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageScaleRestore"
+      },
+      "widgets_values": [
+        1,
+        "lanczos",
+        false,
+        1024
+      ]
+    },
+    {
+      "id": 18,
+      "type": "PreviewImage",
+      "pos": [
+        1819,
+        810
+      ],
+      "size": {
+        "0": 295.1236267089844,
+        "1": 292.00238037109375
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 17,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        2133,
+        818
+      ],
+      "size": {
+        "0": 291.5216369628906,
+        "1": 290.56573486328125
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 29
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 12,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        1781,
+        245
+      ],
+      "size": {
+        "0": 424.5741882324219,
+        "1": 423.53302001953125
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 13
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    }
+  ],
+  "links": [
+    [
+      3,
+      3,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      7,
+      5,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      5,
+      1,
+      12,
+      0,
+      "MASK"
+    ],
+    [
+      25,
+      5,
+      0,
+      22,
+      0,
+      "IMAGE"
+    ],
+    [
+      26,
+      5,
+      1,
+      22,
+      1,
+      "MASK"
+    ],
+    [
+      27,
+      5,
+      2,
+      22,
+      2,
+      "BOX"
+    ],
+    [
+      28,
+      22,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      29,
+      22,
+      1,
+      17,
+      0,
+      "MASK"
+    ],
+    [
+      34,
+      3,
+      1,
+      24,
+      0,
+      "MASK"
+    ],
+    [
+      35,
+      24,
+      0,
+      5,
+      1,
+      "MASK"
+    ],
+    [
+      36,
+      24,
+      0,
+      16,
+      0,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

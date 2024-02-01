@@ -127,6 +127,7 @@ def motion_blur(image:Image, angle:int, blur:int) -> Image:
     ret_image = cv22pil(blurred)
     return ret_image
 
+
 def __rotate_expand(image:Image, angle:float, SSAA:int=0, method:str="lanczos") -> Image:
     images = pil2tensor(image)
     expand = "true"
