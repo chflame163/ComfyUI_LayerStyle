@@ -16,17 +16,17 @@ class GetImageSize:
             }
         }
 
-    RETURN_TYPES = ("INT", "INT",)
-    RETURN_NAMES = ("width", "height",)
+    RETURN_TYPES = ("INT", "INT", "BOX")
+    RETURN_NAMES = ("width", "height",  "original_size")
     FUNCTION = 'get_image_size'
     CATEGORY = '😺dzNodes/LayerUtility'
     OUTPUT_NODE = True
 
     def get_image_size(self, image,):
 
-        _image = tensor2pil(image).convert('RGB')
+        _image = tensor2pil(image)
 
-        return (_image.width, _image.height,)
+        return (_image.width, _image.height, [_image.width, _image.height],)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: GetImageSize": GetImageSize
