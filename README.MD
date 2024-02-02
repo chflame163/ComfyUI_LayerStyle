@@ -13,6 +13,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [ImageShift](#ImageShift)  node to shift the image and output a displacement seam mask, making it convenient to create continuous textures.
 * Commit [ImageMaskScaleAs](#ImageMaskScaleAs) node to adjust the image or mask size based on the reference image.
 * Commit [ImageScaleRestore](#ImageScaleRestore) node to work with CropByMask for local upscale and repair works.
 * Commit [CropByMask](#CropByMask) and [RestoreCropBox](#RestoreCropBox) nodes. The combination of these two can partially crop and redraw the image before restoring it.
@@ -460,6 +461,22 @@ Outputs:
 * image: If there is an image input, the scaled image will be output.
 * mask: If there is a mask input, the scaled mask will be output.
 * original_size: The original size data of the image is used for subsequent node recovery.
+
+### <a id="table1">ImageShift</a>
+Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.
+![image](image/image_shift_example.png)
+
+Node options:   
+![image](image/image_shift_node.png)
+* image<sup>5</sup>: The input image.
+* mask<sup>2,5</sup>: The mask of image.
+* shift_x: Horizontal distance of shift.
+* shift_y: Vertical distance of shift.
+* cyclic: Is the part of displacement that is out of bounds cyclic.
+* background_color: Background color. if cyclic is set to False, the setting here will be used as the background color.
+* border_mask_width: Border mask width.
+* border_mask_blur: Border mask blur.
+* [note](#notes)
 
 ### <a id="table1">ImageBlend</a>
 A simple node for composit layer image and background image, multiple blend modes are available for option, and transparency can be set.

@@ -10,6 +10,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[ImageShift](#ImageShift) 节点，使图片产生位移，可输出位移接缝遮罩，方便制作连续贴图。
 * 添加[ImageMaskScaleAs](#ImageMaskScaleAs) 节点，可根据参考图片调整图像或遮罩大小。
 * 添加[ImageScaleRestore](#ImageScaleRestore) 节点，用于配合CropByMask进行局部放大修复工作。
 * 添加[CropByMask](#CropByMask) 和 [RestoreCropBox](#RestoreCropBox)节点。此二者配合可将图片局部裁切重绘然后还原。
@@ -447,6 +448,22 @@ mask反转
 * image: 如果有image输入，将输出缩放后的图像。
 * mask: 如果有mask输入，将输出缩放后的遮罩。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+### <a id="table1">ImageShift</a>
+使图片产生位移。此节点支持位移接缝遮罩的输出，方便制作连续贴图。
+![image](image/image_shift_example.png)
+
+节点选项说明:   
+![image](image/image_shift_node.png)
+* image<sup>5</sup>: 输入的图像。
+* mask<sup>2,5</sup>: 图像的遮罩。
+* shift_x: 位移的横向距离。
+* shift_y: 位移的纵向距离。
+* cyclic: 位移出界的部分是否循环。
+* background_color: 背景颜色。如果cyclic设置为False,将使用这里的设置作为背景颜色。
+* border_mask_width: 接缝遮罩宽度。
+* border_mask_blur: 接缝遮罩模糊。
+* [节点注解](#节点注解)
 
 ### <a id="table1">ImageBlend</a>
 一个用于合成图层的简单节点，提供多种混合模式供选择，可设置透明度。
