@@ -8,7 +8,7 @@ import torch
 import scipy.ndimage
 import cv2
 from typing import Union, List
-from PIL import Image, ImageFilter, ImageChops, ImageDraw
+from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps
 import colorsys
 
 def log(message):
@@ -61,17 +61,27 @@ def mask2image(mask:torch.Tensor)  -> Image:
 
 '''Image Functions'''
 
-def shift_image(image:Image, distance_x:int, distance_y:int) -> Image:
-    bkcolor = (0, 0, 0)
+def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
     height = image.height
-    ret_image = Image.new('RGB', size=(width, height), color=bkcolor)
+    ret_image = Image.new('RGB', size=(width, height), color=background_color)
     for x in range(width):
         for y in range(height):
-            if x > -distance_x and y > -distance_y:  # 防止回转
-                if x + distance_x < width and y + distance_y < height:  # 防止越界
-                    pixel = image.getpixel((x + distance_x, y + distance_y))
+            if cyclic:
+                    orig_x = x + distance_x
+                    if orig_x > width-1 or orig_x < 0:
+                        orig_x = abs(orig_x % width)
+                    orig_y = y + distance_y
+                    if orig_y > height-1 or orig_y < 0:
+                        orig_y = abs(orig_y % height)
+
+                    pixel = image.getpixel((orig_x, orig_y))
                     ret_image.putpixel((x, y), pixel)
+            else:
+                if x > -distance_x and y > -distance_y:  # 防止回转
+                    if x + distance_x < width and y + distance_y < height:  # 防止越界
+                        pixel = image.getpixel((x + distance_x, y + distance_y))
+                        ret_image.putpixel((x, y), pixel)
     return ret_image
 
 def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
@@ -242,6 +252,9 @@ def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, 
     draw = ImageDraw.Draw(image)
     draw.rectangle((x, y, x + width, y + height), fill=box_color, outline=line_color, width=line_width, )
     return image
+
+def draw_border(image:Image, border_width:int, color:str='#FFFFFF') -> Image:
+    return ImageOps.expand(image, border=border_width, fill=color)
 
 def get_image_color_tone(image:Image) -> str:
     image = image.convert('RGB')
@@ -563,6 +576,9 @@ def has_letters(string:str) -> bool:
         return True
     else:
         return False
+
+
+'''CLASS'''
 
 class AnyType(str):
   """A special class that is always equal in not equal comparisons. Credit to pythongosssss"""
