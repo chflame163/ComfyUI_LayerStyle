@@ -430,6 +430,28 @@ def calculate_mean_std(image:Image):
     std = np.hstack(np.around(std, decimals=2))
     return mean, std
 
+def image_watercolor(image:Image, level:int=50) -> Image:
+    img = pil2cv2(image)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    factor = (level / 128.0) ** 2
+    sigmaS= int((image.width + image.height) / 5.0 * factor) + 1
+    sigmaR = sigmaS / 32.0 * factor + 0.002
+    img_color = cv2.stylization(img, sigma_s=sigmaS, sigma_r=sigmaR)
+    ret_image = cv2.cvtColor(img_color, cv2.COLOR_BGR2RGB)
+    return cv22pil(ret_image)
+
+
+def image_beauty(image:Image, level:int=50) -> Image:
+    img = pil2cv2(image)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    factor = (level / 50.0)**2
+    d = int((image.width + image.height) / 256 * factor)
+    sigmaColor = int((image.width + image.height) / 256 * factor)
+    sigmaSpace = int((image.width + image.height) / 160 * factor)
+    img_bit = cv2.bilateralFilter(src=img, d=d, sigmaColor=sigmaColor, sigmaSpace=sigmaSpace)
+    ret_image = cv2.cvtColor(img_bit, cv2.COLOR_BGR2RGB)
+    return cv22pil(ret_image)
+
 '''Mask Functions'''
 
 def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
@@ -458,8 +480,7 @@ def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
     return ret_mask
 
 def mask_invert(mask:torch.Tensor) -> torch.Tensor:
-    _image = mask2image(mask)
-    return image2mask(ImageChops.invert(_image))
+    return 1 - mask
 
 def subtract_mask(masks_a:torch.Tensor, masks_b:torch.Tensor) -> torch.Tensor:
     return torch.clamp(masks_a - masks_b, 0, 255)

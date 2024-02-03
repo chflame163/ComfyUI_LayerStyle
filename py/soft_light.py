@@ -11,7 +11,6 @@ class SoftLight:
         return {
             "required": {
                 "image": ("IMAGE", ),  #
-
                 "soft": ("FLOAT", {"default": 1, "min": 0.2, "max": 10, "step": 0.01}),  # 模糊
                 "threshold": ("INT", {"default": -10, "min": -255, "max": 255, "step": 1}),  # 高光阈值
                 "opacity": ("INT", {"default": 100, "min": 0, "max": 100, "step": 1}),  # 透明度

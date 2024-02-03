@@ -13,6 +13,7 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [WaterColor](#WaterColor) and [SkinBeauty](#SkinBeauty) nodes。These are image filters that generate watercolor and skin smoothness effects.
 * Commit [ImageShift](#ImageShift)  node to shift the image and output a displacement seam mask, making it convenient to create continuous textures.
 * Commit [ImageMaskScaleAs](#ImageMaskScaleAs) node to adjust the image or mask size based on the reference image.
 * Commit [ImageScaleRestore](#ImageScaleRestore) node to work with CropByMask for local upscale and repair works.
@@ -598,6 +599,28 @@ This node allows any type of input.
 
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
+
+
+
+### <a id="table1">SkinBeauty</a>
+Make the skin look smoother.
+![image](image/skin_beauty_example.png)
+
+Node options:
+![image](image/skin_beauty_node.png)
+* smooth: Skin smoothness.
+* threshold: Smooth range. the larger the range with the smaller value.
+* opacity: The opacity of the smoothness.
+
+
+### <a id="table1">WaterColor</a>
+Watercolor painting effect
+![image](image/water_color_example.png)
+
+Node option:
+![image](image/water_color_node.png)
+* line_density: The black line density.
+* opacity: The opacity of watercolor effects.
 
 
 ### <a id="table1">SoftLight</a>

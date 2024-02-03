@@ -10,6 +10,7 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[WaterColor](#WaterColor) 和 [SkinBeauty](#SkinBeauty) 节点。这是两个图像滤镜，生成水彩画和磨皮效果。
 * 添加[ImageShift](#ImageShift) 节点，使图片产生位移，可输出位移接缝遮罩，方便制作连续贴图。
 * 添加[ImageMaskScaleAs](#ImageMaskScaleAs) 节点，可根据参考图片调整图像或遮罩大小。
 * 添加[ImageScaleRestore](#ImageScaleRestore) 节点，用于配合CropByMask进行局部放大修复工作。
@@ -586,6 +587,26 @@ mask反转
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
 
+### <a id="table1">SkinBeauty</a>
+磨皮效果。
+![image](image/skin_beauty_example.png)
+
+节点选项说明:
+![image](image/skin_beauty_node.png)
+* smooth: 皮肤平滑度。
+* threshold: 磨皮范围。数值越小范围越大。
+* opacity: 磨皮的不透明度。
+
+
+### <a id="table1">WaterColor</a>
+水彩画效果。
+![image](image/water_color_example.png)
+
+节点选项说明:
+![image](image/water_color_node.png)
+* line_density: 线条密度。
+* opacity: 水彩效果的不透明度。
+
 
 ### <a id="table1">SoftLight</a>
 柔光效果。
@@ -642,7 +663,6 @@ LayerFilter:
 * Emboss
 * Contour
 * Findedge
-* PhotoStyle
 * ColorMap
 
 
