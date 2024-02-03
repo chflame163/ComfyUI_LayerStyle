@@ -38,7 +38,8 @@ class SkinBeauty:
         _image = image_beauty(_canvas, level=smooth)
         _image = gaussian_blur(_image, blur)
         _image = chop_image(_canvas, _image, 'normal', opacity)
-        _canvas.paste(_image, mask=gaussian_blur(light_mask, blur).convert('L'))
+        light_mask = gaussian_blur(light_mask, blur).convert('L')
+        _canvas.paste(_image, mask=light_mask)
 
         return (pil2tensor(_canvas), image2mask(light_mask),)
 
