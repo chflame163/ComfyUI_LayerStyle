@@ -7,7 +7,7 @@ class GradientOverlay:
 
     @classmethod
     def INPUT_TYPES(self):
-        chop_mode = ['normal','multply','screen','add','subtract','difference','darker','lighter']
+
         return {
             "required": {
                 "background_image": ("IMAGE", ),  #
@@ -62,7 +62,7 @@ class GradientOverlay:
             #
             start_color = RGB_to_Hex((start_alpha, start_alpha, start_alpha))
             end_color = RGB_to_Hex((end_alpha, end_alpha, end_alpha))
-            comp_alpha = gradint(start_color, end_color, _layer.width, _layer.height, float(angle))
+            comp_alpha = gradient(start_color, end_color, _layer.width, _layer.height, float(angle))
             comp_alpha = ImageChops.invert(comp_alpha).convert('L')
             _comp.paste(_layer, comp_alpha)
         _canvas.paste(_comp, mask=_mask)

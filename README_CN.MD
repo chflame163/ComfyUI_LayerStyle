@@ -10,6 +10,8 @@ ComfyUI插件，通过一组节点实现仿照Adobe Photoshop的图层样式。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 图像之间的[混合模式](#混合模式)增加新类型，新增color_burn颜色加深, color_dodge颜色减淡, linear_burn线性加深, linear_dodge线性减淡, overlay叠加, soft_light柔光, hard_light强光, vivid_light亮光, pin_light点光, linear_light线性光, hard_mix实色混合。新增的混合模式适用于所有支持混合模式的节点。
+* 添加[ColorMap](#ColorMap) 滤镜节点，用于制作伪彩色热力图效果。
 * 添加[WaterColor](#WaterColor) 和 [SkinBeauty](#SkinBeauty) 节点。这是两个图像滤镜，生成水彩画和磨皮效果。
 * 添加[ImageShift](#ImageShift) 节点，使图片产生位移，可输出位移接缝遮罩，方便制作连续贴图。
 * 添加[ImageMaskScaleAs](#ImageMaskScaleAs) 节点，可根据参考图片调整图像或遮罩大小。
@@ -628,6 +630,15 @@ mask反转
 * angle: 通道分离的角度。
 * mode: 通道错位排列顺序。
 
+### <a id="table1">ColorMap</a>
+伪彩色热力图效果。
+![image](image/colormap_result.png)
+
+节点选项说明:
+![image](image/color_map_node.png)
+* color_map: 效果类型。共22种，各种类型的效果如上图所示。
+* opacity: 伪彩色效果的不透明度。
+
 ### <a id="table1">MotionBlur</a>
 运动模糊。
 ![image](image/motion_blur_example.png)
@@ -646,9 +657,11 @@ mask反转
 ## <a id="table1">节点注解</a>
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
-<sup>3</sup>  混合模式包括normal、multply、screen、add、subtract、difference、darker和lighter。
+<sup>3</sup>   <a id="table1">混合模式</a>包括normal、multply、screen、add、subtract、difference、darker、lighter、color_burn、color_dodge、linear_burn、linear_dodge、overlay、soft_light、hard_light、vivid_light、pin_light、linear_light、hard_mix。
 <sup>4</sup>  颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
 <sup>5</sup>  image和mask这两项必须是相同的尺寸。
+<sup>3</sup> 混合模式预览
+![image](image/blend_mode_result.png)
 
 ## 使用示例
 
@@ -663,7 +676,7 @@ LayerFilter:
 * Emboss
 * Contour
 * Findedge
-* ColorMap
+
 
 
 ## 安装方法

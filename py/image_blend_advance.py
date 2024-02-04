@@ -8,7 +8,7 @@ class ImageBlendAdvance:
 
     @classmethod
     def INPUT_TYPES(self):
-        chop_mode = ['normal','multply','screen','add','subtract','difference','darker','lighter']
+
         mirror_mode = ['None', 'horizontal', 'vertical']
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
         return {

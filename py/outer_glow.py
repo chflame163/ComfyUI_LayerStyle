@@ -7,7 +7,9 @@ class OuterGlow:
 
     @classmethod
     def INPUT_TYPES(self):
-        chop_mode = ['screen', 'add', 'lighter', 'normal', 'multply', 'subtract','difference','darker']
+        chop_mode = ['screen', 'add', 'lighter', 'normal', 'multply', 'subtract', 'difference', 'darker',
+                     'color_burn', 'color_dodge', 'linear_burn', 'linear_dodge', 'overlay',
+                     'soft_light', 'hard_light', 'vivid_light', 'pin_light', 'linear_light', 'hard_mix']
         return {
             "required": {
                 "background_image": ("IMAGE", ),  #

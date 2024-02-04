@@ -7,7 +7,7 @@ class ImageBlend:
 
     @classmethod
     def INPUT_TYPES(self):
-        chop_mode = ['normal','multply','screen','add','subtract','difference','darker','lighter']
+
         return {
             "required": {
                 "background_image": ("IMAGE", ),  #

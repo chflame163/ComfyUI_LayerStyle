@@ -4,3 +4,4 @@ torch
 matplotlib
 Scipy
 opencv-python
+scikit_image

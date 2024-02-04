@@ -13,6 +13,9 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Add new types of [blend mode](#blend) between images. now supports up to 19 hybrid modes. add **color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light** and **hard_mix**. 
+The newly added hybrid mode is applicable to all nodes that support hybrid mode.
+* Commit [ColorMap](#ColorMap) filter node to create a pseudo color heatmap effect.
 * Commit [WaterColor](#WaterColor) and [SkinBeauty](#SkinBeauty) nodes。These are image filters that generate watercolor and skin smoothness effects.
 * Commit [ImageShift](#ImageShift)  node to shift the image and output a displacement seam mask, making it convenient to create continuous textures.
 * Commit [ImageMaskScaleAs](#ImageMaskScaleAs) node to adjust the image or mask size based on the reference image.
@@ -644,6 +647,16 @@ Node options:
 * angle: Angle of channel separation.
 * mode: Channel shift arrangement order.
 
+### <a id="table1">ColorMap</a>
+Pseudo color heat map effect.
+![image](image/colormap_result.png)
+
+Node options:
+![image](image/color_map_node.png)
+* color_map: Effect type. there are a total of 22 types of effects, as shown in the above figure.
+* opacity: The opacity of the color map effect.
+
+
 ### <a id="table1">MotionBlur</a>
 Make the image motion blur
 ![image](image/motion_blur_example.png)
@@ -664,11 +677,15 @@ Node options:
 
 <sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.
 
-<sup>3</sup>  The blend mode include **_normal, multply, screen, add, subtract, difference, darker_** and **_lighter_**.
+<sup>3</sup>  The <a id="table1">blend</a> mode include **normal, multply, screen, add, subtract, difference, darker, color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light, and hard_mix.** all of 19 blend modes in total.
 
 <sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
 
 <sup>5</sup>  The layer_image and layer_mask must be of the same size.
+
+<sup>3</sup> Preview of the blend mode
+![image](image/blend_mode_result.png)
+
 
 ## Example workflow
 image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
@@ -683,7 +700,6 @@ LayerFilter:
 * Contour
 * Findedge
 * PhotoStyle
-* ColorMap
 
 
 ## How to install 

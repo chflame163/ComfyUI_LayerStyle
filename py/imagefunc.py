@@ -9,6 +9,7 @@ import scipy.ndimage
 import cv2
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps
+from skimage import img_as_float, img_as_ubyte
 import colorsys
 
 def log(message):
@@ -16,6 +17,12 @@ def log(message):
     print(f"# 😺dzNodes: {name} -> {message}")
 
 '''Converter'''
+
+def cv22ski(cv2_image:np.ndarray) -> np.array:
+    return img_as_float(cv2_image)
+
+def ski2cv2(ski:np.array) -> np.ndarray:
+    return img_as_ubyte(ski)
 
 def cv22pil(cv2_img:np.ndarray) -> Image:
     cv2_img = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
@@ -61,6 +68,145 @@ def mask2image(mask:torch.Tensor)  -> Image:
 
 '''Image Functions'''
 
+# 颜色加深
+def blend_color_burn(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = 1 - (1 - img_2) / (img_1 + 0.001)
+    mask_1 = img < 0
+    mask_2 = img > 1
+    img = img * (1 - mask_1)
+    img = img * (1 - mask_2) + mask_2
+    return cv22pil(ski2cv2(img))
+
+# 颜色减淡
+def blend_color_dodge(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_2 / (1.0 - img_1 + 0.001)
+    mask_2 = img > 1
+    img = img * (1 - mask_2) + mask_2
+    return cv22pil(ski2cv2(img))
+
+# 线性加深
+def blend_linear_burn(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_1 + img_2 - 1
+    mask_1 = img < 0
+    img = img * (1 - mask_1)
+    return cv22pil(ski2cv2(img))
+
+# 线性减淡
+def blend_linear_dodge(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_1 + img_2
+    mask_2 = img > 1
+    img = img * (1 - mask_2) + mask_2
+    return cv22pil(ski2cv2(img))
+
+# 变亮
+def blend_lighten(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_1 - img_2
+    mask = img > 0
+    img = img_1 * mask + img_2 * (1 - mask)
+    return cv22pil(ski2cv2(img))
+
+# 变暗
+def blend_dark(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_1 - img_2
+    mask = img < 0
+    img = img_1 * mask + img_2 * (1 - mask)
+    return cv22pil(ski2cv2(img))
+
+# 滤色
+def blend_screen(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = 1 - (1 - img_1) * (1 - img_2)
+    return cv22pil(ski2cv2(img))
+
+# 叠加
+def blend_overlay(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    mask = img_2 < 0.5
+    img = 2 * img_1 * img_2 * mask + (1 - mask) * (1 - 2 * (1 - img_1) * (1 - img_2))
+    return cv22pil(ski2cv2(img))
+
+# 柔光
+def blend_soft_light(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    mask = img_1 < 0.5
+    T1 = (2 * img_1 - 1) * (img_2 - img_2 * img_2) + img_2
+    T2 = (2 * img_1 - 1) * (np.sqrt(img_2) - img_2) + img_2
+    img = T1 * mask + T2 * (1 - mask)
+    return cv22pil(ski2cv2(img))
+
+# 强光
+def blend_hard_light(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    mask = img_1 < 0.5
+    T1 = 2 * img_1 * img_2
+    T2 = 1 - 2 * (1 - img_1) * (1 - img_2)
+    img = T1 * mask + T2 * (1 - mask)
+    return cv22pil(ski2cv2(img))
+
+# 亮光
+def blend_vivid_light(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    mask = img_1 < 0.5
+    T1 = 1 - (1 - img_2) / (2 * img_1 + 0.001)
+    T2 = img_2 / (2 * (1 - img_1) + 0.001)
+    mask_1 = T1 < 0
+    mask_2 = T2 > 1
+    T1 = T1 * (1 - mask_1)
+    T2 = T2 * (1 - mask_2) + mask_2
+    img = T1 * mask + T2 * (1 - mask)
+    return cv22pil(ski2cv2(img))
+
+# 点光
+def blend_pin_light(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    mask_1 = img_2 < (img_1 * 2 - 1)
+    mask_2 = img_2 > 2 * img_1
+    T1 = 2 * img_1 - 1
+    T2 = img_2
+    T3 = 2 * img_1
+    img = T1 * mask_1 + T2 * (1 - mask_1) * (1 - mask_2) + T3 * mask_2
+    return cv22pil(ski2cv2(img))
+
+# 线性光
+def blend_linear_light(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_2 + img_1 * 2 - 1
+    mask_1 = img < 0
+    mask_2 = img > 1
+    img = img * (1 - mask_1)
+    img = img * (1 - mask_2) + mask_2
+    return cv22pil(ski2cv2(img))
+
+
+def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
+    img_1 = cv22ski(pil2cv2(background_image))
+    img_2 = cv22ski(pil2cv2(layer_image))
+    img = img_1 + img_2
+    mask = img_1 + img_2 > 1
+    img = img * (1 - mask) + mask
+    img = img * mask
+    return cv22pil(ski2cv2(img))
+
+
 def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
     height = image.height
@@ -102,6 +248,30 @@ def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacit
         ret_image = ImageChops.darker(background_image, layer_image)
     if blend_mode == 'lighter':
         ret_image = ImageChops.lighter(background_image, layer_image)
+    if blend_mode == 'color_burn':
+        ret_image = blend_color_burn(background_image, layer_image)
+    if blend_mode == 'color_dodge':
+        ret_image = blend_color_dodge(background_image, layer_image)
+    if blend_mode == 'linear_burn':
+        ret_image = blend_linear_burn(background_image, layer_image)
+    if blend_mode == 'linear_dodge':
+        ret_image = blend_linear_dodge(background_image, layer_image)
+    if blend_mode == 'overlay':
+        ret_image = blend_overlay(background_image, layer_image)
+    if blend_mode == 'soft_light':
+        ret_image = blend_soft_light(background_image, layer_image)
+    if blend_mode == 'hard_light':
+        ret_image = blend_hard_light(background_image, layer_image)
+    if blend_mode == 'vivid_light':
+        ret_image = blend_vivid_light(background_image, layer_image)
+    if blend_mode == 'pin_light':
+        ret_image = blend_pin_light(background_image, layer_image)
+    if blend_mode == 'linear_light':
+        ret_image = blend_linear_light(background_image, layer_image)
+    if blend_mode == 'hard_mix':
+        ret_image = blend_hard_mix(background_image, layer_image)
+
+
     # opacity
     if opacity == 0:
         ret_image = background_image
@@ -410,7 +580,6 @@ def lut_apply(image:Image, lut_file:str) -> Image:
             _image.putpixel((x, y), new_pixel)
     return _image
 
-
 def color_adapter(image:Image, ref_image:Image) -> Image:
     image = pil2cv2(image)
     ref_image = pil2cv2(ref_image)
@@ -556,6 +725,8 @@ def gray_threshold(image:Image, thresh:int=127, otsu:bool=False) -> Image:
 
     return cv22pil(thresh).convert('L')
 
+def image_to_colormap(image:Image, index:int) -> Image:
+    return cv22pil(cv2.applyColorMap(pil2cv2(image), index))
 
 '''Color Functions'''
 
@@ -572,6 +743,10 @@ def Hex_to_RGB(inhex) -> tuple:
     bval = inhex[5:]
     rgb = (int(rval, 16), int(gval, 16), int(bval, 16))
     return tuple(rgb)
+
+def RGB_to_HSV(RGB:tuple) -> list:
+    HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
+    return [int(x * 360) for x in HSV]
 
 '''Value Functions'''
 
@@ -605,3 +780,9 @@ class AnyType(str):
   """A special class that is always equal in not equal comparisons. Credit to pythongosssss"""
   def __ne__(self, __value: object) -> bool:
     return False
+
+'''Constant'''
+
+chop_mode = ['normal', 'multply', 'screen', 'add', 'subtract', 'difference', 'darker', 'lighter',
+             'color_burn', 'color_dodge', 'linear_burn', 'linear_dodge', 'overlay',
+             'soft_light', 'hard_light', 'vivid_light', 'pin_light', 'linear_light', 'hard_mix']

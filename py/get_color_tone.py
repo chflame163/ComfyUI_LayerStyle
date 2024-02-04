@@ -17,8 +17,8 @@ class GetColorTone:
             }
         }
 
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("RGB color in HEX",)
+    RETURN_TYPES = ("STRING", "LIST")
+    RETURN_NAMES = ("RGB color in HEX", "HSV color in list")
     FUNCTION = 'get_color_tone'
     CATEGORY = '😺dzNodes/LayerUtility'
     OUTPUT_NODE = True
@@ -31,8 +31,9 @@ class GetColorTone:
             ret_color = get_image_color_tone(_canvas)
         else:
             ret_color = get_image_color_average(_canvas)
+        hsv_color = RGB_to_HSV(Hex_to_RGB(ret_color))
 
-        return (ret_color,)
+        return (ret_color, hsv_color)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: GetColorTone": GetColorTone
