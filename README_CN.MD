@@ -2,7 +2,7 @@
 一组为ComfyUI设计的节点，可以合成图层达到类似Photoshop的功能。
 
 ![image](image/title.png)
-节点按照功能分为4组：LayerStyle, LayerMask, LayerUtility和LayerFilter。
+节点按照功能分为5组：LayerStyle, LayerColor, LayerMask, LayerUtility和LayerFilter。
 * [LayerStyle](#LayerStyle)节点组提供仿照Adobe Photoshop的图层样式。
 * [LayerColor](#LayerColor)节点组提供调整颜色功能。
 * [LayerMask](#LayerMask)节点组提供Mask辅助工具。

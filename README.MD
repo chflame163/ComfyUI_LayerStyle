@@ -3,7 +3,7 @@ A set of nodes for ComfyUI that can composite layer and mask to achieve Photosho
 
 ![image](image/title.png)
 
-Nodes are divided into four groups according to their functions: LayerStyle, LayerMask, LayerUtility and LayerFilter.
+Nodes are divided into 5 groups according to their functions: LayerStyle, LayerColor, LayerMask, LayerUtility and LayerFilter.
 * [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
 * [LayerColor](#LayerColor) node group provides color adjustment functionality.
 * [LayerMask](#LayerMask) nodes provides mask assistance tools.
