@@ -1,5 +1,5 @@
 # ComfyUI Layer Style
-A set of nodes for ComfyUI that generate image like Adobe Photoshop's Layer Style.
+A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.
 
 ![image](image/title.png)
 
@@ -13,8 +13,8 @@ Nodes are divided into four groups according to their functions: LayerStyle, Lay
 [中文说明点这里](./README_CN.MD)
 
 ## Update
-* Add new types of [blend mode](#blend) between images. now supports up to 19 hybrid modes. add **color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light** and **hard_mix**. 
-The newly added hybrid mode is applicable to all nodes that support hybrid mode.
+* Add new types of [blend mode](#blend) between images. now supports up to 19 blend modes. add **color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light** and **hard_mix**. 
+The newly added blend mode is applicable to all nodes that support blend mode.
 * Commit [ColorMap](#ColorMap) filter node to create a pseudo color heatmap effect.
 * Commit [WaterColor](#WaterColor) and [SkinBeauty](#SkinBeauty) nodes。These are image filters that generate watercolor and skin smoothness effects.
 * Commit [ImageShift](#ImageShift)  node to shift the image and output a displacement seam mask, making it convenient to create continuous textures.
@@ -515,7 +515,7 @@ Node options:
 * mode： The output format is available in hexadecimal (HEX) and decimal (DEC).  
 
 Output type: 
-* string
+* value: String format.
 
 ### <a id="table1">GetColorTone</a>
 Obtain the main color or average color from the image and output RGB values.
@@ -526,7 +526,8 @@ Node options:
 * mode： There are two modes to choose from, with the main color and average color.
 
 Output type:
-* string
+* RGB color in HEX: The RGB color described by hexadecimal RGB format, like '#FA3D86'.
+* HSV color in list: The HSV color described by python's list data format.
 
 ### <a id="table1">ExtendCanvas</a>
 Extend the canvas
