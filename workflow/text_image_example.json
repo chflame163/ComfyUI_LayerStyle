@@ -1,0 +1,224 @@
+{
+  "last_node_id": 28,
+  "last_link_id": 57,
+  "nodes": [
+    {
+      "id": 11,
+      "type": "LayerStyle: DropShadow",
+      "pos": [
+        1250,
+        300
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 52
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 57
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            46
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: DropShadow"
+      },
+      "widgets_values": [
+        false,
+        "normal",
+        46,
+        3,
+        3,
+        4,
+        12,
+        "#000000"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "PreviewImage",
+      "pos": [
+        1620,
+        310
+      ],
+      "size": {
+        "0": 477.99102783203125,
+        "1": 481.061767578125
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 46
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 28,
+      "type": "LayerUtility: TextImage",
+      "pos": [
+        800,
+        470
+      ],
+      "size": {
+        "0": 400,
+        "1": 408
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            57
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextImage"
+      },
+      "widgets_values": [
+        "鸿雁长飞光不度，\n 鱼龙潜跃水成文。",
+        "演示秋鸿楷YanShiQiuHongKai.ttf",
+        -20,
+        0,
+        36,
+        5,
+        80,
+        24,
+        1707317113,
+        "vertical",
+        512,
+        512,
+        "#000020",
+        "#FFFFFF"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        460,
+        300
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            52,
+            56
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1024x1024bkgd.png",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      46,
+      11,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      52,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      56,
+      10,
+      0,
+      28,
+      0,
+      "*"
+    ],
+    [
+      57,
+      28,
+      0,
+      11,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

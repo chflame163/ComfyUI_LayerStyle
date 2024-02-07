@@ -1,16 +1,19 @@
 '''Image process functions for ComfyUI nodes
 by chflame https://github.com/chflame163
 '''
-
+import os
 import re
+import glob
 import numpy as np
 import torch
 import scipy.ndimage
 import cv2
+import random
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps
 from skimage import img_as_float, img_as_ubyte
 import colorsys
+
 
 def log(message):
     name = 'LayerStyle'
@@ -773,6 +776,15 @@ def has_letters(string:str) -> bool:
     else:
         return False
 
+def random_numbers(total:int, random_range:int, seed:int=0, sum_of_numbers:int=0) -> list:
+    random.seed(seed)
+    numbers = [random.randint(-random_range//2, random_range//2) for _ in range(total - 1)]
+    avg = sum(numbers) // total
+    ret_list = []
+    for i in numbers:
+        ret_list.append(i - avg)
+    ret_list.append(sum_of_numbers - sum(ret_list))
+    return ret_list
 
 '''CLASS'''
 
@@ -786,3 +798,45 @@ class AnyType(str):
 chop_mode = ['normal', 'multply', 'screen', 'add', 'subtract', 'difference', 'darker', 'lighter',
              'color_burn', 'color_dodge', 'linear_burn', 'linear_dodge', 'overlay',
              'soft_light', 'hard_light', 'vivid_light', 'pin_light', 'linear_light', 'hard_mix']
+
+'''Load INI File'''
+
+default_lut_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'lut')
+default_font_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'font')
+resource_dir_ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource_dir.ini")
+
+try:
+    with open(resource_dir_ini_file, 'r') as f:
+        ini = f.readlines()
+        for line in ini:
+            if line.startswith('LUT_dir='):
+                _ldir = line[line.find('=') + 1:].rstrip().lstrip()
+                if os.path.exists(_ldir):
+                    default_lut_dir = _ldir
+                else:
+                    log(f'ERROR: invalid LUT directory, default to be used. check {resource_dir_ini_file}')
+            elif line.startswith('FONT_dir='):
+                _fdir = line[line.find('=') + 1:].rstrip().lstrip()
+                if os.path.exists(_fdir):
+                    default_font_dir = _fdir
+                else:
+                    log(f'ERROR: invalid FONT directory, default to be used. check {resource_dir_ini_file}')
+except Exception as e:
+    log(f'ERROR: {resource_dir_ini_file} ' + repr(e))
+
+__lut_file_list = glob.glob(default_lut_dir + '/*.cube')
+LUT_DICT = {}
+for i in range(len(__lut_file_list)):
+    _, __filename =  os.path.split(__lut_file_list[i])
+    LUT_DICT[__filename] = __lut_file_list[i]
+LUT_LIST = list(LUT_DICT.keys())
+log(f'find {len(LUT_LIST)} LUTs in {default_lut_dir}')
+
+__font_file_list = glob.glob(default_font_dir + '/*.ttf')
+__font_file_list.extend(glob.glob(default_font_dir + '/*.otf'))
+FONT_DICT = {}
+for i in range(len(__font_file_list)):
+    _, __filename =  os.path.split(__font_file_list[i])
+    FONT_DICT[__filename] = __font_file_list[i]
+FONT_LIST = list(FONT_DICT.keys())
+log(f'find {len(FONT_LIST)} Fonts in {default_font_dir}')

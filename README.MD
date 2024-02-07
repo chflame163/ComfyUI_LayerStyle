@@ -13,6 +13,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [TextImage](#TextImage) node, it generate text images and masks.
 * Add new types of [blend mode](#blend) between images. now supports up to 19 blend modes. add **color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light** and **hard_mix**. 
 The newly added blend mode is applicable to all nodes that support blend mode.
 * Commit [ColorMap](#ColorMap) filter node to create a pseudo color heatmap effect.
@@ -205,7 +206,7 @@ Node options:
 * LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
 
 <sup>*</sup>LUT folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
-Open the text editing software and find the line starting with "LUT dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
 
 ### <a id="table1">ColorAdapter</a>
@@ -267,98 +268,6 @@ Node options:
 * H: H channel.
 * S: S channel.
 * V: V channel.
-
-
-# <a id="table1">LayerMask</a>
-![image](image/layermask_nodes.png)
-
-### <a id="table1">MaskBoxDetect</a>
-Detect the area where the mask is located and output its position and size.
-![image](image/mask_box_detect_example.png)
-
-Node options:  
-![image](image/mask_box_detect_node.png)
-* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
-* x_adjust: Adjust of horizontal deviation after detection.
-* y_adjust: Adjust of vertical offset after detection.
-* scale_adjust: Adjust the scaling offset after detection.
-
-Output:
-* box_preview: Preview image of detection results. Red represents the detected result, and green represents the adjust output result.
-* x_percent: Horizontal position output in percentage.
-* y_percent: Vertical position output in percentage.
-* width: Width.
-* height: Height.
-* x: The x-coordinate of the top left corner position.
-* y: The y-coordinate of the top left corner position.
-
-
-### <a id="table1">MaskGrow</a>
-Grow and shrink edges and blur the mask
-![image](image/mask_grow_example.png)
-
-Node options:
-![image](image/mask_grow_node.png)
-* invert_mask: Whether to reverse the mask.
-* grow: Positive values expand outward, while negative values contract inward.
-* blur: Blur the edge.
-
-### <a id="table1">MaskEdgeShrink</a>
-Smooth transition and shrink the mask edges while preserving edge details.
-![image](image/mask_edge_shrink_example.png)
-
-Node options:
-![image](image/mask_edge_shrink_node.png)
-* invert_mask: Whether to reverse the mask.
-* shrink_level: Shrink the smoothness level.
-* soft: Smooth amplitude.
-* edge_shrink: Edge shrinkage amplitude.
-* edge_reserve: Preserve the amplitude of edge details, 100 represents complete preservation, and 0 represents no preservation at all.
-
-Comparison of MaskGrow and MaskEdgeShrink
-![image](image/mask_edge_compare.png)
-
-### <a id="table1">MaskMotionBlur</a>
-Create motion blur on the mask.
-![image](image/mask_motion_blur_example.png)
-
-Node options:  
-![image](image/mask_motion_blur_node.png)
-* invert_mask: Whether to reverse the mask.
-* blur: The size of blur.
-* angle: The angle of blur.
-
-### <a id="table1">MaskGradient</a>
-Create a gradient for the mask from one side.
-![image](image/mask_gradient_example.png)
-
-Node options:
-![image](image/mask_gradient_node.png)
-* invert_mask: Whether to reverse the mask.
-* gradient_side: Generate gradient from which edge. There are four directions: top, bottom, left and right.
-* gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
-* gradient_offset: Gradient position offset.
-* opacity: The opacity of the gradient.
-
-### <a id="table1">MaskStroke</a>
-Generate mask contour strokes.
-![image](image/mask_stroke_example.png)
-
-Node options:  
-![image](image/mask_stroke_node.png)
-* invert_mask: Whether to reverse the mask.
-* stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
-* stroke_width: Stroke width.
-* blur: Blur of stroke.
-
-### <a id="table1">MaskPreview</a>
-Preview the input mask
-![image](image/mask_invert.png)
-
-
-### <a id="table1">MaskInvert</a>
-Invert the mask
-![image](image/mask_invert_node.png)
 
 
 # <a id="table1">LayerUtility</a>
@@ -573,6 +482,33 @@ Node options:
 * start_color<sup>4</sup>: Color of the begging.
 * end_color<sup>4</sup>: Color of the ending.
 
+### <a id="table1">TextImage</a>
+![image](image/text_image_example.png)
+Generate images and masks from text. support for adjusting the spacing between words and lines, horizontal and vertical adjustments, it can set random changes in each character, including size and position.
+
+![image](image/text_image_node.png)
+Node options:
+* size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size.
+* font_file<sup>**</sup>: Here is a list of available font files in the font folder, and the selected font files will be used to generate images.
+* spacing: Word spacing.
+* leading: Row leading.
+* horizontal_border: Side margin. If the text is horizontal, it is the left margin, and if it is vertical, it is the right margin.
+* vertical_border: Top margin.
+* scale: The overall size of the text. the initial size of text is automatically calculated based on the screen size and text content, with the longest row or column by default adapting to the image width or height. adjusting the value here will scale the text as a whole.
+* variation_range: The range of random changes in characters. when this value is greater than 0, the character will undergo random changes in size and position, and the larger the value, the greater the magnitude of the change.
+* variation_seed: The seed for randomly. fix this value to individual characters changes generated each time will not change.
+* layout: Text layout. there are horizontal and vertical options to choose from.
+* width; Width of the image. If there is a size_as input, this setting will be ignored.
+* height; Height of the image. If there is a size_as input, this setting will be ignored.
+* text_color: The color of text.
+* background_color: The color of background.
+
+<sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
+<sup>**</sup>The font folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
+Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
+
+
 ### <a id="table1">ImageChannelSplit</a>
 ![image](image/image_channel_split_example.png)
 Split the image channel into individual images.
@@ -599,6 +535,99 @@ Obtain the width and height of the image.
 Used to provide assistance for workflow debugging. When running, the properties of any object connected to this node will be printed to the console.
 
 This node allows any type of input.
+
+
+# <a id="table1">LayerMask</a>
+![image](image/layermask_nodes.png)
+
+### <a id="table1">MaskBoxDetect</a>
+Detect the area where the mask is located and output its position and size.
+![image](image/mask_box_detect_example.png)
+
+Node options:  
+![image](image/mask_box_detect_node.png)
+* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
+* x_adjust: Adjust of horizontal deviation after detection.
+* y_adjust: Adjust of vertical offset after detection.
+* scale_adjust: Adjust the scaling offset after detection.
+
+Output:
+* box_preview: Preview image of detection results. Red represents the detected result, and green represents the adjust output result.
+* x_percent: Horizontal position output in percentage.
+* y_percent: Vertical position output in percentage.
+* width: Width.
+* height: Height.
+* x: The x-coordinate of the top left corner position.
+* y: The y-coordinate of the top left corner position.
+
+
+### <a id="table1">MaskGrow</a>
+Grow and shrink edges and blur the mask
+![image](image/mask_grow_example.png)
+
+Node options:
+![image](image/mask_grow_node.png)
+* invert_mask: Whether to reverse the mask.
+* grow: Positive values expand outward, while negative values contract inward.
+* blur: Blur the edge.
+
+### <a id="table1">MaskEdgeShrink</a>
+Smooth transition and shrink the mask edges while preserving edge details.
+![image](image/mask_edge_shrink_example.png)
+
+Node options:
+![image](image/mask_edge_shrink_node.png)
+* invert_mask: Whether to reverse the mask.
+* shrink_level: Shrink the smoothness level.
+* soft: Smooth amplitude.
+* edge_shrink: Edge shrinkage amplitude.
+* edge_reserve: Preserve the amplitude of edge details, 100 represents complete preservation, and 0 represents no preservation at all.
+
+Comparison of MaskGrow and MaskEdgeShrink
+![image](image/mask_edge_compare.png)
+
+### <a id="table1">MaskMotionBlur</a>
+Create motion blur on the mask.
+![image](image/mask_motion_blur_example.png)
+
+Node options:  
+![image](image/mask_motion_blur_node.png)
+* invert_mask: Whether to reverse the mask.
+* blur: The size of blur.
+* angle: The angle of blur.
+
+### <a id="table1">MaskGradient</a>
+Create a gradient for the mask from one side.
+![image](image/mask_gradient_example.png)
+
+Node options:
+![image](image/mask_gradient_node.png)
+* invert_mask: Whether to reverse the mask.
+* gradient_side: Generate gradient from which edge. There are four directions: top, bottom, left and right.
+* gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
+* gradient_offset: Gradient position offset.
+* opacity: The opacity of the gradient.
+
+### <a id="table1">MaskStroke</a>
+Generate mask contour strokes.
+![image](image/mask_stroke_example.png)
+
+Node options:  
+![image](image/mask_stroke_node.png)
+* invert_mask: Whether to reverse the mask.
+* stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
+* stroke_width: Stroke width.
+* blur: Blur of stroke.
+
+### <a id="table1">MaskPreview</a>
+Preview the input mask
+![image](image/mask_invert.png)
+
+
+### <a id="table1">MaskInvert</a>
+Invert the mask
+![image](image/mask_invert_node.png)
+
 
 
 # <a id="table1">LayerFilter</a>

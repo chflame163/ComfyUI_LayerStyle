@@ -10,6 +10,7 @@
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明
+* 添加[TextImage](#TextImage) 节点，生成文字图像和遮罩。
 * 图像之间的[混合模式](#混合模式)增加新类型，现在支持多达19种混合模式。新增color_burn颜色加深, color_dodge颜色减淡, linear_burn线性加深, linear_dodge线性减淡, overlay叠加, soft_light柔光, hard_light强光, vivid_light亮光, pin_light点光, linear_light线性光, hard_mix实色混合。新增的混合模式适用于所有支持混合模式的节点。
 * 添加[ColorMap](#ColorMap) 滤镜节点，用于制作伪彩色热力图效果。
 * 添加[WaterColor](#WaterColor) 和 [SkinBeauty](#SkinBeauty) 节点。这是两个图像滤镜，生成水彩画和磨皮效果。
@@ -259,97 +260,6 @@
 * S: 图像的S通道。
 * V: 图像的V通道。
 
-# <a id="table1">LayerMask</a>
-![image](image/layermask_nodes.png)
-
-### <a id="table1">MaskBoxDetect</a>
-探测mask所在区域，并输出位置和大小。
-![image](image/mask_box_detect_example.png)
-
-节点选项说明:  
-![image](image/mask_box_detect_node.png)
-* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
-* x_adjust: 修正探测之后的水平偏移。
-* y_adjust: 修正探测之后的垂直偏移。
-* scale_adjust: 修正探测之后的缩放偏移。
-
-输出：
-* box_preview: 探测结果预览图。红色表示探测到的结果，绿色表示加上修正后的输出结果。
-* x_percent: 水平位置以百分比输出。
-* y_percent: 垂直位置以百分比输出。
-* width: 宽度输出。
-* height: 高度输出。
-* x: 左上角位置x坐标输出。
-* y: 左上角位置y坐标输出。
-
-### <a id="table1">MaskGrow</a>
-对mask进行扩张收缩边缘和模糊处理
-![image](image/mask_grow_example.png)
-
-节点选项说明:  
-![image](image/mask_grow_node.png)
-* invert_mask: 是否反转遮罩。
-* grow: 扩张幅度。正值是向外扩张，负值是向内收缩。
-* blur: 模糊。
-
-### <a id="table1">MaskEdgeShrink</a>
-使mask边缘平滑地过渡收缩，并保留边缘细节。
-![image](image/mask_edge_shrink_example.png)
-
-节点选项说明:  
-![image](image/mask_edge_shrink_node.png)
-* invert_mask: 是否反转遮罩。
-* shrink_level: 收缩平滑级别。
-* soft: 平滑幅度。
-* edge_shrink: 边缘收缩幅度。
-* edge_reserve: 保留边缘细节幅度, 100为完全保留，0为完全不保留。
-
-MaskGrow与MaskEdgeShrink效果对比
-![image](image/mask_edge_compare.png)
-
-### <a id="table1">MaskMotionBlur</a>
-使mask产生运动模糊。
-![image](image/mask_motion_blur_example.png)
-
-节点选项说明:  
-![image](image/mask_motion_blur_node.png)
-* invert_mask: 是否反转遮罩。
-* blur: 模糊大小。
-* angle: 模糊角度。
-
-### <a id="table1">MaskGradient</a>
-使mask从一侧产生渐变。
-![image](image/mask_gradient_example.png)
-
-节点选项说明:  
-![image](image/mask_gradient_node.png)
-* invert_mask: 是否反转遮罩。
-* gradient_side: 从哪个边产生渐变。有四个方向：顶侧top、底侧bottom、左侧left、右侧right。
-* gradient_scale: 渐变距离。默认值100表示渐变产生一侧完全透明，另一侧完全不透明。数值越小，从透明到不透明的距离越短。
-* gradient_offset: 渐变位置偏移。
-* opacity: 渐变的不透明度。
-
-### <a id="table1">MaskStroke</a>
-产生mask轮廓描边。
-![image](image/mask_stroke_example.png)
-
-节点选项说明:  
-![image](image/mask_stroke_node.png)
-* invert_mask: 是否反转遮罩。
-* stroke_grow: 描边扩张/收缩幅度，正值是扩张，负值是收缩。
-* stroke_width: 描边宽度。
-* blur: 描边模糊。
-
-### <a id="table1">MaskPreview</a>
-预览mask
-![image](image/mask_invert.png)
-
-
-### <a id="table1">MaskInvert</a>
-mask反转
-![image](image/mask_invert_node.png)
-
-
 # <a id="table1">LayerUtility</a>
 ![image](image/layerutility_nodes.png)
 
@@ -560,6 +470,31 @@ mask反转
 * start_color<sup>4</sup>: 开始端颜色。
 * end_color<sup>4</sup>: 结束端颜色。
 
+### <a id="table1">TextImage</a>
+![image](image/text_image_example.png)
+从文字生成图片以及遮罩。支持字间距行间距调整，横排竖排调整，可设置文字的随机变化，包括大小和位置的随机变化。
+
+![image](image/text_image_node.png)
+节点选项说明:
+* size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像和遮罩。
+* font_file<sup>**</sup>: 这里列出了font文件夹中可用的字体文件列表，选中的字体文件将被用来生成图像。
+* spacing: 字间距。
+* leading: 行间距。
+* horizontal_border: 侧边边距。如果文字是横排，是左侧边距，竖排则是右侧边距。
+* vertical_border: 顶部边距。
+* scale: 文字总体大小。文字的初始大小是根据画面尺寸和文字内容自动计算，默认以最长的行或者列适配画面宽或者高。调整此处数值将整体放大和缩小文字。
+* variation_range: 字符随机变化范围。此数值大于0时，字符将产生大小和位置的随机变化，数值越大，变化幅度越大。
+* variation_seed: 随机变化的种子。固定此数值，每次产生的单个文字的变化不会改变。
+* layout: 文字排版。有横排和竖排可选择。
+* width; 画面的宽度。如果有size_as输入，此设置将被忽略。
+* height; 画面的高度。如果有size_as输入，此设置将被忽略。
+* text_color: 文字颜色。
+* background_color: 背景颜色。
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+<sup>**</sup>font文件夹在resource_dir.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+
+
 ### <a id="table1">ImageChannelSplit</a>
 ![image](image/image_channel_split_example.png)
 将图像通道拆分为单独的图片。
@@ -585,6 +520,99 @@ mask反转
 用于给工作流调试提供辅助。当运行时，任何接上这个节点的对象的属性将被打印到控制台。
 
 这个节点允许任意类型的输入。
+
+
+
+# <a id="table1">LayerMask</a>
+![image](image/layermask_nodes.png)
+
+### <a id="table1">MaskBoxDetect</a>
+探测mask所在区域，并输出位置和大小。
+![image](image/mask_box_detect_example.png)
+
+节点选项说明:  
+![image](image/mask_box_detect_node.png)
+* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
+* x_adjust: 修正探测之后的水平偏移。
+* y_adjust: 修正探测之后的垂直偏移。
+* scale_adjust: 修正探测之后的缩放偏移。
+
+输出：
+* box_preview: 探测结果预览图。红色表示探测到的结果，绿色表示加上修正后的输出结果。
+* x_percent: 水平位置以百分比输出。
+* y_percent: 垂直位置以百分比输出。
+* width: 宽度输出。
+* height: 高度输出。
+* x: 左上角位置x坐标输出。
+* y: 左上角位置y坐标输出。
+
+### <a id="table1">MaskGrow</a>
+对mask进行扩张收缩边缘和模糊处理
+![image](image/mask_grow_example.png)
+
+节点选项说明:  
+![image](image/mask_grow_node.png)
+* invert_mask: 是否反转遮罩。
+* grow: 扩张幅度。正值是向外扩张，负值是向内收缩。
+* blur: 模糊。
+
+### <a id="table1">MaskEdgeShrink</a>
+使mask边缘平滑地过渡收缩，并保留边缘细节。
+![image](image/mask_edge_shrink_example.png)
+
+节点选项说明:  
+![image](image/mask_edge_shrink_node.png)
+* invert_mask: 是否反转遮罩。
+* shrink_level: 收缩平滑级别。
+* soft: 平滑幅度。
+* edge_shrink: 边缘收缩幅度。
+* edge_reserve: 保留边缘细节幅度, 100为完全保留，0为完全不保留。
+
+MaskGrow与MaskEdgeShrink效果对比
+![image](image/mask_edge_compare.png)
+
+### <a id="table1">MaskMotionBlur</a>
+使mask产生运动模糊。
+![image](image/mask_motion_blur_example.png)
+
+节点选项说明:  
+![image](image/mask_motion_blur_node.png)
+* invert_mask: 是否反转遮罩。
+* blur: 模糊大小。
+* angle: 模糊角度。
+
+### <a id="table1">MaskGradient</a>
+使mask从一侧产生渐变。
+![image](image/mask_gradient_example.png)
+
+节点选项说明:  
+![image](image/mask_gradient_node.png)
+* invert_mask: 是否反转遮罩。
+* gradient_side: 从哪个边产生渐变。有四个方向：顶侧top、底侧bottom、左侧left、右侧right。
+* gradient_scale: 渐变距离。默认值100表示渐变产生一侧完全透明，另一侧完全不透明。数值越小，从透明到不透明的距离越短。
+* gradient_offset: 渐变位置偏移。
+* opacity: 渐变的不透明度。
+
+### <a id="table1">MaskStroke</a>
+产生mask轮廓描边。
+![image](image/mask_stroke_example.png)
+
+节点选项说明:  
+![image](image/mask_stroke_node.png)
+* invert_mask: 是否反转遮罩。
+* stroke_grow: 描边扩张/收缩幅度，正值是扩张，负值是收缩。
+* stroke_width: 描边宽度。
+* blur: 描边模糊。
+
+### <a id="table1">MaskPreview</a>
+预览mask
+![image](image/mask_invert.png)
+
+
+### <a id="table1">MaskInvert</a>
+mask反转
+![image](image/mask_invert_node.png)
+
 
 
 # <a id="table1">LayerFilter</a>
