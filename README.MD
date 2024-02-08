@@ -488,13 +488,13 @@ Generate images and masks from text. support for adjusting the spacing between w
 
 ![image](image/text_image_node.png)
 Node options:
-* size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size.
+* size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
 * font_file<sup>**</sup>: Here is a list of available font files in the font folder, and the selected font files will be used to generate images.
-* spacing: Word spacing.
-* leading: Row leading.
-* horizontal_border: Side margin. If the text is horizontal, it is the left margin, and if it is vertical, it is the right margin.
-* vertical_border: Top margin.
-* scale: The overall size of the text. the initial size of text is automatically calculated based on the screen size and text content, with the longest row or column by default adapting to the image width or height. adjusting the value here will scale the text as a whole.
+* spacing: Word spacing.this value is in pixels.
+* leading: Row leading.this value is in pixels.
+* horizontal_border: Side margin. If the text is horizontal, it is the left margin, and if it is vertical, it is the right margin. this value is represents a percentage, for example, 50 indicates that the starting point is located in the center on both sides.
+* vertical_border: Top margin. this value is represents a percentage, for example, 10 indicates that the starting point is located 10% away from the top.
+* scale: The overall size of the text. the initial size of text is automatically calculated based on the screen size and text content, with the longest row or column by default adapting to the image width or height. adjusting the value here will scale the text as a whole. this value is represents a percentage, for example, 60 represents scaling to 60%.
 * variation_range: The range of random changes in characters. when this value is greater than 0, the character will undergo random changes in size and position, and the larger the value, the greater the magnitude of the change.
 * variation_seed: The seed for randomly. fix this value to individual characters changes generated each time will not change.
 * layout: Text layout. there are horizontal and vertical options to choose from.
@@ -504,6 +504,7 @@ Node options:
 * background_color: The color of background.
 
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
+
 <sup>**</sup>The font folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
 Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
