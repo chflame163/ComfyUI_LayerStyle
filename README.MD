@@ -721,17 +721,6 @@ Node options:
 ## Example workflow
 image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
 
-## The following tasks are in the planned list
-
-LayerMask:
-* TextMask
-
-LayerFilter:
-* Emboss
-* Contour
-* Findedge
-* PhotoStyle
-
 
 ## How to install 
 

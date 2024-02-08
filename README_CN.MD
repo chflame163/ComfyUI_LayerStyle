@@ -697,17 +697,6 @@ mask反转
 
 在workflow目录下有json格式的工作流示例文件。
 
-## 以下工作计划中
-
-LayerMask:
-* TextMask
-
-LayerFilter:
-* Emboss
-* Contour
-* Findedge
-
-
 
 ## 安装方法
 
