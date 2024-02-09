@@ -13,6 +13,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [RemBgUltra](#RemBgUltra) and [PixelSpread](#PixelSpread) nodes significantly improved mask quality. *RemBgUltra requires manual model download.
 * Commit [TextImage](#TextImage) node, it generate text images and masks.
 * Add new types of [blend mode](#blend) between images. now supports up to 19 blend modes. add **color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light** and **hard_mix**. 
 The newly added blend mode is applicable to all nodes that support blend mode.
@@ -561,6 +562,29 @@ Output:
 * x: The x-coordinate of the top left corner position.
 * y: The y-coordinate of the top left corner position.
 
+### <a id="table1">RemBgUltra</a>
+Remove background. compared to the previous RemBg, the cutout of this node has ultra-high edge details.
+This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG).
+
+*Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (model. pth) to the customer_modes/ComfyUI-LayerStyle/RMBG-1.4 floder. 
+This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.
+![image](image/rembg_ultra_example.png)
+
+Node options:  
+![image](image/rembg_ultra_node.png)
+* detail_range: Edge detail range.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+
+### <a id="table1">PixelSpread</a>
+Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image synthesis.
+![image](image/pixel_spread_example.png)
+
+Node options:  
+![image](image/pixel_spread_node.png)
+* invert_mask: Whether to reverse the mask.
+
+
 
 ### <a id="table1">MaskGrow</a>
 Grow and shrink edges and blur the mask
@@ -724,7 +748,9 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 
 ## How to install 
 
-* Open the cmd window in the plugin directory of ComfyUI, like "ComfyUI\custom_nodes\"，type```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```
+* Recommended use ComfyUI Manager for installation.
+
+* Or open the cmd window in the plugin directory of ComfyUI, like "ComfyUI\custom_nodes\"，type```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```
 or download the zip file and extracted, copy the resulting folder to ComfyUI\custom_ Nodes\
 
 * Install dependency packages, open the cmd window in the WordCloud plugin directory like "ComfyUI\custom_ Nodes\ComfyUI_WordCloud" and enter the following command:

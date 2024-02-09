@@ -1,0 +1,234 @@
+{
+  "last_node_id": 46,
+  "last_link_id": 82,
+  "nodes": [
+    {
+      "id": 39,
+      "type": "LoadImage",
+      "pos": [
+        490,
+        660
+      ],
+      "size": {
+        "0": 330.9508972167969,
+        "1": 298.0813903808594
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            74,
+            79
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_hair (2).png",
+        "image"
+      ]
+    },
+    {
+      "id": 44,
+      "type": "LayerMask: RemBgUltra",
+      "pos": [
+        869,
+        784
+      ],
+      "size": {
+        "0": 315,
+        "1": 126
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 74
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            75,
+            80
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: RemBgUltra"
+      },
+      "widgets_values": [
+        10,
+        0.01,
+        0.99
+      ]
+    },
+    {
+      "id": 41,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        1247,
+        802
+      ],
+      "size": {
+        "0": 309.01806640625,
+        "1": 246
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 75
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 42,
+      "type": "PreviewImage",
+      "pos": [
+        1624,
+        721
+      ],
+      "size": {
+        "0": 314.5066223144531,
+        "1": 246
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 81
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 46,
+      "type": "LayerMask: PixelSpread",
+      "pos": [
+        1238,
+        665
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 79
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 80
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            81
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: PixelSpread"
+      },
+      "widgets_values": [
+        false
+      ]
+    }
+  ],
+  "links": [
+    [
+      74,
+      39,
+      0,
+      44,
+      0,
+      "IMAGE"
+    ],
+    [
+      75,
+      44,
+      1,
+      41,
+      0,
+      "MASK"
+    ],
+    [
+      79,
+      39,
+      0,
+      46,
+      0,
+      "IMAGE"
+    ],
+    [
+      80,
+      44,
+      1,
+      46,
+      1,
+      "MASK"
+    ],
+    [
+      81,
+      46,
+      0,
+      42,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

@@ -5,3 +5,5 @@ matplotlib
 Scipy
 opencv-python
 scikit_image
+opencv-contrib-python
+pymatting

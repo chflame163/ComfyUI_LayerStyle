@@ -199,7 +199,6 @@ def blend_linear_light(background_image:Image, layer_image:Image) -> Image:
     img = img * (1 - mask_2) + mask_2
     return cv22pil(ski2cv2(img))
 
-
 def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
     img_1 = cv22ski(pil2cv2(background_image))
     img_2 = cv22ski(pil2cv2(layer_image))
@@ -208,7 +207,6 @@ def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
     img = img * (1 - mask) + mask
     img = img * mask
     return cv22pil(ski2cv2(img))
-
 
 def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
@@ -273,8 +271,6 @@ def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacit
         ret_image = blend_linear_light(background_image, layer_image)
     if blend_mode == 'hard_mix':
         ret_image = blend_hard_mix(background_image, layer_image)
-
-
     # opacity
     if opacity == 0:
         ret_image = background_image
@@ -623,6 +619,22 @@ def image_beauty(image:Image, level:int=50) -> Image:
     img_bit = cv2.bilateralFilter(src=img, d=d, sigmaColor=sigmaColor, sigmaSpace=sigmaSpace)
     ret_image = cv2.cvtColor(img_bit, cv2.COLOR_BGR2RGB)
     return cv22pil(ret_image)
+
+def imagebatch2imagelist(image:torch.Tensor) -> torch.Tensor:
+    images = [image[i:i + 1, ...] for i in range(image.shape[0])]
+    return images
+
+def imagelist2imagebatch(images:torch.Tensor) -> torch.Tensor:
+    if len(images) <= 1:
+        return (images,)
+    else:
+        image1 = images[0]
+        for image2 in images[1:]:
+            if image1.shape[1:] != image2.shape[1:]:
+                image2 = comfy.utils.common_upscale(image2.movedim(-1, 1), image1.shape[2], image1.shape[1], "lanczos", "center").movedim(1, -1)
+            image1 = torch.cat((image1, image2), dim=0)
+        return image1
+
 
 '''Mask Functions'''
 

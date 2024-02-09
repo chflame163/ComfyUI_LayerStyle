@@ -9,7 +9,8 @@
 * [LayerUtility](#LayerUtility)节点组提供图层合成工具和工作流相关的辅助节点。
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
-## 更新说明
+## 更新说明、
+* 添加[RemBgUltra](#RemBgUltra) 和 [PixelSpread](#PixelSpread) 节点，显著提升了遮罩质量。*RemBgUltra需手动下载模型。
 * 添加[TextImage](#TextImage) 节点，生成文字图像和遮罩。
 * 图像之间的[混合模式](#混合模式)增加新类型，现在支持多达19种混合模式。新增color_burn颜色加深, color_dodge颜色减淡, linear_burn线性加深, linear_dodge线性减淡, overlay叠加, soft_light柔光, hard_light强光, vivid_light亮光, pin_light点光, linear_light线性光, hard_mix实色混合。新增的混合模式适用于所有支持混合模式的节点。
 * 添加[ColorMap](#ColorMap) 滤镜节点，用于制作伪彩色热力图效果。
@@ -547,6 +548,29 @@
 * x: 左上角位置x坐标输出。
 * y: 左上角位置y坐标输出。
 
+### <a id="table1">RemBgUltra</a>
+去除背景。与之前的RemBg相比，这个节点的抠像具有超高的边缘细节。
+本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能。
+*将[BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)模型文件(model.pth)下载至/custom_nodes/ComfyUI_LayerStyle/RMBG-1.4。
+该模型由 BRIA AI 开发，可作为非商业用途的开源模型。
+
+![image](image/rembg_ultra_example.png)
+
+节点选项说明:  
+![image](image/rembg_ultra_node.png)
+* detail_range: 边缘细节范围。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+
+### <a id="table1">PixelSpread</a>
+对图像的遮罩边缘部分进行像素扩张预处理，可有效改善图像合成的边缘。
+![image](image/pixel_spread_example.png)
+
+节点选项说明:  
+![image](image/pixel_spread_node.png)
+* invert_mask: 是否反转遮罩。
+
+
 ### <a id="table1">MaskGrow</a>
 对mask进行扩张收缩边缘和模糊处理
 ![image](image/mask_grow_example.png)
@@ -700,7 +724,8 @@ mask反转
 
 ## 安装方法
 
-* 在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```安装。或者下载解压zip文件，将得到的文件夹复制到 ComfyUI\custom_nodes\
+* 推荐使用 ComfyUI Manager 安装。
+* 或者在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```安装。或者下载解压zip文件，将得到的文件夹复制到 ComfyUI\custom_nodes\
 * 安装依赖包，在资源管理器ComfyUI\custom_nodes\ComfyUI_WordCloud 插件目录位置打开cmd窗口，输入以下命令：  
 ```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```
 * 重新打开ComfyUI。
