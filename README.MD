@@ -564,7 +564,7 @@ Output:
 
 ### <a id="table1">RemBgUltra</a>
 Remove background. compared to the previous RemBg, the cutout of this node has ultra-high edge details.
-This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG).
+This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZHO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG).
 
 *Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (model. pth) to the customer_modes/ComfyUI-LayerStyle/RMBG-1.4 floder. 
 This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.
