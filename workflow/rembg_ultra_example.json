@@ -452,7 +452,7 @@
       ],
       "size": {
         "0": 315,
-        "1": 78
+        "1": 102
       },
       "flags": {},
       "order": 7,
@@ -484,19 +484,20 @@
         "Node name for S&R": "LayerMask: PixelSpread"
       },
       "widgets_values": [
-        false
+        false,
+        0
       ]
     },
     {
       "id": 29,
       "type": "LayerMask: RemBgUltra",
       "pos": [
-        1124,
-        1484
+        1126,
+        1519
       ],
       "size": {
         "0": 315,
-        "1": 126
+        "1": 150
       },
       "flags": {},
       "order": 4,
@@ -533,7 +534,8 @@
       "widgets_values": [
         10,
         0.01,
-        0.99
+        0.99,
+        true
       ]
     }
   ],

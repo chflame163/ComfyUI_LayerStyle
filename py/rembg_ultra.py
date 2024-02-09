@@ -34,6 +34,7 @@ class RemBgUltra:
                 "detail_range": ("INT", {"default": 8, "min": 0, "max": 256, "step": 1}),
                 "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
+                "process_detail": ("BOOLEAN", {"default": True}),
             },
             "optional": {
             }
@@ -44,7 +45,7 @@ class RemBgUltra:
     FUNCTION = "rembg_ultra"
     CATEGORY = '😺dzNodes/LayerMask'
   
-    def rembg_ultra(self, image, detail_range, black_point, white_point):
+    def rembg_ultra(self, image, detail_range, black_point, white_point, process_detail):
 
         rmbgmodel = load_model()
         orig_image = tensor2pil(image).convert('RGB')
@@ -64,19 +65,20 @@ class RemBgUltra:
         result = (result-mi)/(ma-mi)
         im_array = (result*255).cpu().data.numpy().astype(np.uint8)
         _mask = Image.fromarray(np.squeeze(im_array)).convert('L')
-        # ultra edge process
-        d = detail_range * 2 + 1
-        i_dup = copy.deepcopy(image.cpu().numpy().astype(np.float64))
-        a_dup = copy.deepcopy(pil2tensor(_mask.convert('RGB')).cpu().numpy().astype(np.float64))
-        for index, img in enumerate(i_dup):
-            trimap = a_dup[index][:,:,0] # convert to single channel
-            if detail_range > 0:
-                trimap = cv2.GaussianBlur(trimap, (d, d), 0)
-            trimap = fix_trimap(trimap, black_point, white_point)
-            alpha = estimate_alpha_cf(img, trimap, laplacian_kwargs={"epsilon": 1e-6},
-                                      cg_kwargs={"maxiter": 500})
-            a_dup[index] = np.stack([alpha, alpha, alpha], axis=-1)  # convert back to rgb
-        _mask = tensor2pil(torch.from_numpy(a_dup.astype(np.float32))) # alpha
+        if process_detail:
+            # ultra edge process
+            d = detail_range * 2 + 1
+            i_dup = copy.deepcopy(image.cpu().numpy().astype(np.float64))
+            a_dup = copy.deepcopy(pil2tensor(_mask.convert('RGB')).cpu().numpy().astype(np.float64))
+            for index, img in enumerate(i_dup):
+                trimap = a_dup[index][:,:,0] # convert to single channel
+                if detail_range > 0:
+                    trimap = cv2.GaussianBlur(trimap, (d, d), 0)
+                trimap = fix_trimap(trimap, black_point, white_point)
+                alpha = estimate_alpha_cf(img, trimap, laplacian_kwargs={"epsilon": 1e-6},
+                                          cg_kwargs={"maxiter": 500})
+                a_dup[index] = np.stack([alpha, alpha, alpha], axis=-1)  # convert back to rgb
+            _mask = tensor2pil(torch.from_numpy(a_dup.astype(np.float32))) # alpha
         ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
         return (pil2tensor(ret_image), image2mask(_mask),)
 

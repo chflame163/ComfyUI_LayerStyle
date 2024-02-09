@@ -561,6 +561,7 @@
 * detail_range: 边缘细节范围。
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
 ### <a id="table1">PixelSpread</a>
 对图像的遮罩边缘部分进行像素扩张预处理，可有效改善图像合成的边缘。
@@ -569,6 +570,7 @@
 节点选项说明:  
 ![image](image/pixel_spread_node.png)
 * invert_mask: 是否反转遮罩。
+* mask_grow: 遮罩扩张幅度。
 
 
 ### <a id="table1">MaskGrow</a>

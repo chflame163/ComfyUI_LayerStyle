@@ -14,6 +14,7 @@ class PixelSpread:
             "required": {
                 "image": ("IMAGE", ),  #
                 "invert_mask": ("BOOLEAN", {"default": False}),  # 反转mask
+                "mask_grow": ("INT", {"default": 0, "min": -999, "max": 999, "step": 1}),
             },
             "optional": {
                 "mask": ("MASK",),  #
@@ -26,15 +27,19 @@ class PixelSpread:
     CATEGORY = '😺dzNodes/LayerMask'
     OUTPUT_NODE = True
 
-    def pixel_spread(self, image, invert_mask, mask=None):
+    def pixel_spread(self, image, invert_mask, mask_grow, mask=None):
         _image = tensor2pil(image)
         if _image.mode == 'RGBA':
             _mask = _image.split()[-1]
+            if mask_grow != 0:
+                _mask = expand_mask(image2mask(_mask), mask_grow, 0)  # 扩张，模糊
         else:
             _mask = Image.new('L', _image.size, 'white')
         if mask is not None:
             if invert_mask:
                 mask = 1 - mask
+            if mask_grow != 0:
+                _mask = expand_mask(mask, mask_grow, 0)  # 扩张，模糊
             _mask = mask2image(mask).convert('L')
         image = pil2tensor(_image.convert('RGB'))
         _mask = _mask.convert('RGB')

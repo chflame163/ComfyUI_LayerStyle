@@ -575,6 +575,7 @@ Node options:
 * detail_range: Edge detail range.
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
 
 ### <a id="table1">PixelSpread</a>
 Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image synthesis.
@@ -583,6 +584,7 @@ Pixel expansion preprocessing on the masked edge of an image can effectively imp
 Node options:  
 ![image](image/pixel_spread_node.png)
 * invert_mask: Whether to reverse the mask.
+* mask_grow: Mask expansion amplitude.
 
 
 
