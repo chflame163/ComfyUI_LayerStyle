@@ -549,7 +549,7 @@
 * y: 左上角位置y坐标输出。
 
 ### <a id="table1">RemBgUltra</a>
-去除背景。与之前的RemBg相比，这个节点的抠像具有超高的边缘细节。
+去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
 本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能。
 *将[BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)模型文件(model.pth)下载至/custom_nodes/ComfyUI_LayerStyle/RMBG-1.4。
 该模型由 BRIA AI 开发，可作为非商业用途的开源模型。

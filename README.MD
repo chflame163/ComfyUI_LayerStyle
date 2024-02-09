@@ -563,10 +563,11 @@ Output:
 * y: The y-coordinate of the top left corner position.
 
 ### <a id="table1">RemBgUltra</a>
-Remove background. compared to the previous RemBg, the cutout of this node has ultra-high edge details.
+Remove background. compared to the similar background removal nodes, this node has ultra-high edge details.
+
 This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZHO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG).
 
-*Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (model. pth) to the customer_modes/ComfyUI-LayerStyle/RMBG-1.4 floder. 
+*Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (model. pth) to the customer_modes/ComfyUI-LayerStyle/RMBG-1.4 floder.  
 This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.
 ![image](image/rembg_ultra_example.png)
 
@@ -578,7 +579,7 @@ Node options:
 * process_detail: Set to false here will skip edge processing to save runtime.
 
 ### <a id="table1">PixelSpread</a>
-Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image synthesis.
+Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image composit.
 ![image](image/pixel_spread_example.png)
 
 Node options:  
