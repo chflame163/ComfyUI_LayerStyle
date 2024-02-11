@@ -32,11 +32,16 @@ class ColorMap:
     def color_map(self, image, color_map, opacity
                   ):
 
-        _canvas = tensor2pil(image)
-        _image = image_to_colormap(_canvas, colormap_list.index(color_map))
-        ret_image = chop_image(_canvas, _image, 'normal', opacity)
+        ret_images = []
 
-        return (pil2tensor(ret_image),)
+        for image in image:
+            _canvas = tensor2pil(image)
+            _image = image_to_colormap(_canvas, colormap_list.index(color_map))
+            ret_image = chop_image(_canvas, _image, 'normal', opacity)
+
+            ret_images.append(pil2tensor(ret_image))
+        log(f'ColorMap Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerFilter: ColorMap": ColorMap

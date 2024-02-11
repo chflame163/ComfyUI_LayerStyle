@@ -34,19 +34,15 @@ class ImageMaskScaleAs:
     def image_mask_scale_as(self, scale_as, fit, method,
                             image=None, mask = None,
                             ):
-
-        _asimage = tensor2pil(scale_as)
+        if scale_as.shape[0] > 0:
+            _asimage = tensor2pil(scale_as[0])
+        else:
+            _asimage = tensor2pil(scale_as)
         target_width, target_height = _asimage.size
         _mask = Image.new('L', size=_asimage.size, color='black')
         _image = Image.new('RGB', size=_asimage.size, color='black')
         orig_width = 4
         orig_height = 4
-        if mask is not None:
-            _mask = tensor2pil(mask).convert('L')
-            orig_width, orig_height = _mask.size
-        if image is not None:
-            _image = tensor2pil(image).convert('RGB')
-            orig_width, orig_height = _image.size
         resize_sampler = Image.LANCZOS
         if method == "bicubic":
             resize_sampler = Image.BICUBIC
@@ -58,12 +54,30 @@ class ImageMaskScaleAs:
             resize_sampler = Image.BOX
         elif method == "nearest":
             resize_sampler = Image.NEAREST
-        if image is not None:
-            _image = fit_resize_image(_image, target_width, target_height, fit, resize_sampler)
-        if mask is not None:
-            _mask = fit_resize_image(_mask, target_width, target_height, fit, resize_sampler).convert('L')
 
-        return (pil2tensor(_image), image2mask(_mask), [orig_width, orig_height],)
+        ret_images = []
+        ret_masks = []
+        
+        if image is not None:
+            for image in image:
+                _image = tensor2pil(image).convert('RGB')
+                orig_width, orig_height = _image.size
+                _image = fit_resize_image(_image, target_width, target_height, fit, resize_sampler)
+                ret_images.append(pil2tensor(_image))
+        if mask is not None:
+            for mask in mask:
+                _mask = tensor2pil(mask).convert('L')
+                orig_width, orig_height = _mask.size
+                _mask = fit_resize_image(_mask, target_width, target_height, fit, resize_sampler).convert('L')
+                ret_masks.append(image2mask(_mask))
+        if len(ret_images) > 0 and len(ret_masks) >0:
+            return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
+        elif len(ret_images) > 0 and len(ret_masks) == 0:
+            return (torch.cat(ret_images, dim=0), None,)
+        elif len(ret_images) == 0 and len(ret_masks) > 0:
+            return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
+        else:
+            return (None, None,)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageMaskScaleAs": ImageMaskScaleAs

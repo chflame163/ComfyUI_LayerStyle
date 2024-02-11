@@ -25,9 +25,16 @@ class ColorCorrectGamma:
 
     def color_correct_gamma(self, image, gamma):
 
-        ret_image = gamma_trans(tensor2pil(image), gamma)
+        ret_images = []
 
-        return (pil2tensor(ret_image),)
+        for image in image:
+
+            ret_image = gamma_trans(tensor2pil(image), gamma)
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'Gamma Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: Gamma": ColorCorrectGamma

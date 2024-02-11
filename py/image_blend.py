@@ -32,19 +32,42 @@ class ImageBlend:
                   layer_mask=None
                   ):
 
-        _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image).convert('RGB')
-        _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
+        b_images = []
+        l_images = []
+        l_masks = []
+        ret_images = []
+        for b in background_image:
+            b_images.append(b)
+        for l in layer_image:
+            l_images.append(l)
+            m = tensor2pil(l)
+            if tensor2pil(l).mode == 'RGBA':
+                l_masks.append(m.convert('RGBA').split()[-1])
+            else:
+                l_masks.append(Image.new('L', m.size, 'white'))
         if layer_mask is not None:
-            if invert_mask:
-                layer_mask = 1 - layer_mask
-            _mask = mask2image(layer_mask).convert('L')
-        # 合成layer
-        _comp = chop_image(_canvas, _layer, blend_mode, opacity)
-        _canvas.paste(_comp, mask=_mask)
-        ret_image = _canvas
-        log('ImageBlend Processed.')
-        return (pil2tensor(ret_image),)
+            l_masks = []
+            for m in layer_mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(m).convert('L'))
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
+        for i in range(max_batch):
+            background_image = b_images[i] if i < len(b_images) else b_images[-1]
+            layer_image = l_images[i] if i < len(l_images) else l_images[-1]
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+
+            _canvas = tensor2pil(background_image).convert('RGB')
+            _layer = tensor2pil(layer_image).convert('RGB')
+            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
+
+            # 合成layer
+            _comp = chop_image(_canvas, _layer, blend_mode, opacity)
+            _canvas.paste(_comp, mask=_mask)
+
+            ret_images.append(pil2tensor(_canvas))
+        log(f'ImageBlend Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageBlend": ImageBlend

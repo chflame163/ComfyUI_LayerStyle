@@ -26,10 +26,17 @@ class MotionBlur:
 
     def motion_blur(self, image, angle, blur):
 
-        _canvas = tensor2pil(image).convert('RGB')
-        ret_image = motion_blur(_canvas, angle, blur)
-        log('MotionBlur Processed.')
-        return (pil2tensor(ret_image),)
+        ret_images = []
+
+        for image in image:
+
+            _canvas = tensor2pil(image).convert('RGB')
+            ret_image = motion_blur(_canvas, angle, blur)
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'MotionBlur Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerFilter: MotionBlur": MotionBlur

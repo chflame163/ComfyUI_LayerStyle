@@ -25,11 +25,17 @@ class GaussianBlur:
 
     def gaussian_blur(self, image, blur):
 
-        _canvas = tensor2pil(image).convert('RGB')
-        ret_image = gaussian_blur(_canvas, blur)
-        log('GaussianBlur Processed.')
+        ret_images = []
 
-        return (pil2tensor(ret_image),)
+        for image in image:
+
+            _canvas = tensor2pil(image).convert('RGB')
+            ret_image = gaussian_blur(_canvas, blur)
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'GaussianBlur Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerFilter: GaussianBlur": GaussianBlur

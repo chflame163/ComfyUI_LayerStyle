@@ -36,19 +36,31 @@ class ImageShift:
                     border_mask_width, border_mask_blur,
                     mask=None
                     ):
-        shift_x, shift_y = -shift_x, -shift_y
-        _canvas = tensor2pil(image).convert('RGB')
-        _mask = tensor2pil(image).convert('RGBA').split()[-1]
-        if mask is not None:
-            _mask = mask2image(mask).convert('L')
-        _border =  Image.new('L', size=_canvas.size, color='black')
-        _border = draw_border(_border, border_width=border_mask_width, color='#FFFFFF')
-        _border = _border.resize(_canvas.size)
-        _canvas = shift_image(_canvas, shift_x, shift_y, background_color=background_color, cyclic=cyclic)
-        _mask = shift_image(_mask, shift_x, shift_y, background_color='#000000', cyclic=cyclic)
-        _border = shift_image(_border, shift_x, shift_y, background_color='#000000', cyclic=cyclic)
-        _border = gaussian_blur(_border, border_mask_blur)
-        return (pil2tensor(_canvas), image2mask(_mask), image2mask(_border),)
+
+        ret_images = []
+        ret_masks = []
+        ret_border_masks = []
+        for image in image:
+
+            shift_x, shift_y = -shift_x, -shift_y
+            _canvas = tensor2pil(image).convert('RGB')
+            _mask = tensor2pil(image).convert('RGBA').split()[-1]
+            if mask is not None:
+                _mask = mask2image(mask).convert('L')
+            _border =  Image.new('L', size=_canvas.size, color='black')
+            _border = draw_border(_border, border_width=border_mask_width, color='#FFFFFF')
+            _border = _border.resize(_canvas.size)
+            _canvas = shift_image(_canvas, shift_x, shift_y, background_color=background_color, cyclic=cyclic)
+            _mask = shift_image(_mask, shift_x, shift_y, background_color='#000000', cyclic=cyclic)
+            _border = shift_image(_border, shift_x, shift_y, background_color='#000000', cyclic=cyclic)
+            _border = gaussian_blur(_border, border_mask_blur)
+
+            ret_images.append(pil2tensor(_canvas))
+            ret_masks.append(image2mask(_mask))
+            ret_border_masks.append(image2mask(_border))
+
+        log(f'ImageShift Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), torch.cat(ret_border_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageShift": ImageShift

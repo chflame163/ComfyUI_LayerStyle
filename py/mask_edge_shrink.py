@@ -29,35 +29,43 @@ class MaskEdgeShrink:
 
     def mask_edge_shrink(self, mask, invert_mask, shrink_level, soft, edge_shrink, edge_reserve):
 
+        l_masks = []
+        ret_masks = []
+
+
+        for m in mask:
+            if invert_mask:
+                m = 1 - m
+            l_masks.append(tensor2pil(m).convert('L'))
+
         glow_range = shrink_level * soft
         blur = 12
-        _inputmask = mask2image(mask)
-        _canvas = Image.new('RGB', size=_inputmask.size, color='black')
-        _layer = Image.new('RGB', size=_inputmask.size, color='white')
 
-        if invert_mask:
-            mask = 1 - mask
-        _mask = mask2image(mask).convert('L')
+        for i in range(len(l_masks)):
+            _mask = l_masks[i]
+            _canvas = Image.new('RGB', size=_mask.size, color='black')
+            _layer = Image.new('RGB', size=_mask.size, color='white')
+            loop_grow = glow_range
+            inner_mask = _mask
+            for x in range(shrink_level):
+                _color = step_color('#FFFFFF', '#000000', shrink_level, x)
+                glow_mask = expand_mask(image2mask(inner_mask), -loop_grow, blur / (x+0.1))  #扩张，模糊
+                # 合成
+                color_image = Image.new("RGB", _layer.size, color=_color)
+                alpha = tensor2pil(mask_invert(glow_mask)).convert('L')
+                _glow = chop_image(_layer, color_image, 'subtract', int(step_value(1, 100, shrink_level, x)))
+                _layer.paste(_glow, mask=alpha)
+                loop_grow = loop_grow - int(glow_range / shrink_level)
+            # 合成layer
+            _edge = tensor2pil(expand_mask(image2mask(_mask), -edge_shrink, 0)).convert('RGB')
+            _layer = chop_image(_layer, _edge, 'normal', edge_reserve)
+            _layer.paste(_canvas, mask=ImageChops.invert(_mask))
 
-        loop_grow = glow_range
-        inner_mask = _mask
-        for x in range(shrink_level):
+            ret_masks.append(image2mask(_layer))
 
-            _color = step_color('#FFFFFF', '#000000', shrink_level, x)
-            glow_mask = expand_mask(image2mask(inner_mask), -loop_grow, blur / (x+0.1))  #扩张，模糊
-            # 合成
-            color_image = Image.new("RGB", _layer.size, color=_color)
-            alpha = tensor2pil(mask_invert(glow_mask)).convert('L')
-            _glow = chop_image(_layer, color_image, 'subtract', int(step_value(1, 100, shrink_level, x)))
-            _layer.paste(_glow, mask=alpha)
-            loop_grow = loop_grow - int(glow_range / shrink_level)
-        # 合成layer
-        _edge = tensor2pil(expand_mask(mask, -edge_shrink, 0)).convert('RGB')
-        _layer = chop_image(_layer, _edge, 'normal', edge_reserve)
-        _layer.paste(_canvas, mask=ImageChops.invert(_mask))
-        ret_mask = image2mask(_layer)
+        log(f'MaskEdgeShrink Processed {len(ret_masks)} image(s).')
+        return (torch.cat(ret_masks, dim=0),)
 
-        return (ret_mask,)
 
 NODE_CLASS_MAPPINGS = {
     "LayerMask: MaskEdgeShrink": MaskEdgeShrink

@@ -27,16 +27,23 @@ class ColorCorrectLAB:
 
     def color_correct_LAB(self, image, L, A, B):
 
-        _l, _a, _b = tensor2pil(image).convert('LAB').split()
-        if L != 0 :
-            _l = image_gray_offset(_l, L)
-        if A != 0 :
-            _a = image_gray_offset(_a, A)
-        if B != 0 :
-            _b = image_gray_offset(_b, B)
-        ret_image = image_channel_merge((_l, _a, _b), 'LAB')
+        ret_images = []
 
-        return (pil2tensor(ret_image),)
+        for image in image:
+
+            _l, _a, _b = tensor2pil(image).convert('LAB').split()
+            if L != 0 :
+                _l = image_gray_offset(_l, L)
+            if A != 0 :
+                _a = image_gray_offset(_a, A)
+            if B != 0 :
+                _b = image_gray_offset(_b, B)
+            ret_image = image_channel_merge((_l, _a, _b), 'LAB')
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'LAB Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: LAB": ColorCorrectLAB

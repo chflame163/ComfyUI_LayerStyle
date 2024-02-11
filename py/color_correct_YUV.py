@@ -27,16 +27,23 @@ class ColorCorrectYUV:
 
     def color_correct_YUV(self, image, Y, U, V):
 
-        _y, _u, _v = tensor2pil(image).convert('YCbCr').split()
-        if Y != 0 :
-            _y = image_gray_offset(_y, Y)
-        if U != 0 :
-            _u = image_gray_offset(_u, U)
-        if V != 0 :
-            _v = image_gray_offset(_v, V)
-        ret_image = image_channel_merge((_y, _u, _v), 'YCbCr')
+        ret_images = []
 
-        return (pil2tensor(ret_image),)
+        for image in image:
+
+            _y, _u, _v = tensor2pil(image).convert('YCbCr').split()
+            if Y != 0 :
+                _y = image_gray_offset(_y, Y)
+            if U != 0 :
+                _u = image_gray_offset(_u, U)
+            if V != 0 :
+                _v = image_gray_offset(_v, V)
+            ret_image = image_channel_merge((_y, _u, _v), 'YCbCr')
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'YUV Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: YUV": ColorCorrectYUV

@@ -2,31 +2,6 @@ import os
 import glob
 from .imagefunc import *
 
-# lut_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'lut')
-# ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource_dir.ini")
-#
-# try:
-#     with open(ini_file, 'r') as f:
-#         ini = f.readlines()
-#         for line in ini:
-#             if line.startswith('LUT_dir='):
-#                 d = line[line.find('=') + 1:].rstrip().lstrip()
-#                 break
-#         if os.path.exists(d):
-#             lut_dir = d
-#         else:
-#             log(f'ERROR: invalid LUT dir, default to be used. check {ini_file}')
-# except Exception as e:
-#     log(f'ERROR: {ini_file} ' + repr(e))
-#
-# file_list = glob.glob(lut_dir + '/*.cube')
-# lut_dict = {}
-# for i in range(len(file_list)):
-#     _, filename =  os.path.split(file_list[i])
-#     lut_dict[filename] = file_list[i]
-# lut_list = list(lut_dict.keys())
-# log(f'find {len(lut_list)} LUTs in {lut_dir}')
-
 class ColorCorrectLUTapply:
 
     def __init__(self):
@@ -51,12 +26,16 @@ class ColorCorrectLUTapply:
     OUTPUT_NODE = True
 
     def color_correct_LUTapply(self, image, LUT):
+        ret_images = []
+        for image in image:
 
-        _image = tensor2pil(image)
-        lut_file = LUT_DICT[LUT]
-        ret_image = lut_apply(_image, lut_file)
+            _image = tensor2pil(image)
+            lut_file = LUT_DICT[LUT]
+            ret_image = lut_apply(_image, lut_file)
+            ret_images.append(pil2tensor(ret_image))
 
-        return (pil2tensor(ret_image),)
+        log(f'LUT Apply Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: LUT Apply": ColorCorrectLUTapply

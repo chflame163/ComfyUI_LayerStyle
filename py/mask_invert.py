@@ -22,8 +22,18 @@ class MaskInvert:
     OUTPUT_NODE = True
 
     def mask_invert(self,mask):
+        l_masks = []
+        ret_masks = []
 
-        return (mask_invert(mask),)
+        for m in mask:
+            l_masks.append(tensor2pil(m).convert('L'))
+
+        for i in range(len(l_masks)):
+            _mask = l_masks[i]
+            ret_masks.append(mask_invert(image2mask(_mask)))
+
+        log(f'MaskInvert Processed {len(ret_masks)} image(s).')
+        return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerMask: MaskInvert": MaskInvert

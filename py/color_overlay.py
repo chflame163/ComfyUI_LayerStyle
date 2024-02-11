@@ -33,29 +33,50 @@ class ColorOverlay:
                   layer_mask=None
                   ):
 
-        # preprocess
-        _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image)
-        if _layer.mode == 'RGBA':
-            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
-        else:
-            _mask = Image.new('L', _layer.size, 'white')
-        _layer = _layer.convert('RGB')
-        if layer_mask is not None:
-            if invert_mask:
-                layer_mask = 1 - layer_mask
-            _mask = mask2image(layer_mask).convert('L')
-        if _mask.size != _layer.size:
-            _mask = Image.new('L', _layer.size, 'white')
-            log('Warning: mask mismatch, droped!')
+        b_images = []
+        l_images = []
+        l_masks = []
+        ret_images = []
 
-        _color = Image.new('RGB', size=_layer.size, color=color)
-        # 合成layer
-        _comp = chop_image(_layer, _color, blend_mode, opacity)
-        _canvas.paste(_comp, mask=_mask)
-        ret_image = _canvas
-        log('ColorOverlay Processed.')
-        return (pil2tensor(ret_image),)
+        for b in background_image:
+            b_images.append(b)
+        for l in layer_image:
+            l_images.append(l)
+            m = tensor2pil(l)
+            if tensor2pil(l).mode == 'RGBA':
+                l_masks.append(m.convert('RGBA').split()[-1])
+            else:
+                l_masks.append(Image.new('L', m.size, 'white'))
+        if layer_mask is not None:
+            l_masks = []
+            for m in layer_mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(m).convert('L'))
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
+
+        _color = Image.new("RGB", tensor2pil(l_images[0]).size, color=color)
+        for i in range(max_batch):
+            background_image = b_images[i] if i < len(b_images) else b_images[-1]
+            layer_image = l_images[i] if i < len(l_images) else l_images[-1]
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+
+            # preprocess
+            _canvas = tensor2pil(background_image).convert('RGB')
+            _layer = tensor2pil(layer_image).convert('RGB')
+
+            if _mask.size != _layer.size:
+                _mask = Image.new('L', _layer.size, 'white')
+                log('Warning: mask mismatch, droped!')
+
+            # 合成layer
+            _comp = chop_image(_layer, _color, blend_mode, opacity)
+            _canvas.paste(_comp, mask=_mask)
+
+            ret_images.append(pil2tensor(_canvas))
+
+        log(f'ColorOverlay Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerStyle: ColorOverlay": ColorOverlay

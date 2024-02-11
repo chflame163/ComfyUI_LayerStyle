@@ -25,10 +25,18 @@ class ColorAdapter:
     OUTPUT_NODE = True
 
     def color_adapter(self, image, color_ref_image, opacity):
-        _canvas = tensor2pil(image).convert('RGB')
-        ret_image = color_adapter(_canvas, tensor2pil(color_ref_image).convert('RGB'))
-        ret_image = chop_image(_canvas, ret_image, blend_mode='normal', opacity=opacity)
-        return (pil2tensor(ret_image),)
+        ret_images = []
+
+        for image in image:
+
+            _canvas = tensor2pil(image).convert('RGB')
+            ret_image = color_adapter(_canvas, tensor2pil(color_ref_image).convert('RGB'))
+            ret_image = chop_image(_canvas, ret_image, blend_mode='normal', opacity=opacity)
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'ColorAdapter Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: ColorAdapter": ColorAdapter

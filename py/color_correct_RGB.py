@@ -27,16 +27,23 @@ class ColorCorrectRGB:
 
     def color_correct_RGB(self, image, R, G, B):
 
-        _r, _g, _b = tensor2pil(image).convert('RGB').split()
-        if R != 0 :
-            _r = image_gray_offset(_r, R)
-        if G != 0 :
-            _g = image_gray_offset(_g, G)
-        if B != 0 :
-            _b = image_gray_offset(_b, B)
-        ret_image = image_channel_merge((_r, _g, _b), 'RGB')
+        ret_images = []
 
-        return (pil2tensor(ret_image),)
+        for image in image:
+
+            _r, _g, _b = tensor2pil(image).convert('RGB').split()
+            if R != 0 :
+                _r = image_gray_offset(_r, R)
+            if G != 0 :
+                _g = image_gray_offset(_g, G)
+            if B != 0 :
+                _b = image_gray_offset(_b, B)
+            ret_image = image_channel_merge((_r, _g, _b), 'RGB')
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'RGB Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: RGB": ColorCorrectRGB

@@ -1,6 +1,7 @@
 '''Image process functions for ComfyUI nodes
 by chflame https://github.com/chflame163
 '''
+import copy
 import os
 import re
 import glob
@@ -68,6 +69,13 @@ def mask2image(mask:torch.Tensor)  -> Image:
         _image = Image.composite(
             _image, Image.new("RGBA", _mask.size, color='black'), _mask)
     return _image
+
+# def make_3d_mask(mask):
+#     if len(mask.shape) == 4:
+#         return mask.squeeze(0)
+#     elif len(mask.shape) == 2:
+#         return mask.unsqueeze(0)
+#     return mask
 
 '''Image Functions'''
 
@@ -234,7 +242,7 @@ def shift_image(image:Image, distance_x:int, distance_y:int, background_color:st
 def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
     ret_image = background_image
     if blend_mode == 'normal':
-        ret_image = layer_image
+        ret_image = copy.deepcopy(layer_image)
     if blend_mode == 'multply':
         ret_image = ImageChops.multiply(background_image,layer_image)
     if blend_mode == 'screen':
@@ -619,21 +627,6 @@ def image_beauty(image:Image, level:int=50) -> Image:
     img_bit = cv2.bilateralFilter(src=img, d=d, sigmaColor=sigmaColor, sigmaSpace=sigmaSpace)
     ret_image = cv2.cvtColor(img_bit, cv2.COLOR_BGR2RGB)
     return cv22pil(ret_image)
-
-def imagebatch2imagelist(image:torch.Tensor) -> torch.Tensor:
-    images = [image[i:i + 1, ...] for i in range(image.shape[0])]
-    return images
-
-def imagelist2imagebatch(images:torch.Tensor) -> torch.Tensor:
-    if len(images) <= 1:
-        return (images,)
-    else:
-        image1 = images[0]
-        for image2 in images[1:]:
-            if image1.shape[1:] != image2.shape[1:]:
-                image2 = comfy.utils.common_upscale(image2.movedim(-1, 1), image1.shape[2], image1.shape[1], "lanczos", "center").movedim(1, -1)
-            image1 = torch.cat((image1, image2), dim=0)
-        return image1
 
 
 '''Mask Functions'''

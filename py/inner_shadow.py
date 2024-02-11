@@ -39,37 +39,57 @@ class InnerShadow:
                   layer_mask=None
                   ):
 
-        # preprocess
-        _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image)
-        if _layer.mode == 'RGBA':
-            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
-        else:
-            _mask = Image.new('L', _layer.size, 'white')
-        _layer = _layer.convert('RGB')
-        if layer_mask is not None:
-            if invert_mask:
-                layer_mask = 1 - layer_mask
-            _mask = mask2image(layer_mask).convert('L')
-        if _mask.size != _layer.size:
-            _mask = Image.new('L', _layer.size, 'white')
-            log('Warning: mask mismatch, droped!')
+        b_images = []
+        l_images = []
+        l_masks = []
+        ret_images = []
 
+        for b in background_image:
+            b_images.append(b)
+        for l in layer_image:
+            l_images.append(l)
+            m = tensor2pil(l)
+            if tensor2pil(l).mode == 'RGBA':
+                l_masks.append(m.convert('RGBA').split()[-1])
+            else:
+                l_masks.append(Image.new('L', m.size, 'white'))
+        if layer_mask is not None:
+            l_masks = []
+            for m in layer_mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(m).convert('L'))
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
         distance_x = -distance_x
         distance_y = -distance_y
-        if distance_x != 0 or distance_y != 0:
-            __mask = shift_image(_mask, distance_x, distance_y)  # 位移
-        shadow_mask = expand_mask(image2mask(__mask), grow, blur)  #扩张，模糊
-        # 合成阴影
-        shadow_color = Image.new("RGB", _layer.size, color=shadow_color)
-        alpha = tensor2pil(shadow_mask).convert('L')
-        _shadow = chop_image(_layer, shadow_color, blend_mode, opacity)
-        _layer.paste(_shadow, mask=ImageChops.invert(alpha))
-        # 合成layer
-        _canvas.paste(_layer, mask=_mask)
-        ret_image = _canvas
-        log('InnerShadow Processed.')
-        return (pil2tensor(ret_image),)
+        shadow_color = Image.new("RGB", tensor2pil(l_images[0]).size, color=shadow_color)
+        for i in range(max_batch):
+            background_image = b_images[i] if i < len(b_images) else b_images[-1]
+            layer_image = l_images[i] if i < len(l_images) else l_images[-1]
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+
+            # preprocess
+            _canvas = tensor2pil(background_image).convert('RGB')
+            _layer = tensor2pil(layer_image).convert('RGB')
+
+            if _mask.size != _layer.size:
+                _mask = Image.new('L', _layer.size, 'white')
+                log('Warning: mask mismatch, droped!')
+
+            if distance_x != 0 or distance_y != 0:
+                __mask = shift_image(_mask, distance_x, distance_y)  # 位移
+            shadow_mask = expand_mask(image2mask(__mask), grow, blur)  #扩张，模糊
+            # 合成阴影
+            alpha = tensor2pil(shadow_mask).convert('L')
+            _shadow = chop_image(_layer, shadow_color, blend_mode, opacity)
+            _layer.paste(_shadow, mask=ImageChops.invert(alpha))
+            # 合成layer
+            _canvas.paste(_layer, mask=_mask)
+
+            ret_images.append(pil2tensor(_canvas))
+
+        log(f'InnerShadow Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerStyle: InnerShadow": InnerShadow

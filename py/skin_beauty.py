@@ -28,20 +28,29 @@ class SkinBeauty:
     def skin_beauty(self, image, smooth, threshold, opacity
                   ):
 
-        _canvas = tensor2pil(image).convert('RGB')
-        _R, _, _, _ = image_channel_split(_canvas, mode='RGB')
-        _otsumask = gray_threshold(_R, otsu=True)
-        _removebkgd = remove_background(_R, _otsumask, '#000000')
-        auto_threshold = get_image_bright_average(_removebkgd) - 16
-        light_mask = gray_threshold(_canvas, auto_threshold + threshold)
-        blur = int((_canvas.width + _canvas.height) / 2000 * smooth)
-        _image = image_beauty(_canvas, level=smooth)
-        _image = gaussian_blur(_image, blur)
-        _image = chop_image(_canvas, _image, 'normal', opacity)
-        light_mask = gaussian_blur(light_mask, blur).convert('L')
-        _canvas.paste(_image, mask=light_mask)
+        ret_images = []
+        ret_masks = []
+        for image in image:
 
-        return (pil2tensor(_canvas), image2mask(light_mask),)
+            _canvas = tensor2pil(image).convert('RGB')
+            _R, _, _, _ = image_channel_split(_canvas, mode='RGB')
+            _otsumask = gray_threshold(_R, otsu=True)
+            _removebkgd = remove_background(_R, _otsumask, '#000000')
+            auto_threshold = get_image_bright_average(_removebkgd) - 16
+            light_mask = gray_threshold(_canvas, auto_threshold + threshold)
+            blur = int((_canvas.width + _canvas.height) / 2000 * smooth)
+            _image = image_beauty(_canvas, level=smooth)
+            _image = gaussian_blur(_image, blur)
+            _image = chop_image(_canvas, _image, 'normal', opacity)
+            light_mask = gaussian_blur(light_mask, blur).convert('L')
+            _canvas.paste(_image, mask=light_mask)
+
+            ret_images.append(pil2tensor(_canvas))
+            ret_masks.append(image2mask(light_mask))
+
+        log(f'SkinBeauty Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerFilter: SkinBeauty": SkinBeauty

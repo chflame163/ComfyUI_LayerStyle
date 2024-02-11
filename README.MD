@@ -13,6 +13,8 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Comprehensive support for batch images, providing convenience for video creation. * to avoid unpredictable results, a few nodes such as CropByMask and RestoryCropBox still do not support batch images.
+If it is necessary to use these nodes in the batch process, please pre convert them using the [Impact-Pack's Image Batch To Image List](https://github.com/ltdrdata/ComfyUI-Impact-Pack) node.
 * Commit [RemBgUltra](#RemBgUltra) and [PixelSpread](#PixelSpread) nodes significantly improved mask quality. *RemBgUltra requires manual model download.
 * Commit [TextImage](#TextImage) node, it generate text images and masks.
 * Add new types of [blend mode](#blend) between images. now supports up to 19 blend modes. add **color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light** and **hard_mix**. 

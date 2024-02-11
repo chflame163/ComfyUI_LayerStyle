@@ -29,12 +29,21 @@ class MaskMotionBlur:
 
     def mask_motion_blur(self, mask, invert_mask, blur, angle,):
 
-        if invert_mask:
-            mask = 1 - mask
-        _mask = mask2image(mask).convert('RGB')
-        _blurimage = motion_blur(_mask, angle, blur)
-        ret_mask = image2mask(_blurimage)
-        return (ret_mask,)
+        l_masks = []
+        ret_masks = []
+
+        for m in mask:
+            if invert_mask:
+                m = 1 - m
+            l_masks.append(tensor2pil(m).convert('L'))
+
+        for i in range(len(l_masks)):
+            _mask = l_masks[i]
+            _blurimage = motion_blur(_mask, angle, blur)
+            ret_masks.append(image2mask(_blurimage))
+
+        log(f'MaskMotionBlur Processed {len(ret_masks)} image(s).')
+        return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerMask: MaskMotionBlur": MaskMotionBlur

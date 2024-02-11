@@ -45,62 +45,80 @@ class ImageBlendAdvance:
                             transform_method, anti_aliasing,
                             layer_mask=None
                             ):
-
-        # preprocess
-        _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image)
-        if _layer.mode == 'RGBA':
-            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
-        else:
-            _mask = Image.new('L', _layer.size, 'white')
-        _layer = _layer.convert('RGB')
+        b_images = []
+        l_images = []
+        l_masks = []
+        ret_images = []
+        ret_masks = []
+        for b in background_image:
+            b_images.append(b)
+        for l in layer_image:
+            l_images.append(l)
+            m = tensor2pil(l)
+            if tensor2pil(l).mode == 'RGBA':
+                l_masks.append(m.convert('RGBA').split()[-1])
+            else:
+                l_masks.append(Image.new('L', m.size, 'white'))
         if layer_mask is not None:
-            if invert_mask:
-                layer_mask = 1 - layer_mask
-            _mask = mask2image(layer_mask).convert('L')
-        if _mask.size != _layer.size:
-            _mask = Image.new('L', _layer.size, 'white')
-            log('Warning: mask mismatch, droped!')
+            l_masks = []
+            for m in layer_mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(m).convert('L'))
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
+        for i in range(max_batch):
+            background_image = b_images[i] if i < len(b_images) else b_images[-1]
+            layer_image = l_images[i] if i < len(l_images) else l_images[-1]
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+            # preprocess
+            _canvas = tensor2pil(background_image).convert('RGB')
+            _layer = tensor2pil(layer_image)
 
-        orig_layer_width = _layer.width
-        orig_layer_height = _layer.height
-        _mask = _mask.convert("RGB")
+            if _mask.size != _layer.size:
+                _mask = Image.new('L', _layer.size, 'white')
+                log('Warning: mask mismatch, droped!')
 
-        target_layer_width = int(orig_layer_width * scale)
-        target_layer_height = int(orig_layer_height * scale * aspect_ratio)
+            orig_layer_width = _layer.width
+            orig_layer_height = _layer.height
+            _mask = _mask.convert("RGB")
 
-        # mirror
-        if mirror == 'horizontal':
-            _layer = _layer.transpose(Image.FLIP_LEFT_RIGHT)
-            _mask = _mask.transpose(Image.FLIP_LEFT_RIGHT)
-        elif mirror == 'vertical':
-            _layer = _layer.transpose(Image.FLIP_TOP_BOTTOM)
-            _mask = _mask.transpose(Image.FLIP_TOP_BOTTOM)
+            target_layer_width = int(orig_layer_width * scale)
+            target_layer_height = int(orig_layer_height * scale * aspect_ratio)
 
-        # scale
-        _layer = _layer.resize((target_layer_width, target_layer_height))
-        _mask = _mask.resize((target_layer_width, target_layer_height))
-        # rotate
-        _layer, _mask, _ = image_rotate_extend_with_alpha(_layer, rotate, _mask, transform_method, anti_aliasing)
+            # mirror
+            if mirror == 'horizontal':
+                _layer = _layer.transpose(Image.FLIP_LEFT_RIGHT)
+                _mask = _mask.transpose(Image.FLIP_LEFT_RIGHT)
+            elif mirror == 'vertical':
+                _layer = _layer.transpose(Image.FLIP_TOP_BOTTOM)
+                _mask = _mask.transpose(Image.FLIP_TOP_BOTTOM)
 
-        # 处理位置
-        x = int(_canvas.width * x_percent / 100 - _layer.width / 2)
-        y = int(_canvas.height * y_percent / 100 - _layer.height / 2)
+            # scale
+            _layer = _layer.resize((target_layer_width, target_layer_height))
+            _mask = _mask.resize((target_layer_width, target_layer_height))
+            # rotate
+            _layer, _mask, _ = image_rotate_extend_with_alpha(_layer, rotate, _mask, transform_method, anti_aliasing)
 
-        # composit layer
-        _comp = copy.copy(_canvas)
-        _compmask = Image.new("RGB", _comp.size, color='black')
-        _comp.paste(_layer, (x, y))
-        _compmask.paste(_mask, (x, y))
-        _compmask = _compmask.convert('L')
-        _comp = chop_image(_canvas, _comp, blend_mode, opacity)
+            # 处理位置
+            x = int(_canvas.width * x_percent / 100 - _layer.width / 2)
+            y = int(_canvas.height * y_percent / 100 - _layer.height / 2)
 
-        # composition background
-        _canvas.paste(_comp, mask=_compmask)
-        ret_image = _canvas
-        ret_mask = image2mask(_compmask)
-        log('ImageBlendAdvance Processed.')
-        return (pil2tensor(ret_image), ret_mask,)
+            # composit layer
+            _comp = copy.copy(_canvas)
+            _compmask = Image.new("RGB", _comp.size, color='black')
+            _comp.paste(_layer, (x, y))
+            _compmask.paste(_mask, (x, y))
+            _compmask = _compmask.convert('L')
+            _comp = chop_image(_canvas, _comp, blend_mode, opacity)
+
+            # composition background
+            _canvas.paste(_comp, mask=_compmask)
+
+            ret_images.append(pil2tensor(_canvas))
+            ret_masks.append(image2mask(_compmask))
+
+        log(f'ImageBlendAdvance Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageBlendAdvance": ImageBlendAdvance

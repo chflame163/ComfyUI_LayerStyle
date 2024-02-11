@@ -29,27 +29,32 @@ class ChannelShake:
 
     def channel_shake(self, image, distance, angle, mode, ):
 
-        _canvas = tensor2pil(image).convert('RGB')
-        R, G, B = _canvas.split()
-        x = int(math.cos(angle) * distance)
-        y = int(math.sin(angle) * distance)
-        if mode.startswith('R'):
-            R = shift_image(R.convert('RGB'), -x, -y).convert('L')
-        if mode.startswith('G'):
-            G = shift_image(G.convert('RGB'), -x, -y).convert('L')
-        if mode.startswith('B'):
-            B = shift_image(B.convert('RGB'), -x, -y).convert('L')
-        if mode.endswith('R'):
-            R = shift_image(R.convert('RGB'), x, y).convert('L')
-        if mode.endswith('G'):
-            G = shift_image(G.convert('RGB'), x, y).convert('L')
-        if mode.endswith('B'):
-            B = shift_image(B.convert('RGB'), x, y).convert('L')
+        ret_images = []
 
-        ret_image = Image.merge('RGB', [R, G, B])
-        log('ChannelShake Processed.')
+        for image in image:
 
-        return (pil2tensor(ret_image),)
+            _canvas = tensor2pil(image).convert('RGB')
+            R, G, B = _canvas.split()
+            x = int(math.cos(angle) * distance)
+            y = int(math.sin(angle) * distance)
+            if mode.startswith('R'):
+                R = shift_image(R.convert('RGB'), -x, -y).convert('L')
+            if mode.startswith('G'):
+                G = shift_image(G.convert('RGB'), -x, -y).convert('L')
+            if mode.startswith('B'):
+                B = shift_image(B.convert('RGB'), -x, -y).convert('L')
+            if mode.endswith('R'):
+                R = shift_image(R.convert('RGB'), x, y).convert('L')
+            if mode.endswith('G'):
+                G = shift_image(G.convert('RGB'), x, y).convert('L')
+            if mode.endswith('B'):
+                B = shift_image(B.convert('RGB'), x, y).convert('L')
+
+            ret_image = Image.merge('RGB', [R, G, B])
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f'ChannelShake Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerFilter: ChannelShake": ChannelShake

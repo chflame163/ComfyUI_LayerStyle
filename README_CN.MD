@@ -10,6 +10,7 @@
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明、
+* 全面支持批量图片，为创作视频提供方便。* 为避免不可预测的结果，CropByMask、RestoryCropBox等少数几个节点仍不支持批量图片。如果一定要在批量流程中使用这些节点，请使用[Impact-Pack 的 Image Batch To Image List](https://github.com/ltdrdata/ComfyUI-Impact-Pack)节点预先转换。
 * 添加[RemBgUltra](#RemBgUltra) 和 [PixelSpread](#PixelSpread) 节点，显著提升了遮罩质量。*RemBgUltra需手动下载模型。
 * 添加[TextImage](#TextImage) 节点，生成文字图像和遮罩。
 * 图像之间的[混合模式](#混合模式)增加新类型，现在支持多达19种混合模式。新增color_burn颜色加深, color_dodge颜色减淡, linear_burn线性加深, linear_dodge线性减淡, overlay叠加, soft_light柔光, hard_light强光, vivid_light亮光, pin_light点光, linear_light线性光, hard_mix实色混合。新增的混合模式适用于所有支持混合模式的节点。

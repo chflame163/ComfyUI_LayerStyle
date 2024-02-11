@@ -27,13 +27,22 @@ class MaskGrow:
 
     def mask_grow(self, mask, invert_mask, grow, blur,):
 
-        if invert_mask:
-            mask = 1 - mask
-        # _mask = mask2image(mask).convert('L')
+        l_masks = []
+        ret_masks = []
 
-        ret_mask = expand_mask(mask, grow, blur)  # 扩张，模糊
+        for m in mask:
+            if invert_mask:
+                m = 1 - m
+            l_masks.append(tensor2pil(m).convert('L'))
 
-        return (ret_mask,)
+        for i in range(len(l_masks)):
+
+            _mask = l_masks[i]
+            ret_masks.append(expand_mask(image2mask(_mask), grow, blur) )
+
+        log(f'MaskGrow Processed {len(ret_masks)} image(s).')
+        return (torch.cat(ret_masks, dim=0),)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerMask: MaskGrow": MaskGrow

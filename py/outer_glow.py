@@ -40,39 +40,60 @@ class OuterGlow:
                   layer_mask=None
                   ):
 
-        # preprocess
-        _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(layer_image)
-        if _layer.mode == 'RGBA':
-            _mask = tensor2pil(layer_image).convert('RGBA').split()[-1]
-        else:
-            _mask = Image.new('L', _layer.size, 'white')
-        _layer = _layer.convert('RGB')
-        if layer_mask is not None:
-            if invert_mask:
-                layer_mask = 1 - layer_mask
-            _mask = mask2image(layer_mask).convert('L')
-        if _mask.size != _layer.size:
-            _mask = Image.new('L', _layer.size, 'white')
-            log('Warning: mask mismatch, droped!')
+        b_images = []
+        l_images = []
+        l_masks = []
+        ret_images = []
 
-        blur_factor = blur / 20.0
-        grow = glow_range
-        for x in range(brightness):
-            blur = int(grow * blur_factor)
-            _color = step_color(glow_color, light_color, brightness, x)
-            glow_mask = expand_mask(image2mask(_mask), grow, blur)  #扩张，模糊
-            # 合成glow
-            color_image = Image.new("RGB", _layer.size, color=_color)
-            alpha = tensor2pil(glow_mask).convert('L')
-            _glow = chop_image(_canvas, color_image, blend_mode, int(step_value(1, opacity, brightness, x)))
-            _canvas.paste(_glow, mask=alpha)
-            grow = grow - int(glow_range/brightness)
-        # 合成layer
-        _canvas.paste(_layer, mask=_mask)
-        ret_image = _canvas
-        log('OuterGLow Advance Processed.')
-        return (pil2tensor(ret_image),)
+        for b in background_image:
+            b_images.append(b)
+        for l in layer_image:
+            l_images.append(l)
+            m = tensor2pil(l)
+            if tensor2pil(l).mode == 'RGBA':
+                l_masks.append(m.convert('RGBA').split()[-1])
+            else:
+                l_masks.append(Image.new('L', m.size, 'white'))
+        if layer_mask is not None:
+            l_masks = []
+            for m in layer_mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(m).convert('L'))
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
+        for i in range(max_batch):
+            background_image = b_images[i] if i < len(b_images) else b_images[-1]
+            layer_image = l_images[i] if i < len(l_images) else l_images[-1]
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+
+            # preprocess
+            _canvas = tensor2pil(background_image).convert('RGB')
+            _layer = tensor2pil(layer_image).convert('RGB')
+
+            if _mask.size != _layer.size:
+                _mask = Image.new('L', _layer.size, 'white')
+                log('Warning: mask mismatch, droped!')
+
+            blur_factor = blur / 20.0
+            grow = glow_range
+            for x in range(brightness):
+                blur = int(grow * blur_factor)
+                _color = step_color(glow_color, light_color, brightness, x)
+                glow_mask = expand_mask(image2mask(_mask), grow, blur)  #扩张，模糊
+                # 合成glow
+                color_image = Image.new("RGB", _layer.size, color=_color)
+                alpha = tensor2pil(glow_mask).convert('L')
+                _glow = chop_image(_canvas, color_image, blend_mode, int(step_value(1, opacity, brightness, x)))
+                _canvas.paste(_glow.convert('RGB'), mask=alpha)
+                grow = grow - int(glow_range/brightness)
+            # 合成layer
+            _canvas.paste(_layer, mask=_mask)
+
+            ret_images.append(pil2tensor(_canvas))
+
+        log(f'OuterGlow Processed {len(ret_images)} image(s).')
+        return (torch.cat(ret_images, dim=0),)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerStyle: OuterGlow": OuterGlow
