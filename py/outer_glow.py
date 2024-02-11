@@ -61,6 +61,7 @@ class OuterGlow:
                     m = 1 - m
                 l_masks.append(tensor2pil(m).convert('L'))
         max_batch = max(len(b_images), len(l_images), len(l_masks))
+        blur_factor = blur / 20.0
         for i in range(max_batch):
             background_image = b_images[i] if i < len(b_images) else b_images[-1]
             layer_image = l_images[i] if i < len(l_images) else l_images[-1]
@@ -74,7 +75,6 @@ class OuterGlow:
                 _mask = Image.new('L', _layer.size, 'white')
                 log('Warning: mask mismatch, droped!')
 
-            blur_factor = blur / 20.0
             grow = glow_range
             for x in range(brightness):
                 blur = int(grow * blur_factor)
