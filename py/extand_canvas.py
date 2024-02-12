@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'ExtendCanvas'
+
 class ExtendCanvas:
 
     def __init__(self):
@@ -34,24 +36,47 @@ class ExtendCanvas:
                   mask=None,
                   ):
 
-        _image = tensor2pil(image).convert('RGB')
-        _mask = tensor2pil(image).convert('RGBA').split()[-1]
+        l_images = []
+        l_masks = []
+        ret_images = []
+        ret_masks = []
+
+        for l in image:
+            l_images.append(torch.unsqueeze(l, 0))
+            m = tensor2pil(l)
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
+
         if mask is not None:
-            if invert_mask:
-                mask = 1 - mask
-            _mask = mask2image(mask).convert('L')
+            l_masks = []
+            for m in mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
+        else:
+            l_masks.append(Image.new('L', size=tensor2pil(l_images[0]).size, color='white'))
 
-        width = _image.width + left + right
-        height = _image.height + top + bottom
-        _canvas = Image.new('RGB', (width, height), color)
-        _mask_canvas = Image.new('L', (width, height), "black")
+        max_batch = max(len(l_images), len(l_masks))
+        for i in range(max_batch):
 
-        _canvas.paste(_image, box=(left,top))
-        _mask_canvas.paste(_mask.convert('L'), box=(left, top))
-        ret_image = _canvas
-        ret_mask = image2mask(_mask_canvas)
-        log('ExtendCanvas Processed.')
-        return (pil2tensor(ret_image), ret_mask,)
+            _image = l_images[i] if i < len(l_images) else l_images[-1]
+            _image = tensor2pil(_image).convert('RGB')
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+
+            width = _image.width + left + right
+            height = _image.height + top + bottom
+            _canvas = Image.new('RGB', (width, height), color)
+            _mask_canvas = Image.new('L', (width, height), "black")
+
+            _canvas.paste(_image, box=(left,top))
+            _mask_canvas.paste(_mask.convert('L'), box=(left, top))
+
+            ret_images.append(pil2tensor(_canvas))
+            ret_masks.append(image2mask(_mask_canvas))
+
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ExtendCanvas": ExtendCanvas

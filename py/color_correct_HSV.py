@@ -1,4 +1,8 @@
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'HSV'
 
 class ColorCorrectHSV:
 
@@ -29,9 +33,9 @@ class ColorCorrectHSV:
 
         ret_images = []
 
-        for image in image:
-
-            _h, _s, _v = tensor2pil(image).convert('HSV').split()
+        for i in image:
+            i = torch.unsqueeze(i,0)
+            _h, _s, _v = tensor2pil(i).convert('HSV').split()
             if H != 0 :
                 _h = image_hue_offset(_h, H)
             if S != 0 :
@@ -42,7 +46,7 @@ class ColorCorrectHSV:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'HSV Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

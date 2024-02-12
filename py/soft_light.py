@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'SoftLight'
+
 class SoftLight:
 
     def __init__(self):
@@ -29,10 +31,10 @@ class SoftLight:
 
         ret_images = []
 
-        for image in image:
-
+        for i in image:
+            i = torch.unsqueeze(i, 0)
             blend_mode = 'screen'
-            _canvas = tensor2pil(image).convert('RGB')
+            _canvas = tensor2pil(i).convert('RGB')
             blur = int((_canvas.width + _canvas.height) / 200 * soft)
             _otsumask = gray_threshold(_canvas, otsu=True)
             _removebkgd = remove_background(_canvas, _otsumask, '#000000').convert('L')
@@ -47,7 +49,7 @@ class SoftLight:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f'SoftLight Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

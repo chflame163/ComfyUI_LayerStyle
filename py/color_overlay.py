@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'ColorOverlay'
+
 class ColorOverlay:
 
     def __init__(self):
@@ -37,37 +39,35 @@ class ColorOverlay:
         l_images = []
         l_masks = []
         ret_images = []
-
         for b in background_image:
-            b_images.append(b)
+            b_images.append(torch.unsqueeze(b, 0))
         for l in layer_image:
-            l_images.append(l)
+            l_images.append(torch.unsqueeze(l, 0))
             m = tensor2pil(l)
-            if tensor2pil(l).mode == 'RGBA':
-                l_masks.append(m.convert('RGBA').split()[-1])
-            else:
-                l_masks.append(Image.new('L', m.size, 'white'))
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
         if layer_mask is not None:
             l_masks = []
             for m in layer_mask:
                 if invert_mask:
                     m = 1 - m
-                l_masks.append(tensor2pil(m).convert('L'))
-        max_batch = max(len(b_images), len(l_images), len(l_masks))
+                l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
+        if len(l_masks) == 0:
+            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.")
+            return (background_image,)
 
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
         _color = Image.new("RGB", tensor2pil(l_images[0]).size, color=color)
         for i in range(max_batch):
             background_image = b_images[i] if i < len(b_images) else b_images[-1]
             layer_image = l_images[i] if i < len(l_images) else l_images[-1]
             _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
-
             # preprocess
             _canvas = tensor2pil(background_image).convert('RGB')
             _layer = tensor2pil(layer_image).convert('RGB')
-
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log('Warning: mask mismatch, droped!')
+                log(f"Warning: {NODE_NAME} mask mismatch, dropped!")
 
             # 合成layer
             _comp = chop_image(_layer, _color, blend_mode, opacity)
@@ -75,7 +75,7 @@ class ColorOverlay:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f'ColorOverlay Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

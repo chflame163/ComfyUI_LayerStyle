@@ -3,6 +3,7 @@ import random
 from PIL import ImageFont
 from .imagefunc import *
 
+NODE_NAME = 'TextImage'
 any = AnyType("*")
 
 class TextImage:
@@ -127,6 +128,7 @@ class TextImage:
         _color = Image.new('RGB', size=(width, height), color=text_color)
         _canvas.paste(_color, mask=_mask.convert('L'))
         _canvas = RGB2RGBA(_canvas, _mask)
+        log(f"{NODE_NAME} Processed.")
         return (pil2tensor(_canvas), image2mask(_mask),)
 
 NODE_CLASS_MAPPINGS = {

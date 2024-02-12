@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'MaskBoxDetect'
+
 class MaskBoxDetect:
 
     def __init__(self):
@@ -28,6 +30,9 @@ class MaskBoxDetect:
 
     def mask_box_detect(self,mask, detect, x_adjust, y_adjust, scale_adjust):
 
+        if mask.shape[0] > 0:
+            mask = torch.unsqueeze(mask[0], 0)
+
         _mask = mask2image(mask).convert('RGB')
 
         _mask = gaussian_blur(_mask, 20).convert('L')
@@ -54,6 +59,7 @@ class MaskBoxDetect:
         preview_image = tensor2pil(mask).convert('RGB')
         preview_image = draw_rect(preview_image, x - x_adjust, y - y_adjust, width, height, line_color="#F00000", line_width=int(preview_image.height / 60))
         preview_image = draw_rect(preview_image, x, y, width, height, line_color="#00F000", line_width=int(preview_image.height / 40))
+        log(f"{NODE_NAME} Processed.")
         return ( pil2tensor(preview_image), round(x_percent, 2), round(y_percent, 2), _width, _height, x, y,)
 
 NODE_CLASS_MAPPINGS = {

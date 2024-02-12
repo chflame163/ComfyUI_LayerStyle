@@ -1,4 +1,8 @@
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'ColorAdapter'
 
 class ColorAdapter:
 
@@ -26,16 +30,26 @@ class ColorAdapter:
 
     def color_adapter(self, image, color_ref_image, opacity):
         ret_images = []
+        # if color_ref_image.shape[0] > 0:
+        #     color_ref_image = torch.unsqueeze(color_ref_image[0], 0)
 
-        for image in image:
+        l_images = []
+        r_images = []
+        for l in image:
+            l_images.append(torch.unsqueeze(l, 0))
+        for r in color_ref_image:
+            r_images.append(torch.unsqueeze(r, 0))
+        for i in range(len(l_images)):
+            _image = l_images[i]
+            _ref = r_images[i] if len(ret_images) > i else r_images[-1]
 
-            _canvas = tensor2pil(image).convert('RGB')
-            ret_image = color_adapter(_canvas, tensor2pil(color_ref_image).convert('RGB'))
+            _canvas = tensor2pil(_image).convert('RGB')
+            ret_image = color_adapter(_canvas, tensor2pil(_ref).convert('RGB'))
             ret_image = chop_image(_canvas, ret_image, blend_mode='normal', opacity=opacity)
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'ColorAdapter Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

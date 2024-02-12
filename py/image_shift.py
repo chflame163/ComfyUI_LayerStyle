@@ -1,6 +1,7 @@
 import math
-
 from .imagefunc import *
+
+NODE_NAME = 'ImageShift'
 
 class ImageShift:
 
@@ -40,13 +41,30 @@ class ImageShift:
         ret_images = []
         ret_masks = []
         ret_border_masks = []
-        for image in image:
 
-            shift_x, shift_y = -shift_x, -shift_y
-            _canvas = tensor2pil(image).convert('RGB')
-            _mask = tensor2pil(image).convert('RGBA').split()[-1]
-            if mask is not None:
-                _mask = mask2image(mask).convert('L')
+        l_images = []
+        l_masks = []
+
+
+        for l in image:
+            l_images.append(torch.unsqueeze(l, 0))
+            m = tensor2pil(l)
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
+            else:
+                l_masks.append(Image.new('L', size=m.size, color='white'))
+        if mask is not None:
+            l_masks = []
+            for m in mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
+
+        shift_x, shift_y = -shift_x, -shift_y
+        for i in range(len(l_images)):
+            _image = l_images[i]
+            _canvas = tensor2pil(_image).convert('RGB')
+            _mask = l_masks[i] if len(l_masks) < i else l_masks[-1]
             _border =  Image.new('L', size=_canvas.size, color='black')
             _border = draw_border(_border, border_width=border_mask_width, color='#FFFFFF')
             _border = _border.resize(_canvas.size)
@@ -59,7 +77,7 @@ class ImageShift:
             ret_masks.append(image2mask(_mask))
             ret_border_masks.append(image2mask(_border))
 
-        log(f'ImageShift Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), torch.cat(ret_border_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

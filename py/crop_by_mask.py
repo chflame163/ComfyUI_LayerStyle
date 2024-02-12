@@ -1,4 +1,7 @@
+import torch
 from .imagefunc import *
+
+NODE_NAME = 'CropByMask'
 
 class CropByMask:
 
@@ -33,7 +36,23 @@ class CropByMask:
                   top_reserve, bottom_reserve, left_reserve, right_reserve
                   ):
 
-        _canvas = tensor2pil(image).convert('RGB')
+        ret_images = []
+        ret_masks = []
+        l_images = []
+        l_masks = []
+        for l in image:
+            l_images.append(torch.unsqueeze(l, 0))
+            m = tensor2pil(l)
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
+        for m in mask_for_crop:
+            if invert_mask:
+                m = 1 - m
+            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
+        max_batch = max(len(l_images), len(l_masks))
+        # 如果有多张mask输入，使用第一张
+        if mask_for_crop.shape[0] > 0:
+            mask_for_crop = torch.unsqueeze(mask_for_crop[0], 0)
         if invert_mask:
             mask_for_crop = 1 - mask_for_crop
         _mask = mask2image(mask_for_crop)
@@ -46,20 +65,25 @@ class CropByMask:
             (x, y, width, height) = min_bounding_rect(bluredmask)
         if detect == "max_inscribed_rect":
             (x, y, width, height) = max_inscribed_rect(bluredmask)
-
+        canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
         x1 = x - left_reserve if x - left_reserve > 0 else 0
         y1 = y - top_reserve if y - top_reserve > 0 else 0
-        x2 = x + width + right_reserve if x + width + right_reserve < _canvas.width else _canvas.width
-        y2 = y + height + bottom_reserve if y + height + bottom_reserve < _canvas.height else _canvas.height
+        x2 = x + width + right_reserve if x + width + right_reserve < canvas_width else canvas_width
+        y2 = y + height + bottom_reserve if y + height + bottom_reserve < canvas_height else canvas_height
         preview_image = tensor2pil(mask_for_crop).convert('RGB')
         preview_image = draw_rect(preview_image, x, y, width, height, line_color="#F00000", line_width=(width+height)//100)
         preview_image = draw_rect(preview_image, x1, y1, x2 - x1, y2 - y1,
                                   line_color="#00F000", line_width=(width+height)//200)
         crop_box = (x1, y1, x2, y2)
-        ret_image = _canvas.crop(crop_box)
-        ret_mask = _mask.crop(crop_box)
+        for i in range(max_batch):
+            _canvas = tensor2pil(l_images[i]).convert('RGB')
+            _mask = l_masks[i] if len(l_masks) > i else l_masks[-1]
+            ret_images.append(pil2tensor(_canvas.crop(crop_box)))
+            ret_masks.append(image2mask(_mask.crop(crop_box)))
 
-        return (pil2tensor(ret_image), image2mask(ret_mask), list(crop_box), pil2tensor(preview_image),)
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), list(crop_box), pil2tensor(preview_image),)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: CropByMask": CropByMask

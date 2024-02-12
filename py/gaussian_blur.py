@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'GaussianBlur'
+
 class GaussianBlur:
 
     def __init__(self):
@@ -27,12 +29,10 @@ class GaussianBlur:
 
         ret_images = []
 
-        for image in image:
+        for i in image:
+            _canvas = tensor2pil(torch.unsqueeze(i, 0)).convert('RGB')
 
-            _canvas = tensor2pil(image).convert('RGB')
-            ret_image = gaussian_blur(_canvas, blur)
-
-            ret_images.append(pil2tensor(ret_image))
+            ret_images.append(pil2tensor(gaussian_blur(_canvas, blur)))
 
         log(f'GaussianBlur Processed {len(ret_images)} image(s).')
         return (torch.cat(ret_images, dim=0),)

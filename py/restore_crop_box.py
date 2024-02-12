@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'RestoreCropBox'
+
 class RestoreCropBox:
 
     def __init__(self):
@@ -30,18 +32,45 @@ class RestoreCropBox:
                          croped_mask=None
                          ):
 
-        _canvas = tensor2pil(background_image).convert('RGB')
-        _layer = tensor2pil(croped_image).convert('RGB')
-        _mask = Image.new('L', size=_layer.size, color='white')
+        b_images = []
+        l_images = []
+        l_masks = []
+        ret_images = []
+        ret_masks = []
+        for b in background_image:
+            b_images.append(torch.unsqueeze(b, 0))
+        for l in croped_image:
+            l_images.append(torch.unsqueeze(l, 0))
+            m = tensor2pil(l)
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
+            else:
+                l_masks.append(Image.new('L', size=m.size, color='white'))
         if croped_mask is not None:
-            if invert_mask:
-                croped_mask = 1 - croped_mask
-            _mask = mask2image(croped_mask).convert('L')
-        ret_mask = Image.new('L', size=_canvas.size, color='black')
-        _canvas.paste(_layer, box=tuple(crop_box), mask=_mask)
-        ret_mask.paste(_mask, box=tuple(crop_box))
+            l_masks = []
+            for m in croped_mask:
+                if invert_mask:
+                    m = 1 - m
+                l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
-        return (pil2tensor(_canvas), image2mask(ret_mask),)
+        max_batch = max(len(b_images), len(l_images), len(l_masks))
+        for i in range(max_batch):
+            background_image = b_images[i] if i < len(b_images) else b_images[-1]
+            croped_image = l_images[i] if i < len(l_images) else l_images[-1]
+            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+
+            _canvas = tensor2pil(background_image).convert('RGB')
+            _layer = tensor2pil(croped_image).convert('RGB')
+
+            ret_mask = Image.new('L', size=_canvas.size, color='black')
+            _canvas.paste(_layer, box=tuple(crop_box), mask=_mask)
+            ret_mask.paste(_mask, box=tuple(crop_box))
+            ret_images.append(pil2tensor(_canvas))
+            ret_masks.append(image2mask(ret_mask))
+
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: RestoreCropBox": RestoreCropBox

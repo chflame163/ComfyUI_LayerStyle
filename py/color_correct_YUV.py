@@ -1,4 +1,8 @@
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'YUV'
 
 class ColorCorrectYUV:
 
@@ -29,9 +33,9 @@ class ColorCorrectYUV:
 
         ret_images = []
 
-        for image in image:
-
-            _y, _u, _v = tensor2pil(image).convert('YCbCr').split()
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _y, _u, _v = tensor2pil(i).convert('YCbCr').split()
             if Y != 0 :
                 _y = image_gray_offset(_y, Y)
             if U != 0 :
@@ -42,7 +46,7 @@ class ColorCorrectYUV:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'YUV Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

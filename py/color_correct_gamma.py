@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'Gamma'
+
 class ColorCorrectGamma:
 
     def __init__(self):
@@ -27,13 +29,13 @@ class ColorCorrectGamma:
 
         ret_images = []
 
-        for image in image:
-
-            ret_image = gamma_trans(tensor2pil(image), gamma)
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            ret_image = gamma_trans(tensor2pil(i), gamma)
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'Gamma Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,4 +1,8 @@
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'LAB'
 
 class ColorCorrectLAB:
 
@@ -29,9 +33,9 @@ class ColorCorrectLAB:
 
         ret_images = []
 
-        for image in image:
-
-            _l, _a, _b = tensor2pil(image).convert('LAB').split()
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _l, _a, _b = tensor2pil(i).convert('LAB').split()
             if L != 0 :
                 _l = image_gray_offset(_l, L)
             if A != 0 :
@@ -42,7 +46,7 @@ class ColorCorrectLAB:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'LAB Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = ''
+
 class MaskGrow:
 
     def __init__(self):
@@ -33,14 +35,14 @@ class MaskGrow:
         for m in mask:
             if invert_mask:
                 m = 1 - m
-            l_masks.append(tensor2pil(m).convert('L'))
+            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
         for i in range(len(l_masks)):
 
             _mask = l_masks[i]
             ret_masks.append(expand_mask(image2mask(_mask), grow, blur) )
 
-        log(f'MaskGrow Processed {len(ret_masks)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 

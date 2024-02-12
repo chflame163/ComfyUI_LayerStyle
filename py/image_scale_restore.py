@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'ImageScaleRestore'
+
 class ImageScaleRestore:
 
     def __init__(self):
@@ -33,9 +35,24 @@ class ImageScaleRestore:
                             mask = None,  original_size = None
                             ):
 
-        _canvas = tensor2pil(image).convert('RGB')
-        orig_width = _canvas.width
-        orig_height = _canvas.height
+        l_images = []
+        l_masks = []
+        ret_images = []
+        ret_masks = []
+        for l in image:
+            l_images.append(torch.unsqueeze(l, 0))
+            m = tensor2pil(l)
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
+
+        if mask is not None:
+            l_masks = []
+            for m in mask:
+                l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
+
+        max_batch = max(len(l_images), len(l_masks))
+
+        orig_width, orig_height = tensor2pil(l_images[0]).size
         if original_size is not None:
             target_width = original_size[0]
             target_height = original_size[1]
@@ -64,13 +81,24 @@ class ImageScaleRestore:
             resize_sampler = Image.BOX
         elif method == "nearest":
             resize_sampler = Image.NEAREST
-        ret_image = _canvas.resize((target_width, target_height), resize_sampler)
-        ret_mask = Image.new('L', size=ret_image.size, color='white')
-        if mask is not None:
-            _mask = mask2image(mask).convert('L')
-            ret_mask = _mask.resize((target_width, target_height), resize_sampler)
 
-        return (pil2tensor(ret_image), image2mask(ret_mask), [orig_width, orig_height],)
+        for i in range(max_batch):
+
+            _image = l_images[i] if i < len(l_images) else l_images[-1]
+
+            _canvas = tensor2pil(_image).convert('RGB')
+            ret_image = _canvas.resize((target_width, target_height), resize_sampler)
+            ret_mask = Image.new('L', size=ret_image.size, color='white')
+            if mask is not None:
+                _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+                ret_mask = _mask.resize((target_width, target_height), resize_sampler)
+
+            ret_images.append(pil2tensor(ret_image))
+            ret_masks.append(image2mask(ret_mask))
+
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageScaleRestore": ImageScaleRestore

@@ -1,6 +1,7 @@
 import copy
-
 from .imagefunc import *
+
+NODE_NAME = 'MaskGradient'
 
 class MaskGradient:
 
@@ -34,11 +35,10 @@ class MaskGradient:
         l_masks = []
         ret_masks = []
 
-
         for m in mask:
             if invert_mask:
                 m = 1 - m
-            l_masks.append(tensor2pil(m).convert('L'))
+            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
         for i in range(len(l_masks)):
             _mask = l_masks[i]
@@ -48,9 +48,7 @@ class MaskGradient:
             _gradient = gradient('#000000', '#FFFFFF',
                                  _mask.width, _mask.height, 0)
             (box_x, box_y, box_width, box_height) = min_bounding_rect(_mask)
-            # preview_image = mask2image(mask).convert('RGB')
-            # preview_image = draw_rect(preview_image, box_x, box_y, box_width, box_height,
-            #                           line_color = "#F00000", line_width = int(preview_image.height / 60))
+
             if gradient_side == 'top':
                 boxsize = (width, box_height)
                 _gradient = _gradient.transpose(Image.FLIP_TOP_BOTTOM)
@@ -131,7 +129,7 @@ class MaskGradient:
                 _canvas = chop_image(_mask, _canvas, 'normal', opacity)
             ret_masks.append(image2mask(_canvas))
 
-        log(f'MaskGradient Processed {len(ret_masks)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

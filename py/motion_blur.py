@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'MotionBlur'
+
 class MotionBlur:
 
     def __init__(self):
@@ -28,14 +30,13 @@ class MotionBlur:
 
         ret_images = []
 
-        for image in image:
+        for i in image:
 
-            _canvas = tensor2pil(image).convert('RGB')
-            ret_image = motion_blur(_canvas, angle, blur)
+            _canvas = tensor2pil(torch.unsqueeze(i, 0)).convert('RGB')
 
-            ret_images.append(pil2tensor(ret_image))
+            ret_images.append(pil2tensor(motion_blur(_canvas, angle, blur)))
 
-        log(f'MotionBlur Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

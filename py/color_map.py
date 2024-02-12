@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'ColorMap'
+
 colormap_list = ['autumn', 'bone', 'jet', 'winter', 'rainbow', 'ocean',
                  'summer', 'sprint', 'cool', 'HSV', 'pink', 'hot',
                  'parula', 'magma', 'inferno', 'plasma', 'viridis', 'cividis',
@@ -34,13 +36,15 @@ class ColorMap:
 
         ret_images = []
 
-        for image in image:
-            _canvas = tensor2pil(image)
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _canvas = tensor2pil(i)
             _image = image_to_colormap(_canvas, colormap_list.index(color_map))
             ret_image = chop_image(_canvas, _image, 'normal', opacity)
 
             ret_images.append(pil2tensor(ret_image))
-        log(f'ColorMap Processed {len(ret_images)} image(s).')
+
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,6 +1,8 @@
 from .imagefunc import *
 
-class MaskStrkoe:
+NODE_NAME = 'MaskStroke'
+
+class MaskStroke:
 
     def __init__(self):
         pass
@@ -34,7 +36,7 @@ class MaskStrkoe:
         for m in mask:
             if invert_mask:
                 m = 1 - m
-            l_masks.append(tensor2pil(m).convert('L'))
+            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
         for i in range(len(l_masks)):
             _mask = l_masks[i]
@@ -46,13 +48,13 @@ class MaskStrkoe:
             stroke_mask = subtract_mask(outer_mask, inner_mask)
             ret_masks.append(stroke_mask)
 
-        log(f'MaskStrkoe Processed {len(ret_masks)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerMask: MaskStrkoe": MaskStrkoe
+    "LayerMask: MaskStroke": MaskStroke
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerMask: MaskStrkoe": "LayerMask: MaskStrkoe"
+    "LayerMask: MaskStroke": "LayerMask: MaskStroke"
 }

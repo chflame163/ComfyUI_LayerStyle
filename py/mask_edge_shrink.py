@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'MaskEdgeShrink'
+
 class MaskEdgeShrink:
 
     def __init__(self):
@@ -36,7 +38,7 @@ class MaskEdgeShrink:
         for m in mask:
             if invert_mask:
                 m = 1 - m
-            l_masks.append(tensor2pil(m).convert('L'))
+            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
         glow_range = shrink_level * soft
         blur = 12
@@ -63,7 +65,7 @@ class MaskEdgeShrink:
 
             ret_masks.append(image2mask(_layer))
 
-        log(f'MaskEdgeShrink Processed {len(ret_masks)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 

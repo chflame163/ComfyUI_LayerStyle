@@ -1,4 +1,8 @@
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'ImageChannelSplit'
 
 class ImageChannelSplit:
 
@@ -25,10 +29,22 @@ class ImageChannelSplit:
 
     def image_channel_split(self, image, mode):
 
-        _image = tensor2pil(image).convert('RGBA')
-        channel1, channel2, channel3, channel4 = image_channel_split(_image, mode)
+        c1_images = []
+        c2_images = []
+        c3_images = []
+        c4_images = []
 
-        return (pil2tensor(channel1), pil2tensor(channel2), pil2tensor(channel3), pil2tensor(channel4),)
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _image = tensor2pil(i).convert('RGBA')
+            channel1, channel2, channel3, channel4 = image_channel_split(_image, mode)
+            c1_images.append(pil2tensor(channel1))
+            c2_images.append(pil2tensor(channel2))
+            c3_images.append(pil2tensor(channel3))
+            c4_images.append(pil2tensor(channel4))
+
+        log(f"{NODE_NAME} Processed {len(c1_images)} image(s).")
+        return (torch.cat(c1_images, dim=0), torch.cat(c2_images, dim=0), torch.cat(c3_images, dim=0), torch.cat(c4_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageChannelSplit": ImageChannelSplit

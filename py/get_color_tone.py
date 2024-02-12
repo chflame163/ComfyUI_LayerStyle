@@ -1,3 +1,5 @@
+import torch
+
 from .imagefunc import *
 
 class GetColorTone:
@@ -24,7 +26,8 @@ class GetColorTone:
     OUTPUT_NODE = True
 
     def get_color_tone(self, image, mode,):
-
+        if image.shape[0] > 0:
+            image = torch.unsqueeze(image[0], 0)
         _canvas = tensor2pil(image).convert('RGB')
         _canvas = gaussian_blur(_canvas, int((_canvas.width + _canvas.height) / 200))
         if mode == 'main_color':

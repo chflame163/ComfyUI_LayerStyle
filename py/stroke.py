@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'Storke'
+
 class Stroke:
 
     def __init__(self):
@@ -42,20 +44,22 @@ class Stroke:
         l_masks = []
         ret_images = []
         for b in background_image:
-            b_images.append(b)
+            b_images.append(torch.unsqueeze(b, 0))
         for l in layer_image:
-            l_images.append(l)
+            l_images.append(torch.unsqueeze(l, 0))
             m = tensor2pil(l)
-            if tensor2pil(l).mode == 'RGBA':
-                l_masks.append(m.convert('RGBA').split()[-1])
-            else:
-                l_masks.append(Image.new('L', m.size, 'white'))
+            if m.mode == 'RGBA':
+                l_masks.append(m.split()[-1])
         if layer_mask is not None:
             l_masks = []
             for m in layer_mask:
                 if invert_mask:
                     m = 1 - m
-                l_masks.append(tensor2pil(m).convert('L'))
+                l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
+        if len(l_masks) == 0:
+            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.")
+            return (background_image,)
+
         max_batch = max(len(b_images), len(l_images), len(l_masks))
 
         grow_offset = int(stroke_width / 2)
@@ -72,7 +76,7 @@ class Stroke:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log('Warning: mask mismatch, droped!')
+                log(f"Warning: {NODE_NAME} mask mismatch, dropped!")
 
             inner_mask = expand_mask(image2mask(_mask), inner_stroke, blur)
             outer_mask = expand_mask(image2mask(_mask), outer_stroke, blur)
@@ -84,7 +88,7 @@ class Stroke:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f'Stroke Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

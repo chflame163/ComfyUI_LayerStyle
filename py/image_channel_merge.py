@@ -1,4 +1,8 @@
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'ImageChannelMerge'
 
 class ImageChannelMerge:
 
@@ -28,14 +32,37 @@ class ImageChannelMerge:
 
     def image_channel_merge(self, channel_1, channel_2, channel_3, mode, channel_4=None):
 
-        _channel1 = tensor2pil(channel_1)
-        _channel2 = tensor2pil(channel_2)
-        _channel3 = tensor2pil(channel_3)
-        _channel4 = Image.new('L', size=_channel1.size, color='white')
+        c1_images = []
+        c2_images = []
+        c3_images = []
+        c4_images = []
+        ret_images = []
+
+        width, height = tensor2pil(torch.unsqueeze(channel_1[0], 0)).size
+        for c in channel_1:
+            c1_images.append(torch.unsqueeze(c, 0))
+        for c in channel_2:
+            c2_images.append(torch.unsqueeze(c, 0))
+        for c in channel_3:
+            c3_images.append(torch.unsqueeze(c, 0))
         if channel_4 is not None:
-            _channel4 = tensor2pil(channel_4)
-        ret_image = image_channel_merge((_channel1, _channel2, _channel3, _channel4), mode)
-        return (pil2tensor(ret_image),)
+            for c in channel_4:
+                c4_images.append(torch.unsqueeze(c, 0))
+        else:
+            c4_images.append(Image.new('L', size=(width, height), color='white'))
+
+        max_batch = max(len(c1_images), len(c2_images), len(c3_images), len(c4_images))
+        for i in range(max_batch):
+            c_1 = c1_images[i] if i < len(c1_images) else c1_images[-1]
+            c_2 = c2_images[i] if i < len(c2_images) else c2_images[-1]
+            c_3 = c3_images[i] if i < len(c3_images) else c3_images[-1]
+            c_4 = c4_images[i] if i < len(c4_images) else c4_images[-1]
+            ret_image = image_channel_merge((tensor2pil(c_1), tensor2pil(c_2), tensor2pil(c_3), tensor2pil(c_4)), mode)
+
+            ret_images.append(pil2tensor(ret_image))
+
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageChannelMerge": ImageChannelMerge

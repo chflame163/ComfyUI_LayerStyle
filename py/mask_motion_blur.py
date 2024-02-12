@@ -1,6 +1,7 @@
 import copy
-
 from .imagefunc import *
+
+NODE_NAME = 'MaskMotionBlur'
 
 class MaskMotionBlur:
 
@@ -35,14 +36,14 @@ class MaskMotionBlur:
         for m in mask:
             if invert_mask:
                 m = 1 - m
-            l_masks.append(tensor2pil(m).convert('L'))
+            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
         for i in range(len(l_masks)):
             _mask = l_masks[i]
             _blurimage = motion_blur(_mask, angle, blur)
             ret_masks.append(image2mask(_blurimage))
 
-        log(f'MaskMotionBlur Processed {len(ret_masks)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

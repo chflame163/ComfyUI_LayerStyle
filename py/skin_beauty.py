@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'SkinBeauty'
+
 class SkinBeauty:
 
     def __init__(self):
@@ -30,9 +32,9 @@ class SkinBeauty:
 
         ret_images = []
         ret_masks = []
-        for image in image:
-
-            _canvas = tensor2pil(image).convert('RGB')
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _canvas = tensor2pil(i).convert('RGB')
             _R, _, _, _ = image_channel_split(_canvas, mode='RGB')
             _otsumask = gray_threshold(_R, otsu=True)
             _removebkgd = remove_background(_R, _otsumask, '#000000')
@@ -48,7 +50,7 @@ class SkinBeauty:
             ret_images.append(pil2tensor(_canvas))
             ret_masks.append(image2mask(light_mask))
 
-        log(f'SkinBeauty Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 

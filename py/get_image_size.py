@@ -1,3 +1,5 @@
+import torch
+
 from .imagefunc import *
 
 class GetImageSize:
@@ -24,6 +26,8 @@ class GetImageSize:
 
     def get_image_size(self, image,):
 
+        if image.shape[0] > 0:
+            image = torch.unsqueeze(image[0], 0)
         _image = tensor2pil(image)
 
         return (_image.width, _image.height, [_image.width, _image.height],)

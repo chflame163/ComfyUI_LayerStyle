@@ -1,4 +1,7 @@
+import torch
 from .imagefunc import *
+
+NODE_NAME = 'ImageMaskScaleAs'
 
 any = AnyType("*")
 
@@ -59,24 +62,30 @@ class ImageMaskScaleAs:
         ret_masks = []
         
         if image is not None:
-            for image in image:
-                _image = tensor2pil(image).convert('RGB')
+            for i in image:
+                i = torch.unsqueeze(i, 0)
+                _image = tensor2pil(i).convert('RGB')
                 orig_width, orig_height = _image.size
                 _image = fit_resize_image(_image, target_width, target_height, fit, resize_sampler)
                 ret_images.append(pil2tensor(_image))
         if mask is not None:
-            for mask in mask:
-                _mask = tensor2pil(mask).convert('L')
+            for m in mask:
+                m = torch.unsqueeze(m, 0)
+                _mask = tensor2pil(m).convert('L')
                 orig_width, orig_height = _mask.size
                 _mask = fit_resize_image(_mask, target_width, target_height, fit, resize_sampler).convert('L')
                 ret_masks.append(image2mask(_mask))
         if len(ret_images) > 0 and len(ret_masks) >0:
+            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
             return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
         elif len(ret_images) > 0 and len(ret_masks) == 0:
+            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
             return (torch.cat(ret_images, dim=0), None,)
         elif len(ret_images) == 0 and len(ret_masks) > 0:
+            log(f"{NODE_NAME} Processed {len(ret_mask)} image(s).")
             return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
         else:
+            log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.")
             return (None, None,)
 
 NODE_CLASS_MAPPINGS = {

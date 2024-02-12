@@ -1,6 +1,11 @@
 import os
 import glob
+
+import torch
+
 from .imagefunc import *
+
+NODE_NAME = 'LUT Apply'
 
 class ColorCorrectLUTapply:
 
@@ -27,14 +32,14 @@ class ColorCorrectLUTapply:
 
     def color_correct_LUTapply(self, image, LUT):
         ret_images = []
-        for image in image:
-
-            _image = tensor2pil(image)
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _image = tensor2pil(i)
             lut_file = LUT_DICT[LUT]
             ret_image = lut_apply(_image, lut_file)
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'LUT Apply Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

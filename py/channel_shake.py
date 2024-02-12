@@ -1,6 +1,7 @@
 import math
-
 from .imagefunc import *
+
+NODE_NAME = 'ChannelShake'
 
 class ChannelShake:
 
@@ -31,9 +32,9 @@ class ChannelShake:
 
         ret_images = []
 
-        for image in image:
-
-            _canvas = tensor2pil(image).convert('RGB')
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _canvas = tensor2pil(i).convert('RGB')
             R, G, B = _canvas.split()
             x = int(math.cos(angle) * distance)
             y = int(math.sin(angle) * distance)
@@ -53,7 +54,7 @@ class ChannelShake:
             ret_image = Image.merge('RGB', [R, G, B])
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'ChannelShake Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

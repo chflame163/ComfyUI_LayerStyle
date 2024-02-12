@@ -50,6 +50,7 @@ class RemBgUltra:
         ret_masks = []
 
         for i in image:
+            i = torch.unsqueeze(i, 0)
             rmbgmodel = load_model()
             orig_image = tensor2pil(i).convert('RGB')
             w,h = orig_image.size
@@ -57,7 +58,6 @@ class RemBgUltra:
             im_tensor = torch.tensor(im_np, dtype=torch.float32).permute(2,0,1)
             im_tensor = torch.unsqueeze(im_tensor,0)
             im_tensor = torch.divide(im_tensor,255.0)
-
             im_tensor = TF.normalize(im_tensor, [0.5, 0.5, 0.5], [1.0, 1.0, 1.0])
             if torch.cuda.is_available():
                 im_tensor=im_tensor.cuda()
@@ -70,9 +70,8 @@ class RemBgUltra:
             _mask = Image.fromarray(np.squeeze(im_array)).convert('L')
             if process_detail:
                 # ultra edge process
-                i1 =  torch.unsqueeze(i, dim=0)
                 d = detail_range * 2 + 1
-                i_dup = copy.deepcopy(i1.cpu().numpy().astype(np.float64))
+                i_dup = copy.deepcopy(i.cpu().numpy().astype(np.float64))
                 a_dup = copy.deepcopy(pil2tensor(_mask.convert('RGB')).cpu().numpy().astype(np.float64))
                 for index, img in enumerate(i_dup):
                     trimap = a_dup[index][:,:,0] # convert to single channel

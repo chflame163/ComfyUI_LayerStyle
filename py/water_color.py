@@ -1,5 +1,7 @@
 from .imagefunc import *
 
+NODE_NAME = 'WaterColor'
+
 class WaterColor:
 
     def __init__(self):
@@ -29,15 +31,15 @@ class WaterColor:
 
         ret_images = []
 
-        for image in image:
-
-            _canvas = tensor2pil(image).convert('RGB')
+        for i in image:
+            i = torch.unsqueeze(i, 0)
+            _canvas = tensor2pil(i).convert('RGB')
             _image = image_watercolor(_canvas, level=101-line_density)
             ret_image = chop_image(_canvas, _image, 'normal', opacity)
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f'WaterColor Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
