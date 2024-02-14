@@ -13,6 +13,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 [中文说明点这里](./README_CN.MD)
 
 ## Update
+* Commit [Sharp & Soft](#Sharp) node, it can enhance or smooth out image details. Commit [MaskByDifferent](#MaskByDifferent) node, it compare two images and output a Mask. Commit [SegmentAnythingUltra](#SegmentAnythingUltra) node, Improve the quality of mask edges. *If SegmentAnything is not installed, you will need to manually download the model.
 * All nodes have fully supported batch images, providing convenience for video creation.
 (The CropByMask node only supports cuts of the same size. if a batch mask_for_crop inputted, the data from the first sheet will be used.)
 * Commit [RemBgUltra](#RemBgUltra) and [PixelSpread](#PixelSpread) nodes significantly improved mask quality. *RemBgUltra requires manual model download.
@@ -564,6 +565,32 @@ Output:
 * x: The x-coordinate of the top left corner position.
 * y: The y-coordinate of the top left corner position.
 
+### <a id="table1">SegmentAnythingUltra</a>
+Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything), combined with the Alpha Matte node of [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) in spacepxl, result in more detailed edges for masks.
+
+*Please refer to the installation of ComfyUI Segment Anything to install the model. If ComfyUI Segment Anything has been correctly installed, you can skip this step.
+* From [here](https://huggingface.co/bert-base-uncased/tree/main) download the config.json，model.safetensors，tokenizer_config.json，tokenizer.json 和 vocab.txt 5 files to ComfyUI/models/bert-base-uncased folder.
+* Download [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
+[GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) to ComfyUI/models/grounding-dino folder.
+* Download [sam_vit_h](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)，[sam_vit_l](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), 
+[sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
+[sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
+[mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ComfyUI/models/sams folder.
+
+![image](image/segment_anything_ultra_example.png)
+
+Node options:  
+![image](image/segment_anything_ultra_node.png)
+* sam_model: Select the SAM model.
+* ground_dino_model: Select the Grounding DINO model.
+* threshold: The threshold of SAM.
+* detail_range: Edge detail range.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+* prompt: Input for SAM's prompt.
+
+
 ### <a id="table1">RemBgUltra</a>
 Remove background. compared to the similar background removal nodes, this node has ultra-high edge details.
 
@@ -589,7 +616,16 @@ Node options:
 * invert_mask: Whether to reverse the mask.
 * mask_grow: Mask expansion amplitude.
 
+### <a id="table1">MaskByDifferent</a>
+Calculate the differences between two images and output them as mask.
+![image](image/mask_by_different_example.png)
 
+Node options:  
+![image](image/mask_by_different_node.png)
+* gain: The gain of difference calculate. higher value will result in a more significant slight difference.
+* fix_gap: Fix the internal gaps of the mask. higher value will repair larger gaps.
+* fix_threshold: The threshold for fix_gap.
+* main_subject_detect: Setting this to True will enable subject detection, ignoring differences outside of the subject.
 
 ### <a id="table1">MaskGrow</a>
 Grow and shrink edges and blur the mask
@@ -659,11 +695,16 @@ Invert the mask
 ![image](image/mask_invert_node.png)
 
 
-
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
 
+### <a id="table1">Sharp</a> & Soft
+Enhance or smooth out details for image.
+![image](image/sharp_and_soft_example.png)
 
+Node options:
+![image](image/sharp_and_soft_node.png)
+* enhance: Provide 4 presets, which are very sharp, sharp, soft and very soft.
 
 ### <a id="table1">SkinBeauty</a>
 Make the skin look smoother.

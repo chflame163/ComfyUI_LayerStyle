@@ -1,5 +1,3 @@
-import torch
-
 from .imagefunc import *
 
 NODE_NAME = 'LAB'

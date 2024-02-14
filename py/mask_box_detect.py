@@ -30,6 +30,9 @@ class MaskBoxDetect:
 
     def mask_box_detect(self,mask, detect, x_adjust, y_adjust, scale_adjust):
 
+        if mask.dim() == 2:
+            mask = torch.unsqueeze(mask, 0)
+
         if mask.shape[0] > 0:
             mask = torch.unsqueeze(mask[0], 0)
 

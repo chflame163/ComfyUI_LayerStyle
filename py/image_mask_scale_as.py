@@ -1,4 +1,3 @@
-import torch
 from .imagefunc import *
 
 NODE_NAME = 'ImageMaskScaleAs'
@@ -69,6 +68,8 @@ class ImageMaskScaleAs:
                 _image = fit_resize_image(_image, target_width, target_height, fit, resize_sampler)
                 ret_images.append(pil2tensor(_image))
         if mask is not None:
+            if mask.dim() == 2:
+                mask = torch.unsqueeze(mask, 0)
             for m in mask:
                 m = torch.unsqueeze(m, 0)
                 _mask = tensor2pil(m).convert('L')
@@ -82,7 +83,7 @@ class ImageMaskScaleAs:
             log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
             return (torch.cat(ret_images, dim=0), None,)
         elif len(ret_images) == 0 and len(ret_masks) > 0:
-            log(f"{NODE_NAME} Processed {len(ret_mask)} image(s).")
+            log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
             return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
         else:
             log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.")

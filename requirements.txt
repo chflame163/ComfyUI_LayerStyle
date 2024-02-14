@@ -7,3 +7,7 @@ opencv-python
 scikit_image
 opencv-contrib-python
 pymatting
+segment_anything
+timm
+addict
+yapf

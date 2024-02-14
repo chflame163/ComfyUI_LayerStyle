@@ -4,17 +4,26 @@ by chflame https://github.com/chflame163
 import copy
 import os
 import re
+import json
+import math
 import glob
 import numpy as np
 import torch
 import scipy.ndimage
 import cv2
 import random
+import time
 from typing import Union, List
-from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps
+from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
 from skimage import img_as_float, img_as_ubyte
+from pymatting import fix_trimap, estimate_alpha_cf
+import torchvision.transforms.functional as TF
+import torch.nn.functional as F
 import colorsys
+from .briarmbg import BriaRMBG
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def log(message):
     name = 'LayerStyle'
@@ -630,6 +639,73 @@ def image_beauty(image:Image, level:int=50) -> Image:
 
 
 '''Mask Functions'''
+
+def load_RMBG_model():
+
+    net = BriaRMBG()
+    model_path = os.path.join(os.path.dirname(current_directory), "RMBG-1.4/model.pth")
+    net.load_state_dict(torch.load(model_path, map_location=device))
+    net.to(device)
+    net.eval()
+    return net
+
+def RMBG(image:Image) -> Image:
+    rmbgmodel = load_RMBG_model()
+    w, h = image.size
+    im_np = np.array(image.resize((1024, 1024), Image.BILINEAR))
+    im_tensor = torch.tensor(im_np, dtype=torch.float32).permute(2, 0, 1)
+    im_tensor = torch.divide(torch.unsqueeze(im_tensor, 0), 255.0)
+    im_tensor = TF.normalize(im_tensor, [0.5, 0.5, 0.5], [1.0, 1.0, 1.0])
+    if torch.cuda.is_available():
+        im_tensor = im_tensor.cuda()
+    result = rmbgmodel(im_tensor)
+    result = torch.squeeze(F.interpolate(result[0][0], size=(h, w), mode='bilinear'), 0)
+    ma = torch.max(result)
+    mi = torch.min(result)
+    result = (result - mi) / (ma - mi)
+    im_array = (result * 255).cpu().data.numpy().astype(np.uint8)
+    _mask = Image.fromarray(np.squeeze(im_array)).convert('L')
+    return _mask
+
+def mask_edge_detail(image:torch.Tensor, mask:Image, detail_range:int=8, black_point:float=0.01, white_point:float=0.99) -> torch.Tensor:
+
+    d = detail_range * 2 + 1
+    i_dup = copy.deepcopy(image.cpu().numpy().astype(np.float64))
+    a_dup = copy.deepcopy(pil2tensor(mask.convert('RGB')).cpu().numpy().astype(np.float64))
+    for index, img in enumerate(i_dup):
+        trimap = a_dup[index][:, :, 0]  # convert to single channel
+        if detail_range > 0:
+            trimap = cv2.GaussianBlur(trimap, (d, d), 0)
+        trimap = fix_trimap(trimap, black_point, white_point)
+        alpha = estimate_alpha_cf(img, trimap, laplacian_kwargs={"epsilon": 1e-6},
+                                  cg_kwargs={"maxiter": 500})
+        a_dup[index] = np.stack([alpha, alpha, alpha], axis=-1)  # convert back to rgb
+    return torch.from_numpy(a_dup.astype(np.float32))
+
+
+def mask_fix(images:torch.Tensor, radius:int, fill_holes:int, white_threshold:float, extra_clip:float) -> torch.Tensor:
+    d = radius * 2 + 1
+    i_dup = copy.deepcopy(images.cpu().numpy())
+    for index, image in enumerate(i_dup):
+        cleaned = cv2.bilateralFilter(image, 9, 0.05, 8)
+        alpha = np.clip((image - white_threshold) / (1 - white_threshold), 0, 1)
+        rgb = image * alpha
+        alpha = cv2.GaussianBlur(alpha, (d, d), 0) * 0.99 + np.average(alpha) * 0.01
+        rgb = cv2.GaussianBlur(rgb, (d, d), 0) * 0.99 + np.average(rgb) * 0.01
+        rgb = rgb / np.clip(alpha, 0.00001, 1)
+        rgb = rgb * extra_clip
+        cleaned = np.clip(cleaned / rgb, 0, 1)
+        if fill_holes > 0:
+            fD = fill_holes * 2 + 1
+            gamma = cleaned * cleaned
+            kD = np.ones((fD, fD), np.uint8)
+            kE = np.ones((fD + 2, fD + 2), np.uint8)
+            gamma = cv2.dilate(gamma, kD, iterations=1)
+            gamma = cv2.erode(gamma, kE, iterations=1)
+            gamma = cv2.GaussianBlur(gamma, (fD, fD), 0)
+            cleaned = np.maximum(cleaned, gamma)
+        i_dup[index] = cleaned
+    return torch.from_numpy(i_dup)
 
 def expand_mask(mask:torch.Tensor, grow:int, blur:int) -> torch.Tensor:
     # grow

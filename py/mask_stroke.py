@@ -33,6 +33,9 @@ class MaskStroke:
         l_masks = []
         ret_masks = []
 
+        if mask.dim() == 2:
+            mask = torch.unsqueeze(mask, 0)
+
         for m in mask:
             if invert_mask:
                 m = 1 - m

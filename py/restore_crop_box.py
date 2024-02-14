@@ -47,6 +47,8 @@ class RestoreCropBox:
             else:
                 l_masks.append(Image.new('L', size=m.size, color='white'))
         if croped_mask is not None:
+            if croped_mask.dim() == 2:
+                croped_mask = torch.unsqueeze(croped_mask, 0)
             l_masks = []
             for m in croped_mask:
                 if invert_mask:

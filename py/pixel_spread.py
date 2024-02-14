@@ -1,5 +1,4 @@
-import copy
-from pymatting import *
+from pymatting import estimate_foreground_ml
 from .imagefunc import *
 
 NODE_NAME = 'PixelSpread'
@@ -43,6 +42,8 @@ class PixelSpread:
             else:
                 l_masks.append(Image.new('L', i.size, 'white'))
         if mask is not None:
+            if mask.dim() == 2:
+                mask = torch.unsqueeze(mask, 0)
             l_masks = []
             for m in mask:
                 if invert_mask:

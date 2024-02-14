@@ -46,6 +46,8 @@ class ImageScaleRestore:
                 l_masks.append(m.split()[-1])
 
         if mask is not None:
+            if mask.dim() == 2:
+                mask = torch.unsqueeze(mask, 0)
             l_masks = []
             for m in mask:
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))

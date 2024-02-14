@@ -1,6 +1,3 @@
-import time
-import random
-from PIL import ImageFont
 from .imagefunc import *
 
 NODE_NAME = 'TextImage'

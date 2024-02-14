@@ -1,4 +1,4 @@
-import random
+# import random
 from .imagefunc import *
 from nodes import SaveImage
 import folder_paths
@@ -20,6 +20,8 @@ class MaskPreview(SaveImage):
     CATEGORY = '😺dzNodes/LayerMask'
 
     def mask_preview(self, mask):
+        if mask.dim() == 2:
+            mask = torch.unsqueeze(mask, 0)
         preview = mask.reshape((-1, 1, mask.shape[-2], mask.shape[-1])).movedim(1, -1).expand(-1, -1, -1, 3)
         return self.save_images(preview, "MaskPreview")
 

@@ -48,6 +48,8 @@ class ExtendCanvas:
                 l_masks.append(m.split()[-1])
 
         if mask is not None:
+            if mask.dim() == 2:
+                mask = torch.unsqueeze(mask, 0)
             l_masks = []
             for m in mask:
                 if invert_mask:

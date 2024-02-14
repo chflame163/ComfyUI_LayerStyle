@@ -1,4 +1,3 @@
-import torch
 from .imagefunc import *
 
 NODE_NAME = 'CropByMask'
@@ -40,6 +39,9 @@ class CropByMask:
         ret_masks = []
         l_images = []
         l_masks = []
+
+        if mask_for_crop.dim() == 2:
+            mask_for_crop = torch.unsqueeze(mask_for_crop, 0)
         for l in image:
             l_images.append(torch.unsqueeze(l, 0))
             m = tensor2pil(l)

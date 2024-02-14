@@ -1,4 +1,3 @@
-from PIL import ImageEnhance
 from .imagefunc import *
 
 NODE_NAME = 'Brightness & Contrast'

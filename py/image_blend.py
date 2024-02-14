@@ -1,4 +1,3 @@
-import torch
 from .imagefunc import *
 
 NODE_NAME = 'ImageBlend'
@@ -49,6 +48,8 @@ class ImageBlend:
             else:
                 l_masks.append(Image.new('L', m.size, 'white'))
         if layer_mask is not None:
+            if layer_mask.dim() == 2:
+                layer_mask = torch.unsqueeze(layer_mask, 0)
             l_masks = []
             for m in layer_mask:
                 if invert_mask:

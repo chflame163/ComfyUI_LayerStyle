@@ -1,4 +1,3 @@
-import math
 from .imagefunc import *
 
 NODE_NAME = 'ImageShift'
@@ -54,6 +53,8 @@ class ImageShift:
             else:
                 l_masks.append(Image.new('L', size=m.size, color='white'))
         if mask is not None:
+            if mask.dim() == 2:
+                mask = torch.unsqueeze(mask, 0)
             l_masks = []
             for m in mask:
                 if invert_mask:

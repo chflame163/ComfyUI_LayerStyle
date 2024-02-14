@@ -1,4 +1,3 @@
-import math
 from .imagefunc import *
 
 NODE_NAME = 'ChannelShake'

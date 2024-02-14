@@ -1,6 +1,7 @@
 from .imagefunc import *
 
 NODE_NAME = 'OuterGlow'
+
 class OuterGlow:
 
     def __init__(self):
@@ -54,6 +55,8 @@ class OuterGlow:
             if m.mode == 'RGBA':
                 l_masks.append(m.split()[-1])
         if layer_mask is not None:
+            if layer_mask.dim() == 2:
+                layer_mask = torch.unsqueeze(layer_mask, 0)
             l_masks = []
             for m in layer_mask:
                 if invert_mask:

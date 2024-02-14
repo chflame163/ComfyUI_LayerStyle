@@ -1,7 +1,4 @@
-import json
-import torch
-from .imagefunc import tensor2pil, log
-from .imagefunc import AnyType
+from .imagefunc import *
 
 any = AnyType("*")
 

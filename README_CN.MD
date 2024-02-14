@@ -10,6 +10,7 @@
 * [LayerFilter](#LayerFilter)节点组提供图像效果滤镜。
 
 ## 更新说明、
+* 新增[Sharp & Soft](#Sharp)节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
 * 所有节点已全面支持批量图片，为创作视频提供方便。( CropByMask 节点仅支持相同尺寸的切除, 如果输入批量mask_for_crop，将使用第一张的数据。)
 * 添加[RemBgUltra](#RemBgUltra) 和 [PixelSpread](#PixelSpread) 节点，显著提升了遮罩质量。*RemBgUltra需手动下载模型。
 * 添加[TextImage](#TextImage) 节点，生成文字图像和遮罩。
@@ -549,6 +550,32 @@
 * x: 左上角位置x坐标输出。
 * y: 左上角位置y坐标输出。
 
+### <a id="table1">SegmentAnythingUltra</a>
+对[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)的改进，结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，使遮罩有更具细节的边缘。
+
+*请参照ComfyUI Segment Anything的安装方法安装模型。如果已经正确安装了ComfyUI Segment Anything，可跳过此步骤。
+* 从 [这里](https://huggingface.co/bert-base-uncased/tree/main) 下载 config.json，model.safetensors，tokenizer_config.json，tokenizer.json 和 vocab.txt 5个文件到 ComfyUI/models/bert-base-uncased文件夹。
+* 下载 [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
+[GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) 到 ComfyUI/models/grounding-dino文件夹。
+* 下载 [sam_vit_h](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)，[sam_vit_l](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), 
+[sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
+[sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
+[mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) 这几个文件到ComfyUI/models/sams文件夹。
+
+![image](image/segment_anything_ultra_example.png)
+
+节点选项说明:  
+![image](image/segment_anything_ultra_node.png)
+* sam_model: 选择SAM模型。
+* ground_dino_model: 选择Grounding DINO模型。
+* threshold: SAM阈值。
+* detail_range: 边缘细节范围。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* prompt: SAM的prompt输入。
+
+
 ### <a id="table1">RemBgUltra</a>
 去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
 本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能。
@@ -572,6 +599,17 @@
 ![image](image/pixel_spread_node.png)
 * invert_mask: 是否反转遮罩。
 * mask_grow: 遮罩扩张幅度。
+
+### <a id="table1">MaskByDifferent</a>
+计算两张图像不同之处，并输出为遮罩。
+![image](image/mask_by_different_example.png)
+
+节点选项说明:  
+![image](image/mask_by_different_node.png)
+* gain: 计算增益。调高此值，微弱的差异将更显著的呈现。
+* fix_gap: 修补遮罩内部缝隙。更高的值将修补更大的缝隙。
+* fix_threshold: 修补阈值。
+* main_subject_detect: 此项设为True将开启主体侦测，忽略主体之外的差异。
 
 
 ### <a id="table1">MaskGrow</a>
@@ -645,6 +683,14 @@ mask反转
 
 # <a id="table1">LayerFilter</a>
 ![image](image/layerfilter_nodes.png)
+
+### <a id="table1">Sharp</a> & Soft
+为图像增强细节或抹平细节。
+![image](image/sharp_and_soft_example.png)
+
+节点选项说明:
+![image](image/sharp_and_soft_node.png)
+* enhance: 提供四个预设档位，分别是very sharp、sharp、soft和very soft。
 
 ### <a id="table1">SkinBeauty</a>
 磨皮效果。

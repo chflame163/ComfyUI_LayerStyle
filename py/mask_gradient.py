@@ -1,4 +1,5 @@
-import copy
+import torch
+
 from .imagefunc import *
 
 NODE_NAME = 'MaskGradient'
@@ -32,6 +33,9 @@ class MaskGradient:
 
     def mask_gradient(self, mask, invert_mask, gradient_side, gradient_scale, gradient_offset, opacity, ):
 
+        if mask.dim() == 2:
+            mask = torch.unsqueeze(mask, 0)
+
         l_masks = []
         ret_masks = []
 
@@ -48,6 +52,9 @@ class MaskGradient:
             _gradient = gradient('#000000', '#FFFFFF',
                                  _mask.width, _mask.height, 0)
             (box_x, box_y, box_width, box_height) = min_bounding_rect(_mask)
+            if box_width < 1 or box_height < 1:
+                log(f"Error: {NODE_NAME} skipped, because the mask is does'nt have valid area")
+                return (mask,)
 
             if gradient_side == 'top':
                 boxsize = (width, box_height)
