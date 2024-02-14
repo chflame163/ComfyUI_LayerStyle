@@ -14,9 +14,9 @@ class MaskByDifferent:
             "required": {
                 "image_1": ("IMAGE", ),  #
                 "image_2": ("IMAGE",),  #
-                "gain": ("FLOAT", {"default": 5, "min": 0.1, "max": 100, "step": 0.1}),
-                "fix_gap": ("INT", {"default": 8, "min": 0, "max": 16, "step": 1}),
-                "fix_threshold": ("FLOAT", {"default": 0.5, "min": 0.01, "max": 1.0, "step": 0.01}),
+                "gain": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 100, "step": 0.1}),
+                "fix_gap": ("INT", {"default": 4, "min": 0, "max": 16, "step": 1}),
+                "fix_threshold": ("FLOAT", {"default": 0.75, "min": 0.01, "max": 1.0, "step": 0.01}),
                 "main_subject_detect": ("BOOLEAN", {"default": True}),
             },
             "optional": {
