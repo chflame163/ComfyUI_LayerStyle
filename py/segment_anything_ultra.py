@@ -18,7 +18,7 @@ class SegmentAnythingUltra:
                 "sam_model": (list_sam_model(), ),
                 "grounding_dino_model": (list_groundingdino_model(),),
                 "threshold": ("FLOAT", {"default": 0.3, "min": 0, "max": 1.0, "step": 0.01}),
-                "detail_range": ("INT", {"default": 32, "min": 0, "max": 256, "step": 1}),
+                "detail_range": ("INT", {"default": 16, "min": 0, "max": 256, "step": 1}),
                 "black_point": ("FLOAT", {"default": 0.15, "min": 0.01, "max": 0.98, "step": 0.01}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
                 "process_detail": ("BOOLEAN", {"default": True}),
