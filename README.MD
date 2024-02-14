@@ -578,6 +578,7 @@ Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_
 [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
 [mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ComfyUI/models/sams folder.
 
+![image](image/segment_anything_ultra_compare.png)
 ![image](image/segment_anything_ultra_example.png)
 
 Node options:  
