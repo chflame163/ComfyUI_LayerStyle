@@ -676,6 +676,9 @@ def RMBG(image:Image) -> Image:
 
 def mask_edge_detail(image:torch.Tensor, mask:Image, detail_range:int=8, black_point:float=0.01, white_point:float=0.99) -> torch.Tensor:
     d = detail_range * 5 + 1
+    if not bool(d % 2):
+        d += 1
+    print(f"mask_edge_detail: d={d}")
     i_dup = copy.deepcopy(image.cpu().numpy().astype(np.float64))
     a_dup = copy.deepcopy(pil2tensor(mask.convert('RGB')).cpu().numpy().astype(np.float64))
     for index, img in enumerate(i_dup):
@@ -690,6 +693,8 @@ def mask_edge_detail(image:torch.Tensor, mask:Image, detail_range:int=8, black_p
 
 def guided_filter_alpha(image:torch.Tensor, mask:Image, filter_radius:int, sigma:float) -> torch.Tensor:
     d = filter_radius + 1
+    if not bool(d % 2):
+        d += 1
     s = sigma / 10
     i_dup = copy.deepcopy(image.cpu().numpy())
     a_dup = copy.deepcopy(pil2tensor(mask.convert('RGB')).cpu().numpy())
