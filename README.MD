@@ -13,7 +13,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 [中文说明点这里](./README_CN.MD)
 
 ## Update
-**Due to the new nodes, if error occurs during runtime, please reinstall the dependency package.
+**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
 * Commit [Sharp & Soft](#Sharp) node, it can enhance or smooth out image details. Commit [MaskByDifferent](#MaskByDifferent) node, it compare two images and output a Mask. Commit [SegmentAnythingUltra](#SegmentAnythingUltra) node, Improve the quality of mask edges. *If SegmentAnything is not installed, you will need to manually download the model.
 * All nodes have fully supported batch images, providing convenience for video creation.
 (The CropByMask node only supports cuts of the same size. if a batch mask_for_crop inputted, the data from the first sheet will be used.)

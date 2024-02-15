@@ -1,4 +1,3 @@
-from pymatting import estimate_foreground_ml
 from .imagefunc import *
 
 NODE_NAME = 'PixelSpread'

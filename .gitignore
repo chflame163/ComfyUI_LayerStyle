@@ -1,2 +1,3 @@
+_test_*.*
 __pycache__
 model.pth

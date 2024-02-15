@@ -1,4 +1,3 @@
-from cv2.ximgproc import guidedFilter
 from .imagefunc import *
 
 NODE_NAME = 'Sharp & Soft'

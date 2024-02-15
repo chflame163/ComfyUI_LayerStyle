@@ -1,5 +1,3 @@
-import torch
-
 from .imagefunc import *
 from .segment_anything_func import *
 
