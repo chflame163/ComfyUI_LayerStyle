@@ -1,0 +1,256 @@
+{
+  "last_node_id": 80,
+  "last_link_id": 137,
+  "nodes": [
+    {
+      "id": 75,
+      "type": "LoadImage",
+      "pos": [
+        1677,
+        -780
+      ],
+      "size": {
+        "0": 319.5843200683594,
+        "1": 367.6458740234375
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            132,
+            135
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_hair (19).png",
+        "image"
+      ]
+    },
+    {
+      "id": 80,
+      "type": "Image Remove Background Rembg (mtb)",
+      "pos": [
+        2075,
+        -665
+      ],
+      "size": {
+        "0": 294,
+        "1": 230
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 135
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Image (rgba)",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "Mask",
+          "type": "MASK",
+          "links": [
+            136,
+            137
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "Image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Image Remove Background Rembg (mtb)"
+      },
+      "widgets_values": [
+        false,
+        155,
+        0,
+        4,
+        false,
+        "#000000"
+      ]
+    },
+    {
+      "id": 76,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        2397,
+        -477
+      ],
+      "size": {
+        "0": 522.9652099609375,
+        "1": 327.8960876464844
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 137
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 78,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        2942,
+        -472
+      ],
+      "size": {
+        "0": 513.7171630859375,
+        "1": 320.2060852050781
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 133
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 77,
+      "type": "LayerMask: MaskEdgeUltraDetail",
+      "pos": [
+        2431,
+        -782
+      ],
+      "size": {
+        "0": 315,
+        "1": 222
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 132
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 136
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            133
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskEdgeUltraDetail"
+      },
+      "widgets_values": [
+        "PyMatting",
+        -36,
+        0,
+        0.75,
+        35,
+        0.01,
+        0.99
+      ]
+    }
+  ],
+  "links": [
+    [
+      132,
+      75,
+      0,
+      77,
+      0,
+      "IMAGE"
+    ],
+    [
+      133,
+      77,
+      1,
+      78,
+      0,
+      "MASK"
+    ],
+    [
+      135,
+      75,
+      0,
+      80,
+      0,
+      "IMAGE"
+    ],
+    [
+      136,
+      80,
+      1,
+      77,
+      1,
+      "MASK"
+    ],
+    [
+      137,
+      80,
+      1,
+      76,
+      0,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

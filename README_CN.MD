@@ -11,7 +11,8 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
-* 新增[Sharp & Soft](#Sharp)节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
+* 添加[MaskEdgeUltraDetail](#MaskEdgeUltraDetail) 节点，给粗糙的遮罩进行处理获得超精细的边缘。添加 [Exposure](#Exposure) 节点，调整图像曝光。
+* 添加[Sharp & Soft](#Sharp) 节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
 * 所有节点已全面支持批量图片，为创作视频提供方便。( CropByMask 节点仅支持相同尺寸的切除, 如果输入批量mask_for_crop，将使用第一张的数据。)
 * 添加[RemBgUltra](#RemBgUltra) 和 [PixelSpread](#PixelSpread) 节点，显著提升了遮罩质量。*RemBgUltra需手动下载模型。
 * 添加[TextImage](#TextImage) 节点，生成文字图像和遮罩。
@@ -211,6 +212,13 @@
 节点选项说明:  
 ![image](image/color_adapter_node.png)
 * opacity: 图像调整色调之后的不透明度。
+
+### <a id="table1">Exposure</a>
+改变图像的曝光。
+![image](image/exposure_example.png)
+
+节点选项说明:  
+* exposure: 曝光值。更高的数值表示更亮的曝光。
 
 ### <a id="table1">Gamma</a>
 改变图像的Gamma值。
@@ -612,6 +620,21 @@
 * fix_gap: 修补遮罩内部缝隙。更高的值将修补更大的缝隙。
 * fix_threshold: 修补阈值。
 * main_subject_detect: 此项设为True将开启主体侦测，忽略主体之外的差异。
+
+
+### <a id="table1">MaskEdgeUltraDetail</a>
+处理较粗糙的遮罩使其获得超精细边缘。
+![image](image/mask_edge_ultra_detail_example.png)
+
+节点选项说明:  
+![image](image/mask_edge_ultra_detail_node.png)
+* method: 提供PyMatting和OpenCV-GuidedFilter两种方法处理边缘。PyMatting处理速度较慢，但是对于视频，建议使用这种方法获得更平滑的遮罩序列。
+* mask_grow: 遮罩扩张幅度。正值是向外扩张，负值是向内收缩。对于较粗糙的遮罩，通常使用负值使其边缘收缩以获得更好的效果。
+* fix_gap: 修补遮罩中的空隙。如果遮罩中有比较明显的空隙，适当调高此数值。
+* fix_threshold: 修补遮罩的阈值。
+* detail_range: 边缘细节范围。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
 
 
 ### <a id="table1">MaskGrow</a>

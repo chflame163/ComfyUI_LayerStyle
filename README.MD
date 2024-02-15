@@ -14,6 +14,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+* Commit [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) node, it process rough masks to ultra fine edges.Commit [Exposure](#Exposure) node.
 * Commit [Sharp & Soft](#Sharp) node, it can enhance or smooth out image details. Commit [MaskByDifferent](#MaskByDifferent) node, it compare two images and output a Mask. Commit [SegmentAnythingUltra](#SegmentAnythingUltra) node, Improve the quality of mask edges. *If SegmentAnything is not installed, you will need to manually download the model.
 * All nodes have fully supported batch images, providing convenience for video creation.
 (The CropByMask node only supports cuts of the same size. if a batch mask_for_crop inputted, the data from the first sheet will be used.)
@@ -221,6 +222,13 @@ Auto adjust the color tone of the image to resemble the reference image.
 Node options:  
 ![image](image/color_adapter_node.png)
 * opacity: The opacity of an image after adjusting its color tone.
+
+### <a id="table1">Exposure</a>
+Change the exposure of the image.
+![image](image/exposure_example.png)
+
+Node option:  
+* exposure: Exposure value. Higher values indicate brighter image.
 
 ### <a id="table1">Gamma</a>
 Change the gamma value of the image.
@@ -628,6 +636,22 @@ Node options:
 * fix_gap: Fix the internal gaps of the mask. higher value will repair larger gaps.
 * fix_threshold: The threshold for fix_gap.
 * main_subject_detect: Setting this to True will enable subject detection, ignoring differences outside of the subject.
+
+
+### <a id="table1">MaskEdgeUltraDetail</a>
+Process rough masks to ultra fine edges.
+![image](image/mask_edge_ultra_detail_example.png)
+
+Node options:  
+![image](image/mask_edge_ultra_detail_node.png)
+* method: Provide two methods for edge processing: PyMatting and OpenCV-GuidedFilter. PyMatching has a slower processing speed, but for video, it is recommended to use this method to obtain smoother mask sequences.
+* mask_grow: Mask expansion amplitude. positive values expand outward, while negative values contract inward. For rougher masks, negative values are usually used to shrink their edges for better results.
+* fix_gap: Repair the gaps in the mask. if obvious gaps in the mask, increase this value appropriately.
+* fix_threshold: The threshold of fix_gap.
+* detail_range: Edge detail range.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+
 
 ### <a id="table1">MaskGrow</a>
 Grow and shrink edges and blur the mask

@@ -678,7 +678,6 @@ def mask_edge_detail(image:torch.Tensor, mask:Image, detail_range:int=8, black_p
     d = detail_range * 5 + 1
     if not bool(d % 2):
         d += 1
-    print(f"mask_edge_detail: d={d}")
     i_dup = copy.deepcopy(image.cpu().numpy().astype(np.float64))
     a_dup = copy.deepcopy(pil2tensor(mask.convert('RGB')).cpu().numpy().astype(np.float64))
     for index, img in enumerate(i_dup):
