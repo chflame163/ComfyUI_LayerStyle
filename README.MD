@@ -640,6 +640,7 @@ Node options:
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 Process rough masks to ultra fine edges.
+This node combines the Alpha Matte and the Guided Filter Alpha nodes functions of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters).
 ![image](image/mask_edge_ultra_detail_example.png)
 
 Node options:  

@@ -624,6 +624,7 @@
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 处理较粗糙的遮罩使其获得超精细边缘。
+本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte和Guided Filter Alpha两者功能。
 ![image](image/mask_edge_ultra_detail_example.png)
 
 节点选项说明:  
