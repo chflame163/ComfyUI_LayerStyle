@@ -45,9 +45,9 @@ class TextImage:
                   size_as=None
                   ):
 
-        spacing -= 20
-        leading += 20
-        scale *= 0.7
+        # spacing -= 20
+        # leading += 20
+        # scale *= 0.7
         if size_as is not None:
             width, height = tensor2pil(size_as).size
         text_table = []
@@ -92,12 +92,12 @@ class TextImage:
             for j in range(0, len(lines[i])):
                 offset = int((char_size + line_random[j]) * variation_range / 250)
                 offset = int(offset * scale / 100)
-                font_size = char_size - spacing + line_random[j]
+                font_size = char_size + line_random[j]
                 font_size = int(font_size * scale / 100)
                 if font_size < 4:
                     font_size = 4
-                axis_x = _x + offset if random.random() > 0.5 else _x - offset
-                axis_y = _y + offset if random.random() > 0.5 else _y - offset
+                axis_x = _x + offset // 3 if random.random() > 0.5 else _x - offset // 3
+                axis_y = _y + offset // 3 if random.random() > 0.5 else _y - offset // 3
                 char_dict = {'char':lines[i][j],
                              'axis':(axis_x, axis_y),
                              'size':font_size}

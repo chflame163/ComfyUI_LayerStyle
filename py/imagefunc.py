@@ -898,7 +898,7 @@ def random_numbers(total:int, random_range:int, seed:int=0, sum_of_numbers:int=0
     ret_list = []
     for i in numbers:
         ret_list.append(i - avg)
-    ret_list.append(sum_of_numbers - sum(ret_list))
+    ret_list.append((sum_of_numbers - sum(ret_list)) // 2)
     return ret_list
 
 '''CLASS'''
