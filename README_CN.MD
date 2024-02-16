@@ -2,7 +2,7 @@
 一组为ComfyUI设计的节点，可以合成图层达到类似Photoshop的功能。这些节点将PhotoShop的一部分基本功能迁移到ComfyUI，旨在集中工作流程，减少软件切换的频率。  
 
 ![image](image/title.png)  
-<font size="2">*此图工作流(title_example_workflow.json) 在 workflow 目录中.   </font><br /> 
+<font size="1">*此图工作流(title_example_workflow.json) 在 workflow 目录中.   </font><br /> 
 
 节点按照功能分为5组：LayerStyle, LayerColor, LayerMask, LayerUtility和LayerFilter。
 * [LayerStyle](#LayerStyle)节点组提供仿照Adobe Photoshop的图层样式。
@@ -794,10 +794,12 @@ mask反转
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
 <sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
 <sup>3</sup>   <a id="table1">混合模式</a>包括normal、multply、screen、add、subtract、difference、darker、lighter、color_burn、color_dodge、linear_burn、linear_dodge、overlay、soft_light、hard_light、vivid_light、pin_light、linear_light、hard_mix, 共19种混合模式
+
+![image](image/blend_mode_result.png)
+<font size="1">*混合模式预览</font><br /> 
+
 <sup>4</sup>  颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
 <sup>5</sup>  image和mask这两项必须是相同的尺寸。
-<sup>3</sup> 混合模式预览
-![image](image/blend_mode_result.png)
 
 ## 使用示例
 

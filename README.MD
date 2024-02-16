@@ -4,7 +4,7 @@ A set of nodes for ComfyUI that can composite layer and mask to achieve Photosho
 It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize the workflow and reduce the frequency of software switching.  
 
 ![image](image/title.png)  
-<font size="2">*this workflow (title_example_workflow.json) is in the workflow directory.  </font><br /> 
+<font size="1">*this workflow (title_example_workflow.json) is in the workflow directory.  </font><br /> 
 
 Nodes are divided into 5 groups according to their functions: LayerStyle, LayerColor, LayerMask, LayerUtility and LayerFilter.
 * [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
@@ -813,13 +813,14 @@ Node options:
 <sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.
 
 <sup>3</sup>  The <a id="table1">blend</a> mode include **normal, multply, screen, add, subtract, difference, darker, color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light, and hard_mix.** all of 19 blend modes in total.
+![image](image/blend_mode_result.png)
+<font size="1">*Preview of the blend mode  </font><br /> 
 
 <sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
 
 <sup>5</sup>  The layer_image and layer_mask must be of the same size.
 
-<sup>3</sup> Preview of the blend mode
-![image](image/blend_mode_result.png)
+
 
 
 ## Example workflow
