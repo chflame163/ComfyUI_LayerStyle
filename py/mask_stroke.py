@@ -51,7 +51,7 @@ class MaskStroke:
             stroke_mask = subtract_mask(outer_mask, inner_mask)
             ret_masks.append(stroke_mask)
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

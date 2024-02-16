@@ -59,7 +59,7 @@ class PixelSpread:
             i1 = pil2tensor(_image.convert('RGB'))
             _mask = _mask.convert('RGB')
             if _image.size != _mask.size:
-                log(f"Error: {NODE_NAME} skipped, because the mask is not match image.")
+                log(f"Error: {NODE_NAME} skipped, because the mask is not match image.", message_type='error')
                 return (image,)
             i_dup = copy.deepcopy(i1.cpu().numpy().astype(np.float64))
             a_dup = copy.deepcopy(pil2tensor(_mask).cpu().numpy().astype(np.float64))

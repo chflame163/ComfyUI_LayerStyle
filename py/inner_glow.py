@@ -62,7 +62,7 @@ class InnerGlow:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         if len(l_masks) == 0:
-            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.")
+            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.", message_type='error')
             return (background_image,)
         max_batch = max(len(b_images), len(l_images), len(l_masks))
         for i in range(max_batch):
@@ -75,7 +75,7 @@ class InnerGlow:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!")
+                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             blur_factor = blur / 20.0
             grow = glow_range

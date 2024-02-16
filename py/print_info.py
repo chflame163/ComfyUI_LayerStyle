@@ -1,3 +1,5 @@
+import torch
+
 from .imagefunc import *
 
 any = AnyType("*")
@@ -18,11 +20,17 @@ class PrintInfo:
   OUTPUT_NODE = True
 
   def print_info(self, anything=None):
-    value = 'PrintInfo:\nInput type is: ' + str(type(anything)) + '\n'
+    value = f'PrintInfo: \n Input type = {type(anything)}'
     if isinstance(anything, torch.Tensor):
-      image = tensor2pil(anything)
-      value = value + 'Image.size=' + str(image.size) + ', Image.mode=' + str(image.mode) + '\n'
-    if anything is not None:
+      value += f"\n Input dim = {anything.dim()}, shape[0] = {anything.shape[0]} \n"
+      for i in range(anything.shape[0]):
+        t = anything[i]
+        image = tensor2pil(t)
+        value += f'\n index {i}: Image.size = {image.size}, Image.mode = {image.mode}, dim = {t.dim()}, '
+        for j in range(t.dim()):
+          value += f'shape[{j}] = {t.shape[j]}, '
+        value += f'\n {t} \n'
+    elif anything is not None:
       try:
         value = value + json.dumps(anything) + "\n"
       except Exception:

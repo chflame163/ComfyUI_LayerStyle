@@ -80,7 +80,7 @@ class ImageBlendAdvance:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!")
+                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             orig_layer_width = _layer.width
             orig_layer_height = _layer.height

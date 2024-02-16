@@ -543,6 +543,10 @@ Node options:
 ![image](image/get_image_size_node.png)
 Obtain the width and height of the image.
 
+Output:
+* width: The width of image.
+* height: The height of image.
+* original_size: The original size data of the image is used for subsequent node recovery.
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)

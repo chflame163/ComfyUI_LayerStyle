@@ -22,19 +22,23 @@ import torch.nn.functional as F
 import colorsys
 from .briarmbg import BriaRMBG
 
+def log(message:str, message_type:str='info'):
+    name = 'LayerStyle'
+
+    if message_type == 'error':
+        message = '\033[1;31m' + message + '\033[m'
+    elif message_type == 'warning':
+        message = '\033[1;35m' + message + '\033[m'
+    else:
+        message = '\033[1;33m' + message + '\033[m'
+    print(f"# 😺dzNodes: {name} -> {message}")
+
 try:
     from cv2.ximgproc import guidedFilter
 except ImportError:
-    print(f'# 😺dzNodes: \033[33mDependency package error -> Unable import "guidedFilter", please reinstall "opencv-contrib-python"\033[m')
+    log(f'Dependency package error -> Unable import "guidedFilter", please reinstall "opencv-contrib-python', message_type='error')
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-device = "cuda" if torch.cuda.is_available() else "cpu"
 
-def log(message:str, message_type:str='info'):
-    name = 'LayerStyle'
-    if message_type == 'error':
-        message = '\033[33m' + message + '\033[m'
-    print(f"# 😺dzNodes: {name} -> {message}")
 
 '''Converter'''
 
@@ -648,7 +652,8 @@ def image_beauty(image:Image, level:int=50) -> Image:
 '''Mask Functions'''
 
 def load_RMBG_model():
-
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     net = BriaRMBG()
     model_path = os.path.join(os.path.dirname(current_directory), "RMBG-1.4/model.pth")
     net.load_state_dict(torch.load(model_path, map_location=device))
@@ -674,12 +679,13 @@ def RMBG(image:Image) -> Image:
     _mask = Image.fromarray(np.squeeze(im_array)).convert('L')
     return _mask
 
-def mask_edge_detail(image:torch.Tensor, mask:Image, detail_range:int=8, black_point:float=0.01, white_point:float=0.99) -> torch.Tensor:
+def mask_edge_detail(image:torch.Tensor, mask:torch.Tensor, detail_range:int=8, black_point:float=0.01, white_point:float=0.99) -> torch.Tensor:
     d = detail_range * 5 + 1
+    mask = pil2tensor(tensor2pil(mask).convert('RGB'))
     if not bool(d % 2):
         d += 1
     i_dup = copy.deepcopy(image.cpu().numpy().astype(np.float64))
-    a_dup = copy.deepcopy(pil2tensor(mask.convert('RGB')).cpu().numpy().astype(np.float64))
+    a_dup = copy.deepcopy(mask.cpu().numpy().astype(np.float64))
     for index, img in enumerate(i_dup):
         trimap = a_dup[index][:, :, 0]  # convert to single channel
         if detail_range > 0:
@@ -690,13 +696,15 @@ def mask_edge_detail(image:torch.Tensor, mask:Image, detail_range:int=8, black_p
         a_dup[index] = np.stack([alpha, alpha, alpha], axis=-1)  # convert back to rgb
     return torch.from_numpy(a_dup.astype(np.float32))
 
-def guided_filter_alpha(image:torch.Tensor, mask:Image, filter_radius:int, sigma:float) -> torch.Tensor:
+def guided_filter_alpha(image:torch.Tensor, mask:torch.Tensor, filter_radius:int) -> torch.Tensor:
+    sigma = 0.15
     d = filter_radius + 1
+    mask = pil2tensor(tensor2pil(mask).convert('RGB'))
     if not bool(d % 2):
         d += 1
     s = sigma / 10
     i_dup = copy.deepcopy(image.cpu().numpy())
-    a_dup = copy.deepcopy(pil2tensor(mask.convert('RGB')).cpu().numpy())
+    a_dup = copy.deepcopy(mask.cpu().numpy())
     for index, image in enumerate(i_dup):
         alpha_work = a_dup[index]
         i_dup[index] = guidedFilter(image, alpha_work, d, s)
@@ -781,7 +789,6 @@ def min_bounding_rect(image:Image) -> tuple:
         if _area > area:
             area = _area
             x, y, width, height = _x, _y, _w, _h
-
     return (x, y, width, height)
 
 def max_inscribed_rect(image:Image) -> tuple:
@@ -832,7 +839,6 @@ def gray_threshold(image:Image, thresh:int=127, otsu:bool=False) -> Image:
         _, thresh =  cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     else:
         _, thresh = cv2.threshold(gray, thresh, 255, cv2.THRESH_TOZERO)
-
     return cv22pil(thresh).convert('L')
 
 def image_to_colormap(image:Image, index:int) -> Image:

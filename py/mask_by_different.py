@@ -41,11 +41,13 @@ class MaskByDifferent:
         max_batch = max(len(image1s), len(image2s))
         blank_mask = image2mask(Image.new('L', size=tensor2pil(image1s[0]).size, color='black'))
         if tensor2pil(image1s[0]).size != tensor2pil(image2s[0]).size:
-            log(f"Error: {NODE_NAME} skipped, because the image size is not match.")
+            log(f"Error: {NODE_NAME} skipped, because the image size is not match.", message_type='error')
             return (torch.cat([blank_mask], dim=0))
         for i in range(max_batch):
             t1 = image1s[i] if i < len(image1s) else image1s[-1]
             t2 = image2s[i] if i < len(image2s) else image2s[-1]
+            t1 = pil2tensor(tensor2pil(t1).convert('RGB'))
+            t2 = pil2tensor(tensor2pil(t2).convert('RGB'))
             t = torch.abs(t1 - t2) * gain
             _mask = mask_fix(t, 1, fix_gap, fix_threshold, fix_threshold)
             _mask = tensor2pil(_mask)
@@ -64,7 +66,7 @@ class MaskByDifferent:
 
             ret_masks.append(image2mask(_mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 

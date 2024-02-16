@@ -43,7 +43,7 @@ class MaskEdgeUltraDetail:
         for m in mask:
             l_masks.append(torch.unsqueeze(m, 0))
         if len(l_images) != len(l_masks) or tensor2pil(l_images[0]).size != tensor2pil(l_masks[0]).size:
-            log(f"Error: {NODE_NAME} skipped, because mask does'nt match image.")
+            log(f"Error: {NODE_NAME} skipped, because mask does'nt match image.", message_type='error')
             return (image, mask,)
 
         for i in range(len(l_images)):
@@ -55,17 +55,12 @@ class MaskEdgeUltraDetail:
             if method == 'OpenCV-GuidedFilter':
                 if fix_gap:
                     _mask = mask_fix(_mask, 1, fix_gap, fix_threshold, fix_threshold)
-                _mask = guided_filter_alpha(_image, tensor2pil(_mask), detail_range, 0.15)
+                _mask = guided_filter_alpha(_image, _mask, detail_range)
                 _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
             else:
-                try:
-                    if fix_gap:
-                        _mask = mask_fix(_mask, 1, fix_gap, fix_threshold, fix_threshold)
-                    _mask = tensor2pil(mask_edge_detail(_image, tensor2pil(_mask), detail_range, black_point, white_point))
-                except Exception as e:
-                    log(f"{NODE_NAME} Error on process PyMatting, mask will output orignal.", message_type='error')
-                    print(e)
-                    _mask = tensor2pil(_mask)
+                _mask = mask_fix(_mask, 1, fix_gap, fix_threshold, fix_threshold)
+                _mask = tensor2pil(mask_edge_detail(_image, _mask, detail_range, black_point, white_point))
+
             ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
             ret_images.append(pil2tensor(ret_image))
             ret_masks.append(image2mask(_mask))

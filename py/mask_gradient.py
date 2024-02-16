@@ -53,7 +53,7 @@ class MaskGradient:
                                  _mask.width, _mask.height, 0)
             (box_x, box_y, box_width, box_height) = min_bounding_rect(_mask)
             if box_width < 1 or box_height < 1:
-                log(f"Error: {NODE_NAME} skipped, because the mask is does'nt have valid area")
+                log(f"Error: {NODE_NAME} skipped, because the mask is does'nt have valid area", message_type='error')
                 return (mask,)
 
             if gradient_side == 'top':
@@ -136,7 +136,7 @@ class MaskGradient:
                 _canvas = chop_image(_mask, _canvas, 'normal', opacity)
             ret_masks.append(image2mask(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

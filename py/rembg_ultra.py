@@ -35,10 +35,7 @@ class RemBgUltra:
             orig_image = tensor2pil(i).convert('RGB')
             _mask = RMBG(orig_image)
             if process_detail:
-                try:
-                    _mask = tensor2pil(mask_edge_detail(i, _mask, detail_range, black_point, white_point))
-                except:
-                    pass
+                _mask = tensor2pil(mask_edge_detail(i, pil2tensor(_mask), detail_range, black_point, white_point))
             ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
             ret_images.append(pil2tensor(ret_image))
             ret_masks.append(image2mask(_mask))

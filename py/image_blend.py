@@ -66,7 +66,7 @@ class ImageBlend:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!")
+                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             # 合成layer
             _comp = chop_image(_canvas, _layer, blend_mode, opacity)

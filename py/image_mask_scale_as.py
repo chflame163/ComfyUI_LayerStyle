@@ -86,7 +86,7 @@ class ImageMaskScaleAs:
             log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
             return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
         else:
-            log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.")
+            log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.", message_type='error')
             return (None, None,)
 
 NODE_CLASS_MAPPINGS = {

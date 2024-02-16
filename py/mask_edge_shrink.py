@@ -67,7 +67,7 @@ class MaskEdgeShrink:
 
             ret_masks.append(image2mask(_layer))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 

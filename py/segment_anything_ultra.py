@@ -49,10 +49,7 @@ class SegmentAnythingUltra:
             (_, _mask) = sam_segment(sam_model, item, boxes)
             _mask = _mask[0]
             if process_detail:
-                try:
-                    _mask = tensor2pil(mask_edge_detail(i, mask2image(_mask), detail_range, black_point, white_point))
-                except:
-                    _mask = mask2image(_mask)
+                _mask = tensor2pil(mask_edge_detail(i, _mask, detail_range, black_point, white_point))
             else:
                 _mask = mask2image(_mask)
             _image = RGB2RGBA(tensor2pil(i).convert('RGB'), _mask.convert('L'))

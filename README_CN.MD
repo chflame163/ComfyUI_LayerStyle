@@ -528,6 +528,11 @@
 ![image](image/get_image_size_node.png)
 获取图片的宽度和高度。
 
+输出:
+* width: 图像宽度。
+* height: 图像高度。
+* original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
 用于给工作流调试提供辅助。当运行时，任何接上这个节点的对象的属性将被打印到控制台。

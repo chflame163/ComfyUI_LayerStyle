@@ -45,7 +45,7 @@ class MaskMotionBlur:
             _blurimage = motion_blur(_mask, angle, blur)
             ret_masks.append(image2mask(_blurimage))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
