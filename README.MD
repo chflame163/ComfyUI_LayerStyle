@@ -1,9 +1,10 @@
 # ComfyUI Layer Style
-A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.
+A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.  
 
-It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize the workflow and reduce the frequency of software switching.
+It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize the workflow and reduce the frequency of software switching.  
 
-![image](image/title.png)
+![image](image/title.png)  
+<font size="2">*this workflow (title_example_workflow.json) is in the workflow directory.  </font><br /> 
 
 Nodes are divided into 5 groups according to their functions: LayerStyle, LayerColor, LayerMask, LayerUtility and LayerFilter.
 * [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
