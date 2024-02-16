@@ -60,7 +60,7 @@ class SharpAndSoft:
             details = (imgB / imgG - 1) * detail_mult + 1
             dup[index] = np.clip(details * imgG - imgB + image, 0, 1)
 
-        log(f"{NODE_NAME} Processed {dup.shape[0]} image(s).")
+        log(f"{NODE_NAME} Processed {dup.shape[0]} image(s).", message_type='finish')
         return (torch.from_numpy(dup),)
 
 

@@ -40,7 +40,7 @@ class ColorCorrectExposure:
                 t = np.clip((t - bp) * scale, 0.0, 1.0)
             ret_images.append(torch.from_numpy(t))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

@@ -1,5 +1,5 @@
 # ComfyUI Layer Style
-一组为ComfyUI设计的节点，可以合成图层达到类似Photoshop的功能。
+一组为ComfyUI设计的节点，可以合成图层达到类似Photoshop的功能。这些节点将PhotoShop的一部分基本功能迁移到ComfyUI，旨在集中工作流程，减少软件切换的频率。
 
 ![image](image/title.png)
 节点按照功能分为5组：LayerStyle, LayerColor, LayerMask, LayerUtility和LayerFilter。

@@ -136,7 +136,7 @@ class MaskGradient:
                 _canvas = chop_image(_mask, _canvas, 'normal', opacity)
             ret_masks.append(image2mask(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

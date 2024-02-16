@@ -46,7 +46,7 @@ class ColorCorrectBrightnessAndContrast:
                 _image = color_image.enhance(factor=saturation)
             ret_images.append(pil2tensor(_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

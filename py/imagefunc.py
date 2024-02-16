@@ -26,9 +26,11 @@ def log(message:str, message_type:str='info'):
     name = 'LayerStyle'
 
     if message_type == 'error':
-        message = '\033[1;31m' + message + '\033[m'
+        message = '\033[1;41m' + message + '\033[m'
     elif message_type == 'warning':
-        message = '\033[1;35m' + message + '\033[m'
+        message = '\033[1;31m' + message + '\033[m'
+    elif message_type == 'finish':
+        message = '\033[1;32m' + message + '\033[m'
     else:
         message = '\033[1;33m' + message + '\033[m'
     print(f"# 😺dzNodes: {name} -> {message}")

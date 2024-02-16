@@ -62,7 +62,7 @@ class MaskBoxDetect:
         preview_image = tensor2pil(mask).convert('RGB')
         preview_image = draw_rect(preview_image, x - x_adjust, y - y_adjust, width, height, line_color="#F00000", line_width=int(preview_image.height / 60))
         preview_image = draw_rect(preview_image, x, y, width, height, line_color="#00F000", line_width=int(preview_image.height / 40))
-        log(f"{NODE_NAME} Processed.")
+        log(f"{NODE_NAME} Processed.", message_type='finish')
         return ( pil2tensor(preview_image), round(x_percent, 2), round(y_percent, 2), _width, _height, x, y,)
 
 NODE_CLASS_MAPPINGS = {

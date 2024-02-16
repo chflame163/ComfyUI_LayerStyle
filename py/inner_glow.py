@@ -94,7 +94,7 @@ class InnerGlow:
             _layer.paste(_canvas, mask=ImageChops.invert(_mask))
             ret_images.append(pil2tensor(_layer))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

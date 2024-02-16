@@ -34,7 +34,7 @@ class GaussianBlur:
 
             ret_images.append(pil2tensor(gaussian_blur(_canvas, blur)))
 
-        log(f'GaussianBlur Processed {len(ret_images)} image(s).')
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

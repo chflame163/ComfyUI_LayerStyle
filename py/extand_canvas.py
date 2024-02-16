@@ -76,7 +76,7 @@ class ExtendCanvas:
             ret_images.append(pil2tensor(_canvas))
             ret_masks.append(image2mask(_mask_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 

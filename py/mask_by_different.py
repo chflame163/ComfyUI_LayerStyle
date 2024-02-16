@@ -66,7 +66,7 @@ class MaskByDifferent:
 
             ret_masks.append(image2mask(_mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 

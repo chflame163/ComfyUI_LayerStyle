@@ -61,7 +61,7 @@ class SegmentAnythingUltra:
             empty_mask = torch.zeros((1, height, width), dtype=torch.uint8, device="cpu")
             return (empty_mask, empty_mask)
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

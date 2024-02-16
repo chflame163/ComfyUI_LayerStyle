@@ -125,7 +125,7 @@ class TextImage:
         _color = Image.new('RGB', size=(width, height), color=text_color)
         _canvas.paste(_color, mask=_mask.convert('L'))
         _canvas = RGB2RGBA(_canvas, _mask)
-        log(f"{NODE_NAME} Processed.")
+        log(f"{NODE_NAME} Processed.", message_type='finish')
         return (pil2tensor(_canvas), image2mask(_mask),)
 
 NODE_CLASS_MAPPINGS = {

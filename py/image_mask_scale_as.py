@@ -77,13 +77,13 @@ class ImageMaskScaleAs:
                 _mask = fit_resize_image(_mask, target_width, target_height, fit, resize_sampler).convert('L')
                 ret_masks.append(image2mask(_mask))
         if len(ret_images) > 0 and len(ret_masks) >0:
-            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
             return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
         elif len(ret_images) > 0 and len(ret_masks) == 0:
-            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
             return (torch.cat(ret_images, dim=0), None,)
         elif len(ret_images) == 0 and len(ret_masks) > 0:
-            log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).")
+            log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
             return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
         else:
             log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.", message_type='error')

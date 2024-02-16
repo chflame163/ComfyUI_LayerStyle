@@ -78,7 +78,7 @@ class ImageShift:
             ret_masks.append(image2mask(_mask))
             ret_border_masks.append(image2mask(_border))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).")
+        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), torch.cat(ret_border_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
