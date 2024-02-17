@@ -13,6 +13,7 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
+* 添加[CreateGradientMask](#CreateGradientMask) 节点。添加 [LayerImageTransform](#LayerImageTransform) 和 [LayerMaskTransform](#LayerMaskTransform) 节点。
 * 添加[MaskEdgeUltraDetail](#MaskEdgeUltraDetail) 节点，给粗糙的遮罩进行处理获得超精细的边缘。添加 [Exposure](#Exposure) 节点，调整图像曝光。
 * 添加[Sharp & Soft](#Sharp) 节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
 * 所有节点已全面支持批量图片，为创作视频提供方便。( CropByMask 节点仅支持相同尺寸的切除, 如果输入批量mask_for_crop，将使用第一张的数据。)
@@ -462,6 +463,36 @@
 * x: 坐标x值。
 * y: 坐标y值。
 
+### <a id="table1">LayerImageTransform</a>
+![image](image/layer_image_transform_example.png)
+这个节点用于单独对layer_image进行变换，可改变大小，旋转，改变长宽比以及镜像翻转。
+
+![image](image/layer_image_transform_node.png)
+节点选项说明:
+* x: 坐标x值。
+* y: 坐标y值。
+* mirror: 镜像翻转。提供2种翻转模式, 水平翻转和垂直翻转。
+* scale: 图层放大倍数，1.0 表示原大。
+* aspect_ratio: 图层长宽比。1.0 是原始比例，大于此值表示拉长，小于此值表示压扁。
+* rotate: 图层旋转度数。
+* transform_method: 用于图层放大和旋转的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。不同的采样方法会影响合成的画质和画面处理时间。
+* anti_aliasing: 抗锯齿，范围从0-16，数值越大，锯齿越不明显。过高的数值将显著降低节点的处理速度。
+
+### <a id="table1">LayerMaskTransform</a>
+与LayerImageTransform类似，这个节点用于单独对layer_mask进行变换，可改变大小，旋转，改变长宽比以及镜像翻转。
+
+![image](image/layer_mask_transform_node.png)
+节点选项说明:
+* x: 坐标x值。
+* y: 坐标y值。
+* mirror: 镜像翻转。提供2种翻转模式, 水平翻转和垂直翻转。
+* scale: 图层放大倍数，1.0 表示原大。
+* aspect_ratio: 图层长宽比。1.0 是原始比例，大于此值表示拉长，小于此值表示压扁。
+* rotate: 图层旋转度数。
+* transform_method: 用于图层放大和旋转的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。不同的采样方法会影响合成的画质和画面处理时间。
+* anti_aliasing: 抗锯齿，范围从0-16，数值越大，锯齿越不明显。过高的数值将显著降低节点的处理速度。
+
+
 ### <a id="table1">ColorImage</a>
 ![image](image/color_image_example.png)
 生成一张指定颜色和大小的图片。
@@ -500,8 +531,8 @@
 * variation_range: 字符随机变化范围。此数值大于0时，字符将产生大小和位置的随机变化，数值越大，变化幅度越大。
 * variation_seed: 随机变化的种子。固定此数值，每次产生的单个文字的变化不会改变。
 * layout: 文字排版。有横排和竖排可选择。
-* width; 画面的宽度。如果有size_as输入，此设置将被忽略。
-* height; 画面的高度。如果有size_as输入，此设置将被忽略。
+* width: 画面的宽度。如果有size_as输入，此设置将被忽略。
+* height: 画面的高度。如果有size_as输入，此设置将被忽略。
 * text_color: 文字颜色。
 * background_color: 背景颜色。
 
@@ -681,7 +712,7 @@ MaskGrow与MaskEdgeShrink效果对比
 * angle: 模糊角度。
 
 ### <a id="table1">MaskGradient</a>
-使mask从一侧产生渐变。
+使mask从一侧产生渐变。请注意此节点与CreateGradientMask的区别。
 ![image](image/mask_gradient_example.png)
 
 节点选项说明:  
@@ -691,6 +722,23 @@ MaskGrow与MaskEdgeShrink效果对比
 * gradient_scale: 渐变距离。默认值100表示渐变产生一侧完全透明，另一侧完全不透明。数值越小，从透明到不透明的距离越短。
 * gradient_offset: 渐变位置偏移。
 * opacity: 渐变的不透明度。
+
+### <a id="table1">CreateGradientMask</a>
+创建一个渐变的遮罩。请注意此节点与MaskGradient的区别。
+![image](image/create_gradient_mask_example.png)
+
+节点选项说明:  
+![image](image/create_gradient_mask_node.png)
+* size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像和遮罩。注意，此输入优先级高于下面的width和height。
+* width: 画面的宽度。如果有size_as输入，此设置将被忽略。
+* height: 画面的高度。如果有size_as输入，此设置将被忽略。
+* gradient_side: 从哪个边产生渐变。有四个方向：顶侧top、底侧bottom、左侧left、右侧right。
+* gradient_scale: 渐变距离。默认值100表示渐变产生一侧完全透明，另一侧完全不透明。数值越小，从透明到不透明的距离越短。
+* gradient_offset: 渐变位置偏移。
+* opacity: 渐变的不透明度。 
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。  
+
 
 ### <a id="table1">MaskStroke</a>
 产生mask轮廓描边。

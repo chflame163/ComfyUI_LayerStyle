@@ -414,17 +414,45 @@ def image_rotate_extend_with_alpha(image:Image, angle:float, alpha:Image=None, m
     return (_image, _alpha, ret_image)
 
 
-def create_gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int) -> Image:
+def create_gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, direction:str='bottom') -> Image:
+    # direction = one of top, bottom, left, right
     start_color = Hex_to_RGB(start_color_inhex)
     end_color = Hex_to_RGB(end_color_inhex)
     ret_image = Image.new("RGB", (width, height), start_color)
     draw = ImageDraw.Draw(ret_image)
-    for i in range(height):
-        R = int(start_color[0] * (height - i) / height + end_color[0] * i / height)
-        G = int(start_color[1] * (height - i) / height + end_color[1] * i / height)
-        B = int(start_color[2] * (height - i) / height + end_color[2] * i / height)
-        color = (R, G, B)
-        draw.line((0, i, width, i), fill=color)
+    if direction == 'bottom':
+        for i in range(height):
+            R = int(start_color[0] * (height - i) / height + end_color[0] * i / height)
+            G = int(start_color[1] * (height - i) / height + end_color[1] * i / height)
+            B = int(start_color[2] * (height - i) / height + end_color[2] * i / height)
+            color = (R, G, B)
+            draw.line((0, i, width, i), fill=color)
+    elif direction == 'top':
+        for i in range(height):
+            R = int(end_color[0] * (height - i) / height + start_color[0] * i / height)
+            G = int(end_color[1] * (height - i) / height + start_color[1] * i / height)
+            B = int(end_color[2] * (height - i) / height + start_color[2] * i / height)
+            color = (R, G, B)
+            draw.line((0, i, width, i), fill=color)
+    elif direction == 'right':
+        for i in range(width):
+            R = int(start_color[0] * (width - i) / width + end_color[0] * i / width)
+            G = int(start_color[1] * (width - i) / width + end_color[1] * i / width)
+            B = int(start_color[2] * (width - i) / width + end_color[2] * i / width)
+            color = (R, G, B)
+            draw.line((i, 0, i, height), fill=color)
+    elif direction == 'left':
+        for i in range(width):
+            R = int(end_color[0] * (width - i) / width + start_color[0] * i / width)
+            G = int(end_color[1] * (width - i) / width + start_color[1] * i / width)
+            B = int(end_color[2] * (width - i) / width + start_color[2] * i / width)
+            color = (R, G, B)
+            draw.line((i, 0, i, height), fill=color)
+    else:
+        log(f'A argument error of imagefunc.create_gradient(), '
+            f'"direction=" must one of "top, bottom, left, right".',
+            message_type='error')
+
     return ret_image
 
 def gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, angle:float, ) -> Image:

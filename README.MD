@@ -17,6 +17,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+* Commit [CreateGradientMask](#CreateGradientMask) node. Commit [LayerImageTransform](#LayerImageTransform) and [LayerMaskTransform](#LayerMaskTransform) nodes.
 * Commit [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) node, it process rough masks to ultra fine edges.Commit [Exposure](#Exposure) node.
 * Commit [Sharp & Soft](#Sharp) node, it can enhance or smooth out image details. Commit [MaskByDifferent](#MaskByDifferent) node, it compare two images and output a Mask. Commit [SegmentAnythingUltra](#SegmentAnythingUltra) node, Improve the quality of mask edges. *If SegmentAnything is not installed, you will need to manually download the model.
 * All nodes have fully supported batch images, providing convenience for video creation.
@@ -473,8 +474,39 @@ Convert absolute coordinates to percentage coordinates.
 
 ![image](image/xy2percent_node.png)
 Node options:
-* x: Value of X
-* y: Value of Y
+* x: Value of X.
+* y: Value of Y.
+
+### <a id="table1">LayerImageTransform</a>
+![image](image/layer_image_transform_example.png)
+This node is used to transform layer_image separately, which can change size, rotation, aspect ratio, and mirror flip without changing the image size.
+
+![image](image/layer_image_transform_node.png)
+Node options:
+* x: Value of X.
+* y: Value of Y.
+* mirror: Mirror flipping. Provide two flipping modes, horizontal flipping and vertical flipping.
+* scale: Layer magnification, 1.0 represents the original size.
+* aspect_ratio: Layer aspect ratio. 1.0 is the original ratio, a value greater than this indicates elongation, and a value less than this indicates flattening.
+* rotate: Layer rotation degree.
+* Sampling methods for layer enlargement and rotation, including lanczos, bicubic, hamming, bilinear, box and nearest. Different sampling methods can affect the image quality and processing time of the synthesized image.
+* anti_aliasing: Anti aliasing, ranging from 0 to 16, the larger the value, the less obvious the aliasing. An excessively high value will significantly reduce the processing speed of the node.
+
+
+### <a id="table1">LayerMaskTransform</a>
+Similar to LayerImageTransform node, this node is used to transform the layer_mask separately, which can scale, rotate, change aspect ratio, and mirror flip without changing the mask size.
+
+![image](image/layer_mask_transform_node.png)
+Node options:
+* x: Value of X.
+* y: Value of Y.
+* mirror: Mirror flipping. Provide two flipping modes, horizontal flipping and vertical flipping.
+* scale: Layer magnification, 1.0 represents the original size.
+* aspect_ratio: Layer aspect ratio. 1.0 is the original ratio, a value greater than this indicates elongation, and a value less than this indicates flattening.
+* rotate: Layer rotation degree.
+* Sampling methods for layer enlargement and rotation, including lanczos, bicubic, hamming, bilinear, box and nearest. Different sampling methods can affect the image quality and processing time of the synthesized image.
+* anti_aliasing: Anti aliasing, ranging from 0 to 16, the larger the value, the less obvious the aliasing. An excessively high value will significantly reduce the processing speed of the node.
+
 
 ### <a id="table1">ColorImage</a>
 ![image](image/color_image_example.png)
@@ -514,8 +546,8 @@ Node options:
 * variation_range: The range of random changes in characters. when this value is greater than 0, the character will undergo random changes in size and position, and the larger the value, the greater the magnitude of the change.
 * variation_seed: The seed for randomly. fix this value to individual characters changes generated each time will not change.
 * layout: Text layout. there are horizontal and vertical options to choose from.
-* width; Width of the image. If there is a size_as input, this setting will be ignored.
-* height; Height of the image. If there is a size_as input, this setting will be ignored.
+* width: Width of the image. If there is a size_as input, this setting will be ignored.
+* height: Height of the image. If there is a size_as input, this setting will be ignored.
 * text_color: The color of text.
 * background_color: The color of background.
 
@@ -697,7 +729,7 @@ Node options:
 * angle: The angle of blur.
 
 ### <a id="table1">MaskGradient</a>
-Create a gradient for the mask from one side.
+Create a gradient for the mask from one side. please note the difference between this node and the CreateGradientMask node.
 ![image](image/mask_gradient_example.png)
 
 Node options:
@@ -707,6 +739,23 @@ Node options:
 * gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
 * gradient_offset: Gradient position offset.
 * opacity: The opacity of the gradient.
+
+### <a id="table1">CreateGradientMask</a>
+Create a gradient mask. please note the difference between this node and the MaskGradient node.
+![image](image/create_gradient_mask_example.png)
+
+Node options:  
+![image](image/create_gradient_mask_node.png)
+* size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
+* width: Width of the image. If there is a size_as input, this setting will be ignored.
+* height: Height of the image. If there is a size_as input, this setting will be ignored.
+* gradient_side: Generate gradient from which edge. There are four directions: top, bottom, left and right.
+* gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
+* gradient_offset: Gradient position offset.
+* opacity: The opacity of the gradient.
+
+<sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.  
+
 
 ### <a id="table1">MaskStroke</a>
 Generate mask contour strokes.

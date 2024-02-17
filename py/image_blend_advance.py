@@ -26,7 +26,7 @@ class ImageBlendAdvance:
                 "aspect_ratio": ("FLOAT", {"default": 1, "min": 0.01, "max": 100, "step": 0.01}),
                 "rotate": ("FLOAT", {"default": 0, "min": -999999, "max": 999999, "step": 0.01}),
                 "transform_method": (method_mode,),
-                "anti_aliasing": ("INT", {"default": 0, "min": 0, "max": 16, "step": 0.01}),
+                "anti_aliasing": ("INT", {"default": 0, "min": 0, "max": 16, "step": 1}),
             },
             "optional": {
                 "layer_mask": ("MASK",),  #

@@ -20,7 +20,7 @@ class SegmentAnythingUltra:
                 "black_point": ("FLOAT", {"default": 0.15, "min": 0.01, "max": 0.98, "step": 0.01}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
                 "process_detail": ("BOOLEAN", {"default": True}),
-                "prompt": ("STRING", {}),
+                "prompt": ("STRING", {"default": "subject"}),
             },
             "optional": {
             }
