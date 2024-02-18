@@ -858,7 +858,6 @@ def max_inscribed_rect(image:Image) -> tuple:
                 best_rect_found = True
             index_rect += 1
     #较小的数值排前面
-    log(f"x1={x1}, y1={y1},x2={x2}, y2={y2}")
     x1, y1, x2, y2 = min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
     return (x1, y1, x2 - x1, y2 - y1)
 
@@ -957,15 +956,15 @@ try:
                 if os.path.exists(_ldir):
                     default_lut_dir = _ldir
                 else:
-                    log(f'ERROR: invalid LUT directory, default to be used. check {resource_dir_ini_file}')
+                    log(f'Invalid LUT directory, default to be used. check {resource_dir_ini_file}')
             elif line.startswith('FONT_dir='):
                 _fdir = line[line.find('=') + 1:].rstrip().lstrip()
                 if os.path.exists(_fdir):
                     default_font_dir = _fdir
                 else:
-                    log(f'ERROR: invalid FONT directory, default to be used. check {resource_dir_ini_file}')
+                    log(f'Invalid FONT directory, default to be used. check {resource_dir_ini_file}')
 except Exception as e:
-    log(f'ERROR: {resource_dir_ini_file} ' + repr(e))
+    log(f'Warning: {resource_dir_ini_file} ' + repr(e) + f", default directory to be used. ", message_type='warning')
 
 __lut_file_list = glob.glob(default_lut_dir + '/*.cube')
 LUT_DICT = {}
@@ -973,7 +972,7 @@ for i in range(len(__lut_file_list)):
     _, __filename =  os.path.split(__lut_file_list[i])
     LUT_DICT[__filename] = __lut_file_list[i]
 LUT_LIST = list(LUT_DICT.keys())
-log(f'find {len(LUT_LIST)} LUTs in {default_lut_dir}')
+log(f'Find {len(LUT_LIST)} LUTs in {default_lut_dir}')
 
 __font_file_list = glob.glob(default_font_dir + '/*.ttf')
 __font_file_list.extend(glob.glob(default_font_dir + '/*.otf'))
@@ -982,4 +981,4 @@ for i in range(len(__font_file_list)):
     _, __filename =  os.path.split(__font_file_list[i])
     FONT_DICT[__filename] = __font_file_list[i]
 FONT_LIST = list(FONT_DICT.keys())
-log(f'find {len(FONT_LIST)} Fonts in {default_font_dir}')
+log(f'Find {len(FONT_LIST)} Fonts in {default_font_dir}')
