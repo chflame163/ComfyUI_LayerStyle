@@ -17,6 +17,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+* Fix the bug of color gradation in [LUT Apply](#LUT) node rendering, and this node now support for log color space. *Please load the dedicated log lut file for the log color space image.
 * Commit [CreateGradientMask](#CreateGradientMask) node. Commit [LayerImageTransform](#LayerImageTransform) and [LayerMaskTransform](#LayerMaskTransform) nodes.
 * Commit [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) node, it process rough masks to ultra fine edges.Commit [Exposure](#Exposure) node.
 * Commit [Sharp & Soft](#Sharp) node, it can enhance or smooth out image details. Commit [MaskByDifferent](#MaskByDifferent) node, it compare two images and output a Mask. Commit [SegmentAnythingUltra](#SegmentAnythingUltra) node, Improve the quality of mask edges. *If SegmentAnything is not installed, you will need to manually download the model.
@@ -214,6 +215,7 @@ Apply LUT to the image. only supports .cube format.
 Node options:  
 ![image](image/lut_apply_node.png)
 * LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
+* color_space: For regular image, please select linear, for image in the log color space, please select log.
 
 <sup>*</sup>LUT folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
 Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.

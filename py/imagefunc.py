@@ -20,6 +20,8 @@ from pymatting import fix_trimap, estimate_alpha_cf, estimate_foreground_ml
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
 import colorsys
+from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
+from typing import Union
 from .briarmbg import BriaRMBG
 
 def log(message:str, message_type:str='info'):
@@ -609,33 +611,28 @@ def gamma_trans(image:Image, gamma:float) -> Image:
     _corrected = cv2.LUT(cv2_image,gamma_table)
     return cv22pil(_corrected)
 
-def lut_apply(image:Image, lut_file:str) -> Image:
-    _image = image.convert('RGB')
-    width = _image.width
-    height = _image.height
-    lut_cube = []
-    with open(lut_file, 'r') as f:
-        lut = f.readlines()
-        for line in lut:
-            if not has_letters(line):
-                li = line.strip('\n').split(' ')
-                # B
-                li[0] = float(li[0]) * 255
-                # G
-                li[1] = float(li[1]) * 255
-                # R
-                li[2] = float(li[2]) * 255
-                lut_cube.append(li)
-    for x in range(width):
-        for y in range(height):
-            pixel = _image.getpixel((x, y))
-            R_pos = round(pixel[0] / 255 * 32)
-            G_pos = round(pixel[1] / 255 * 32)
-            B_pos = round(pixel[2] / 255 * 32)
-            index = R_pos + G_pos * 33 + B_pos * 33 * 33
-            new_pixel = (round(lut_cube[index][0]), round(lut_cube[index][1]), round(lut_cube[index][2]))
-            _image.putpixel((x, y), new_pixel)
-    return _image
+def apply_lut(image:Image, lut_file:str, log:bool=False) -> Image:
+    lut: Union[LUT3x1D, LUT3D] = read_LUT_IridasCube(lut_file)
+    lut.name = os.path.splitext(os.path.basename(lut_file))[0]  # use base filename instead of internal LUT name
+
+    im_array = np.asarray(image.convert('RGB'), dtype=np.float32) / 255
+    is_non_default_domain = not np.array_equal(lut.domain, np.array([[0., 0., 0.], [1., 1., 1.]]))
+    dom_scale = None
+    if is_non_default_domain:
+        dom_scale = lut.domain[1] - lut.domain[0]
+        im_array = im_array * dom_scale + lut.domain[0]
+    if log:
+        im_array = im_array ** (1 / 2.2)
+    im_array = lut.apply(im_array)
+    if log:
+        im_array = im_array ** (2.2)
+    if is_non_default_domain:
+        im_array = (im_array - lut.domain[0]) / dom_scale
+    im_array = im_array * 255
+    ret_image = Image.fromarray(np.uint8(im_array))
+
+    return ret_image
+
 
 def color_adapter(image:Image, ref_image:Image) -> Image:
     image = pil2cv2(image)

@@ -13,6 +13,7 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
+* 改正 [LUT Apply](#LUT) 节点渲染出现色阶的bug, 并增加log色彩空间支持。*log色彩空间图片请加载专门的log lut。
 * 添加[CreateGradientMask](#CreateGradientMask) 节点。添加 [LayerImageTransform](#LayerImageTransform) 和 [LayerMaskTransform](#LayerMaskTransform) 节点。
 * 添加[MaskEdgeUltraDetail](#MaskEdgeUltraDetail) 节点，给粗糙的遮罩进行处理获得超精细的边缘。添加 [Exposure](#Exposure) 节点，调整图像曝光。
 * 添加[Sharp & Soft](#Sharp) 节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
@@ -201,10 +202,12 @@
 
 ### <a id="table1">LUT</a> Apply
 将LUT应用到图像。仅支持.cube格式的LUT文件。
+![image](image/lut_apply_example.png)
 
 节点选项说明:  
 ![image](image/lut_apply_node.png)
 * LUT<sup>*</sup>: 这里列出了LUT文件夹中可用的.cube文件列表，选中的LUT文件将被应用到图像。
+* color_space: 普通图片请选择linear, log色彩空间的图片请选择log。
 
 <sup>*</sup>LUT文件夹在resource_dir.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。
 
