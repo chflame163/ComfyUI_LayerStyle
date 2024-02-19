@@ -17,6 +17,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+* Commit [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) node, it can be scaled image or mask according to frame ratio.
 * Fix the bug of color gradation in [LUT Apply](#LUT) node rendering, and this node now support for log color space. *Please load the dedicated log lut file for the log color space image.
 * Commit [CreateGradientMask](#CreateGradientMask) node. Commit [LayerImageTransform](#LayerImageTransform) and [LayerMaskTransform](#LayerMaskTransform) nodes.
 * Commit [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) node, it process rough masks to ultra fine edges.Commit [Exposure](#Exposure) node.
@@ -393,6 +394,25 @@ Outputs:
 * image: If there is an image input, the scaled image will be output.
 * mask: If there is a mask input, the scaled mask will be output.
 * original_size: The original size data of the image is used for subsequent node recovery.
+
+### <a id="table1">ImageScaleByAspectRatio</a>
+Scale the image or mask by aspect ratio. the scaled size can be rounded to a multiple of 8 or 16, and can be scaled to the long side size.
+![image](image/image_scale_by_aspect_ratio_example.png)
+
+Node options:   
+![image](image/image_scale_by_aspect_ratio_node.png)
+* aspect_ratio: Here are several common frame ratios provided. alternatively, you can customize the scale using "custom".
+* proportional_width: Proportional width. if the aspect ratio option is not "custom", this setting will be ignored.
+* proportional_height: Proportional height. if the aspect ratio option is not "custom", this setting will be ignored.
+* fit: Scale aspect ratio mode. when the width to height ratio of the original image does not match the scaled size, there are three modes to choose from, 
+The _letterbox_ mode retains the complete frame and fills in the blank spaces with black; 
+The _crop_ mode retains the complete short edge, and any excess of the long edge will be cut off;
+The _fill_ mode does not maintain frame ratio and fills the screen with width and height.
+* method: Scaling sampling methods, including lanczos, bicubic, hamming, bilinear, box, and nearest.
+* round_to_multiple: Round multiples. for example, setting it to 8 will force the width and height to be multiples of 8.
+* scale_by_longest_side: Allow scaling by long edge size.
+* longest_side: When the scale_by_longest_side is set to True, this will be used this value to the long edge of the image. when the original_size have input, this setting will be ignored.
+
 
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.

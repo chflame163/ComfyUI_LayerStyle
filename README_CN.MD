@@ -13,6 +13,7 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
+* 添加 [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) 节点， 可按画幅比例缩放图像。
 * 改正 [LUT Apply](#LUT) 节点渲染出现色阶的bug, 并增加log色彩空间支持。*log色彩空间图片请加载专门的log lut。
 * 添加[CreateGradientMask](#CreateGradientMask) 节点。添加 [LayerImageTransform](#LayerImageTransform) 和 [LayerMaskTransform](#LayerMaskTransform) 节点。
 * 添加[MaskEdgeUltraDetail](#MaskEdgeUltraDetail) 节点，给粗糙的遮罩进行处理获得超精细的边缘。添加 [Exposure](#Exposure) 节点，调整图像曝光。
@@ -374,6 +375,28 @@
 * method: 缩放的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。
 
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+
+输出:
+* image: 如果有image输入，将输出缩放后的图像。
+* mask: 如果有mask输入，将输出缩放后的遮罩。
+* original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+
+### <a id="table1">ImageScaleByAspectRatio</a>
+将图像或遮罩按宽高比缩放。可设置将缩放后的尺寸按8或者16的倍数取整，可按长边尺寸缩放。
+![image](image/image_scale_by_aspect_ratio_example.png)
+
+节点选项说明:   
+![image](image/image_scale_by_aspect_ratio_node.png)
+* aspect_ratio: 宽高比。此处提供了几个常见画幅比例。也可选"custom"自定义比例。
+* proportional_width: 比例宽。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
+* proportional_height: 比例高。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
+* fit: 缩放画幅宽高比模式。有3种模式可以选择, letterbox模式保留完整的画幅，空白处用黑色补足；crop模式保留完整的短边，长边超出部分将被切除；fill模式不保持画幅比例，宽高各自填满画面。
+* method: 缩放的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。
+* round_to_multiple: 倍数取整。例如设置为8，宽和高将强制设置为8的倍数。
+* scale_by_longest_side: 允许按长边尺寸缩放。
+* longest_side: scale_by_longest_side被设置为True时，此项将作为是图像长边的长度。
+
 
 输出:
 * image: 如果有image输入，将输出缩放后的图像。

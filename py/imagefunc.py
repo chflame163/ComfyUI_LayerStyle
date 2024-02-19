@@ -925,6 +925,16 @@ def random_numbers(total:int, random_range:int, seed:int=0, sum_of_numbers:int=0
     ret_list.append((sum_of_numbers - sum(ret_list)) // 2)
     return ret_list
 
+def num_round_to_multiple(number:int, multiple:int) -> int:
+    remainder = number % multiple
+    if remainder == 0 :
+        return number
+    else:
+        factor = int(number / multiple)
+        if number - factor * multiple > multiple / 2:
+            factor += 1
+        return factor * multiple
+
 '''CLASS'''
 
 class AnyType(str):
