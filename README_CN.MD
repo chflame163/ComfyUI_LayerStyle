@@ -388,7 +388,7 @@
 
 节点选项说明:   
 ![image](image/image_scale_by_aspect_ratio_node.png)
-* aspect_ratio: 宽高比。此处提供了几个常见画幅比例。也可选"custom"自定义比例。
+* aspect_ratio: 宽高比。此处提供了几个常见画幅比例。也可选"original"保持原图比例或者"custom"自定义比例。
 * proportional_width: 比例宽。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
 * proportional_height: 比例高。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
 * fit: 缩放画幅宽高比模式。有3种模式可以选择, letterbox模式保留完整的画幅，空白处用黑色补足；crop模式保留完整的短边，长边超出部分将被切除；fill模式不保持画幅比例，宽高各自填满画面。

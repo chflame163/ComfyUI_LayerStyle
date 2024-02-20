@@ -401,7 +401,7 @@ Scale the image or mask by aspect ratio. the scaled size can be rounded to a mul
 
 Node options:   
 ![image](image/image_scale_by_aspect_ratio_node.png)
-* aspect_ratio: Here are several common frame ratios provided. alternatively, you can customize the scale using "custom".
+* aspect_ratio: Here are several common frame ratios provided. alternatively, you can choose "original" to keep original ratio or customize the ratio using "custom".
 * proportional_width: Proportional width. if the aspect ratio option is not "custom", this setting will be ignored.
 * proportional_height: Proportional height. if the aspect ratio option is not "custom", this setting will be ignored.
 * fit: Scale aspect ratio mode. when the width to height ratio of the original image does not match the scaled size, there are three modes to choose from, 
