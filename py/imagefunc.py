@@ -683,10 +683,18 @@ def load_RMBG_model():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     device = "cuda" if torch.cuda.is_available() else "cpu"
     net = BriaRMBG()
+
     _path = os.path.join("RMBG-1.4", "model.pth")
-    model_path = os.path.join(folder_paths.models_dir, _path)
+    model_path = ""
+    try:
+        model_path = os.path.join(os.path.normpath(folder_paths.folder_names_and_paths['rmbg'][0][0]), "model.pth")
+    except:
+        pass
+    if not os.path.exists(model_path):
+        model_path = os.path.join(folder_paths.models_dir, _path)
     if not os.path.exists(model_path):
         model_path = os.path.join(os.path.dirname(current_directory), _path)
+
     net.load_state_dict(torch.load(model_path, map_location=device))
     net.to(device)
     net.eval()

@@ -11,7 +11,7 @@ class ImageScaleByAspectRatio:
 
     @classmethod
     def INPUT_TYPES(self):
-        ratio_list = ['custom', '1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16']
+        ratio_list = ['original', 'custom', '1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16']
         fit_mode = ['letterbox', 'crop', 'fill']
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
         multiple_list = ['8', '16', 'None']
@@ -75,7 +75,9 @@ class ImageScaleByAspectRatio:
             log(f"Error: {NODE_NAME} skipped, because the image or mask at least one must be input.", message_type='error')
             return (None, None,)
 
-        if aspect_ratio == 'custom':
+        if aspect_ratio == 'original':
+            ratio = orig_width / orig_height
+        elif aspect_ratio == 'custom':
             ratio = proportional_width / proportional_height
         else:
             s = aspect_ratio.split(":")
