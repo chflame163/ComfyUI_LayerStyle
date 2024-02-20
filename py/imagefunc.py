@@ -22,6 +22,7 @@ import torch.nn.functional as F
 import colorsys
 from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
 from typing import Union
+from main import folder_paths
 from .briarmbg import BriaRMBG
 
 def log(message:str, message_type:str='info'):
@@ -682,7 +683,10 @@ def load_RMBG_model():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     device = "cuda" if torch.cuda.is_available() else "cpu"
     net = BriaRMBG()
-    model_path = os.path.join(os.path.dirname(current_directory), "RMBG-1.4/model.pth")
+    _path = os.path.join("RMBG-1.4", "model.pth")
+    model_path = os.path.join(folder_paths.models_dir, _path)
+    if not os.path.exists(model_path):
+        model_path = os.path.join(os.path.dirname(current_directory), _path)
     net.load_state_dict(torch.load(model_path, map_location=device))
     net.to(device)
     net.eval()
