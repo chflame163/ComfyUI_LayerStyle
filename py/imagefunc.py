@@ -691,7 +691,8 @@ def load_RMBG_model():
     except:
         pass
     if not os.path.exists(model_path):
-        model_path = os.path.join(folder_paths.models_dir, _path)
+        model_path = os.path.join(folder_paths.models_dir, "rmbg", _path)
+        log(model_path)
     if not os.path.exists(model_path):
         model_path = os.path.join(os.path.dirname(current_directory), _path)
 
