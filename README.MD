@@ -903,9 +903,10 @@ image Some JSON workflow files in the workflow directory, that is example for Co
 * Recommended use ComfyUI Manager for installation.
 
 * Or open the cmd window in the plugin directory of ComfyUI, like "ComfyUI\custom_nodes\"，type```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```
-or download the zip file and extracted, copy the resulting folder to ComfyUI\custom_ Nodes\
+or download the zip file and extracted, copy the resulting folder to ComfyUI\custom_ Nodes\    
 
-* Install dependency packages, open the cmd window in the WordCloud plugin directory like "ComfyUI\custom_ Nodes\ComfyUI_WordCloud" and enter the following command:
-```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```
+  Install dependency packages, open the cmd window in the ComfyUI_LayerStyle plugin directory like "ComfyUI\custom_ Nodes\ComfyUI_LayerStyle" and enter the following command:    
 
-* Restart ComfyUI
+    ```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```    
+
+    Restart ComfyUI.

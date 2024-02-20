@@ -883,7 +883,10 @@ mask反转
 ## 安装方法
 
 * 推荐使用 ComfyUI Manager 安装。
-* 或者在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```安装。或者下载解压zip文件，将得到的文件夹复制到 ComfyUI\custom_nodes\
-* 安装依赖包，在资源管理器ComfyUI\custom_nodes\ComfyUI_WordCloud 插件目录位置打开cmd窗口，输入以下命令：  
-```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```
-* 重新打开ComfyUI。
+* 或者在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```安装。或者下载解压zip文件，将得到的文件夹复制到 ComfyUI\custom_nodes\   
+
+  安装依赖包，在资源管理器ComfyUI\custom_nodes\ComfyUI_LayerStyle 插件目录位置打开cmd窗口，输入以下命令：     
+
+  ```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```   
+
+  重新打开ComfyUI。
