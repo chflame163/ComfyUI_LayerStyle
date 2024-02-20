@@ -10,3 +10,4 @@ segment_anything
 timm
 addict
 yapf
+colour-science
