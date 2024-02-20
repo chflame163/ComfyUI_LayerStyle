@@ -320,7 +320,7 @@ def remove_background(image:Image, mask:Image, color:str) -> Image:
     return ret_image
 
 def gaussian_blur(image:Image, radius:int) -> Image:
-    image = image.convert("RGBA")
+    # image = image.convert("RGBA")
     ret_image = image.filter(ImageFilter.GaussianBlur(radius=radius))
     return ret_image
 
