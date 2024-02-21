@@ -1,6 +1,6 @@
 /**
  * File: comfy_shared.js
- * Project: comfy_mtb
+ * Project: comfy_dz
  * Author: Mel Massadian
  *
  * Copyright (c) 2023 Mel Massadian
@@ -10,7 +10,7 @@
 import { app } from '../../scripts/app.js'
 
 export const log = (...args) => {
-  if (window.MTB?.DEBUG) {
+  if (window.DZ?.DEBUG) {
     console.debug(...args)
   }
 }

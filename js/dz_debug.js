@@ -1,6 +1,6 @@
 /**
  * File: debug.js
- * Project: comfy_mtb
+ * Project: comfy_dz
  * Author: Mel Massadian
  *
  * Copyright (c) 2023 Mel Massadian
@@ -11,7 +11,7 @@ import { app } from '../../scripts/app.js'
 
 import * as shared from './comfy_shared.js'
 import { log } from './comfy_shared.js'
-import { MtbWidgets } from './mtb_widgets.js'
+import { MtbWidgets } from './dz_widgets.js'
 
 // TODO: respect inputs order...
 
@@ -24,9 +24,9 @@ function escapeHtml(unsafe) {
     .replace(/'/g, '&#039;')
 }
 app.registerExtension({
-  name: 'mtb.Debug',
+  name: 'dz.Debug',
   async beforeRegisterNodeDef(nodeType, nodeData, app) {
-    if (nodeData.name === 'Debug (mtb)') {
+    if (nodeData.name === 'Debug (dz)') {
       const onConnectionsChange = nodeType.prototype.onConnectionsChange
       nodeType.prototype.onConnectionsChange = function (
         type,

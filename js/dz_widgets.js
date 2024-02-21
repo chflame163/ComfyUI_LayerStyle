@@ -1,6 +1,6 @@
 /**
- * File: mtb_widgets.js
- * Project: comfy_mtb
+ * File: dz_widgets.js
+ * Project: comfy_dz
  * Author: Mel Massadian
  *
  * Copyright (c) 2023 Mel Massadian
@@ -397,18 +397,18 @@ export const MtbWidgets = {
 /**
  * @returns {import("./types/comfy").ComfyExtension} extension
  */
-const mtb_widgets = {
-  name: 'mtb.widgets',
+const dz_widgets = {
+  name: 'dz.widgets',
 
   init: async () => {
-    log('Registering mtb.widgets')
+    log('Registering dz.widgets')
     try {
-      const res = await api.fetchApi('/mtb/debug')
+      const res = await api.fetchApi('/dz/debug')
       const msg = await res.json()
-      if (!window.MTB) {
-        window.MTB = {}
+      if (!window.DZ) {
+        window.DZ = {}
       }
-      window.MTB.DEBUG = msg.enabled
+      window.DZ.DEBUG = msg.enabled
     } catch (e) {
       console.error('Error:', error)
     }
@@ -416,8 +416,8 @@ const mtb_widgets = {
 
   setup: () => {
     app.ui.settings.addSetting({
-      id: 'mtb.Debug.enabled',
-      name: '[mtb] Enable Debug (py and js)',
+      id: 'dz.Debug.enabled',
+      name: '[dz] Enable Debug (py and js)',
       type: 'boolean',
       defaultValue: false,
 
@@ -432,12 +432,12 @@ const mtb_widgets = {
         if (value) {
           console.log('Enabled DEBUG mode')
         }
-        if (!window.MTB) {
-          window.MTB = {}
+        if (!window.DZ) {
+          window.DZ = {}
         }
-        window.MTB.DEBUG = value
+        window.DZ.DEBUG = value
         await api
-          .fetchApi('/mtb/debug', {
+          .fetchApi('/dz/debug', {
             method: 'POST',
             body: JSON.stringify({
               enabled: value,
@@ -563,7 +563,7 @@ const mtb_widgets = {
 
     //- Extending Python Nodes
     switch (nodeData.name) {
-      case 'Psd Save (mtb)': {
+      case 'Psd Save (dz)': {
         const onConnectionsChange = nodeType.prototype.onConnectionsChange
         nodeType.prototype.onConnectionsChange = function (
           type,
@@ -580,7 +580,7 @@ const mtb_widgets = {
         break
       }
       //TODO: remove this non sense
-      case 'Get Batch From History (mtb)': {
+      case 'Get Batch From History (dz)': {
         const onNodeCreated = nodeType.prototype.onNodeCreated
         nodeType.prototype.onNodeCreated = function () {
           const r = onNodeCreated
@@ -605,8 +605,8 @@ const mtb_widgets = {
 
         break
       }
-      case 'Save Gif (mtb)':
-      case 'Save Animated Image (mtb)': {
+      case 'Save Gif (dz)':
+      case 'Save Animated Image (dz)': {
         const onExecuted = nodeType.prototype.onExecuted
         nodeType.prototype.onExecuted = function (message) {
           const prefix = 'anything_'
@@ -662,7 +662,7 @@ const mtb_widgets = {
 
         break
       }
-      case 'Animation Builder (mtb)': {
+      case 'Animation Builder (dz)': {
         const onNodeCreated = nodeType.prototype.onNodeCreated
         nodeType.prototype.onNodeCreated = function () {
           const r = onNodeCreated
@@ -716,7 +716,7 @@ const mtb_widgets = {
           const run_button = this.addWidget('button', `Queue`, 'queue', () => {
             onReset() // this could maybe be a setting or checkbox
             app.queuePrompt(0, total_frames.value * loop_count.value)
-            window.MTB?.notify?.(
+            window.DZ?.notify?.(
               `Started a queue of ${total_frames.value} frames (for ${
                 loop_count.value
               } loop, so ${total_frames.value * loop_count.value})`,
@@ -751,7 +751,7 @@ const mtb_widgets = {
 
         break
       }
-      case 'Text Encore Frames (mtb)': {
+      case 'Text Encore Frames (dz)': {
         const onConnectionsChange = nodeType.prototype.onConnectionsChange
         nodeType.prototype.onConnectionsChange = function (
           type,
@@ -768,7 +768,7 @@ const mtb_widgets = {
         }
         break
       }
-      case 'Interpolate Clip Sequential (mtb)': {
+      case 'Interpolate Clip Sequential (dz)': {
         const onNodeCreated = nodeType.prototype.onNodeCreated
         nodeType.prototype.onNodeCreated = function () {
           const r = onNodeCreated
@@ -802,7 +802,7 @@ const mtb_widgets = {
         }
         break
       }
-      case 'Styles Loader (mtb)': {
+      case 'Styles Loader (dz)': {
         const origGetExtraMenuOptions = nodeType.prototype.getExtraMenuOptions
         nodeType.prototype.getExtraMenuOptions = function (_, options) {
           const r = origGetExtraMenuOptions
@@ -811,7 +811,7 @@ const mtb_widgets = {
 
           const getStyle = async (node) => {
             try {
-              const getStyles = await api.fetchApi('/mtb/actions', {
+              const getStyles = await api.fetchApi('/dz/actions', {
                 method: 'POST',
                 body: JSON.stringify({
                   name: 'getStyles',
@@ -835,7 +835,7 @@ const mtb_widgets = {
                 const style = await getStyle(this)
                 if (style && style.length >= 1) {
                   if (style[0]) {
-                    window.MTB?.notify?.(
+                    window.DZ?.notify?.(
                       `Extracted positive from ${this.widgets[0].value}`
                     )
                     const tn = LiteGraph.createNode('Text box')
@@ -843,7 +843,7 @@ const mtb_widgets = {
                     tn.title = `${this.widgets[0].value} (Positive)`
                     tn.widgets[0].value = style[0]
                   } else {
-                    window.MTB?.notify?.(
+                    window.DZ?.notify?.(
                       `No positive to extract for ${this.widgets[0].value}`
                     )
                   }
@@ -856,7 +856,7 @@ const mtb_widgets = {
                 const style = await getStyle(this)
                 if (style && style.length >= 2) {
                   if (style[1]) {
-                    window.MTB?.notify?.(
+                    window.DZ?.notify?.(
                       `Extracted negative from ${this.widgets[0].value}`
                     )
                     const tn = LiteGraph.createNode('Text box')
@@ -864,7 +864,7 @@ const mtb_widgets = {
                     tn.title = `${this.widgets[0].value} (Negative)`
                     tn.widgets[0].value = style[1]
                   } else {
-                    window.MTB.notify(
+                    window.DZ.notify(
                       `No negative to extract for ${this.widgets[0].value}`
                     )
                   }
@@ -877,7 +877,7 @@ const mtb_widgets = {
 
         break
       }
-      case 'Save Tensors (mtb)': {
+      case 'Save Tensors (dz)': {
         const onDrawBackground = nodeType.prototype.onDrawBackground
         nodeType.prototype.onDrawBackground = function (ctx, canvas) {
           const r = onDrawBackground
@@ -905,4 +905,4 @@ const mtb_widgets = {
   },
 }
 
-app.registerExtension(mtb_widgets)
+app.registerExtension(dz_widgets)
