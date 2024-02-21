@@ -13,6 +13,7 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
+* 添加 [ImageAutoCrop](#ImageAutoCrop) 节点, 这个节点是为生成训练模型的图片素材而设计的。
 * 添加 [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) 节点， 可按画幅比例缩放图像。
 * 改正 [LUT Apply](#LUT) 节点渲染出现色阶的bug, 并增加log色彩空间支持。*log色彩空间图片请加载专门的log lut。
 * 添加[CreateGradientMask](#CreateGradientMask) 节点。添加 [LayerImageTransform](#LayerImageTransform) 和 [LayerMaskTransform](#LayerMaskTransform) 节点。
@@ -582,6 +583,34 @@
 节点选项说明:
 ![image](image/image_channel_merge_node.png)
 * mode: 通道模式。包含RGBA, YCbCr, LAB和HSV。
+
+### <a id="table1">ImageAutoCrop</a>
+![image](image/image_auto_crop_example.png)
+自动抠图并按照遮罩裁切图片。可指定生成图片的背景颜色、长宽比和大小。这个节点是为生成训练模型的图片素材而设计的。  
+*请参照 [SegmentAnythingUltra](#SegmentAnythingUltra) 和 [RemBgUltra](#RemBgUltra) 节点的模型安装方法安装模型。 
+
+
+节点选项说明:
+![image](image/image_auto_crop_node.png)
+* background_color<sup>4</sup>: 背景颜色。
+* aspect_ratio: 输出的宽高比。这里提供了常见的画幅比例， "custom"为自定义比例。
+* proportional_width: 比例宽。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
+* proportional_height: 比例高。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
+* scale_by_longest_side: 允许按长边尺寸缩放。
+* longest_side: scale_by_longest_side被设置为True时，此项将作为是图像长边的长度。
+* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
+* border_reserve: 保留边框。在探测到的遮罩主体区域之外扩展裁切范围。
+* ultra_detail_range: 遮罩边缘超精细处理范围，0为不处理，可以节省生成时间。
+* matting_method: 生成遮罩的方法。有Segment Anything和 RMBG 1.4两种方法。RMBG 1.4运行速度更快。
+* sam_model: 此处选择Segment Anything所使用的sam模型。
+* grounding_dino_model: 此处选择Segment Anything所使用的grounding_dino模型。
+* sam_threshold: Segment Anything的阈值。
+* sam_prompt: Segment Anything的提示词。
+
+输出:
+cropped_image: 裁切并更换背景后的图像。
+box_preview: 裁切位置预览。
+
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)

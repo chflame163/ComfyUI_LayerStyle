@@ -17,6 +17,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+* Commit [ImageAutoCrop](#ImageAutoCrop) node, which is designed to generate image materials for training models.
 * Commit [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) node, it can be scaled image or mask according to frame ratio.
 * Fix the bug of color gradation in [LUT Apply](#LUT) node rendering, and this node now support for log color space. *Please load the dedicated log lut file for the log color space image.
 * Commit [CreateGradientMask](#CreateGradientMask) node. Commit [LayerImageTransform](#LayerImageTransform) and [LayerMaskTransform](#LayerMaskTransform) nodes.
@@ -595,6 +596,34 @@ Merge each channel image into one image.
 Node options:
 ![image](image/image_channel_merge_node.png)
 * mode: Channel mode, include RGBA, YCbCr, LAB adn HSV.
+
+### <a id="table1">ImageAutoCrop</a>
+![image](image/image_auto_crop_example.png)
+Automatically cutout and crop the image according to the mask. it can specify the background color, aspect ratio, and size for output image. this node is designed to generate the image materials for training models.   
+*Please refer to the model installation methods for [SegmentAnythingUltra](#SegmentAnythingUltra) and [RemBgUltra](#RemBgUltra).  
+
+
+Node options:
+![image](image/image_auto_crop_node.png)
+* background_color<sup>4</sup>: The background color.
+* aspect_ratio: Here are several common frame ratios provided. alternatively, you can choose "original" to keep original ratio or customize the ratio using "custom".
+* proportional_width: Proportional width. if the aspect ratio option is not "custom", this setting will be ignored.
+* proportional_height: Proportional height. if the aspect ratio option is not "custom", this setting will be ignored.
+* scale_by_longest_side: Allow scaling by long edge size.
+* longest_side: When the scale_by_longest_side is set to True, this will be used this value to the long edge of the image. when the original_size have input, this setting will be ignored.
+* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
+* border_reserve: Keep the border. expand the cutting range beyond the detected mask body area.
+* ultra_detail_range: Mask edge ultra fine processing range, 0 is not processed, which can save generation time.
+* matting_method: The method of generate masks. There are two methods available: Segment Anything and RMBG 1.4. RMBG 1.4 runs faster.
+* sam_model: Select the SAM model used by Segment Anything here.
+* grounding_dino_model: Select the Grounding_Dino model used by Segment Anything here.
+* sam_threshold: The threshold for Segment Anything.
+* sam_prompt: The prompt for Segment Anything.
+
+Output:
+cropped_image: Crop and replace the background image.
+box_preview: Crop position preview
+
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)

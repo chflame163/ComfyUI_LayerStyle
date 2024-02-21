@@ -41,8 +41,7 @@ def log(message:str, message_type:str='info'):
 try:
     from cv2.ximgproc import guidedFilter
 except ImportError:
-    log(f'Dependency package error -> Unable import "guidedFilter", please reinstall "opencv-contrib-python', message_type='error')
-
+    log(f'Dependency package error -> Unable import "cv2.ximgproc", please reinstall "opencv-contrib-python', message_type='error')
 
 
 '''Converter'''
