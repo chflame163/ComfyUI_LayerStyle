@@ -22,7 +22,7 @@ import torch.nn.functional as F
 import colorsys
 from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
 from typing import Union
-from main import folder_paths
+import folder_paths as COMFY_FOLDER_PATH
 from .briarmbg import BriaRMBG
 
 def log(message:str, message_type:str='info'):
@@ -339,7 +339,7 @@ def motion_blur(image:Image, angle:int, blur:int) -> Image:
     ret_image = cv22pil(blurred)
     return ret_image
 
-def fit_resize_image(image:Image, target_width:int, target_height:int, fit:str, resize_sampler:str) -> Image:
+def fit_resize_image(image:Image, target_width:int, target_height:int, fit:str, resize_sampler:str, background_color:str = '#000000') -> Image:
     image = image.convert('RGB')
     orig_width, orig_height = image.size
     if image is not None:
@@ -351,7 +351,7 @@ def fit_resize_image(image:Image, target_width:int, target_height:int, fit:str, 
                 fit_height = target_height
                 fit_width = int(target_height / orig_height * orig_width)
             fit_image = image.resize((fit_width, fit_height), resize_sampler)
-            ret_image = Image.new('RGB', size=(target_width, target_height), color='black')
+            ret_image = Image.new('RGB', size=(target_width, target_height), color=background_color)
             ret_image.paste(fit_image, box=((target_width - fit_width)//2, (target_height - fit_height)//2))
         elif fit == 'crop':
             if orig_width / orig_height > target_width / target_height:  # 更宽，裁左右
@@ -478,7 +478,7 @@ def gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, 
 
 def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, line_width:int,
               box_color:str=None) -> Image:
-    image = image.convert('RGBA')
+    # image = image.convert('RGBA')
     draw = ImageDraw.Draw(image)
     draw.rectangle((x, y, x + width, y + height), fill=box_color, outline=line_color, width=line_width, )
     return image
@@ -677,25 +677,35 @@ def image_beauty(image:Image, level:int=50) -> Image:
     return cv22pil(ret_image)
 
 
+def pixel_spread(image:Image, mask:Image) -> Image:
+    i1 = pil2tensor(image)
+    if mask.mode != 'RGB':
+        mask = mask.convert('RGB')
+    i_dup = copy.deepcopy(i1.cpu().numpy().astype(np.float64))
+    a_dup = copy.deepcopy(pil2tensor(mask).cpu().numpy().astype(np.float64))
+    fg = copy.deepcopy(i1.cpu().numpy().astype(np.float64))
+
+    for index, img in enumerate(i_dup):
+        alpha = a_dup[index][:, :, 0]
+        fg[index], _ = estimate_foreground_ml(img, np.array(alpha), return_background=True)
+
+    return tensor2pil(torch.from_numpy(fg.astype(np.float32)))
+
 '''Mask Functions'''
 
 def load_RMBG_model():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     device = "cuda" if torch.cuda.is_available() else "cpu"
     net = BriaRMBG()
-
-    _path = os.path.join("RMBG-1.4", "model.pth")
     model_path = ""
     try:
-        model_path = os.path.join(os.path.normpath(folder_paths.folder_names_and_paths['rmbg'][0][0]), "model.pth")
+        model_path = os.path.join(os.path.normpath(COMFY_FOLDER_PATH.folder_names_and_paths['rmbg'][0][0]), "model.pth")
     except:
         pass
     if not os.path.exists(model_path):
-        model_path = os.path.join(folder_paths.models_dir, "rmbg", _path)
-        log(model_path)
+        model_path = os.path.join(COMFY_FOLDER_PATH.models_dir, "rmbg", "RMBG-1.4", "model.pth")
     if not os.path.exists(model_path):
-        model_path = os.path.join(os.path.dirname(current_directory), _path)
-
+        model_path = os.path.join(os.path.dirname(current_directory), "RMBG-1.4", "model.pth")
     net.load_state_dict(torch.load(model_path, map_location=device))
     net.to(device)
     net.eval()
@@ -948,6 +958,31 @@ def num_round_to_multiple(number:int, multiple:int) -> int:
             factor += 1
         return factor * multiple
 
+def calculate_side_by_ratio(orig_width:int, orig_height:int, ratio:float, longest_side:int=0) -> int:
+
+    if orig_width > orig_height:
+        if longest_side:
+            target_width = longest_side
+        else:
+            target_width = orig_width
+        target_height = int(target_width / ratio)
+    else:
+        if longest_side:
+            target_height = longest_side
+        else:
+            target_height = orig_height
+        target_width = int(target_height * ratio)
+
+    if ratio < 1:
+        if longest_side:
+            _r = longest_side / target_height
+            target_height = longest_side
+        else:
+            _r = orig_height / target_height
+            target_height = orig_height
+        target_width = int(target_width * _r)
+
+    return target_width, target_height
 '''CLASS'''
 
 class AnyType(str):

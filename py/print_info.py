@@ -29,7 +29,7 @@ class PrintInfo:
         value += f'\n index {i}: Image.size = {image.size}, Image.mode = {image.mode}, dim = {t.dim()}, '
         for j in range(t.dim()):
           value += f'shape[{j}] = {t.shape[j]}, '
-        value += f'\n {t} \n'
+        # value += f'\n {t} \n'
     elif anything is not None:
       try:
         value = value + json.dumps(anything) + "\n"
