@@ -25,6 +25,7 @@ from typing import Union
 import folder_paths as COMFY_FOLDER_PATH
 from .briarmbg import BriaRMBG
 
+
 def log(message:str, message_type:str='info'):
     name = 'LayerStyle'
 
@@ -41,8 +42,10 @@ def log(message:str, message_type:str='info'):
 try:
     from cv2.ximgproc import guidedFilter
 except ImportError:
-    log(f'Dependency package error -> Unable import "cv2.ximgproc", please reinstall "opencv-contrib-python', message_type='error')
-
+    log(f'Dependency package error, unable import "cv2.ximgproc".'
+        f'\nPlease REINSTALL package "opencv-contrib-python".'
+        f'\nFor detail refer to \033[4mhttps://github.com/chflame163/ComfyUI_LayerStyle/issues/5\033[0m',
+        message_type='error')
 
 '''Converter'''
 
