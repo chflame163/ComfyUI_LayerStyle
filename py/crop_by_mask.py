@@ -40,25 +40,19 @@ class CropByMask:
         l_images = []
         l_masks = []
 
-        if mask_for_crop.dim() == 2:
-            mask_for_crop = torch.unsqueeze(mask_for_crop, 0)
+
         for l in image:
             l_images.append(torch.unsqueeze(l, 0))
-            m = tensor2pil(l)
-            if m.mode == 'RGBA':
-                l_masks.append(m.split()[-1])
-        for m in mask_for_crop:
-            if invert_mask:
-                m = 1 - m
-            l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
-        max_batch = max(len(l_images), len(l_masks))
-
+        if mask_for_crop.dim() == 2:
+            mask_for_crop = torch.unsqueeze(mask_for_crop, 0)
         # 如果有多张mask输入，使用第一张
         if mask_for_crop.shape[0] > 1:
             log(f"Warning: Multiple mask inputs, using the first.", message_type='warning')
             mask_for_crop = torch.unsqueeze(mask_for_crop[0], 0)
         if invert_mask:
             mask_for_crop = 1 - mask_for_crop
+        l_masks.append(tensor2pil(torch.unsqueeze(mask_for_crop, 0)).convert('L'))
+
         _mask = mask2image(mask_for_crop)
         bluredmask = gaussian_blur(_mask, 20).convert('L')
         x = 0
@@ -79,9 +73,9 @@ class CropByMask:
         preview_image = draw_rect(preview_image, x1, y1, x2 - x1, y2 - y1,
                                   line_color="#00F000", line_width=(width+height)//200)
         crop_box = (x1, y1, x2, y2)
-        for i in range(max_batch):
+        for i in range(len(l_images)):
             _canvas = tensor2pil(l_images[i]).convert('RGB')
-            _mask = l_masks[i] if len(l_masks) > i else l_masks[-1]
+            _mask = l_masks[0]
             ret_images.append(pil2tensor(_canvas.crop(crop_box)))
             ret_masks.append(image2mask(_mask.crop(crop_box)))
 
