@@ -1,6 +1,5 @@
 /**
- * File: comfy_shared.js
- * Project: comfy_dz
+ * File: dz_comfy_shared.js 
  * Author: Mel Massadian
  *
  * Copyright (c) 2023 Mel Massadian

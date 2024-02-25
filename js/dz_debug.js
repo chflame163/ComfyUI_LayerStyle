@@ -1,6 +1,6 @@
 /**
  * File: debug.js
- * Project: comfy_dz
+ * Project: comfy_DZ
  * Author: Mel Massadian
  *
  * Copyright (c) 2023 Mel Massadian
@@ -9,9 +9,9 @@
 
 import { app } from '../../scripts/app.js'
 
-import * as shared from './comfy_shared.js'
-import { log } from './comfy_shared.js'
-import { MtbWidgets } from './dz_widgets.js'
+import * as shared from './dz_comfy_shared.js'
+import { log } from './dz_comfy_shared.js'
+import { DZWidgets } from './dz_DZ_widgets.js'
 
 // TODO: respect inputs order...
 
@@ -24,9 +24,9 @@ function escapeHtml(unsafe) {
     .replace(/'/g, '&#039;')
 }
 app.registerExtension({
-  name: 'dz.Debug',
+  name: 'DZ.Debug',
   async beforeRegisterNodeDef(nodeType, nodeData, app) {
-    if (nodeData.name === 'Debug (dz)') {
+    if (nodeData.name === 'Debug (DZ)') {
       const onConnectionsChange = nodeType.prototype.onConnectionsChange
       nodeType.prototype.onConnectionsChange = function (
         type,
@@ -74,7 +74,7 @@ app.registerExtension({
         if (message.text) {
           for (const txt of message.text) {
             const w = this.addCustomWidget(
-              MtbWidgets.DEBUG_STRING(`${prefix}_${widgetI}`, escapeHtml(txt))
+              DZWidgets.DEBUG_STRING(`${prefix}_${widgetI}`, escapeHtml(txt))
             )
             w.parent = this
             widgetI++
@@ -83,7 +83,7 @@ app.registerExtension({
         if (message.b64_images) {
           for (const img of message.b64_images) {
             const w = this.addCustomWidget(
-              MtbWidgets.DEBUG_IMG(`${prefix}_${widgetI}`, img)
+              DZWidgets.DEBUG_IMG(`${prefix}_${widgetI}`, img)
             )
             w.parent = this
             widgetI++
