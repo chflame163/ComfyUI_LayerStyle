@@ -610,6 +610,7 @@
 输出:
 cropped_image: 裁切并更换背景后的图像。
 box_preview: 裁切位置预览。
+cropped_mask: 裁切后的遮罩。
 
 
 ### <a id="table1">GetImageSize</a>

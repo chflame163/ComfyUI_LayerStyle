@@ -622,7 +622,8 @@ Node options:
 
 Output:
 cropped_image: Crop and replace the background image.
-box_preview: Crop position preview
+box_preview: Crop position preview.
+cropped_mask: Cropped mask.
 
 
 ### <a id="table1">GetImageSize</a>
