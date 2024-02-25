@@ -35,8 +35,8 @@ class ImageAutoCrop:
             }
         }
 
-    RETURN_TYPES = ("IMAGE", "IMAGE",)
-    RETURN_NAMES = ("cropped_image", "box_preview")
+    RETURN_TYPES = ("IMAGE", "IMAGE", "MASK",)
+    RETURN_NAMES = ("cropped_image", "box_preview", "cropped_mask",)
     FUNCTION = 'image_auto_crop'
     CATEGORY = '😺dzNodes/LayerUtility'
     OUTPUT_NODE = True
@@ -48,6 +48,7 @@ class ImageAutoCrop:
 
         ret_images = []
         ret_box_previews = []
+        ret_masks = []
         input_images = []
         input_masks = []
         crop_boxs = []
@@ -118,9 +119,11 @@ class ImageAutoCrop:
             target_width, target_height = calculate_side_by_ratio(crop_box[2], crop_box[3], ratio,
                                                                   longest_side=side_limit)
             _canvas = Image.new('RGB', size=(canvas_width, canvas_height), color=background_color)
+            _mask_canvas = Image.new('L',  size=(canvas_width, canvas_height), color='black')
             if ultra_detail_range:
                 _image = pixel_spread(_image, _mask)
             _canvas.paste(_image, box=(x_offset, y_offset), mask=_mask.convert('L'))
+            _mask_canvas.paste(_mask, box=(x_offset, y_offset))
             preview_image = Image.new('RGB', size=(canvas_width, canvas_height), color='gray')
             preview_image.paste(_mask, box=(x_offset, y_offset))
             preview_image = draw_rect(preview_image,
@@ -131,11 +134,19 @@ class ImageAutoCrop:
             ret_image = fit_resize_image(ret_image, target_width, target_height,
                                          fit='letterbox', resize_sampler=Image.LANCZOS,
                                          background_color=background_color)
+            ret_mask = _mask_canvas.crop((crop_box[0], crop_box[1], crop_box[0]+crop_box[2], crop_box[1]+crop_box[3]))
+            ret_mask = fit_resize_image(ret_mask, target_width, target_height,
+                                         fit='letterbox', resize_sampler=Image.LANCZOS,
+                                         background_color="#000000")
             ret_images.append(pil2tensor(ret_image))
             ret_box_previews.append(pil2tensor(preview_image))
+            ret_masks.append(image2mask(ret_mask))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
-        return (torch.cat(ret_images, dim=0), torch.cat(ret_box_previews, dim=0),)
+        return (torch.cat(ret_images, dim=0),
+                torch.cat(ret_box_previews, dim=0),
+                torch.cat(ret_masks, dim=0),
+                )
 
 
 NODE_CLASS_MAPPINGS = {

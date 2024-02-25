@@ -41,7 +41,8 @@ def log(message:str, message_type:str='info'):
 
 try:
     from cv2.ximgproc import guidedFilter
-except ImportError:
+except ImportError as e:
+    print(e)
     log(f'Dependency package error, unable import "cv2.ximgproc".'
         f'\nPlease REINSTALL package "opencv-contrib-python".'
         f'\nFor detail refer to \033[4mhttps://github.com/chflame163/ComfyUI_LayerStyle/issues/5\033[0m',
