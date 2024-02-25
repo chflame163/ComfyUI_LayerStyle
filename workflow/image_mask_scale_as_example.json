@@ -1,6 +1,6 @@
 {
-  "last_node_id": 65,
-  "last_link_id": 146,
+  "last_node_id": 66,
+  "last_link_id": 148,
   "nodes": [
     {
       "id": 42,
@@ -68,63 +68,6 @@
       }
     },
     {
-      "id": 16,
-      "type": "Image Remove Background Rembg (mtb)",
-      "pos": [
-        485,
-        735
-      ],
-      "size": {
-        "0": 294,
-        "1": 230
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 22
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Image (rgba)",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "Mask",
-          "type": "MASK",
-          "links": [
-            145
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "Image",
-          "type": "IMAGE",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "Image Remove Background Rembg (mtb)"
-      },
-      "widgets_values": [
-        false,
-        240,
-        10,
-        10,
-        false,
-        "#000000"
-      ]
-    },
-    {
       "id": 58,
       "type": "PreviewImage",
       "pos": [
@@ -177,7 +120,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 145
+          "link": 148
         }
       ],
       "outputs": [
@@ -234,8 +177,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            22,
-            144
+            144,
+            147
           ],
           "shape": 3,
           "slot_index": 0
@@ -254,17 +197,57 @@
         "512x512with_background (15).png",
         "image"
       ]
+    },
+    {
+      "id": 66,
+      "type": "LayerMask: RemBgUltra",
+      "pos": [
+        521,
+        777
+      ],
+      "size": {
+        "0": 315,
+        "1": 150
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 147
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            148
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: RemBgUltra"
+      },
+      "widgets_values": [
+        8,
+        0.01,
+        0.99,
+        false
+      ]
     }
   ],
   "links": [
-    [
-      22,
-      2,
-      0,
-      16,
-      0,
-      "IMAGE"
-    ],
     [
       137,
       42,
@@ -298,8 +281,16 @@
       "IMAGE"
     ],
     [
-      145,
-      16,
+      147,
+      2,
+      0,
+      66,
+      0,
+      "IMAGE"
+    ],
+    [
+      148,
+      66,
       1,
       64,
       2,
