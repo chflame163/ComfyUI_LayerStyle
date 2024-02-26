@@ -17,6 +17,8 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+
+* Commit [Film](#Film) node, this filter Simulate the grain, dark edge, and blurred edge of the film, support input depth map to simulate defocus. it is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost).
 * Commit [ImageAutoCrop](#ImageAutoCrop) node, which is designed to generate image materials for training models.
 * Commit [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) node, it can be scaled image or mask according to frame ratio.
 * Fix the bug of color gradation in [LUT Apply](#LUT) node rendering, and this node now support for log color space. *Please load the dedicated log lut file for the log color space image.
@@ -883,6 +885,27 @@ Node options:
 * distance: Distance of channel separation.
 * angle: Angle of channel separation.
 * mode: Channel shift arrangement order.
+
+### <a id="table1">Film</a>
+Simulate the grain, dark edge, and blurred edge of the film, support input depth map to simulate defocus.    
+This node is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost).
+![image](image/film_example.png)
+
+Node options:
+![image](image/film_node.png)
+* image: The input image.
+* depth_map: Input depth map to simulate defocus effect. it is an optional input. if there is no input, will simulates radial blur at the edges of the image.
+* center_x: The horizontal axis of the center point position of the dark edge and radial blur, where 0 represents the leftmost side, 1 represents the rightmost side, and 0.5 represents at the center.
+* center_y: The vertical axis of the center point position of the dark edge and radial blur, where 0 represents the leftmost side, 1 represents the rightmost side, and 0.5 represents at the center.
+* saturation: Color saturation, 1 is the original value.
+* grain_power: Grain intensity. larger value means more pronounced the noise.
+* grain_scale: Grain size.
+* grain_sat: The color saturation of grain. 0 represents mono noise, and the larger the value, the more prominent the color.
+* grain_shadows: Grain intensity of dark part.
+* grain_highs: Grain intensity of light part.
+* blur_strength: The strength of blur. larger value means more blurry it becomes.
+* blur_focus_spread: Focus diffusion range. larger value means larger clear range.
+* focal_depth: Simulate the focal distance of defucus. 0 indicates that focus is farthest, and 1 indicates that is closest. this setting only valid when input the depth_map.
 
 ### <a id="table1">ColorMap</a>
 Pseudo color heat map effect.

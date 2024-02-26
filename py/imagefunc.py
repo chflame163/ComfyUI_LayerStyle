@@ -1,8 +1,11 @@
 '''Image process functions for ComfyUI nodes
 by chflame https://github.com/chflame163
 '''
-import copy
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+import copy
 import re
 import json
 import math
@@ -24,7 +27,8 @@ from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
 from typing import Union
 import folder_paths as COMFY_FOLDER_PATH
 from .briarmbg import BriaRMBG
-
+from .filmgrainer import processing as processing_utils
+from .filmgrainer import filmgrainer as filmgrainer
 
 def log(message:str, message_type:str='info'):
     name = 'LayerStyle'
@@ -341,6 +345,126 @@ def motion_blur(image:Image, angle:int, blur:int) -> Image:
     blurred = np.array(blurred, dtype=np.uint8)
     ret_image = cv22pil(blurred)
     return ret_image
+
+def __apply_vignette(image, vignette):
+    # If image needs to be normalized (0-1 range)
+    needs_normalization = image.max() > 1
+    if needs_normalization:
+        image = image.astype(np.float32) / 255
+    final_image = np.clip(image * vignette[..., np.newaxis], 0, 1)
+    if needs_normalization:
+        final_image = (final_image * 255).astype(np.uint8)
+    return final_image
+def vignette_image(image:Image, intensity: float, center_x: float, center_y: float) -> Image:
+    image = pil2tensor(image)
+    _, height, width, _ = image.shape
+    # Generate the vignette for each image in the batch
+    # Create linear space but centered around the provided center point ratios
+    x = np.linspace(-1, 1, width)
+    y = np.linspace(-1, 1, height)
+    X, Y = np.meshgrid(x - (2 * center_x - 1), y - (2 * center_y - 1))
+    # Calculate distances to the furthest corner
+    distances_to_corners = [
+        np.sqrt((0 - center_x) ** 2 + (0 - center_y) ** 2),
+        np.sqrt((1 - center_x) ** 2 + (0 - center_y) ** 2),
+        np.sqrt((0 - center_x) ** 2 + (1 - center_y) ** 2),
+        np.sqrt((1 - center_x) ** 2 + (1 - center_y) ** 2)
+    ]
+    max_distance_to_corner = np.max(distances_to_corners)
+    radius = np.sqrt(X ** 2 + Y ** 2)
+    radius = radius / (max_distance_to_corner * np.sqrt(2))  # Normalize radius
+    opacity = np.clip(intensity, 0, 1)
+    vignette = 1 - radius * opacity
+    tensor_image = image.numpy()
+    # Apply vignette
+    vignette_image = __apply_vignette(tensor_image, vignette)
+    return tensor2pil(torch.from_numpy(vignette_image).unsqueeze(0))
+
+def filmgrain_image(image:Image, scale:float, grain_power:float,
+                    shadows:float, highs:float, grain_sat:float,
+                    sharpen:int=1, grain_type:int=4, src_gamma:float=1.0,
+                    gray_scale:bool=False, seed:int=0) -> Image:
+    # image = pil2tensor(image)
+    # grain_type, 1=fine, 2=fine simple, 3=coarse, 4=coarser
+    grain_type_index = 3
+
+    # Apply grain
+    grain_image = filmgrainer.process(image, scale=scale, src_gamma=src_gamma, grain_power=grain_power,
+                                      shadows=shadows, highs=highs, grain_type=grain_type_index,
+                                      grain_sat=grain_sat, gray_scale=gray_scale, sharpen=sharpen, seed=seed)
+    return tensor2pil(torch.from_numpy(grain_image).unsqueeze(0))
+
+def __apply_radialblur(image, blur_strength, radial_mask, focus_spread, steps):
+    needs_normalization = image.max() > 1
+    if needs_normalization:
+        image = image.astype(np.float32) / 255
+    blurred_images = processing_utils.generate_blurred_images(image, blur_strength, steps, focus_spread)
+    final_image = processing_utils.apply_blurred_images(image, blurred_images, radial_mask)
+    if needs_normalization:
+        final_image = np.clip(final_image * 255, 0, 255).astype(np.uint8)
+    return final_image
+
+def radialblur_image(image:Image, blur_strength:float, center_x:float, center_y:float, focus_spread:float, steps:int=5) -> Image:
+    width, height = image.size
+    image = pil2tensor(image)
+    if image.dim() == 4:
+        image = image[0]
+
+    # _, height, width, = image.shape
+    # Generate the vignette for each image in the batch
+    c_x, c_y = int(width * center_x), int(height * center_y)
+    # Calculate distances to all corners from the center
+    distances_to_corners = [
+        np.sqrt((c_x - 0)**2 + (c_y - 0)**2),
+        np.sqrt((c_x - width)**2 + (c_y - 0)**2),
+        np.sqrt((c_x - 0)**2 + (c_y - height)**2),
+        np.sqrt((c_x - width)**2 + (c_y - height)**2)
+    ]
+    max_distance_to_corner = max(distances_to_corners)
+    # Create and adjust radial mask
+    X, Y = np.meshgrid(np.arange(width) - c_x, np.arange(height) - c_y)
+    radial_mask = np.sqrt(X**2 + Y**2) / max_distance_to_corner
+    tensor_image = image.numpy()
+    # Apply blur
+    blur_image = __apply_radialblur(tensor_image, blur_strength, radial_mask, focus_spread, steps)
+    return tensor2pil(torch.from_numpy(blur_image).unsqueeze(0))
+
+def __apply_depthblur(image, depth_map, blur_strength, focal_depth, focus_spread, steps):
+    # Normalize the input image if needed
+    needs_normalization = image.max() > 1
+    if needs_normalization:
+        image = image.astype(np.float32) / 255
+    # Normalize the depth map if needed
+    depth_map = depth_map.astype(np.float32) / 255 if depth_map.max() > 1 else depth_map
+    # Resize depth map to match the image dimensions
+    depth_map_resized = cv2.resize(depth_map, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_LINEAR)
+    if len(depth_map_resized.shape) > 2:
+        depth_map_resized = cv2.cvtColor(depth_map_resized, cv2.COLOR_BGR2GRAY)
+    # Adjust the depth map based on the focal plane
+    depth_mask = np.abs(depth_map_resized - focal_depth)
+    depth_mask = np.clip(depth_mask / np.max(depth_mask), 0, 1)
+    # Generate blurred versions of the image
+    blurred_images = processing_utils.generate_blurred_images(image, blur_strength, steps, focus_spread)
+    # Use the adjusted depth map as a mask for applying blurred images
+    final_image = processing_utils.apply_blurred_images(image, blurred_images, depth_mask)
+    # Convert back to original range if the image was normalized
+    if needs_normalization:
+        final_image = np.clip(final_image * 255, 0, 255).astype(np.uint8)
+    return final_image
+
+def depthblur_image(image:Image, depth_map:Image, blur_strength:float, focal_depth:float, focus_spread:float, steps:int=5) -> Image:
+    width, height = image.size
+    image = pil2tensor(image)
+    depth_map = pil2tensor(depth_map)
+    if image.dim() == 4:
+        image = image[0]
+    if depth_map.dim() == 4:
+        depth_map = depth_map[0]
+    tensor_image = image.numpy()
+    tensor_image_depth = depth_map.numpy()
+    # Apply blur
+    blur_image = __apply_depthblur(tensor_image, tensor_image_depth, blur_strength, focal_depth, focus_spread, steps)
+    return tensor2pil(torch.from_numpy(blur_image).unsqueeze(0))
 
 def fit_resize_image(image:Image, target_width:int, target_height:int, fit:str, resize_sampler:str, background_color:str = '#000000') -> Image:
     image = image.convert('RGB')

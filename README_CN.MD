@@ -13,6 +13,7 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
+* 添加 [Film](#Film) 节点, 这个滤镜模拟胶片的颗粒、暗边和边缘模糊，支持输入深度图模拟虚焦，是[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)的重新封装。
 * 添加 [ImageAutoCrop](#ImageAutoCrop) 节点, 这个节点是为生成训练模型的图片素材而设计的。
 * 添加 [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) 节点， 可按画幅比例缩放图像。
 * 改正 [LUT Apply](#LUT) 节点渲染出现色阶的bug, 并增加log色彩空间支持。*log色彩空间图片请加载专门的log lut。
@@ -872,6 +873,28 @@ mask反转
 * distance: 通道分离的距离。
 * angle: 通道分离的角度。
 * mode: 通道错位排列顺序。
+
+### <a id="table1">Film</a>
+模拟胶片的颗粒、暗边和边缘模糊，支持输入深度图模拟虚焦。    
+这个节点是[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)的重新封装。
+![image](image/film_example.png)
+
+节点选项说明:
+![image](image/film_node.png)
+* image: 输入的图片。
+* depth_map: 深度图输入，由此模拟虚焦效果。此项是可选输入，如果没有输入则模拟为图片边缘的径向模糊。
+* center_x: 暗边和径向模糊的中心点位置横坐标，0表示最左侧，1表示最右侧，0.5表示在中心。
+* center_y: 暗边和径向模糊的中心点位置纵坐标，0表示最上方，1表示最下方，0.5表示在中心。
+* saturation: 颜色饱和度，1为原始值。
+* grain_power: 噪点强度。数值越大，噪点越明显。
+* grain_scale: 噪点颗粒大小。数值越大，颗粒越大。
+* grain_sat: 噪点的色彩饱和度。0表示黑白噪点，数值越大，彩色越明显。
+* grain_shadows: 暗部噪点强度。
+* grain_highs: 亮部噪点强度。
+* blur_strength: 模糊强度。数值越大越模糊。
+* blur_focus_spread: 焦点扩散范围。数值越大，清晰的范围越大。
+* focal_depth: 模拟虚焦的焦点距离。0表示焦点在最远，1表示焦点在最近。此项设置只在depth_map有输入时才生效。
+
 
 ### <a id="table1">ColorMap</a>
 伪彩色热力图效果。
