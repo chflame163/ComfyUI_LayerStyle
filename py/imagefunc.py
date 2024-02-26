@@ -55,6 +55,8 @@ except ImportError as e:
 
 '''pickle'''
 
+
+
 def read_image(filename:str) -> Image:
     return Image.open(filename)
 
@@ -66,6 +68,10 @@ def load_pickle(file_name:str) -> object:
     with open(file_name, 'rb') as f:
         obj = pickle.load(f)
     return obj
+
+def load_light_leak_images() -> list:
+    file = os.path.join(COMFY_FOLDER_PATH.models_dir, "layerstyle", "light_leak.pkl")
+    return load_pickle(file)
 
 '''Converter'''
 

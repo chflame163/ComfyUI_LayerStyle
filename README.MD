@@ -17,7 +17,7 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
-
+* Commit [LightLeak](#LightLeak) node, this filter simulate the light leakage effect of the film.
 * Commit [Film](#Film) node, this filter simulate the grain, dark edge, and blurred edge of the film, support input depth map to simulate defocus. it is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost).
 * Commit [ImageAutoCrop](#ImageAutoCrop) node, which is designed to generate image materials for training models.
 * Commit [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) node, it can be scaled image or mask according to frame ratio.
@@ -671,13 +671,13 @@ Output:
 Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything), combined with the Alpha Matte node of [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) in spacepxl, result in more detailed edges for masks.
 
 *Please refer to the installation of ComfyUI Segment Anything to install the model. If ComfyUI Segment Anything has been correctly installed, you can skip this step.
-* From [here](https://huggingface.co/bert-base-uncased/tree/main) download the config.json，model.safetensors，tokenizer_config.json，tokenizer.json 和 vocab.txt 5 files to ComfyUI/models/bert-base-uncased folder.
+* From [here](https://huggingface.co/bert-base-uncased/tree/main) download the config.json，model.safetensors，tokenizer_config.json，tokenizer.json and vocab.txt 5 files to ```ComfyUI/models/bert-base-uncased``` folder.
 * Download [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
-[GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) to ComfyUI/models/grounding-dino folder.
+[GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) to ```ComfyUI/models/grounding-dino``` folder.
 * Download [sam_vit_h](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)，[sam_vit_l](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), 
 [sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
 [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
-[mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ComfyUI/models/sams folder.
+[mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ```ComfyUI/models/sams``` folder.
 
 ![image](image/segment_anything_ultra_compare.png)
 ![image](image/segment_anything_ultra_example.png)
@@ -699,7 +699,7 @@ Remove background. compared to the similar background removal nodes, this node h
 
 This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZHO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG).
 
-*Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (model. pth) to the /ComfyUI/models/rmbg/RMBG-1.4 folder. This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.    
+*Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (```model.pth```) to the ```/ComfyUI/models/rmbg/RMBG-1.4``` folder. This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.    
 **After downloading the model, recommended to add a line 'rmbg: models/rmbg/RMBG-1.4' in ComfyUI/extra_model_paths.yaml. (This step is not mandatory)    
 
 ![image](image/rembg_ultra_example.png)
@@ -906,6 +906,18 @@ Node options:
 * blur_strength: The strength of blur. larger value means more blurry it becomes.
 * blur_focus_spread: Focus diffusion range. larger value means larger clear range.
 * focal_depth: Simulate the focal distance of defucus. 0 indicates that focus is farthest, and 1 indicates that is closest. this setting only valid when input the depth_map.
+
+### <a id="table1">LightLeak</a>
+Simulate the light leakage effect of the film. please download the [light_leak.pkl(on Baidu Netdisk)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3), copy the file to ```ComfyUI/models/layerstyle``` folder.
+![image](image/light_leak_example.png)
+
+Node options:
+![image](image/light_leak_node.png)
+* light: 32 types of light spots are provided. random is a random selection.
+* corner: There are four options for the corner where the light appears: top left, top right, bottom left, and bottom right.
+* hue: The hue of the light.
+* saturation: The color saturation of the light.
+* opacity: The opacity of the light.
 
 ### <a id="table1">ColorMap</a>
 Pseudo color heat map effect.
