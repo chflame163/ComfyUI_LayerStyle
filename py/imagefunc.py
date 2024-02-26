@@ -4,7 +4,7 @@ by chflame https://github.com/chflame163
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
+import pickle
 import copy
 import re
 import json
@@ -51,6 +51,21 @@ except ImportError as e:
         f'\nPlease REINSTALL package "opencv-contrib-python".'
         f'\nFor detail refer to \033[4mhttps://github.com/chflame163/ComfyUI_LayerStyle/issues/5\033[0m',
         message_type='error')
+
+
+'''pickle'''
+
+def read_image(filename:str) -> Image:
+    return Image.open(filename)
+
+def pickle_to_file(obj:object, file_path:str):
+    with open(file_path, 'wb') as f:
+        pickle.dump(obj, f)
+
+def load_pickle(file_name:str) -> object:
+    with open(file_name, 'rb') as f:
+        obj = pickle.load(f)
+    return obj
 
 '''Converter'''
 
