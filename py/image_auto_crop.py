@@ -12,7 +12,7 @@ class ImageAutoCrop:
     def INPUT_TYPES(self):
         matting_method_list = ['RMBG 1.4', 'SegmentAnything']
         detect_mode = ['min_bounding_rect', 'max_inscribed_rect']
-        ratio_list = ['1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16', 'custom', 'original']
+        ratio_list = ['1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16', 'custom', 'detect_mask']
         return {
             "required": {
                 "image": ("IMAGE", ),  #
@@ -65,7 +65,7 @@ class ImageAutoCrop:
 
         if aspect_ratio == 'custom':
             ratio = proportional_width / proportional_height
-        elif aspect_ratio == 'original':
+        elif aspect_ratio == 'detect_mask':
             ratio = 0
         else:
             s = aspect_ratio.split(":")
@@ -118,7 +118,7 @@ class ImageAutoCrop:
             crop_boxs.append(crop_box)
             if len(crop_boxs) > 0:    # 批量图强制使用同一尺寸
                 crop_box = crop_boxs[0]
-            if aspect_ratio == 'original':
+            if aspect_ratio == 'detect_mask':
                 ratio = crop_box[2] / crop_box[3]
             target_width, target_height = calculate_side_by_ratio(crop_box[2], crop_box[3], ratio,
                                                                   longest_side=side_limit)
