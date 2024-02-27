@@ -17,6 +17,9 @@ Nodes are divided into 5 groups according to their functions: LayerStyle, LayerC
 
 ## Update
 **If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+* Commit [ImageRemoveAlpha](#ImageRemoveAlpha) and [ImageCombineAlpha](#ImageCombineAlpha) nodes, alpha channel of the image can be removed or merged.
+* Commit [ImageScaleRestoreV2](#ImageScaleRestoreV2) and [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) nodes, supports scaling images to specified long or short edge sizes.
+* Commit [PersonMaskUltra](#PersonMaskUltra) node, Generate masks for portrait's face, hair, body skin, clothing, or accessories. the model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator).
 * Commit [LightLeak](#LightLeak) node, this filter simulate the light leakage effect of the film.
 * Commit [Film](#Film) node, this filter simulate the grain, dark edge, and blurred edge of the film, support input depth map to simulate defocus. it is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost).
 * Commit [ImageAutoCrop](#ImageAutoCrop) node, which is designed to generate image materials for training models.
@@ -376,6 +379,15 @@ Outputs:
 * mask: If have mask input, the scaled mask will be output.
 * original_size: The original size data of the image is used for subsequent node recovery.
 
+### <a id="table1">ImageScaleRestoreV2</a>
+The V2 upgraded version of ImageScaleRestore.
+
+Node options:   
+![image](image/image_scale_restore_v2_node.png)
+The following changes have been made based on ImageScaleRestore:
+* scale_by: Allow scaling by specified size on long or short sides.
+* scale_by_length: When scale_by is set to "longest", this will be used as the length of the long edge of the image; When set to "shortest", it serves as the length of the short edge.
+
 ### <a id="table1">ImageMaskScaleAs</a>
 Scale the image or mask to the size of the reference image (or reference mask).
 ![image](image/image_mask_scale_as_example.png)
@@ -416,6 +428,15 @@ The _fill_ mode does not maintain frame ratio and fills the screen with width an
 * scale_by_longest_side: Allow scaling by long edge size.
 * longest_side: When the scale_by_longest_side is set to True, this will be used this value to the long edge of the image. when the original_size have input, this setting will be ignored.
 
+
+### <a id="table1">ImageScaleByAspectRatioV2</a>
+V2 Upgraded Version of ImageScaleByAspectRatio
+
+Node options:   
+![image](image/image_scale_by_aspect_ratio_v2_node.png)
+The following changes have been made based on ImageScaleByAspectRatio:
+* scale_to_side: Allow scaling by specified size on long or short sides.
+* scale_to_length: When scale_by_side is set to "longest", this will be used as the length of the long edge of the image; When set to "shortest", it serves as the length of the short edge.
 
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.
@@ -599,6 +620,20 @@ Node options:
 ![image](image/image_channel_merge_node.png)
 * mode: Channel mode, include RGBA, YCbCr, LAB adn HSV.
 
+### <a id="table1">ImageRemoveAlpha</a>
+![image](image/image_remove_alpha_example.png)
+Remove the alpha channel from the image and convert it to RGB mode. you can choose to fill the background and set the background color.
+
+Node options:
+![image](image/image_remove_alpha_node.png)
+* fill_background: Whether to fill the background.
+* background_color<sup>4</sup>: Color of background.
+
+
+### <a id="table1">ImageCombineAlpha</a>
+![image](image/image_combine_alpha_node.png)
+Merge the image and mask into an RGBA mode image containing an alpha channel.
+
 ### <a id="table1">ImageAutoCrop</a>
 ![image](image/image_auto_crop_example.png)
 Automatically cutout and crop the image according to the mask. it can specify the background color, aspect ratio, and size for output image. this node is designed to generate the image materials for training models.   
@@ -706,6 +741,26 @@ This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](ht
 
 Node options:  
 ![image](image/rembg_ultra_node.png)
+* detail_range: Edge detail range.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+
+### <a id="table1">PersonMaskUltra</a>
+Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
+The model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)， edge processing code from [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters).
+
+![image](image/person_mask_ultra_example.png)
+
+Node options:  
+![image](image/person_mask_ultra_node.png)
+* face: Face recognition.
+* hair: Hair recognition.
+* body: Body skin recognition.
+* clothes: Clothing recognition.
+* accessories: Identification of accessories (such as backpacks).
+* background: Background recognition.
+* confidence: Recognition threshold, lower values will output more mask ranges.
 * detail_range: Edge detail range.
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.

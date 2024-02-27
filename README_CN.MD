@@ -13,52 +13,55 @@
 
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。
-* 添加[LightLeak](#LightLeak) 节点，这个滤镜模拟胶片漏光效果。 
-* 添加[Film](#Film) 节点, 这个滤镜模拟胶片的颗粒、暗边和边缘模糊，支持输入深度图模拟虚焦，是[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)的重新封装。
-* 添加[ImageAutoCrop](#ImageAutoCrop) 节点, 这个节点是为生成训练模型的图片素材而设计的。
-* 添加[ImageScaleByAspectRatio](#ImageScaleByAspectRatio) 节点， 可按画幅比例缩放图像。
-* 改正[LUT Apply](#LUT) 节点渲染出现色阶的bug, 并增加log色彩空间支持。*log色彩空间图片请加载专门的log lut。
-* 添加[CreateGradientMask](#CreateGradientMask) 节点。添加 [LayerImageTransform](#LayerImageTransform) 和 [LayerMaskTransform](#LayerMaskTransform) 节点。
-* 添加[MaskEdgeUltraDetail](#MaskEdgeUltraDetail) 节点，给粗糙的遮罩进行处理获得超精细的边缘。添加 [Exposure](#Exposure) 节点，调整图像曝光。
-* 添加[Sharp & Soft](#Sharp) 节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
+* 添加 [ImageRemoveAlpha](#ImageRemoveAlpha) 和 [ImageCombineAlpha](#ImageCombineAlpha) 节点，可移除或合并图片的alpha通道。
+* 添加 [ImageScaleRestoreV2](#ImageScaleRestoreV2) 和 [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点。支持按指定的长边或短边尺寸缩放图像。
+* 添加 [PersonMaskUltra](#PersonMaskUltra) 节点，为人物生成脸、头发、身体皮肤、衣服或配饰的遮罩。本节点的模型代码来自[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)。
+* 添加 [LightLeak](#LightLeak) 节点，这个滤镜模拟胶片漏光效果。 
+* 添加 [Film](#Film) 节点, 这个滤镜模拟胶片的颗粒、暗边和边缘模糊，支持输入深度图模拟虚焦，是[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)的重新封装。
+* 添加 [ImageAutoCrop](#ImageAutoCrop) 节点, 这个节点是为生成训练模型的图片素材而设计的。
+* 添加 [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) 节点， 可按画幅比例缩放图像。
+* 改正 [LUT Apply](#LUT) 节点渲染出现色阶的bug, 并增加log色彩空间支持。*log色彩空间图片请加载专门的log lut。
+* 添加 [CreateGradientMask](#CreateGradientMask) 节点。添加 [LayerImageTransform](#LayerImageTransform) 和 [LayerMaskTransform](#LayerMaskTransform) 节点。
+* 添加 [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) 节点，给粗糙的遮罩进行处理获得超精细的边缘。添加 [Exposure](#Exposure) 节点，调整图像曝光。
+* 添加 [Sharp & Soft](#Sharp) 节点，可提升或抹平图像细节。新增[MaskByDifferent](#MaskByDifferent)节点，比较两张图片并输出Mask。新增[SegmentAnythingUltra](#SegmentAnythingUltra)节点，提升遮罩边缘质量。*如果没有安装SegmentAnything, 需要手动下载模型。
 * 所有节点已全面支持批量图片，为创作视频提供方便。( CropByMask 节点仅支持相同尺寸的切除, 如果输入批量mask_for_crop，将使用第一张的数据。)
-* 添加[RemBgUltra](#RemBgUltra) 和 [PixelSpread](#PixelSpread) 节点，显著提升了遮罩质量。*RemBgUltra需手动下载模型。
-* 添加[TextImage](#TextImage) 节点，生成文字图像和遮罩。
+* 添加 [RemBgUltra](#RemBgUltra) 和 [PixelSpread](#PixelSpread) 节点，显著提升了遮罩质量。*RemBgUltra需手动下载模型。
+* 添加 [TextImage](#TextImage) 节点，生成文字图像和遮罩。
 * 图像之间的[混合模式](#混合模式)增加新类型，现在支持多达19种混合模式。新增color_burn颜色加深, color_dodge颜色减淡, linear_burn线性加深, linear_dodge线性减淡, overlay叠加, soft_light柔光, hard_light强光, vivid_light亮光, pin_light点光, linear_light线性光, hard_mix实色混合。新增的混合模式适用于所有支持混合模式的节点。
-* 添加[ColorMap](#ColorMap) 滤镜节点，用于制作伪彩色热力图效果。
-* 添加[WaterColor](#WaterColor) 和 [SkinBeauty](#SkinBeauty) 节点。这是两个图像滤镜，生成水彩画和磨皮效果。
-* 添加[ImageShift](#ImageShift) 节点，使图片产生位移，可输出位移接缝遮罩，方便制作连续贴图。
-* 添加[ImageMaskScaleAs](#ImageMaskScaleAs) 节点，可根据参考图片调整图像或遮罩大小。
-* 添加[ImageScaleRestore](#ImageScaleRestore) 节点，用于配合CropByMask进行局部放大修复工作。
-* 添加[CropByMask](#CropByMask) 和 [RestoreCropBox](#RestoreCropBox)节点。此二者配合可将图片局部裁切重绘然后还原。
-* 添加[ColorAdapter](#ColorAdapter) 节点，可自动调整图片色调。
-* 添加[MaskStroke](#MaskStroke) 节点，可产生mask描边。
-* 添加[LayerColor](#LayerColor)节点组，用于调整图像颜色。包括[LUT Apply](#LUT)，[Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB)和[HSV](#HSV)。
-* 添加[ImageChannelSplit](#ImageChannelSplit)和[ImageChannelMerge](#ImageChannelMerge)节点。
-* 添加[MaskMotionBlur](#MaskMotionBlur)节点。
-* 添加[SoftLight](#SoftLight)节点。
-* 添加[ChannelShake](#ChannelShake)节点，这是一个滤镜，能产生类似抖音logo的通道错位效果。
-* 添加[MaskGradient](#MaskGradient)节点，可使mask产生渐变。
-* 添加[GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
+* 添加 [ColorMap](#ColorMap) 滤镜节点，用于制作伪彩色热力图效果。
+* 添加 [WaterColor](#WaterColor) 和 [SkinBeauty](#SkinBeauty) 节点。这是两个图像滤镜，生成水彩画和磨皮效果。
+* 添加 [ImageShift](#ImageShift) 节点，使图片产生位移，可输出位移接缝遮罩，方便制作连续贴图。
+* 添加 [ImageMaskScaleAs](#ImageMaskScaleAs) 节点，可根据参考图片调整图像或遮罩大小。
+* 添加 [ImageScaleRestore](#ImageScaleRestore) 节点，用于配合CropByMask进行局部放大修复工作。
+* 添加 [CropByMask](#CropByMask) 和 [RestoreCropBox](#RestoreCropBox)节点。此二者配合可将图片局部裁切重绘然后还原。
+* 添加 [ColorAdapter](#ColorAdapter) 节点，可自动调整图片色调。
+* 添加 [MaskStroke](#MaskStroke) 节点，可产生mask描边。
+* 添加 [LayerColor](#LayerColor)节点组，用于调整图像颜色。包括[LUT Apply](#LUT)，[Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB)和[HSV](#HSV)。
+* 添加 [ImageChannelSplit](#ImageChannelSplit)和[ImageChannelMerge](#ImageChannelMerge)节点。
+* 添加 [MaskMotionBlur](#MaskMotionBlur)节点。
+* 添加 [SoftLight](#SoftLight)节点。
+* 添加 [ChannelShake](#ChannelShake)节点，这是一个滤镜，能产生类似抖音logo的通道错位效果。
+* 添加 [MaskGradient](#MaskGradient)节点，可使mask产生渐变。
+* 添加 [GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
 
-* 添加[MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[XY to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
-* 添加[ExtendCanvas](#ExtendCanvas)节点。
-* 添加[ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
-  添加[PrintInfo](#PrintInfo)节点作为工作流调试辅助工具。
-* 添加[ColorImage](#ColorImage)和[GradientImage](#GradientImage)节点，用于生成纯色和渐变色图像。
-* 添加[GradientOverlay](#GradientOverlay),[ColorOverlay](#ColorOverlay)节点。增加无效mask输入判断，当输入无效mask时将其忽略。
-* 添加[InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow), [MotionBlur](#MotionBlur)节点。
+* 添加 [MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[XY to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
+* 添加 [ExtendCanvas](#ExtendCanvas)节点。
+* 添加 [ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
+  添加 [PrintInfo](#PrintInfo)节点作为工作流调试辅助工具。
+* 添加 [ColorImage](#ColorImage)和[GradientImage](#GradientImage)节点，用于生成纯色和渐变色图像。
+* 添加 [GradientOverlay](#GradientOverlay),[ColorOverlay](#ColorOverlay)节点。增加无效mask输入判断，当输入无效mask时将其忽略。
+* 添加 [InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow), [MotionBlur](#MotionBlur)节点。
 * 所有已完成的节点重新命名，节点分为4组：LayerStyle, LayerMask, LayerUtility, LayerFilter。
   因为重新命名，包含旧版节点的工作流需手动替换新版节点。
 * [OuterGlow](#OuterGlow)节点修改，增加亮度、灯光颜色、辉光颜色选项。
-* 添加[MaskInvert](#MaskInvert)节点。
-* 添加[Stroke](#Stroke)节点。
-* 添加[MaskPreview](#MaskPreview)节点。
-* 添加[ImageOpacity](#ImageOpacity)节点。
+* 添加 [MaskInvert](#MaskInvert)节点。
+* 添加 [Stroke](#Stroke)节点。
+* 添加 [MaskPreview](#MaskPreview)节点。
+* 添加 [ImageOpacity](#ImageOpacity)节点。
 * layer_mask修改为非必选, 默认使用layer_image的alpha通道，允许通过输入mask改变之，但是尺寸必须一致。
-* 添加[ImageBlend](#ImageBlend)节点。
-* 添加[OuterGlow](#OuterGlow)节点。
-* 首个节点[DropShadow](#DropShadow)提交。
+* 添加 [ImageBlend](#ImageBlend)节点。
+* 添加 [OuterGlow](#OuterGlow)节点。
+* 首个节点 [DropShadow](#DropShadow)提交。
 
 
 # <a id="table1">LayerStyle</a>
@@ -365,6 +368,16 @@
 * mask: 如果有mask输入，将输出缩放后的mask。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
 
+### <a id="table1">ImageScaleRestoreV2</a>
+ImageScaleRestore的V2升级版。
+
+节点选项说明:   
+![image](image/image_scale_restore_v2_node.png)
+在ImageScaleRestore基础上做了如下改变:
+* scale_by: 允许按长边或短边指定尺寸缩放。
+* scale_by_length: scale_by被设置为"longest"时，此项将作为是图像长边的长度; 设置为"shortest"时，作为短边的长度。
+
+
 ### <a id="table1">ImageMaskScaleAs</a>
 将图像或遮罩缩放到参考图像（或遮罩）的大小。
 ![image](image/image_mask_scale_as_example.png)
@@ -405,6 +418,15 @@
 * image: 如果有image输入，将输出缩放后的图像。
 * mask: 如果有mask输入，将输出缩放后的遮罩。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+### <a id="table1">ImageScaleByAspectRatioV2</a>
+ImageScaleByAspectRatio的V2升级版
+
+节点选项说明:   
+![image](image/image_scale_by_aspect_ratio_v2_node.png)
+在ImageScaleByAspectRatio基础上做了如下改变:
+* scale_to_side: 允许按长边或短边指定尺寸缩放。
+* scale_to_length: scale_by_side被设置为"longest"时，此项将作为是图像长边的长度; 设置为"shortest"时，作为短边的长度。
 
 ### <a id="table1">ImageShift</a>
 使图片产生位移。此节点支持位移接缝遮罩的输出，方便制作连续贴图。
@@ -586,6 +608,21 @@
 ![image](image/image_channel_merge_node.png)
 * mode: 通道模式。包含RGBA, YCbCr, LAB和HSV。
 
+### <a id="table1">ImageRemoveAlpha</a>
+![image](image/image_remove_alpha_example.png)
+移除图片的alpha通道，将图片转换为RGB模式。可选择填充背景以及设置背景颜色。
+
+节点选项说明:
+![image](image/image_remove_alpha_node.png)
+* fill_background: 是否填充背景。
+* background_color<sup>4</sup>: 背景颜色。
+
+
+### <a id="table1">ImageCombineAlpha</a>
+![image](image/image_combine_alpha_node.png)
+将图片与遮罩合并为包含alpha通道的RGBA模式的图片。
+
+
 ### <a id="table1">ImageAutoCrop</a>
 ![image](image/image_auto_crop_example.png)
 自动抠图并按照遮罩裁切图片。可指定生成图片的背景颜色、长宽比和大小。这个节点是为生成训练模型的图片素材而设计的。  
@@ -699,6 +736,27 @@ cropped_mask: 裁切后的遮罩。
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+
+### <a id="table1">PersonMaskUltra</a>
+为人物生成脸、头发、身体皮肤、衣服或配饰的遮罩。与之前的A Person Mask Generator节点相比，这个节点具有超高的边缘细节。
+本节点的模型代码来自[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)，边缘处理代码来自spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)。
+
+![image](image/person_mask_ultra_example.png)
+
+节点选项说明:  
+![image](image/person_mask_ultra_node.png)
+* face: 脸部识别。
+* hair: 头发识别。
+* body: 身体皮肤识别。
+* clothes: 衣服识别。
+* accessories: 配饰(例如背包)识别。
+* background: 背景识别。
+* confidence: 识别阈值，更低的值将输出更多的遮罩范围。
+* detail_range: 边缘细节范围。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+
 
 ### <a id="table1">PixelSpread</a>
 对图像的遮罩边缘部分进行像素扩张预处理，可有效改善图像合成的边缘。

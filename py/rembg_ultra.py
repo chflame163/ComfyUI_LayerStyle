@@ -12,7 +12,7 @@ class RemBgUltra:
         return {
             "required": {
                 "image": ("IMAGE",),
-                "detail_range": ("INT", {"default": 8, "min": 0, "max": 256, "step": 1}),
+                "detail_range": ("INT", {"default": 8, "min": 1, "max": 256, "step": 1}),
                 "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
                 "process_detail": ("BOOLEAN", {"default": True}),
