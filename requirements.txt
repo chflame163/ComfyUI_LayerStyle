@@ -11,3 +11,5 @@ timm
 addict
 yapf
 colour-science
+wget
+mediapipe
