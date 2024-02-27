@@ -908,7 +908,7 @@ Node options:
 * focal_depth: Simulate the focal distance of defucus. 0 indicates that focus is farthest, and 1 indicates that is closest. this setting only valid when input the depth_map.
 
 ### <a id="table1">LightLeak</a>
-Simulate the light leakage effect of the film. please download the [light_leak.pkl(on Baidu Netdisk)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3) or [light_leak.pkl(Google Drive)](https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=drive_link), copy the file to ```ComfyUI/models/layerstyle``` folder.
+Simulate the light leakage effect of the film. please download the [light_leak.pkl(Baidu Netdisk)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3) or [light_leak.pkl(Google Drive)]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)), copy the file to ```ComfyUI/models/layerstyle``` folder.
 ![image](image/light_leak_example.png)
 
 Node options:

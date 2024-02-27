@@ -897,7 +897,7 @@ mask反转
 * focal_depth: 模拟虚焦的焦点距离。0表示焦点在最远，1表示焦点在最近。此项设置只在depth_map有输入时才生效。
 
 ### <a id="table1">LightLeak</a>
-模拟胶片漏光效果。请下载[light_leak.pkl(百度网盘)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3)或[light_leak.pkl(Google Drive)](https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=drive_link)将文件复制到```ComfyUI/models/layerstyle``` 文件夹。
+模拟胶片漏光效果。请下载[light_leak.pkl(百度网盘)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3)或[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)将文件复制到```ComfyUI/models/layerstyle``` 文件夹。
 ![image](image/light_leak_example.png)
 
 节点选项说明:
