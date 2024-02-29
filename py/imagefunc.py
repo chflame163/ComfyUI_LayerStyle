@@ -1086,6 +1086,13 @@ def has_letters(string:str) -> bool:
     else:
         return False
 
+
+def replace_case(old:str, new:str, text:str) -> str:
+    index = text.lower().find(old.lower())
+    if index == -1:
+        return text
+    return replace_case(old, new, text[:index] + new + text[index + len(old):])
+
 def random_numbers(total:int, random_range:int, seed:int=0, sum_of_numbers:int=0) -> list:
     random.seed(seed)
     numbers = [random.randint(-random_range//2, random_range//2) for _ in range(total - 1)]
@@ -1170,6 +1177,34 @@ chop_mode = ['normal', 'multply', 'screen', 'add', 'subtract', 'difference', 'da
 default_lut_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'lut')
 default_font_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'font')
 resource_dir_ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource_dir.ini")
+api_key_ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "api_key.ini")
+inference_prompt_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource", "inference.prompt")
+
+def load_inference_prompt() -> str:
+    ret_value = ''
+    try:
+        with open(inference_prompt_file, 'r') as f:
+            ret_value = f.readlines()
+    except Exception as e:
+        log(f'Warning: {inference_prompt_file} ' + repr(e) + f", check it to be correct. ", message_type='warning')
+    return  ''.join(ret_value)
+
+def get_api_key(api_name:str) -> str:
+    ret_value = ''
+    try:
+        with open(api_key_ini_file, 'r') as f:
+            ini = f.readlines()
+            for line in ini:
+                if line.startswith(f'{api_name}='):
+                    ret_value = line[line.find('=') + 1:].rstrip().lstrip()
+                    break
+    except Exception as e:
+        log(f'Warning: {api_key_ini_file} ' + repr(e) + f", check it to be correct. ", message_type='warning')
+    remove_char = ['"', "'", '“', '”', '‘', '’']
+    for i in remove_char:
+        if i in ret_value:
+            ret_value = ret_value.replace(i, '')
+    return ret_value
 
 try:
     with open(resource_dir_ini_file, 'r') as f:

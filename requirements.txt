@@ -16,3 +16,5 @@ mediapipe
 loguru
 typer_config
 fastapi
+rich
+google-generativeai
