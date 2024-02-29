@@ -13,3 +13,5 @@ yapf
 colour-science
 wget
 mediapipe
+loguru
+typer_config
