@@ -12,7 +12,7 @@ It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize th
 
 
 ## Example workflow
-image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
+Some JSON workflow files in the	```workflow``` directory, That's examples of how these nodes can be used in ComfyUI.
 
 
 ## How to install 
