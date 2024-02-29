@@ -1,67 +1,106 @@
-# ComfyUI Layer Style
-Ò»×éÎªComfyUIÉè¼ÆµÄ½Úµã£¬¿ÉÒÔºÏ³ÉÍ¼²ã´ïµ½ÀàËÆPhotoshopµÄ¹¦ÄÜ¡£ÕâĞ©½Úµã½«PhotoShopµÄÒ»²¿·Ö»ù±¾¹¦ÄÜÇ¨ÒÆµ½ComfyUI£¬Ö¼ÔÚ¼¯ÖĞ¹¤×÷Á÷³Ì£¬¼õÉÙÈí¼şÇĞ»»µÄÆµÂÊ¡£  
+ï»¿# ComfyUI Layer Style
+ä¸€ç»„ä¸ºComfyUIè®¾è®¡çš„èŠ‚ç‚¹ï¼Œå¯ä»¥åˆæˆå›¾å±‚è¾¾åˆ°ç±»ä¼¼Photoshopçš„åŠŸèƒ½ã€‚è¿™äº›èŠ‚ç‚¹å°†PhotoShopçš„ä¸€éƒ¨åˆ†åŸºæœ¬åŠŸèƒ½è¿ç§»åˆ°ComfyUIï¼Œæ—¨åœ¨é›†ä¸­å·¥ä½œæµç¨‹ï¼Œå‡å°‘è½¯ä»¶åˆ‡æ¢çš„é¢‘ç‡ã€‚  
 
 ![image](image/title.png)  
-<font size="1">*´ËÍ¼¹¤×÷Á÷(title_example_workflow.json) ÔÚ workflow Ä¿Â¼ÖĞ.   </font><br /> 
+<font size="1">*æ­¤å›¾å·¥ä½œæµ(title_example_workflow.json) åœ¨ workflow ç›®å½•ä¸­.   </font><br /> 
 
-½Úµã°´ÕÕ¹¦ÄÜ·ÖÎª5×é£ºLayerStyle, LayerColor, LayerMask, LayerUtilityºÍLayerFilter¡£
-* [LayerStyle](#LayerStyle)½Úµã×éÌá¹©·ÂÕÕAdobe PhotoshopµÄÍ¼²ãÑùÊ½¡£
-* [LayerColor](#LayerColor)½Úµã×éÌá¹©µ÷ÕûÑÕÉ«¹¦ÄÜ¡£
-* [LayerMask](#LayerMask)½Úµã×éÌá¹©Mask¸¨Öú¹¤¾ß¡£
-* [LayerUtility](#LayerUtility)½Úµã×éÌá¹©Í¼²ãºÏ³É¹¤¾ßºÍ¹¤×÷Á÷Ïà¹ØµÄ¸¨Öú½Úµã¡£
-* [LayerFilter](#LayerFilter)½Úµã×éÌá¹©Í¼ÏñĞ§¹ûÂË¾µ¡£
 
-## ¸üĞÂËµÃ÷
-**Èç¹û±¾²å¼ş¸üĞÂºó³öÏÖÒÀÀµ°ü´íÎó£¬ÇëÖØĞÂ°²×°Ïà¹ØÒÀÀµ°ü¡£ÏêÇé¼û[ÕâÀï](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)¡£
-* Ìí¼Ó [ImageRemoveAlpha](#ImageRemoveAlpha) ºÍ [ImageCombineAlpha](#ImageCombineAlpha) ½Úµã£¬¿ÉÒÆ³ı»òºÏ²¢Í¼Æ¬µÄalphaÍ¨µÀ¡£
-* Ìí¼Ó [ImageScaleRestoreV2](#ImageScaleRestoreV2) ºÍ [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) ½Úµã¡£Ö§³Ö°´Ö¸¶¨µÄ³¤±ß»ò¶Ì±ß³ß´çËõ·ÅÍ¼Ïñ¡£
-* Ìí¼Ó [PersonMaskUltra](#PersonMaskUltra) ½Úµã£¬ÎªÈËÎïÉú³ÉÁ³¡¢Í··¢¡¢ÉíÌåÆ¤·ô¡¢ÒÂ·ş»òÅäÊÎµÄÕÚÕÖ¡£±¾½ÚµãµÄÄ£ĞÍ´úÂëÀ´×Ô[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)¡£
-* Ìí¼Ó [LightLeak](#LightLeak) ½Úµã£¬Õâ¸öÂË¾µÄ£Äâ½ºÆ¬Â©¹âĞ§¹û¡£ 
-* Ìí¼Ó [Film](#Film) ½Úµã, Õâ¸öÂË¾µÄ£Äâ½ºÆ¬µÄ¿ÅÁ£¡¢°µ±ßºÍ±ßÔµÄ£ºı£¬Ö§³ÖÊäÈëÉî¶ÈÍ¼Ä£ÄâĞé½¹£¬ÊÇ[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)µÄÖØĞÂ·â×°¡£
-* Ìí¼Ó [ImageAutoCrop](#ImageAutoCrop) ½Úµã, Õâ¸ö½ÚµãÊÇÎªÉú³ÉÑµÁ·Ä£ĞÍµÄÍ¼Æ¬ËØ²Ä¶øÉè¼ÆµÄ¡£
-* Ìí¼Ó [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) ½Úµã£¬ ¿É°´»­·ù±ÈÀıËõ·ÅÍ¼Ïñ¡£
-* ¸ÄÕı [LUT Apply](#LUT) ½ÚµãäÖÈ¾³öÏÖÉ«½×µÄbug, ²¢Ôö¼ÓlogÉ«²Ê¿Õ¼äÖ§³Ö¡£*logÉ«²Ê¿Õ¼äÍ¼Æ¬Çë¼ÓÔØ×¨ÃÅµÄlog lut¡£
-* Ìí¼Ó [CreateGradientMask](#CreateGradientMask) ½Úµã¡£Ìí¼Ó [LayerImageTransform](#LayerImageTransform) ºÍ [LayerMaskTransform](#LayerMaskTransform) ½Úµã¡£
-* Ìí¼Ó [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) ½Úµã£¬¸ø´Ö²ÚµÄÕÚÕÖ½øĞĞ´¦Àí»ñµÃ³¬¾«Ï¸µÄ±ßÔµ¡£Ìí¼Ó [Exposure](#Exposure) ½Úµã£¬µ÷ÕûÍ¼ÏñÆØ¹â¡£
-* Ìí¼Ó [Sharp & Soft](#Sharp) ½Úµã£¬¿ÉÌáÉı»òÄ¨Æ½Í¼ÏñÏ¸½Ú¡£ĞÂÔö[MaskByDifferent](#MaskByDifferent)½Úµã£¬±È½ÏÁ½ÕÅÍ¼Æ¬²¢Êä³öMask¡£ĞÂÔö[SegmentAnythingUltra](#SegmentAnythingUltra)½Úµã£¬ÌáÉıÕÚÕÖ±ßÔµÖÊÁ¿¡£*Èç¹ûÃ»ÓĞ°²×°SegmentAnything, ĞèÒªÊÖ¶¯ÏÂÔØÄ£ĞÍ¡£
-* ËùÓĞ½ÚµãÒÑÈ«ÃæÖ§³ÖÅúÁ¿Í¼Æ¬£¬Îª´´×÷ÊÓÆµÌá¹©·½±ã¡£( CropByMask ½Úµã½öÖ§³ÖÏàÍ¬³ß´çµÄÇĞ³ı, Èç¹ûÊäÈëÅúÁ¿mask_for_crop£¬½«Ê¹ÓÃµÚÒ»ÕÅµÄÊı¾İ¡£)
-* Ìí¼Ó [RemBgUltra](#RemBgUltra) ºÍ [PixelSpread](#PixelSpread) ½Úµã£¬ÏÔÖøÌáÉıÁËÕÚÕÖÖÊÁ¿¡£*RemBgUltraĞèÊÖ¶¯ÏÂÔØÄ£ĞÍ¡£
-* Ìí¼Ó [TextImage](#TextImage) ½Úµã£¬Éú³ÉÎÄ×ÖÍ¼ÏñºÍÕÚÕÖ¡£
-* Í¼ÏñÖ®¼äµÄ[»ìºÏÄ£Ê½](#»ìºÏÄ£Ê½)Ôö¼ÓĞÂÀàĞÍ£¬ÏÖÔÚÖ§³Ö¶à´ï19ÖÖ»ìºÏÄ£Ê½¡£ĞÂÔöcolor_burnÑÕÉ«¼ÓÉî, color_dodgeÑÕÉ«¼õµ­, linear_burnÏßĞÔ¼ÓÉî, linear_dodgeÏßĞÔ¼õµ­, overlayµş¼Ó, soft_lightÈá¹â, hard_lightÇ¿¹â, vivid_lightÁÁ¹â, pin_lightµã¹â, linear_lightÏßĞÔ¹â, hard_mixÊµÉ«»ìºÏ¡£ĞÂÔöµÄ»ìºÏÄ£Ê½ÊÊÓÃÓÚËùÓĞÖ§³Ö»ìºÏÄ£Ê½µÄ½Úµã¡£
-* Ìí¼Ó [ColorMap](#ColorMap) ÂË¾µ½Úµã£¬ÓÃÓÚÖÆ×÷Î±²ÊÉ«ÈÈÁ¦Í¼Ğ§¹û¡£
-* Ìí¼Ó [WaterColor](#WaterColor) ºÍ [SkinBeauty](#SkinBeauty) ½Úµã¡£ÕâÊÇÁ½¸öÍ¼ÏñÂË¾µ£¬Éú³ÉË®²Ê»­ºÍÄ¥Æ¤Ğ§¹û¡£
-* Ìí¼Ó [ImageShift](#ImageShift) ½Úµã£¬Ê¹Í¼Æ¬²úÉúÎ»ÒÆ£¬¿ÉÊä³öÎ»ÒÆ½Ó·ìÕÚÕÖ£¬·½±ãÖÆ×÷Á¬ĞøÌùÍ¼¡£
-* Ìí¼Ó [ImageMaskScaleAs](#ImageMaskScaleAs) ½Úµã£¬¿É¸ù¾İ²Î¿¼Í¼Æ¬µ÷ÕûÍ¼Ïñ»òÕÚÕÖ´óĞ¡¡£
-* Ìí¼Ó [ImageScaleRestore](#ImageScaleRestore) ½Úµã£¬ÓÃÓÚÅäºÏCropByMask½øĞĞ¾Ö²¿·Å´óĞŞ¸´¹¤×÷¡£
-* Ìí¼Ó [CropByMask](#CropByMask) ºÍ [RestoreCropBox](#RestoreCropBox)½Úµã¡£´Ë¶şÕßÅäºÏ¿É½«Í¼Æ¬¾Ö²¿²ÃÇĞÖØ»æÈ»ºó»¹Ô­¡£
-* Ìí¼Ó [ColorAdapter](#ColorAdapter) ½Úµã£¬¿É×Ô¶¯µ÷ÕûÍ¼Æ¬É«µ÷¡£
-* Ìí¼Ó [MaskStroke](#MaskStroke) ½Úµã£¬¿É²úÉúmaskÃè±ß¡£
-* Ìí¼Ó [LayerColor](#LayerColor)½Úµã×é£¬ÓÃÓÚµ÷ÕûÍ¼ÏñÑÕÉ«¡£°üÀ¨[LUT Apply](#LUT)£¬[Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB)ºÍ[HSV](#HSV)¡£
-* Ìí¼Ó [ImageChannelSplit](#ImageChannelSplit)ºÍ[ImageChannelMerge](#ImageChannelMerge)½Úµã¡£
-* Ìí¼Ó [MaskMotionBlur](#MaskMotionBlur)½Úµã¡£
-* Ìí¼Ó [SoftLight](#SoftLight)½Úµã¡£
-* Ìí¼Ó [ChannelShake](#ChannelShake)½Úµã£¬ÕâÊÇÒ»¸öÂË¾µ£¬ÄÜ²úÉúÀàËÆ¶¶ÒôlogoµÄÍ¨µÀ´íÎ»Ğ§¹û¡£
-* Ìí¼Ó [MaskGradient](#MaskGradient)½Úµã£¬¿ÉÊ¹mask²úÉú½¥±ä¡£
-* Ìí¼Ó [GetColorTone](#GetColorTone)½Úµã£¬¿ÉÒÔ»ñÈ¡Í¼Æ¬µÄÖ÷É«»òÆ½¾ùÉ«¡£Ìí¼Ó[MaskGrow](#MaskGrow)ºÍ[MaskEdgeShrink](#MaskEdgeShrink)½Úµã¡£
+## å·¥ä½œæµç”¨ç¤ºä¾‹
+åœ¨workflowç›®å½•ä¸‹æœ‰jsonæ ¼å¼çš„å·¥ä½œæµç¤ºä¾‹æ–‡ä»¶ã€‚
 
-* Ìí¼Ó [MaskBoxDetect](#MaskBoxDetect)½Úµã£¬¿ÉÒÔÍ¨¹ımask×Ô¶¯Ì½²âÎ»ÖÃ²¢Êä³öµ½ºÏ³É½Úµã¡£Ìí¼Ó[XY to Percent](#Percent)½Úµã£¬½«¾ø¶Ô×ø±ê×ª»»Îªpercent×ø±ê¡£Ìí¼Ó[GaussianBlur](#GaussianBlur)½Úµã¡£Ìí¼Ó[GetImageSize](#GetImageSize)½Úµã¡£
-* Ìí¼Ó [ExtendCanvas](#ExtendCanvas)½Úµã¡£
-* Ìí¼Ó [ImageBlendAdvance](#ImageBlendAdvance)½Úµã¡£Õâ¸ö½ÚµãÔÊĞíºÏ³É³ß´ç²»Í¬µÄ±³¾°Í¼ºÍÍ¼²ã£¬Ìá¹©ÁË¸ü¼Ó×ÔÓÉµÄºÏ³ÉÌåÑé¡£
-  Ìí¼Ó [PrintInfo](#PrintInfo)½Úµã×÷Îª¹¤×÷Á÷µ÷ÊÔ¸¨Öú¹¤¾ß¡£
-* Ìí¼Ó [ColorImage](#ColorImage)ºÍ[GradientImage](#GradientImage)½Úµã£¬ÓÃÓÚÉú³É´¿É«ºÍ½¥±äÉ«Í¼Ïñ¡£
-* Ìí¼Ó [GradientOverlay](#GradientOverlay),[ColorOverlay](#ColorOverlay)½Úµã¡£Ôö¼ÓÎŞĞ§maskÊäÈëÅĞ¶Ï£¬µ±ÊäÈëÎŞĞ§maskÊ±½«ÆäºöÂÔ¡£
-* Ìí¼Ó [InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow), [MotionBlur](#MotionBlur)½Úµã¡£
-* ËùÓĞÒÑÍê³ÉµÄ½ÚµãÖØĞÂÃüÃû£¬½Úµã·ÖÎª4×é£ºLayerStyle, LayerMask, LayerUtility, LayerFilter¡£
-  ÒòÎªÖØĞÂÃüÃû£¬°üº¬¾É°æ½ÚµãµÄ¹¤×÷Á÷ĞèÊÖ¶¯Ìæ»»ĞÂ°æ½Úµã¡£
-* [OuterGlow](#OuterGlow)½ÚµãĞŞ¸Ä£¬Ôö¼ÓÁÁ¶È¡¢µÆ¹âÑÕÉ«¡¢»Ô¹âÑÕÉ«Ñ¡Ïî¡£
-* Ìí¼Ó [MaskInvert](#MaskInvert)½Úµã¡£
-* Ìí¼Ó [Stroke](#Stroke)½Úµã¡£
-* Ìí¼Ó [MaskPreview](#MaskPreview)½Úµã¡£
-* Ìí¼Ó [ImageOpacity](#ImageOpacity)½Úµã¡£
-* layer_maskĞŞ¸ÄÎª·Ç±ØÑ¡, Ä¬ÈÏÊ¹ÓÃlayer_imageµÄalphaÍ¨µÀ£¬ÔÊĞíÍ¨¹ıÊäÈëmask¸Ä±äÖ®£¬µ«ÊÇ³ß´ç±ØĞëÒ»ÖÂ¡£
-* Ìí¼Ó [ImageBlend](#ImageBlend)½Úµã¡£
-* Ìí¼Ó [OuterGlow](#OuterGlow)½Úµã¡£
-* Ê×¸ö½Úµã [DropShadow](#DropShadow)Ìá½»¡£
+
+## å®‰è£…æ–¹æ³•
+
+* æ¨èä½¿ç”¨ ComfyUI Manager å®‰è£…ã€‚
+* æˆ–è€…åœ¨CompyUIæ’ä»¶ç›®å½•(ä¾‹å¦‚â€œCompyUI\custom_nodes\â€)ä¸­æ‰“å¼€cmdçª—å£ï¼Œé”®å…¥    
+```
+git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
+```
+     
+* æˆ–è€…ä¸‹è½½è§£å‹zipæ–‡ä»¶ï¼Œå°†å¾—åˆ°çš„æ–‡ä»¶å¤¹å¤åˆ¶åˆ° ```ComfyUI\custom_nodes\```ã€‚   
+
+* å®‰è£…ä¾èµ–åŒ…ï¼Œåœ¨èµ„æºç®¡ç†å™¨```ComfyUI\custom_nodes\ComfyUI_LayerStyle``` æ’ä»¶ç›®å½•ä½ç½®æ‰“å¼€cmdçª—å£ï¼Œè¾“å…¥ä»¥ä¸‹å‘½ä»¤ï¼š     
+```
+..\..\..\python_embeded\python.exe -m pip install -r requirements.txt
+```
+
+
+  é‡æ–°æ‰“å¼€ComfyUIã€‚
+
+## å¦‚ä½•æ‰¾åˆ°æœ¬èŠ‚ç‚¹ç»„
+* åœ¨ComfyUIç”»å¸ƒç‚¹å‡»å³é”® - Add Node, æ‰¾åˆ° "ğŸ˜ºdzNodes"ã€‚    
+![image](image/node-menu.png)
+
+* æˆ–è€…åœ¨ComfyUIç”»å¸ƒåŒå‡», åœ¨æœç´¢æ¡†è¾“å…¥"layer"ã€‚
+![image](image/node-search.png)
+
+
+## æ›´æ–°è¯´æ˜
+<font size="4">**å¦‚æœæœ¬æ’ä»¶æ›´æ–°åå‡ºç°ä¾èµ–åŒ…é”™è¯¯ï¼Œè¯·é‡æ–°å®‰è£…ç›¸å…³ä¾èµ–åŒ…ã€‚è¯¦æƒ…è§[è¿™é‡Œ](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)ã€‚  </font><br /> 
+
+* æ·»åŠ  [Lama](#Lama) èŠ‚ç‚¹ï¼Œæ ¹æ®å›¾åƒé®ç½©æ“¦é™¤ç‰©ä½“ã€‚æœ¬èŠ‚ç‚¹æ˜¯å¯¹[IOPaint](https://www.iopaint.com)çš„å°è£…ã€‚
+* æ·»åŠ  [ImageRemoveAlpha](#ImageRemoveAlpha) å’Œ [ImageCombineAlpha](#ImageCombineAlpha) èŠ‚ç‚¹ï¼Œå¯ç§»é™¤æˆ–åˆå¹¶å›¾ç‰‡çš„alphaé€šé“ã€‚
+* æ·»åŠ  [ImageScaleRestoreV2](#ImageScaleRestoreV2) å’Œ [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) èŠ‚ç‚¹ã€‚æ”¯æŒæŒ‰æŒ‡å®šçš„é•¿è¾¹æˆ–çŸ­è¾¹å°ºå¯¸ç¼©æ”¾å›¾åƒã€‚
+* æ·»åŠ  [PersonMaskUltra](#PersonMaskUltra) èŠ‚ç‚¹ï¼Œä¸ºäººç‰©ç”Ÿæˆè„¸ã€å¤´å‘ã€èº«ä½“çš®è‚¤ã€è¡£æœæˆ–é…é¥°çš„é®ç½©ã€‚æœ¬èŠ‚ç‚¹çš„æ¨¡å‹ä»£ç æ¥è‡ª[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)ã€‚
+* æ·»åŠ  [LightLeak](#LightLeak) èŠ‚ç‚¹ï¼Œè¿™ä¸ªæ»¤é•œæ¨¡æ‹Ÿèƒ¶ç‰‡æ¼å…‰æ•ˆæœã€‚ 
+* æ·»åŠ  [Film](#Film) èŠ‚ç‚¹, è¿™ä¸ªæ»¤é•œæ¨¡æ‹Ÿèƒ¶ç‰‡çš„é¢—ç²’ã€æš—è¾¹å’Œè¾¹ç¼˜æ¨¡ç³Šï¼Œæ”¯æŒè¾“å…¥æ·±åº¦å›¾æ¨¡æ‹Ÿè™šç„¦ï¼Œæ˜¯[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)çš„é‡æ–°å°è£…ã€‚
+* æ·»åŠ  [ImageAutoCrop](#ImageAutoCrop) èŠ‚ç‚¹, è¿™ä¸ªèŠ‚ç‚¹æ˜¯ä¸ºç”Ÿæˆè®­ç»ƒæ¨¡å‹çš„å›¾ç‰‡ç´ æè€Œè®¾è®¡çš„ã€‚
+* æ·»åŠ  [ImageScaleByAspectRatio](#ImageScaleByAspectRatio) èŠ‚ç‚¹ï¼Œ å¯æŒ‰ç”»å¹…æ¯”ä¾‹ç¼©æ”¾å›¾åƒã€‚
+* æ”¹æ­£ [LUT Apply](#LUT) èŠ‚ç‚¹æ¸²æŸ“å‡ºç°è‰²é˜¶çš„bug, å¹¶å¢åŠ logè‰²å½©ç©ºé—´æ”¯æŒã€‚*logè‰²å½©ç©ºé—´å›¾ç‰‡è¯·åŠ è½½ä¸“é—¨çš„log lutã€‚
+* æ·»åŠ  [CreateGradientMask](#CreateGradientMask) èŠ‚ç‚¹ã€‚æ·»åŠ  [LayerImageTransform](#LayerImageTransform) å’Œ [LayerMaskTransform](#LayerMaskTransform) èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [MaskEdgeUltraDetail](#MaskEdgeUltraDetail) èŠ‚ç‚¹ï¼Œç»™ç²—ç³™çš„é®ç½©è¿›è¡Œå¤„ç†è·å¾—è¶…ç²¾ç»†çš„è¾¹ç¼˜ã€‚æ·»åŠ  [Exposure](#Exposure) èŠ‚ç‚¹ï¼Œè°ƒæ•´å›¾åƒæ›å…‰ã€‚
+* æ·»åŠ  [Sharp & Soft](#Sharp) èŠ‚ç‚¹ï¼Œå¯æå‡æˆ–æŠ¹å¹³å›¾åƒç»†èŠ‚ã€‚æ–°å¢[MaskByDifferent](#MaskByDifferent)èŠ‚ç‚¹ï¼Œæ¯”è¾ƒä¸¤å¼ å›¾ç‰‡å¹¶è¾“å‡ºMaskã€‚æ–°å¢[SegmentAnythingUltra](#SegmentAnythingUltra)èŠ‚ç‚¹ï¼Œæå‡é®ç½©è¾¹ç¼˜è´¨é‡ã€‚*å¦‚æœæ²¡æœ‰å®‰è£…SegmentAnything, éœ€è¦æ‰‹åŠ¨ä¸‹è½½æ¨¡å‹ã€‚
+* æ‰€æœ‰èŠ‚ç‚¹å·²å…¨é¢æ”¯æŒæ‰¹é‡å›¾ç‰‡ï¼Œä¸ºåˆ›ä½œè§†é¢‘æä¾›æ–¹ä¾¿ã€‚( CropByMask èŠ‚ç‚¹ä»…æ”¯æŒç›¸åŒå°ºå¯¸çš„åˆ‡é™¤, å¦‚æœè¾“å…¥æ‰¹é‡mask_for_cropï¼Œå°†ä½¿ç”¨ç¬¬ä¸€å¼ çš„æ•°æ®ã€‚)
+* æ·»åŠ  [RemBgUltra](#RemBgUltra) å’Œ [PixelSpread](#PixelSpread) èŠ‚ç‚¹ï¼Œæ˜¾è‘—æå‡äº†é®ç½©è´¨é‡ã€‚*RemBgUltraéœ€æ‰‹åŠ¨ä¸‹è½½æ¨¡å‹ã€‚
+* æ·»åŠ  [TextImage](#TextImage) èŠ‚ç‚¹ï¼Œç”Ÿæˆæ–‡å­—å›¾åƒå’Œé®ç½©ã€‚
+* å›¾åƒä¹‹é—´çš„[æ··åˆæ¨¡å¼](#æ··åˆæ¨¡å¼)å¢åŠ æ–°ç±»å‹ï¼Œç°åœ¨æ”¯æŒå¤šè¾¾19ç§æ··åˆæ¨¡å¼ã€‚æ–°å¢color_burné¢œè‰²åŠ æ·±, color_dodgeé¢œè‰²å‡æ·¡, linear_burnçº¿æ€§åŠ æ·±, linear_dodgeçº¿æ€§å‡æ·¡, overlayå åŠ , soft_lightæŸ”å…‰, hard_lightå¼ºå…‰, vivid_lightäº®å…‰, pin_lightç‚¹å…‰, linear_lightçº¿æ€§å…‰, hard_mixå®è‰²æ··åˆã€‚æ–°å¢çš„æ··åˆæ¨¡å¼é€‚ç”¨äºæ‰€æœ‰æ”¯æŒæ··åˆæ¨¡å¼çš„èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [ColorMap](#ColorMap) æ»¤é•œèŠ‚ç‚¹ï¼Œç”¨äºåˆ¶ä½œä¼ªå½©è‰²çƒ­åŠ›å›¾æ•ˆæœã€‚
+* æ·»åŠ  [WaterColor](#WaterColor) å’Œ [SkinBeauty](#SkinBeauty) èŠ‚ç‚¹ã€‚è¿™æ˜¯ä¸¤ä¸ªå›¾åƒæ»¤é•œï¼Œç”Ÿæˆæ°´å½©ç”»å’Œç£¨çš®æ•ˆæœã€‚
+* æ·»åŠ  [ImageShift](#ImageShift) èŠ‚ç‚¹ï¼Œä½¿å›¾ç‰‡äº§ç”Ÿä½ç§»ï¼Œå¯è¾“å‡ºä½ç§»æ¥ç¼é®ç½©ï¼Œæ–¹ä¾¿åˆ¶ä½œè¿ç»­è´´å›¾ã€‚
+* æ·»åŠ  [ImageMaskScaleAs](#ImageMaskScaleAs) èŠ‚ç‚¹ï¼Œå¯æ ¹æ®å‚è€ƒå›¾ç‰‡è°ƒæ•´å›¾åƒæˆ–é®ç½©å¤§å°ã€‚
+* æ·»åŠ  [ImageScaleRestore](#ImageScaleRestore) èŠ‚ç‚¹ï¼Œç”¨äºé…åˆCropByMaskè¿›è¡Œå±€éƒ¨æ”¾å¤§ä¿®å¤å·¥ä½œã€‚
+* æ·»åŠ  [CropByMask](#CropByMask) å’Œ [RestoreCropBox](#RestoreCropBox)èŠ‚ç‚¹ã€‚æ­¤äºŒè€…é…åˆå¯å°†å›¾ç‰‡å±€éƒ¨è£åˆ‡é‡ç»˜ç„¶åè¿˜åŸã€‚
+* æ·»åŠ  [ColorAdapter](#ColorAdapter) èŠ‚ç‚¹ï¼Œå¯è‡ªåŠ¨è°ƒæ•´å›¾ç‰‡è‰²è°ƒã€‚
+* æ·»åŠ  [MaskStroke](#MaskStroke) èŠ‚ç‚¹ï¼Œå¯äº§ç”Ÿmaskæè¾¹ã€‚
+* æ·»åŠ  [LayerColor](#LayerColor)èŠ‚ç‚¹ç»„ï¼Œç”¨äºè°ƒæ•´å›¾åƒé¢œè‰²ã€‚åŒ…æ‹¬[LUT Apply](#LUT)ï¼Œ[Gamma](#Gamma), [Brightness & Contrast](#Brightness), [RGB](#RGB), [YUV](#YUV), [LAB](#LAB)å’Œ[HSV](#HSV)ã€‚
+* æ·»åŠ  [ImageChannelSplit](#ImageChannelSplit)å’Œ[ImageChannelMerge](#ImageChannelMerge)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [MaskMotionBlur](#MaskMotionBlur)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [SoftLight](#SoftLight)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [ChannelShake](#ChannelShake)èŠ‚ç‚¹ï¼Œè¿™æ˜¯ä¸€ä¸ªæ»¤é•œï¼Œèƒ½äº§ç”Ÿç±»ä¼¼æŠ–éŸ³logoçš„é€šé“é”™ä½æ•ˆæœã€‚
+* æ·»åŠ  [MaskGradient](#MaskGradient)èŠ‚ç‚¹ï¼Œå¯ä½¿maskäº§ç”Ÿæ¸å˜ã€‚
+* æ·»åŠ  [GetColorTone](#GetColorTone)èŠ‚ç‚¹ï¼Œå¯ä»¥è·å–å›¾ç‰‡çš„ä¸»è‰²æˆ–å¹³å‡è‰²ã€‚æ·»åŠ [MaskGrow](#MaskGrow)å’Œ[MaskEdgeShrink](#MaskEdgeShrink)èŠ‚ç‚¹ã€‚
+
+* æ·»åŠ  [MaskBoxDetect](#MaskBoxDetect)èŠ‚ç‚¹ï¼Œå¯ä»¥é€šè¿‡maskè‡ªåŠ¨æ¢æµ‹ä½ç½®å¹¶è¾“å‡ºåˆ°åˆæˆèŠ‚ç‚¹ã€‚æ·»åŠ [XY to Percent](#Percent)èŠ‚ç‚¹ï¼Œå°†ç»å¯¹åæ ‡è½¬æ¢ä¸ºpercentåæ ‡ã€‚æ·»åŠ [GaussianBlur](#GaussianBlur)èŠ‚ç‚¹ã€‚æ·»åŠ [GetImageSize](#GetImageSize)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [ExtendCanvas](#ExtendCanvas)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [ImageBlendAdvance](#ImageBlendAdvance)èŠ‚ç‚¹ã€‚è¿™ä¸ªèŠ‚ç‚¹å…è®¸åˆæˆå°ºå¯¸ä¸åŒçš„èƒŒæ™¯å›¾å’Œå›¾å±‚ï¼Œæä¾›äº†æ›´åŠ è‡ªç”±çš„åˆæˆä½“éªŒã€‚
+  æ·»åŠ  [PrintInfo](#PrintInfo)èŠ‚ç‚¹ä½œä¸ºå·¥ä½œæµè°ƒè¯•è¾…åŠ©å·¥å…·ã€‚
+* æ·»åŠ  [ColorImage](#ColorImage)å’Œ[GradientImage](#GradientImage)èŠ‚ç‚¹ï¼Œç”¨äºç”Ÿæˆçº¯è‰²å’Œæ¸å˜è‰²å›¾åƒã€‚
+* æ·»åŠ  [GradientOverlay](#GradientOverlay),[ColorOverlay](#ColorOverlay)èŠ‚ç‚¹ã€‚å¢åŠ æ— æ•ˆmaskè¾“å…¥åˆ¤æ–­ï¼Œå½“è¾“å…¥æ— æ•ˆmaskæ—¶å°†å…¶å¿½ç•¥ã€‚
+* æ·»åŠ  [InnerGlow](#InnerGlow), [InnerShadow](#InnerShadow), [MotionBlur](#MotionBlur)èŠ‚ç‚¹ã€‚
+* æ‰€æœ‰å·²å®Œæˆçš„èŠ‚ç‚¹é‡æ–°å‘½åï¼ŒèŠ‚ç‚¹åˆ†ä¸º4ç»„ï¼šLayerStyle, LayerMask, LayerUtility, LayerFilterã€‚
+  å› ä¸ºé‡æ–°å‘½åï¼ŒåŒ…å«æ—§ç‰ˆèŠ‚ç‚¹çš„å·¥ä½œæµéœ€æ‰‹åŠ¨æ›¿æ¢æ–°ç‰ˆèŠ‚ç‚¹ã€‚
+* [OuterGlow](#OuterGlow)èŠ‚ç‚¹ä¿®æ”¹ï¼Œå¢åŠ äº®åº¦ã€ç¯å…‰é¢œè‰²ã€è¾‰å…‰é¢œè‰²é€‰é¡¹ã€‚
+* æ·»åŠ  [MaskInvert](#MaskInvert)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [Stroke](#Stroke)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [MaskPreview](#MaskPreview)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [ImageOpacity](#ImageOpacity)èŠ‚ç‚¹ã€‚
+* layer_maskä¿®æ”¹ä¸ºéå¿…é€‰, é»˜è®¤ä½¿ç”¨layer_imageçš„alphaé€šé“ï¼Œå…è®¸é€šè¿‡è¾“å…¥maskæ”¹å˜ä¹‹ï¼Œä½†æ˜¯å°ºå¯¸å¿…é¡»ä¸€è‡´ã€‚
+* æ·»åŠ  [ImageBlend](#ImageBlend)èŠ‚ç‚¹ã€‚
+* æ·»åŠ  [OuterGlow](#OuterGlow)èŠ‚ç‚¹ã€‚
+* é¦–ä¸ªèŠ‚ç‚¹ [DropShadow](#DropShadow)æäº¤ã€‚
+
+## èŠ‚ç‚¹è¯´æ˜
+èŠ‚ç‚¹æŒ‰ç…§åŠŸèƒ½åˆ†ä¸º5ç»„ï¼šLayerStyle, LayerColor, LayerMask, LayerUtilityå’ŒLayerFilterã€‚
+* [LayerStyle](#LayerStyle)èŠ‚ç‚¹ç»„æä¾›ä»¿ç…§Adobe Photoshopçš„å›¾å±‚æ ·å¼ã€‚
+![image](image/menu_layer_style.png)
+* [LayerColor](#LayerColor)èŠ‚ç‚¹ç»„æä¾›è°ƒæ•´é¢œè‰²åŠŸèƒ½ã€‚
+![image](image/menu_layer_color.png)
+* [LayerMask](#LayerMask)èŠ‚ç‚¹ç»„æä¾›Maskè¾…åŠ©å·¥å…·ã€‚
+![image](image/menu_layer_mask.png)
+* [LayerUtility](#LayerUtility)èŠ‚ç‚¹ç»„æä¾›å›¾å±‚åˆæˆå·¥å…·å’Œå·¥ä½œæµç›¸å…³çš„è¾…åŠ©èŠ‚ç‚¹ã€‚
+![image](image/menu_layer_utility.png)
+* [LayerFilter](#LayerFilter)èŠ‚ç‚¹ç»„æä¾›å›¾åƒæ•ˆæœæ»¤é•œã€‚
+![image](image/menu_layer_filter.png)
 
 
 # <a id="table1">LayerStyle</a>
@@ -70,602 +109,616 @@
 
 
 ### <a id="table1">DropShadow</a>
-Éú³ÉÒõÓ°¡£
+ç”Ÿæˆé˜´å½±ã€‚
 ![image](image/drop_shadow_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/drop_shadow_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1,2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ£¬ÒõÓ°°´´ËÉú³É¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: ÒõÓ°µÄ»ìºÏÄ£Ê½¡£
-* opacity: ÒõÓ°µÄ²»Í¸Ã÷¶È¡£
-* distance_x: ÒõÓ°µÄË®Æ½·½ÏòÆ«ÒÆÁ¿¡£
-* distance_y: ÒõÓ°µÄ´¹Ö±·½ÏòÆ«ÒÆÁ¿¡£
-* grow: ÒõÓ°À©ÕÅ·ù¶È¡£
-* blur:ÒõÓ°Ä£ºı³Ì¶È¡£
-* shadow_color<sup>4</sup>: ÒõÓ°ÑÕÉ«¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1,2</sup>: å±‚å›¾åƒçš„é®ç½©ï¼Œé˜´å½±æŒ‰æ­¤ç”Ÿæˆã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: é˜´å½±çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: é˜´å½±çš„ä¸é€æ˜åº¦ã€‚
+* distance_x: é˜´å½±çš„æ°´å¹³æ–¹å‘åç§»é‡ã€‚
+* distance_y: é˜´å½±çš„å‚ç›´æ–¹å‘åç§»é‡ã€‚
+* grow: é˜´å½±æ‰©å¼ å¹…åº¦ã€‚
+* blur:é˜´å½±æ¨¡ç³Šç¨‹åº¦ã€‚
+* shadow_color<sup>4</sup>: é˜´å½±é¢œè‰²ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 
 ### <a id="table1">OuterGlow</a>
-Éú³ÉÍâ·¢¹â¡£
+ç”Ÿæˆå¤–å‘å…‰ã€‚
 ![image](image/outer_glow_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/outer_glow_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1,2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ£¬Íâ·¢¹â°´´ËÉú³É¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: ·¢¹âµÄ»ìºÏÄ£Ê½¡£
-* opacity: ·¢¹âµÄ²»Í¸Ã÷¶È¡£
-* brightness: ·¢¹âÁÁ¶È¡£
-* glow_range: ·¢¹â·¶Î§¡£
-* blur:·¢¹âÄ£ºı³Ì¶È¡£
-* light_color<sup>4</sup>: ·¢¹âÖĞĞÄÑÕÉ«¡£
-* glow_colo<sup>4</sup>: »Ô¹âÍâÎ§ÑÕÉ«¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1,2</sup>: å±‚å›¾åƒçš„é®ç½©ï¼Œå¤–å‘å…‰æŒ‰æ­¤ç”Ÿæˆã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: å‘å…‰çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: å‘å…‰çš„ä¸é€æ˜åº¦ã€‚
+* brightness: å‘å…‰äº®åº¦ã€‚
+* glow_range: å‘å…‰èŒƒå›´ã€‚
+* blur:å‘å…‰æ¨¡ç³Šç¨‹åº¦ã€‚
+* light_color<sup>4</sup>: å‘å…‰ä¸­å¿ƒé¢œè‰²ã€‚
+* glow_colo<sup>4</sup>: è¾‰å…‰å¤–å›´é¢œè‰²ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 
 ### <a id="table1">InnerShadow</a>
-Éú³ÉÄÚÒõÓ°¡£
+ç”Ÿæˆå†…é˜´å½±ã€‚
 ![image](image/inner_shadow_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/inner_shadow_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1,2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ£¬ÒõÓ°°´´ËÉú³É¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: ÒõÓ°µÄ»ìºÏÄ£Ê½¡£
-* opacity: ÒõÓ°µÄ²»Í¸Ã÷¶È¡£
-* distance_x: ÒõÓ°µÄË®Æ½·½ÏòÆ«ÒÆÁ¿¡£
-* distance_y: ÒõÓ°µÄ´¹Ö±·½ÏòÆ«ÒÆÁ¿¡£
-* grow: ÒõÓ°À©ÕÅ·ù¶È¡£
-* blur:ÒõÓ°Ä£ºı³Ì¶È¡£
-* shadow_color<sup>4</sup>: ÒõÓ°ÑÕÉ«¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1,2</sup>: å±‚å›¾åƒçš„é®ç½©ï¼Œé˜´å½±æŒ‰æ­¤ç”Ÿæˆã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: é˜´å½±çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: é˜´å½±çš„ä¸é€æ˜åº¦ã€‚
+* distance_x: é˜´å½±çš„æ°´å¹³æ–¹å‘åç§»é‡ã€‚
+* distance_y: é˜´å½±çš„å‚ç›´æ–¹å‘åç§»é‡ã€‚
+* grow: é˜´å½±æ‰©å¼ å¹…åº¦ã€‚
+* blur:é˜´å½±æ¨¡ç³Šç¨‹åº¦ã€‚
+* shadow_color<sup>4</sup>: é˜´å½±é¢œè‰²ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 
 ### <a id="table1">InnerGlow</a>
-Éú³ÉÄÚ·¢¹â¡£
+ç”Ÿæˆå†…å‘å…‰ã€‚
 ![image](image/inner_glow_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/inner_glow_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1,2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ£¬·¢¹â°´´ËÉú³É¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: ·¢¹âµÄ»ìºÏÄ£Ê½¡£
-* opacity: ·¢¹âµÄ²»Í¸Ã÷¶È¡£
-* brightness: ·¢¹âÁÁ¶È¡£
-* glow_range: ·¢¹â·¶Î§¡£
-* blur:·¢¹âÄ£ºı³Ì¶È¡£
-* light_color<sup>4</sup>: ·¢¹âÖĞĞÄÑÕÉ«¡£
-* glow_colo<sup>4</sup>: »Ô¹âÍâÎ§ÑÕÉ«¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1,2</sup>: å±‚å›¾åƒçš„é®ç½©ï¼Œå‘å…‰æŒ‰æ­¤ç”Ÿæˆã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: å‘å…‰çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: å‘å…‰çš„ä¸é€æ˜åº¦ã€‚
+* brightness: å‘å…‰äº®åº¦ã€‚
+* glow_range: å‘å…‰èŒƒå›´ã€‚
+* blur:å‘å…‰æ¨¡ç³Šç¨‹åº¦ã€‚
+* light_color<sup>4</sup>: å‘å…‰ä¸­å¿ƒé¢œè‰²ã€‚
+* glow_colo<sup>4</sup>: è¾‰å…‰å¤–å›´é¢œè‰²ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 
 ### <a id="table1">Stroke</a>
-Éú³ÉÃè±ß¡£
+ç”Ÿæˆæè¾¹ã€‚
 ![image](image/stroke_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/stroke_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1£¬2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ£¬Ãè±ß°´´ËÉú³É¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: Ãè±ßµÄ»ìºÏÄ£Ê½¡£
-* opacity: ²»Í¸Ã÷¶È¡£
-* stroke_grow: Ãè±ßÀ©ÕÅ/ÊÕËõ·ù¶È£¬ÕıÖµÊÇÀ©ÕÅ£¬¸ºÖµÊÇÊÕËõ¡£
-* stroke_width: Ãè±ß¿í¶È¡£
-* blur: Ãè±ßÄ£ºı¡£
-* stroke_color<sup>4</sup>: Ãè±ßÑÕÉ«¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1ï¼Œ2</sup>: å±‚å›¾åƒçš„é®ç½©ï¼Œæè¾¹æŒ‰æ­¤ç”Ÿæˆã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: æè¾¹çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: ä¸é€æ˜åº¦ã€‚
+* stroke_grow: æè¾¹æ‰©å¼ /æ”¶ç¼©å¹…åº¦ï¼Œæ­£å€¼æ˜¯æ‰©å¼ ï¼Œè´Ÿå€¼æ˜¯æ”¶ç¼©ã€‚
+* stroke_width: æè¾¹å®½åº¦ã€‚
+* blur: æè¾¹æ¨¡ç³Šã€‚
+* stroke_color<sup>4</sup>: æè¾¹é¢œè‰²ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 
 ### <a id="table1">GradientOverlay</a>
-½¥±ä¸²¸Ç
+æ¸å˜è¦†ç›–
 ![image](image/gradient_overlay_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/gradient_overlay_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1£¬2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: Ãè±ßµÄ»ìºÏÄ£Ê½¡£
-* opacity: ²»Í¸Ã÷¶È¡£
-* start_color: ½¥±ä¿ªÊ¼¶ËµÄÑÕÉ«¡£
-* start_alpha: ½¥±ä¿ªÊ¼¶ËµÄÍ¸Ã÷¶È¡£
-* end_color: ½¥±ä½áÊø¶ËµÄÑÕÉ«¡£
-* end_alpha: ½¥±ä½áÊø¶ËµÄÍ¸Ã÷¶È¡£
-* angle: ½¥±äĞı×ª½Ç¶È¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1ï¼Œ2</sup>: å±‚å›¾åƒçš„é®ç½©ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: æè¾¹çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: ä¸é€æ˜åº¦ã€‚
+* start_color: æ¸å˜å¼€å§‹ç«¯çš„é¢œè‰²ã€‚
+* start_alpha: æ¸å˜å¼€å§‹ç«¯çš„é€æ˜åº¦ã€‚
+* end_color: æ¸å˜ç»“æŸç«¯çš„é¢œè‰²ã€‚
+* end_alpha: æ¸å˜ç»“æŸç«¯çš„é€æ˜åº¦ã€‚
+* angle: æ¸å˜æ—‹è½¬è§’åº¦ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 
 ### <a id="table1">ColorOverlay</a>
-ÑÕÉ«¸²¸Ç
+é¢œè‰²è¦†ç›–
 ![image](image/color_overlay_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/color_overlay_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1£¬2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: Ãè±ßµÄ»ìºÏÄ£Ê½¡£
-* opacity: ²»Í¸Ã÷¶È¡£
-* color: ¸²¸ÇµÄÑÕÉ«¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1ï¼Œ2</sup>: å±‚å›¾åƒçš„é®ç½©ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: æè¾¹çš„æ··åˆæ¨¡å¼ã€‚
+* opacity: ä¸é€æ˜åº¦ã€‚
+* color: è¦†ç›–çš„é¢œè‰²ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 # <a id="table1">LayerColor</a>
 ![image](image/layercolor_title.png)
 ![image](image/layercolor_nodes.png)
 
 ### <a id="table1">LUT</a> Apply
-½«LUTÓ¦ÓÃµ½Í¼Ïñ¡£½öÖ§³Ö.cube¸ñÊ½µÄLUTÎÄ¼ş¡£
+å°†LUTåº”ç”¨åˆ°å›¾åƒã€‚ä»…æ”¯æŒ.cubeæ ¼å¼çš„LUTæ–‡ä»¶ã€‚
 ![image](image/lut_apply_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/lut_apply_node.png)
-* LUT<sup>*</sup>: ÕâÀïÁĞ³öÁËLUTÎÄ¼ş¼ĞÖĞ¿ÉÓÃµÄ.cubeÎÄ¼şÁĞ±í£¬Ñ¡ÖĞµÄLUTÎÄ¼ş½«±»Ó¦ÓÃµ½Í¼Ïñ¡£
-* color_space: ÆÕÍ¨Í¼Æ¬ÇëÑ¡Ôñlinear, logÉ«²Ê¿Õ¼äµÄÍ¼Æ¬ÇëÑ¡Ôñlog¡£
+* LUT<sup>*</sup>: è¿™é‡Œåˆ—å‡ºäº†LUTæ–‡ä»¶å¤¹ä¸­å¯ç”¨çš„.cubeæ–‡ä»¶åˆ—è¡¨ï¼Œé€‰ä¸­çš„LUTæ–‡ä»¶å°†è¢«åº”ç”¨åˆ°å›¾åƒã€‚
+* color_space: æ™®é€šå›¾ç‰‡è¯·é€‰æ‹©linear, logè‰²å½©ç©ºé—´çš„å›¾ç‰‡è¯·é€‰æ‹©logã€‚
 
-<sup>*</sup>LUTÎÄ¼ş¼ĞÔÚresource_dir.iniÖĞ¶¨Òå£¬Õâ¸öÎÄ¼şÎ»ÓÚ²å¼ş¸ùÄ¿Â¼ÏÂ¡£ÓÃÎÄ±¾±à¼­Èí¼ş´ò¿ª£¬ÕÒµ½¡°LUT_dir=¡±¿ªÍ·µÄÕâÒ»ĞĞ£¬±à¼­¡°=¡±Ö®ºóÎª×Ô¶¨ÒåÎÄ¼ş¼ĞÂ·¾¶Ãû¡£Õâ¸öÎÄ¼ş¼ĞÀïÃæËùÓĞµÄ.cubeÎÄ¼ş½«ÔÚComfyUI³õÊ¼»¯Ê±±»ÊÕ¼¯²¢ÏÔÊ¾ÔÚ½ÚµãµÄÁĞ±íÖĞ¡£Èç¹ûiniÖĞÉè¶¨µÄÎÄ¼ş¼ĞÎŞĞ§£¬½«ÆôÓÃ²å¼ş×Ô´øµÄLUTÎÄ¼ş¼Ğ¡£
+<sup>*</sup>LUTæ–‡ä»¶å¤¹åœ¨resource_dir.iniä¸­å®šä¹‰ï¼Œè¿™ä¸ªæ–‡ä»¶ä½äºæ’ä»¶æ ¹ç›®å½•ä¸‹ã€‚ç”¨æ–‡æœ¬ç¼–è¾‘è½¯ä»¶æ‰“å¼€ï¼Œæ‰¾åˆ°â€œLUT_dir=â€å¼€å¤´çš„è¿™ä¸€è¡Œï¼Œç¼–è¾‘â€œ=â€ä¹‹åä¸ºè‡ªå®šä¹‰æ–‡ä»¶å¤¹è·¯å¾„åã€‚è¿™ä¸ªæ–‡ä»¶å¤¹é‡Œé¢æ‰€æœ‰çš„.cubeæ–‡ä»¶å°†åœ¨ComfyUIåˆå§‹åŒ–æ—¶è¢«æ”¶é›†å¹¶æ˜¾ç¤ºåœ¨èŠ‚ç‚¹çš„åˆ—è¡¨ä¸­ã€‚å¦‚æœiniä¸­è®¾å®šçš„æ–‡ä»¶å¤¹æ— æ•ˆï¼Œå°†å¯ç”¨æ’ä»¶è‡ªå¸¦çš„LUTæ–‡ä»¶å¤¹ã€‚
 
 ### <a id="table1">ColorAdapter</a>
-×Ô¶¯µ÷ÕûÍ¼Æ¬É«µ÷£¬Ê¹Ö®Óë²Î¿¼Í¼Æ¬ÏàËÆ¡£
+è‡ªåŠ¨è°ƒæ•´å›¾ç‰‡è‰²è°ƒï¼Œä½¿ä¹‹ä¸å‚è€ƒå›¾ç‰‡ç›¸ä¼¼ã€‚
 ![image](image/color_adapter_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/color_adapter_node.png)
-* opacity: Í¼Ïñµ÷ÕûÉ«µ÷Ö®ºóµÄ²»Í¸Ã÷¶È¡£
+* opacity: å›¾åƒè°ƒæ•´è‰²è°ƒä¹‹åçš„ä¸é€æ˜åº¦ã€‚
 
 ### <a id="table1">Exposure</a>
-¸Ä±äÍ¼ÏñµÄÆØ¹â¡£
+æ”¹å˜å›¾åƒçš„æ›å…‰ã€‚
 ![image](image/exposure_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
-* exposure: ÆØ¹âÖµ¡£¸ü¸ßµÄÊıÖµ±íÊ¾¸üÁÁµÄÆØ¹â¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
+* exposure: æ›å…‰å€¼ã€‚æ›´é«˜çš„æ•°å€¼è¡¨ç¤ºæ›´äº®çš„æ›å…‰ã€‚
 
 ### <a id="table1">Gamma</a>
-¸Ä±äÍ¼ÏñµÄGammaÖµ¡£
+æ”¹å˜å›¾åƒçš„Gammaå€¼ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/gamma_node.png)
-* gamma: Í¼ÏñµÄGammaÖµ¡£
+* gamma: å›¾åƒçš„Gammaå€¼ã€‚
 
 ### <a id="table1">Brightness</a> & Contrast
-¸Ä±äÍ¼ÏñµÄÁÁ¶È¡¢¶Ô±È¶ÈºÍ±¥ºÍ¶È¡£
+æ”¹å˜å›¾åƒçš„äº®åº¦ã€å¯¹æ¯”åº¦å’Œé¥±å’Œåº¦ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/brightness_&_contrast_node.png)
-* brightness: Í¼ÏñµÄÁÁ¶È¡£
-* contrast: Í¼ÏñµÄ¶Ô±È¶È¡£
-* saturation: Í¼ÏñµÄÉ«²Ê±¥ºÍ¶È¡£
+* brightness: å›¾åƒçš„äº®åº¦ã€‚
+* contrast: å›¾åƒçš„å¯¹æ¯”åº¦ã€‚
+* saturation: å›¾åƒçš„è‰²å½©é¥±å’Œåº¦ã€‚
 
 ### <a id="table1">RGB</a>
-¶ÔÍ¼ÏñµÄRGB¸÷Í¨µÀ½øĞĞµ÷Õû¡£
+å¯¹å›¾åƒçš„RGBå„é€šé“è¿›è¡Œè°ƒæ•´ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/RGB_node.png)
-* R: Í¼ÏñµÄRÍ¨µÀ¡£
-* G: Í¼ÏñµÄGÍ¨µÀ¡£
-* B: Í¼ÏñµÄBÍ¨µÀ¡£
+* R: å›¾åƒçš„Ré€šé“ã€‚
+* G: å›¾åƒçš„Gé€šé“ã€‚
+* B: å›¾åƒçš„Bé€šé“ã€‚
 
 ### <a id="table1">YUV</a>
-¶ÔÍ¼ÏñµÄYUV¸÷Í¨µÀ½øĞĞµ÷Õû¡£
+å¯¹å›¾åƒçš„YUVå„é€šé“è¿›è¡Œè°ƒæ•´ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/YUV_node.png)
-* Y: Í¼ÏñµÄYÍ¨µÀ¡£
-* U: Í¼ÏñµÄUÍ¨µÀ¡£
-* V: Í¼ÏñµÄVÍ¨µÀ¡£
+* Y: å›¾åƒçš„Yé€šé“ã€‚
+* U: å›¾åƒçš„Ué€šé“ã€‚
+* V: å›¾åƒçš„Vé€šé“ã€‚
 
 ### <a id="table1">LAB</a>
-¶ÔÍ¼ÏñµÄLAB¸÷Í¨µÀ½øĞĞµ÷Õû¡£
+å¯¹å›¾åƒçš„LABå„é€šé“è¿›è¡Œè°ƒæ•´ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/LAB_node.png)
-* L: Í¼ÏñµÄLÍ¨µÀ¡£
-* A: Í¼ÏñµÄAÍ¨µÀ¡£
-* B: Í¼ÏñµÄBÍ¨µÀ¡£
+* L: å›¾åƒçš„Lé€šé“ã€‚
+* A: å›¾åƒçš„Aé€šé“ã€‚
+* B: å›¾åƒçš„Bé€šé“ã€‚
 
 ### <a id="table1">HSV</a>
-¶ÔÍ¼ÏñµÄHSV¸÷Í¨µÀ½øĞĞµ÷Õû¡£
+å¯¹å›¾åƒçš„HSVå„é€šé“è¿›è¡Œè°ƒæ•´ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/HSV_node.png)
-* H: Í¼ÏñµÄHÍ¨µÀ¡£
-* S: Í¼ÏñµÄSÍ¨µÀ¡£
-* V: Í¼ÏñµÄVÍ¨µÀ¡£
+* H: å›¾åƒçš„Hé€šé“ã€‚
+* S: å›¾åƒçš„Sé€šé“ã€‚
+* V: å›¾åƒçš„Vé€šé“ã€‚
 
 # <a id="table1">LayerUtility</a>
 ![image](image/layerutility_nodes.png)
 
 
 ### <a id="table1">ImageBlendAdvance</a>
-ÓÃÓÚºÏ³ÉÍ¼²ã£¬ÔÊĞíÔÚ±³¾°Í¼Æ¬ÉÏºÏ³ÉÓëÖ®²»Í¬³ß´çµÄÍ¼²ãÍ¼Æ¬£¬²¢ÇÒÉèÖÃÎ»ÖÃºÍ±ä»»¡£Ìá¹©¶àÖÖ»ìºÏÄ£Ê½¹©Ñ¡Ôñ£¬¿ÉÉèÖÃÍ¸Ã÷¶È¡£
+ç”¨äºåˆæˆå›¾å±‚ï¼Œå…è®¸åœ¨èƒŒæ™¯å›¾ç‰‡ä¸Šåˆæˆä¸ä¹‹ä¸åŒå°ºå¯¸çš„å›¾å±‚å›¾ç‰‡ï¼Œå¹¶ä¸”è®¾ç½®ä½ç½®å’Œå˜æ¢ã€‚æä¾›å¤šç§æ··åˆæ¨¡å¼ä¾›é€‰æ‹©ï¼Œå¯è®¾ç½®é€æ˜åº¦ã€‚
 
-½ÚµãÌá¹©ÁËÍ¼²ã±ä»»·½·¨ºÍ¿¹¾â³İÑ¡Ïî¡£ÓĞÖúÓÚÌá¸ßºÏ³É»­ÖÊ¡£
+èŠ‚ç‚¹æä¾›äº†å›¾å±‚å˜æ¢æ–¹æ³•å’ŒæŠ—é”¯é½¿é€‰é¡¹ã€‚æœ‰åŠ©äºæé«˜åˆæˆç”»è´¨ã€‚
 
-½ÚµãÌá¹©ÁËmaskÊä³ö¿ÉÓÃÓÚºóĞø¹¤×÷Á÷¡£
+èŠ‚ç‚¹æä¾›äº†maskè¾“å‡ºå¯ç”¨äºåç»­å·¥ä½œæµã€‚
 ![image](image/image_blend_advance_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_blend_advance_node.png)
-* background_image: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>5</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>2,5</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: Í¼²ã»ìºÏÄ£Ê½¡£
-* opacity: ²»Í¸Ã÷¶È¡£
-* x_percent: Í¼²ãÔÚ±³¾°Í¼ÉÏµÄË®Æ½Î»ÖÃ£¬ÓÃ°Ù·Ö±È±íÊ¾£¬×î×ó²àÊÇ0£¬×îÓÒ²àÊÇ100£¬¿ÉÒÔÊÇĞ¡ÓÚ0»òÕß³¬¹ı100£¬ÄÇ±íÊ¾Í¼²ãÓĞ²¿·ÖÄÚÈİÔÚ»­ÃæÖ®Íâ¡£
-* y_percent: Í¼²ãÔÚ±³¾°Í¼ÉÏµÄ´¹Ö±Î»ÖÃ£¬ÓÃ°Ù·Ö±È±íÊ¾£¬×îÉÏ²àÊÇ0£¬×îÏÂ²àÊÇ100¡£ÀıÈçÉèÖÃÎª50±íÊ¾´¹Ö±¾ÓÖĞ£¬20ÊÇÆ«ÉÏ£¬80ÔòÊÇÆ«ÏÂ¡£
-* mirror: ¾µÏñ·­×ª¡£Ìá¹©2ÖÖ·­×ªÄ£Ê½, Ë®Æ½·­×ªºÍ´¹Ö±·­×ª¡£
-* scale: Í¼²ã·Å´ó±¶Êı£¬1.0 ±íÊ¾Ô­´ó¡£
-* aspect_ratio: Í¼²ã³¤¿í±È¡£1.0 ÊÇÔ­Ê¼±ÈÀı£¬´óÓÚ´ËÖµ±íÊ¾À­³¤£¬Ğ¡ÓÚ´ËÖµ±íÊ¾Ñ¹±â¡£
-* rotate: Í¼²ãĞı×ª¶ÈÊı¡£
-* transform_method: ÓÃÓÚÍ¼²ã·Å´óºÍĞı×ªµÄ²ÉÑù·½·¨£¬°üÀ¨lanczos¡¢bicubic¡¢hamming¡¢bilinear¡¢boxºÍnearest¡£²»Í¬µÄ²ÉÑù·½·¨»áÓ°ÏìºÏ³ÉµÄ»­ÖÊºÍ»­Ãæ´¦ÀíÊ±¼ä¡£
-* anti_aliasing: ¿¹¾â³İ£¬·¶Î§´Ó0-16£¬ÊıÖµÔ½´ó£¬¾â³İÔ½²»Ã÷ÏÔ¡£¹ı¸ßµÄÊıÖµ½«ÏÔÖø½µµÍ½ÚµãµÄ´¦ÀíËÙ¶È¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>5</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>2,5</sup>: å±‚å›¾åƒçš„é®ç½©ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: å›¾å±‚æ··åˆæ¨¡å¼ã€‚
+* opacity: ä¸é€æ˜åº¦ã€‚
+* x_percent: å›¾å±‚åœ¨èƒŒæ™¯å›¾ä¸Šçš„æ°´å¹³ä½ç½®ï¼Œç”¨ç™¾åˆ†æ¯”è¡¨ç¤ºï¼Œæœ€å·¦ä¾§æ˜¯0ï¼Œæœ€å³ä¾§æ˜¯100ï¼Œå¯ä»¥æ˜¯å°äº0æˆ–è€…è¶…è¿‡100ï¼Œé‚£è¡¨ç¤ºå›¾å±‚æœ‰éƒ¨åˆ†å†…å®¹åœ¨ç”»é¢ä¹‹å¤–ã€‚
+* y_percent: å›¾å±‚åœ¨èƒŒæ™¯å›¾ä¸Šçš„å‚ç›´ä½ç½®ï¼Œç”¨ç™¾åˆ†æ¯”è¡¨ç¤ºï¼Œæœ€ä¸Šä¾§æ˜¯0ï¼Œæœ€ä¸‹ä¾§æ˜¯100ã€‚ä¾‹å¦‚è®¾ç½®ä¸º50è¡¨ç¤ºå‚ç›´å±…ä¸­ï¼Œ20æ˜¯åä¸Šï¼Œ80åˆ™æ˜¯åä¸‹ã€‚
+* mirror: é•œåƒç¿»è½¬ã€‚æä¾›2ç§ç¿»è½¬æ¨¡å¼, æ°´å¹³ç¿»è½¬å’Œå‚ç›´ç¿»è½¬ã€‚
+* scale: å›¾å±‚æ”¾å¤§å€æ•°ï¼Œ1.0 è¡¨ç¤ºåŸå¤§ã€‚
+* aspect_ratio: å›¾å±‚é•¿å®½æ¯”ã€‚1.0 æ˜¯åŸå§‹æ¯”ä¾‹ï¼Œå¤§äºæ­¤å€¼è¡¨ç¤ºæ‹‰é•¿ï¼Œå°äºæ­¤å€¼è¡¨ç¤ºå‹æ‰ã€‚
+* rotate: å›¾å±‚æ—‹è½¬åº¦æ•°ã€‚
+* transform_method: ç”¨äºå›¾å±‚æ”¾å¤§å’Œæ—‹è½¬çš„é‡‡æ ·æ–¹æ³•ï¼ŒåŒ…æ‹¬lanczosã€bicubicã€hammingã€bilinearã€boxå’Œnearestã€‚ä¸åŒçš„é‡‡æ ·æ–¹æ³•ä¼šå½±å“åˆæˆçš„ç”»è´¨å’Œç”»é¢å¤„ç†æ—¶é—´ã€‚
+* anti_aliasing: æŠ—é”¯é½¿ï¼ŒèŒƒå›´ä»0-16ï¼Œæ•°å€¼è¶Šå¤§ï¼Œé”¯é½¿è¶Šä¸æ˜æ˜¾ã€‚è¿‡é«˜çš„æ•°å€¼å°†æ˜¾è‘—é™ä½èŠ‚ç‚¹çš„å¤„ç†é€Ÿåº¦ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 ### <a id="table1">CropByMask</a>
-½«Í¼Æ¬°´ÕÕmask·¶Î§²ÃÇĞ£¬¿ÉÉèÖÃËÄÖÜ±ß¿ò±£Áô´óĞ¡¡£Õâ¸ö½ÚµãÓë[RestoreCropBox](#RestoreCropBox)ºÍ[ImageScaleRestore](#ImageScaleRestore)ÅäºÏÊ¹ÓÃ£¬¿ÉÒÔ¶ÔÍ¼Æ¬µÄ¾Ö²¿½øĞĞ²ÃÇĞ£¬·Å´óĞŞ¸ÄºóÌù»ØÔ­´¦¡£
+å°†å›¾ç‰‡æŒ‰ç…§maskèŒƒå›´è£åˆ‡ï¼Œå¯è®¾ç½®å››å‘¨è¾¹æ¡†ä¿ç•™å¤§å°ã€‚è¿™ä¸ªèŠ‚ç‚¹ä¸[RestoreCropBox](#RestoreCropBox)å’Œ[ImageScaleRestore](#ImageScaleRestore)é…åˆä½¿ç”¨ï¼Œå¯ä»¥å¯¹å›¾ç‰‡çš„å±€éƒ¨è¿›è¡Œè£åˆ‡ï¼Œæ”¾å¤§ä¿®æ”¹åè´´å›åŸå¤„ã€‚
 ![image](image/corp_by_mask_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/corp_by_mask_node.png)
-* image<sup>5</sup>: ÊäÈëµÄÍ¼Ïñ¡£
-* mask_for_crop<sup>5</sup>: imageµÄÕÚÕÖ£¬½«×Ô¶¯°´ÕÕÕÚÕÖ·¶Î§½øĞĞ²ÃÇĞ¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* detect: Ì½²â·½·¨£¬min_bounding_rectÊÇ×îĞ¡Íâ½Ó¾ØĞÎ, max_inscribed_rectÊÇ×î´óÄÚ½Ó¾ØĞÎ¡£
-* top_reserve: ²ÃÇĞ¶¥¶Ë±£Áô´óĞ¡¡£
-* bottom_reserve: ²ÃÇĞµ×²¿±£Áô´óĞ¡¡£
-* left_reserve: ²ÃÇĞ×ó²à±£Áô´óĞ¡¡£
-* right_reserve: ²ÃÇĞÓÒ²à±£Áô´óĞ¡¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* image<sup>5</sup>: è¾“å…¥çš„å›¾åƒã€‚
+* mask_for_crop<sup>5</sup>: imageçš„é®ç½©ï¼Œå°†è‡ªåŠ¨æŒ‰ç…§é®ç½©èŒƒå›´è¿›è¡Œè£åˆ‡ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* detect: æ¢æµ‹æ–¹æ³•ï¼Œmin_bounding_rectæ˜¯æœ€å°å¤–æ¥çŸ©å½¢, max_inscribed_rectæ˜¯æœ€å¤§å†…æ¥çŸ©å½¢ã€‚
+* top_reserve: è£åˆ‡é¡¶ç«¯ä¿ç•™å¤§å°ã€‚
+* bottom_reserve: è£åˆ‡åº•éƒ¨ä¿ç•™å¤§å°ã€‚
+* left_reserve: è£åˆ‡å·¦ä¾§ä¿ç•™å¤§å°ã€‚
+* right_reserve: è£åˆ‡å³ä¾§ä¿ç•™å¤§å°ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
-Êä³ö:
-* croped_image: ²ÃÇĞºóµÄÍ¼Æ¬¡£
-* croped_mask: ²ÃÇĞºóµÄÕÚÕÖ¡£
-* crop_box: ²ÃÇĞboxÊı¾İ£¬ÔÚRestoreCropBox½Úµã»Ö¸´Ê±Ê¹ÓÃ¡£
-* box_preview: ²ÃÇĞÎ»ÖÃÔ¤ÀÀÍ¼£¬ºìÉ«ÊÇÌ½²âµ½µÄ·¶Î§£¬ÂÌÉ«ÊÇ¼ÓÉÏ±£Áô±ß¿òºó²ÃÇĞµÄ·¶Î§¡£
+è¾“å‡º:
+* croped_image: è£åˆ‡åçš„å›¾ç‰‡ã€‚
+* croped_mask: è£åˆ‡åçš„é®ç½©ã€‚
+* crop_box: è£åˆ‡boxæ•°æ®ï¼Œåœ¨RestoreCropBoxèŠ‚ç‚¹æ¢å¤æ—¶ä½¿ç”¨ã€‚
+* box_preview: è£åˆ‡ä½ç½®é¢„è§ˆå›¾ï¼Œçº¢è‰²æ˜¯æ¢æµ‹åˆ°çš„èŒƒå›´ï¼Œç»¿è‰²æ˜¯åŠ ä¸Šä¿ç•™è¾¹æ¡†åè£åˆ‡çš„èŒƒå›´ã€‚
 
 ### <a id="table1">RestoreCropBox</a>
-½«±»[CropByMask](#CropByMask)²ÃÇĞºóµÄÍ¼Æ¬»Ö¸´µ½Ô­Í¼¡£
+å°†è¢«[CropByMask](#CropByMask)è£åˆ‡åçš„å›¾ç‰‡æ¢å¤åˆ°åŸå›¾ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/restore_crop_box_node.png)
-* background_image: ²ÃÇĞÇ°µÄÔ­Í¼¡£
-* croped_image<sup>5</sup>: ²ÃÇĞºóµÄÍ¼Æ¬¡£Èç¹ûÖĞ¼ä¾­¹ı·Å´ó´¦Àí£¬»Ö¸´Ç°Ğè½«³ß´ç»¹Ô­¡£
-* croped_mask<sup>2,5</sup>: ²ÃÇĞºóµÄÕÚÕÖ¡£
-* crop_box: ²ÃÇĞÊ±µÄboxÊı¾İ¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image: è£åˆ‡å‰çš„åŸå›¾ã€‚
+* croped_image<sup>5</sup>: è£åˆ‡åçš„å›¾ç‰‡ã€‚å¦‚æœä¸­é—´ç»è¿‡æ”¾å¤§å¤„ç†ï¼Œæ¢å¤å‰éœ€å°†å°ºå¯¸è¿˜åŸã€‚
+* croped_mask<sup>2,5</sup>: è£åˆ‡åçš„é®ç½©ã€‚
+* crop_box: è£åˆ‡æ—¶çš„boxæ•°æ®ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 ### <a id="table1">ImageScaleRestore</a>
-Í¼ÏñËõ·Å¡£´Ë½Úµã³É¶ÔÊ¹ÓÃÊ±£¬ÔÚµÚ¶ş¸ö½Úµã¿É×Ô¶¯»¹Ô­Í¼Ïñµ½Ô­Ê¼´óĞ¡¡£
+å›¾åƒç¼©æ”¾ã€‚æ­¤èŠ‚ç‚¹æˆå¯¹ä½¿ç”¨æ—¶ï¼Œåœ¨ç¬¬äºŒä¸ªèŠ‚ç‚¹å¯è‡ªåŠ¨è¿˜åŸå›¾åƒåˆ°åŸå§‹å¤§å°ã€‚
 ![image](image/image_scale_restore_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_scale_restore_node.png)
-* image<sup>5</sup>: ÊäÈëµÄÍ¼Ïñ¡£
-* mask<sup>2,5</sup>: Í¼ÏñµÄÕÚÕÖ¡£
-* original_size: ¿ÉÑ¡ÊäÈë£¬ÓÃÓÚ»Ö¸´Í¼Æ¬µ½Ô­Ê¼´óĞ¡¡£
-* scale: Ëõ·Å±ÈÀı¡£µ±ÓĞoriginal_sizeÊäÈë£¬»òÕßscale_by_longest_sideÉèÖÃÎªTrueÊ±£¬´ËÏîÉèÖÃ½«±»ºöÂÔ¡£
-* scale_by_longest_side: ÔÊĞí°´³¤±ß³ß´çËõ·Å¡£
-* longest_side: scale_by_longest_side±»ÉèÖÃÎªTrueÊ±£¬´ËÏî½«×÷ÎªÊÇÍ¼Ïñ³¤±ßµÄ³¤¶È¡£µ±ÓĞoriginal_sizeÊäÈëÊ±£¬´ËÏîÉèÖÃ½«±»ºöÂÔ¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* image<sup>5</sup>: è¾“å…¥çš„å›¾åƒã€‚
+* mask<sup>2,5</sup>: å›¾åƒçš„é®ç½©ã€‚
+* original_size: å¯é€‰è¾“å…¥ï¼Œç”¨äºæ¢å¤å›¾ç‰‡åˆ°åŸå§‹å¤§å°ã€‚
+* scale: ç¼©æ”¾æ¯”ä¾‹ã€‚å½“æœ‰original_sizeè¾“å…¥ï¼Œæˆ–è€…scale_by_longest_sideè®¾ç½®ä¸ºTrueæ—¶ï¼Œæ­¤é¡¹è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* scale_by_longest_side: å…è®¸æŒ‰é•¿è¾¹å°ºå¯¸ç¼©æ”¾ã€‚
+* longest_side: scale_by_longest_sideè¢«è®¾ç½®ä¸ºTrueæ—¶ï¼Œæ­¤é¡¹å°†ä½œä¸ºæ˜¯å›¾åƒé•¿è¾¹çš„é•¿åº¦ã€‚å½“æœ‰original_sizeè¾“å…¥æ—¶ï¼Œæ­¤é¡¹è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
-Êä³ö:
-* image: Ëõ·ÅºóµÄÍ¼Ïñ¡£
-* mask: Èç¹ûÓĞmaskÊäÈë£¬½«Êä³öËõ·ÅºóµÄmask¡£
-* original_size: Í¼ÏñµÄÔ­Ê¼´óĞ¡Êı¾İ£¬ÓÃÓÚºóĞø½Úµã½øĞĞ»Ö¸´¡£
+è¾“å‡º:
+* image: ç¼©æ”¾åçš„å›¾åƒã€‚
+* mask: å¦‚æœæœ‰maskè¾“å…¥ï¼Œå°†è¾“å‡ºç¼©æ”¾åçš„maskã€‚
+* original_size: å›¾åƒçš„åŸå§‹å¤§å°æ•°æ®ï¼Œç”¨äºåç»­èŠ‚ç‚¹è¿›è¡Œæ¢å¤ã€‚
 
 ### <a id="table1">ImageScaleRestoreV2</a>
-ImageScaleRestoreµÄV2Éı¼¶°æ¡£
+ImageScaleRestoreçš„V2å‡çº§ç‰ˆã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_scale_restore_v2_node.png)
-ÔÚImageScaleRestore»ù´¡ÉÏ×öÁËÈçÏÂ¸Ä±ä:
-* scale_by: ÔÊĞí°´³¤±ß»ò¶Ì±ßÖ¸¶¨³ß´çËõ·Å¡£
-* scale_by_length: scale_by±»ÉèÖÃÎª"longest"Ê±£¬´ËÏî½«×÷ÎªÊÇÍ¼Ïñ³¤±ßµÄ³¤¶È; ÉèÖÃÎª"shortest"Ê±£¬×÷Îª¶Ì±ßµÄ³¤¶È¡£
+åœ¨ImageScaleRestoreåŸºç¡€ä¸Šåšäº†å¦‚ä¸‹æ”¹å˜:
+* scale_by: å…è®¸æŒ‰é•¿è¾¹æˆ–çŸ­è¾¹æŒ‡å®šå°ºå¯¸ç¼©æ”¾ã€‚
+* scale_by_length: scale_byè¢«è®¾ç½®ä¸º"longest"æ—¶ï¼Œæ­¤é¡¹å°†ä½œä¸ºæ˜¯å›¾åƒé•¿è¾¹çš„é•¿åº¦; è®¾ç½®ä¸º"shortest"æ—¶ï¼Œä½œä¸ºçŸ­è¾¹çš„é•¿åº¦ã€‚
 
 
 ### <a id="table1">ImageMaskScaleAs</a>
-½«Í¼Ïñ»òÕÚÕÖËõ·Åµ½²Î¿¼Í¼Ïñ£¨»òÕÚÕÖ£©µÄ´óĞ¡¡£
+å°†å›¾åƒæˆ–é®ç½©ç¼©æ”¾åˆ°å‚è€ƒå›¾åƒï¼ˆæˆ–é®ç½©ï¼‰çš„å¤§å°ã€‚
 ![image](image/image_mask_scale_as_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_mask_scale_as_node.png)
-* scale_as<sup>*</sup>: ²Î¿¼´óĞ¡¡£¿ÉÒÔÊÇÍ¼Ïñimage£¬Ò²¿ÉÒÔÊÇÕÚÕÖmask¡£
-* image: ´ıËõ·ÅµÄÍ¼Ïñ¡£´ËÑ¡ÏîÎª¿ÉÑ¡ÊäÈë£¬Èç¹ûÃ»ÓĞÊäÈë½«Êä³ö´¿ºÚÍ¼Æ¬¡£
-* mask: ´ıËõ·ÅµÄÕÚÕÖ¡£´ËÑ¡ÏîÎª¿ÉÑ¡ÊäÈë£¬Èç¹ûÃ»ÓĞÊäÈë½«Êä³ö´¿ºÚÕÚÕÖ¡£
-* fit: Ëõ·Å»­·ù¿í¸ß±ÈÄ£Ê½¡£µ±Ô­Í¼ÓëËõ·Å³ß´ç»­·ù¿í¸ß±ÈÀı²»Ò»ÖÂÊ±£¬ÓĞ3ÖÖÄ£Ê½¿ÉÒÔÑ¡Ôñ, letterboxÄ£Ê½±£ÁôÍêÕûµÄ»­·ù£¬¿Õ°×´¦ÓÃºÚÉ«²¹×ã£»cropÄ£Ê½±£ÁôÍêÕûµÄ¶Ì±ß£¬³¤±ß³¬³ö²¿·Ö½«±»ÇĞ³ı£»fillÄ£Ê½²»±£³Ö»­·ù±ÈÀı£¬¿í¸ß¸÷×ÔÌîÂú»­Ãæ¡£
-* method: Ëõ·ÅµÄ²ÉÑù·½·¨£¬°üÀ¨lanczos¡¢bicubic¡¢hamming¡¢bilinear¡¢boxºÍnearest¡£
+* scale_as<sup>*</sup>: å‚è€ƒå¤§å°ã€‚å¯ä»¥æ˜¯å›¾åƒimageï¼Œä¹Ÿå¯ä»¥æ˜¯é®ç½©maskã€‚
+* image: å¾…ç¼©æ”¾çš„å›¾åƒã€‚æ­¤é€‰é¡¹ä¸ºå¯é€‰è¾“å…¥ï¼Œå¦‚æœæ²¡æœ‰è¾“å…¥å°†è¾“å‡ºçº¯é»‘å›¾ç‰‡ã€‚
+* mask: å¾…ç¼©æ”¾çš„é®ç½©ã€‚æ­¤é€‰é¡¹ä¸ºå¯é€‰è¾“å…¥ï¼Œå¦‚æœæ²¡æœ‰è¾“å…¥å°†è¾“å‡ºçº¯é»‘é®ç½©ã€‚
+* fit: ç¼©æ”¾ç”»å¹…å®½é«˜æ¯”æ¨¡å¼ã€‚å½“åŸå›¾ä¸ç¼©æ”¾å°ºå¯¸ç”»å¹…å®½é«˜æ¯”ä¾‹ä¸ä¸€è‡´æ—¶ï¼Œæœ‰3ç§æ¨¡å¼å¯ä»¥é€‰æ‹©, letterboxæ¨¡å¼ä¿ç•™å®Œæ•´çš„ç”»å¹…ï¼Œç©ºç™½å¤„ç”¨é»‘è‰²è¡¥è¶³ï¼›cropæ¨¡å¼ä¿ç•™å®Œæ•´çš„çŸ­è¾¹ï¼Œé•¿è¾¹è¶…å‡ºéƒ¨åˆ†å°†è¢«åˆ‡é™¤ï¼›fillæ¨¡å¼ä¸ä¿æŒç”»å¹…æ¯”ä¾‹ï¼Œå®½é«˜å„è‡ªå¡«æ»¡ç”»é¢ã€‚
+* method: ç¼©æ”¾çš„é‡‡æ ·æ–¹æ³•ï¼ŒåŒ…æ‹¬lanczosã€bicubicã€hammingã€bilinearã€boxå’Œnearestã€‚
 
-<sup>*</sup>½öÏŞÊäÈëimageºÍmask, Èç¹ûÇ¿ÖÆ½ÓÈëÆäËûÀàĞÍÊäÈë£¬½«µ¼ÖÂ½Úµã´íÎó¡£
+<sup>*</sup>ä»…é™è¾“å…¥imageå’Œmask, å¦‚æœå¼ºåˆ¶æ¥å…¥å…¶ä»–ç±»å‹è¾“å…¥ï¼Œå°†å¯¼è‡´èŠ‚ç‚¹é”™è¯¯ã€‚
 
-Êä³ö:
-* image: Èç¹ûÓĞimageÊäÈë£¬½«Êä³öËõ·ÅºóµÄÍ¼Ïñ¡£
-* mask: Èç¹ûÓĞmaskÊäÈë£¬½«Êä³öËõ·ÅºóµÄÕÚÕÖ¡£
-* original_size: Í¼ÏñµÄÔ­Ê¼´óĞ¡Êı¾İ£¬ÓÃÓÚºóĞø½Úµã½øĞĞ»Ö¸´¡£
+è¾“å‡º:
+* image: å¦‚æœæœ‰imageè¾“å…¥ï¼Œå°†è¾“å‡ºç¼©æ”¾åçš„å›¾åƒã€‚
+* mask: å¦‚æœæœ‰maskè¾“å…¥ï¼Œå°†è¾“å‡ºç¼©æ”¾åçš„é®ç½©ã€‚
+* original_size: å›¾åƒçš„åŸå§‹å¤§å°æ•°æ®ï¼Œç”¨äºåç»­èŠ‚ç‚¹è¿›è¡Œæ¢å¤ã€‚
 
 
 ### <a id="table1">ImageScaleByAspectRatio</a>
-½«Í¼Ïñ»òÕÚÕÖ°´¿í¸ß±ÈËõ·Å¡£¿ÉÉèÖÃ½«Ëõ·ÅºóµÄ³ß´ç°´8»òÕß16µÄ±¶ÊıÈ¡Õû£¬¿É°´³¤±ß³ß´çËõ·Å¡£
+å°†å›¾åƒæˆ–é®ç½©æŒ‰å®½é«˜æ¯”ç¼©æ”¾ã€‚å¯è®¾ç½®å°†ç¼©æ”¾åçš„å°ºå¯¸æŒ‰8æˆ–è€…16çš„å€æ•°å–æ•´ï¼Œå¯æŒ‰é•¿è¾¹å°ºå¯¸ç¼©æ”¾ã€‚
 ![image](image/image_scale_by_aspect_ratio_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_scale_by_aspect_ratio_node.png)
-* aspect_ratio: ¿í¸ß±È¡£´Ë´¦Ìá¹©ÁË¼¸¸ö³£¼û»­·ù±ÈÀı¡£Ò²¿ÉÑ¡"original"±£³ÖÔ­Í¼±ÈÀı»òÕß"custom"×Ô¶¨Òå±ÈÀı¡£
-* proportional_width: ±ÈÀı¿í¡£Èç¹ûaspect_ratioÑ¡Ïî²»ÊÇ"custom"£¬´Ë´¦ÉèÖÃ½«±»ºöÂÔ¡£
-* proportional_height: ±ÈÀı¸ß¡£Èç¹ûaspect_ratioÑ¡Ïî²»ÊÇ"custom"£¬´Ë´¦ÉèÖÃ½«±»ºöÂÔ¡£
-* fit: Ëõ·Å»­·ù¿í¸ß±ÈÄ£Ê½¡£ÓĞ3ÖÖÄ£Ê½¿ÉÒÔÑ¡Ôñ, letterboxÄ£Ê½±£ÁôÍêÕûµÄ»­·ù£¬¿Õ°×´¦ÓÃºÚÉ«²¹×ã£»cropÄ£Ê½±£ÁôÍêÕûµÄ¶Ì±ß£¬³¤±ß³¬³ö²¿·Ö½«±»ÇĞ³ı£»fillÄ£Ê½²»±£³Ö»­·ù±ÈÀı£¬¿í¸ß¸÷×ÔÌîÂú»­Ãæ¡£
-* method: Ëõ·ÅµÄ²ÉÑù·½·¨£¬°üÀ¨lanczos¡¢bicubic¡¢hamming¡¢bilinear¡¢boxºÍnearest¡£
-* round_to_multiple: ±¶ÊıÈ¡Õû¡£ÀıÈçÉèÖÃÎª8£¬¿íºÍ¸ß½«Ç¿ÖÆÉèÖÃÎª8µÄ±¶Êı¡£
-* scale_by_longest_side: ÔÊĞí°´³¤±ß³ß´çËõ·Å¡£
-* longest_side: scale_by_longest_side±»ÉèÖÃÎªTrueÊ±£¬´ËÏî½«×÷ÎªÊÇÍ¼Ïñ³¤±ßµÄ³¤¶È¡£
+* aspect_ratio: å®½é«˜æ¯”ã€‚æ­¤å¤„æä¾›äº†å‡ ä¸ªå¸¸è§ç”»å¹…æ¯”ä¾‹ã€‚ä¹Ÿå¯é€‰"original"ä¿æŒåŸå›¾æ¯”ä¾‹æˆ–è€…"custom"è‡ªå®šä¹‰æ¯”ä¾‹ã€‚
+* proportional_width: æ¯”ä¾‹å®½ã€‚å¦‚æœaspect_ratioé€‰é¡¹ä¸æ˜¯"custom"ï¼Œæ­¤å¤„è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* proportional_height: æ¯”ä¾‹é«˜ã€‚å¦‚æœaspect_ratioé€‰é¡¹ä¸æ˜¯"custom"ï¼Œæ­¤å¤„è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* fit: ç¼©æ”¾ç”»å¹…å®½é«˜æ¯”æ¨¡å¼ã€‚æœ‰3ç§æ¨¡å¼å¯ä»¥é€‰æ‹©, letterboxæ¨¡å¼ä¿ç•™å®Œæ•´çš„ç”»å¹…ï¼Œç©ºç™½å¤„ç”¨é»‘è‰²è¡¥è¶³ï¼›cropæ¨¡å¼ä¿ç•™å®Œæ•´çš„çŸ­è¾¹ï¼Œé•¿è¾¹è¶…å‡ºéƒ¨åˆ†å°†è¢«åˆ‡é™¤ï¼›fillæ¨¡å¼ä¸ä¿æŒç”»å¹…æ¯”ä¾‹ï¼Œå®½é«˜å„è‡ªå¡«æ»¡ç”»é¢ã€‚
+* method: ç¼©æ”¾çš„é‡‡æ ·æ–¹æ³•ï¼ŒåŒ…æ‹¬lanczosã€bicubicã€hammingã€bilinearã€boxå’Œnearestã€‚
+* round_to_multiple: å€æ•°å–æ•´ã€‚ä¾‹å¦‚è®¾ç½®ä¸º8ï¼Œå®½å’Œé«˜å°†å¼ºåˆ¶è®¾ç½®ä¸º8çš„å€æ•°ã€‚
+* scale_by_longest_side: å…è®¸æŒ‰é•¿è¾¹å°ºå¯¸ç¼©æ”¾ã€‚
+* longest_side: scale_by_longest_sideè¢«è®¾ç½®ä¸ºTrueæ—¶ï¼Œæ­¤é¡¹å°†ä½œä¸ºæ˜¯å›¾åƒé•¿è¾¹çš„é•¿åº¦ã€‚
 
 
-Êä³ö:
-* image: Èç¹ûÓĞimageÊäÈë£¬½«Êä³öËõ·ÅºóµÄÍ¼Ïñ¡£
-* mask: Èç¹ûÓĞmaskÊäÈë£¬½«Êä³öËõ·ÅºóµÄÕÚÕÖ¡£
-* original_size: Í¼ÏñµÄÔ­Ê¼´óĞ¡Êı¾İ£¬ÓÃÓÚºóĞø½Úµã½øĞĞ»Ö¸´¡£
+è¾“å‡º:
+* image: å¦‚æœæœ‰imageè¾“å…¥ï¼Œå°†è¾“å‡ºç¼©æ”¾åçš„å›¾åƒã€‚
+* mask: å¦‚æœæœ‰maskè¾“å…¥ï¼Œå°†è¾“å‡ºç¼©æ”¾åçš„é®ç½©ã€‚
+* original_size: å›¾åƒçš„åŸå§‹å¤§å°æ•°æ®ï¼Œç”¨äºåç»­èŠ‚ç‚¹è¿›è¡Œæ¢å¤ã€‚
 
 ### <a id="table1">ImageScaleByAspectRatioV2</a>
-ImageScaleByAspectRatioµÄV2Éı¼¶°æ
+ImageScaleByAspectRatioçš„V2å‡çº§ç‰ˆ
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_scale_by_aspect_ratio_v2_node.png)
-ÔÚImageScaleByAspectRatio»ù´¡ÉÏ×öÁËÈçÏÂ¸Ä±ä:
-* scale_to_side: ÔÊĞí°´³¤±ß»ò¶Ì±ßÖ¸¶¨³ß´çËõ·Å¡£
-* scale_to_length: scale_by_side±»ÉèÖÃÎª"longest"Ê±£¬´ËÏî½«×÷ÎªÊÇÍ¼Ïñ³¤±ßµÄ³¤¶È; ÉèÖÃÎª"shortest"Ê±£¬×÷Îª¶Ì±ßµÄ³¤¶È¡£
+åœ¨ImageScaleByAspectRatioåŸºç¡€ä¸Šåšäº†å¦‚ä¸‹æ”¹å˜:
+* scale_to_side: å…è®¸æŒ‰é•¿è¾¹æˆ–çŸ­è¾¹æŒ‡å®šå°ºå¯¸ç¼©æ”¾ã€‚
+* scale_to_length: scale_by_sideè¢«è®¾ç½®ä¸º"longest"æ—¶ï¼Œæ­¤é¡¹å°†ä½œä¸ºæ˜¯å›¾åƒé•¿è¾¹çš„é•¿åº¦; è®¾ç½®ä¸º"shortest"æ—¶ï¼Œä½œä¸ºçŸ­è¾¹çš„é•¿åº¦ã€‚
 
 ### <a id="table1">ImageShift</a>
-Ê¹Í¼Æ¬²úÉúÎ»ÒÆ¡£´Ë½ÚµãÖ§³ÖÎ»ÒÆ½Ó·ìÕÚÕÖµÄÊä³ö£¬·½±ãÖÆ×÷Á¬ĞøÌùÍ¼¡£
+ä½¿å›¾ç‰‡äº§ç”Ÿä½ç§»ã€‚æ­¤èŠ‚ç‚¹æ”¯æŒä½ç§»æ¥ç¼é®ç½©çš„è¾“å‡ºï¼Œæ–¹ä¾¿åˆ¶ä½œè¿ç»­è´´å›¾ã€‚
 ![image](image/image_shift_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_shift_node.png)
-* image<sup>5</sup>: ÊäÈëµÄÍ¼Ïñ¡£
-* mask<sup>2,5</sup>: Í¼ÏñµÄÕÚÕÖ¡£
-* shift_x: Î»ÒÆµÄºáÏò¾àÀë¡£
-* shift_y: Î»ÒÆµÄ×İÏò¾àÀë¡£
-* cyclic: Î»ÒÆ³ö½çµÄ²¿·ÖÊÇ·ñÑ­»·¡£
-* background_color: ±³¾°ÑÕÉ«¡£Èç¹ûcyclicÉèÖÃÎªFalse,½«Ê¹ÓÃÕâÀïµÄÉèÖÃ×÷Îª±³¾°ÑÕÉ«¡£
-* border_mask_width: ½Ó·ìÕÚÕÖ¿í¶È¡£
-* border_mask_blur: ½Ó·ìÕÚÕÖÄ£ºı¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* image<sup>5</sup>: è¾“å…¥çš„å›¾åƒã€‚
+* mask<sup>2,5</sup>: å›¾åƒçš„é®ç½©ã€‚
+* shift_x: ä½ç§»çš„æ¨ªå‘è·ç¦»ã€‚
+* shift_y: ä½ç§»çš„çºµå‘è·ç¦»ã€‚
+* cyclic: ä½ç§»å‡ºç•Œçš„éƒ¨åˆ†æ˜¯å¦å¾ªç¯ã€‚
+* background_color: èƒŒæ™¯é¢œè‰²ã€‚å¦‚æœcyclicè®¾ç½®ä¸ºFalse,å°†ä½¿ç”¨è¿™é‡Œçš„è®¾ç½®ä½œä¸ºèƒŒæ™¯é¢œè‰²ã€‚
+* border_mask_width: æ¥ç¼é®ç½©å®½åº¦ã€‚
+* border_mask_blur: æ¥ç¼é®ç½©æ¨¡ç³Šã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 ### <a id="table1">ImageBlend</a>
-Ò»¸öÓÃÓÚºÏ³ÉÍ¼²ãµÄ¼òµ¥½Úµã£¬Ìá¹©¶àÖÖ»ìºÏÄ£Ê½¹©Ñ¡Ôñ£¬¿ÉÉèÖÃÍ¸Ã÷¶È¡£
+ä¸€ä¸ªç”¨äºåˆæˆå›¾å±‚çš„ç®€å•èŠ‚ç‚¹ï¼Œæä¾›å¤šç§æ··åˆæ¨¡å¼ä¾›é€‰æ‹©ï¼Œå¯è®¾ç½®é€æ˜åº¦ã€‚
 ![image](image/image_blend_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
 ![image](image/image_blend_node.png)
-* background_image<sup>1</sup>: ±³¾°Í¼Ïñ¡£
-* layer_image<sup>1</sup>: ÓÃÓÚºÏ³ÉµÄ²ãÍ¼Ïñ¡£
-* layer_mask<sup>1,2</sup>: ²ãÍ¼ÏñµÄÕÚÕÖ¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blend_mode<sup>3</sup>: Í¼²ã»ìºÏÄ£Ê½¡£
-* opacity: ²»Í¸Ã÷¶È¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+* background_image<sup>1</sup>: èƒŒæ™¯å›¾åƒã€‚
+* layer_image<sup>1</sup>: ç”¨äºåˆæˆçš„å±‚å›¾åƒã€‚
+* layer_mask<sup>1,2</sup>: å±‚å›¾åƒçš„é®ç½©ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blend_mode<sup>3</sup>: å›¾å±‚æ··åˆæ¨¡å¼ã€‚
+* opacity: ä¸é€æ˜åº¦ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 ### <a id="table1">ImageOpacity</a>
-µ÷ÕûÍ¼Ïñ²»Í¸Ã÷¶È¡£
+è°ƒæ•´å›¾åƒä¸é€æ˜åº¦ã€‚
 ![image](image/image_opacity_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:   
-* image<sup>5</sup>: Í¼ÏñÊäÈë£¬Ö§³ÖRGBºÍRGBAÊäÈë¡£
-* mask<sup>2,5</sup>: ÕÚÕÖÊäÈë¡£
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* opacity: ²»Í¸Ã÷¶È¡£
-* [½Úµã×¢½â](#½Úµã×¢½â)
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:   
+* image<sup>5</sup>: å›¾åƒè¾“å…¥ï¼Œæ”¯æŒRGBå’ŒRGBAè¾“å…¥ã€‚
+* mask<sup>2,5</sup>: é®ç½©è¾“å…¥ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* opacity: ä¸é€æ˜åº¦ã€‚
+* [èŠ‚ç‚¹æ³¨è§£](#èŠ‚ç‚¹æ³¨è§£)
 
 ### <a id="table1">ColorPicker</a>
-ÔÚÉ«°åÉÏÑ¡È¡ÑÕÉ«²¢Êä³ö¡£
-¸Ä×Ô[mtb nodes](https://github.com/melMass/comfy_mtb)µÄweb extensions¡£
+åœ¨è‰²æ¿ä¸Šé€‰å–é¢œè‰²å¹¶è¾“å‡ºã€‚
+æ”¹è‡ª[mtb nodes](https://github.com/melMass/comfy_mtb)çš„web extensionsã€‚
 ![image](image/color_picker.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
-* mode£º Êä³ö¸ñÊ½£¬¿ÉÑ¡Ê®Áù½øÖÆ(HEX)»òÊ®½øÖÆ(DEC)¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* modeï¼š è¾“å‡ºæ ¼å¼ï¼Œå¯é€‰åå…­è¿›åˆ¶(HEX)æˆ–åè¿›åˆ¶(DEC)ã€‚
 
-Êä³ö:
-* value: ×Ö·û´®¸ñÊ½¡£
+è¾“å‡º:
+* value: å­—ç¬¦ä¸²æ ¼å¼ã€‚
 
 ### <a id="table1">GetColorTone</a>
-´ÓÍ¼Æ¬ÖĞ»ñÈ¡Ö÷ÑÕÉ«»òÆ½¾ùÉ«¡£
+ä»å›¾ç‰‡ä¸­è·å–ä¸»é¢œè‰²æˆ–å¹³å‡è‰²ã€‚
 ![image](image/get_color_tone_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/get_color_tone_node.png)
-* mode£º Ä£Ê½£¬ÓĞÁ½ÖÖ¿ÉÑ¡Ôñ£¬Ö÷ÑÕÉ«main_colorºÍÆ½¾ùÉ«average¡£
+* modeï¼š æ¨¡å¼ï¼Œæœ‰ä¸¤ç§å¯é€‰æ‹©ï¼Œä¸»é¢œè‰²main_colorå’Œå¹³å‡è‰²averageã€‚
 
-Êä³ö:
-* RGB color in HEX: Ê¹ÓÃ16½øÖÆRGB×Ö·û´®¸ñÊ½ÃèÊö£¬ÀıÈç '#FA3D86'¡£
-* HSV color in list: HSVÑÕÉ«Öµ£¬Ê¹ÓÃlist¸ñÊ½ÃèÊö¡£
+è¾“å‡º:
+* RGB color in HEX: ä½¿ç”¨16è¿›åˆ¶RGBå­—ç¬¦ä¸²æ ¼å¼æè¿°ï¼Œä¾‹å¦‚ '#FA3D86'ã€‚
+* HSV color in list: HSVé¢œè‰²å€¼ï¼Œä½¿ç”¨listæ ¼å¼æè¿°ã€‚
 
 ### <a id="table1">ExtendCanvas</a>
-À©Õ¹»­²¼¡£
+æ‰©å±•ç”»å¸ƒã€‚
 ![image](image/extend_canvas_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/extend_canvas_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* top: ¶¥²¿À©Õ¹Öµ¡£
-* bottom: µ×²¿À©Õ¹Öµ¡£
-* left: ×ó²àÀ©Õ¹Öµ¡£
-* right: ÓÒ²àÀ©Õ¹Öµ¡£
-* color; »­²¼ÑÕÉ«
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* top: é¡¶éƒ¨æ‰©å±•å€¼ã€‚
+* bottom: åº•éƒ¨æ‰©å±•å€¼ã€‚
+* left: å·¦ä¾§æ‰©å±•å€¼ã€‚
+* right: å³ä¾§æ‰©å±•å€¼ã€‚
+* color; ç”»å¸ƒé¢œè‰²
 
 ### XY to <a id="table1">Percent</a>
 ![image](image/xy2percent_example.png)
-½«¾ø¶Ô×ø±ê×ª»»Îª°Ù·Ö±È×ø±ê¡£
+å°†ç»å¯¹åæ ‡è½¬æ¢ä¸ºç™¾åˆ†æ¯”åæ ‡ã€‚
 
 ![image](image/xy2percent_node.png)
-½ÚµãÑ¡ÏîËµÃ÷:
-* x: ×ø±êxÖµ¡£
-* y: ×ø±êyÖµ¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* x: åæ ‡xå€¼ã€‚
+* y: åæ ‡yå€¼ã€‚
 
 ### <a id="table1">LayerImageTransform</a>
 ![image](image/layer_image_transform_example.png)
-Õâ¸ö½ÚµãÓÃÓÚµ¥¶À¶Ôlayer_image½øĞĞ±ä»»£¬¿É¸Ä±ä´óĞ¡£¬Ğı×ª£¬¸Ä±ä³¤¿í±ÈÒÔ¼°¾µÏñ·­×ª¡£
+è¿™ä¸ªèŠ‚ç‚¹ç”¨äºå•ç‹¬å¯¹layer_imageè¿›è¡Œå˜æ¢ï¼Œå¯æ”¹å˜å¤§å°ï¼Œæ—‹è½¬ï¼Œæ”¹å˜é•¿å®½æ¯”ä»¥åŠé•œåƒç¿»è½¬ã€‚
 
 ![image](image/layer_image_transform_node.png)
-½ÚµãÑ¡ÏîËµÃ÷:
-* x: ×ø±êxÖµ¡£
-* y: ×ø±êyÖµ¡£
-* mirror: ¾µÏñ·­×ª¡£Ìá¹©2ÖÖ·­×ªÄ£Ê½, Ë®Æ½·­×ªºÍ´¹Ö±·­×ª¡£
-* scale: Í¼²ã·Å´ó±¶Êı£¬1.0 ±íÊ¾Ô­´ó¡£
-* aspect_ratio: Í¼²ã³¤¿í±È¡£1.0 ÊÇÔ­Ê¼±ÈÀı£¬´óÓÚ´ËÖµ±íÊ¾À­³¤£¬Ğ¡ÓÚ´ËÖµ±íÊ¾Ñ¹±â¡£
-* rotate: Í¼²ãĞı×ª¶ÈÊı¡£
-* transform_method: ÓÃÓÚÍ¼²ã·Å´óºÍĞı×ªµÄ²ÉÑù·½·¨£¬°üÀ¨lanczos¡¢bicubic¡¢hamming¡¢bilinear¡¢boxºÍnearest¡£²»Í¬µÄ²ÉÑù·½·¨»áÓ°ÏìºÏ³ÉµÄ»­ÖÊºÍ»­Ãæ´¦ÀíÊ±¼ä¡£
-* anti_aliasing: ¿¹¾â³İ£¬·¶Î§´Ó0-16£¬ÊıÖµÔ½´ó£¬¾â³İÔ½²»Ã÷ÏÔ¡£¹ı¸ßµÄÊıÖµ½«ÏÔÖø½µµÍ½ÚµãµÄ´¦ÀíËÙ¶È¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* x: åæ ‡xå€¼ã€‚
+* y: åæ ‡yå€¼ã€‚
+* mirror: é•œåƒç¿»è½¬ã€‚æä¾›2ç§ç¿»è½¬æ¨¡å¼, æ°´å¹³ç¿»è½¬å’Œå‚ç›´ç¿»è½¬ã€‚
+* scale: å›¾å±‚æ”¾å¤§å€æ•°ï¼Œ1.0 è¡¨ç¤ºåŸå¤§ã€‚
+* aspect_ratio: å›¾å±‚é•¿å®½æ¯”ã€‚1.0 æ˜¯åŸå§‹æ¯”ä¾‹ï¼Œå¤§äºæ­¤å€¼è¡¨ç¤ºæ‹‰é•¿ï¼Œå°äºæ­¤å€¼è¡¨ç¤ºå‹æ‰ã€‚
+* rotate: å›¾å±‚æ—‹è½¬åº¦æ•°ã€‚
+* transform_method: ç”¨äºå›¾å±‚æ”¾å¤§å’Œæ—‹è½¬çš„é‡‡æ ·æ–¹æ³•ï¼ŒåŒ…æ‹¬lanczosã€bicubicã€hammingã€bilinearã€boxå’Œnearestã€‚ä¸åŒçš„é‡‡æ ·æ–¹æ³•ä¼šå½±å“åˆæˆçš„ç”»è´¨å’Œç”»é¢å¤„ç†æ—¶é—´ã€‚
+* anti_aliasing: æŠ—é”¯é½¿ï¼ŒèŒƒå›´ä»0-16ï¼Œæ•°å€¼è¶Šå¤§ï¼Œé”¯é½¿è¶Šä¸æ˜æ˜¾ã€‚è¿‡é«˜çš„æ•°å€¼å°†æ˜¾è‘—é™ä½èŠ‚ç‚¹çš„å¤„ç†é€Ÿåº¦ã€‚
 
 ### <a id="table1">LayerMaskTransform</a>
-ÓëLayerImageTransformÀàËÆ£¬Õâ¸ö½ÚµãÓÃÓÚµ¥¶À¶Ôlayer_mask½øĞĞ±ä»»£¬¿É¸Ä±ä´óĞ¡£¬Ğı×ª£¬¸Ä±ä³¤¿í±ÈÒÔ¼°¾µÏñ·­×ª¡£
+ä¸LayerImageTransformç±»ä¼¼ï¼Œè¿™ä¸ªèŠ‚ç‚¹ç”¨äºå•ç‹¬å¯¹layer_maskè¿›è¡Œå˜æ¢ï¼Œå¯æ”¹å˜å¤§å°ï¼Œæ—‹è½¬ï¼Œæ”¹å˜é•¿å®½æ¯”ä»¥åŠé•œåƒç¿»è½¬ã€‚
 
 ![image](image/layer_mask_transform_node.png)
-½ÚµãÑ¡ÏîËµÃ÷:
-* x: ×ø±êxÖµ¡£
-* y: ×ø±êyÖµ¡£
-* mirror: ¾µÏñ·­×ª¡£Ìá¹©2ÖÖ·­×ªÄ£Ê½, Ë®Æ½·­×ªºÍ´¹Ö±·­×ª¡£
-* scale: Í¼²ã·Å´ó±¶Êı£¬1.0 ±íÊ¾Ô­´ó¡£
-* aspect_ratio: Í¼²ã³¤¿í±È¡£1.0 ÊÇÔ­Ê¼±ÈÀı£¬´óÓÚ´ËÖµ±íÊ¾À­³¤£¬Ğ¡ÓÚ´ËÖµ±íÊ¾Ñ¹±â¡£
-* rotate: Í¼²ãĞı×ª¶ÈÊı¡£
-* transform_method: ÓÃÓÚÍ¼²ã·Å´óºÍĞı×ªµÄ²ÉÑù·½·¨£¬°üÀ¨lanczos¡¢bicubic¡¢hamming¡¢bilinear¡¢boxºÍnearest¡£²»Í¬µÄ²ÉÑù·½·¨»áÓ°ÏìºÏ³ÉµÄ»­ÖÊºÍ»­Ãæ´¦ÀíÊ±¼ä¡£
-* anti_aliasing: ¿¹¾â³İ£¬·¶Î§´Ó0-16£¬ÊıÖµÔ½´ó£¬¾â³İÔ½²»Ã÷ÏÔ¡£¹ı¸ßµÄÊıÖµ½«ÏÔÖø½µµÍ½ÚµãµÄ´¦ÀíËÙ¶È¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* x: åæ ‡xå€¼ã€‚
+* y: åæ ‡yå€¼ã€‚
+* mirror: é•œåƒç¿»è½¬ã€‚æä¾›2ç§ç¿»è½¬æ¨¡å¼, æ°´å¹³ç¿»è½¬å’Œå‚ç›´ç¿»è½¬ã€‚
+* scale: å›¾å±‚æ”¾å¤§å€æ•°ï¼Œ1.0 è¡¨ç¤ºåŸå¤§ã€‚
+* aspect_ratio: å›¾å±‚é•¿å®½æ¯”ã€‚1.0 æ˜¯åŸå§‹æ¯”ä¾‹ï¼Œå¤§äºæ­¤å€¼è¡¨ç¤ºæ‹‰é•¿ï¼Œå°äºæ­¤å€¼è¡¨ç¤ºå‹æ‰ã€‚
+* rotate: å›¾å±‚æ—‹è½¬åº¦æ•°ã€‚
+* transform_method: ç”¨äºå›¾å±‚æ”¾å¤§å’Œæ—‹è½¬çš„é‡‡æ ·æ–¹æ³•ï¼ŒåŒ…æ‹¬lanczosã€bicubicã€hammingã€bilinearã€boxå’Œnearestã€‚ä¸åŒçš„é‡‡æ ·æ–¹æ³•ä¼šå½±å“åˆæˆçš„ç”»è´¨å’Œç”»é¢å¤„ç†æ—¶é—´ã€‚
+* anti_aliasing: æŠ—é”¯é½¿ï¼ŒèŒƒå›´ä»0-16ï¼Œæ•°å€¼è¶Šå¤§ï¼Œé”¯é½¿è¶Šä¸æ˜æ˜¾ã€‚è¿‡é«˜çš„æ•°å€¼å°†æ˜¾è‘—é™ä½èŠ‚ç‚¹çš„å¤„ç†é€Ÿåº¦ã€‚
 
 
 ### <a id="table1">ColorImage</a>
 ![image](image/color_image_example.png)
-Éú³ÉÒ»ÕÅÖ¸¶¨ÑÕÉ«ºÍ´óĞ¡µÄÍ¼Æ¬¡£
+ç”Ÿæˆä¸€å¼ æŒ‡å®šé¢œè‰²å’Œå¤§å°çš„å›¾ç‰‡ã€‚
 
 ![image](image/color_image_node.png)
-½ÚµãÑ¡ÏîËµÃ÷:
-* width: Í¼Ïñ¿í¶È¡£
-* height: Í¼Ïñ¸ß¶È¡£
-* color<sup>4</sup>: ÑÕÉ«¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* width: å›¾åƒå®½åº¦ã€‚
+* height: å›¾åƒé«˜åº¦ã€‚
+* color<sup>4</sup>: é¢œè‰²ã€‚
 
 ### <a id="table1">GradientImage</a>
 ![image](image/gradient_image_example.png)
-Éú³ÉÒ»ÕÅÖ¸¶¨´óĞ¡ºÍÖ¸¶¨ÑÕÉ«½¥±äµÄÍ¼Æ¬¡£
+ç”Ÿæˆä¸€å¼ æŒ‡å®šå¤§å°å’ŒæŒ‡å®šé¢œè‰²æ¸å˜çš„å›¾ç‰‡ã€‚
 
 ![image](image/gradient_image_node.png)
-½ÚµãÑ¡ÏîËµÃ÷:
-* width: Í¼Ïñ¿í¶È¡£
-* height: Í¼Ïñ¸ß¶È¡£
-* angle: ½¥±ä½Ç¶È¡£
-* start_color<sup>4</sup>: ¿ªÊ¼¶ËÑÕÉ«¡£
-* end_color<sup>4</sup>: ½áÊø¶ËÑÕÉ«¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* width: å›¾åƒå®½åº¦ã€‚
+* height: å›¾åƒé«˜åº¦ã€‚
+* angle: æ¸å˜è§’åº¦ã€‚
+* start_color<sup>4</sup>: å¼€å§‹ç«¯é¢œè‰²ã€‚
+* end_color<sup>4</sup>: ç»“æŸç«¯é¢œè‰²ã€‚
 
 ### <a id="table1">TextImage</a>
 ![image](image/text_image_example.png)
-´ÓÎÄ×ÖÉú³ÉÍ¼Æ¬ÒÔ¼°ÕÚÕÖ¡£Ö§³Ö×Ö¼ä¾àĞĞ¼ä¾àµ÷Õû£¬ºáÅÅÊúÅÅµ÷Õû£¬¿ÉÉèÖÃÎÄ×ÖµÄËæ»ú±ä»¯£¬°üÀ¨´óĞ¡ºÍÎ»ÖÃµÄËæ»ú±ä»¯¡£
+ä»æ–‡å­—ç”Ÿæˆå›¾ç‰‡ä»¥åŠé®ç½©ã€‚æ”¯æŒå­—é—´è·è¡Œé—´è·è°ƒæ•´ï¼Œæ¨ªæ’ç«–æ’è°ƒæ•´ï¼Œå¯è®¾ç½®æ–‡å­—çš„éšæœºå˜åŒ–ï¼ŒåŒ…æ‹¬å¤§å°å’Œä½ç½®çš„éšæœºå˜åŒ–ã€‚
 
 ![image](image/text_image_node.png)
-½ÚµãÑ¡ÏîËµÃ÷:
-* size_as<sup>*</sup>: ´Ë´¦ÊäÈëÍ¼Ïñ»òÕÚÕÖ£¬½«°´ÕÕÆä³ß´çÉú³ÉÊä³öÍ¼ÏñºÍÕÚÕÖ¡£×¢Òâ£¬´ËÊäÈëÓÅÏÈ¼¶¸ßÓÚÏÂÃæµÄwidthºÍheight¡£
-* font_file<sup>**</sup>: ÕâÀïÁĞ³öÁËfontÎÄ¼ş¼ĞÖĞ¿ÉÓÃµÄ×ÖÌåÎÄ¼şÁĞ±í£¬Ñ¡ÖĞµÄ×ÖÌåÎÄ¼ş½«±»ÓÃÀ´Éú³ÉÍ¼Ïñ¡£
-* spacing: ×Ö¼ä¾à,ÒÔÏñËØÎªµ¥Î»¡£
-* leading: ĞĞ¼ä¾à,ÒÔÏñËØÎªµ¥Î»¡£
-* horizontal_border: ²à±ß±ß¾à¡£´Ë´¦ÊıÖµ±íÊ¾µÄÊÇ°Ù·Ö±È£¬ÀıÈç50±íÊ¾ÆğµãÎ»ÓÚÁ½²àµÄÕıÖĞÑë¡£Èç¹ûÎÄ×ÖÊÇºáÅÅ£¬ÊÇ×ó²à±ß¾à£¬ÊúÅÅÔòÊÇÓÒ²à±ß¾à¡£
-* vertical_border: ¶¥²¿±ß¾à¡£´Ë´¦ÊıÖµ±íÊ¾µÄÊÇ°Ù·Ö±È£¬ÀıÈç10±íÊ¾ÆğµãÎ»ÓÚ¾à¶¥²¿10%µÄÎ»ÖÃ¡£
-* scale: ÎÄ×Ö×ÜÌå´óĞ¡¡£ÎÄ×ÖµÄ³õÊ¼´óĞ¡ÊÇ¸ù¾İ»­Ãæ³ß´çºÍÎÄ×ÖÄÚÈİ×Ô¶¯¼ÆËã£¬Ä¬ÈÏÒÔ×î³¤µÄĞĞ»òÕßÁĞÊÊÅä»­Ãæ¿í»òÕß¸ß¡£µ÷Õû´Ë´¦ÊıÖµ½«ÕûÌå·Å´óºÍËõĞ¡ÎÄ×Ö¡£´Ë´¦ÊıÖµ±íÊ¾µÄÊÇ°Ù·Ö±È£¬ÀıÈç60±íÊ¾Ëõ·Åµ½60%¡£
-* variation_range: ×Ö·ûËæ»ú±ä»¯·¶Î§¡£´ËÊıÖµ´óÓÚ0Ê±£¬×Ö·û½«²úÉú´óĞ¡ºÍÎ»ÖÃµÄËæ»ú±ä»¯£¬ÊıÖµÔ½´ó£¬±ä»¯·ù¶ÈÔ½´ó¡£
-* variation_seed: Ëæ»ú±ä»¯µÄÖÖ×Ó¡£¹Ì¶¨´ËÊıÖµ£¬Ã¿´Î²úÉúµÄµ¥¸öÎÄ×ÖµÄ±ä»¯²»»á¸Ä±ä¡£
-* layout: ÎÄ×ÖÅÅ°æ¡£ÓĞºáÅÅºÍÊúÅÅ¿ÉÑ¡Ôñ¡£
-* width: »­ÃæµÄ¿í¶È¡£Èç¹ûÓĞsize_asÊäÈë£¬´ËÉèÖÃ½«±»ºöÂÔ¡£
-* height: »­ÃæµÄ¸ß¶È¡£Èç¹ûÓĞsize_asÊäÈë£¬´ËÉèÖÃ½«±»ºöÂÔ¡£
-* text_color: ÎÄ×ÖÑÕÉ«¡£
-* background_color: ±³¾°ÑÕÉ«¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* size_as<sup>*</sup>: æ­¤å¤„è¾“å…¥å›¾åƒæˆ–é®ç½©ï¼Œå°†æŒ‰ç…§å…¶å°ºå¯¸ç”Ÿæˆè¾“å‡ºå›¾åƒå’Œé®ç½©ã€‚æ³¨æ„ï¼Œæ­¤è¾“å…¥ä¼˜å…ˆçº§é«˜äºä¸‹é¢çš„widthå’Œheightã€‚
+* font_file<sup>**</sup>: è¿™é‡Œåˆ—å‡ºäº†fontæ–‡ä»¶å¤¹ä¸­å¯ç”¨çš„å­—ä½“æ–‡ä»¶åˆ—è¡¨ï¼Œé€‰ä¸­çš„å­—ä½“æ–‡ä»¶å°†è¢«ç”¨æ¥ç”Ÿæˆå›¾åƒã€‚
+* spacing: å­—é—´è·,ä»¥åƒç´ ä¸ºå•ä½ã€‚
+* leading: è¡Œé—´è·,ä»¥åƒç´ ä¸ºå•ä½ã€‚
+* horizontal_border: ä¾§è¾¹è¾¹è·ã€‚æ­¤å¤„æ•°å€¼è¡¨ç¤ºçš„æ˜¯ç™¾åˆ†æ¯”ï¼Œä¾‹å¦‚50è¡¨ç¤ºèµ·ç‚¹ä½äºä¸¤ä¾§çš„æ­£ä¸­å¤®ã€‚å¦‚æœæ–‡å­—æ˜¯æ¨ªæ’ï¼Œæ˜¯å·¦ä¾§è¾¹è·ï¼Œç«–æ’åˆ™æ˜¯å³ä¾§è¾¹è·ã€‚
+* vertical_border: é¡¶éƒ¨è¾¹è·ã€‚æ­¤å¤„æ•°å€¼è¡¨ç¤ºçš„æ˜¯ç™¾åˆ†æ¯”ï¼Œä¾‹å¦‚10è¡¨ç¤ºèµ·ç‚¹ä½äºè·é¡¶éƒ¨10%çš„ä½ç½®ã€‚
+* scale: æ–‡å­—æ€»ä½“å¤§å°ã€‚æ–‡å­—çš„åˆå§‹å¤§å°æ˜¯æ ¹æ®ç”»é¢å°ºå¯¸å’Œæ–‡å­—å†…å®¹è‡ªåŠ¨è®¡ç®—ï¼Œé»˜è®¤ä»¥æœ€é•¿çš„è¡Œæˆ–è€…åˆ—é€‚é…ç”»é¢å®½æˆ–è€…é«˜ã€‚è°ƒæ•´æ­¤å¤„æ•°å€¼å°†æ•´ä½“æ”¾å¤§å’Œç¼©å°æ–‡å­—ã€‚æ­¤å¤„æ•°å€¼è¡¨ç¤ºçš„æ˜¯ç™¾åˆ†æ¯”ï¼Œä¾‹å¦‚60è¡¨ç¤ºç¼©æ”¾åˆ°60%ã€‚
+* variation_range: å­—ç¬¦éšæœºå˜åŒ–èŒƒå›´ã€‚æ­¤æ•°å€¼å¤§äº0æ—¶ï¼Œå­—ç¬¦å°†äº§ç”Ÿå¤§å°å’Œä½ç½®çš„éšæœºå˜åŒ–ï¼Œæ•°å€¼è¶Šå¤§ï¼Œå˜åŒ–å¹…åº¦è¶Šå¤§ã€‚
+* variation_seed: éšæœºå˜åŒ–çš„ç§å­ã€‚å›ºå®šæ­¤æ•°å€¼ï¼Œæ¯æ¬¡äº§ç”Ÿçš„å•ä¸ªæ–‡å­—çš„å˜åŒ–ä¸ä¼šæ”¹å˜ã€‚
+* layout: æ–‡å­—æ’ç‰ˆã€‚æœ‰æ¨ªæ’å’Œç«–æ’å¯é€‰æ‹©ã€‚
+* width: ç”»é¢çš„å®½åº¦ã€‚å¦‚æœæœ‰size_asè¾“å…¥ï¼Œæ­¤è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* height: ç”»é¢çš„é«˜åº¦ã€‚å¦‚æœæœ‰size_asè¾“å…¥ï¼Œæ­¤è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* text_color: æ–‡å­—é¢œè‰²ã€‚
+* background_color: èƒŒæ™¯é¢œè‰²ã€‚
 
-<sup>*</sup>½öÏŞÊäÈëimageºÍmask, Èç¹ûÇ¿ÖÆ½ÓÈëÆäËûÀàĞÍÊäÈë£¬½«µ¼ÖÂ½Úµã´íÎó¡£
+<sup>*</sup>ä»…é™è¾“å…¥imageå’Œmask, å¦‚æœå¼ºåˆ¶æ¥å…¥å…¶ä»–ç±»å‹è¾“å…¥ï¼Œå°†å¯¼è‡´èŠ‚ç‚¹é”™è¯¯ã€‚
 
-<sup>**</sup>fontÎÄ¼ş¼ĞÔÚresource_dir.iniÖĞ¶¨Òå£¬Õâ¸öÎÄ¼şÎ»ÓÚ²å¼ş¸ùÄ¿Â¼ÏÂ¡£ÓÃÎÄ±¾±à¼­Èí¼ş´ò¿ª£¬ÕÒµ½¡°FONT_dir=¡±¿ªÍ·µÄÕâÒ»ĞĞ£¬±à¼­¡°=¡±Ö®ºóÎª×Ô¶¨ÒåÎÄ¼ş¼ĞÂ·¾¶Ãû¡£Õâ¸öÎÄ¼ş¼ĞÀïÃæËùÓĞµÄ.ttfºÍ.otfÎÄ¼ş½«ÔÚComfyUI³õÊ¼»¯Ê±±»ÊÕ¼¯²¢ÏÔÊ¾ÔÚ½ÚµãµÄÁĞ±íÖĞ¡£Èç¹ûiniÖĞÉè¶¨µÄÎÄ¼ş¼ĞÎŞĞ§£¬½«ÆôÓÃ²å¼ş×Ô´øµÄfontÎÄ¼ş¼Ğ¡£
+<sup>**</sup>fontæ–‡ä»¶å¤¹åœ¨resource_dir.iniä¸­å®šä¹‰ï¼Œè¿™ä¸ªæ–‡ä»¶ä½äºæ’ä»¶æ ¹ç›®å½•ä¸‹ã€‚ç”¨æ–‡æœ¬ç¼–è¾‘è½¯ä»¶æ‰“å¼€ï¼Œæ‰¾åˆ°â€œFONT_dir=â€å¼€å¤´çš„è¿™ä¸€è¡Œï¼Œç¼–è¾‘â€œ=â€ä¹‹åä¸ºè‡ªå®šä¹‰æ–‡ä»¶å¤¹è·¯å¾„åã€‚è¿™ä¸ªæ–‡ä»¶å¤¹é‡Œé¢æ‰€æœ‰çš„.ttfå’Œ.otfæ–‡ä»¶å°†åœ¨ComfyUIåˆå§‹åŒ–æ—¶è¢«æ”¶é›†å¹¶æ˜¾ç¤ºåœ¨èŠ‚ç‚¹çš„åˆ—è¡¨ä¸­ã€‚å¦‚æœiniä¸­è®¾å®šçš„æ–‡ä»¶å¤¹æ— æ•ˆï¼Œå°†å¯ç”¨æ’ä»¶è‡ªå¸¦çš„fontæ–‡ä»¶å¤¹ã€‚
 
+
+### <a id="table1">LaMa</a>
+![image](image/lama_example.png)
+æ ¹æ®å›¾åƒé®ç½©æ“¦é™¤ç‰©ä½“ã€‚æœ¬èŠ‚ç‚¹æ˜¯å¯¹[IOPaint](https://www.iopaint.com)çš„å°è£…ï¼Œç”± SOTA AI æ¨¡å‹æä¾›æ”¯æŒã€‚  
+æä¾›[LaMa](#https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) æ¨¡å‹ä»¥åŠ OpenCV æ“¦é™¤æ–¹æ³•ã€‚è¯·æŸ¥çœ‹é“¾æ¥äº†è§£å„ä¸ªæ¨¡å‹çš„ä»‹ç»ã€‚  
+è¯·ä¸‹è½½æ¨¡å‹æ–‡ä»¶ [lama models(ç™¾åº¦ç½‘ç›˜)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) æˆ–è€… [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing), å°†æ–‡ä»¶æ”¾åˆ°```ComfyUI/models/lama```
+
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+![image](image/lama_node.png)
+* lama_model: é€‰æ‹©æ¨¡å‹æˆ–æ–¹æ³•ã€‚
+* device: åœ¨æ­£ç¡®å®‰è£…torchå’ŒNvidia CUDAé©±åŠ¨ç¨‹åºåï¼Œä½¿ç”¨cudaå°†æ˜æ˜¾æé«˜è¿è¡Œé€Ÿåº¦ã€‚
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* grow: é®ç½©æ‰©å¼ å¹…åº¦ã€‚æ­£å€¼æ˜¯å‘å¤–æ‰©å¼ ï¼Œè´Ÿå€¼æ˜¯å‘å†…æ”¶ç¼©ã€‚
+* blur: é®ç½©æ¨¡ç³Šå¹…åº¦ã€‚
 
 ### <a id="table1">ImageChannelSplit</a>
 ![image](image/image_channel_split_example.png)
-½«Í¼ÏñÍ¨µÀ²ğ·ÖÎªµ¥¶ÀµÄÍ¼Æ¬¡£
+å°†å›¾åƒé€šé“æ‹†åˆ†ä¸ºå•ç‹¬çš„å›¾ç‰‡ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/image_channel_split_node.png)
-* mode: Í¨µÀÄ£Ê½¡£°üº¬RGBA, YCbCr, LABºÍHSV¡£
+* mode: é€šé“æ¨¡å¼ã€‚åŒ…å«RGBA, YCbCr, LABå’ŒHSVã€‚
 
 ### <a id="table1">ImageChannelMerge</a>
 ![image](image/image_channel_merge_example.png)
-½«¸÷Í¨µÀºÏ²¢ÎªÒ»ÕÅÍ¼Æ¬¡£
+å°†å„é€šé“åˆå¹¶ä¸ºä¸€å¼ å›¾ç‰‡ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/image_channel_merge_node.png)
-* mode: Í¨µÀÄ£Ê½¡£°üº¬RGBA, YCbCr, LABºÍHSV¡£
+* mode: é€šé“æ¨¡å¼ã€‚åŒ…å«RGBA, YCbCr, LABå’ŒHSVã€‚
 
 ### <a id="table1">ImageRemoveAlpha</a>
 ![image](image/image_remove_alpha_example.png)
-ÒÆ³ıÍ¼Æ¬µÄalphaÍ¨µÀ£¬½«Í¼Æ¬×ª»»ÎªRGBÄ£Ê½¡£¿ÉÑ¡ÔñÌî³ä±³¾°ÒÔ¼°ÉèÖÃ±³¾°ÑÕÉ«¡£
+ç§»é™¤å›¾ç‰‡çš„alphaé€šé“ï¼Œå°†å›¾ç‰‡è½¬æ¢ä¸ºRGBæ¨¡å¼ã€‚å¯é€‰æ‹©å¡«å……èƒŒæ™¯ä»¥åŠè®¾ç½®èƒŒæ™¯é¢œè‰²ã€‚
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/image_remove_alpha_node.png)
-* fill_background: ÊÇ·ñÌî³ä±³¾°¡£
-* background_color<sup>4</sup>: ±³¾°ÑÕÉ«¡£
+* fill_background: æ˜¯å¦å¡«å……èƒŒæ™¯ã€‚
+* background_color<sup>4</sup>: èƒŒæ™¯é¢œè‰²ã€‚
 
 
 ### <a id="table1">ImageCombineAlpha</a>
 ![image](image/image_combine_alpha_node.png)
-½«Í¼Æ¬ÓëÕÚÕÖºÏ²¢Îª°üº¬alphaÍ¨µÀµÄRGBAÄ£Ê½µÄÍ¼Æ¬¡£
+å°†å›¾ç‰‡ä¸é®ç½©åˆå¹¶ä¸ºåŒ…å«alphaé€šé“çš„RGBAæ¨¡å¼çš„å›¾ç‰‡ã€‚
 
 
 ### <a id="table1">ImageAutoCrop</a>
 ![image](image/image_auto_crop_example.png)
-×Ô¶¯¿ÙÍ¼²¢°´ÕÕÕÚÕÖ²ÃÇĞÍ¼Æ¬¡£¿ÉÖ¸¶¨Éú³ÉÍ¼Æ¬µÄ±³¾°ÑÕÉ«¡¢³¤¿í±ÈºÍ´óĞ¡¡£Õâ¸ö½ÚµãÊÇÎªÉú³ÉÑµÁ·Ä£ĞÍµÄÍ¼Æ¬ËØ²Ä¶øÉè¼ÆµÄ¡£  
-*Çë²ÎÕÕ [SegmentAnythingUltra](#SegmentAnythingUltra) ºÍ [RemBgUltra](#RemBgUltra) ½ÚµãµÄÄ£ĞÍ°²×°·½·¨°²×°Ä£ĞÍ¡£ 
+è‡ªåŠ¨æŠ å›¾å¹¶æŒ‰ç…§é®ç½©è£åˆ‡å›¾ç‰‡ã€‚å¯æŒ‡å®šç”Ÿæˆå›¾ç‰‡çš„èƒŒæ™¯é¢œè‰²ã€é•¿å®½æ¯”å’Œå¤§å°ã€‚è¿™ä¸ªèŠ‚ç‚¹æ˜¯ä¸ºç”Ÿæˆè®­ç»ƒæ¨¡å‹çš„å›¾ç‰‡ç´ æè€Œè®¾è®¡çš„ã€‚  
+*è¯·å‚ç…§ [SegmentAnythingUltra](#SegmentAnythingUltra) å’Œ [RemBgUltra](#RemBgUltra) èŠ‚ç‚¹çš„æ¨¡å‹å®‰è£…æ–¹æ³•å®‰è£…æ¨¡å‹ã€‚ 
 
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/image_auto_crop_node.png)
-* background_color<sup>4</sup>: ±³¾°ÑÕÉ«¡£
-* aspect_ratio: Êä³öµÄ¿í¸ß±È¡£ÕâÀïÌá¹©ÁË³£¼ûµÄ»­·ù±ÈÀı£¬ "custom"Îª×Ô¶¨Òå±ÈÀı¡£
-* proportional_width: ±ÈÀı¿í¡£Èç¹ûaspect_ratioÑ¡Ïî²»ÊÇ"custom"£¬´Ë´¦ÉèÖÃ½«±»ºöÂÔ¡£
-* proportional_height: ±ÈÀı¸ß¡£Èç¹ûaspect_ratioÑ¡Ïî²»ÊÇ"custom"£¬´Ë´¦ÉèÖÃ½«±»ºöÂÔ¡£
-* scale_by_longest_side: ÔÊĞí°´³¤±ß³ß´çËõ·Å¡£
-* longest_side: scale_by_longest_side±»ÉèÖÃÎªTrueÊ±£¬´ËÏî½«×÷ÎªÊÇÍ¼Ïñ³¤±ßµÄ³¤¶È¡£
-* detect: Ì½²â·½·¨£¬min_bounding_rectÊÇ×îĞ¡Íâ½Ó¾ØĞÎ, max_inscribed_rectÊÇ×î´óÄÚ½Ó¾ØĞÎ¡£
-* border_reserve: ±£Áô±ß¿ò¡£ÔÚÌ½²âµ½µÄÕÚÕÖÖ÷ÌåÇøÓòÖ®ÍâÀ©Õ¹²ÃÇĞ·¶Î§¡£
-* ultra_detail_range: ÕÚÕÖ±ßÔµ³¬¾«Ï¸´¦Àí·¶Î§£¬0Îª²»´¦Àí£¬¿ÉÒÔ½ÚÊ¡Éú³ÉÊ±¼ä¡£
-* matting_method: Éú³ÉÕÚÕÖµÄ·½·¨¡£ÓĞSegment AnythingºÍ RMBG 1.4Á½ÖÖ·½·¨¡£RMBG 1.4ÔËĞĞËÙ¶È¸ü¿ì¡£
-* sam_model: ´Ë´¦Ñ¡ÔñSegment AnythingËùÊ¹ÓÃµÄsamÄ£ĞÍ¡£
-* grounding_dino_model: ´Ë´¦Ñ¡ÔñSegment AnythingËùÊ¹ÓÃµÄgrounding_dinoÄ£ĞÍ¡£
-* sam_threshold: Segment AnythingµÄãĞÖµ¡£
-* sam_prompt: Segment AnythingµÄÌáÊ¾´Ê¡£
+* background_color<sup>4</sup>: èƒŒæ™¯é¢œè‰²ã€‚
+* aspect_ratio: è¾“å‡ºçš„å®½é«˜æ¯”ã€‚è¿™é‡Œæä¾›äº†å¸¸è§çš„ç”»å¹…æ¯”ä¾‹ï¼Œ "custom"ä¸ºè‡ªå®šä¹‰æ¯”ä¾‹ã€‚
+* proportional_width: æ¯”ä¾‹å®½ã€‚å¦‚æœaspect_ratioé€‰é¡¹ä¸æ˜¯"custom"ï¼Œæ­¤å¤„è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* proportional_height: æ¯”ä¾‹é«˜ã€‚å¦‚æœaspect_ratioé€‰é¡¹ä¸æ˜¯"custom"ï¼Œæ­¤å¤„è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* scale_by_longest_side: å…è®¸æŒ‰é•¿è¾¹å°ºå¯¸ç¼©æ”¾ã€‚
+* longest_side: scale_by_longest_sideè¢«è®¾ç½®ä¸ºTrueæ—¶ï¼Œæ­¤é¡¹å°†ä½œä¸ºæ˜¯å›¾åƒé•¿è¾¹çš„é•¿åº¦ã€‚
+* detect: æ¢æµ‹æ–¹æ³•ï¼Œmin_bounding_rectæ˜¯æœ€å°å¤–æ¥çŸ©å½¢, max_inscribed_rectæ˜¯æœ€å¤§å†…æ¥çŸ©å½¢ã€‚
+* border_reserve: ä¿ç•™è¾¹æ¡†ã€‚åœ¨æ¢æµ‹åˆ°çš„é®ç½©ä¸»ä½“åŒºåŸŸä¹‹å¤–æ‰©å±•è£åˆ‡èŒƒå›´ã€‚
+* ultra_detail_range: é®ç½©è¾¹ç¼˜è¶…ç²¾ç»†å¤„ç†èŒƒå›´ï¼Œ0ä¸ºä¸å¤„ç†ï¼Œå¯ä»¥èŠ‚çœç”Ÿæˆæ—¶é—´ã€‚
+* matting_method: ç”Ÿæˆé®ç½©çš„æ–¹æ³•ã€‚æœ‰Segment Anythingå’Œ RMBG 1.4ä¸¤ç§æ–¹æ³•ã€‚RMBG 1.4è¿è¡Œé€Ÿåº¦æ›´å¿«ã€‚
+* sam_model: æ­¤å¤„é€‰æ‹©Segment Anythingæ‰€ä½¿ç”¨çš„samæ¨¡å‹ã€‚
+* grounding_dino_model: æ­¤å¤„é€‰æ‹©Segment Anythingæ‰€ä½¿ç”¨çš„grounding_dinoæ¨¡å‹ã€‚
+* sam_threshold: Segment Anythingçš„é˜ˆå€¼ã€‚
+* sam_prompt: Segment Anythingçš„æç¤ºè¯ã€‚
 
-Êä³ö:
-cropped_image: ²ÃÇĞ²¢¸ü»»±³¾°ºóµÄÍ¼Ïñ¡£
-box_preview: ²ÃÇĞÎ»ÖÃÔ¤ÀÀ¡£
-cropped_mask: ²ÃÇĞºóµÄÕÚÕÖ¡£
+è¾“å‡º:
+cropped_image: è£åˆ‡å¹¶æ›´æ¢èƒŒæ™¯åçš„å›¾åƒã€‚
+box_preview: è£åˆ‡ä½ç½®é¢„è§ˆã€‚
+cropped_mask: è£åˆ‡åçš„é®ç½©ã€‚
 
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)
-»ñÈ¡Í¼Æ¬µÄ¿í¶ÈºÍ¸ß¶È¡£
+è·å–å›¾ç‰‡çš„å®½åº¦å’Œé«˜åº¦ã€‚
 
-Êä³ö:
-* width: Í¼Ïñ¿í¶È¡£
-* height: Í¼Ïñ¸ß¶È¡£
-* original_size: Í¼ÏñµÄÔ­Ê¼´óĞ¡Êı¾İ£¬ÓÃÓÚºóĞø½Úµã½øĞĞ»Ö¸´¡£
+è¾“å‡º:
+* width: å›¾åƒå®½åº¦ã€‚
+* height: å›¾åƒé«˜åº¦ã€‚
+* original_size: å›¾åƒçš„åŸå§‹å¤§å°æ•°æ®ï¼Œç”¨äºåç»­èŠ‚ç‚¹è¿›è¡Œæ¢å¤ã€‚
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
-ÓÃÓÚ¸ø¹¤×÷Á÷µ÷ÊÔÌá¹©¸¨Öú¡£µ±ÔËĞĞÊ±£¬ÈÎºÎ½ÓÉÏÕâ¸ö½ÚµãµÄ¶ÔÏóµÄÊôĞÔ½«±»´òÓ¡µ½¿ØÖÆÌ¨¡£
+ç”¨äºç»™å·¥ä½œæµè°ƒè¯•æä¾›è¾…åŠ©ã€‚å½“è¿è¡Œæ—¶ï¼Œä»»ä½•æ¥ä¸Šè¿™ä¸ªèŠ‚ç‚¹çš„å¯¹è±¡çš„å±æ€§å°†è¢«æ‰“å°åˆ°æ§åˆ¶å°ã€‚
 
-Õâ¸ö½ÚµãÔÊĞíÈÎÒâÀàĞÍµÄÊäÈë¡£
+è¿™ä¸ªèŠ‚ç‚¹å…è®¸ä»»æ„ç±»å‹çš„è¾“å…¥ã€‚
 
 
 
@@ -673,210 +726,210 @@ cropped_mask: ²ÃÇĞºóµÄÕÚÕÖ¡£
 ![image](image/layermask_nodes.png)
 
 ### <a id="table1">MaskBoxDetect</a>
-Ì½²âmaskËùÔÚÇøÓò£¬²¢Êä³öÎ»ÖÃºÍ´óĞ¡¡£
+æ¢æµ‹maskæ‰€åœ¨åŒºåŸŸï¼Œå¹¶è¾“å‡ºä½ç½®å’Œå¤§å°ã€‚
 ![image](image/mask_box_detect_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_box_detect_node.png)
-* detect: Ì½²â·½·¨£¬min_bounding_rectÊÇ×îĞ¡Íâ½Ó¾ØĞÎ, max_inscribed_rectÊÇ×î´óÄÚ½Ó¾ØĞÎ¡£
-* x_adjust: ĞŞÕıÌ½²âÖ®ºóµÄË®Æ½Æ«ÒÆ¡£
-* y_adjust: ĞŞÕıÌ½²âÖ®ºóµÄ´¹Ö±Æ«ÒÆ¡£
-* scale_adjust: ĞŞÕıÌ½²âÖ®ºóµÄËõ·ÅÆ«ÒÆ¡£
+* detect: æ¢æµ‹æ–¹æ³•ï¼Œmin_bounding_rectæ˜¯æœ€å°å¤–æ¥çŸ©å½¢, max_inscribed_rectæ˜¯æœ€å¤§å†…æ¥çŸ©å½¢ã€‚
+* x_adjust: ä¿®æ­£æ¢æµ‹ä¹‹åçš„æ°´å¹³åç§»ã€‚
+* y_adjust: ä¿®æ­£æ¢æµ‹ä¹‹åçš„å‚ç›´åç§»ã€‚
+* scale_adjust: ä¿®æ­£æ¢æµ‹ä¹‹åçš„ç¼©æ”¾åç§»ã€‚
 
-Êä³ö£º
-* box_preview: Ì½²â½á¹ûÔ¤ÀÀÍ¼¡£ºìÉ«±íÊ¾Ì½²âµ½µÄ½á¹û£¬ÂÌÉ«±íÊ¾¼ÓÉÏĞŞÕıºóµÄÊä³ö½á¹û¡£
-* x_percent: Ë®Æ½Î»ÖÃÒÔ°Ù·Ö±ÈÊä³ö¡£
-* y_percent: ´¹Ö±Î»ÖÃÒÔ°Ù·Ö±ÈÊä³ö¡£
-* width: ¿í¶ÈÊä³ö¡£
-* height: ¸ß¶ÈÊä³ö¡£
-* x: ×óÉÏ½ÇÎ»ÖÃx×ø±êÊä³ö¡£
-* y: ×óÉÏ½ÇÎ»ÖÃy×ø±êÊä³ö¡£
+è¾“å‡ºï¼š
+* box_preview: æ¢æµ‹ç»“æœé¢„è§ˆå›¾ã€‚çº¢è‰²è¡¨ç¤ºæ¢æµ‹åˆ°çš„ç»“æœï¼Œç»¿è‰²è¡¨ç¤ºåŠ ä¸Šä¿®æ­£åçš„è¾“å‡ºç»“æœã€‚
+* x_percent: æ°´å¹³ä½ç½®ä»¥ç™¾åˆ†æ¯”è¾“å‡ºã€‚
+* y_percent: å‚ç›´ä½ç½®ä»¥ç™¾åˆ†æ¯”è¾“å‡ºã€‚
+* width: å®½åº¦è¾“å‡ºã€‚
+* height: é«˜åº¦è¾“å‡ºã€‚
+* x: å·¦ä¸Šè§’ä½ç½®xåæ ‡è¾“å‡ºã€‚
+* y: å·¦ä¸Šè§’ä½ç½®yåæ ‡è¾“å‡ºã€‚
 
 ### <a id="table1">SegmentAnythingUltra</a>
-¶Ô[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)µÄ¸Ä½ø£¬½áºÏÁËspacepxlµÄ[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)µÄAlpha Matte½Úµã£¬Ê¹ÕÚÕÖÓĞ¸ü¾ßÏ¸½ÚµÄ±ßÔµ¡£
+å¯¹[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)çš„æ”¹è¿›ï¼Œç»“åˆäº†spacepxlçš„[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)çš„Alpha MatteèŠ‚ç‚¹ï¼Œä½¿é®ç½©æœ‰æ›´å…·ç»†èŠ‚çš„è¾¹ç¼˜ã€‚
 
-*Çë²ÎÕÕComfyUI Segment AnythingµÄ°²×°·½·¨°²×°Ä£ĞÍ¡£Èç¹ûÒÑ¾­ÕıÈ·°²×°ÁËComfyUI Segment Anything£¬¿ÉÌø¹ı´Ë²½Öè¡£
-* ´Ó [ÕâÀï](https://huggingface.co/bert-base-uncased/tree/main) ÏÂÔØ config.json£¬model.safetensors£¬tokenizer_config.json£¬tokenizer.json ºÍ vocab.txt 5¸öÎÄ¼şµ½ ```ComfyUI/models/bert-base-uncased```ÎÄ¼ş¼Ğ¡£
-* ÏÂÔØ [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
-[GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) µ½ ```ComfyUI/models/grounding-dino```ÎÄ¼ş¼Ğ¡£
-* ÏÂÔØ [sam_vit_h](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)£¬[sam_vit_l](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), 
+*è¯·å‚ç…§ComfyUI Segment Anythingçš„å®‰è£…æ–¹æ³•å®‰è£…æ¨¡å‹ã€‚å¦‚æœå·²ç»æ­£ç¡®å®‰è£…äº†ComfyUI Segment Anythingï¼Œå¯è·³è¿‡æ­¤æ­¥éª¤ã€‚
+* ä» [è¿™é‡Œ](https://huggingface.co/bert-base-uncased/tree/main) ä¸‹è½½ config.jsonï¼Œmodel.safetensorsï¼Œtokenizer_config.jsonï¼Œtokenizer.json å’Œ vocab.txt 5ä¸ªæ–‡ä»¶åˆ° ```ComfyUI/models/bert-base-uncased```æ–‡ä»¶å¤¹ã€‚
+* ä¸‹è½½ [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
+[GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) åˆ° ```ComfyUI/models/grounding-dino```æ–‡ä»¶å¤¹ã€‚
+* ä¸‹è½½ [sam_vit_h](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)ï¼Œ[sam_vit_l](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), 
 [sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
 [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
-[mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) Õâ¼¸¸öÎÄ¼şµ½```ComfyUI/models/sams```ÎÄ¼ş¼Ğ¡£
+[mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) è¿™å‡ ä¸ªæ–‡ä»¶åˆ°```ComfyUI/models/sams```æ–‡ä»¶å¤¹ã€‚
 
 ![image](image/segment_anything_ultra_compare.png)
 ![image](image/segment_anything_ultra_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/segment_anything_ultra_node.png)
-* sam_model: Ñ¡ÔñSAMÄ£ĞÍ¡£
-* ground_dino_model: Ñ¡ÔñGrounding DINOÄ£ĞÍ¡£
-* threshold: SAMãĞÖµ¡£
-* detail_range: ±ßÔµÏ¸½Ú·¶Î§¡£
-* black_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* white_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* process_detail: ´Ë´¦ÉèÎªFalse½«Ìø¹ı±ßÔµ´¦ÀíÒÔ½ÚÊ¡ÔËĞĞÊ±¼ä¡£
-* prompt: SAMµÄpromptÊäÈë¡£
+* sam_model: é€‰æ‹©SAMæ¨¡å‹ã€‚
+* ground_dino_model: é€‰æ‹©Grounding DINOæ¨¡å‹ã€‚
+* threshold: SAMé˜ˆå€¼ã€‚
+* detail_range: è¾¹ç¼˜ç»†èŠ‚èŒƒå›´ã€‚
+* black_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* white_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* process_detail: æ­¤å¤„è®¾ä¸ºFalseå°†è·³è¿‡è¾¹ç¼˜å¤„ç†ä»¥èŠ‚çœè¿è¡Œæ—¶é—´ã€‚
+* prompt: SAMçš„promptè¾“å…¥ã€‚
 
 
 ### <a id="table1">RemBgUltra</a>
-È¥³ı±³¾°¡£ÓëÀàËÆµÄ±³¾°ÒÆ³ı½ÚµãÏà±È£¬Õâ¸ö½Úµã¾ßÓĞ³¬¸ßµÄ±ßÔµÏ¸½Ú¡£
-±¾½Úµã½áºÏÁËspacepxlµÄ[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)µÄAlpha Matte½Úµã£¬ÒÔ¼°ZHO-ZHO-ZHOµÄ[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)µÄ¹¦ÄÜ¡£
+å»é™¤èƒŒæ™¯ã€‚ä¸ç±»ä¼¼çš„èƒŒæ™¯ç§»é™¤èŠ‚ç‚¹ç›¸æ¯”ï¼Œè¿™ä¸ªèŠ‚ç‚¹å…·æœ‰è¶…é«˜çš„è¾¹ç¼˜ç»†èŠ‚ã€‚
+æœ¬èŠ‚ç‚¹ç»“åˆäº†spacepxlçš„[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)çš„Alpha MatteèŠ‚ç‚¹ï¼Œä»¥åŠZHO-ZHO-ZHOçš„[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)çš„åŠŸèƒ½ã€‚
 
-*½«[BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)Ä£ĞÍÎÄ¼ş(model.pth)ÏÂÔØÖÁ```ComfyUI/models/rmbg/RMBG-1.4```ÎÄ¼ş¼Ğ¡£¸ÃÄ£ĞÍÓÉ BRIA AI ¿ª·¢£¬¿É×÷Îª·ÇÉÌÒµÓÃÍ¾µÄ¿ªÔ´Ä£ĞÍ¡£    
+*å°†[BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)æ¨¡å‹æ–‡ä»¶(model.pth)ä¸‹è½½è‡³```ComfyUI/models/rmbg/RMBG-1.4```æ–‡ä»¶å¤¹ã€‚è¯¥æ¨¡å‹ç”± BRIA AI å¼€å‘ï¼Œå¯ä½œä¸ºéå•†ä¸šç”¨é€”çš„å¼€æºæ¨¡å‹ã€‚    
 
-**ÏÂÔØÄ£ĞÍºó£¬½¨ÒéÔÚComfyUI/extra_model_paths.yamlÖĞÌí¼ÓÒ»ĞĞ'rmbg: models/rmbg/RMBG-1.4'¡£(´Ë²½Öè·Ç±ØĞë£©  
+**ä¸‹è½½æ¨¡å‹åï¼Œå»ºè®®åœ¨ComfyUI/extra_model_paths.yamlä¸­æ·»åŠ ä¸€è¡Œ'rmbg: models/rmbg/RMBG-1.4'ã€‚(æ­¤æ­¥éª¤éå¿…é¡»ï¼‰  
 
 
 ![image](image/rembg_ultra_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/rembg_ultra_node.png)
-* detail_range: ±ßÔµÏ¸½Ú·¶Î§¡£
-* black_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* white_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* process_detail: ´Ë´¦ÉèÎªFalse½«Ìø¹ı±ßÔµ´¦ÀíÒÔ½ÚÊ¡ÔËĞĞÊ±¼ä¡£
+* detail_range: è¾¹ç¼˜ç»†èŠ‚èŒƒå›´ã€‚
+* black_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* white_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* process_detail: æ­¤å¤„è®¾ä¸ºFalseå°†è·³è¿‡è¾¹ç¼˜å¤„ç†ä»¥èŠ‚çœè¿è¡Œæ—¶é—´ã€‚
 
 ### <a id="table1">PersonMaskUltra</a>
-ÎªÈËÎïÉú³ÉÁ³¡¢Í··¢¡¢ÉíÌåÆ¤·ô¡¢ÒÂ·ş»òÅäÊÎµÄÕÚÕÖ¡£ÓëÖ®Ç°µÄA Person Mask Generator½ÚµãÏà±È£¬Õâ¸ö½Úµã¾ßÓĞ³¬¸ßµÄ±ßÔµÏ¸½Ú¡£
-±¾½ÚµãµÄÄ£ĞÍ´úÂëÀ´×Ô[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)£¬±ßÔµ´¦Àí´úÂëÀ´×ÔspacepxlµÄ[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)¡£
+ä¸ºäººç‰©ç”Ÿæˆè„¸ã€å¤´å‘ã€èº«ä½“çš®è‚¤ã€è¡£æœæˆ–é…é¥°çš„é®ç½©ã€‚ä¸ä¹‹å‰çš„A Person Mask GeneratorèŠ‚ç‚¹ç›¸æ¯”ï¼Œè¿™ä¸ªèŠ‚ç‚¹å…·æœ‰è¶…é«˜çš„è¾¹ç¼˜ç»†èŠ‚ã€‚
+æœ¬èŠ‚ç‚¹çš„æ¨¡å‹ä»£ç æ¥è‡ª[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)ï¼Œè¾¹ç¼˜å¤„ç†ä»£ç æ¥è‡ªspacepxlçš„[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)ã€‚
 
 ![image](image/person_mask_ultra_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/person_mask_ultra_node.png)
-* face: Á³²¿Ê¶±ğ¡£
-* hair: Í··¢Ê¶±ğ¡£
-* body: ÉíÌåÆ¤·ôÊ¶±ğ¡£
-* clothes: ÒÂ·şÊ¶±ğ¡£
-* accessories: ÅäÊÎ(ÀıÈç±³°ü)Ê¶±ğ¡£
-* background: ±³¾°Ê¶±ğ¡£
-* confidence: Ê¶±ğãĞÖµ£¬¸üµÍµÄÖµ½«Êä³ö¸ü¶àµÄÕÚÕÖ·¶Î§¡£
-* detail_range: ±ßÔµÏ¸½Ú·¶Î§¡£
-* black_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* white_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* process_detail: ´Ë´¦ÉèÎªFalse½«Ìø¹ı±ßÔµ´¦ÀíÒÔ½ÚÊ¡ÔËĞĞÊ±¼ä¡£
+* face: è„¸éƒ¨è¯†åˆ«ã€‚
+* hair: å¤´å‘è¯†åˆ«ã€‚
+* body: èº«ä½“çš®è‚¤è¯†åˆ«ã€‚
+* clothes: è¡£æœè¯†åˆ«ã€‚
+* accessories: é…é¥°(ä¾‹å¦‚èƒŒåŒ…)è¯†åˆ«ã€‚
+* background: èƒŒæ™¯è¯†åˆ«ã€‚
+* confidence: è¯†åˆ«é˜ˆå€¼ï¼Œæ›´ä½çš„å€¼å°†è¾“å‡ºæ›´å¤šçš„é®ç½©èŒƒå›´ã€‚
+* detail_range: è¾¹ç¼˜ç»†èŠ‚èŒƒå›´ã€‚
+* black_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* white_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* process_detail: æ­¤å¤„è®¾ä¸ºFalseå°†è·³è¿‡è¾¹ç¼˜å¤„ç†ä»¥èŠ‚çœè¿è¡Œæ—¶é—´ã€‚
 
 
 ### <a id="table1">PixelSpread</a>
-¶ÔÍ¼ÏñµÄÕÚÕÖ±ßÔµ²¿·Ö½øĞĞÏñËØÀ©ÕÅÔ¤´¦Àí£¬¿ÉÓĞĞ§¸ÄÉÆÍ¼ÏñºÏ³ÉµÄ±ßÔµ¡£
+å¯¹å›¾åƒçš„é®ç½©è¾¹ç¼˜éƒ¨åˆ†è¿›è¡Œåƒç´ æ‰©å¼ é¢„å¤„ç†ï¼Œå¯æœ‰æ•ˆæ”¹å–„å›¾åƒåˆæˆçš„è¾¹ç¼˜ã€‚
 ![image](image/pixel_spread_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/pixel_spread_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* mask_grow: ÕÚÕÖÀ©ÕÅ·ù¶È¡£
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* mask_grow: é®ç½©æ‰©å¼ å¹…åº¦ã€‚
 
 ### <a id="table1">MaskByDifferent</a>
-¼ÆËãÁ½ÕÅÍ¼Ïñ²»Í¬Ö®´¦£¬²¢Êä³öÎªÕÚÕÖ¡£
+è®¡ç®—ä¸¤å¼ å›¾åƒä¸åŒä¹‹å¤„ï¼Œå¹¶è¾“å‡ºä¸ºé®ç½©ã€‚
 ![image](image/mask_by_different_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_by_different_node.png)
-* gain: ¼ÆËãÔöÒæ¡£µ÷¸ß´ËÖµ£¬Î¢ÈõµÄ²îÒì½«¸üÏÔÖøµÄ³ÊÏÖ¡£
-* fix_gap: ĞŞ²¹ÕÚÕÖÄÚ²¿·ìÏ¶¡£¸ü¸ßµÄÖµ½«ĞŞ²¹¸ü´óµÄ·ìÏ¶¡£
-* fix_threshold: ĞŞ²¹ãĞÖµ¡£
-* main_subject_detect: ´ËÏîÉèÎªTrue½«¿ªÆôÖ÷ÌåÕì²â£¬ºöÂÔÖ÷ÌåÖ®ÍâµÄ²îÒì¡£
+* gain: è®¡ç®—å¢ç›Šã€‚è°ƒé«˜æ­¤å€¼ï¼Œå¾®å¼±çš„å·®å¼‚å°†æ›´æ˜¾è‘—çš„å‘ˆç°ã€‚
+* fix_gap: ä¿®è¡¥é®ç½©å†…éƒ¨ç¼éš™ã€‚æ›´é«˜çš„å€¼å°†ä¿®è¡¥æ›´å¤§çš„ç¼éš™ã€‚
+* fix_threshold: ä¿®è¡¥é˜ˆå€¼ã€‚
+* main_subject_detect: æ­¤é¡¹è®¾ä¸ºTrueå°†å¼€å¯ä¸»ä½“ä¾¦æµ‹ï¼Œå¿½ç•¥ä¸»ä½“ä¹‹å¤–çš„å·®å¼‚ã€‚
 
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
-´¦Àí½Ï´Ö²ÚµÄÕÚÕÖÊ¹Æä»ñµÃ³¬¾«Ï¸±ßÔµ¡£
-±¾½Úµã½áºÏÁËspacepxlµÄ[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)µÄAlpha MatteºÍGuided Filter AlphaÁ½Õß¹¦ÄÜ¡£
+å¤„ç†è¾ƒç²—ç³™çš„é®ç½©ä½¿å…¶è·å¾—è¶…ç²¾ç»†è¾¹ç¼˜ã€‚
+æœ¬èŠ‚ç‚¹ç»“åˆäº†spacepxlçš„[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)çš„Alpha Matteå’ŒGuided Filter Alphaä¸¤è€…åŠŸèƒ½ã€‚
 ![image](image/mask_edge_ultra_detail_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_edge_ultra_detail_node.png)
-* method: Ìá¹©PyMattingºÍOpenCV-GuidedFilterÁ½ÖÖ·½·¨´¦Àí±ßÔµ¡£PyMatting´¦ÀíËÙ¶È½ÏÂı£¬µ«ÊÇ¶ÔÓÚÊÓÆµ£¬½¨ÒéÊ¹ÓÃÕâÖÖ·½·¨»ñµÃ¸üÆ½»¬µÄÕÚÕÖĞòÁĞ¡£
-* mask_grow: ÕÚÕÖÀ©ÕÅ·ù¶È¡£ÕıÖµÊÇÏòÍâÀ©ÕÅ£¬¸ºÖµÊÇÏòÄÚÊÕËõ¡£¶ÔÓÚ½Ï´Ö²ÚµÄÕÚÕÖ£¬Í¨³£Ê¹ÓÃ¸ºÖµÊ¹Æä±ßÔµÊÕËõÒÔ»ñµÃ¸üºÃµÄĞ§¹û¡£
-* fix_gap: ĞŞ²¹ÕÚÕÖÖĞµÄ¿ÕÏ¶¡£Èç¹ûÕÚÕÖÖĞÓĞ±È½ÏÃ÷ÏÔµÄ¿ÕÏ¶£¬ÊÊµ±µ÷¸ß´ËÊıÖµ¡£
-* fix_threshold: ĞŞ²¹ÕÚÕÖµÄãĞÖµ¡£
-* detail_range: ±ßÔµÏ¸½Ú·¶Î§¡£
-* black_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
-* white_point: ±ßÔµºÚÉ«²ÉÑùãĞÖµ¡£
+* method: æä¾›PyMattingå’ŒOpenCV-GuidedFilterä¸¤ç§æ–¹æ³•å¤„ç†è¾¹ç¼˜ã€‚PyMattingå¤„ç†é€Ÿåº¦è¾ƒæ…¢ï¼Œä½†æ˜¯å¯¹äºè§†é¢‘ï¼Œå»ºè®®ä½¿ç”¨è¿™ç§æ–¹æ³•è·å¾—æ›´å¹³æ»‘çš„é®ç½©åºåˆ—ã€‚
+* mask_grow: é®ç½©æ‰©å¼ å¹…åº¦ã€‚æ­£å€¼æ˜¯å‘å¤–æ‰©å¼ ï¼Œè´Ÿå€¼æ˜¯å‘å†…æ”¶ç¼©ã€‚å¯¹äºè¾ƒç²—ç³™çš„é®ç½©ï¼Œé€šå¸¸ä½¿ç”¨è´Ÿå€¼ä½¿å…¶è¾¹ç¼˜æ”¶ç¼©ä»¥è·å¾—æ›´å¥½çš„æ•ˆæœã€‚
+* fix_gap: ä¿®è¡¥é®ç½©ä¸­çš„ç©ºéš™ã€‚å¦‚æœé®ç½©ä¸­æœ‰æ¯”è¾ƒæ˜æ˜¾çš„ç©ºéš™ï¼Œé€‚å½“è°ƒé«˜æ­¤æ•°å€¼ã€‚
+* fix_threshold: ä¿®è¡¥é®ç½©çš„é˜ˆå€¼ã€‚
+* detail_range: è¾¹ç¼˜ç»†èŠ‚èŒƒå›´ã€‚
+* black_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
+* white_point: è¾¹ç¼˜é»‘è‰²é‡‡æ ·é˜ˆå€¼ã€‚
 
 
 ### <a id="table1">MaskGrow</a>
-¶Ômask½øĞĞÀ©ÕÅÊÕËõ±ßÔµºÍÄ£ºı´¦Àí
+å¯¹maskè¿›è¡Œæ‰©å¼ æ”¶ç¼©è¾¹ç¼˜å’Œæ¨¡ç³Šå¤„ç†
 ![image](image/mask_grow_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_grow_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* grow: À©ÕÅ·ù¶È¡£ÕıÖµÊÇÏòÍâÀ©ÕÅ£¬¸ºÖµÊÇÏòÄÚÊÕËõ¡£
-* blur: Ä£ºı¡£
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* grow: æ‰©å¼ å¹…åº¦ã€‚æ­£å€¼æ˜¯å‘å¤–æ‰©å¼ ï¼Œè´Ÿå€¼æ˜¯å‘å†…æ”¶ç¼©ã€‚
+* blur: æ¨¡ç³Šã€‚
 
 ### <a id="table1">MaskEdgeShrink</a>
-Ê¹mask±ßÔµÆ½»¬µØ¹ı¶ÉÊÕËõ£¬²¢±£Áô±ßÔµÏ¸½Ú¡£
+ä½¿maskè¾¹ç¼˜å¹³æ»‘åœ°è¿‡æ¸¡æ”¶ç¼©ï¼Œå¹¶ä¿ç•™è¾¹ç¼˜ç»†èŠ‚ã€‚
 ![image](image/mask_edge_shrink_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_edge_shrink_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* shrink_level: ÊÕËõÆ½»¬¼¶±ğ¡£
-* soft: Æ½»¬·ù¶È¡£
-* edge_shrink: ±ßÔµÊÕËõ·ù¶È¡£
-* edge_reserve: ±£Áô±ßÔµÏ¸½Ú·ù¶È, 100ÎªÍêÈ«±£Áô£¬0ÎªÍêÈ«²»±£Áô¡£
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* shrink_level: æ”¶ç¼©å¹³æ»‘çº§åˆ«ã€‚
+* soft: å¹³æ»‘å¹…åº¦ã€‚
+* edge_shrink: è¾¹ç¼˜æ”¶ç¼©å¹…åº¦ã€‚
+* edge_reserve: ä¿ç•™è¾¹ç¼˜ç»†èŠ‚å¹…åº¦, 100ä¸ºå®Œå…¨ä¿ç•™ï¼Œ0ä¸ºå®Œå…¨ä¸ä¿ç•™ã€‚
 
-MaskGrowÓëMaskEdgeShrinkĞ§¹û¶Ô±È
+MaskGrowä¸MaskEdgeShrinkæ•ˆæœå¯¹æ¯”
 ![image](image/mask_edge_compare.png)
 
 ### <a id="table1">MaskMotionBlur</a>
-Ê¹mask²úÉúÔË¶¯Ä£ºı¡£
+ä½¿maskäº§ç”Ÿè¿åŠ¨æ¨¡ç³Šã€‚
 ![image](image/mask_motion_blur_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_motion_blur_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* blur: Ä£ºı´óĞ¡¡£
-* angle: Ä£ºı½Ç¶È¡£
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* blur: æ¨¡ç³Šå¤§å°ã€‚
+* angle: æ¨¡ç³Šè§’åº¦ã€‚
 
 ### <a id="table1">MaskGradient</a>
-Ê¹mask´ÓÒ»²à²úÉú½¥±ä¡£Çë×¢Òâ´Ë½ÚµãÓëCreateGradientMaskµÄÇø±ğ¡£
+ä½¿maskä»ä¸€ä¾§äº§ç”Ÿæ¸å˜ã€‚è¯·æ³¨æ„æ­¤èŠ‚ç‚¹ä¸CreateGradientMaskçš„åŒºåˆ«ã€‚
 ![image](image/mask_gradient_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_gradient_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* gradient_side: ´ÓÄÄ¸ö±ß²úÉú½¥±ä¡£ÓĞËÄ¸ö·½Ïò£º¶¥²àtop¡¢µ×²àbottom¡¢×ó²àleft¡¢ÓÒ²àright¡£
-* gradient_scale: ½¥±ä¾àÀë¡£Ä¬ÈÏÖµ100±íÊ¾½¥±ä²úÉúÒ»²àÍêÈ«Í¸Ã÷£¬ÁíÒ»²àÍêÈ«²»Í¸Ã÷¡£ÊıÖµÔ½Ğ¡£¬´ÓÍ¸Ã÷µ½²»Í¸Ã÷µÄ¾àÀëÔ½¶Ì¡£
-* gradient_offset: ½¥±äÎ»ÖÃÆ«ÒÆ¡£
-* opacity: ½¥±äµÄ²»Í¸Ã÷¶È¡£
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* gradient_side: ä»å“ªä¸ªè¾¹äº§ç”Ÿæ¸å˜ã€‚æœ‰å››ä¸ªæ–¹å‘ï¼šé¡¶ä¾§topã€åº•ä¾§bottomã€å·¦ä¾§leftã€å³ä¾§rightã€‚
+* gradient_scale: æ¸å˜è·ç¦»ã€‚é»˜è®¤å€¼100è¡¨ç¤ºæ¸å˜äº§ç”Ÿä¸€ä¾§å®Œå…¨é€æ˜ï¼Œå¦ä¸€ä¾§å®Œå…¨ä¸é€æ˜ã€‚æ•°å€¼è¶Šå°ï¼Œä»é€æ˜åˆ°ä¸é€æ˜çš„è·ç¦»è¶ŠçŸ­ã€‚
+* gradient_offset: æ¸å˜ä½ç½®åç§»ã€‚
+* opacity: æ¸å˜çš„ä¸é€æ˜åº¦ã€‚
 
 ### <a id="table1">CreateGradientMask</a>
-´´½¨Ò»¸ö½¥±äµÄÕÚÕÖ¡£Çë×¢Òâ´Ë½ÚµãÓëMaskGradientµÄÇø±ğ¡£
+åˆ›å»ºä¸€ä¸ªæ¸å˜çš„é®ç½©ã€‚è¯·æ³¨æ„æ­¤èŠ‚ç‚¹ä¸MaskGradientçš„åŒºåˆ«ã€‚
 ![image](image/create_gradient_mask_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/create_gradient_mask_node.png)
-* size_as<sup>*</sup>: ´Ë´¦ÊäÈëÍ¼Ïñ»òÕÚÕÖ£¬½«°´ÕÕÆä³ß´çÉú³ÉÊä³öÍ¼ÏñºÍÕÚÕÖ¡£×¢Òâ£¬´ËÊäÈëÓÅÏÈ¼¶¸ßÓÚÏÂÃæµÄwidthºÍheight¡£
-* width: »­ÃæµÄ¿í¶È¡£Èç¹ûÓĞsize_asÊäÈë£¬´ËÉèÖÃ½«±»ºöÂÔ¡£
-* height: »­ÃæµÄ¸ß¶È¡£Èç¹ûÓĞsize_asÊäÈë£¬´ËÉèÖÃ½«±»ºöÂÔ¡£
-* gradient_side: ´ÓÄÄ¸ö±ß²úÉú½¥±ä¡£ÓĞËÄ¸ö·½Ïò£º¶¥²àtop¡¢µ×²àbottom¡¢×ó²àleft¡¢ÓÒ²àright¡£
-* gradient_scale: ½¥±ä¾àÀë¡£Ä¬ÈÏÖµ100±íÊ¾½¥±ä²úÉúÒ»²àÍêÈ«Í¸Ã÷£¬ÁíÒ»²àÍêÈ«²»Í¸Ã÷¡£ÊıÖµÔ½Ğ¡£¬´ÓÍ¸Ã÷µ½²»Í¸Ã÷µÄ¾àÀëÔ½¶Ì¡£
-* gradient_offset: ½¥±äÎ»ÖÃÆ«ÒÆ¡£
-* opacity: ½¥±äµÄ²»Í¸Ã÷¶È¡£ 
+* size_as<sup>*</sup>: æ­¤å¤„è¾“å…¥å›¾åƒæˆ–é®ç½©ï¼Œå°†æŒ‰ç…§å…¶å°ºå¯¸ç”Ÿæˆè¾“å‡ºå›¾åƒå’Œé®ç½©ã€‚æ³¨æ„ï¼Œæ­¤è¾“å…¥ä¼˜å…ˆçº§é«˜äºä¸‹é¢çš„widthå’Œheightã€‚
+* width: ç”»é¢çš„å®½åº¦ã€‚å¦‚æœæœ‰size_asè¾“å…¥ï¼Œæ­¤è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* height: ç”»é¢çš„é«˜åº¦ã€‚å¦‚æœæœ‰size_asè¾“å…¥ï¼Œæ­¤è®¾ç½®å°†è¢«å¿½ç•¥ã€‚
+* gradient_side: ä»å“ªä¸ªè¾¹äº§ç”Ÿæ¸å˜ã€‚æœ‰å››ä¸ªæ–¹å‘ï¼šé¡¶ä¾§topã€åº•ä¾§bottomã€å·¦ä¾§leftã€å³ä¾§rightã€‚
+* gradient_scale: æ¸å˜è·ç¦»ã€‚é»˜è®¤å€¼100è¡¨ç¤ºæ¸å˜äº§ç”Ÿä¸€ä¾§å®Œå…¨é€æ˜ï¼Œå¦ä¸€ä¾§å®Œå…¨ä¸é€æ˜ã€‚æ•°å€¼è¶Šå°ï¼Œä»é€æ˜åˆ°ä¸é€æ˜çš„è·ç¦»è¶ŠçŸ­ã€‚
+* gradient_offset: æ¸å˜ä½ç½®åç§»ã€‚
+* opacity: æ¸å˜çš„ä¸é€æ˜åº¦ã€‚ 
 
-<sup>*</sup>½öÏŞÊäÈëimageºÍmask, Èç¹ûÇ¿ÖÆ½ÓÈëÆäËûÀàĞÍÊäÈë£¬½«µ¼ÖÂ½Úµã´íÎó¡£  
+<sup>*</sup>ä»…é™è¾“å…¥imageå’Œmask, å¦‚æœå¼ºåˆ¶æ¥å…¥å…¶ä»–ç±»å‹è¾“å…¥ï¼Œå°†å¯¼è‡´èŠ‚ç‚¹é”™è¯¯ã€‚  
 
 
 ### <a id="table1">MaskStroke</a>
-²úÉúmaskÂÖÀªÃè±ß¡£
+äº§ç”Ÿmaskè½®å»“æè¾¹ã€‚
 ![image](image/mask_stroke_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:  
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:  
 ![image](image/mask_stroke_node.png)
-* invert_mask: ÊÇ·ñ·´×ªÕÚÕÖ¡£
-* stroke_grow: Ãè±ßÀ©ÕÅ/ÊÕËõ·ù¶È£¬ÕıÖµÊÇÀ©ÕÅ£¬¸ºÖµÊÇÊÕËõ¡£
-* stroke_width: Ãè±ß¿í¶È¡£
-* blur: Ãè±ßÄ£ºı¡£
+* invert_mask: æ˜¯å¦åè½¬é®ç½©ã€‚
+* stroke_grow: æè¾¹æ‰©å¼ /æ”¶ç¼©å¹…åº¦ï¼Œæ­£å€¼æ˜¯æ‰©å¼ ï¼Œè´Ÿå€¼æ˜¯æ”¶ç¼©ã€‚
+* stroke_width: æè¾¹å®½åº¦ã€‚
+* blur: æè¾¹æ¨¡ç³Šã€‚
 
 ### <a id="table1">MaskPreview</a>
-Ô¤ÀÀmask
+é¢„è§ˆmask
 ![image](image/mask_invert.png)
 
 
 ### <a id="table1">MaskInvert</a>
-mask·´×ª
+maskåè½¬
 ![image](image/mask_invert_node.png)
 
 
@@ -885,134 +938,122 @@ mask·´×ª
 ![image](image/layerfilter_nodes.png)
 
 ### <a id="table1">Sharp</a> & Soft
-ÎªÍ¼ÏñÔöÇ¿Ï¸½Ú»òÄ¨Æ½Ï¸½Ú¡£
+ä¸ºå›¾åƒå¢å¼ºç»†èŠ‚æˆ–æŠ¹å¹³ç»†èŠ‚ã€‚
 ![image](image/sharp_and_soft_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/sharp_and_soft_node.png)
-* enhance: Ìá¹©ËÄ¸öÔ¤ÉèµµÎ»£¬·Ö±ğÊÇvery sharp¡¢sharp¡¢softºÍvery soft¡£
+* enhance: æä¾›å››ä¸ªé¢„è®¾æ¡£ä½ï¼Œåˆ†åˆ«æ˜¯very sharpã€sharpã€softå’Œvery softã€‚
 
 ### <a id="table1">SkinBeauty</a>
-Ä¥Æ¤Ğ§¹û¡£
+ç£¨çš®æ•ˆæœã€‚
 ![image](image/skin_beauty_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/skin_beauty_node.png)
-* smooth: Æ¤·ôÆ½»¬¶È¡£
-* threshold: Ä¥Æ¤·¶Î§¡£ÊıÖµÔ½Ğ¡·¶Î§Ô½´ó¡£
-* opacity: Ä¥Æ¤µÄ²»Í¸Ã÷¶È¡£
+* smooth: çš®è‚¤å¹³æ»‘åº¦ã€‚
+* threshold: ç£¨çš®èŒƒå›´ã€‚æ•°å€¼è¶Šå°èŒƒå›´è¶Šå¤§ã€‚
+* opacity: ç£¨çš®çš„ä¸é€æ˜åº¦ã€‚
 
 
 ### <a id="table1">WaterColor</a>
-Ë®²Ê»­Ğ§¹û¡£
+æ°´å½©ç”»æ•ˆæœã€‚
 ![image](image/water_color_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/water_color_node.png)
-* line_density: ÏßÌõÃÜ¶È¡£
-* opacity: Ë®²ÊĞ§¹ûµÄ²»Í¸Ã÷¶È¡£
+* line_density: çº¿æ¡å¯†åº¦ã€‚
+* opacity: æ°´å½©æ•ˆæœçš„ä¸é€æ˜åº¦ã€‚
 
 
 ### <a id="table1">SoftLight</a>
-Èá¹âĞ§¹û¡£
+æŸ”å…‰æ•ˆæœã€‚
 ![image](image/soft_light_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/soft_light_node.png)
-* soft: Èá¹â´óĞ¡¡£
-* threshold: Èá¹â·¶Î§¡£Èá¹â´Ó»­Ãæ×îÃ÷ÁÁµÄ²¿·Ö³ÊÏÖ¡£ÊıÖµÔ½µÍ·¶Î§Ô½´ó£¬Ô½¸ß·¶Î§Ô½Ğ¡¡£
-* opacity: Èá¹âµÄ²»Í¸Ã÷¶È¡£
+* soft: æŸ”å…‰å¤§å°ã€‚
+* threshold: æŸ”å…‰èŒƒå›´ã€‚æŸ”å…‰ä»ç”»é¢æœ€æ˜äº®çš„éƒ¨åˆ†å‘ˆç°ã€‚æ•°å€¼è¶Šä½èŒƒå›´è¶Šå¤§ï¼Œè¶Šé«˜èŒƒå›´è¶Šå°ã€‚
+* opacity: æŸ”å…‰çš„ä¸é€æ˜åº¦ã€‚
 
 ### <a id="table1">ChannelShake</a>
-Í¨µÀ´íÎ»¡£ÀàËÆ¶¶ÒôlogoµÄĞ§¹û¡£
+é€šé“é”™ä½ã€‚ç±»ä¼¼æŠ–éŸ³logoçš„æ•ˆæœã€‚
 ![image](image/channel_shake_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/channel_shake_node.png)
-* distance: Í¨µÀ·ÖÀëµÄ¾àÀë¡£
-* angle: Í¨µÀ·ÖÀëµÄ½Ç¶È¡£
-* mode: Í¨µÀ´íÎ»ÅÅÁĞË³Ğò¡£
+* distance: é€šé“åˆ†ç¦»çš„è·ç¦»ã€‚
+* angle: é€šé“åˆ†ç¦»çš„è§’åº¦ã€‚
+* mode: é€šé“é”™ä½æ’åˆ—é¡ºåºã€‚
 
 ### <a id="table1">Film</a>
-Ä£Äâ½ºÆ¬µÄ¿ÅÁ£¡¢°µ±ßºÍ±ßÔµÄ£ºı£¬Ö§³ÖÊäÈëÉî¶ÈÍ¼Ä£ÄâĞé½¹¡£    
-Õâ¸ö½ÚµãÊÇ[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)µÄÖØĞÂ·â×°¡£
+æ¨¡æ‹Ÿèƒ¶ç‰‡çš„é¢—ç²’ã€æš—è¾¹å’Œè¾¹ç¼˜æ¨¡ç³Šï¼Œæ”¯æŒè¾“å…¥æ·±åº¦å›¾æ¨¡æ‹Ÿè™šç„¦ã€‚    
+è¿™ä¸ªèŠ‚ç‚¹æ˜¯[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)çš„é‡æ–°å°è£…ã€‚
 ![image](image/film_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/film_node.png)
-* image: ÊäÈëµÄÍ¼Æ¬¡£
-* depth_map: Éî¶ÈÍ¼ÊäÈë£¬ÓÉ´ËÄ£ÄâĞé½¹Ğ§¹û¡£´ËÏîÊÇ¿ÉÑ¡ÊäÈë£¬Èç¹ûÃ»ÓĞÊäÈëÔòÄ£ÄâÎªÍ¼Æ¬±ßÔµµÄ¾¶ÏòÄ£ºı¡£
-* center_x: °µ±ßºÍ¾¶ÏòÄ£ºıµÄÖĞĞÄµãÎ»ÖÃºá×ø±ê£¬0±íÊ¾×î×ó²à£¬1±íÊ¾×îÓÒ²à£¬0.5±íÊ¾ÔÚÖĞĞÄ¡£
-* center_y: °µ±ßºÍ¾¶ÏòÄ£ºıµÄÖĞĞÄµãÎ»ÖÃ×İ×ø±ê£¬0±íÊ¾×îÉÏ·½£¬1±íÊ¾×îÏÂ·½£¬0.5±íÊ¾ÔÚÖĞĞÄ¡£
-* saturation: ÑÕÉ«±¥ºÍ¶È£¬1ÎªÔ­Ê¼Öµ¡£
-* grain_power: ÔëµãÇ¿¶È¡£ÊıÖµÔ½´ó£¬ÔëµãÔ½Ã÷ÏÔ¡£
-* grain_scale: Ôëµã¿ÅÁ£´óĞ¡¡£ÊıÖµÔ½´ó£¬¿ÅÁ£Ô½´ó¡£
-* grain_sat: ÔëµãµÄÉ«²Ê±¥ºÍ¶È¡£0±íÊ¾ºÚ°×Ôëµã£¬ÊıÖµÔ½´ó£¬²ÊÉ«Ô½Ã÷ÏÔ¡£
-* grain_shadows: °µ²¿ÔëµãÇ¿¶È¡£
-* grain_highs: ÁÁ²¿ÔëµãÇ¿¶È¡£
-* blur_strength: Ä£ºıÇ¿¶È¡£ÊıÖµÔ½´óÔ½Ä£ºı¡£
-* blur_focus_spread: ½¹µãÀ©É¢·¶Î§¡£ÊıÖµÔ½´ó£¬ÇåÎúµÄ·¶Î§Ô½´ó¡£
-* focal_depth: Ä£ÄâĞé½¹µÄ½¹µã¾àÀë¡£0±íÊ¾½¹µãÔÚ×îÔ¶£¬1±íÊ¾½¹µãÔÚ×î½ü¡£´ËÏîÉèÖÃÖ»ÔÚdepth_mapÓĞÊäÈëÊ±²ÅÉúĞ§¡£
+* image: è¾“å…¥çš„å›¾ç‰‡ã€‚
+* depth_map: æ·±åº¦å›¾è¾“å…¥ï¼Œç”±æ­¤æ¨¡æ‹Ÿè™šç„¦æ•ˆæœã€‚æ­¤é¡¹æ˜¯å¯é€‰è¾“å…¥ï¼Œå¦‚æœæ²¡æœ‰è¾“å…¥åˆ™æ¨¡æ‹Ÿä¸ºå›¾ç‰‡è¾¹ç¼˜çš„å¾„å‘æ¨¡ç³Šã€‚
+* center_x: æš—è¾¹å’Œå¾„å‘æ¨¡ç³Šçš„ä¸­å¿ƒç‚¹ä½ç½®æ¨ªåæ ‡ï¼Œ0è¡¨ç¤ºæœ€å·¦ä¾§ï¼Œ1è¡¨ç¤ºæœ€å³ä¾§ï¼Œ0.5è¡¨ç¤ºåœ¨ä¸­å¿ƒã€‚
+* center_y: æš—è¾¹å’Œå¾„å‘æ¨¡ç³Šçš„ä¸­å¿ƒç‚¹ä½ç½®çºµåæ ‡ï¼Œ0è¡¨ç¤ºæœ€ä¸Šæ–¹ï¼Œ1è¡¨ç¤ºæœ€ä¸‹æ–¹ï¼Œ0.5è¡¨ç¤ºåœ¨ä¸­å¿ƒã€‚
+* saturation: é¢œè‰²é¥±å’Œåº¦ï¼Œ1ä¸ºåŸå§‹å€¼ã€‚
+* grain_power: å™ªç‚¹å¼ºåº¦ã€‚æ•°å€¼è¶Šå¤§ï¼Œå™ªç‚¹è¶Šæ˜æ˜¾ã€‚
+* grain_scale: å™ªç‚¹é¢—ç²’å¤§å°ã€‚æ•°å€¼è¶Šå¤§ï¼Œé¢—ç²’è¶Šå¤§ã€‚
+* grain_sat: å™ªç‚¹çš„è‰²å½©é¥±å’Œåº¦ã€‚0è¡¨ç¤ºé»‘ç™½å™ªç‚¹ï¼Œæ•°å€¼è¶Šå¤§ï¼Œå½©è‰²è¶Šæ˜æ˜¾ã€‚
+* grain_shadows: æš—éƒ¨å™ªç‚¹å¼ºåº¦ã€‚
+* grain_highs: äº®éƒ¨å™ªç‚¹å¼ºåº¦ã€‚
+* blur_strength: æ¨¡ç³Šå¼ºåº¦ã€‚æ•°å€¼è¶Šå¤§è¶Šæ¨¡ç³Šã€‚
+* blur_focus_spread: ç„¦ç‚¹æ‰©æ•£èŒƒå›´ã€‚æ•°å€¼è¶Šå¤§ï¼Œæ¸…æ™°çš„èŒƒå›´è¶Šå¤§ã€‚
+* focal_depth: æ¨¡æ‹Ÿè™šç„¦çš„ç„¦ç‚¹è·ç¦»ã€‚0è¡¨ç¤ºç„¦ç‚¹åœ¨æœ€è¿œï¼Œ1è¡¨ç¤ºç„¦ç‚¹åœ¨æœ€è¿‘ã€‚æ­¤é¡¹è®¾ç½®åªåœ¨depth_mapæœ‰è¾“å…¥æ—¶æ‰ç”Ÿæ•ˆã€‚
 
 ### <a id="table1">LightLeak</a>
-Ä£Äâ½ºÆ¬Â©¹âĞ§¹û¡£ÇëÏÂÔØ[light_leak.pkl(°Ù¶ÈÍøÅÌ)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3)»ò[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)½«ÎÄ¼ş¸´ÖÆµ½```ComfyUI/models/layerstyle``` ÎÄ¼ş¼Ğ¡£
+æ¨¡æ‹Ÿèƒ¶ç‰‡æ¼å…‰æ•ˆæœã€‚è¯·ä¸‹è½½[light_leak.pkl(ç™¾åº¦ç½‘ç›˜)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3)æˆ–[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)å°†æ–‡ä»¶å¤åˆ¶åˆ°```ComfyUI/models/layerstyle``` æ–‡ä»¶å¤¹ã€‚
 ![image](image/light_leak_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/light_leak_node.png)
-* light: Ìá¹©ÁË32ÖÖ¹â°ß¡£randomÎªËæ»úÑ¡Ôñ¡£
-* corner: ¹â°ß³öÏÖµÄ½ÇÂä£¬ÓĞ×óÉÏ¡¢ÓÒÉÏ¡¢×óÏÂºÍÓÒÏÂ4¸öÑ¡Ïî¡£
-* hue: ¹â°ßµÄÉ«Ïà¡£
-* saturation: ¹â°ßµÄÉ«²Ê±¥ºÍ¶È¡£
-* opacity: ¹â°ßµÄ²»Í¸Ã÷¶È¡£
+* light: æä¾›äº†32ç§å…‰æ–‘ã€‚randomä¸ºéšæœºé€‰æ‹©ã€‚
+* corner: å…‰æ–‘å‡ºç°çš„è§’è½ï¼Œæœ‰å·¦ä¸Šã€å³ä¸Šã€å·¦ä¸‹å’Œå³ä¸‹4ä¸ªé€‰é¡¹ã€‚
+* hue: å…‰æ–‘çš„è‰²ç›¸ã€‚
+* saturation: å…‰æ–‘çš„è‰²å½©é¥±å’Œåº¦ã€‚
+* opacity: å…‰æ–‘çš„ä¸é€æ˜åº¦ã€‚
 
 ### <a id="table1">ColorMap</a>
-Î±²ÊÉ«ÈÈÁ¦Í¼Ğ§¹û¡£
+ä¼ªå½©è‰²çƒ­åŠ›å›¾æ•ˆæœã€‚
 ![image](image/colormap_result.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
 ![image](image/color_map_node.png)
-* color_map: Ğ§¹ûÀàĞÍ¡£¹²22ÖÖ£¬¸÷ÖÖÀàĞÍµÄĞ§¹ûÈçÉÏÍ¼ËùÊ¾¡£
-* opacity: Î±²ÊÉ«Ğ§¹ûµÄ²»Í¸Ã÷¶È¡£
+* color_map: æ•ˆæœç±»å‹ã€‚å…±22ç§ï¼Œå„ç§ç±»å‹çš„æ•ˆæœå¦‚ä¸Šå›¾æ‰€ç¤ºã€‚
+* opacity: ä¼ªå½©è‰²æ•ˆæœçš„ä¸é€æ˜åº¦ã€‚
 
 ### <a id="table1">MotionBlur</a>
-ÔË¶¯Ä£ºı¡£
+è¿åŠ¨æ¨¡ç³Šã€‚
 ![image](image/motion_blur_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
-* angle: Ä£ºı½Ç¶È¡£
-* blur: Ä£ºı´óĞ¡¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* angle: æ¨¡ç³Šè§’åº¦ã€‚
+* blur: æ¨¡ç³Šå¤§å°ã€‚
 
 ### <a id="table1">GaussianBlur</a>
-¸ßË¹Ä£ºı¡£
+é«˜æ–¯æ¨¡ç³Šã€‚
 ![image](image/gaussian_blur_example.png)
 
-½ÚµãÑ¡ÏîËµÃ÷:
-* blur: Ä£ºı´óĞ¡¡£
+èŠ‚ç‚¹é€‰é¡¹è¯´æ˜:
+* blur: æ¨¡ç³Šå¤§å°ã€‚
 
-## <a id="table1">½Úµã×¢½â</a>
-<sup>1</sup>  image¡¢maskºÍbackground_image(Èç¹ûÓĞÊäÈë)ÕâÈıÏî±ØĞëÊÇÏàÍ¬µÄ³ß´ç¡£
-<sup>2</sup>  mask²»ÊÇ±ØĞëµÄÊäÈëÏî£¬Ä¬ÈÏÊ¹ÓÃimageµÄalphaÍ¨µÀ£¬Èç¹ûimageÊäÈë²»°üº¬alphaÍ¨µÀ½«×Ô¶¯´´½¨Õû¸öÍ¼ÏñµÄalphaÍ¨µÀ¡£Èç¹ûÊäÈëmask£¬Ô­±¾µÄalphaÍ¨µÀ½«±»mask¸²¸Ç¡£
-<sup>3</sup>   <a id="table1">»ìºÏÄ£Ê½</a>°üÀ¨normal¡¢multply¡¢screen¡¢add¡¢subtract¡¢difference¡¢darker¡¢lighter¡¢color_burn¡¢color_dodge¡¢linear_burn¡¢linear_dodge¡¢overlay¡¢soft_light¡¢hard_light¡¢vivid_light¡¢pin_light¡¢linear_light¡¢hard_mix, ¹²19ÖÖ»ìºÏÄ£Ê½
+## <a id="table1">èŠ‚ç‚¹æ³¨è§£</a>
+<sup>1</sup>  imageã€maskå’Œbackground_image(å¦‚æœæœ‰è¾“å…¥)è¿™ä¸‰é¡¹å¿…é¡»æ˜¯ç›¸åŒçš„å°ºå¯¸ã€‚
+<sup>2</sup>  maskä¸æ˜¯å¿…é¡»çš„è¾“å…¥é¡¹ï¼Œé»˜è®¤ä½¿ç”¨imageçš„alphaé€šé“ï¼Œå¦‚æœimageè¾“å…¥ä¸åŒ…å«alphaé€šé“å°†è‡ªåŠ¨åˆ›å»ºæ•´ä¸ªå›¾åƒçš„alphaé€šé“ã€‚å¦‚æœè¾“å…¥maskï¼ŒåŸæœ¬çš„alphaé€šé“å°†è¢«maskè¦†ç›–ã€‚
+<sup>3</sup>   <a id="table1">æ··åˆæ¨¡å¼</a>åŒ…æ‹¬normalã€multplyã€screenã€addã€subtractã€differenceã€darkerã€lighterã€color_burnã€color_dodgeã€linear_burnã€linear_dodgeã€overlayã€soft_lightã€hard_lightã€vivid_lightã€pin_lightã€linear_lightã€hard_mix, å…±19ç§æ··åˆæ¨¡å¼
 
 ![image](image/blend_mode_result.png)
-<font size="1">*»ìºÏÄ£Ê½Ô¤ÀÀ</font><br /> 
+<font size="1">*æ··åˆæ¨¡å¼é¢„è§ˆ</font><br /> 
 
-<sup>4</sup>  ÑÕÉ«Ê¹ÓÃ16½øÖÆRGB×Ö·û´®¸ñÊ½ÃèÊö£¬ÀıÈç '#FA3D86'¡£
-<sup>5</sup>  imageºÍmaskÕâÁ½Ïî±ØĞëÊÇÏàÍ¬µÄ³ß´ç¡£
-
-## Ê¹ÓÃÊ¾Àı
-
-ÔÚworkflowÄ¿Â¼ÏÂÓĞjson¸ñÊ½µÄ¹¤×÷Á÷Ê¾ÀıÎÄ¼ş¡£
+<sup>4</sup>  é¢œè‰²ä½¿ç”¨16è¿›åˆ¶RGBå­—ç¬¦ä¸²æ ¼å¼æè¿°ï¼Œä¾‹å¦‚ '#FA3D86'ã€‚
+<sup>5</sup>  imageå’Œmaskè¿™ä¸¤é¡¹å¿…é¡»æ˜¯ç›¸åŒçš„å°ºå¯¸ã€‚
 
 
-## °²×°·½·¨
-
-* ÍÆ¼öÊ¹ÓÃ ComfyUI Manager °²×°¡£
-* »òÕßÔÚCompyUI²å¼şÄ¿Â¼(ÀıÈç¡°CompyUI\custom_nodes\¡±)ÖĞ´ò¿ªcmd´°¿Ú£¬¼üÈë```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```°²×°¡£»òÕßÏÂÔØ½âÑ¹zipÎÄ¼ş£¬½«µÃµ½µÄÎÄ¼ş¼Ğ¸´ÖÆµ½ ComfyUI\custom_nodes\   
-
-  °²×°ÒÀÀµ°ü£¬ÔÚ×ÊÔ´¹ÜÀíÆ÷ComfyUI\custom_nodes\ComfyUI_LayerStyle ²å¼şÄ¿Â¼Î»ÖÃ´ò¿ªcmd´°¿Ú£¬ÊäÈëÒÔÏÂÃüÁî£º     
-
-  ```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```   
-
-  ÖØĞÂ´ò¿ªComfyUI¡£
+##  å£°æ˜
+LayerStyleèŠ‚ç‚¹éµç…§MITå¼€æºåè®®ï¼Œæœ‰éƒ¨åˆ†åŠŸèƒ½ä»£ç æ¥è‡ªå…¶ä»–å¼€æºé¡¹ç›®ã€‚å¦‚æœä½œä¸ºå•†ä¸šç”¨é€”ï¼Œè¯·æŸ¥é˜…åŸé¡¹ç›®æˆæƒåè®®ä½¿ç”¨ã€‚

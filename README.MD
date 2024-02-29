@@ -1,4 +1,7 @@
 # ComfyUI Layer Style
+
+[中文说明点这里](./README_CN.MD)    
+
 A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.  
 
 It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize the workflow and reduce the frequency of software switching.  
@@ -6,17 +9,35 @@ It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize th
 ![image](image/title.png)  
 <font size="1">*this workflow (title_example_workflow.json) is in the workflow directory.  </font><br /> 
 
-Nodes are divided into 5 groups according to their functions: LayerStyle, LayerColor, LayerMask, LayerUtility and LayerFilter.
-* [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
-* [LayerColor](#LayerColor) node group provides color adjustment functionality.
-* [LayerMask](#LayerMask) nodes provides mask assistance tools.
-* [LayerUtility](#LayerUtility) nodes provides auxiliary nodes related to layer composit tools and workflows.
-* [LayerFilter](#LayerFilter) nodes provides image effect filters.
 
-[中文说明点这里](./README_CN.MD)
+
+## Example workflow
+image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
+
+
+## How to install 
+
+* Recommended use ComfyUI Manager for installation.
+
+* Or open the cmd window in the plugin directory of ComfyUI, like ```ComfyUI\custom_nodes```，type    
+```
+git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
+```
+* Or download the zip file and extracted, copy the resulting folder to ```ComfyUI\custom_ Nodes```    
+
+* Install dependency packages, open the cmd window in the ComfyUI_LayerStyle plugin directory like    
+```ComfyUI\custom_ Nodes\ComfyUI_LayerStyle``` and enter the following command:    
+
+```
+..\..\..\python_embeded\python.exe -m pip install -r requirements.txt
+```
+
+* Restart ComfyUI.
 
 ## Update
-**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5).
+<font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
+
+* Commit [LaMa](#LaMa) node, it can erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com).
 * Commit [ImageRemoveAlpha](#ImageRemoveAlpha) and [ImageCombineAlpha](#ImageCombineAlpha) nodes, alpha channel of the image can be removed or merged.
 * Commit [ImageScaleRestoreV2](#ImageScaleRestoreV2) and [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) nodes, supports scaling images to specified long or short edge sizes.
 * Commit [PersonMaskUltra](#PersonMaskUltra) node, Generate masks for portrait's face, hair, body skin, clothing, or accessories. the model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator).
@@ -73,6 +94,19 @@ Add invalid mask input judgment and ignore it when invalid mask is input.
 * Commit [OuterGlow](#OuterGlow) node.
 * Commit [DropShadow](#DropShadow) node.
 
+
+## Description
+Nodes are divided into 5 groups according to their functions: LayerStyle, LayerColor, LayerMask, LayerUtility and LayerFilter.
+* [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
+![image](image/menu_layer_style.png)
+* [LayerColor](#LayerColor) node group provides color adjustment functionality.
+![image](image/menu_layer_color.png)
+* [LayerMask](#LayerMask) nodes provides mask assistance tools.
+![image](image/menu_layer_mask.png)
+* [LayerUtility](#LayerUtility) nodes provides auxiliary nodes related to layer composit tools and workflows.
+![image](image/menu_layer_utility.png)
+* [LayerFilter](#LayerFilter) nodes provides image effect filters.
+![image](image/menu_layer_filter.png)
 
 # <a id="table1">LayerStyle</a>
 ![image](image/layerstyle_title.png)
@@ -604,6 +638,21 @@ Open the text editing software and find the line starting with "FONT_dir=", afte
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
 
+### <a id="table1">LaMa</a>
+![image](image/lama_example.png)
+Erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com), powered by state-of-the-art AI models.    
+It is have [LaMa](#https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) models and the OpenCV method to erase. Please refer to the original link for the introduction of each model.    
+Please download the model files from [lama models(Baidu Netdisk)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) or [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing) to ```ComfyUI/models/lama``` folder.    
+
+Node optons:
+![image](image/lama_node.png)
+* lama_model: Choose a model or method.
+* device: After correctly installing Torch and Nvidia CUDA drivers, using cuda will significantly improve running speed.
+* invert_mask: Whether to reverse the mask.
+* grow: Positive values expand outward, while negative values contract inward.
+* blur: Blur the edge.
+
+
 ### <a id="table1">ImageChannelSplit</a>
 ![image](image/image_channel_split_example.png)
 Split the image channel into individual images.
@@ -1012,22 +1061,5 @@ Node options:
 
 <sup>5</sup>  The layer_image and layer_mask must be of the same size.
 
-
-
-
-## Example workflow
-image Some JSON workflow files in the workflow directory, that is example for ComfyUI.
-
-
-## How to install 
-
-* Recommended use ComfyUI Manager for installation.
-
-* Or open the cmd window in the plugin directory of ComfyUI, like "ComfyUI\custom_nodes\"，type```git clone https://github.com/chflame163/ComfyUI_LayerStyle.git```
-or download the zip file and extracted, copy the resulting folder to ComfyUI\custom_ Nodes\    
-
-  Install dependency packages, open the cmd window in the ComfyUI_LayerStyle plugin directory like "ComfyUI\custom_ Nodes\ComfyUI_LayerStyle" and enter the following command:    
-
-    ```..\..\..\python_embeded\python.exe -m pip install -r requirements.txt```    
-
-    Restart ComfyUI.
+# statement
+LayerStyle nodes follows the MIT license, Some of its functional code comes from other open-source projects. If used for commercial purposes, please refer to the original project license to authorization agreement.

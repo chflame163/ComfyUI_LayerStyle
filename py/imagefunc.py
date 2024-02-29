@@ -25,7 +25,7 @@ import torch.nn.functional as F
 import colorsys
 from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
 from typing import Union
-import folder_paths as COMFY_FOLDER_PATH
+import folder_paths
 from .briarmbg import BriaRMBG
 from .filmgrainer import processing as processing_utils
 from .filmgrainer import filmgrainer as filmgrainer
@@ -70,7 +70,7 @@ def load_pickle(file_name:str) -> object:
     return obj
 
 def load_light_leak_images() -> list:
-    file = os.path.join(COMFY_FOLDER_PATH.models_dir, "layerstyle", "light_leak.pkl")
+    file = os.path.join(folder_paths.models_dir, "layerstyle", "light_leak.pkl")
     return load_pickle(file)
 
 '''Converter'''
@@ -847,11 +847,11 @@ def load_RMBG_model():
     net = BriaRMBG()
     model_path = ""
     try:
-        model_path = os.path.join(os.path.normpath(COMFY_FOLDER_PATH.folder_names_and_paths['rmbg'][0][0]), "model.pth")
+        model_path = os.path.join(os.path.normpath(folder_paths.folder_names_and_paths['rmbg'][0][0]), "model.pth")
     except:
         pass
     if not os.path.exists(model_path):
-        model_path = os.path.join(COMFY_FOLDER_PATH.models_dir, "rmbg", "RMBG-1.4", "model.pth")
+        model_path = os.path.join(folder_paths.models_dir, "rmbg", "RMBG-1.4", "model.pth")
     if not os.path.exists(model_path):
         model_path = os.path.join(os.path.dirname(current_directory), "RMBG-1.4", "model.pth")
     net.load_state_dict(torch.load(model_path, map_location=device))
@@ -1131,6 +1131,27 @@ def calculate_side_by_ratio(orig_width:int, orig_height:int, ratio:float, longes
         target_width = int(target_width * _r)
 
     return target_width, target_height
+
+def generate_random_name(prefix:str, suffix:str, length:int) -> str:
+    name = ''.join(random.choice("abcdefghijklmnopqrstupvxyz1234567890") for x in range(length))
+    return prefix + name + suffix
+
+def check_image_file(file_name:str, interval:int) -> object:
+    while True:
+        if os.path.isfile(file_name):
+            try:
+                image = Image.open(file_name)
+                ret_image = copy.deepcopy(image)
+                image.close()
+                return ret_image
+            except Exception as e:
+                print(e)
+                return None
+            break
+        time.sleep(interval / 1000)
+
+
+
 '''CLASS'''
 
 class AnyType(str):
