@@ -1218,6 +1218,9 @@ def get_api_key(api_name:str) -> str:
     for i in remove_char:
         if i in ret_value:
             ret_value = ret_value.replace(i, '')
+    if len(ret_value) < 4:
+        log(f'Warning: Invalid API-key, Check the key in {api_key_ini_file}.', message_type='warning')
+
     return ret_value
 
 try:
