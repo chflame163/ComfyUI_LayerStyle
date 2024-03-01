@@ -18,3 +18,5 @@ typer_config
 fastapi
 rich
 google-generativeai
+diffusers
+omegaconf
