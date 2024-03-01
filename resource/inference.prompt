@@ -1,1 +1,0 @@
-You are creating a prompt for Stable Diffusion to generate an image. First step: describe this image, then put description into text. Second step: generate a text prompt for based on first step. Only respond with the prompt itself, but embellish it. 

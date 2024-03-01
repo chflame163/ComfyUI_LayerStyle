@@ -38,6 +38,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [PromptTagger](#PromptTagger) 节点，根据图片反推提示词，可以替换关键词。需要申请Google Studio API使用。升级节点[ColorImageV2](#ColorImageV2)和[GradientImageV2](#GradientImageV2)，支持用户自定义预设尺寸和size_as输入。
 * 添加 [Lama](#Lama) 节点，根据图像遮罩擦除物体。本节点是对[IOPaint](https://www.iopaint.com)的封装。
 * 添加 [ImageRemoveAlpha](#ImageRemoveAlpha) 和 [ImageCombineAlpha](#ImageCombineAlpha) 节点，可移除或合并图片的alpha通道。
 * 添加 [ImageScaleRestoreV2](#ImageScaleRestoreV2) 和 [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点。支持按指定的长边或短边尺寸缩放图像。
@@ -467,6 +468,21 @@ ImageScaleByAspectRatio的V2升级版
 * scale_to_side: 允许按长边或短边指定尺寸缩放。
 * scale_to_length: scale_by_side被设置为"longest"时，此项将作为是图像长边的长度; 设置为"shortest"时，作为短边的长度。
 
+
+### <a id="table1">PromptTagger</a>
+根据图片反推提示词，可以设置替换词。这个节点目前使用Google Gemini API作为后端服务，请确保网络环境可以正常使用Gemini。
+请在[Google AI Studio](https://makersuite.google.com/app/apikey)申请你的API key, 并将其填到```api_key.ini```, 这个文件位于插件根目录。用文本编辑软件打开，在```google_api_key=```后面填入你的API key并保存。
+![image](image/prompt_tagger_example.png)
+
+节点选项说明:   
+![image](image/prompt_tagger_node.png)
+
+* aip: 使用的Api。目前只有"gemini-pro-vision"一个选项。
+* token_limit: 生成提示词的最大token限制。
+* exclude_word: 需要排除的关键词。
+* replace_with_word: 替换exclude_word的关键词。
+
+
 ### <a id="table1">ImageShift</a>
 使图片产生位移。此节点支持位移接缝遮罩的输出，方便制作连续贴图。
 ![image](image/image_shift_example.png)
@@ -593,6 +609,19 @@ ImageScaleByAspectRatio的V2升级版
 * height: 图像高度。
 * color<sup>4</sup>: 颜色。
 
+### <a id="table1">ColorImageV2</a>
+ColorImage的V2升级版。
+
+![image](image/color_image_v2_node.png)
+在ColorImage基础上做了如下改变:
+* size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像。注意，此输入优先级高于其他的尺寸设置。
+* size<sup>**</sup>: 尺寸预设。预设可以用户自定义。如果有size_as输入，此处选项将被忽略。
+* custom_width: 图像宽度。当size设置为"custom"时有效。如果有size_as输入，此处选项将被忽略。
+* custom_height: 图像高度。当size设置为"custom"时有效。如果有size_as输入，此处选项将被忽略。
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+<sup>**</sup>预设尺寸在custom_size.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，编辑自定义尺寸。每行表示一个尺寸，第一个数值是宽度，第二个是高度，中间用小写的"x"分隔。为避免错误请不要输入多余的字符。
+
 ### <a id="table1">GradientImage</a>
 ![image](image/gradient_image_example.png)
 生成一张指定大小和指定颜色渐变的图片。
@@ -604,6 +633,20 @@ ImageScaleByAspectRatio的V2升级版
 * angle: 渐变角度。
 * start_color<sup>4</sup>: 开始端颜色。
 * end_color<sup>4</sup>: 结束端颜色。
+
+### <a id="table1">GradientImageV2</a>
+GradientImage的V2升级版。
+
+![image](image/gradient_image_node_v2.png)
+在GradientImage基础上做了如下改变:
+* size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像。注意，此输入优先级高于其他的尺寸设置。
+* size<sup>**</sup>: 尺寸预设。预设可以用户自定义。如果有size_as输入，此处选项将被忽略。
+* custom_width: 图像宽度。当size设置为"custom"时有效。如果有size_as输入，此处选项将被忽略。
+* custom_height: 图像高度。当size设置为"custom"时有效。如果有size_as输入，此处选项将被忽略。
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+<sup>**</sup>预设尺寸在```custom_size.ini```中定义，这个文件位于插件根目录下。用文本编辑软件打开，编辑自定义尺寸。每行表示一个尺寸，第一个数值是宽度，第二个是高度，中间用小写的"x"分隔。为避免错误请不要输入多余的字符。
+
 
 ### <a id="table1">TextImage</a>
 ![image](image/text_image_example.png)
@@ -626,9 +669,9 @@ ImageScaleByAspectRatio的V2升级版
 * text_color: 文字颜色。
 * background_color: 背景颜色。
 
-<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
 
-<sup>**</sup>font文件夹在resource_dir.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+
+<sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
 
 ### <a id="table1">LaMa</a>

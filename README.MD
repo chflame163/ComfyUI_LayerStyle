@@ -37,6 +37,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [PromptTagger](#PromptTagger) node，Inference the prompts based on the image. and it can replace key word for the prompt(need apply for Google Studio API key). Upgrade [ColorImageV2](#ColorImageV2) and [GradientImageV2](#GradientImageV2)，support user customize preset sizes and size_as input.
 * Commit [LaMa](#LaMa) node, it can erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com).
 * Commit [ImageRemoveAlpha](#ImageRemoveAlpha) and [ImageCombineAlpha](#ImageCombineAlpha) nodes, alpha channel of the image can be removed or merged.
 * Commit [ImageScaleRestoreV2](#ImageScaleRestoreV2) and [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) nodes, supports scaling images to specified long or short edge sizes.
@@ -472,6 +473,20 @@ The following changes have been made based on ImageScaleByAspectRatio:
 * scale_to_side: Allow scaling by specified size on long or short sides.
 * scale_to_length: When scale_by_side is set to "longest", this will be used as the length of the long edge of the image; When set to "shortest", it serves as the length of the short edge.
 
+### <a id="table1">PromptTagger</a>
+Inference the prompts based on the image. it can replace key word for the prompt. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
+Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, This file is located in the root directory of the plugin. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
+![image](image/prompt_tagger_example.png)
+
+Node options:   
+![image](image/prompt_tagger_node.png)
+
+* aip: The Api used. At present, there is only one option, "gemini-pro-vision".
+* token_limit: The maximum token limit for generating prompt words.
+* exclude_word: Keywords that need to be excluded.
+* replace_with_word: That word will replace the exclude_word.
+
+
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.
 ![image](image/image_shift_example.png)
@@ -598,6 +613,20 @@ Node options:
 * height: Height of the image.
 * color<sup>4</sup>: Color of the image.
 
+### <a id="table1">ColorImageV2</a>
+The V2 upgraded version of ColorImage.
+
+![image](image/color_image_v2_node.png)
+The following changes have been made based on ColorImage:
+* size_as<sup>*</sup>: Input image or mask here to generate image according to its size. Note that this input takes priority over other size settings.
+* size<sup>**</sup>: Size preset. the preset can be customized by the user. if have size_as input, this option will be ignored.
+* custom_width: Image width. it valid when size is set to "custom". if have size_as input, this option will be ignored.
+* custom_height: Image height. it valid when size is set to "custom". if have size_as input, this option will be ignored.
+
+<sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
+<sup>**</sup>The preset size is defined in ```custom_size.ini```, which is located in the root directory of the plugin. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+
+
 ### <a id="table1">GradientImage</a>
 ![image](image/gradient_image_example.png)
 Generate an image with a specified size and color gradient.
@@ -609,6 +638,21 @@ Node options:
 * angle: Angle of gradient.
 * start_color<sup>4</sup>: Color of the begging.
 * end_color<sup>4</sup>: Color of the ending.
+
+### <a id="table1">GradientImageV2</a>
+The V2 upgraded version of GradientImage.
+
+![image](image/gradient_image_node_v2.png)
+The following changes have been made based on GradientImage:
+* size_as<sup>*</sup>: Input image or mask here to generate image according to its size. Note that this input takes priority over other size settings.
+* size<sup>**</sup>: Size preset. the preset can be customized by the user. if have size_as input, this option will be ignored.
+* custom_width: Image width. it valid when size is set to "custom". if have size_as input, this option will be ignored.
+* custom_height: Image height. it valid when size is set to "custom". if have size_as input, this option will be ignored.
+
+<sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
+<sup>**</sup>The preset size is defined in ```custom_size.ini```, which is located in the root directory of the plugin. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+
+
 
 ### <a id="table1">TextImage</a>
 ![image](image/text_image_example.png)
@@ -633,7 +677,7 @@ Node options:
 
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
 
-<sup>**</sup>The font folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
+<sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plugin. 
 Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 

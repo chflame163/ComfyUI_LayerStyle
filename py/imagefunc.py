@@ -1178,16 +1178,30 @@ default_lut_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(
 default_font_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'font')
 resource_dir_ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource_dir.ini")
 api_key_ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "api_key.ini")
-inference_prompt_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource", "inference.prompt")
+custom_size_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "custom_size.ini")
 
-def load_inference_prompt() -> str:
-    ret_value = ''
+# def load_inference_prompt() -> str:
+#     inference_prompt_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "resource",
+#                                          "inference.prompt")
+#     ret_value = ''
+#     try:
+#         with open(inference_prompt_file, 'r') as f:
+#             ret_value = f.readlines()
+#     except Exception as e:
+#         log(f'Warning: {inference_prompt_file} ' + repr(e) + f", check it to be correct. ", message_type='warning')
+#     return  ''.join(ret_value)
+
+def load_custom_size() -> list:
+    ret_value = []
     try:
-        with open(inference_prompt_file, 'r') as f:
-            ret_value = f.readlines()
+        with open(custom_size_file, 'r') as f:
+            ini = f.readlines()
+            for line in ini:
+                if not line.startswith(f'#'):
+                    ret_value.append(line.strip())
     except Exception as e:
-        log(f'Warning: {inference_prompt_file} ' + repr(e) + f", check it to be correct. ", message_type='warning')
-    return  ''.join(ret_value)
+        log(f'Warning: {custom_size_file} ' + repr(e) + f", check it to be correct. ", message_type='warning')
+    return ret_value
 
 def get_api_key(api_name:str) -> str:
     ret_value = ''
