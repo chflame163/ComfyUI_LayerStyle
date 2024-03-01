@@ -603,7 +603,7 @@
         "Node name for S&R": "LayerUtility: LaMa"
       },
       "widgets_values": [
-        "opencv",
+        "spread",
         "cuda",
         false,
         25,

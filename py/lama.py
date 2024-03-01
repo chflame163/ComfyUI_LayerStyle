@@ -14,7 +14,7 @@ class LaMa:
 
     @classmethod
     def INPUT_TYPES(self):
-        model_list = ['lama', 'ldm', 'zits', 'mat', 'fcf', 'manga', 'opencv']
+        model_list = ['lama', 'ldm', 'zits', 'mat', 'fcf', 'manga', 'spread']
         device_list = ['cuda', 'cpu']
         return {
             "required": {
@@ -67,7 +67,7 @@ class LaMa:
             if mask_grow or mask_blur:
                 _mask = tensor2pil(expand_mask(image2mask(_mask), mask_grow, mask_blur))
 
-            if lama_model == 'opencv':
+            if lama_model == 'spread':
                 ret_image = pixel_spread(tensor2pil(_image).convert('RGB'), ImageChops.invert(_mask.convert('RGB')))
             else:
                 temp_dir = os.path.join(folder_paths.get_temp_directory(), generate_random_name('_lama_', '_temp', 16))
