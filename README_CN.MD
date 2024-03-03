@@ -364,7 +364,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * image<sup>5</sup>: 输入的图像。
 * mask_for_crop<sup>5</sup>: image的遮罩，将自动按照遮罩范围进行裁切。
 * invert_mask: 是否反转遮罩。
-* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
+* detect: 探测方法，```min_bounding_rect```是大块形状最小外接矩形, ```max_inscribed_rect```是大块形状最大内接矩形, ```mask_area```是遮罩像素有效区域。
 * top_reserve: 裁切顶端保留大小。
 * bottom_reserve: 裁切底部保留大小。
 * left_reserve: 裁切左侧保留大小。
@@ -774,7 +774,7 @@ cropped_mask: 裁切后的遮罩。
 
 节点选项说明:  
 ![image](image/mask_box_detect_node.png)
-* detect: 探测方法，min_bounding_rect是最小外接矩形, max_inscribed_rect是最大内接矩形。
+* detect: 探测方法，```min_bounding_rect```是大块形状最小外接矩形, ```max_inscribed_rect```是大块形状最大内接矩形, ```mask_area```是遮罩像素有效区域。
 * x_adjust: 修正探测之后的水平偏移。
 * y_adjust: 修正探测之后的垂直偏移。
 * scale_adjust: 修正探测之后的缩放偏移。

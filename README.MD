@@ -371,7 +371,7 @@ Node options:
 * image<sup>5</sup>: The input image.
 * mask_for_crop<sup>5</sup>: Mask of the image, it will automatically be cut according to the mask range.
 * invert_mask: Whether to reverse the mask.
-* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
+* detect: Detection method, ```min_bounding_rect``` is the minimum bounding rectangle of block shape, ```max_inscribed_rect``` is the maximum inscribed rectangle of block shape, and ```mask-area``` is the effective area for masking pixels.
 * top_reserve: Cut the top to preserve size.
 * bottom_reserve: Cut the bottom to preserve size.
 * left_reserve: Cut the left to preserve size.
@@ -781,7 +781,7 @@ Detect the area where the mask is located and output its position and size.
 
 Node options:  
 ![image](image/mask_box_detect_node.png)
-* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
+* detect: Detection method, ```min_bounding_rect``` is the minimum bounding rectangle of block shape, ```max_inscribed_rect``` is the maximum inscribed rectangle of block shape, and ```mask-area``` is the effective area for masking pixels.
 * x_adjust: Adjust of horizontal deviation after detection.
 * y_adjust: Adjust of vertical offset after detection.
 * scale_adjust: Adjust the scaling offset after detection.
