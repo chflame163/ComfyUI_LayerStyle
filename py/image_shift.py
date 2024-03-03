@@ -57,8 +57,6 @@ class ImageShift:
                 mask = torch.unsqueeze(mask, 0)
             l_masks = []
             for m in mask:
-                if invert_mask:
-                    m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
 
         shift_x, shift_y = -shift_x, -shift_y
