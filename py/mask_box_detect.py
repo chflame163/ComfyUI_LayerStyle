@@ -9,7 +9,7 @@ class MaskBoxDetect:
 
     @classmethod
     def INPUT_TYPES(self):
-        detect_mode = ['min_bounding_rect', 'max_inscribed_rect']
+        detect_mode = ['min_bounding_rect', 'max_inscribed_rect', 'mask_area']
         return {
             "required": {
                 "mask": ("MASK", ),
@@ -46,8 +46,11 @@ class MaskBoxDetect:
 
         if detect == "min_bounding_rect":
             (x, y, width, height) = min_bounding_rect(_mask)
-        if detect == "max_inscribed_rect":
+        elif detect == "max_inscribed_rect":
             (x, y, width, height) = max_inscribed_rect(_mask)
+        else:
+            (x, y, width, height) = mask_area(_mask)
+        log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
         _width = width
         _height = height
         if scale_adjust != 1.0:

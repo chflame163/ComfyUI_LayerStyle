@@ -974,6 +974,18 @@ def RGB2RGBA(image:Image, mask:Image) -> Image:
     (R, G, B) = image.convert('RGB').split()
     return Image.merge('RGBA', (R, G, B, mask.convert('L')))
 
+def mask_area(image:Image) -> tuple:
+    cv2_image = pil2cv2(image.convert('RGBA'))
+    gray = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2GRAY)
+    _, thresh = cv2.threshold(gray, 127, 255, 0)
+    locs = np.where(thresh == 255)
+    x1 = np.min(locs[1])
+    x2 = np.max(locs[1])
+    y1 = np.min(locs[0])
+    y2 = np.max(locs[0])
+    x1, y1, x2, y2 = min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
+    return (x1, y1, x2 - x1, y2 - y1)
+
 def min_bounding_rect(image:Image) -> tuple:
     cv2_image = pil2cv2(image)
     gray = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2GRAY)

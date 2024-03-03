@@ -11,7 +11,7 @@ class ImageAutoCrop:
     @classmethod
     def INPUT_TYPES(self):
         matting_method_list = ['RMBG 1.4', 'SegmentAnything']
-        detect_mode = ['min_bounding_rect', 'max_inscribed_rect']
+        detect_mode = ['min_bounding_rect', 'max_inscribed_rect', 'mask_area']
         ratio_list = ['1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16', 'custom', 'detect_mask']
         return {
             "required": {
@@ -97,8 +97,10 @@ class ImageAutoCrop:
             y_offset = 0
             if detect == "min_bounding_rect":
                 (x, y, width, height) = min_bounding_rect(bluredmask)
-            if detect == "max_inscribed_rect":
+            elif detect == "max_inscribed_rect":
                 (x, y, width, height) = max_inscribed_rect(bluredmask)
+            else:
+                (x, y, width, height) = mask_area(bluredmask)
             canvas_width, canvas_height = _image.size
             x1 = x - border_reserve
             y1 = y - border_reserve

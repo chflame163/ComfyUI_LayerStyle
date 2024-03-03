@@ -52,13 +52,12 @@ class MaskEdgeUltraDetail:
             _mask = l_masks[i]
             if mask_grow != 0:
                 _mask = expand_mask(_mask, mask_grow, mask_grow//2)
+            if fix_gap:
+                _mask = mask_fix(_mask, 1, fix_gap, fix_threshold, fix_threshold)
             if method == 'OpenCV-GuidedFilter':
-                if fix_gap:
-                    _mask = mask_fix(_mask, 1, fix_gap, fix_threshold, fix_threshold)
                 _mask = guided_filter_alpha(_image, _mask, detail_range)
                 _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
             else:
-                _mask = mask_fix(_mask, 1, fix_gap, fix_threshold, fix_threshold)
                 _mask = tensor2pil(mask_edge_detail(_image, _mask, detail_range, black_point, white_point))
 
             ret_image = RGB2RGBA(orig_image, _mask.convert('L'))

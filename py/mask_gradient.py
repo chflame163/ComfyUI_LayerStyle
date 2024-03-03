@@ -33,6 +33,7 @@ class MaskGradient:
 
     def mask_gradient(self, mask, invert_mask, gradient_side, gradient_scale, gradient_offset, opacity, ):
 
+
         if mask.dim() == 2:
             mask = torch.unsqueeze(mask, 0)
 
@@ -50,8 +51,10 @@ class MaskGradient:
             width = _mask.width
             height = _mask.height
             _gradient = gradient('#000000', '#FFFFFF',
-                                 _mask.width, _mask.height, 0)
-            (box_x, box_y, box_width, box_height) = min_bounding_rect(_mask)
+                                 1024, 1024, 0)
+            # (box_x, box_y, box_width, box_height) = min_bounding_rect(_mask)
+            (box_x, box_y, box_width, box_height) = mask_area(_mask)
+            log(f"{NODE_NAME}: Box detected. x={box_x},y={box_y},width={box_width},height={box_height}")
             if box_width < 1 or box_height < 1:
                 log(f"Error: {NODE_NAME} skipped, because the mask is does'nt have valid area", message_type='error')
                 return (mask,)

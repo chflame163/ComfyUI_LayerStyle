@@ -9,7 +9,7 @@ class CropByMask:
 
     @classmethod
     def INPUT_TYPES(self):
-        detect_mode = ['min_bounding_rect', 'max_inscribed_rect']
+        detect_mode = ['min_bounding_rect', 'max_inscribed_rect', 'mask_area']
         return {
             "required": {
                 "image": ("IMAGE", ),  #
@@ -61,8 +61,11 @@ class CropByMask:
         height = 0
         if detect == "min_bounding_rect":
             (x, y, width, height) = min_bounding_rect(bluredmask)
-        if detect == "max_inscribed_rect":
+        elif detect == "max_inscribed_rect":
             (x, y, width, height) = max_inscribed_rect(bluredmask)
+        else:
+            (x, y, width, height) = mask_area(_mask)
+        log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
         canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
         x1 = x - left_reserve if x - left_reserve > 0 else 0
         y1 = y - top_reserve if y - top_reserve > 0 else 0
