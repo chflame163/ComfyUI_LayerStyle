@@ -16,6 +16,7 @@ import scipy.ndimage
 import cv2
 import random
 import time
+from functools import lru_cache
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
 from skimage import img_as_float, img_as_ubyte
@@ -894,7 +895,7 @@ def generate_text_image(text:str, font_path:str, font_size:int, text_color:str="
 
 
 '''Mask Functions'''
-
+@lru_cache(maxsize=1, typed=False)
 def load_RMBG_model():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     device = "cuda" if torch.cuda.is_available() else "cpu"

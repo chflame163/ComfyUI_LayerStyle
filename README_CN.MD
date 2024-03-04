@@ -38,6 +38,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [SimpleTextImage](#SimpleTextImage) 节点。从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
 * 添加 [PromptTagger](#PromptTagger) 节点，根据图片反推提示词，可以替换关键词。需要申请Google Studio API使用。升级节点[ColorImageV2](#ColorImageV2)和[GradientImageV2](#GradientImageV2)，支持用户自定义预设尺寸和size_as输入。
 * 添加 [Lama](#Lama) 节点，根据图像遮罩擦除物体。本节点是对[IOPaint](https://www.iopaint.com)的封装。
 * 添加 [ImageRemoveAlpha](#ImageRemoveAlpha) 和 [ImageCombineAlpha](#ImageCombineAlpha) 节点，可移除或合并图片的alpha通道。
@@ -648,6 +649,36 @@ GradientImage的V2升级版。
 <sup>**</sup>预设尺寸在```custom_size.ini```中定义，这个文件位于插件根目录下。用文本编辑软件打开，编辑自定义尺寸。每行表示一个尺寸，第一个数值是宽度，第二个是高度，中间用小写的"x"分隔。为避免错误请不要输入多余的字符。
 
 
+
+
+### <a id="table1">SimpleTextImage</a>
+![image](image/simple_text_image_example.png)
+从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
+
+![image](image/simple_text_image_node.png)
+节点选项说明:
+* size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像和遮罩。注意，此输入优先级高于下面的width和height。
+* text: 文字输入。
+* font_file<sup>**</sup>: 这里列出了font文件夹中可用的字体文件列表，选中的字体文件将被用来生成图像。
+* align: 对齐选项。有居中，靠左和靠右三个选项。
+* char_per_line: 每行字符数量，超过的部分将自动换行。
+* leading: 行间距。
+* font_size: 字体大小。
+* text_color: 文字颜色。
+* stroke_width: 描边宽度。
+* stroke_color: 描边颜色。
+* x_offset: 文字位置的水平偏移量。
+* y_offset: 文字位置的垂直偏移量。
+* width: 画面的宽度。如果有size_as输入，此设置将被忽略。
+* height: 画面的高度。如果有size_as输入，此设置将被忽略。
+
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+<sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+
+
+
+
 ### <a id="table1">TextImage</a>
 ![image](image/text_image_example.png)
 从文字生成图片以及遮罩。支持字间距行间距调整，横排竖排调整，可设置文字的随机变化，包括大小和位置的随机变化。
@@ -670,7 +701,7 @@ GradientImage的V2升级版。
 * background_color: 背景颜色。
 
 
-
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
 <sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
 

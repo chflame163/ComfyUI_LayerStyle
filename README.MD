@@ -37,6 +37,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [SimpleTextImage](#SimpleTextImage) node, it generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
 * Commit [PromptTagger](#PromptTagger) node，Inference the prompts based on the image. and it can replace key word for the prompt(need apply for Google Studio API key). Upgrade [ColorImageV2](#ColorImageV2) and [GradientImageV2](#GradientImageV2)，support user customize preset sizes and size_as input.
 * Commit [LaMa](#LaMa) node, it can erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com).
 * Commit [ImageRemoveAlpha](#ImageRemoveAlpha) and [ImageCombineAlpha](#ImageCombineAlpha) nodes, alpha channel of the image can be removed or merged.
@@ -651,6 +652,33 @@ The following changes have been made based on GradientImage:
 
 <sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
 <sup>**</sup>The preset size is defined in ```custom_size.ini```, which is located in the root directory of the plugin. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+
+### <a id="table1">SimpleTextImage</a>
+![image](image/simple_text_image_example.png)
+Generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
+
+![image](image/simple_text_image_node.png)
+Node options:
+* size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
+* font_file<sup>**</sup>: Here is a list of available font files in the font folder, and the selected font files will be used to generate images.
+* align: Alignment options. There are three options: center, left, and right.
+* char_per_line: The number of characters per line, any excess will be automatically wrapped.
+* leading: The leading space.
+* font_size: The size of font.
+* text_color: The color of text.
+* stroke_width: The width of stroke.
+* stroke_color: The color of stroke.
+* x_offset: The horizontal offset of the text position.
+* y_offset: The vertical offset of the text position.
+* width: Width of the image. If there is a size_as input, this setting will be ignored.
+* height: Height of the image. If there is a size_as input, this setting will be ignored.
+
+
+<sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
+
+<sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plugin. 
+Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
 
 

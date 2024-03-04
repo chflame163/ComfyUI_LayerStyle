@@ -1,0 +1,360 @@
+{
+  "last_node_id": 11,
+  "last_link_id": 23,
+  "nodes": [
+    {
+      "id": 7,
+      "type": "LayerStyle: DropShadow",
+      "pos": [
+        1056,
+        302
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 10
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 18
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            19,
+            23
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: DropShadow"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        75,
+        8,
+        8,
+        2,
+        8,
+        "#000000"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        523,
+        289
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            10,
+            17
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_beach (26).png",
+        "image"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "LayerUtility: SimpleTextImage",
+      "pos": [
+        741,
+        667
+      ],
+      "size": [
+        392.5400561523438,
+        406.28336669921873
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            18
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: SimpleTextImage"
+      },
+      "widgets_values": [
+        "Are you going to Scarborough Fair?\nParsley, sage, rosemary, and thyme.\nRemember me to one who lives there,\nShe once was the true love of mine.",
+        "Alibaba-PuHuiTi-Bold.ttf",
+        "center",
+        80,
+        8,
+        52,
+        "#FFFFFF",
+        0,
+        "#FF8000",
+        0,
+        300,
+        512,
+        512
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LayerUtility: SimpleTextImage",
+      "pos": [
+        1310,
+        666
+      ],
+      "size": {
+        "0": 392.5400695800781,
+        "1": 406.2833557128906
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            21
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: SimpleTextImage"
+      },
+      "widgets_values": [
+        "Scarborough Fair",
+        "Alibaba-PuHuiTi-Bold.ttf",
+        "center",
+        80,
+        8,
+        108,
+        "#FFE080",
+        0,
+        "#FF8000",
+        0,
+        120,
+        512,
+        512
+      ]
+    },
+    {
+      "id": 11,
+      "type": "LayerStyle: DropShadow",
+      "pos": [
+        1678,
+        302
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 19
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            20
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: DropShadow"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        75,
+        8,
+        8,
+        2,
+        8,
+        "#000000"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PreviewImage",
+      "pos": [
+        2056,
+        355
+      ],
+      "size": [
+        714.4351806640625,
+        444.5991973876953
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 20
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      10,
+      4,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      4,
+      0,
+      9,
+      0,
+      "*"
+    ],
+    [
+      18,
+      9,
+      0,
+      7,
+      1,
+      "IMAGE"
+    ],
+    [
+      19,
+      7,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      20,
+      11,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      10,
+      0,
+      11,
+      1,
+      "IMAGE"
+    ],
+    [
+      23,
+      7,
+      0,
+      10,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
