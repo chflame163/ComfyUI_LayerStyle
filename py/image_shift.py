@@ -15,7 +15,7 @@ class ImageShift:
                 "image": ("IMAGE", ),  #
                 "shift_x": ("INT", {"default": 256, "min": -9999, "max": 9999, "step": 1}),
                 "shift_y": ("INT", {"default": 256, "min": -9999, "max": 9999, "step": 1}),
-                "cyclic": ("BOOLEAN", {"default": True}),  # 反转mask#
+                "cyclic": ("BOOLEAN", {"default": True}),  # 是否循环重复
                 "background_color": ("STRING", {"default": "#000000"}),
                 "border_mask_width": ("INT", {"default": 20, "min": 0, "max": 999, "step": 1}),
                 "border_mask_blur": ("INT", {"default": 12, "min": 0, "max": 999, "step": 1}),
