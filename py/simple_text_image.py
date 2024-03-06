@@ -47,8 +47,16 @@ class SimpleTextImage:
                           width, height, size_as=None
                           ):
 
+        ret_images = []
+        ret_masks = []
         if size_as is not None:
-            width, height = tensor2pil(size_as).size
+            if size_as.dim() == 2:
+                size_as_image = torch.unsqueeze(mask, 0)
+            if size_as.shape[0] > 0:
+                size_as_image = torch.unsqueeze(size_as[0], 0)
+            else:
+                size_as_image = copy.deepcopy(size_as)
+            width, height = tensor2pil(size_as_image).size
         font_path = FONT_DICT.get(font_file)
         (_, top, _, _) = ImageFont.truetype(font=font_path, size=font_size, encoding='unic').getbbox(text)
         font = cast(ImageFont.FreeTypeFont, ImageFont.truetype(font_path, font_size))
@@ -59,40 +67,43 @@ class SimpleTextImage:
         img_height = height  # line_height * len(lines)
         img_width = width  # max(font.getsize(line)[0] for line in lines)
 
-        img = Image.new("RGBA", size=(img_width, img_height), color=(0, 0, 0, 0))
-        draw = ImageDraw.Draw(img)
 
-        y_text = y_offset + stroke_width
 
-        for paragraph in paragraphs:
-            lines = textwrap.wrap(paragraph, width=char_per_line, expand_tabs=False, replace_whitespace=False)
-            for line in lines:
-                width = font.getbbox(line)[2] - font.getbbox(line)[0]
-                height = font.getbbox(line)[3] - font.getbbox(line)[1]
+        for i in size_as:
+            img = Image.new("RGBA", size=(img_width, img_height), color=(0, 0, 0, 0))
+            draw = ImageDraw.Draw(img)
+            y_text = y_offset + stroke_width
+            for paragraph in paragraphs:
+                lines = textwrap.wrap(paragraph, width=char_per_line, expand_tabs=False, replace_whitespace=False)
+                for line in lines:
+                    width = font.getbbox(line)[2] - font.getbbox(line)[0]
+                    height = font.getbbox(line)[3] - font.getbbox(line)[1]
+                    # 根据 align 参数重新计算 x 坐标
+                    if align == "left":
+                        x_text = x_offset
+                    elif align == "center":
+                        x_text = (img_width - width) // 2
+                    elif align == "right":
+                        x_text = img_width - width - margin_x
+                    else:
+                        x_text = x_offset  # 默认为左对齐
 
-                # 根据 align 参数重新计算 x 坐标
-                if align == "left":
-                    x_text = x_offset
-                elif align == "center":
-                    x_text = (img_width - width) // 2
-                elif align == "right":
-                    x_text = img_width - width - margin_x
-                else:
-                    x_text = x_offset  # 默认为左对齐
+                    draw.text(
+                        xy=(x_text, y_text),
+                        text=line,
+                        fill=text_color,
+                        font=font,
+                        stroke_width=stroke_width,
+                        stroke_fill=stroke_color,
+                        )
+                    y_text += height + leading
 
-                draw.text(
-                    xy=(x_text, y_text),
-                    text=line,
-                    fill=text_color,
-                    font=font,
-                    stroke_width=stroke_width,
-                    stroke_fill=stroke_color,
-                    )
-                y_text += height + leading
+                y_text += leading * 2
+            ret_images.append(pil2tensor(img))
+            ret_masks.append(image2mask(img.split()[3]))
 
-            y_text += leading * 2
-
-        return (pil2tensor(img), image2mask(img.split()[3]))
+        log(f"{NODE_NAME} Processed.", message_type='finish')
+        return (torch.cat(ret_images, dim=0),torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: SimpleTextImage": SimpleTextImage
