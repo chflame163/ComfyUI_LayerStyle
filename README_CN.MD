@@ -37,7 +37,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
-
+* 添加 [CropByMaskV2](#CropByMaskV2) 节点，在原节点基础上支持```crop_box```输入，方便裁切相同尺寸的图层。
 * 添加 [SimpleTextImage](#SimpleTextImage) 节点。从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
 * 添加 [PromptTagger](#PromptTagger) 节点，根据图片反推提示词，可以替换关键词。需要申请Google Studio API使用。升级节点[ColorImageV2](#ColorImageV2)和[GradientImageV2](#GradientImageV2)，支持用户自定义预设尺寸和size_as输入。
 * 添加 [Lama](#Lama) 节点，根据图像遮罩擦除物体。本节点是对[IOPaint](https://www.iopaint.com)的封装。
@@ -377,6 +377,15 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * croped_mask: 裁切后的遮罩。
 * crop_box: 裁切box数据，在RestoreCropBox节点恢复时使用。
 * box_preview: 裁切位置预览图，红色是探测到的范围，绿色是加上保留边框后裁切的范围。
+
+### <a id="table1">CropByMaskV2</a>
+CropByMask的V2升级版。支持crop_box输入，方便裁切相同尺寸的图层。
+
+在CropByMask基础上做了如下改变: 
+![image](image/corp_by_mask_v2_node.png)
+* ```mask_for_crop```更名为```mask```。
+* 增加```crop_box```可选输入，如果这里有输入将忽略遮罩探测，直接使用此数据裁切。
+
 
 ### <a id="table1">RestoreCropBox</a>
 将被[CropByMask](#CropByMask)裁切后的图片恢复到原图。

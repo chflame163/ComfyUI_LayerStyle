@@ -36,7 +36,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
-
+* Commit [CropByMaskV2](#CropByMaskV2) node, On the basis of the original node, it supports ```crop_box``` input, making it convenient to cut layers of the same size.
 * Commit [SimpleTextImage](#SimpleTextImage) node, it generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
 * Commit [PromptTagger](#PromptTagger) node，Inference the prompts based on the image. and it can replace key word for the prompt(need apply for Google Studio API key). Upgrade [ColorImageV2](#ColorImageV2) and [GradientImageV2](#GradientImageV2)，support user customize preset sizes and size_as input.
 * Commit [LaMa](#LaMa) node, it can erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com).
@@ -384,6 +384,14 @@ Output:
 * croped_mask: The mask after crop.
 * crop_box: The trimmed box data is used when restoring the RestoreCropBox node.
 * box_preview: Preview image of cutting position, red represents the detected range, and green represents the cutting range after adding the reserved border.
+
+### <a id="table1">CropByMaskV2</a>
+The V2 upgraded version of CropByMask. Supports crop_box input, making it easy to cut layers of the same size.
+
+The following changes have been made based on CropByMask:
+![image](image/corp_by_mask_v2_node.png)
+* The input ```mask_for_crop``` reanme to ```mask```。
+* Add optional inputs to the ```crop_box```. If there are inputs here, mask detection will be ignored and this data will be directly used for cropping.
 
 ### <a id="table1">RestoreCropBox</a>
 Restore the cropped image to the original image by [CropByMask](#CropByMask).
