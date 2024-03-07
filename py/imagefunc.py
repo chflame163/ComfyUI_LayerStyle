@@ -16,6 +16,7 @@ import scipy.ndimage
 import cv2
 import random
 import time
+from tqdm import tqdm
 from functools import lru_cache
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
@@ -92,6 +93,12 @@ def pil2cv2(pil_img:Image) -> np.array:
 
 def pil2tensor(image:Image) -> torch.Tensor:
     return torch.from_numpy(np.array(image).astype(np.float32) / 255.0).unsqueeze(0)
+
+def np2pil(np_image:np.ndarray) -> Image:
+    return Image.fromarray(np_image)
+
+def pil2np(pil_image:Image) -> np.array:
+    return np.ndarray(pil_image)
 
 def np2tensor(img_np: Union[np.ndarray, List[np.ndarray]]) -> torch.Tensor:
     if isinstance(img_np, list):
@@ -270,6 +277,81 @@ def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
     img = img * mask
     return cv22pil(ski2cv2(img))
 
+def tuple_averge(tuples:list) -> tuple:
+    values = []
+    ret = []
+    for i in tuples[0]:
+        values.append(0)
+        ret.append(0)
+    for t in tuples:
+        for j in range(len(t)):
+            values[j] += t[j]
+    for k in range(len(values)):
+        ret[k] = int(values[k] / len(tuples))
+    return tuple(ret)
+
+def get_pixel_from_round(image:Image, position:tuple) -> tuple:
+    (x, y) = position
+    width, height = image.size
+    pixels = []
+    if x > 0:
+        pixels.append(image.getpixel((x - 1, y)))
+        if y > 0:
+            pixels.append(image.getpixel((x - 1, y - 1)))
+        if y < height:
+            pixels.append(image.getpixel((x - 1, y + 1)))
+    if x < width:
+        pixels.append(image.getpixel((x + 1, y)))
+        if y > 0:
+            pixels.append(image.getpixel((x + 1, y - 1)))
+        if y < height:
+            pixels.append(image.getpixel((x + 1, y + 1)))
+    if y > 0:
+        pixels.append(image.getpixel((x, y-1)))
+    if y < height:
+        pixels.append(image.getpixel((x, y + 1)))
+    return tuple_averge(pixels)
+
+def displace_pixel(image:Image, source_pixel:tuple, target_pixel:tuple) -> Image:
+    # ret_image = image.copy()
+    image.putpixel(target_pixel, image.getpixel(source_pixel))
+    return image
+
+def displace_pixel_np(np_image:np.ndarray, source_pixel:tuple, target_pixel:tuple) -> np.ndarray:
+    np_image[target_pixel[1], target_pixel[0], :] = np_image[source_pixel[1], source_pixel[0], :]
+    return np_image
+
+# def de_warp(image:Image) -> Image:
+
+    #
+    # img = pil2cv2(image)
+    # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # edges = cv2.Canny(gray, 50, 150, apertureSize=3)
+    #
+    # # 霍夫变换
+    # lines = cv2.HoughLines(edges, 1, np.pi / 180, 0)
+    # rotate_angle = 0
+    # for rho, theta in lines[0]:
+    #     a = np.cos(theta)
+    #     b = np.sin(theta)
+    #     x0 = a * rho
+    #     y0 = b * rho
+    #     x1 = int(x0 + 1000 * (-b))
+    #     y1 = int(y0 + 1000 * (a))
+    #     x2 = int(x0 - 1000 * (-b))
+    #     y2 = int(y0 - 1000 * (a))
+    #     if x1 == x2 or y1 == y2:
+    #         continue
+    #     t = float(y2 - y1) / (x2 - x1)
+    #     rotate_angle = math.degrees(math.atan(t)) + 45
+    #     if rotate_angle > 45:
+    #         rotate_angle = -90 + rotate_angle
+    #     elif rotate_angle < -45:
+    #         rotate_angle = 90 + rotate_angle
+    # rotate_img = scipy.ndimage.rotate(img, rotate_angle)
+    # return cv22pil(rotate_img)
+
+
 def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
     height = image.height
@@ -347,6 +429,14 @@ def remove_background(image:Image, mask:Image, color:str) -> Image:
     ret_image = Image.new('RGB', size=(width, height), color=color)
     ret_image.paste(image, mask=mask)
     return ret_image
+
+def sharpen(image:Image) -> Image:
+    img = pil2cv2(image)
+    Laplace_kernel = np.array([[-1, -1, -1],
+                               [-1, 9, -1],
+                               [-1, -1, -1]], dtype=np.float32)
+    ret_image = cv2.filter2D(img, -1, Laplace_kernel)
+    return cv22pil(ret_image)
 
 def gaussian_blur(image:Image, radius:int) -> Image:
     # image = image.convert("RGBA")

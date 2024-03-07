@@ -22,6 +22,7 @@ class CropByMask:
                 "right_reserve": ("INT", {"default": 20, "min": -9999, "max": 9999, "step": 1}),
             },
             "optional": {
+                "crop_box": ("BOX",),
             }
         }
 
@@ -32,14 +33,15 @@ class CropByMask:
     OUTPUT_NODE = True
 
     def crop_by_mask(self, image, mask_for_crop, invert_mask, detect,
-                  top_reserve, bottom_reserve, left_reserve, right_reserve
-                  ):
+                     top_reserve, bottom_reserve,
+                     left_reserve, right_reserve,
+                     crop_box=None
+                     ):
 
         ret_images = []
         ret_masks = []
         l_images = []
         l_masks = []
-
 
         for l in image:
             l_images.append(torch.unsqueeze(l, 0))
@@ -54,28 +56,32 @@ class CropByMask:
         l_masks.append(tensor2pil(torch.unsqueeze(mask_for_crop, 0)).convert('L'))
 
         _mask = mask2image(mask_for_crop)
-        bluredmask = gaussian_blur(_mask, 20).convert('L')
-        x = 0
-        y = 0
-        width = 0
-        height = 0
-        if detect == "min_bounding_rect":
-            (x, y, width, height) = min_bounding_rect(bluredmask)
-        elif detect == "max_inscribed_rect":
-            (x, y, width, height) = max_inscribed_rect(bluredmask)
-        else:
-            (x, y, width, height) = mask_area(_mask)
-        log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
-        canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
-        x1 = x - left_reserve if x - left_reserve > 0 else 0
-        y1 = y - top_reserve if y - top_reserve > 0 else 0
-        x2 = x + width + right_reserve if x + width + right_reserve < canvas_width else canvas_width
-        y2 = y + height + bottom_reserve if y + height + bottom_reserve < canvas_height else canvas_height
         preview_image = tensor2pil(mask_for_crop).convert('RGB')
-        preview_image = draw_rect(preview_image, x, y, width, height, line_color="#F00000", line_width=(width+height)//100)
-        preview_image = draw_rect(preview_image, x1, y1, x2 - x1, y2 - y1,
-                                  line_color="#00F000", line_width=(width+height)//200)
-        crop_box = (x1, y1, x2, y2)
+        if crop_box is None:
+            bluredmask = gaussian_blur(_mask, 20).convert('L')
+            x = 0
+            y = 0
+            width = 0
+            height = 0
+            if detect == "min_bounding_rect":
+                (x, y, width, height) = min_bounding_rect(bluredmask)
+            elif detect == "max_inscribed_rect":
+                (x, y, width, height) = max_inscribed_rect(bluredmask)
+            else:
+                (x, y, width, height) = mask_area(_mask)
+            log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
+            canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
+            x1 = x - left_reserve if x - left_reserve > 0 else 0
+            y1 = y - top_reserve if y - top_reserve > 0 else 0
+            x2 = x + width + right_reserve if x + width + right_reserve < canvas_width else canvas_width
+            y2 = y + height + bottom_reserve if y + height + bottom_reserve < canvas_height else canvas_height
+            crop_box = (x1, y1, x2, y2)
+            preview_image = draw_rect(preview_image, x, y, width, height, line_color="#F00000",
+                                      line_width=(width + height) // 100)
+        preview_image = draw_rect(preview_image, crop_box[0], crop_box[1],
+                                  crop_box[2] - crop_box[0], crop_box[3] - crop_box[1],
+                                  line_color="#00F000",
+                                  line_width=(crop_box[2] - crop_box[0] + crop_box[3] - crop_box[1]) // 200)
         for i in range(len(l_images)):
             _canvas = tensor2pil(l_images[i]).convert('RGB')
             _mask = l_masks[0]
