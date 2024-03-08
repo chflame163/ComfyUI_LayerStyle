@@ -67,38 +67,41 @@ class SimpleTextImage:
         img_height = height  # line_height * len(lines)
         img_width = width  # max(font.getsize(line)[0] for line in lines)
 
+        img = Image.new("RGBA", size=(img_width, img_height), color=(0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        y_text = y_offset + stroke_width
+        for paragraph in paragraphs:
+            lines = textwrap.wrap(paragraph, width=char_per_line, expand_tabs=False,
+                                  replace_whitespace=False, drop_whitespace=False)
+            for line in lines:
+                width = font.getbbox(line)[2] - font.getbbox(line)[0]
+                height = font.getbbox(line)[3] - font.getbbox(line)[1]
+                # 根据 align 参数重新计算 x 坐标
+                if align == "left":
+                    x_text = x_offset
+                elif align == "center":
+                    x_text = (img_width - width) // 2
+                elif align == "right":
+                    x_text = img_width - width - x_offset
+                else:
+                    x_text = x_offset  # 默认为左对齐
 
+                draw.text(
+                    xy=(x_text, y_text),
+                    text=line,
+                    fill=text_color,
+                    font=font,
+                    stroke_width=stroke_width,
+                    stroke_fill=stroke_color,
+                    )
+                y_text += height + leading
+            y_text += leading * 2
 
-        for i in size_as:
-            img = Image.new("RGBA", size=(img_width, img_height), color=(0, 0, 0, 0))
-            draw = ImageDraw.Draw(img)
-            y_text = y_offset + stroke_width
-            for paragraph in paragraphs:
-                lines = textwrap.wrap(paragraph, width=char_per_line, expand_tabs=False, replace_whitespace=False)
-                for line in lines:
-                    width = font.getbbox(line)[2] - font.getbbox(line)[0]
-                    height = font.getbbox(line)[3] - font.getbbox(line)[1]
-                    # 根据 align 参数重新计算 x 坐标
-                    if align == "left":
-                        x_text = x_offset
-                    elif align == "center":
-                        x_text = (img_width - width) // 2
-                    elif align == "right":
-                        x_text = img_width - width - margin_x
-                    else:
-                        x_text = x_offset  # 默认为左对齐
-
-                    draw.text(
-                        xy=(x_text, y_text),
-                        text=line,
-                        fill=text_color,
-                        font=font,
-                        stroke_width=stroke_width,
-                        stroke_fill=stroke_color,
-                        )
-                    y_text += height + leading
-
-                y_text += leading * 2
+        if size_as is not None:
+            for i in size_as:
+                ret_images.append(pil2tensor(img))
+                ret_masks.append(image2mask(img.split()[3]))
+        else:
             ret_images.append(pil2tensor(img))
             ret_masks.append(image2mask(img.split()[3]))
 
