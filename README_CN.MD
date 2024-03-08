@@ -38,7 +38,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
-* 添加 [Color of Shadow & Highlight](#Color of Shadow & Highlight) 节点，可对暗部和亮部分别进行色彩调整。添加 [Shadow & Highlight Mask](#Shadow & Highlight Mask) 节点, 可输出暗部和亮部的遮罩。
+* 添加 [Color of Shadow & Highlight](#Highlight) 节点，可对暗部和亮部分别进行色彩调整。添加 [Shadow & Highlight Mask](#Shadow) 节点, 可输出暗部和亮部的遮罩。
 * 添加 [CropByMaskV2](#CropByMaskV2) 节点，在原节点基础上支持```crop_box```输入，方便裁切相同尺寸的图层。
 * 添加 [SimpleTextImage](#SimpleTextImage) 节点。从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
 * 添加 [PromptTagger](#PromptTagger) 节点，根据图片反推提示词，可以替换关键词。需要申请Google Studio API使用。升级节点[ColorImageV2](#ColorImageV2)和[GradientImageV2](#GradientImageV2)，支持用户自定义预设尺寸和size_as输入。
@@ -276,7 +276,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 节点选项说明:  
 * exposure: 曝光值。更高的数值表示更亮的曝光。
 
-### <a id="table1">Color of Shadow & Highlight</a>
+### Color of Shadow & <a id="table1">Highlight</a>
 调整图像暗部和亮部的颜色。
 ![image](image/color_of_shadow_and_highlight_example.png)
 
@@ -915,7 +915,7 @@ cropped_mask: 裁切后的遮罩。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
 
-### <a id="table1">Shadow & Highlight Mask</a>
+### <a id="table1">Shadow</a> & Highlight Mask
 生成图像暗部和亮部的遮罩。
 ![image](image/shadow_and_highlight_mask_example.png)
 
