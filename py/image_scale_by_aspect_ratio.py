@@ -14,7 +14,7 @@ class ImageScaleByAspectRatio:
         ratio_list = ['original', 'custom', '1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16']
         fit_mode = ['letterbox', 'crop', 'fill']
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
-        multiple_list = ['8', '16', 'None']
+        multiple_list = ['8', '16', '64', 'None']
 
         return {
             "required": {

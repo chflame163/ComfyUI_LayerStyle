@@ -277,80 +277,49 @@ def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
     img = img * mask
     return cv22pil(ski2cv2(img))
 
-def tuple_averge(tuples:list) -> tuple:
-    values = []
-    ret = []
-    for i in tuples[0]:
-        values.append(0)
-        ret.append(0)
-    for t in tuples:
-        for j in range(len(t)):
-            values[j] += t[j]
-    for k in range(len(values)):
-        ret[k] = int(values[k] / len(tuples))
-    return tuple(ret)
+# def tuple_averge(tuples:list) -> tuple:
+#     values = []
+#     ret = []
+#     for i in tuples[0]:
+#         values.append(0)
+#         ret.append(0)
+#     for t in tuples:
+#         for j in range(len(t)):
+#             values[j] += t[j]
+#     for k in range(len(values)):
+#         ret[k] = int(values[k] / len(tuples))
+#     return tuple(ret)
 
-def get_pixel_from_round(image:Image, position:tuple) -> tuple:
-    (x, y) = position
-    width, height = image.size
-    pixels = []
-    if x > 0:
-        pixels.append(image.getpixel((x - 1, y)))
-        if y > 0:
-            pixels.append(image.getpixel((x - 1, y - 1)))
-        if y < height:
-            pixels.append(image.getpixel((x - 1, y + 1)))
-    if x < width:
-        pixels.append(image.getpixel((x + 1, y)))
-        if y > 0:
-            pixels.append(image.getpixel((x + 1, y - 1)))
-        if y < height:
-            pixels.append(image.getpixel((x + 1, y + 1)))
-    if y > 0:
-        pixels.append(image.getpixel((x, y-1)))
-    if y < height:
-        pixels.append(image.getpixel((x, y + 1)))
-    return tuple_averge(pixels)
+# def get_pixel_from_round(image:Image, position:tuple) -> tuple:
+#     (x, y) = position
+#     width, height = image.size
+#     pixels = []
+#     if x > 0:
+#         pixels.append(image.getpixel((x - 1, y)))
+#         if y > 0:
+#             pixels.append(image.getpixel((x - 1, y - 1)))
+#         if y < height:
+#             pixels.append(image.getpixel((x - 1, y + 1)))
+#     if x < width:
+#         pixels.append(image.getpixel((x + 1, y)))
+#         if y > 0:
+#             pixels.append(image.getpixel((x + 1, y - 1)))
+#         if y < height:
+#             pixels.append(image.getpixel((x + 1, y + 1)))
+#     if y > 0:
+#         pixels.append(image.getpixel((x, y-1)))
+#     if y < height:
+#         pixels.append(image.getpixel((x, y + 1)))
+#     return tuple_averge(pixels)
 
 def displace_pixel(image:Image, source_pixel:tuple, target_pixel:tuple) -> Image:
     # ret_image = image.copy()
     image.putpixel(target_pixel, image.getpixel(source_pixel))
     return image
 
-def displace_pixel_np(np_image:np.ndarray, source_pixel:tuple, target_pixel:tuple) -> np.ndarray:
-    np_image[target_pixel[1], target_pixel[0], :] = np_image[source_pixel[1], source_pixel[0], :]
-    return np_image
-
-# def de_warp(image:Image) -> Image:
-
-    #
-    # img = pil2cv2(image)
-    # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # edges = cv2.Canny(gray, 50, 150, apertureSize=3)
-    #
-    # # 霍夫变换
-    # lines = cv2.HoughLines(edges, 1, np.pi / 180, 0)
-    # rotate_angle = 0
-    # for rho, theta in lines[0]:
-    #     a = np.cos(theta)
-    #     b = np.sin(theta)
-    #     x0 = a * rho
-    #     y0 = b * rho
-    #     x1 = int(x0 + 1000 * (-b))
-    #     y1 = int(y0 + 1000 * (a))
-    #     x2 = int(x0 - 1000 * (-b))
-    #     y2 = int(y0 - 1000 * (a))
-    #     if x1 == x2 or y1 == y2:
-    #         continue
-    #     t = float(y2 - y1) / (x2 - x1)
-    #     rotate_angle = math.degrees(math.atan(t)) + 45
-    #     if rotate_angle > 45:
-    #         rotate_angle = -90 + rotate_angle
-    #     elif rotate_angle < -45:
-    #         rotate_angle = 90 + rotate_angle
-    # rotate_img = scipy.ndimage.rotate(img, rotate_angle)
-    # return cv22pil(rotate_img)
-
+# def displace_pixel_np(np_image:np.ndarray, source_pixel:tuple, target_pixel:tuple) -> np.ndarray:
+#     np_image[target_pixel[1], target_pixel[0], :] = np_image[source_pixel[1], source_pixel[0], :]
+#     return np_image
 
 def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
@@ -717,7 +686,6 @@ def gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, 
 
 def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, line_width:int,
               box_color:str=None) -> Image:
-    # image = image.convert('RGBA')
     draw = ImageDraw.Draw(image)
     draw.rectangle((x, y, x + width, y + height), fill=box_color, outline=line_color, width=line_width, )
     return image
@@ -761,6 +729,53 @@ def get_image_color_average(image:Image) -> str:
     color = (average_red, average_green, average_blue)
     ret_color = RGB_to_Hex(color)
     return ret_color
+
+def get_gray_average(image:Image, mask:Image=None) -> int:
+    # image.mode = 'HSV', mask.mode = 'L'
+    image = image.convert('HSV')
+    _, _, _v = image.convert('HSV').split()
+    if mask is not None:
+        if mask.mode != 'L':
+            mask = mask.convert('L')
+    width, height = image.size
+    total_gray = 0
+    valid_pixels = 0
+    for y in range(height):
+        for x in range(width):
+            if mask is not None:
+                if mask.getpixel((x, y)) > 16:  #mask亮度低于16的忽略不计
+                    gray = _v.getpixel((x, y))
+                    total_gray += gray
+                    valid_pixels += 1
+            else:
+                gray = _v.getpixel((x, y))
+                total_gray += gray
+                valid_pixels += 1
+    average_gray = total_gray // valid_pixels
+    return average_gray
+
+def calculate_shadow_highlight_level(gray:int) -> float:
+    range = 255
+    shadow_exponent = 3
+    highlight_exponent = 2
+    shadow_ratio = gray ** shadow_exponent / range ** shadow_exponent
+    highlight_ratio = gray ** highlight_exponent / range ** highlight_exponent
+    shadow_level = shadow_ratio * 100 + (1 - shadow_ratio) * 32
+    highlight_level = highlight_ratio * 100 + (1 - highlight_ratio) * 32
+    return shadow_level, highlight_level
+
+def luminance_keyer(image:Image, low:float=0, high:float=1, gamma:float=1) -> Image:
+    image = pil2tensor(image)
+    t = image[:, :, :, :3].detach().clone()
+    alpha = 0.2126 * t[:, :, :, 0] + 0.7152 * t[:, :, :, 1] + 0.0722 * t[:, :, :, 2]
+    if low == high:
+        alpha = (alpha > high).to(t.dtype)
+    else:
+        alpha = (alpha - low) / (high - low)
+    if gamma != 1.0:
+        alpha = torch.pow(alpha, 1 / gamma)
+    alpha = torch.clamp(alpha, min=0, max=1).unsqueeze(3).repeat(1, 1, 1, 3)
+    return tensor2pil(alpha).convert('L')
 
 def get_image_bright_average(image:Image) -> int:
     image = image.convert('L')

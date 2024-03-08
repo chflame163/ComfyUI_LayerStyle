@@ -36,6 +36,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
+
+* Commit [Color of Shadow & Highlight](#Color of Shadow & Highlight) node, it can adjust the color of the dark and bright parts separately. Commit [Shadow & Highlight Mask](#Shadow & Highlight Mask) node, it can output mask for dark and bright areas.
 * Commit [CropByMaskV2](#CropByMaskV2) node, On the basis of the original node, it supports ```crop_box``` input, making it convenient to cut layers of the same size.
 * Commit [SimpleTextImage](#SimpleTextImage) node, it generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
 * Commit [PromptTagger](#PromptTagger) node，Inference the prompts based on the image. and it can replace key word for the prompt(need apply for Google Studio API key). Upgrade [ColorImageV2](#ColorImageV2) and [GradientImageV2](#GradientImageV2)，support user customize preset sizes and size_as input.
@@ -275,6 +277,25 @@ Node options:
 ### <a id="table1">Exposure</a>
 Change the exposure of the image.
 ![image](image/exposure_example.png)
+
+### <a id="table1">Color of Shadow & Highlight</a>
+Adjust the color of the dark and bright parts of the image.
+![image](image/color_of_shadow_and_highlight_example.png)
+
+Node options:  
+![image](image/color_of_shadow_and_highlight_node.png)
+* image: The input image.
+* mask: Optional input. if there is input, only the colors within the mask range will be adjusted.
+* shadow_brightness: The brightness of the dark area.
+* shadow_saturation: The color saturation in the dark area.
+* shadow_hue: The color hue in the dark area.
+* shadow_level_offset: The offset of values in the dark area, where larger values bring more areas closer to the bright into the dark area.
+* shadow_range: The transitional range of the dark area.
+* highlight_brightness:  The brightness of the highlight area.
+* highlight_saturation: The color saturation in the highlight area.
+* highlight_hue: The color hue in the highlight area.
+* highlight_level_offset: The offset of values in the highlight area, where larger values bring more areas closer to the dark into the highlight area.
+* highlight_range: The transitional range of the highlight area.
 
 Node option:  
 * exposure: Exposure value. Higher values indicate brighter image.
@@ -894,6 +915,21 @@ Node options:
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
 * process_detail: Set to false here will skip edge processing to save runtime.
+
+
+### <a id="table1">Shadow & Highlight Mask</a>
+Generate masks for the dark and bright parts of the image.
+![image](image/shadow_and_highlight_mask_example.png)
+
+Node options:  
+![image](image/shadow_and_highlight_mask_node.png)
+* image: The input image.
+* mask: Optional input. if there is input, only the colors within the mask range will be adjusted.
+* shadow_level_offset: The offset of values in the dark area, where larger values bring more areas closer to the bright into the dark area.
+* shadow_range: The transitional range of the dark area.
+* highlight_level_offset: The offset of values in the highlight area, where larger values bring more areas closer to the dark into the highlight area.
+* highlight_range: The transitional range of the highlight area. 
+
 
 ### <a id="table1">PixelSpread</a>
 Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image composit.
