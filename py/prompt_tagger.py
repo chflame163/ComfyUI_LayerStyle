@@ -1,5 +1,4 @@
 from .imagefunc import *
-import google.generativeai as genai
 
 NODE_NAME = 'PromptTagger'
 
@@ -31,7 +30,7 @@ class PromptTagger:
     OUTPUT_NODE = True
 
     def prompt_tagger(self, image, api, token_limit, exclude_word, replace_with_word):
-
+        import google.generativeai as genai
         replace_with_word = replace_with_word.strip()
         exclude_word = exclude_word.strip()
         _image = tensor2pil(image).convert('RGB')

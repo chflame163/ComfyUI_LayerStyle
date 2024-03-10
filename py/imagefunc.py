@@ -21,7 +21,6 @@ from functools import lru_cache
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
 from skimage import img_as_float, img_as_ubyte
-from pymatting import fix_trimap, estimate_alpha_cf, estimate_foreground_ml
 from transformers import VitMatteImageProcessor, VitMatteForImageMatting
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
@@ -933,6 +932,7 @@ def image_beauty(image:Image, level:int=50) -> Image:
 
 
 def pixel_spread(image:Image, mask:Image) -> Image:
+    from pymatting import estimate_foreground_ml
     i1 = pil2tensor(image)
     if mask.mode != 'RGB':
         mask = mask.convert('RGB')
@@ -1095,6 +1095,7 @@ def get_a_person_mask_generator_model_path() -> str:
     return model_file_path
 
 def mask_edge_detail(image:torch.Tensor, mask:torch.Tensor, detail_range:int=8, black_point:float=0.01, white_point:float=0.99) -> torch.Tensor:
+    from pymatting import fix_trimap, estimate_alpha_cf
     d = detail_range * 5 + 1
     mask = pil2tensor(tensor2pil(mask).convert('RGB'))
     if not bool(d % 2):
