@@ -38,6 +38,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* Ultra 节点全面升级到V2版本，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。包括 [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) 以及 [PersonMaskUltraV2](#PersonMaskUltraV2) 节点。
 * 添加 [Color of Shadow & Highlight](#Highlight) 节点，可对暗部和亮部分别进行色彩调整。添加 [Shadow & Highlight Mask](#Shadow) 节点, 可输出暗部和亮部的遮罩。
 * 添加 [CropByMaskV2](#CropByMaskV2) 节点，在原节点基础上支持```crop_box```输入，方便裁切相同尺寸的图层。
 * 添加 [SimpleTextImage](#SimpleTextImage) 节点。从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
@@ -876,6 +877,17 @@ cropped_mask: 裁切后的遮罩。
 * prompt: SAM的prompt输入。
 
 
+### <a id="table1">SegmentAnythingUltraV2</a>
+SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
+![image](image/ultra_v2_nodes_example.png)
+
+在SegmentAnythingUltra的基础上做了如下改变:  
+![image](image/segment_anything_ultra_v2_node.png)
+* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+
+
 ### <a id="table1">RemBgUltra</a>
 去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
 本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能。
@@ -893,6 +905,16 @@ cropped_mask: 裁切后的遮罩。
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+
+### <a id="table1">RmBgUltraV2</a>
+RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
+
+在RemBgUltra的基础上做了如下改变:  
+![image](image/rmbg_ultra_v2_node.png)
+* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+
 
 ### <a id="table1">PersonMaskUltra</a>
 为人物生成脸、头发、身体皮肤、衣服或配饰的遮罩。与之前的A Person Mask Generator节点相比，这个节点具有超高的边缘细节。
@@ -913,6 +935,16 @@ cropped_mask: 裁切后的遮罩。
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+
+
+### <a id="table1">PersonMaskUltraV2</a>
+PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
+
+在PersonMaskUltra的基础上做了如下改变:  
+![image](image/person_mask_ultra_v2_node.png)
+* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
 
 ### <a id="table1">Shadow</a> & Highlight Mask
@@ -964,6 +996,16 @@ cropped_mask: 裁切后的遮罩。
 * detail_range: 边缘细节范围。
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
+
+### <a id="table1">MaskEdgeUltraDetailV2</a>
+MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。下图为三种方法输出区别的示例。
+![image](image/mask_edge_ultra_detail_v2_example.png)
+
+在MaskEdgeUltraDetail的基础上做了如下改变:  
+![image](image/mask_edge_ultra_detail_v2_node.png)
+* method: 边缘处理方法。增加了VITMatte方法。
+* edge_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* edge_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
 
 ### <a id="table1">MaskGrow</a>

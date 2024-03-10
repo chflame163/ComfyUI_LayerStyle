@@ -5,10 +5,9 @@ import mediapipe as mp
 import folder_paths
 from .segment_anything_func import *
 
-NODE_NAME = 'PersonMaskUltra'
+NODE_NAME = 'PersonMaskUltra V2'
 
-
-class PersonMaskUltra:
+class PersonMaskUltraV2:
 
     def __init__(self):
         # download the model if we need it
@@ -16,6 +15,9 @@ class PersonMaskUltra:
 
     @classmethod
     def INPUT_TYPES(self):
+
+        method_list = ['VITMatte', 'PyMatting', 'GuidedFilter']
+
         return {
             "required":
                 {
@@ -27,7 +29,9 @@ class PersonMaskUltra:
                     "accessories": ("BOOLEAN", {"default": False, "label_on": "enabled", "label_off": "disabled"}),
                     "background": ("BOOLEAN", {"default": False, "label_on": "enabled", "label_off": "disabled"}),
                     "confidence": ("FLOAT", {"default": 0.4, "min": 0.05, "max": 0.95, "step": 0.01},),
-                    "detail_range": ("INT", {"default": 16, "min": 1, "max": 256, "step": 1}),
+                    "detail_method": (method_list,),
+                    "detail_erode": ("INT", {"default": 50, "min": 1, "max": 255, "step": 1}),
+                    "detail_dilate": ("INT", {"default": 20, "min": 1, "max": 255, "step": 1}),
                     "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
                     "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
                     "process_detail": ("BOOLEAN", {"default": True}),
@@ -39,7 +43,7 @@ class PersonMaskUltra:
 
     RETURN_TYPES = ("IMAGE", "MASK", )
     RETURN_NAMES = ("image", "mask", )
-    FUNCTION = 'person_mask_ultra'
+    FUNCTION = 'person_mask_ultra_v2'
     CATEGORY = '😺dzNodes/LayerMask'
     OUTPUT_NODE = True
 
@@ -55,9 +59,10 @@ class PersonMaskUltra:
             numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_BGR2RGB)
         return mp.Image(image_format=image_format, data=numpy_image)
 
-    def person_mask_ultra(self, images, face, hair, body, clothes,
+    def person_mask_ultra_v2(self, images, face, hair, body, clothes,
                           accessories, background, confidence,
-                          detail_range, black_point, white_point, process_detail):
+                          detail_method, detail_erode, detail_dilate,
+                          black_point, white_point, process_detail):
 
         a_person_mask_generator_model_path = get_a_person_mask_generator_model_path()
         a_person_mask_generator_model_buffer = None
@@ -73,8 +78,8 @@ class PersonMaskUltra:
         ret_masks = []
         with mp.tasks.vision.ImageSegmenter.create_from_options(options) as segmenter:
             for image in images:
-                # image = torch.unsqueeze(image, 0)
-                orig_image = tensor2pil(image.unsqueeze(0)).convert('RGB')
+                _image = torch.unsqueeze(image, 0)
+                orig_image = tensor2pil(_image).convert('RGB')
                 # Convert the Tensor to a PIL image
                 i = 255. * image.cpu().numpy()
                 image_pil = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
@@ -124,10 +129,24 @@ class PersonMaskUltra:
                 tensor_mask = mask_image.convert("RGB")
                 tensor_mask = np.array(tensor_mask).astype(np.float32) / 255.0
                 tensor_mask = torch.from_numpy(tensor_mask)[None,]
-                tensor_mask = tensor_mask.squeeze(3)[..., 0]
-                _mask = tensor2pil(tensor_mask).convert('L')
+                _mask = tensor_mask.squeeze(3)[..., 0]
+
+                detail_range = detail_erode + detail_dilate
                 if process_detail:
-                    _mask = tensor2pil(mask_edge_detail(image.unsqueeze(0), pil2tensor(_mask), detail_range, black_point, white_point))
+                    if detail_method == 'GuidedFilter':
+                        _mask = guided_filter_alpha(_image, _mask, detail_range // 6)
+                        _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
+                    elif detail_method == 'PyMatting':
+                        _mask = tensor2pil(
+                            mask_edge_detail(_image, _mask,
+                                             detail_range // 8, black_point, white_point))
+                    else:
+                        _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
+                        _mask = generate_VITMatte(orig_image, _trimap)
+                        _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
+                else:
+                    _mask = mask2image(_mask)
+
                 ret_image = RGB2RGBA(orig_image, _mask)
                 ret_images.append(pil2tensor(ret_image))
                 ret_masks.append(image2mask(_mask))
@@ -136,9 +155,9 @@ class PersonMaskUltra:
             return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerMask: PersonMaskUltra": PersonMaskUltra
+    "LayerMask: PersonMaskUltra V2": PersonMaskUltraV2
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerMask: PersonMaskUltra": "LayerMask: PersonMaskUltra"
+    "LayerMask: PersonMaskUltra V2": "LayerMask: PersonMaskUltra V2"
 }

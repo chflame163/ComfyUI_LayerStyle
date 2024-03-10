@@ -20,3 +20,5 @@ rich
 google-generativeai
 diffusers
 omegaconf
+tqdm
+transformers

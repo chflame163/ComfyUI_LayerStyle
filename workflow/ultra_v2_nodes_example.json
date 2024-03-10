@@ -1,0 +1,467 @@
+{
+  "last_node_id": 81,
+  "last_link_id": 127,
+  "nodes": [
+    {
+      "id": 72,
+      "type": "LoadImage",
+      "pos": [
+        48,
+        204
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            119
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3,
+          "label": "MASK"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "768x1344_beach.png",
+        "image"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        47,
+        604
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            89,
+            123
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3,
+          "label": "MASK"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "dress_768x1344 (1).png",
+        "image"
+      ]
+    },
+    {
+      "id": 57,
+      "type": "LayerMask: SegmentAnythingUltra V2",
+      "pos": [
+        438,
+        225
+      ],
+      "size": {
+        "0": 315,
+        "1": 294
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 89
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            121
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            122
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: SegmentAnythingUltra V2"
+      },
+      "widgets_values": [
+        "sam_vit_h (2.56GB)",
+        "GroundingDINO_SwinT_OGC (694MB)",
+        0.3,
+        "VITMatte",
+        90,
+        10,
+        0.01,
+        0.88,
+        true,
+        "subject"
+      ]
+    },
+    {
+      "id": 79,
+      "type": "LayerMask: PersonMaskUltra V2",
+      "pos": [
+        437,
+        584
+      ],
+      "size": {
+        "0": 315,
+        "1": 366
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 123
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            127
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            126
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: PersonMaskUltra V2"
+      },
+      "widgets_values": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        0.55,
+        "GuidedFilter",
+        4,
+        18,
+        0.65,
+        0.99,
+        true
+      ]
+    },
+    {
+      "id": 77,
+      "type": "LayerUtility: ImageBlend",
+      "pos": [
+        814,
+        228
+      ],
+      "size": {
+        "0": 315,
+        "1": 146
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 119
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 121
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            124
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlend"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100
+      ]
+    },
+    {
+      "id": 78,
+      "type": "MaskPreview+",
+      "pos": [
+        824,
+        420
+      ],
+      "size": [
+        194.09358354048254,
+        227.87744542143548
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 122
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskPreview+"
+      }
+    },
+    {
+      "id": 81,
+      "type": "MaskPreview+",
+      "pos": [
+        828,
+        698
+      ],
+      "size": [
+        185.24506170099403,
+        240.1805127154695
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 126
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskPreview+"
+      }
+    },
+    {
+      "id": 80,
+      "type": "LayerUtility: ImageBlend",
+      "pos": [
+        1153,
+        382
+      ],
+      "size": {
+        "0": 315,
+        "1": 146
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 124
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 127
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            125
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlend"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100
+      ]
+    },
+    {
+      "id": 73,
+      "type": "PreviewImage",
+      "pos": [
+        1511,
+        246
+      ],
+      "size": [
+        357.3965465372253,
+        654.0592602816492
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 125
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      89,
+      5,
+      0,
+      57,
+      0,
+      "IMAGE"
+    ],
+    [
+      119,
+      72,
+      0,
+      77,
+      0,
+      "IMAGE"
+    ],
+    [
+      121,
+      57,
+      0,
+      77,
+      1,
+      "IMAGE"
+    ],
+    [
+      122,
+      57,
+      1,
+      78,
+      0,
+      "MASK"
+    ],
+    [
+      123,
+      5,
+      0,
+      79,
+      0,
+      "IMAGE"
+    ],
+    [
+      124,
+      77,
+      0,
+      80,
+      0,
+      "IMAGE"
+    ],
+    [
+      125,
+      80,
+      0,
+      73,
+      0,
+      "IMAGE"
+    ],
+    [
+      126,
+      79,
+      1,
+      81,
+      0,
+      "MASK"
+    ],
+    [
+      127,
+      79,
+      0,
+      80,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "0246.VERSION": [
+      0,
+      0,
+      4
+    ]
+  },
+  "version": 0.4
+}

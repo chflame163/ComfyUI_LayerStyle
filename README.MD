@@ -37,6 +37,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Ultra nodes have been fully upgraded to V2 version, with the addition of VITMatte edge processing method, which is suitable for handling semi transparent areas. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) and [PersonMaskUltraV2](#PersonMaskUltraV2) nodes.
 * Commit [Color of Shadow & Highlight](#Highlight) node, it can adjust the color of the dark and bright parts separately. Commit [Shadow & Highlight Mask](#Shadow) node, it can output mask for dark and bright areas.
 * Commit [CropByMaskV2](#CropByMaskV2) node, On the basis of the original node, it supports ```crop_box``` input, making it convenient to cut layers of the same size.
 * Commit [SimpleTextImage](#SimpleTextImage) node, it generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
@@ -878,6 +879,16 @@ Node options:
 * process_detail: Set to false here will skip edge processing to save runtime.
 * prompt: Input for SAM's prompt.
 
+### <a id="table1">SegmentAnythingUltraV2</a>
+The V2 upgraded version of SegmentAnythingUltra has added the VITMatte edge processing method.
+![image](image/ultra_v2_nodes_example.png)
+
+On the basis of SegmentAnythingUltra, the following changes have been made: 
+![image](image/segment_anything_ultra_v2_node.png)
+* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+
 
 ### <a id="table1">RemBgUltra</a>
 Remove background. compared to the similar background removal nodes, this node has ultra-high edge details.
@@ -895,6 +906,15 @@ Node options:
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
 * process_detail: Set to false here will skip edge processing to save runtime.
+
+### <a id="table1">RmBgUltraV2</a>
+The V2 upgraded version of RemBgUltra has added the VITMatte edge processing method.
+
+On the basis of RemBgUltra, the following changes have been made: 
+![image](image/rmbg_ultra_v2_node.png)
+* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
 ### <a id="table1">PersonMaskUltra</a>
 Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
@@ -915,6 +935,15 @@ Node options:
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
 * process_detail: Set to false here will skip edge processing to save runtime.
+
+### <a id="table1">PersonMaskUltraV2</a>
+The V2 upgraded version of PersonMaskUltra has added the VITMatte edge processing method.
+
+On the basis of PersonMaskUltra, the following changes have been made: 
+![image](image/person_mask_ultra_v2_node.png)
+* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
 
 ### <a id="table1">Shadow</a> & Highlight Mask
@@ -966,6 +995,16 @@ Node options:
 * detail_range: Edge detail range.
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
+
+### <a id="table1">MaskEdgeUltraDetailV2</a>
+The V2 upgraded version of MaskEdgeUltraDetail has added the VITMatte edge processing method.This method is suitable for handling semi transparent areas. The following figure is an example of the difference in output between three methods.
+![image](image/mask_edge_ultra_detail_v2_example.png)
+
+On the basis of MaskEdgeUltraDetail, the following changes have been made: 
+![image](image/mask_edge_ultra_detail_v2_node.png)
+* method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* edge_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* edge_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
 
 ### <a id="table1">MaskGrow</a>

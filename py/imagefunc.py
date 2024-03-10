@@ -22,6 +22,7 @@ from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
 from skimage import img_as_float, img_as_ubyte
 from pymatting import fix_trimap, estimate_alpha_cf, estimate_foreground_ml
+from transformers import VitMatteImageProcessor, VitMatteForImageMatting
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
 import colorsys
@@ -1034,8 +1035,64 @@ def RMBG(image:Image) -> Image:
     mi = torch.min(result)
     result = (result - mi) / (ma - mi)
     im_array = (result * 255).cpu().data.numpy().astype(np.uint8)
-    _mask = Image.fromarray(np.squeeze(im_array)).convert('L')
-    return _mask
+    _mask = torch.from_numpy(np.squeeze(im_array).astype(np.float32))
+    return tensor2pil(_mask)
+
+class VITMatteModel:
+    def __init__(self,model,processor):
+        self.model = model
+        self.processor = processor
+
+def load_VITMatte_model(model_name:str) -> object:
+    model = VitMatteForImageMatting.from_pretrained(model_name)
+    processor = VitMatteImageProcessor.from_pretrained(model_name)
+    vitmatte = VITMatteModel(model, processor)
+    return vitmatte
+
+def generate_VITMatte(image:Image, trimap:Image) -> Image:
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    if trimap.mode != 'L':
+        trimap = trimap.convert('L')
+    model_name = "hustvl/vitmatte-small-composition-1k"
+    vit_matte_model = load_VITMatte_model(model_name=model_name)
+    inputs = vit_matte_model.processor(images=image, trimaps=trimap, return_tensors="pt")
+    with torch.no_grad():
+        predictions = vit_matte_model.model(**inputs).alphas
+    mask = tensor2pil(predictions).convert('L')
+    mask = mask.crop(
+        (0, 0, image.width, image.height))  # remove padding that the prediction appends (works in 32px tiles)
+    return mask
+
+def generate_VITMatte_trimap(mask:torch.Tensor, erode_kernel_size:int, dilate_kernel_size:int) -> Image:
+    mask = mask.squeeze(0).cpu().detach().numpy().astype(np.uint8) * 255
+    trimap = __generate_trimap(mask, erode_kernel_size, dilate_kernel_size).astype(np.float32)
+    trimap[trimap == 128] = 0.5
+    trimap[trimap == 255] = 1
+    trimap = torch.from_numpy(trimap).unsqueeze(0)
+    return tensor2pil(trimap).convert('L')
+
+def __generate_trimap(mask, erode_kernel_size=10, dilate_kernel_size=10):
+    erode_kernel = np.ones((erode_kernel_size, erode_kernel_size), np.uint8)
+    dilate_kernel = np.ones((dilate_kernel_size, dilate_kernel_size), np.uint8)
+    eroded = cv2.erode(mask, erode_kernel, iterations=5)
+    dilated = cv2.dilate(mask, dilate_kernel, iterations=5)
+    trimap = np.zeros_like(mask)
+    trimap[dilated == 255] = 128
+    trimap[eroded == 255] = 255
+    return trimap
+
+def get_a_person_mask_generator_model_path() -> str:
+    model_folder_name = 'mediapipe'
+    model_name = 'selfie_multiclass_256x256.tflite'
+    model_folder_path = os.path.join(folder_paths.models_dir, model_folder_name)
+    model_file_path = os.path.join(model_folder_path, model_name)
+    if not os.path.exists(model_file_path):
+        model_url = f'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/{model_name}'
+        print(f"Downloading '{model_name}' model")
+        os.makedirs(model_folder_path, exist_ok=True)
+        wget.download(model_url, model_file_path)
+    return model_file_path
 
 def mask_edge_detail(image:torch.Tensor, mask:torch.Tensor, detail_range:int=8, black_point:float=0.01, white_point:float=0.99) -> torch.Tensor:
     d = detail_range * 5 + 1
