@@ -878,7 +878,7 @@ cropped_mask: 裁切后的遮罩。
 
 
 ### <a id="table1">SegmentAnythingUltraV2</a>
-SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
+SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2K尺寸的图片使用此方法将占用大量内存)
 ![image](image/ultra_v2_nodes_example.png)
 
 在SegmentAnythingUltra的基础上做了如下改变:  
@@ -907,7 +907,7 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
 ### <a id="table1">RmBgUltraV2</a>
-RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
+RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2K尺寸的图片使用此方法将占用大量内存)
 
 在RemBgUltra的基础上做了如下改变:  
 ![image](image/rmbg_ultra_v2_node.png)
@@ -938,7 +938,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 
 
 ### <a id="table1">PersonMaskUltraV2</a>
-PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
+PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2K尺寸的图片使用此方法将占用大量内存)
 
 在PersonMaskUltra的基础上做了如下改变:  
 ![image](image/person_mask_ultra_v2_node.png)
@@ -998,7 +998,9 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 * white_point: 边缘黑色采样阈值。
 
 ### <a id="table1">MaskEdgeUltraDetailV2</a>
-MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。下图为三种方法输出区别的示例。
+MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。(注意:超过2K尺寸的图片使用此方法将占用大量内存)    
+
+下图为三种方法输出区别的示例。
 ![image](image/mask_edge_ultra_detail_v2_example.png)
 
 在MaskEdgeUltraDetail的基础上做了如下改变:  

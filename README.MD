@@ -880,7 +880,7 @@ Node options:
 * prompt: Input for SAM's prompt.
 
 ### <a id="table1">SegmentAnythingUltraV2</a>
-The V2 upgraded version of SegmentAnythingUltra has added the VITMatte edge processing method.
+The V2 upgraded version of SegmentAnythingUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
 ![image](image/ultra_v2_nodes_example.png)
 
 On the basis of SegmentAnythingUltra, the following changes have been made: 
@@ -908,7 +908,7 @@ Node options:
 * process_detail: Set to false here will skip edge processing to save runtime.
 
 ### <a id="table1">RmBgUltraV2</a>
-The V2 upgraded version of RemBgUltra has added the VITMatte edge processing method.
+The V2 upgraded version of RemBgUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
 
 On the basis of RemBgUltra, the following changes have been made: 
 ![image](image/rmbg_ultra_v2_node.png)
@@ -937,7 +937,7 @@ Node options:
 * process_detail: Set to false here will skip edge processing to save runtime.
 
 ### <a id="table1">PersonMaskUltraV2</a>
-The V2 upgraded version of PersonMaskUltra has added the VITMatte edge processing method.
+The V2 upgraded version of PersonMaskUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
 
 On the basis of PersonMaskUltra, the following changes have been made: 
 ![image](image/person_mask_ultra_v2_node.png)
@@ -997,7 +997,8 @@ Node options:
 * white_point: Edge white sampling threshold.
 
 ### <a id="table1">MaskEdgeUltraDetailV2</a>
-The V2 upgraded version of MaskEdgeUltraDetail has added the VITMatte edge processing method.This method is suitable for handling semi transparent areas. The following figure is an example of the difference in output between three methods.
+The V2 upgraded version of MaskEdgeUltraDetail has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory)    
+This method is suitable for handling semi transparent areas. The following figure is an example of the difference in output between three methods.
 ![image](image/mask_edge_ultra_detail_v2_example.png)
 
 On the basis of MaskEdgeUltraDetail, the following changes have been made: 
