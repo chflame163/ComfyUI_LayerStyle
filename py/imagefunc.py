@@ -21,7 +21,6 @@ from functools import lru_cache
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
 from skimage import img_as_float, img_as_ubyte
-from transformers import VitMatteImageProcessor, VitMatteForImageMatting
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
 import colorsys
@@ -1045,6 +1044,7 @@ class VITMatteModel:
         self.processor = processor
 
 def load_VITMatte_model(model_name:str) -> object:
+    from transformers import VitMatteForImageMatting, VitMatteImageProcessor
     model = VitMatteForImageMatting.from_pretrained(model_name)
     processor = VitMatteImageProcessor.from_pretrained(model_name)
     vitmatte = VITMatteModel(model, processor)
