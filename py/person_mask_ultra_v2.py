@@ -134,12 +134,12 @@ class PersonMaskUltraV2:
                 detail_range = detail_erode + detail_dilate
                 if process_detail:
                     if detail_method == 'GuidedFilter':
-                        _mask = guided_filter_alpha(_image, _mask, detail_range // 6)
+                        _mask = guided_filter_alpha(_image, _mask, detail_range // 6 + 1)
                         _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
                     elif detail_method == 'PyMatting':
                         _mask = tensor2pil(
                             mask_edge_detail(_image, _mask,
-                                             detail_range // 8, black_point, white_point))
+                                             detail_range // 8 + 1, black_point, white_point))
                     else:
                         _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
                         _mask = generate_VITMatte(orig_image, _trimap)

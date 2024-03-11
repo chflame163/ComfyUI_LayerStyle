@@ -5,6 +5,8 @@ NODE_NAME = 'SegmentAnythingUltra V2'
 
 SAM_MODEL = None
 DINO_MODEL = None
+previous_sam_model = ""
+previous_dino_model = ""
 
 class SegmentAnythingUltraV2:
     def __init__(self):
@@ -45,8 +47,15 @@ class SegmentAnythingUltraV2:
                                   prompt, ):
         global SAM_MODEL
         global DINO_MODEL
-        if SAM_MODEL is None: SAM_MODEL = load_sam_model(sam_model)
-        if DINO_MODEL is None: DINO_MODEL = load_groundingdino_model(grounding_dino_model)
+        global previous_sam_model
+        global previous_dino_model
+        
+        if previous_sam_model != sam_model:
+            SAM_MODEL = load_sam_model(sam_model)
+            previous_sam_model = sam_model
+        if previous_dino_model != grounding_dino_model:
+            DINO_MODEL = load_groundingdino_model(grounding_dino_model)
+            previous_dino_model = grounding_dino_model
         ret_images = []
         ret_masks = []
 
@@ -61,10 +70,10 @@ class SegmentAnythingUltraV2:
             detail_range = detail_erode + detail_dilate
             if process_detail:
                 if detail_method == 'GuidedFilter':
-                    _mask = guided_filter_alpha(i, _mask, detail_range // 6)
+                    _mask = guided_filter_alpha(i, _mask, detail_range // 6 + 1)
                     _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
                 elif detail_method == 'PyMatting':
-                    _mask = tensor2pil(mask_edge_detail(i, _mask, detail_range // 8, black_point, white_point))
+                    _mask = tensor2pil(mask_edge_detail(i, _mask, detail_range // 8 + 1, black_point, white_point))
                 else:
                     _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
                     _mask = generate_VITMatte(_image, _trimap)
