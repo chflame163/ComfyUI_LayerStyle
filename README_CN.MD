@@ -38,6 +38,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [PromptEmbellish](#PromptEmbellish) 节点, 对简单的提示词润色，支持图片输入参考，支持中文输入。
 * Ultra 节点全面升级到V2版本，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。包括 [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) 以及 [PersonMaskUltraV2](#PersonMaskUltraV2) 节点。
 * 添加 [Color of Shadow & Highlight](#Highlight) 节点，可对暗部和亮部分别进行色彩调整。添加 [Shadow & Highlight Mask](#Shadow) 节点, 可输出暗部和亮部的遮罩。
 * 添加 [CropByMaskV2](#CropByMaskV2) 节点，在原节点基础上支持```crop_box```输入，方便裁切相同尺寸的图层。
@@ -513,6 +514,19 @@ ImageScaleByAspectRatio的V2升级版
 * token_limit: 生成提示词的最大token限制。
 * exclude_word: 需要排除的关键词。
 * replace_with_word: 替换exclude_word的关键词。
+
+### <a id="table1">PromptEmbellish</a>
+输入简单的提示词，输出经过润色的提示词，支持输入图片作为参考。这个节点目前使用Google Gemini API作为后端服务，请确保网络环境可以正常使用Gemini。
+请在[Google AI Studio](https://makersuite.google.com/app/apikey)申请你的API key, 并将其填到```api_key.ini```, 这个文件位于插件根目录。用文本编辑软件打开，在```google_api_key=```后面填入你的API key并保存。
+![image](image/prompt_embellish_example.png)
+
+节点选项说明:   
+![image](image/prompt_embellish_node.png)
+
+* image: 可选项，输入图像作为提示词参考。
+* aip: 使用的Api。目前只有"google-gemini"一个选项。
+* token_limit: 生成提示词的最大token限制。
+* discribe: 在这里输入简单的描述。支持中文。
 
 
 ### <a id="table1">ImageShift</a>

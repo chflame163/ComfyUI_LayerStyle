@@ -1387,7 +1387,12 @@ def check_image_file(file_name:str, interval:int) -> object:
             break
         time.sleep(interval / 1000)
 
-
+# 判断字符串是否包含中文
+def is_contain_chinese(check_str:str) -> bool:
+    for ch in check_str:
+        if u'\u4e00' <= ch <= u'\u9fff':
+            return True
+    return False
 
 '''CLASS'''
 

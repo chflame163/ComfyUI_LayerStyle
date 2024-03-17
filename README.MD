@@ -37,6 +37,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [PromptEmbellish](#PromptEmbellish) node. it output polished prompt words, and support inputting images as references.
 * Ultra nodes have been fully upgraded to V2 version, with the addition of VITMatte edge processing method, which is suitable for handling semi transparent areas. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) and [PersonMaskUltraV2](#PersonMaskUltraV2) nodes.
 * Commit [Color of Shadow & Highlight](#Highlight) node, it can adjust the color of the dark and bright parts separately. Commit [Shadow & Highlight Mask](#Shadow) node, it can output mask for dark and bright areas.
 * Commit [CropByMaskV2](#CropByMaskV2) node, On the basis of the original node, it supports ```crop_box``` input, making it convenient to cut layers of the same size.
@@ -517,6 +518,19 @@ Node options:
 * exclude_word: Keywords that need to be excluded.
 * replace_with_word: That word will replace the exclude_word.
 
+
+### <a id="table1">PromptEmbellish</a>
+Enter simple prompt words, output polished prompt words, and support inputting images as references. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
+Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, This file is located in the root directory of the plugin. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
+![image](image/prompt_embellish_example.png)
+
+Node options:   
+![image](image/prompt_embellish_node.png)
+
+* image: Optional, input image as a reference for prompt words.
+* aip: The Api used. At present, there is only one option, "google-gemini".
+* token_limit: The maximum token limit for generating prompt words.
+* discribe: Enter a simple description here. supports Chinese text input.
 
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.
