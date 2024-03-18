@@ -27,6 +27,51 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
   重新打开ComfyUI。
 
+## 常见问题
+如果节点不能正常加载，或者使用中出现错误，请在ComfyUI终端窗口查看报错信息。以下是常见的错误及解决方法。
+### ImportError:cannot import name 'guidedFilter' from 'cv2.ximgproc'
+这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
+
+解决方法：
+
+* 关闭ComfyUI，打开插件目录下的终端窗口，执行以下命令：
+```
+ ../../../python_embeded/python.exe -s -m pip uninstall -y opencv-python opencv-python-headless opencv-contrib-python-headless opencv-contrib-python
+```
+* 为了避免其他插件安装opencv包，可以先在这里安装，也可以跳过这一步:
+````
+../../../python_embeded/python.exe -s -m pip install opencv-python opencv-python-headless opencv-contrib-python-headless
+````
+* 然后安装 ```opencv-contrib-python```, 确保它是最后一个要安装的:
+````
+../../../python_embeded/python.exe -s -m pip install opencv-contrib-python
+````
+* 重新启动 ComfyUI.
+
+### NameError: name 'guidedFilter' is not defined
+解决方法同上。
+
+###  cannot import name 'VitMatteImageProcessor' from 'transformers' 
+这个错误是由于```transformers``` 版本过低造成的。请升级这个依赖包到最新版本。    
+
+解决方法：  
+
+* 关闭ComfyUI，打开插件目录下的终端窗口，执行以下命令：
+```
+ ../../../python_embeded/python.exe -s -m pip install transformers==4.38.2
+```
+* 重新启动 ComfyUI.
+
+### ValueError: Trimap did not contain foreground values (xxxx...)
+这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
+
+解决方法：
+* 请调整参数，改变遮罩有效面积。或者换用其他的方法处理边缘。
+
+### requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
+出现这个错误，请检查网络环境。
+
+
 ## 如何找到本节点组
 * 在ComfyUI画布点击右键 - Add Node, 找到 "😺dzNodes"。    
 ![image](image/node-menu.png)

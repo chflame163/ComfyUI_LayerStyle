@@ -34,6 +34,52 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 * Restart ComfyUI.
 
+## Common Issues
+If the node cannot load properly or there are errors during use, please check the error message in the ComfyUI terminal window. The following are common errors and their solutions.
+
+### ImportError:cannot import name 'guidedFilter' from 'cv2.ximgproc'
+This error is caused by incorrect version of the ```opencv-contrib-python``` package，or this package is overwriteen by other opencv packages. 
+
+Solution：
+
+* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
+```
+ ../../../python_embeded/python.exe -s -m pip uninstall -y opencv-python opencv-python-headless opencv-contrib-python-headless opencv-contrib-python
+```
+* To avoid other plugins install opencv packages, you can install here first, also can skip this step:
+````
+../../../python_embeded/python.exe -s -m pip install opencv-python opencv-python-headless opencv-contrib-python-headless
+````
+* Then install ```opencv-contrib-python```, ensuring that it is the LAST ONE to be installed:
+````
+../../../python_embeded/python.exe -s -m pip install opencv-contrib-python
+````
+* Restart ComfyUI.
+
+### NameError: name 'guidedFilter' is not defined
+The solution is the same as above.
+
+###  cannot import name 'VitMatteImageProcessor' from 'transformers' 
+This error is caused by the low version of ```transformers``` package. Please upgrade it to the latest version. 
+
+Solution：  
+
+* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
+```
+ ../../../python_embeded/python.exe -s -m pip install transformers==4.38.2
+```
+* Restart ComfyUI.
+
+### ValueError: Trimap did not contain foreground values (xxxx...)
+This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
+
+Solution：
+* Please adjust the parameters to change the effective area of the mask. Or use other methods to handle the edges.
+
+### requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
+When this error has occurred, please check the network environment.
+
+
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
