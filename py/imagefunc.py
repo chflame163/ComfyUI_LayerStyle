@@ -25,6 +25,7 @@ from transformers import VitMatteImageProcessor, VitMatteForImageMatting
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
 import colorsys
+import wget
 from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
 from typing import Union
 import folder_paths
