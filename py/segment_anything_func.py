@@ -15,10 +15,7 @@ import folder_paths
 import comfy.model_management
 from sam_hq.predictor import SamPredictorHQ
 from sam_hq.build_sam_hq import sam_model_registry
-from local_groundingdino.datasets import transforms as T
-from local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict
-from local_groundingdino.util.slconfig import SLConfig as local_groundingdino_SLConfig
-from local_groundingdino.models import build_model as local_groundingdino_build_model
+
 import glob
 import folder_paths
 
@@ -109,6 +106,9 @@ def get_local_filepath(url, dirname, local_file_name=None):
     return destination
 
 def load_groundingdino_model(model_name):
+    from local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict
+    from local_groundingdino.util.slconfig import SLConfig as local_groundingdino_SLConfig
+    from local_groundingdino.models import build_model as local_groundingdino_build_model
     dino_model_args = local_groundingdino_SLConfig.fromfile(
         get_local_filepath(
             groundingdino_model_list[model_name]["config_url"],
@@ -142,6 +142,7 @@ def groundingdino_predict(
     prompt,
     threshold
 ):
+    from local_groundingdino.datasets import transforms as T
     def load_dino_image(image_pil):
         transform = T.Compose(
             [
