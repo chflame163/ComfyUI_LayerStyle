@@ -83,6 +83,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [TextJoin](#TextJoin) 节点。
 * 添加 [PromptEmbellish](#PromptEmbellish) 节点, 对简单的提示词润色，支持图片输入参考，支持中文输入。
 * Ultra 节点全面升级到V2版本，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。包括 [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) 以及 [PersonMaskUltraV2](#PersonMaskUltraV2) 节点。
 * 添加 [Color of Shadow & Highlight](#Highlight) 节点，可对暗部和亮部分别进行色彩调整。添加 [Shadow & Highlight Mask](#Shadow) 节点, 可输出暗部和亮部的遮罩。
@@ -877,6 +878,11 @@ cropped_mask: 裁切后的遮罩。
 * width: 图像宽度。
 * height: 图像高度。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+### <a id="table1">TextJoin</a>
+![image](image/text_join_example.png)
+将多段文字组合为一段。
+
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)

@@ -83,6 +83,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [TextJoin](#TextJoin) node.
 * Commit [PromptEmbellish](#PromptEmbellish) node. it output polished prompt words, and support inputting images as references.
 * Ultra nodes have been fully upgraded to V2 version, with the addition of VITMatte edge processing method, which is suitable for handling semi transparent areas. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) and [PersonMaskUltraV2](#PersonMaskUltraV2) nodes.
 * Commit [Color of Shadow & Highlight](#Highlight) node, it can adjust the color of the dark and bright parts separately. Commit [Shadow & Highlight Mask](#Shadow) node, it can output mask for dark and bright areas.
@@ -882,6 +883,10 @@ Output:
 * width: The width of image.
 * height: The height of image.
 * original_size: The original size data of the image is used for subsequent node recovery.
+
+### <a id="table1">TextJoin</a>
+![image](image/text_join_example.png)
+Combine multiple paragraphs of text into one.
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.png)
