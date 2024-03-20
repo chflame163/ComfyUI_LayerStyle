@@ -21,17 +21,15 @@ from functools import lru_cache
 from typing import Union, List
 from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhance, ImageFont
 from skimage import img_as_float, img_as_ubyte
-from transformers import VitMatteImageProcessor, VitMatteForImageMatting
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
 import colorsys
-import wget
-from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
 from typing import Union
 import folder_paths
 from .briarmbg import BriaRMBG
 from .filmgrainer import processing as processing_utils
 from .filmgrainer import filmgrainer as filmgrainer
+import wget
 
 def log(message:str, message_type:str='info'):
     name = 'LayerStyle'
@@ -868,6 +866,7 @@ def gamma_trans(image:Image, gamma:float) -> Image:
     return cv22pil(_corrected)
 
 def apply_lut(image:Image, lut_file:str, log:bool=False) -> Image:
+    from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
     lut: Union[LUT3x1D, LUT3D] = read_LUT_IridasCube(lut_file)
     lut.name = os.path.splitext(os.path.basename(lut_file))[0]  # use base filename instead of internal LUT name
 
@@ -1045,6 +1044,7 @@ class VITMatteModel:
         self.processor = processor
 
 def load_VITMatte_model(model_name:str) -> object:
+    from transformers import VitMatteForImageMatting, VitMatteImageProcessor
     model = VitMatteForImageMatting.from_pretrained(model_name)
     processor = VitMatteImageProcessor.from_pretrained(model_name)
     vitmatte = VITMatteModel(model, processor)
