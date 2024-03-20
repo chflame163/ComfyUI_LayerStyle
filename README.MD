@@ -83,6 +83,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [ImageHub](#ImageHub) node, supports up to 9 sets of Image and Mask switching output, and supports random output.
 * Commit [TextJoin](#TextJoin) node.
 * Commit [PromptEmbellish](#PromptEmbellish) node. it output polished prompt words, and support inputting images as references.
 * Ultra nodes have been fully upgraded to V2 version, with the addition of VITMatte edge processing method, which is suitable for handling semi transparent areas. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) and [PersonMaskUltraV2](#PersonMaskUltraV2) nodes.
@@ -883,6 +884,15 @@ Output:
 * width: The width of image.
 * height: The height of image.
 * original_size: The original size data of the image is used for subsequent node recovery.
+
+### <a id="table1">ImageHub</a>
+Switch output from multiple input images and masks, supporting 9 sets of inputs. All input items are optional. if there is only image or mask in a set of input, the missing item will be output as None.
+![image](image/image_hub_example.png)
+
+Node options:  
+![image](image/image_hub_node.png)
+* output: Switch output. the value is the corresponding input group. when the ```random-output``` option is True, this setting will be ignored.
+* random_output: When this is true, the ```output``` setting will be ignored and a random set will be output among all valid inputs.
 
 ### <a id="table1">TextJoin</a>
 ![image](image/text_join_example.png)

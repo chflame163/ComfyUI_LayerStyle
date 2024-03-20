@@ -83,6 +83,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [ImageHub](#ImageHub) 节点，支持最多9组Image和Mask切换，支持随机输出。
 * 添加 [TextJoin](#TextJoin) 节点。
 * 添加 [PromptEmbellish](#PromptEmbellish) 节点, 对简单的提示词润色，支持图片输入参考，支持中文输入。
 * Ultra 节点全面升级到V2版本，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。包括 [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) 以及 [PersonMaskUltraV2](#PersonMaskUltraV2) 节点。
@@ -878,6 +879,16 @@ cropped_mask: 裁切后的遮罩。
 * width: 图像宽度。
 * height: 图像高度。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+### <a id="table1">ImageHub</a>
+从多路输入图片和遮罩中切换其中一组输出，支持9组输入。所有的输入项都是可选项。如果一组输入中只有image或者只有mask, 缺失项将输出为None。
+![image](image/image_hub_example.png)
+
+节点选项说明:  
+![image](image/image_hub_node.png)
+* output: 切换输出。数值是对应的输入组。当```random_output```选项为True时，此项设置将被忽略。
+* random_output: 当此项为True时, 将忽略```output```设置，在所有的有效输入中随机输出一组。
+
 
 ### <a id="table1">TextJoin</a>
 ![image](image/text_join_example.png)
