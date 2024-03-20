@@ -33,6 +33,7 @@ class ColorCorrectHSV:
 
         for i in image:
             i = torch.unsqueeze(i,0)
+            __image = tensor2pil(i)
             _h, _s, _v = tensor2pil(i).convert('HSV').split()
             if H != 0 :
                 _h = image_hue_offset(_h, H)
@@ -41,6 +42,9 @@ class ColorCorrectHSV:
             if V != 0 :
                 _v = image_gray_offset(_v, V)
             ret_image = image_channel_merge((_h, _s, _v), 'HSV')
+
+            if __image.mode == 'RGBA':
+                ret_image = RGB2RGBA(ret_image, __image.split()[-1])
 
             ret_images.append(pil2tensor(ret_image))
 

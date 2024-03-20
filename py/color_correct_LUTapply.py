@@ -31,8 +31,12 @@ class ColorCorrectLUTapply:
         for i in image:
             i = torch.unsqueeze(i, 0)
             _image = tensor2pil(i)
+
             lut_file = LUT_DICT[LUT]
             ret_image = apply_lut(_image, lut_file, log=(color_space == 'log'))
+
+            if _image.mode == 'RGBA':
+                ret_image = RGB2RGBA(ret_image, _image.split()[-1])
             ret_images.append(pil2tensor(ret_image))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')

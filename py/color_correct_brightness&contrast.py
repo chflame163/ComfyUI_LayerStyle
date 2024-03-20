@@ -33,18 +33,21 @@ class ColorCorrectBrightnessAndContrast:
 
         for i in image:
             i = torch.unsqueeze(i,0)
-
-            _image = tensor2pil(i).convert('RGB')
+            __image = tensor2pil(i)
+            ret_image = __image.convert('RGB')
             if brightness != 1:
-                brightness_image = ImageEnhance.Brightness(_image)
-                _image = brightness_image.enhance(factor=brightness)
+                brightness_image = ImageEnhance.Brightness(ret_image)
+                ret_image = brightness_image.enhance(factor=brightness)
             if contrast != 1:
-                contrast_image = ImageEnhance.Contrast(_image)
-                _image = contrast_image.enhance(factor=contrast)
+                contrast_image = ImageEnhance.Contrast(ret_image)
+                ret_image = contrast_image.enhance(factor=contrast)
             if saturation != 1:
-                color_image = ImageEnhance.Color(_image)
-                _image = color_image.enhance(factor=saturation)
-            ret_images.append(pil2tensor(_image))
+                color_image = ImageEnhance.Color(ret_image)
+                ret_image = color_image.enhance(factor=saturation)
+
+            if __image.mode == 'RGBA':
+                ret_image = RGB2RGBA(ret_image, __image.split()[-1])
+            ret_images.append(pil2tensor(ret_image))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)

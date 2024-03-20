@@ -31,6 +31,7 @@ class ColorCorrectExposure:
 
         for i in image:
             i = torch.unsqueeze(i, 0)
+            __image = tensor2pil(i)
             t = i.detach().clone().cpu().numpy().astype(np.float32)
             more = t[:, :, :, :3] > 0
             t[:, :, :, :3][more] *= pow(2, exposure / 32)
@@ -38,7 +39,12 @@ class ColorCorrectExposure:
                 bp = -exposure / 250
                 scale = 1 / (1 - bp)
                 t = np.clip((t - bp) * scale, 0.0, 1.0)
-            ret_images.append(torch.from_numpy(t))
+            ret_image = tensor2pil(torch.from_numpy(t))
+
+            if __image.mode == 'RGBA':
+                ret_image = RGB2RGBA(ret_image, __image.split()[-1])
+
+            ret_images.append(pil2tensor(ret_image))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)

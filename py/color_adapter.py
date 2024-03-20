@@ -28,8 +28,6 @@ class ColorAdapter:
 
     def color_adapter(self, image, color_ref_image, opacity):
         ret_images = []
-        # if color_ref_image.shape[0] > 0:
-        #     color_ref_image = torch.unsqueeze(color_ref_image[0], 0)
 
         l_images = []
         r_images = []
@@ -41,10 +39,12 @@ class ColorAdapter:
             _image = l_images[i]
             _ref = r_images[i] if len(ret_images) > i else r_images[-1]
 
-            _canvas = tensor2pil(_image).convert('RGB')
+            __image = tensor2pil(_image)
+            _canvas = __image.convert('RGB')
             ret_image = color_adapter(_canvas, tensor2pil(_ref).convert('RGB'))
             ret_image = chop_image(_canvas, ret_image, blend_mode='normal', opacity=opacity)
-
+            if __image.mode == 'RGBA':
+                ret_image = RGB2RGBA(ret_image, __image.split()[-1])
             ret_images.append(pil2tensor(ret_image))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')

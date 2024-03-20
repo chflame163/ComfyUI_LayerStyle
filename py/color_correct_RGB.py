@@ -33,6 +33,7 @@ class ColorCorrectRGB:
 
         for i in image:
             i = torch.unsqueeze(i,0)
+            __image = tensor2pil(i)
             _r, _g, _b = tensor2pil(i).convert('RGB').split()
             if R != 0 :
                 _r = image_gray_offset(_r, R)
@@ -41,6 +42,9 @@ class ColorCorrectRGB:
             if B != 0 :
                 _b = image_gray_offset(_b, B)
             ret_image = image_channel_merge((_r, _g, _b), 'RGB')
+
+            if __image.mode == 'RGBA':
+                ret_image = RGB2RGBA(ret_image, __image.split()[-1])
 
             ret_images.append(pil2tensor(ret_image))
 
