@@ -1,6 +1,7 @@
 from .imagefunc import *
 from functools import reduce
 import wget
+import mediapipe as mp
 import folder_paths
 from .segment_anything_func import *
 
@@ -29,8 +30,8 @@ class PersonMaskUltraV2:
                     "background": ("BOOLEAN", {"default": False, "label_on": "enabled", "label_off": "disabled"}),
                     "confidence": ("FLOAT", {"default": 0.4, "min": 0.05, "max": 0.95, "step": 0.01},),
                     "detail_method": (method_list,),
-                    "detail_erode": ("INT", {"default": 50, "min": 1, "max": 255, "step": 1}),
-                    "detail_dilate": ("INT", {"default": 20, "min": 1, "max": 255, "step": 1}),
+                    "detail_erode": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
+                    "detail_dilate": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
                     "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
                     "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
                     "process_detail": ("BOOLEAN", {"default": True}),
@@ -46,8 +47,7 @@ class PersonMaskUltraV2:
     CATEGORY = '😺dzNodes/LayerMask'
     OUTPUT_NODE = True
 
-    def get_mediapipe_image(self, image: Image):
-        import mediapipe as mp
+    def get_mediapipe_image(self, image: Image) -> mp.Image:
         # Convert image to NumPy array
         numpy_image = np.asarray(image)
         image_format = mp.ImageFormat.SRGB
@@ -63,7 +63,7 @@ class PersonMaskUltraV2:
                           accessories, background, confidence,
                           detail_method, detail_erode, detail_dilate,
                           black_point, white_point, process_detail):
-        import mediapipe as mp
+
         a_person_mask_generator_model_path = get_a_person_mask_generator_model_path()
         a_person_mask_generator_model_buffer = None
         with open(a_person_mask_generator_model_path, "rb") as f:

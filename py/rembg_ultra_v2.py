@@ -15,8 +15,8 @@ class RmBgUltraV2:
             "required": {
                 "image": ("IMAGE",),
                 "detail_method": (method_list,),
-                "detail_erode": ("INT", {"default": 50, "min": 1, "max": 255, "step": 1}),
-                "detail_dilate": ("INT", {"default": 20, "min": 1, "max": 255, "step": 1}),
+                "detail_erode": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
+                "detail_dilate": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
                 "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
                 "process_detail": ("BOOLEAN", {"default": True}),
