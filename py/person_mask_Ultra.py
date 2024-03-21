@@ -76,8 +76,9 @@ class PersonMaskUltra:
                 # image = torch.unsqueeze(image, 0)
                 orig_image = tensor2pil(image.unsqueeze(0)).convert('RGB')
                 # Convert the Tensor to a PIL image
-                i = 255. * image.cpu().numpy()
-                image_pil = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+                # i = 255. * image.cpu().numpy()
+                # image_pil = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+                image_pil = tensor2pil(image.unsqueeze(0)).convert('RGB')
                 # create our foreground and background arrays for storing the mask results
                 mask_background_array = np.zeros((image_pil.size[0], image_pil.size[1], 4), dtype=np.uint8)
                 mask_background_array[:] = (0, 0, 0, 255)
@@ -127,7 +128,7 @@ class PersonMaskUltra:
                 tensor_mask = tensor_mask.squeeze(3)[..., 0]
                 _mask = tensor2pil(tensor_mask).convert('L')
                 if process_detail:
-                    _mask = tensor2pil(mask_edge_detail(image.unsqueeze(0), pil2tensor(_mask), detail_range, black_point, white_point))
+                    _mask = tensor2pil(mask_edge_detail(pil2tensor(orig_image), pil2tensor(_mask), detail_range, black_point, white_point))
                 ret_image = RGB2RGBA(orig_image, _mask)
                 ret_images.append(pil2tensor(ret_image))
                 ret_masks.append(image2mask(_mask))

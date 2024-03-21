@@ -61,6 +61,7 @@ class SegmentAnythingUltraV2:
 
         for i in image:
             i = torch.unsqueeze(i, 0)
+            i = pil2tensor(tensor2pil(i).convert('RGB'))
             _image = tensor2pil(i).convert('RGBA')
             boxes = groundingdino_predict(DINO_MODEL, _image, prompt, threshold)
             if boxes.shape[0] == 0:

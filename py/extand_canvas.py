@@ -56,7 +56,8 @@ class ExtendCanvas:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         else:
-            l_masks.append(Image.new('L', size=tensor2pil(l_images[0]).size, color='white'))
+            if len(l_masks) == 0:
+                l_masks.append(Image.new('L', size=tensor2pil(l_images[0]).size, color='white'))
 
         max_batch = max(len(l_images), len(l_masks))
         for i in range(max_batch):

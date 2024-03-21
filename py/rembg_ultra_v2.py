@@ -37,6 +37,7 @@ class RmBgUltraV2:
 
         for i in image:
             i = torch.unsqueeze(i, 0)
+            i = pil2tensor(tensor2pil(i).convert('RGB'))
             orig_image = tensor2pil(i).convert('RGB')
             _mask = RMBG(orig_image)
             _mask = pil2tensor(_mask)

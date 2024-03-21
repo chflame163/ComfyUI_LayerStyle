@@ -49,6 +49,7 @@ class MaskEdgeUltraDetail:
         for i in range(len(l_images)):
             _image = l_images[i]
             orig_image = tensor2pil(_image).convert('RGB')
+            _image = pil2tensor(orig_image)
             _mask = l_masks[i]
             if mask_grow != 0:
                 _mask = expand_mask(_mask, mask_grow, mask_grow//2)
