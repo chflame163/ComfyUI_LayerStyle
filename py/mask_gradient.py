@@ -95,7 +95,7 @@ class MaskGradient:
                     _gradient = _box
                     if gradient_offset < -box_height:
                         _gradient = Image.new('RGB', size=boxsize, color='white')
-                _canvas.paste(_black, box = (0, box_y), mask = _gradient.convert('L'))
+                _canvas.paste(_black, box = (0, box_y + 1), mask = _gradient.convert('L'))
             elif gradient_side == 'left':
                 boxsize = (box_width, height)
                 _gradient = _gradient.transpose(Image.ROTATE_270)
@@ -133,7 +133,8 @@ class MaskGradient:
                     _gradient = _box
                     if gradient_offset < -box_width:
                         _gradient = Image.new('RGB', size=boxsize, color='white')
-                _canvas.paste(_black, box = (box_x, 0), mask = _gradient.convert('L'))
+
+                _canvas.paste(_black, box = (box_x + 1, 0), mask = _gradient.convert('L'))
             # opacity
             if opacity < 100:
                 _canvas = chop_image(_mask, _canvas, 'normal', opacity)
