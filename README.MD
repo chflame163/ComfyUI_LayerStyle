@@ -37,7 +37,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Common Issues
 If the node cannot load properly or there are errors during use, please check the error message in the ComfyUI terminal window. The following are common errors and their solutions.
 
-### ImportError:cannot import name 'guidedFilter' from 'cv2.ximgproc'
+### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 This error is caused by incorrect version of the ```opencv-contrib-python``` package，or this package is overwriteen by other opencv packages. 
 
 Solution：
@@ -59,7 +59,7 @@ Solution：
 ### NameError: name 'guidedFilter' is not defined
 The solution is the same as above.
 
-###  cannot import name 'VitMatteImageProcessor' from 'transformers' 
+### Cannot import name 'VitMatteImageProcessor' from 'transformers' 
 This error is caused by the low version of ```transformers``` package. Please upgrade it to the latest version. 
 
 Solution：  
@@ -76,13 +76,14 @@ This error is caused by the mask area being too large or too small when using th
 Solution：
 * Please adjust the parameters to change the effective area of the mask. Or use other methods to handle the edges.
 
-### requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
+### Requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
 When this error has occurred, please check the network environment.
 
 
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [ImageAutoCropV2](#ImageAutoCropV2) node, it can choose not to remove the background, support mask input, and scale by long or short side size.
 * Commit [ImageHub](#ImageHub) node, supports up to 9 sets of Image and Mask switching output, and supports random output.
 * Commit [TextJoin](#TextJoin) node.
 * Commit [PromptEmbellish](#PromptEmbellish) node. it output polished prompt words, and support inputting images as references.
@@ -876,6 +877,17 @@ box_preview: Crop position preview.
 cropped_mask: Cropped mask.
 
 
+### <a id="table1">ImageAutoCropV2</a>
+
+The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes based on the previous version:
+![image](image/image_auto_crop_v2_node.png)
+
+* Add optional input for mask. when there is a mask input, use that input directly to skip the built-in mask generation.
+* Add ```fill_background```. When set to False, the background will not be processed and any parts beyond the frame will not be included in the output range.
+* ```aspect_ratio``` adds the ```original``` option.
+* ```scale_by_longest_side``` changed to support scaling by long or short edge, set in ```scale_to_side```. The side length is set in ```scale_to__length```.
+
+
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)
 Obtain the width and height of the image.
@@ -1280,17 +1292,17 @@ Node options:
 * blur: The size of blur.
 
 ## Annotation for <a id="table1">notes</a>
-<sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.
+<sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.    
 
-<sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.
+<sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.    
 
-<sup>3</sup>  The <a id="table1">blend</a> mode include **normal, multply, screen, add, subtract, difference, darker, color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light, and hard_mix.** all of 19 blend modes in total.
+<sup>3</sup>  The <a id="table1">blend</a> mode include **normal, multply, screen, add, subtract, difference, darker, color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light, and hard_mix.** all of 19 blend modes in total.    
 ![image](image/blend_mode_result.png)
-<font size="1">*Preview of the blend mode  </font><br /> 
+<font size="1">*Preview of the blend mode  </font><br />     
 
-<sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.
+<sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.    
 
-<sup>5</sup>  The layer_image and layer_mask must be of the same size.
+<sup>5</sup>  The layer_image and layer_mask must be of the same size.    
 
 # statement
 LayerStyle nodes follows the MIT license, Some of its functional code comes from other open-source projects. If used for commercial purposes, please refer to the original project license to authorization agreement.

@@ -29,7 +29,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ## 常见问题
 如果节点不能正常加载，或者使用中出现错误，请在ComfyUI终端窗口查看报错信息。以下是常见的错误及解决方法。
-### ImportError:cannot import name 'guidedFilter' from 'cv2.ximgproc'
+### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
 
 解决方法：
@@ -51,7 +51,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### NameError: name 'guidedFilter' is not defined
 解决方法同上。
 
-###  cannot import name 'VitMatteImageProcessor' from 'transformers' 
+###  Cannot import name 'VitMatteImageProcessor' from 'transformers' 
 这个错误是由于```transformers``` 版本过低造成的。请升级这个依赖包到最新版本。    
 
 解决方法：  
@@ -68,7 +68,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 解决方法：
 * 请调整参数，改变遮罩有效面积。或者换用其他的方法处理边缘。
 
-### requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
+### Requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
 出现这个错误，请检查网络环境。
 
 
@@ -83,6 +83,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [ImageAutoCropV2](#ImageAutoCropV2) 节点，可选择不去除背景，支持mask输入，支持按长边或短边尺寸缩放。
 * 添加 [ImageHub](#ImageHub) 节点，支持最多9组Image和Mask切换，支持随机输出。
 * 添加 [TextJoin](#TextJoin) 节点。
 * 添加 [PromptEmbellish](#PromptEmbellish) 节点, 对简单的提示词润色，支持图片输入参考，支持中文输入。
@@ -870,6 +871,16 @@ cropped_image: 裁切并更换背景后的图像。
 box_preview: 裁切位置预览。
 cropped_mask: 裁切后的遮罩。
 
+### <a id="table1">ImageAutoCropV2</a>
+
+```ImageAutoCrop```的V2升级版，在之前基础上做了如下改变：  
+![image](image/image_auto_crop_v2_node.png)
+
+* 增加```mask```可选输入。当有mask输入时，直接使用该输入跳过内置遮罩生成。
+* 增加```fill_background```, 当此项设置为False时将不处理背景，并且超出画幅的部分不纳入输出范围。
+* ```aspect_ratio```增加```original```(原始画面宽高比)选项。
+* 按长边缩放改为支持按长边或短边缩放，在```scale_to_side```中设置。边长在```scale_to_length```中设置。
+
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.png)
@@ -1282,15 +1293,19 @@ mask反转
 * blur: 模糊大小。
 
 ## <a id="table1">节点注解</a>
-<sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。
-<sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。
-<sup>3</sup>   <a id="table1">混合模式</a>包括normal、multply、screen、add、subtract、difference、darker、lighter、color_burn、color_dodge、linear_burn、linear_dodge、overlay、soft_light、hard_light、vivid_light、pin_light、linear_light、hard_mix, 共19种混合模式
+<sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。    
+
+<sup>2</sup>  mask不是必须的输入项，默认使用image的alpha通道，如果image输入不包含alpha通道将自动创建整个图像的alpha通道。如果输入mask，原本的alpha通道将被mask覆盖。    
+
+<sup>3</sup>   <a id="table1">混合模式</a>包括normal、multply、screen、add、subtract、difference、darker、lighter、color_burn、color_dodge、linear_burn、linear_dodge、overlay、soft_light、hard_light、vivid_light、pin_light、linear_light、hard_mix, 共19种混合模式    
+
 
 ![image](image/blend_mode_result.png)
-<font size="1">*混合模式预览</font><br /> 
+<font size="1">*混合模式预览</font><br />     
 
-<sup>4</sup>  颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。
-<sup>5</sup>  image和mask这两项必须是相同的尺寸。
+<sup>4</sup>  颜色使用16进制RGB字符串格式描述，例如 '#FA3D86'。    
+
+<sup>5</sup>  image和mask这两项必须是相同的尺寸。    
 
 
 ##  声明
