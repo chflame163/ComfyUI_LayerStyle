@@ -2,6 +2,10 @@
 
 [中文说明点这里](./README_CN.MD)    
 
+如果您有定制节点、定制工作流业务，请联系email [chflame@163.com](mailto:chflame@163.com).
+
+For business cooperation, please contact email [chflame@163.com](mailto:chflame@163.com).
+
 A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.  
 
 It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize the workflow and reduce the frequency of software switching.  

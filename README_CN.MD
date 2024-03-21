@@ -1,4 +1,9 @@
 ﻿# ComfyUI Layer Style
+
+如果您有定制节点、定制工作流业务，请联系email [chflame@163.com](mailto:chflame@163.com)
+
+
+
 一组为ComfyUI设计的节点，可以合成图层达到类似Photoshop的功能。这些节点将PhotoShop的一部分基本功能迁移到ComfyUI，旨在集中工作流程，减少软件切换的频率。  
 
 ![image](image/title.png)  
@@ -1309,4 +1314,4 @@ mask反转
 
 
 ##  声明
-LayerStyle节点遵照MIT开源协议，有部分功能代码来自其他开源项目。如果作为商业用途，请查阅原项目授权协议使用。
+LayerStyle节点遵照MIT开源协议，有部分功能代码和模型来自其他开源项目。如果作为商业用途，请查阅原项目授权协议使用。
