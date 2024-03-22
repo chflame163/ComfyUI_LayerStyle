@@ -88,6 +88,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
 
+* 添加 [BiRefNetUltra](#BiRefNetUltra) 节点, 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
 * 添加 [ImageAutoCropV2](#ImageAutoCropV2) 节点，可选择不去除背景，支持mask输入，支持按长边或短边尺寸缩放。
 * 添加 [ImageHub](#ImageHub) 节点，支持最多9组Image和Mask切换，支持随机输出。
 * 添加 [TextJoin](#TextJoin) 节点。
@@ -625,7 +626,7 @@ ImageScaleByAspectRatio的V2升级版
 
 ### <a id="table1">ColorPicker</a>
 在色板上选取颜色并输出。
-改自[mtb nodes](https://github.com/melMass/comfy_mtb)的web extensions。
+改自[mtb nodes](https://github.com/melMass/comfy_mtb)的web extensions，感谢原作者。
 ![image](image/color_picker.png)
 
 节点选项说明:
@@ -751,7 +752,7 @@ GradientImage的V2升级版。
 
 ### <a id="table1">SimpleTextImage</a>
 ![image](image/simple_text_image_example.png)
-从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
+从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码，感谢原作者。  
 
 ![image](image/simple_text_image_node.png)
 节点选项说明:
@@ -805,7 +806,7 @@ GradientImage的V2升级版。
 
 ### <a id="table1">LaMa</a>
 ![image](image/lama_example.png)
-根据图像遮罩擦除物体。本节点是对[IOPaint](https://www.iopaint.com)的封装，由 SOTA AI 模型提供支持。  
+根据图像遮罩擦除物体。本节点是对[IOPaint](https://www.iopaint.com)的封装，由 SOTA AI 模型提供支持， 感谢原作者。   
 提供[LaMa](https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) 模型以及 SPREAD 擦除方法。请查看链接了解各个模型的介绍。  
 请下载模型文件 [lama models(百度网盘)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) 或者 [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing), 将文件放到```ComfyUI/models/lama```
 
@@ -943,7 +944,7 @@ cropped_mask: 裁切后的遮罩。
 * y: 左上角位置y坐标输出。
 
 ### <a id="table1">SegmentAnythingUltra</a>
-对[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)的改进，结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，使遮罩有更具细节的边缘。
+对[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)的改进，结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，使遮罩有更具细节的边缘，感谢原作者。
 
 *请参照ComfyUI Segment Anything的安装方法安装模型。如果已经正确安装了ComfyUI Segment Anything，可跳过此步骤。
 * 从 [这里](https://huggingface.co/bert-base-uncased/tree/main) 下载 config.json，model.safetensors，tokenizer_config.json，tokenizer.json 和 vocab.txt 5个文件到 ```ComfyUI/models/bert-base-uncased```文件夹。
@@ -980,13 +981,12 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。(注�
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
 
+
 ### <a id="table1">RemBgUltra</a>
 去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
-本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能。
+本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能，感谢原作者。
 
 *将[BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)模型文件(model.pth)下载至```ComfyUI/models/rmbg/RMBG-1.4```文件夹。该模型由 BRIA AI 开发，可作为非商业用途的开源模型。    
-
-**下载模型后，建议在ComfyUI/extra_model_paths.yaml中添加一行'rmbg: models/rmbg/RMBG-1.4'。(此步骤非必须）  
 
 
 ![image](image/rembg_ultra_example.png)
@@ -1007,10 +1007,27 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
+### <a id="table1">BiRefNetUltra</a>
+使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
+本节点模型部分的代码来自vipery的[ComfyUI-BiRefNet](https://github.com/viperyl/ComfyUI-BiRefNet)，感谢原作者。
+
+*从[https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main)下载```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth```5个文件至```ComfyUI/models/BiRefNet```文件夹。
+
+![image](image/birefnet_ultra_example.png)
+
+节点选项说明:  
+![image](image/birefnet_ultra_node.png)
+* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+
 
 ### <a id="table1">PersonMaskUltra</a>
 为人物生成脸、头发、身体皮肤、衣服或配饰的遮罩。与之前的A Person Mask Generator节点相比，这个节点具有超高的边缘细节。
-本节点的模型代码来自[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)，边缘处理代码来自spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)。
+本节点的模型代码来自[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)，边缘处理代码来自spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)，感谢原作者。
 
 ![image](image/person_mask_ultra_example.png)
 
@@ -1076,7 +1093,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 处理较粗糙的遮罩使其获得超精细边缘。
-本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte和Guided Filter Alpha两者功能。
+本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte和Guided Filter Alpha两者功能，感谢原作者。
 ![image](image/mask_edge_ultra_detail_example.png)
 
 节点选项说明:  
@@ -1242,7 +1259,7 @@ mask反转
 
 ### <a id="table1">Film</a>
 模拟胶片的颗粒、暗边和边缘模糊，支持输入深度图模拟虚焦。    
-这个节点是[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)的重新封装。
+这个节点是[digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost)的重新封装，感谢原作者。
 ![image](image/film_example.png)
 
 节点选项说明:
@@ -1314,4 +1331,4 @@ mask反转
 
 
 ##  声明
-LayerStyle节点遵照MIT开源协议，有部分功能代码和模型来自其他开源项目。如果作为商业用途，请查阅原项目授权协议使用。
+LayerStyle节点遵照MIT开源协议，有部分功能代码和模型来自其他开源项目，感谢原作者。如果作为商业用途，请查阅原项目授权协议使用。

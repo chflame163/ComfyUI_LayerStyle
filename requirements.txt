@@ -22,3 +22,4 @@ diffusers
 omegaconf
 tqdm
 transformers
+kornia

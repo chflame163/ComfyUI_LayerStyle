@@ -87,6 +87,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [BiRefNetUltra](#BiRefNetUltra) node, it using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
 * Commit [ImageAutoCropV2](#ImageAutoCropV2) node, it can choose not to remove the background, support mask input, and scale by long or short side size.
 * Commit [ImageHub](#ImageHub) node, supports up to 9 sets of Image and Mask switching output, and supports random output.
 * Commit [TextJoin](#TextJoin) node.
@@ -627,7 +628,7 @@ Node option:
 * [note](#notes)
 
 ### <a id="table1">ColorPicker</a>
-Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values.
+Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values, thanks to the original author.
 ![image](image/color_picker.png)
 
 Node options:
@@ -752,7 +753,7 @@ The following changes have been made based on GradientImage:
 
 ### <a id="table1">SimpleTextImage</a>
 ![image](image/simple_text_image_example.png)
-Generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
+Generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite), thanks to the original author.
 
 ![image](image/simple_text_image_node.png)
 Node options:
@@ -809,7 +810,7 @@ If the folder set in ini is invalid, the font folder that comes with the plugin 
 
 ### <a id="table1">LaMa</a>
 ![image](image/lama_example.png)
-Erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com), powered by state-of-the-art AI models.    
+Erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com), powered by state-of-the-art AI models, thanks to the original author.    
 It is have [LaMa](https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) models and the SPREAD method to erase. Please refer to the original link for the introduction of each model.    
 Please download the model files from [lama models(Baidu Netdisk)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) or [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing) to ```ComfyUI/models/lama``` folder.    
 
@@ -945,7 +946,7 @@ Output:
 * y: The y-coordinate of the top left corner position.
 
 ### <a id="table1">SegmentAnythingUltra</a>
-Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything), combined with the Alpha Matte node of [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) in spacepxl, result in more detailed edges for masks.
+Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything), combined with the Alpha Matte node of [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) in spacepxl, result in more detailed edges for masks, thanks to the original author.
 
 *Please refer to the installation of ComfyUI Segment Anything to install the model. If ComfyUI Segment Anything has been correctly installed, you can skip this step.
 * From [here](https://huggingface.co/bert-base-uncased/tree/main) download the config.json，model.safetensors，tokenizer_config.json，tokenizer.json and vocab.txt 5 files to ```ComfyUI/models/bert-base-uncased``` folder.
@@ -984,7 +985,7 @@ On the basis of SegmentAnythingUltra, the following changes have been made:
 ### <a id="table1">RemBgUltra</a>
 Remove background. compared to the similar background removal nodes, this node has ultra-high edge details.
 
-This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZHO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG).
+This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZHO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG), thanks to the original author.
 
 *Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (```model.pth```) to the ```/ComfyUI/models/rmbg/RMBG-1.4``` folder. This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.    
 **After downloading the model, recommended to add a line 'rmbg: models/rmbg/RMBG-1.4' in ComfyUI/extra_model_paths.yaml. (This step is not mandatory)    
@@ -1007,9 +1008,29 @@ On the basis of RemBgUltra, the following changes have been made:
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
+
+
+### <a id="table1">BiRefNetUltra</a>
+Using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
+The code for the model part of this node comes from Viper's [ComfyUI-BiRefNet](https://github.com/viperyl/ComfyUI-BiRefNet)，thanks to the original author.
+
+*From [https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main) download the ```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth``` 5 files to ```ComfyUI/models/BiRefNet``` folder.
+
+![image](image/birefnet_ultra_example.png)
+
+Node options:  
+![image](image/birefnet_ultra_node.png)
+* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+
+
 ### <a id="table1">PersonMaskUltra</a>
 Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
-The model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)， edge processing code from [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters).
+The model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)， edge processing code from [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)，thanks to the original author.
 
 ![image](image/person_mask_ultra_example.png)
 
@@ -1074,7 +1095,7 @@ Node options:
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 Process rough masks to ultra fine edges.
-This node combines the Alpha Matte and the Guided Filter Alpha nodes functions of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters).
+This node combines the Alpha Matte and the Guided Filter Alpha nodes functions of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters), thanks to the original author.
 ![image](image/mask_edge_ultra_detail_example.png)
 
 Node options:  
@@ -1239,7 +1260,7 @@ Node options:
 
 ### <a id="table1">Film</a>
 Simulate the grain, dark edge, and blurred edge of the film, support input depth map to simulate defocus.    
-This node is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost).
+This node is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost), thanks to the original author.
 ![image](image/film_example.png)
 
 Node options:
@@ -1309,4 +1330,4 @@ Node options:
 <sup>5</sup>  The layer_image and layer_mask must be of the same size.    
 
 # statement
-LayerStyle nodes follows the MIT license, Some of its functional code comes from other open-source projects. If used for commercial purposes, please refer to the original project license to authorization agreement.
+LayerStyle nodes follows the MIT license, Some of its functional code comes from other open-source projects. Thanks to the original author. If used for commercial purposes, please refer to the original project license to authorization agreement.

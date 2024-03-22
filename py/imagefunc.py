@@ -113,6 +113,13 @@ def tensor2np(tensor: torch.Tensor) -> List[np.ndarray]:
 def tensor2pil(t_image: torch.Tensor)  -> Image:
     return Image.fromarray(np.clip(255.0 * t_image.cpu().numpy().squeeze(), 0, 255).astype(np.uint8))
 
+def tensor2cv2(image:torch.Tensor) -> np.array:
+    if image.dim() == 4:
+        image = image.squeeze()
+    npimage = image.numpy()
+    cv2image = np.uint8(npimage * 255 / npimage.max())
+    return cv2.cvtColor(cv2image, cv2.COLOR_RGB2BGR)
+
 def image2mask(image:Image) -> torch.Tensor:
     _image = image.convert('RGBA')
     alpha = _image.split() [0]
