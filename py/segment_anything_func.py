@@ -65,9 +65,6 @@ def get_bert_base_uncased_model_path():
         return comfy_bert_model_base
     return 'bert-base-uncased'
 
-# def list_files(dirpath, extensions=[]):
-#     return [f for f in os.listdir(dirpath) if os.path.isfile(os.path.join(dirpath, f)) and f.split('.')[-1] in extensions]
-
 def list_sam_model():
     return list(sam_model_list.keys())
 
@@ -183,17 +180,6 @@ def groundingdino_predict(
         boxes_filt[i][:2] -= boxes_filt[i][2:] / 2
         boxes_filt[i][2:] += boxes_filt[i][:2]
     return boxes_filt
-
-
-# def create_pil_output(image_np, masks, boxes_filt):
-#     output_masks, output_images = [], []
-#     boxes_filt = boxes_filt.numpy().astype(int) if boxes_filt is not None else None
-#     for mask in masks:
-#         output_masks.append(Image.fromarray(np.any(mask, axis=0)))
-#         image_np_copy = copy.deepcopy(image_np)
-#         image_np_copy[~np.any(mask, axis=0)] = np.array([0, 0, 0, 0])
-#         output_images.append(Image.fromarray(image_np_copy))
-#     return output_images, output_masks
 
 def create_tensor_output(image_np, masks, boxes_filt):
     output_masks, output_images = [], []

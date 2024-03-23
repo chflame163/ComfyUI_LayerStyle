@@ -1,7 +1,6 @@
 from .imagefunc import *
 from functools import reduce
 import wget
-import mediapipe as mp
 import folder_paths
 from .segment_anything_func import *
 
@@ -47,7 +46,8 @@ class PersonMaskUltraV2:
     CATEGORY = '😺dzNodes/LayerMask'
     OUTPUT_NODE = True
 
-    def get_mediapipe_image(self, image: Image) -> mp.Image:
+    def get_mediapipe_image(self, image: Image):
+        import mediapipe as mp
         # Convert image to NumPy array
         numpy_image = np.asarray(image)
         image_format = mp.ImageFormat.SRGB
@@ -64,6 +64,7 @@ class PersonMaskUltraV2:
                           detail_method, detail_erode, detail_dilate,
                           black_point, white_point, process_detail):
 
+        import mediapipe as mp
         a_person_mask_generator_model_path = get_a_person_mask_generator_model_path()
         a_person_mask_generator_model_buffer = None
         with open(a_person_mask_generator_model_path, "rb") as f:
