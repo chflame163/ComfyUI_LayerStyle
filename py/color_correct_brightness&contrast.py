@@ -25,7 +25,6 @@ class ColorCorrectBrightnessAndContrast:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_brightness_and_contrast'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_brightness_and_contrast(self, image, brightness, contrast, saturation):
 

@@ -32,7 +32,6 @@ class GradientOverlay:
     RETURN_NAMES = ("image",)
     FUNCTION = 'gradient_overlay'
     CATEGORY = '😺dzNodes/LayerStyle'
-    OUTPUT_NODE = True
 
     def gradient_overlay(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,

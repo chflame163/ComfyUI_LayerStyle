@@ -31,7 +31,6 @@ class ImageMaskScaleAs:
     RETURN_NAMES = ("image", "mask", "original_size")
     FUNCTION = 'image_mask_scale_as'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_mask_scale_as(self, scale_as, fit, method,
                             image=None, mask = None,

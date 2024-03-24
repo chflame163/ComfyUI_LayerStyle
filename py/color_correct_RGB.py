@@ -25,7 +25,6 @@ class ColorCorrectRGB:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_RGB'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_RGB(self, image, R, G, B):
 

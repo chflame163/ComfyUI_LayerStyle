@@ -37,7 +37,6 @@ class ImageScaleByAspectRatio:
     RETURN_NAMES = ("image", "mask", "original_size")
     FUNCTION = 'image_scale_by_aspect_ratio'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_scale_by_aspect_ratio(self, aspect_ratio, proportional_width, proportional_height,
                                     fit, method, round_to_multiple, scale_to_longest_side, longest_side,

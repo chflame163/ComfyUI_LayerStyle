@@ -23,7 +23,6 @@ class ColorCorrectExposure:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_exposure'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_exposure(self, image, exposure):
 

@@ -22,7 +22,6 @@ class ColorPicker:
     RETURN_NAMES = ("value",)
     FUNCTION = 'picker'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def picker(self, color, mode):
         ret = color

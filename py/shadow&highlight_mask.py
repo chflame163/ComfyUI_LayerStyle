@@ -34,7 +34,6 @@ class ShadowAndHighlightMask:
     RETURN_NAMES = ("shadow_mask", "highlight_mask")
     FUNCTION = 'shadow_and_highlight_mask'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def shadow_and_highlight_mask(self, image,
                                   shadow_level_offset, shadow_range,

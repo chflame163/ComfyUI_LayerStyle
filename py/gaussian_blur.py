@@ -23,7 +23,6 @@ class GaussianBlur:
     RETURN_NAMES = ("image",)
     FUNCTION = 'gaussian_blur'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def gaussian_blur(self, image, blur):
 

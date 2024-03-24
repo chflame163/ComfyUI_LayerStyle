@@ -23,7 +23,6 @@ class ColorCorrectGamma:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_gamma'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_gamma(self, image, gamma):
 

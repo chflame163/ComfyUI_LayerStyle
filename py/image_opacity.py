@@ -25,7 +25,6 @@ class ImageOpacity:
     RETURN_NAMES = ("image", "mask",)
     FUNCTION = 'image_opacity'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_opacity(self, image, opacity, invert_mask,
                       mask=None,

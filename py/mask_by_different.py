@@ -27,7 +27,6 @@ class MaskByDifferent:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'mask_by_different'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_by_different(self, image_1, image_2, gain, fix_gap, fix_threshold, main_subject_detect):
 

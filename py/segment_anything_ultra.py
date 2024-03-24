@@ -34,7 +34,6 @@ class SegmentAnythingUltra:
     FUNCTION = "segment_anything_ultra"
     CATEGORY = '😺dzNodes/LayerMask'
 
-
     def segment_anything_ultra(self, image, sam_model, grounding_dino_model, threshold,
                                detail_range, black_point, white_point, process_detail,
                                prompt, ):

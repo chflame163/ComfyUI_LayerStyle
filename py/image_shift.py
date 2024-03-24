@@ -29,7 +29,6 @@ class ImageShift:
     RETURN_NAMES = ("image", "mask", "border_mask")
     FUNCTION = 'image_shift'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_shift(self, image, shift_x, shift_y,
                     cyclic, background_color,

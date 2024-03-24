@@ -29,7 +29,6 @@ class ExtendCanvas:
     RETURN_NAMES = ("image", "mask")
     FUNCTION = 'extend_canvas'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def extend_canvas(self, image, invert_mask,
                   top, bottom, left, right, color,

@@ -24,7 +24,6 @@ class ColorAdapter:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_adapter'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_adapter(self, image, color_ref_image, opacity):
         ret_images = []

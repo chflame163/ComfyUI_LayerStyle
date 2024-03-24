@@ -24,7 +24,6 @@ class MotionBlur:
     RETURN_NAMES = ("image",)
     FUNCTION = 'motion_blur'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def motion_blur(self, image, angle, blur):
 

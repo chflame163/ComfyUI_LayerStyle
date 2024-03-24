@@ -26,7 +26,6 @@ class SharpAndSoft:
     RETURN_NAMES = ("image",)
     FUNCTION = 'sharp_and_soft'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def sharp_and_soft(self, images, enhance, ):
 

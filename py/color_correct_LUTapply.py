@@ -24,7 +24,6 @@ class ColorCorrectLUTapply:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_LUTapply'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_LUTapply(self, image, LUT, color_space):
         ret_images = []

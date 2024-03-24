@@ -29,7 +29,6 @@ class ColorImageV2:
     RETURN_NAMES = ("image", )
     FUNCTION = 'color_image_v2'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def color_image_v2(self, size, custom_width, custom_height, color, size_as=None ):
 

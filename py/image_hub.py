@@ -41,7 +41,6 @@ class ImageHub:
     RETURN_NAMES = ("image", "mask")
     FUNCTION = 'image_hub'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_hub(self, output, random_output,
                   input1_image=None, input1_mask=None,

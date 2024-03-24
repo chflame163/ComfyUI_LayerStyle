@@ -23,7 +23,6 @@ class XYtoPercent:
     RETURN_NAMES = ("x_percent", "x_percent",)
     FUNCTION = 'xy_to_percent'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def xy_to_percent(self, background_image, layer_image, x, y,):
 

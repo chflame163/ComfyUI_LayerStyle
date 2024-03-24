@@ -40,7 +40,6 @@ class PersonMaskUltra:
     RETURN_NAMES = ("image", "mask", )
     FUNCTION = 'person_mask_ultra'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def get_mediapipe_image(self, image: Image):
         import mediapipe as mp

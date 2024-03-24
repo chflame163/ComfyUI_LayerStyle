@@ -31,7 +31,6 @@ class Stroke:
     RETURN_NAMES = ("image",)
     FUNCTION = 'stroke'
     CATEGORY = '😺dzNodes/LayerStyle'
-    OUTPUT_NODE = True
 
     def stroke(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,

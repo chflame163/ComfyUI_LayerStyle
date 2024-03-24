@@ -22,7 +22,6 @@ class ColorImage:
     RETURN_NAMES = ("image", )
     FUNCTION = 'color_image'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def color_image(self, width, height, color, ):
 

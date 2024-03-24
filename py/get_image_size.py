@@ -20,7 +20,6 @@ class GetImageSize:
     RETURN_NAMES = ("width", "height",  "original_size")
     FUNCTION = 'get_image_size'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def get_image_size(self, image,):
 

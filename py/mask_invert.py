@@ -21,7 +21,6 @@ class MaskInvert:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'mask_invert'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_invert(self,mask):
         l_masks = []

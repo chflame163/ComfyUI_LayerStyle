@@ -25,7 +25,6 @@ class ColorCorrectLAB:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_LAB'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_LAB(self, image, L, A, B):
 

@@ -32,7 +32,6 @@ class DropShadow:
     RETURN_NAMES = ("image",)
     FUNCTION = 'drop_shadow'
     CATEGORY = '😺dzNodes/LayerStyle'
-    OUTPUT_NODE = True
 
     def drop_shadow(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity, distance_x, distance_y,

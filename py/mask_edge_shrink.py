@@ -27,7 +27,6 @@ class MaskEdgeShrink:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'mask_edge_shrink'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_edge_shrink(self, mask, invert_mask, shrink_level, soft, edge_shrink, edge_reserve):
 

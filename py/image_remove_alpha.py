@@ -24,7 +24,6 @@ class ImageRemoveAlpha:
     RETURN_NAMES = ("RGB_image", )
     FUNCTION = 'image_remove_alpha'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_remove_alpha(self, RGBA_image, fill_background, background_color):
 

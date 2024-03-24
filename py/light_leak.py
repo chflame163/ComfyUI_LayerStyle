@@ -38,7 +38,6 @@ class LightLeak:
     RETURN_NAMES = ("image",)
     FUNCTION = 'light_leak'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def light_leak(self, image, light, corner, hue, saturation, opacity):
 

@@ -26,7 +26,6 @@ class RestoreCropBox:
     RETURN_NAMES = ("image", "mask", )
     FUNCTION = 'restore_crop_box'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def restore_crop_box(self, background_image, croped_image, invert_mask, crop_box,
                          croped_mask=None

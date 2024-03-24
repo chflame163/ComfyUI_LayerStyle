@@ -23,7 +23,6 @@ class ImageCombineAlpha:
     RETURN_NAMES = ("RGBA_image",)
     FUNCTION = 'image_combine_alpha'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_combine_alpha(self, RGB_image, mask):
 

@@ -25,7 +25,6 @@ class ColorCorrectYUV:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_YUV'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_YUV(self, image, Y, U, V):
 

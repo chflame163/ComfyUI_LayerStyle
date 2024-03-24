@@ -25,7 +25,6 @@ class MaskGrow:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'mask_grow'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_grow(self, mask, invert_mask, grow, blur,):
 

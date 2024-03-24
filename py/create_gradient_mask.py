@@ -29,7 +29,6 @@ class CreateGradientMask:
     RETURN_NAMES = ("mask", )
     FUNCTION = 'create_gradient_mask'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def create_gradient_mask(self, width, height, gradient_side, gradient_scale, gradient_offset, opacity, size_as=None):
 

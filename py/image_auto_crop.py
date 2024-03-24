@@ -39,7 +39,6 @@ class ImageAutoCrop:
     RETURN_NAMES = ("cropped_image", "box_preview", "cropped_mask",)
     FUNCTION = 'image_auto_crop'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_auto_crop(self, image, detect, border_reserve, aspect_ratio, proportional_width, proportional_height,
                         background_color, ultra_detail_range, scale_to_longest_side, longest_side,

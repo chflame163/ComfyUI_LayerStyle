@@ -25,7 +25,6 @@ class SoftLight:
     RETURN_NAMES = ("image",)
     FUNCTION = 'soft_light'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def soft_light(self, image, soft, threshold, opacity,):
 

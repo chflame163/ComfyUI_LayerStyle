@@ -1,11 +1,10 @@
-import torch
 
 from .imagefunc import *
 
+import torch
 import torch.nn as nn
 from torchvision import transforms
 from .BiRefNet.baseline import BiRefNet
-# from .BiRefNet import config
 from .BiRefNet.config import Config
 
 NODE_NAME = 'BiRefNetUltra'

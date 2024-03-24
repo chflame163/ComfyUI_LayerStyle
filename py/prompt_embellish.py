@@ -25,7 +25,6 @@ class PromptEmbellish:
     RETURN_NAMES = ("text",)
     FUNCTION = 'prompt_embellish'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def prompt_embellish(self, api, token_limit, describe, image=None):
         if describe == "" and image is None:

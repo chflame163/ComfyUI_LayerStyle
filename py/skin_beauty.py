@@ -25,7 +25,6 @@ class SkinBeauty:
     RETURN_NAMES = ("image", "beauty_mask")
     FUNCTION = 'skin_beauty'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def skin_beauty(self, image, smooth, threshold, opacity
                   ):

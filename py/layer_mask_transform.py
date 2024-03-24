@@ -31,7 +31,6 @@ class LayerMaskTransform:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'layer_mask_transform'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def layer_mask_transform(self, mask, x, y, mirror, scale, aspect_ratio, rotate,
                             transform_method, anti_aliasing,

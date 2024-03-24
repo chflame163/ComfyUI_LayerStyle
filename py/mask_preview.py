@@ -18,6 +18,7 @@ class MaskPreview(SaveImage):
 
     FUNCTION = "mask_preview"
     CATEGORY = '😺dzNodes/LayerMask'
+    OUTPUT_NODE = True
 
     def mask_preview(self, mask):
         if mask.dim() == 2:

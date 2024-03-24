@@ -33,7 +33,6 @@ class GradientImageV2:
     RETURN_NAMES = ("image", )
     FUNCTION = 'gradient_image_v2'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def gradient_image_v2(self, size, custom_width, custom_height, angle, start_color, end_color, size_as=None):
 

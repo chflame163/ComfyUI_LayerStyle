@@ -38,7 +38,6 @@ class TextImage:
     RETURN_NAMES = ("image", "mask",)
     FUNCTION = 'text_image'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def text_image(self, text, font_file, spacing, leading, horizontal_border, vertical_border, scale,
                   variation_range, variation_seed, layout, width, height, text_color, background_color,

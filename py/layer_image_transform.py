@@ -31,7 +31,6 @@ class LayerImageTransform:
     RETURN_NAMES = ("image",)
     FUNCTION = 'layer_image_transform'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def layer_image_transform(self, image, x, y, mirror, scale, aspect_ratio, rotate,
                             transform_method, anti_aliasing,

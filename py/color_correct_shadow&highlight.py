@@ -39,7 +39,6 @@ class ColorCorrectShadowAndHighlight:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_shadow_and_highlight'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_shadow_and_highlight(self, image,
                                shadow_brightness, shadow_saturation,

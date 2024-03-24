@@ -40,7 +40,6 @@ class SegmentAnythingUltraV2:
     FUNCTION = "segment_anything_ultra_v2"
     CATEGORY = '😺dzNodes/LayerMask'
 
-
     def segment_anything_ultra_v2(self, image, sam_model, grounding_dino_model, threshold,
                                   detail_method, detail_erode, detail_dilate,
                                   black_point, white_point, process_detail,

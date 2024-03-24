@@ -26,7 +26,6 @@ class ImageChannelMerge:
     RETURN_NAMES = ("image",)
     FUNCTION = 'image_channel_merge'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_channel_merge(self, channel_1, channel_2, channel_3, mode, channel_4=None):
 

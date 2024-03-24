@@ -28,7 +28,6 @@ class ColorOverlay:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_overlay'
     CATEGORY = '😺dzNodes/LayerStyle'
-    OUTPUT_NODE = True
 
     def color_overlay(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity, color,

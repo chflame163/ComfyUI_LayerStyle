@@ -29,7 +29,6 @@ class CropByMask:
     RETURN_NAMES = ("croped_image", "croped_mask", "crop_box", "box_preview")
     FUNCTION = 'crop_by_mask'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def crop_by_mask(self, image, mask_for_crop, invert_mask, detect,
                   top_reserve, bottom_reserve, left_reserve, right_reserve

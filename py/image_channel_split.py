@@ -23,7 +23,6 @@ class ImageChannelSplit:
     RETURN_NAMES = ("channel_1", "channel_2", "channel_3", "channel_4",)
     FUNCTION = 'image_channel_split'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_channel_split(self, image, mode):
 

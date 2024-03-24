@@ -24,7 +24,6 @@ class TextJoin:
     RETURN_NAMES = ("text",)
     FUNCTION = "text_join"
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def text_join(self, **kwargs):
 

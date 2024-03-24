@@ -25,7 +25,6 @@ class MaskMotionBlur:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'mask_motion_blur'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_motion_blur(self, mask, invert_mask, blur, angle,):
 

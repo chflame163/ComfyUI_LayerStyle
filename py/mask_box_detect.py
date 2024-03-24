@@ -26,7 +26,6 @@ class MaskBoxDetect:
     RETURN_NAMES = ("box_preview", "x_percent", "y_percent", "width", "height", "x", "y",)
     FUNCTION = 'mask_box_detect'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_box_detect(self,mask, detect, x_adjust, y_adjust, scale_adjust):
 

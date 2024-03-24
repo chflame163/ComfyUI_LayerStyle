@@ -26,7 +26,6 @@ class MaskStroke:
     RETURN_NAMES = ("mask",)
     FUNCTION = 'mask_stroke'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def mask_stroke(self, mask, invert_mask, stroke_grow, stroke_width, blur,):
 

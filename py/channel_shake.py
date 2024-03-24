@@ -25,7 +25,6 @@ class ChannelShake:
     RETURN_NAMES = ("image",)
     FUNCTION = 'channel_shake'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def channel_shake(self, image, distance, angle, mode, ):
 

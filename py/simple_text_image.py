@@ -39,7 +39,6 @@ class SimpleTextImage:
     RETURN_NAMES = ("image", "mask",)
     FUNCTION = 'simple_text_image'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def simple_text_image(self, text, font_file, align, char_per_line,
                           leading, font_size, text_color,

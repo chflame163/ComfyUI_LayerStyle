@@ -36,7 +36,6 @@ class Film:
     RETURN_NAMES = ("image",)
     FUNCTION = 'film'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def film(self, image, center_x, center_y, saturation, vignette_intensity,
                   grain_power, grain_scale, grain_sat, grain_shadows, grain_highs,

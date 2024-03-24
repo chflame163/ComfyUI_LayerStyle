@@ -21,7 +21,6 @@ class GetColorTone:
     RETURN_NAMES = ("RGB color in HEX", "HSV color in list")
     FUNCTION = 'get_color_tone'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def get_color_tone(self, image, mode,):
         if image.shape[0] > 0:

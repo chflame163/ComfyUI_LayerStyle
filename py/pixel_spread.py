@@ -25,7 +25,6 @@ class PixelSpread:
     RETURN_NAMES = ("image", )
     FUNCTION = 'pixel_spread'
     CATEGORY = '😺dzNodes/LayerMask'
-    OUTPUT_NODE = True
 
     def pixel_spread(self, image, invert_mask, mask_grow, mask=None):
 

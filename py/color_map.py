@@ -29,7 +29,6 @@ class ColorMap:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_map'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def color_map(self, image, color_map, opacity
                   ):

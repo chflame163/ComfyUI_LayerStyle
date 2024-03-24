@@ -29,7 +29,6 @@ class ImageScaleRestoreV2:
     RETURN_NAMES = ("image", "mask", "original_size")
     FUNCTION = 'image_scale_restore'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_scale_restore(self, image, scale, method,
                             scale_by, scale_by_length,

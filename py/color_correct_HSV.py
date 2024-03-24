@@ -25,7 +25,6 @@ class ColorCorrectHSV:
     RETURN_NAMES = ("image",)
     FUNCTION = 'color_correct_HSV'
     CATEGORY = '😺dzNodes/LayerColor'
-    OUTPUT_NODE = True
 
     def color_correct_HSV(self, image, H, S, V):
 

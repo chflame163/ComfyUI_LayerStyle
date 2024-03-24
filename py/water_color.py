@@ -24,7 +24,6 @@ class WaterColor:
     RETURN_NAMES = ("image",)
     FUNCTION = 'water_color'
     CATEGORY = '😺dzNodes/LayerFilter'
-    OUTPUT_NODE = True
 
     def water_color(self, image, line_density, opacity
                   ):

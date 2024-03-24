@@ -34,7 +34,6 @@ class OuterGlow:
     RETURN_NAMES = ("image",)
     FUNCTION = 'outer_glow'
     CATEGORY = '😺dzNodes/LayerStyle'
-    OUTPUT_NODE = True
 
     def outer_glow(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,

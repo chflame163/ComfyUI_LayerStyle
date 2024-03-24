@@ -27,7 +27,6 @@ class PromptTagger:
     RETURN_NAMES = ("text",)
     FUNCTION = 'prompt_tagger'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def prompt_tagger(self, image, api, token_limit, exclude_word, replace_with_word):
         import google.generativeai as genai

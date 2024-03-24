@@ -27,7 +27,6 @@ class ImageBlend:
     RETURN_NAMES = ("image",)
     FUNCTION = 'image_blend'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def image_blend(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,

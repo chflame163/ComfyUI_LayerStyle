@@ -24,7 +24,6 @@ class GradientImage:
     RETURN_NAMES = ("image", )
     FUNCTION = 'gradient_image'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def gradient_image(self, width, height, angle, start_color, end_color, ):
 

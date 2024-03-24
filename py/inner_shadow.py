@@ -33,7 +33,6 @@ class InnerShadow:
     RETURN_NAMES = ("image",)
     FUNCTION = 'inner_shadow'
     CATEGORY = '😺dzNodes/LayerStyle'
-    OUTPUT_NODE = True
 
     def inner_shadow(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity, distance_x, distance_y,

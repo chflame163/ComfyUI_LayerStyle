@@ -33,7 +33,6 @@ class LaMa:
     RETURN_NAMES = ("image",)
     FUNCTION = 'lama'
     CATEGORY = '😺dzNodes/LayerUtility'
-    OUTPUT_NODE = True
 
     def lama(self, image, mask, lama_model, device, invert_mask, mask_grow, mask_blur):
 
