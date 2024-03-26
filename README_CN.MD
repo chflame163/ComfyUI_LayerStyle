@@ -37,48 +37,17 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
 
-解决方法：
-
-* 关闭ComfyUI，打开插件目录下的终端窗口，执行以下命令：
-```
- ../../../python_embeded/python.exe -s -m pip uninstall -y opencv-python opencv-python-headless opencv-contrib-python-headless opencv-contrib-python
-```
-* 为了避免其他插件安装opencv包，可以先在这里安装，也可以跳过这一步:
-````
-../../../python_embeded/python.exe -s -m pip install opencv-python opencv-python-headless opencv-contrib-python-headless
-````
-* 然后安装 ```opencv-contrib-python```, 确保它是最后一个要安装的:
-````
-../../../python_embeded/python.exe -s -m pip install opencv-contrib-python
-````
-* 重新启动 ComfyUI.
 
 ### NameError: name 'guidedFilter' is not defined
-解决方法同上。
+问题原因同上。
 
 ###  Cannot import name 'VitMatteImageProcessor' from 'transformers' 
-这个错误是由于```transformers``` 版本过低造成的。请升级这个依赖包到最新版本。    
-
-解决方法：  
-
-* 关闭ComfyUI，打开插件目录下的终端窗口，执行以下命令：
-```
- ../../../python_embeded/python.exe -s -m pip install transformers==4.38.2
-```
-* 重新启动 ComfyUI.
+这个错误是由于```transformers``` 版本过低造成的
 
 ### insightface 加载缓慢
-这是由于```protobuf``` 版本过低造成的。请升级这个依赖包到最新版本。
+这是由于```protobuf``` 版本过低造成的。
 
-解决方法：  
-
-* 关闭ComfyUI，打开插件目录下的终端窗口，执行以下命令：
-```
- ../../../python_embeded/python.exe -s -m pip install protobuf==5.26.0
-```
-* 重新启动 ComfyUI.
-
-## 以上三个依赖包的问题，也可以双击运行插件目录下的```repair_dependency.bat```自动修复。 
+## 以上三个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```自动修复。 
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
@@ -99,7 +68,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 
 ## 更新说明
-<font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。详情见[这里](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5)。  </font><br /> 
+<font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
 * 添加 [BiRefNetUltra](#BiRefNetUltra) 节点, 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
 * 添加 [ImageAutoCropV2](#ImageAutoCropV2) 节点，可选择不去除背景，支持mask输入，支持按长边或短边尺寸缩放。

@@ -44,49 +44,18 @@ If the node cannot load properly or there are errors during use, please check th
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 This error is caused by incorrect version of the ```opencv-contrib-python``` package，or this package is overwriteen by other opencv packages. 
 
-Solution：
-
-* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
-```
- ../../../python_embeded/python.exe -s -m pip uninstall -y opencv-python opencv-python-headless opencv-contrib-python-headless opencv-contrib-python
-```
-* To avoid other plugins install opencv packages, you can install here first, also can skip this step:
-````
-../../../python_embeded/python.exe -s -m pip install opencv-python opencv-python-headless opencv-contrib-python-headless
-````
-* Then install ```opencv-contrib-python```, ensuring that it is the LAST ONE to be installed:
-````
-../../../python_embeded/python.exe -s -m pip install opencv-contrib-python
-````
-* Restart ComfyUI.
 
 ### NameError: name 'guidedFilter' is not defined
-The solution is the same as above.
+The reason for the problem is the same as above.
 
 ### Cannot import name 'VitMatteImageProcessor' from 'transformers' 
-This error is caused by the low version of ```transformers``` package. Please upgrade it to the latest version. 
-
-Solution：  
-
-* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
-```
- ../../../python_embeded/python.exe -s -m pip install transformers==4.38.2
-```
-* Restart ComfyUI.
+This error is caused by the low version of ```transformers``` package. 
 
 
 ### insightface Loading very slow
-This error is caused by the low version of ```protobuf``` package. Please upgrade it to the latest version. 
+This error is caused by the low version of ```protobuf``` package. 
 
-Solution： 
-
-* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
-```
- ../../../python_embeded/python.exe -s -m pip install protobuf==5.26.0
-```
-* Restart ComfyUI.
-
-## The issues with the above three dependency packages can also be automatically fixed by double clicking on the ```repair_dependency. bat``` in the plugin folder.
+## For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` in the plugin folder to automatically fix them.
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
