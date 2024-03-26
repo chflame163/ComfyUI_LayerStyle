@@ -67,6 +67,19 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ```
 * 重新启动 ComfyUI.
 
+### insightface 加载缓慢
+这是由于```protobuf``` 版本过低造成的。请升级这个依赖包到最新版本。
+
+解决方法：  
+
+* 关闭ComfyUI，打开插件目录下的终端窗口，执行以下命令：
+```
+ ../../../python_embeded/python.exe -s -m pip install protobuf==5.26.0
+```
+* 重新启动 ComfyUI.
+
+## 以上三个依赖包的问题，也可以双击运行插件目录下的```repair_dependency.bat```自动修复。 
+
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
 

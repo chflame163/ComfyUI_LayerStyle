@@ -74,6 +74,20 @@ Solution：
 ```
 * Restart ComfyUI.
 
+
+### insightface Loading very slow
+This error is caused by the low version of ```protobuf``` package. Please upgrade it to the latest version. 
+
+Solution： 
+
+* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
+```
+ ../../../python_embeded/python.exe -s -m pip install protobuf==5.26.0
+```
+* Restart ComfyUI.
+
+## The issues with the above three dependency packages can also be automatically fixed by double clicking on the ```repair_dependency. bat``` in the plugin folder.
+
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
 
