@@ -55,7 +55,7 @@ This error is caused by the low version of ```transformers``` package.
 ### insightface Loading very slow
 This error is caused by the low version of ```protobuf``` package. 
 
-## For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` in the plugin folder to automatically fix them.
+## For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki_.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
 
+* Commit [CropBoxResolve](#CropBoxResolve) node.
 * Commit [BiRefNetUltra](#BiRefNetUltra) node, it using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
 * Commit [ImageAutoCropV2](#ImageAutoCropV2) node, it can choose not to remove the background, support mask input, and scale by long or short side size.
 * Commit [ImageHub](#ImageHub) node, supports up to 9 sets of Image and Mask switching output, and supports random output.
@@ -464,6 +465,10 @@ Node options:
 * crop_box: Box data during cutting.
 * invert_mask: Whether to reverse the mask.
 * [note](#notes)
+
+### <a id="table1">CropBoxResolve</a>
+Parsing the ```corp_box```  to ```x``` , ```y``` , ```width``` , ```height``` .
+![image](image/corp_box_resolve_node.png)
 
 ### <a id="table1">ImageScaleRestore</a>
 Image scaling. when this node is used in pairs, the image can be automatically restored to its original size on the second node.

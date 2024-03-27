@@ -47,7 +47,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### insightface 加载缓慢
 这是由于```protobuf``` 版本过低造成的。
 
-## 以上三个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```自动修复。 
+## 以上三个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki_.bat```(秋叶整合包)自动修复。 
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
@@ -70,6 +70,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+
+* 添加 [CropBoxResolve](#CropBoxResolve) 节点。
 * 添加 [BiRefNetUltra](#BiRefNetUltra) 节点, 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
 * 添加 [ImageAutoCropV2](#ImageAutoCropV2) 节点，可选择不去除背景，支持mask输入，支持按长边或短边尺寸缩放。
 * 添加 [ImageHub](#ImageHub) 节点，支持最多9组Image和Mask切换，支持随机输出。
@@ -457,6 +459,10 @@ CropByMask的V2升级版。支持crop_box输入，方便裁切相同尺寸的图
 * crop_box: 裁切时的box数据。
 * invert_mask: 是否反转遮罩。
 * [节点注解](#节点注解)
+
+### <a id="table1">CropBoxResolve</a>
+将 ```corp_box``` 解析为 ```x``` , ```y``` , ```width``` , ```height``` 。
+![image](image/corp_box_resolve_node.png)
 
 ### <a id="table1">ImageScaleRestore</a>
 图像缩放。此节点成对使用时，在第二个节点可自动还原图像到原始大小。
