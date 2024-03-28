@@ -70,7 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-
+* 添加 [HDR Effect](#HDR) 节点，增强图片动态范围。这个节点是[HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts)的重新封装。感谢原作者。
 * 添加 [CropBoxResolve](#CropBoxResolve) 节点。
 * 添加 [BiRefNetUltra](#BiRefNetUltra) 节点, 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
 * 添加 [ImageAutoCropV2](#ImageAutoCropV2) 节点，可选择不去除背景，支持mask输入，支持按长边或短边尺寸缩放。
@@ -1244,6 +1244,22 @@ mask反转
 * distance: 通道分离的距离。
 * angle: 通道分离的角度。
 * mode: 通道错位排列顺序。
+
+* 
+### <a id="table1">HDR</a> Effects
+增强图像的动态范围。
+这个节点是[HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts)的重新封装。感谢原作者。
+![image](image/hdr_effects_example.png)
+
+节点选项说明:
+![image](image/hdr_effects_node.png)
+* hdr_intensity: 范围0-5, 控制HDR效果的整体强度, 数值越高，效果越明显。
+* shadow_intensity: 范围0-1，调整图像阴影部分的强度，较高的值会使阴影变暗并增加对比度。
+* highlight_intensity: 范围0-1，调整图像高光部分的强度，较高的值可使高光变亮并增加对比度。
+* gamma_intensity: 范围0-1，用于图像的伽玛校正，值越高，整体亮度和对比度越高。
+* contrast: 范围0-1，增强图像的对比度, 值越高，对比度越明显。
+* enhance_color: 范围0-1，增强图像的色彩饱和度, 值越高，颜色越鲜艳。
+
 
 ### <a id="table1">Film</a>
 模拟胶片的颗粒、暗边和边缘模糊，支持输入深度图模拟虚焦。    

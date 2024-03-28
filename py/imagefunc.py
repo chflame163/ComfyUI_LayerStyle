@@ -53,6 +53,20 @@ except ImportError as e:
         f"\nFor detail refer to \033[4mhttps://github.com/chflame163/ComfyUI_LayerStyle/issues/5\033[0m")
 
 
+
+'''warpper'''
+
+# create a wrapper function that can apply a function to multiple images in a batch while passing all other arguments to the function
+def apply_to_batch(func):
+    def wrapper(self, image, *args, **kwargs):
+        images = []
+        for img in image:
+            images.append(func(self, img, *args, **kwargs))
+        batch_tensor = torch.cat(images, dim=0)
+        return (batch_tensor,)
+    return wrapper
+
+
 '''pickle'''
 
 
