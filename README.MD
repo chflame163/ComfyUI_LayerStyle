@@ -55,7 +55,7 @@ This error is caused by the low version of ```transformers``` package.
 ### insightface Loading very slow
 This error is caused by the low version of ```protobuf``` package. 
 
-## For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki_.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
+## For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
