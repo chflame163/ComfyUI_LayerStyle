@@ -149,13 +149,6 @@ def mask2image(mask:torch.Tensor)  -> Image:
             _image, Image.new("RGBA", _mask.size, color='black'), _mask)
     return _image
 
-# def make_3d_mask(mask):
-#     if len(mask.shape) == 4:
-#         return mask.squeeze(0)
-#     elif len(mask.shape) == 2:
-#         return mask.unsqueeze(0)
-#     return mask
-
 '''Image Functions'''
 
 # 颜色加深
@@ -294,50 +287,6 @@ def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
     img = img * (1 - mask) + mask
     img = img * mask
     return cv22pil(ski2cv2(img))
-
-# def tuple_averge(tuples:list) -> tuple:
-#     values = []
-#     ret = []
-#     for i in tuples[0]:
-#         values.append(0)
-#         ret.append(0)
-#     for t in tuples:
-#         for j in range(len(t)):
-#             values[j] += t[j]
-#     for k in range(len(values)):
-#         ret[k] = int(values[k] / len(tuples))
-#     return tuple(ret)
-
-# def get_pixel_from_round(image:Image, position:tuple) -> tuple:
-#     (x, y) = position
-#     width, height = image.size
-#     pixels = []
-#     if x > 0:
-#         pixels.append(image.getpixel((x - 1, y)))
-#         if y > 0:
-#             pixels.append(image.getpixel((x - 1, y - 1)))
-#         if y < height:
-#             pixels.append(image.getpixel((x - 1, y + 1)))
-#     if x < width:
-#         pixels.append(image.getpixel((x + 1, y)))
-#         if y > 0:
-#             pixels.append(image.getpixel((x + 1, y - 1)))
-#         if y < height:
-#             pixels.append(image.getpixel((x + 1, y + 1)))
-#     if y > 0:
-#         pixels.append(image.getpixel((x, y-1)))
-#     if y < height:
-#         pixels.append(image.getpixel((x, y + 1)))
-#     return tuple_averge(pixels)
-
-def displace_pixel(image:Image, source_pixel:tuple, target_pixel:tuple) -> Image:
-    # ret_image = image.copy()
-    image.putpixel(target_pixel, image.getpixel(source_pixel))
-    return image
-
-# def displace_pixel_np(np_image:np.ndarray, source_pixel:tuple, target_pixel:tuple) -> np.ndarray:
-#     np_image[target_pixel[1], target_pixel[0], :] = np_image[source_pixel[1], source_pixel[0], :]
-#     return np_image
 
 def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
