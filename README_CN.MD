@@ -552,7 +552,7 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:   
 ![image](image/prompt_tagger_node.png)
 
-* aip: 使用的Api。目前只有"gemini-pro-vision"一个选项。
+* api: 使用的Api。目前只有"gemini-pro-vision"一个选项。
 * token_limit: 生成提示词的最大token限制。
 * exclude_word: 需要排除的关键词。
 * replace_with_word: 替换exclude_word的关键词。
@@ -566,7 +566,7 @@ ImageScaleByAspectRatio的V2升级版
 ![image](image/prompt_embellish_node.png)
 
 * image: 可选项，输入图像作为提示词参考。
-* aip: 使用的Api。目前只有"google-gemini"一个选项。
+* api: 使用的Api。目前只有"google-gemini"一个选项。
 * token_limit: 生成提示词的最大token限制。
 * discribe: 在这里输入简单的描述。支持中文。
 

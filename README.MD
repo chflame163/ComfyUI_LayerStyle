@@ -556,7 +556,7 @@ Please apply for your API key on [Google AI Studio](https://makersuite.google.co
 Node options:   
 ![image](image/prompt_tagger_node.png)
 
-* aip: The Api used. At present, there is only one option, "gemini-pro-vision".
+* api: The Api used. At present, there is only one option, "gemini-pro-vision".
 * token_limit: The maximum token limit for generating prompt words.
 * exclude_word: Keywords that need to be excluded.
 * replace_with_word: That word will replace the exclude_word.
@@ -571,7 +571,7 @@ Node options:
 ![image](image/prompt_embellish_node.png)
 
 * image: Optional, input image as a reference for prompt words.
-* aip: The Api used. At present, there is only one option, "google-gemini".
+* api: The Api used. At present, there is only one option, "google-gemini".
 * token_limit: The maximum token limit for generating prompt words.
 * discribe: Enter a simple description here. supports Chinese text input.
 
