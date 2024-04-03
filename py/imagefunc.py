@@ -1470,3 +1470,29 @@ for i in range(len(__font_file_list)):
     FONT_DICT[__filename] = __font_file_list[i]
 FONT_LIST = list(FONT_DICT.keys())
 log(f'Find {len(FONT_LIST)} Fonts in {default_font_dir}')
+
+gemini_generate_config = {
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 1,
+    "max_output_tokens": 400
+}
+
+gemini_safety_settings = [
+    {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_NONE"
+    },
+    {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_NONE"
+    },
+    {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "threshold": "BLOCK_NONE"
+    },
+    {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "threshold": "BLOCK_NONE"
+    }
+]

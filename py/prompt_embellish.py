@@ -40,7 +40,9 @@ class PromptEmbellish:
 
         genai.configure(api_key=get_api_key('google_api_key'), transport='rest')
         if describe != "":
-            model = genai.GenerativeModel('gemini-pro')
+            model = genai.GenerativeModel('gemini-pro',
+                                          generation_config=gemini_generate_config,
+                                          safety_settings=gemini_safety_settings)
             log(f"{NODE_NAME}: Request to gemini-pro...")
             response = model.generate_content(first_step_prompt)
             print(response)
@@ -75,7 +77,9 @@ class PromptEmbellish:
                                       f"Only respond with the prompt itself, but embellish it."
                                       )
             _image = tensor2pil(image).convert('RGB')
-            model = genai.GenerativeModel('gemini-pro-vision')
+            model = genai.GenerativeModel('gemini-pro-vision',
+                                          generation_config=gemini_generate_config,
+                                          safety_settings=gemini_safety_settings)
             log(f"{NODE_NAME}: Request to gemini-pro-vision...")
             response = model.generate_content([second_step_prompt, _image])
             print(response)

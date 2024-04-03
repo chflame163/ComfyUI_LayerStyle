@@ -40,8 +40,12 @@ class PromptTagger:
                   "Only respond with the prompt itself, but embellish it. ")
         prompt = f"{prompt}As needed keep it under {token_limit} tokens."
 
+
+
         if api == 'gemini-pro-vision':
-            model = genai.GenerativeModel(api)
+            model = genai.GenerativeModel(api,
+                                          generation_config=gemini_generate_config,
+                                          safety_settings=gemini_safety_settings)
             genai.configure(api_key=get_api_key('google_api_key'), transport='rest')
             log(f"{NODE_NAME}: Request to gemini-pro-vision...")
             response = model.generate_content([prompt, _image])
@@ -51,7 +55,10 @@ class PromptTagger:
             if len(exclude_word) > 0:
                 if len(replace_with_word) > 0:
                     ret_text = replace_case(exclude_word, replace_with_word, ret_text)
-                refine_model = genai.GenerativeModel('gemini-pro')
+                refine_model = genai.GenerativeModel('gemini-pro',
+                                                     generation_config=gemini_generate_config,
+                                                     safety_settings=gemini_safety_settings
+                                                     )
                 response = refine_model.generate_content(
                     f'You are creating a prompt for Stable Diffusion to generate an image. '
                     f'First step: Replace "{exclude_word}" and its synonyms with "{replace_with_word}" in the following text:{ret_text}'
