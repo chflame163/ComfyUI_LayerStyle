@@ -1,3 +1,5 @@
+import cv2
+
 from .imagefunc import *
 from functools import reduce
 import wget
@@ -15,7 +17,7 @@ class PersonMaskUltraV2:
     @classmethod
     def INPUT_TYPES(self):
 
-        method_list = ['VITMatte', 'PyMatting', 'GuidedFilter']
+        method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
 
         return {
             "required":
@@ -55,6 +57,7 @@ class PersonMaskUltraV2:
             image_format = mp.ImageFormat.SRGBA
         elif numpy_image.shape[-1] == 3:
             image_format = mp.ImageFormat.SRGB
+
             numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_BGR2RGB)
         return mp.Image(image_format=image_format, data=numpy_image)
 
@@ -76,6 +79,12 @@ class PersonMaskUltraV2:
         # Create the image segmenter
         ret_images = []
         ret_masks = []
+
+        if detail_method == 'VITMatte(local)':
+            local_files_only = True
+        else:
+            local_files_only = False
+
         with mp.tasks.vision.ImageSegmenter.create_from_options(options) as segmenter:
             for image in images:
                 _image = torch.unsqueeze(image, 0)
@@ -142,7 +151,7 @@ class PersonMaskUltraV2:
                                              detail_range // 8 + 1, black_point, white_point))
                     else:
                         _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
-                        _mask = generate_VITMatte(orig_image, _trimap)
+                        _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only)
                         _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
                 else:
                     _mask = mask2image(_mask)

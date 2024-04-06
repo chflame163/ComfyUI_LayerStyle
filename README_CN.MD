@@ -70,6 +70,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [GetColorToneV2](#GetColorToneV2) 节点, 可选择背景或主体的主色和平均色。
+* 添加[ImageRewardFilter](#ImageRewardFilter) 节点, 可过滤掉品质欠佳的图片。
+* Ultra 节点增加VITMatte(local)方法，如果之前已经下载了模型，可选择此方法避免访问huggingface.co。
 * 添加 [HDR Effect](#HDR) 节点，增强图片动态范围。这个节点是[HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts)的重新封装。感谢原作者。
 * 添加 [CropBoxResolve](#CropBoxResolve) 节点。
 * 添加 [BiRefNetUltra](#BiRefNetUltra) 节点, 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
@@ -635,6 +638,21 @@ ImageScaleByAspectRatio的V2升级版
 * RGB color in HEX: 使用16进制RGB字符串格式描述，例如 '#FA3D86'。
 * HSV color in list: HSV颜色值，使用list格式描述。
 
+### <a id="table1">GetColorToneV2</a>
+GetColorTone的V2升级版。可以指定获取主体或背景的主色或平均色。
+![image](image/get_color_tone_v2_example.png)
+
+在GetColorTong基础上做了如下改变:
+![image](image/get_color_tone_v2_node.png)
+* color_of: 提供三个选项，entire, background和subject, 分别表示选择整个图片，背景，或主体的颜色。
+* remove_background_method: 背景识别的方法, 有BiRefNet和RMBG V1.4两种可以选择。
+* invert_mask: 是否反转遮罩。
+* mask_grow: 遮罩扩张。对于subject, 更大的值使获得的颜色更接近主体中心的颜色。
+
+输出:
+* image: 纯色图片输出, 尺寸与输入的图片相同。
+
+
 ### <a id="table1">ExtendCanvas</a>
 扩展画布。
 ![image](image/extend_canvas_example.png)
@@ -736,6 +754,18 @@ GradientImage的V2升级版。
 <sup>**</sup>预设尺寸在```custom_size.ini```中定义，这个文件位于插件根目录下。用文本编辑软件打开，编辑自定义尺寸。每行表示一个尺寸，第一个数值是宽度，第二个是高度，中间用小写的"x"分隔。为避免错误请不要输入多余的字符。
 
 
+### <a id="table1">ImageRewardFilter</a>
+![image](image/image_reward_filter_example.png)
+对批量图片评分并输出排名靠前的图片。这个节点使用了[ImageReward](https://github.com/THUDM/ImageReward)作为图片评分，感谢原作者。
+
+![image](image/image_reward_filter_node.png)
+节点选项说明:
+* prompt: 可选输入。将prompt在此输入将作为依据判定其与图片的符合程度。
+* output_nun: 输出的图片数量。此数值应小于图片批量。
+
+输出：
+* images: 按评分顺序从高到低输出的批量图片。
+* obsolete_images: 淘汰的图片。同样按评分顺序从高到低输出。
 
 
 ### <a id="table1">SimpleTextImage</a>
@@ -964,7 +994,7 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。(注�
 
 在SegmentAnythingUltra的基础上做了如下改变:  
 ![image](image/segment_anything_ultra_v2_node.png)
-* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
@@ -991,7 +1021,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2
 
 在RemBgUltra的基础上做了如下改变:  
 ![image](image/rmbg_ultra_v2_node.png)
-* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
@@ -1005,7 +1035,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2
 
 节点选项说明:  
 ![image](image/birefnet_ultra_node.png)
-* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
@@ -1039,7 +1069,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 
 在PersonMaskUltra的基础上做了如下改变:  
 ![image](image/person_mask_ultra_v2_node.png)
-* detail_method: 边缘处理方法。提供了VITMatte, PyMatting, GuidedFilter三种方法。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
@@ -1102,7 +1132,7 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 
 在MaskEdgeUltraDetail的基础上做了如下改变:  
 ![image](image/mask_edge_ultra_detail_v2_node.png)
-* method: 边缘处理方法。增加了VITMatte方法。
+* method: 边缘处理方法。增加了VITMatte和VITMatte(local)方法。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * edge_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * edge_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 

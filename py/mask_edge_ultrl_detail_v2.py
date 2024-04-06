@@ -8,7 +8,9 @@ class MaskEdgeUltraDetailV2:
 
     @classmethod
     def INPUT_TYPES(cls):
-        method_list = ['VITMatte', 'PyMatting', 'GuidedFilter']
+
+        method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
+
         return {
             "required": {
                 "image": ("IMAGE",),
@@ -37,6 +39,12 @@ class MaskEdgeUltraDetailV2:
         ret_masks = []
         l_images = []
         l_masks = []
+
+        if method == 'VITMatte(local)':
+            local_files_only = True
+        else:
+            local_files_only = False
+
         if mask.dim() == 2:
             mask = torch.unsqueeze(mask, 0)
         for l in image:
@@ -64,7 +72,7 @@ class MaskEdgeUltraDetailV2:
                 _mask = tensor2pil(mask_edge_detail(_image, _mask, detail_range//8, black_point, white_point))
             else:
                 _trimap = generate_VITMatte_trimap(_mask, edge_erode, edte_dilate)
-                _mask = generate_VITMatte(orig_image, _trimap)
+                _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only)
                 _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
 
             ret_image = RGB2RGBA(orig_image, _mask.convert('L'))

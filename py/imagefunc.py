@@ -663,18 +663,16 @@ def draw_border(image:Image, border_width:int, color:str='#FFFFFF') -> Image:
 def get_image_color_tone(image:Image) -> str:
     image = image.convert('RGB')
     max_score = 0.0001
-    dominant_color = None
-    for count, (r, g, b) in image.getcolors(image.size[0] * image.size[1]):
+    dominant_color = (255, 255, 255)
+    for count, (r, g, b) in image.getcolors(image.width * image.height):
         saturation = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)[1]
         y = min(abs(r * 2104 + g * 4130 + b * 802 + 4096 + 131072) >> 13,235)
         y = (y - 16.0) / (235 - 16)
-        if y>0.9:
-            continue
         score = (saturation+0.1)*count
         if score > max_score:
             max_score = score
             dominant_color = (r, g, b)
-        ret_color = RGB_to_Hex(dominant_color)
+    ret_color = RGB_to_Hex(dominant_color)
     return ret_color
 
 def get_image_color_average(image:Image) -> str:
@@ -1011,20 +1009,20 @@ class VITMatteModel:
         self.model = model
         self.processor = processor
 
-def load_VITMatte_model(model_name:str) -> object:
+def load_VITMatte_model(model_name:str, local_files_only:bool=False) -> object:
     from transformers import VitMatteImageProcessor, VitMatteForImageMatting
-    model = VitMatteForImageMatting.from_pretrained(model_name)
-    processor = VitMatteImageProcessor.from_pretrained(model_name)
+    model = VitMatteForImageMatting.from_pretrained(model_name, local_files_only=local_files_only)
+    processor = VitMatteImageProcessor.from_pretrained(model_name, local_files_only=local_files_only)
     vitmatte = VITMatteModel(model, processor)
     return vitmatte
 
-def generate_VITMatte(image:Image, trimap:Image) -> Image:
+def generate_VITMatte(image:Image, trimap:Image, local_files_only:bool=False) -> Image:
     if image.mode != 'RGB':
         image = image.convert('RGB')
     if trimap.mode != 'L':
         trimap = trimap.convert('L')
     model_name = "hustvl/vitmatte-small-composition-1k"
-    vit_matte_model = load_VITMatte_model(model_name=model_name)
+    vit_matte_model = load_VITMatte_model(model_name=model_name, local_files_only=local_files_only)
     inputs = vit_matte_model.processor(images=image, trimaps=trimap, return_tensors="pt")
     with torch.no_grad():
         predictions = vit_matte_model.model(**inputs).alphas

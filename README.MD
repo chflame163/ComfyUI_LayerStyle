@@ -68,8 +68,12 @@ When this error has occurred, please check the network environment.
 
 
 ## Update
-<font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. for details, please refer to [here](https://github.com/chflame163/ComfyUI_LayerStyle/issues/5). </font><br />    
+<font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+
+* Commit [GetColorToneV2](#GetColorToneV2) node, can select the main and average colors for the background or body. 
+* Commit [ImageRewardFilter](#ImageRewardFilter) node, can filter out poor quality pictures.
+* Ultra nodes add ```VITMatte(local)``` method, You can choose this method to avoid accessing huggingface.co if you have already downloaded the model before.
 * Commit [HDR Effect](#HDR) node，it enhances the dynamic range and visual appeal of input images.  this node is repackage of [HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts).
 * Commit [CropBoxResolve](#CropBoxResolve) node.
 * Commit [BiRefNetUltra](#BiRefNetUltra) node, it using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
@@ -638,6 +642,20 @@ Output type:
 * RGB color in HEX: The RGB color described by hexadecimal RGB format, like '#FA3D86'.
 * HSV color in list: The HSV color described by python's list data format.
 
+### <a id="table1">GetColorToneV2</a>
+V2 upgrade of GetColorTone. You can specify the dominant or average color to get the body or background.
+![image](image/get_color_tone_v2_example.png)
+
+The following changes have been made on the basis of GetColorTong:
+![image](image/get_color_tone_v2_node.png)
+* color_of: Provides three options, entire, background, and subject, to select the color of the entire picture, background, or body, respectively.
+* remove_background_method: There are two methods of background recognition: BiRefNet and RMBG V1.4.
+* invert_mask: Whether to reverse the mask.
+* mask_grow: Mask expansion. For subject, a larger value brings the obtained color closer to the color at the center of the body.
+
+Output:
+* image: Solid color picture output, the size is the same as the input picture.
+
 ### <a id="table1">ExtendCanvas</a>
 Extend the canvas
 ![image](image/extend_canvas_example.png)
@@ -739,6 +757,19 @@ The following changes have been made based on GradientImage:
 
 <sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
 <sup>**</sup>The preset size is defined in ```custom_size.ini```, which is located in the root directory of the plugin. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+
+### <a id="table1">ImageRewardFilter</a>
+![image](image/image_reward_filter_example.png)
+Rating bulk pictures and outputting top-ranked pictures. it used [ImageReward] (https://github.com/THUDM/ImageReward) for image scoring, thanks to the original authors.
+
+![image](image/image_reward_filter_node.png)
+Node options:
+* prompt: Optional input. Entering prompt here will be used as a basis to determine how well it matches the picture.
+* output_nun: Number of pictures outputted. This value should be less than the picture batch.
+
+Outputs：
+* images: Bulk pictures output from high to low in order of rating.
+* obsolete_images: Knockout pictures. Also output in order of rating from high to low.
 
 ### <a id="table1">SimpleTextImage</a>
 ![image](image/simple_text_image_example.png)
@@ -966,7 +997,7 @@ The V2 upgraded version of SegmentAnythingUltra has added the VITMatte edge proc
 
 On the basis of SegmentAnythingUltra, the following changes have been made: 
 ![image](image/segment_anything_ultra_v2_node.png)
-* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
@@ -993,7 +1024,7 @@ The V2 upgraded version of RemBgUltra has added the VITMatte edge processing met
 
 On the basis of RemBgUltra, the following changes have been made: 
 ![image](image/rmbg_ultra_v2_node.png)
-* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
@@ -1009,7 +1040,7 @@ The code for the model part of this node comes from Viper's [ComfyUI-BiRefNet](h
 
 Node options:  
 ![image](image/birefnet_ultra_node.png)
-* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 * black_point: Edge black sampling threshold.
@@ -1042,7 +1073,7 @@ The V2 upgraded version of PersonMaskUltra has added the VITMatte edge processin
 
 On the basis of PersonMaskUltra, the following changes have been made: 
 ![image](image/person_mask_ultra_v2_node.png)
-* detail_method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 
@@ -1104,7 +1135,7 @@ This method is suitable for handling semi transparent areas. The following figur
 
 On the basis of MaskEdgeUltraDetail, the following changes have been made: 
 ![image](image/mask_edge_ultra_detail_v2_node.png)
-* method: Edge processing methods. provides three methods: VITMatte, PyMatting and GuidedFilter.
+* method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * edge_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * edge_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 

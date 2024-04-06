@@ -15,7 +15,7 @@ class SegmentAnythingUltraV2:
     @classmethod
     def INPUT_TYPES(cls):
 
-        method_list = ['VITMatte', 'PyMatting', 'GuidedFilter']
+        method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
 
         return {
             "required": {
@@ -48,7 +48,12 @@ class SegmentAnythingUltraV2:
         global DINO_MODEL
         global previous_sam_model
         global previous_dino_model
-        
+
+        if detail_method == 'VITMatte(local)':
+            local_files_only = True
+        else:
+            local_files_only = False
+
         if previous_sam_model != sam_model:
             SAM_MODEL = load_sam_model(sam_model)
             previous_sam_model = sam_model
@@ -76,7 +81,7 @@ class SegmentAnythingUltraV2:
                     _mask = tensor2pil(mask_edge_detail(i, _mask, detail_range // 8 + 1, black_point, white_point))
                 else:
                     _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
-                    _mask = generate_VITMatte(_image, _trimap)
+                    _mask = generate_VITMatte(_image, _trimap, local_files_only=local_files_only)
                     _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
             else:
                 _mask = mask2image(_mask)
