@@ -601,13 +601,14 @@ def create_box_gradient(start_color_inhex:str, end_color_inhex:str, width:int, h
     end_color = Hex_to_RGB(end_color_inhex)
     ret_image = Image.new("RGB", (width, height), start_color)
     draw = ImageDraw.Draw(ret_image)
-    step = int(max(width, height) * scale / 100 / 2)
+    step = int(min(width, height) * scale / 100 / 2)
     if step > 0:
         for i in range(step):
             R = int(start_color[0] * (step - i) / step + end_color[0] * i / step)
             G = int(start_color[1] * (step - i) / step + end_color[1] * i / step)
             B = int(start_color[2] * (step - i) / step + end_color[2] * i / step)
             color = (R, G, B)
+            log(f"step={step},i={i}, color={color}")
             draw.rectangle((i, i, width - i, height - i), fill=color)
     draw.rectangle((step, step, width - step, height - step), fill=end_color)
     return ret_image
@@ -679,6 +680,16 @@ def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, 
 
 def draw_border(image:Image, border_width:int, color:str='#FFFFFF') -> Image:
     return ImageOps.expand(image, border=border_width, fill=color)
+
+def histogram_equalization(image:Image, mask:Image=None) -> Image:
+
+    if mask is not None:
+        if mask.mode != 'L':
+            mask = mask.convert('L')
+    else:
+        mask = Image.new('L', size=image.size, color = 'white')
+
+    return ImageOps.equalize(image, mask=mask)
 
 def get_image_color_tone(image:Image) -> str:
     image = image.convert('RGB')
