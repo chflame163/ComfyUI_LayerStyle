@@ -70,7 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-
+* [CreateGradientMask](#CreateGradientMask) node add ```center``` option.
 * Commit [GetColorToneV2](#GetColorToneV2) node, can select the main and average colors for the background or body. 
 * Commit [ImageRewardFilter](#ImageRewardFilter) node, can filter out poor quality pictures.
 * Ultra nodes add ```VITMatte(local)``` method, You can choose this method to avoid accessing huggingface.co if you have already downloaded the model before.
@@ -1190,15 +1190,16 @@ Node options:
 ### <a id="table1">CreateGradientMask</a>
 Create a gradient mask. please note the difference between this node and the MaskGradient node.
 ![image](image/create_gradient_mask_example.png)
+![image](image/create_gradient_mask_example2.png)
 
 Node options:  
 ![image](image/create_gradient_mask_node.png)
 * size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
 * width: Width of the image. If there is a size_as input, this setting will be ignored.
 * height: Height of the image. If there is a size_as input, this setting will be ignored.
-* gradient_side: Generate gradient from which edge. There are four directions: top, bottom, left and right.
+* gradient_side: Generate gradient from which edge. There are five directions: top, bottom, left, right and center.
 * gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
-* gradient_offset: Gradient position offset.
+* gradient_offset: Gradient position offset. When ```gradient_side``` is center, the size of the gradient area is adjusted here, positive values are smaller, and negative values are enlarged.
 * opacity: The opacity of the gradient.
 
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.  

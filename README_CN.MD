@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [CreateGradientMask](#CreateGradientMask) 节点增加 ```center``` 选项。
 * 添加 [GetColorToneV2](#GetColorToneV2) 节点, 可选择背景或主体的主色和平均色。
 * 添加[ImageRewardFilter](#ImageRewardFilter) 节点, 可过滤掉品质欠佳的图片。
 * Ultra 节点增加VITMatte(local)方法，如果之前已经下载了模型，可选择此方法避免访问huggingface.co。
@@ -1187,15 +1188,16 @@ MaskGrow与MaskEdgeShrink效果对比
 ### <a id="table1">CreateGradientMask</a>
 创建一个渐变的遮罩。请注意此节点与MaskGradient的区别。
 ![image](image/create_gradient_mask_example.png)
+![image](image/create_gradient_mask_example2.png)
 
 节点选项说明:  
 ![image](image/create_gradient_mask_node.png)
 * size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像和遮罩。注意，此输入优先级高于下面的width和height。
 * width: 画面的宽度。如果有size_as输入，此设置将被忽略。
 * height: 画面的高度。如果有size_as输入，此设置将被忽略。
-* gradient_side: 从哪个边产生渐变。有四个方向：顶侧top、底侧bottom、左侧left、右侧right。
+* gradient_side: 从哪个边产生渐变。有5个方向：顶侧top、底侧bottom、左侧left、右侧right和中央center。
 * gradient_scale: 渐变距离。默认值100表示渐变产生一侧完全透明，另一侧完全不透明。数值越小，从透明到不透明的距离越短。
-* gradient_offset: 渐变位置偏移。
+* gradient_offset: 渐变位置偏移。```gradient_side```为center时这里调整渐变区域的大小，正值是变小，负值是扩大。
 * opacity: 渐变的不透明度。 
 
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。  

@@ -591,6 +591,26 @@ def image_rotate_extend_with_alpha(image:Image, angle:float, alpha:Image=None, m
         ret_image = _image
     return (_image, _alpha, ret_image)
 
+def create_box_gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, scale:int=50) -> Image:
+    # scale is percent of border to center for the rectangle
+    if scale > 100:
+        scale = 100
+    elif scale < 1:
+        scale = 1
+    start_color = Hex_to_RGB(start_color_inhex)
+    end_color = Hex_to_RGB(end_color_inhex)
+    ret_image = Image.new("RGB", (width, height), start_color)
+    draw = ImageDraw.Draw(ret_image)
+    step = int(max(width, height) * scale / 100 / 2)
+    if step > 0:
+        for i in range(step):
+            R = int(start_color[0] * (step - i) / step + end_color[0] * i / step)
+            G = int(start_color[1] * (step - i) / step + end_color[1] * i / step)
+            B = int(start_color[2] * (step - i) / step + end_color[2] * i / step)
+            color = (R, G, B)
+            draw.rectangle((i, i, width - i, height - i), fill=color)
+    draw.rectangle((step, step, width - step, height - step), fill=end_color)
+    return ret_image
 
 def create_gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, direction:str='bottom') -> Image:
     # direction = one of top, bottom, left, right
@@ -1172,10 +1192,10 @@ def mask_area(image:Image) -> tuple:
     gray = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2GRAY)
     _, thresh = cv2.threshold(gray, 127, 255, 0)
     locs = np.where(thresh == 255)
-    x1 = np.min(locs[1])
-    x2 = np.max(locs[1])
-    y1 = np.min(locs[0])
-    y2 = np.max(locs[0])
+    x1 = np.min(locs[1]) if len(locs[1]) > 0 else 0
+    x2 = np.max(locs[1]) if len(locs[1]) > 0 else image.width
+    y1 = np.min(locs[0]) if len(locs[0]) > 0 else 0
+    y2 = np.max(locs[0]) if len(locs[0]) > 0 else image.height
     x1, y1, x2, y2 = min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
     return (x1, y1, x2 - x1, y2 - y1)
 
@@ -1256,10 +1276,13 @@ def RGB_to_Hex(RGB) -> str:
     return color
 
 def Hex_to_RGB(inhex) -> tuple:
-    rval = inhex[1:3]
-    gval = inhex[3:5]
-    bval = inhex[5:]
-    rgb = (int(rval, 16), int(gval, 16), int(bval, 16))
+    if not inhex.startswith('#'):
+        raise ValueError(f'Invalid Hex Code in {inhex}')
+    else:
+        rval = inhex[1:3]
+        gval = inhex[3:5]
+        bval = inhex[5:]
+        rgb = (int(rval, 16), int(gval, 16), int(bval, 16))
     return tuple(rgb)
 
 def RGB_to_HSV(RGB:tuple) -> list:
