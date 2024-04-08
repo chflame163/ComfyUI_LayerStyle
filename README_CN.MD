@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [AutoBrightness](#AutoBrightness) 节点，可自动调整图片亮度。
 * [CreateGradientMask](#CreateGradientMask) 节点增加 ```center``` 选项。
 * 添加 [GetColorToneV2](#GetColorToneV2) 节点, 可选择背景或主体的主色和平均色。
 * 添加[ImageRewardFilter](#ImageRewardFilter) 节点, 可过滤掉品质欠佳的图片。
@@ -304,6 +305,16 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * color_space: 普通图片请选择linear, log色彩空间的图片请选择log。
 
 <sup>*</sup>LUT文件夹在resource_dir.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。
+
+
+### <a id="table1">AutoBrightness</a>
+将过暗或过亮的图片自动调整到适中的亮度，支持遮罩输入。有遮罩输入时仅以遮罩部分的内容作为自动亮度的数据来源。输出仍然是整个调整后的图像。
+![image](image/auto_brightness_example.png)
+
+节点选项说明:  
+![image](image/auto_brightness_node.png)
+* strength: 自动调整亮度的强度。数值越大，越偏向中间值，与原图的差别越大。
+* saturation: 色彩饱和度。亮度改变通常会导致色彩饱和度发生变化，可在此适当调整补偿。
 
 ### <a id="table1">ColorAdapter</a>
 自动调整图片色调，使之与参考图片相似。

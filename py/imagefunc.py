@@ -681,7 +681,12 @@ def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, 
 def draw_border(image:Image, border_width:int, color:str='#FFFFFF') -> Image:
     return ImageOps.expand(image, border=border_width, fill=color)
 
-def histogram_equalization(image:Image, mask:Image=None) -> Image:
+def histogram_equalization(image:Image, mask:Image=None, gamma_strength=0.5) -> Image:
+    def remap_pixel(pixel, min_brightness, max_brightness):
+        return int((pixel - min_brightness) / (max_brightness - min_brightness) * 255)
+
+    if image.mode != 'L':
+        image = image.convert('L')
 
     if mask is not None:
         if mask.mode != 'L':
@@ -689,7 +694,33 @@ def histogram_equalization(image:Image, mask:Image=None) -> Image:
     else:
         mask = Image.new('L', size=image.size, color = 'white')
 
-    return ImageOps.equalize(image, mask=mask)
+    # calculate Min/Max brightness pixel
+    min_brightness = 255
+    max_brightness = 0
+    average_brightness = 0
+    total_pixel = 0
+    for y in range(image.height):
+        for x in range(image.width):
+            if mask.getpixel((x, y)) == 0:
+                continue
+            else:
+                pixel = image.getpixel((x, y))
+                if pixel < min_brightness:
+                    min_brightness = pixel
+                if pixel > max_brightness:
+                    max_brightness = pixel
+                average_brightness += pixel
+                total_pixel += 1
+    average_brightness = int(average_brightness / total_pixel)
+
+    for y in range(image.height):
+        for x in range(image.width):
+            pixel = image.getpixel((x, y))
+            image.putpixel((x, y), remap_pixel(pixel, min_brightness, max_brightness))
+
+    image = gamma_trans(image, (average_brightness - 127) / 127 * gamma_strength * 0.66 + 1)
+
+    return image.convert('L')
 
 def get_image_color_tone(image:Image) -> str:
     image = image.convert('RGB')

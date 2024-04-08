@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [AutoBrightness](#AutoBrightness) node，it can automatically adjust the brightness of image.
 * [CreateGradientMask](#CreateGradientMask) node add ```center``` option.
 * Commit [GetColorToneV2](#GetColorToneV2) node, can select the main and average colors for the background or body. 
 * Commit [ImageRewardFilter](#ImageRewardFilter) node, can filter out poor quality pictures.
@@ -310,6 +311,15 @@ Node options:
 <sup>*</sup>LUT folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
 Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
+
+### <a id="table1">AutoBrightness</a>
+Automatically adjust too dark or too bright image to moderate brightness, and support mask input. When  mask input, only the content of the mask part is used as the data source of the automatic brightness. The output is still the whole adjusted image.
+![image](image/auto_brightness_example.png)
+
+Node options:  
+![image](image/auto_brightness_node.png)
+* strength: Automatically adjust the intensity of the brightness. The larger the value, the more biased towards the middle value, the greater the difference from the original picture.
+* saturation: Color saturation. Changes in brightness usually result in changes in color saturation, where appropriate compensation can be adjusted.
 
 ### <a id="table1">ColorAdapter</a>
 Auto adjust the color tone of the image to resemble the reference image.

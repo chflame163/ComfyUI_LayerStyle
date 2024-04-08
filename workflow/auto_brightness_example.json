@@ -1,0 +1,208 @@
+{
+  "last_node_id": 17,
+  "last_link_id": 23,
+  "nodes": [
+    {
+      "id": 16,
+      "type": "LayerMask: BiRefNetUltra",
+      "pos": [
+        1545,
+        315
+      ],
+      "size": {
+        "0": 315,
+        "1": 198
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            22
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: BiRefNetUltra"
+      },
+      "widgets_values": [
+        "VITMatte(local)",
+        6,
+        6,
+        0.01,
+        0.99,
+        false
+      ]
+    },
+    {
+      "id": 14,
+      "type": "LoadImage",
+      "pos": [
+        1051,
+        211
+      ],
+      "size": [
+        444.985995205961,
+        348.55585826526465
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            18,
+            23
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_girl2 (2).png",
+        "image"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "LayerColor: AutoBrightness",
+      "pos": [
+        1897,
+        212
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 23,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            12
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: AutoBrightness"
+      },
+      "widgets_values": [
+        75,
+        8
+      ]
+    },
+    {
+      "id": 12,
+      "type": "PreviewImage",
+      "pos": [
+        2258,
+        236
+      ],
+      "size": [
+        508.56190074572487,
+        317.2527909712304
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      12,
+      11,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      18,
+      14,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      22,
+      16,
+      1,
+      11,
+      1,
+      "MASK"
+    ],
+    [
+      23,
+      14,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "groupNodes": {}
+  },
+  "version": 0.4
+}
