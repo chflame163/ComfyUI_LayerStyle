@@ -308,7 +308,7 @@ Node options:
 * LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
 * color_space: For regular image, please select linear, for image in the log color space, please select log.
 
-<sup>*</sup>LUT folder is defined in resource_dir.ini, this file is located in the root directory of the plugin. 
+<sup>*</sup>LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plugin in.  
 Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
 

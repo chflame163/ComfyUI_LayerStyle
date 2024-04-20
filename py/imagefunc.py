@@ -1225,6 +1225,10 @@ def mask_invert(mask:torch.Tensor) -> torch.Tensor:
 def subtract_mask(masks_a:torch.Tensor, masks_b:torch.Tensor) -> torch.Tensor:
     return torch.clamp(masks_a - masks_b, 0, 255)
 
+def add_mask(masks_a:torch.Tensor, masks_b:torch.Tensor) -> torch.Tensor:
+    mask = chop_image(tensor2pil(masks_a), tensor2pil(masks_b), blend_mode='add', opacity=100)
+    return image2mask(mask)
+
 def RGB2RGBA(image:Image, mask:Image) -> Image:
     (R, G, B) = image.convert('RGB').split()
     return Image.merge('RGBA', (R, G, B, mask.convert('L')))

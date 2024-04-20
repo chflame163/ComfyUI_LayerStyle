@@ -15,9 +15,9 @@ class PrintInfo:
     }
 
   CATEGORY = '😺dzNodes/LayerUtility'
-  RETURN_TYPES = ()
+  RETURN_TYPES = ("STRING",)
+  RETURN_NAMES = ("info",)
   FUNCTION = "print_info"
-  OUTPUT_NODE = True
 
   def print_info(self, anything=None):
     value = f'PrintInfo: \n Input type = {type(anything)}'
@@ -39,7 +39,7 @@ class PrintInfo:
         except Exception:
           value = 'source exists, but could not be serialized.'
     log(value)
-    return {"ui": {"text": (value,)}}
+    return (value,)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: PrintInfo": PrintInfo
