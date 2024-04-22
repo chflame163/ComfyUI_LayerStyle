@@ -308,7 +308,7 @@ Node options:
 * LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
 * color_space: For regular image, please select linear, for image in the log color space, please select log.
 
-<sup>*</sup>LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plugin in.  
+<sup>*</sup>LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
 Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
 
@@ -564,7 +564,7 @@ The following changes have been made based on ImageScaleByAspectRatio:
 
 ### <a id="table1">PromptTagger</a>
 Inference the prompts based on the image. it can replace key word for the prompt. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
-Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, This file is located in the root directory of the plugin. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
+Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
 ![image](image/prompt_tagger_example.png)
 
 Node options:   
@@ -578,7 +578,7 @@ Node options:
 
 ### <a id="table1">PromptEmbellish</a>
 Enter simple prompt words, output polished prompt words, and support inputting images as references. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
-Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, This file is located in the root directory of the plugin. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
+Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
 ![image](image/prompt_embellish_example.png)
 
 Node options:   
@@ -740,7 +740,7 @@ The following changes have been made based on ColorImage:
 * custom_height: Image height. it valid when size is set to "custom". if have size_as input, this option will be ignored.
 
 <sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
-<sup>**</sup>The preset size is defined in ```custom_size.ini```, which is located in the root directory of the plugin. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+<sup>**</sup>The preset size is defined in ```custom_size.ini```, this file is located in the root directory of the plug-in, and the default name is ```custom_size.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
 
 
 ### <a id="table1">GradientImage</a>
@@ -766,7 +766,7 @@ The following changes have been made based on GradientImage:
 * custom_height: Image height. it valid when size is set to "custom". if have size_as input, this option will be ignored.
 
 <sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
-<sup>**</sup>The preset size is defined in ```custom_size.ini```, which is located in the root directory of the plugin. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+<sup>**</sup>The preset size is defined in ```custom_size.ini```, this file is located in the root directory of the plug-in, and the default name is ```custom_size.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
 
 ### <a id="table1">ImageRewardFilter</a>
 ![image](image/image_reward_filter_example.png)
@@ -804,7 +804,7 @@ Node options:
 
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
 
-<sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plugin. 
+<sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
 Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
@@ -833,7 +833,7 @@ Node options:
 
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
 
-<sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plugin. 
+<sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
 Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
