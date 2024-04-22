@@ -1471,7 +1471,16 @@ custom_size_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath
 #     return  ''.join(ret_value)
 
 def load_custom_size() -> list:
-    ret_value = []
+    ret_value = ['1024 x 1024',
+                '768 x 512',
+                '512 x 768',
+                '1280 x 720',
+                '720 x 1280',
+                '1344 x 768',
+                '768 x 1344',
+                '1536 x 640',
+                '640 x 1536'
+                 ]
     try:
         with open(custom_size_file, 'r') as f:
             ini = f.readlines()
@@ -1479,7 +1488,7 @@ def load_custom_size() -> list:
                 if not line.startswith(f'#'):
                     ret_value.append(line.strip())
     except Exception as e:
-        log(f'Warning: {custom_size_file} ' + repr(e) + f", check it to be correct. ", message_type='warning')
+        log(f'Warning: {custom_size_file} ' + repr(e) + f", use default size. ")
     return ret_value
 
 def get_api_key(api_name:str) -> str:
@@ -1519,7 +1528,7 @@ try:
                 else:
                     log(f'Invalid FONT directory, default to be used. check {resource_dir_ini_file}')
 except Exception as e:
-    log(f'Warning: {resource_dir_ini_file} ' + repr(e) + f", default directory to be used. ", message_type='warning')
+    log(f'Warning: {resource_dir_ini_file} ' + repr(e) + f", default directory to be used. ")
 
 __lut_file_list = glob.glob(default_lut_dir + '/*.cube')
 LUT_DICT = {}
