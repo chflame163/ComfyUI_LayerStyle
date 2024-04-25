@@ -65,14 +65,14 @@ class ImageScaleByAspectRatio:
             _width, _height = tensor2pil(orig_masks[0]).size
             if (orig_width > 0 and orig_width != _width) or (orig_height > 0 and orig_height != _height):
                 log(f"Error: {NODE_NAME} skipped, because the mask is does'nt match image.", message_type='error')
-                return (None, None,)
+                return (None, None, None)
             elif orig_width + orig_height == 0:
                 orig_width = _width
                 orig_height = _height
 
         if orig_width + orig_height == 0:
             log(f"Error: {NODE_NAME} skipped, because the image or mask at least one must be input.", message_type='error')
-            return (None, None,)
+            return (None, None, None)
 
         if aspect_ratio == 'original':
             ratio = orig_width / orig_height
@@ -137,16 +137,16 @@ class ImageScaleByAspectRatio:
                 ret_masks.append(image2mask(_mask))
         if len(ret_images) > 0 and len(ret_masks) >0:
             log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
-            return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
+            return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),[orig_width, orig_height],)
         elif len(ret_images) > 0 and len(ret_masks) == 0:
             log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
-            return (torch.cat(ret_images, dim=0), None,)
+            return (torch.cat(ret_images, dim=0), None,[orig_width, orig_height],)
         elif len(ret_images) == 0 and len(ret_masks) > 0:
             log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
-            return (None, torch.cat(ret_masks, dim=0),)
+            return (None, torch.cat(ret_masks, dim=0),[orig_width, orig_height],)
         else:
             log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.", message_type='error')
-            return (None, None,)
+            return (None, None, None)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageScaleByAspectRatio": ImageScaleByAspectRatio
