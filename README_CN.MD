@@ -678,6 +678,13 @@ GetColorTone的V2升级版。可以指定获取主体或背景的主色或平均
 * right: 右侧扩展值。
 * color; 画布颜色
 
+### <a id="table1">ExtendCanvasV2</a>
+ExtendCanvas的V2升级版。
+
+在ExtendCanvas基础上修改了color为字符串类型，支持外接```ColorPicker```输入。
+![image](image/extend_canvas_v2_node.png)
+
+
 ### XY to <a id="table1">Percent</a>
 ![image](image/xy2percent_example.png)
 将绝对坐标转换为百分比坐标。

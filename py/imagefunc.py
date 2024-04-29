@@ -870,6 +870,18 @@ def image_gray_offset(image:Image, offset:int) -> Image:
                 ret_image.putpixel((x, y), _pixel)
     return ret_image
 
+def image_gray_ratio(image:Image, ratio:float) -> Image:
+    image = image.convert('L')
+    width = image.width
+    height = image.height
+    ret_image = Image.new('L', size=(width, height), color='black')
+    for x in range(width):
+        for y in range(height):
+                pixel = image.getpixel((x, y))
+                _pixel = int(pixel * ratio)
+                ret_image.putpixel((x, y), _pixel)
+    return ret_image
+
 def image_hue_offset(image:Image, offset:int) -> Image:
     image = image.convert('L')
     width = image.width
@@ -1314,14 +1326,14 @@ def image_to_colormap(image:Image, index:int) -> Image:
 
 '''Color Functions'''
 
-def RGB_to_Hex(RGB) -> str:
+def RGB_to_Hex(RGB:tuple) -> str:
     color = '#'
     for i in RGB:
         num = int(i)
         color += str(hex(num))[-2:].replace('x', '0').upper()
     return color
 
-def Hex_to_RGB(inhex) -> tuple:
+def Hex_to_RGB(inhex:str) -> tuple:
     if not inhex.startswith('#'):
         raise ValueError(f'Invalid Hex Code in {inhex}')
     else:
@@ -1334,6 +1346,18 @@ def Hex_to_RGB(inhex) -> tuple:
 def RGB_to_HSV(RGB:tuple) -> list:
     HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
     return [int(x * 360) for x in HSV]
+
+def Hex_to_HSV_255level(inhex:str) -> list:
+    if not inhex.startswith('#'):
+        raise ValueError(f'Invalid Hex Code in {inhex}')
+    else:
+        rval = inhex[1:3]
+        gval = inhex[3:5]
+        bval = inhex[5:]
+        RGB = (int(rval, 16), int(gval, 16), int(bval, 16))
+        HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
+    return [int(x * 255) for x in HSV]
+
 
 '''Value Functions'''
 
@@ -1488,7 +1512,8 @@ def load_custom_size() -> list:
                 if not line.startswith(f'#'):
                     ret_value.append(line.strip())
     except Exception as e:
-        log(f'Warning: {custom_size_file} ' + repr(e) + f", use default size. ")
+        # log(f'Warning: {custom_size_file} ' + repr(e) + f", use default size. ")
+        log(f'Warning: {custom_size_file} not found' + f", use default size. ")
     return ret_value
 
 def get_api_key(api_name:str) -> str:
@@ -1528,7 +1553,8 @@ try:
                 else:
                     log(f'Invalid FONT directory, default to be used. check {resource_dir_ini_file}')
 except Exception as e:
-    log(f'Warning: {resource_dir_ini_file} ' + repr(e) + f", default directory to be used. ")
+    # log(f'Warning: {resource_dir_ini_file} ' + repr(e) + f", default directory to be used. ")
+    log(f'Warning: {resource_dir_ini_file} not found' + f", default directory to be used. ")
 
 __lut_file_list = glob.glob(default_lut_dir + '/*.cube')
 LUT_DICT = {}

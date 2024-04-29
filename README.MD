@@ -679,6 +679,12 @@ Node options:
 * right: Right extension value.
 * color; Color of canvas.
 
+### <a id="table1">ExtendCanvasV2</a>
+V2 upgrade to ExtendCanvas.
+
+Based on ExtendCanvas, color is modified to be a string type, and it supports external ```ColorPicker``` input.
+![image](image/extend_canvas_v2_node.png)
+
 ### XY to <a id="table1">Percent</a>
 ![image](image/xy2percent_example.png)
 Convert absolute coordinates to percentage coordinates.
