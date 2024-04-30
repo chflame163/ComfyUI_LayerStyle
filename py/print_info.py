@@ -16,11 +16,12 @@ class PrintInfo:
 
   CATEGORY = '😺dzNodes/LayerUtility'
   RETURN_TYPES = ("STRING",)
-  RETURN_NAMES = ("info",)
+  RETURN_NAMES = ("text",)
   FUNCTION = "print_info"
+  OUTPUT_NODE = True
 
   def print_info(self, anything=None):
-    value = f'PrintInfo: \n Input type = {type(anything)}'
+    value = f'PrintInfo:\nInput type = {type(anything)}'
     if isinstance(anything, torch.Tensor):
       value += f"\n Input dim = {anything.dim()}, shape[0] = {anything.shape[0]} \n"
       for i in range(anything.shape[0]):
@@ -38,7 +39,11 @@ class PrintInfo:
           value = value + str(anything) + "\n"
         except Exception:
           value = 'source exists, but could not be serialized.'
+    else:
+      value = 'source does not exist.'
+
     log(value)
+
     return (value,)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,0 +1,349 @@
+{
+  "last_node_id": 11,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LayerUtility: Integer",
+      "pos": [
+        843,
+        477
+      ],
+      "size": {
+        "0": 247.19744873046875,
+        "1": 61.07960510253906
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": [
+            1
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Integer"
+      },
+      "widgets_values": [
+        9
+      ]
+    },
+    {
+      "id": 7,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        1498,
+        452
+      ],
+      "size": {
+        "0": 210,
+        "1": 76.0000228881836
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 5,
+          "dir": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 8,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        1499,
+        564
+      ],
+      "size": {
+        "0": 210.36199951171875,
+        "1": 76
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 6,
+          "dir": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LayerUtility: NumberCalculator",
+      "pos": [
+        1168,
+        534
+      ],
+      "size": {
+        "0": 252,
+        "1": 83.83000183105469
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": 1
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": [
+            5
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": [
+            6
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: NumberCalculator"
+      },
+      "widgets_values": [
+        "*"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LayerUtility: Float",
+      "pos": [
+        841,
+        627
+      ],
+      "size": {
+        "0": 245.2032928466797,
+        "1": 60.5140495300293
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": [
+            2,
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Float"
+      },
+      "widgets_values": [
+        2.0331300000000003
+      ]
+    },
+    {
+      "id": 11,
+      "type": "LayerUtility: Float",
+      "pos": [
+        841,
+        794
+      ],
+      "size": {
+        "0": 245.2032928466797,
+        "1": 60.5140495300293
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": [
+            12
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Float"
+      },
+      "widgets_values": [
+        2.0331300000000003
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LayerUtility: BooleanOperator",
+      "pos": [
+        1175,
+        739
+      ],
+      "size": {
+        "0": 250.57093811035156,
+        "1": 92.19929504394531
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": 11
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "boolean",
+          "type": "BOOLEAN",
+          "links": [
+            10
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: BooleanOperator"
+      },
+      "widgets_values": [
+        "=="
+      ]
+    },
+    {
+      "id": 9,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        1500,
+        754
+      ],
+      "size": {
+        "0": 210,
+        "1": 76.0000228881836
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 10,
+          "dir": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      5,
+      0,
+      "*"
+    ],
+    [
+      2,
+      3,
+      0,
+      5,
+      1,
+      "*"
+    ],
+    [
+      5,
+      5,
+      0,
+      7,
+      0,
+      "*"
+    ],
+    [
+      6,
+      5,
+      1,
+      8,
+      0,
+      "*"
+    ],
+    [
+      10,
+      10,
+      0,
+      9,
+      0,
+      "*"
+    ],
+    [
+      11,
+      3,
+      0,
+      10,
+      0,
+      "*"
+    ],
+    [
+      12,
+      11,
+      0,
+      10,
+      1,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

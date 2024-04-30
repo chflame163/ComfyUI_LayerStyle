@@ -70,6 +70,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [QWenImage2Prompt](#QWenImage2Prompt) node, this node is repackage of the [ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)'s ```UForm-Gen2 Qwen Node```,  thanks to the original author.
+* Commit [BooleanOperator](#BooleanOperator), [NumberCalculator](#NumberCalculator), [TextBox](#TextBox), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) nodes. These nodes can perform mathematical and logical operations.
+* Commit [ExtendCanvasV2](#ExtendCanvasV2) node，support color value input.
 * Commit [AutoBrightness](#AutoBrightness) node，it can automatically adjust the brightness of image.
 * [CreateGradientMask](#CreateGradientMask) node add ```center``` option.
 * Commit [GetColorToneV2](#GetColorToneV2) node, can select the main and average colors for the background or body. 
@@ -562,6 +565,19 @@ The following changes have been made based on ImageScaleByAspectRatio:
 * scale_to_side: Allow scaling by specified size on long or short sides.
 * scale_to_length: When scale_by_side is set to "longest", this will be used as the length of the long edge of the image; When set to "shortest", it serves as the length of the short edge.
 
+
+
+### <a id="table1">QWenImage2Prompt</a>
+Inference the prompts based on the image. this node is repackage of the [ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)'s ```UForm-Gen2 Qwen Node```,  thanks to the original author.
+Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m) or [Baidu Netdisk](https://pan.baidu.com/s/1ztnVX_Sh800xsWZhMDe-Ww?pwd=esyt) to ```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen``` folder.
+
+![image](image/qwen_image2prompt_example.png)
+
+Node Options:   
+* question: Prompt of UForm-Gen-QWen model.
+
+
+
 ### <a id="table1">PromptTagger</a>
 Inference the prompts based on the image. it can replace key word for the prompt. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
 Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
@@ -956,6 +972,38 @@ Combine multiple paragraphs of text into one.
 Used to provide assistance for workflow debugging. When running, the properties of any object connected to this node will be printed to the console.
 
 This node allows any type of input.
+
+
+
+### <a id="table1">TextBox</a>
+![image](image/text_box_node.png)
+Output a string.
+
+### <a id="table1">Integer</a>
+![image](image/integer_node.png)
+Output a integer value.
+
+### <a id="table1">Float</a>
+![image](image/float_node.png)
+Output a floating-point value with a precision of 5 decimal places.
+
+### <a id="table1">Boolean</a>
+![image](image/boolean_node.png)
+Output a boolean value.
+
+### <a id="table1">NumberCalculator</a>
+![image](image/number_calculator_node.png)
+Performs mathematical operations on two numeric values and outputs integer and floating point results<sup>*</sup>. Supported operations include```+```, ```-```, ```*```, ```/```, ```**```, ```//```, ```%```.
+
+<sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error.
+
+
+### <a id="table1">BooleanOperator</a>
+![image](image/boolean_operator_node.png)
+Perform a Boolean operation on two numeric values and output the result<sup>*</sup>. Supported operations include```==```, ```!=```, ```and```, ```or```, ```xor```, ```not```.
+
+<sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error. The ```and``` operation between the values outputs a larger number, and the ```or``` operation outputs a smaller number.
+
 
 
 # <a id="table1">LayerMask</a>

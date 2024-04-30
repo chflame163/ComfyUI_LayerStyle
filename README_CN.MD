@@ -70,6 +70,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [QWenImage2Prompt](#QWenImage2Prompt)节点, 用本地模型反推提示词。(需要下载模型到models文件夹)。这个节点是[ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)中的```UForm-Gen2 Qwen Node```节点的重新封装，感谢原作者。
+* 添加 [BooleanOperator](#BooleanOperator), [NumberCalculator](#NumberCalculator), [TextBox](#TextBox), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) 节点。这些节点可进行数学和逻辑运算。
+* 添加 [ExtendCanvasV2](#ExtendCanvasV2) 节点，支持color值输入。
 * 添加 [AutoBrightness](#AutoBrightness) 节点，可自动调整图片亮度。
 * [CreateGradientMask](#CreateGradientMask) 节点增加 ```center``` 选项。
 * 添加 [GetColorToneV2](#GetColorToneV2) 节点, 可选择背景或主体的主色和平均色。
@@ -559,6 +562,17 @@ ImageScaleByAspectRatio的V2升级版
 * scale_to_length: scale_by_side被设置为"longest"时，此项将作为是图像长边的长度; 设置为"shortest"时，作为短边的长度。
 
 
+
+### <a id="table1">QWenImage2Prompt</a>
+根据图片反推提示词。这个节点是[ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)中的```UForm-Gen2 Qwen Node```节点的重新封装，感谢原作者。
+请从[huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m)或者[百度网盘](https://pan.baidu.com/s/1ztnVX_Sh800xsWZhMDe-Ww?pwd=esyt)下载模型到```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen```文件夹。
+
+![image](image/qwen_image2prompt_example.png)
+
+节点选项说明:   
+* question: 对UForm-Gen-QWen模型的提示词。
+
+
 ### <a id="table1">PromptTagger</a>
 根据图片反推提示词，可以设置替换词。这个节点目前使用Google Gemini API作为后端服务，请确保网络环境可以正常使用Gemini。
 请在[Google AI Studio](https://makersuite.google.com/app/apikey)申请你的API key, 并将其填到```api_key.ini```, 这个文件位于插件根目录下, 默认名字是```api_key.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，在```google_api_key=```后面填入你的API key并保存。
@@ -955,6 +969,34 @@ cropped_mask: 裁切后的遮罩。
 
 这个节点允许任意类型的输入。
 
+### <a id="table1">TextBox</a>
+![image](image/text_box_node.png)
+输出一段字符串。
+
+### <a id="table1">Integer</a>
+![image](image/integer_node.png)
+输出一个整数。
+
+### <a id="table1">Float</a>
+![image](image/float_node.png)
+输出一个浮点数，精度是小数点后5位。
+
+### <a id="table1">Boolean</a>
+![image](image/boolean_node.png)
+输出一个布尔值。
+
+### <a id="table1">NumberCalculator</a>
+![image](image/number_calculator_node.png)
+对两个数值进行数学运算并输出整数和浮点数结果<sup>*</sup>。支持的运算包括```+```、```-```、```*```、```/```、```**```、```//```、```%```。
+
+<sup>*</sup>  输入仅支持布尔值、整数和浮点数，强行接入其他数据将导致错误。
+
+
+### <a id="table1">BooleanOperator</a>
+![image](image/boolean_operator_node.png)
+对两个数值进行布尔运算并输出结果<sup>*</sup>。支持的运算包括```==```、```!=```、```and```、```or```、```xor```、```not```。
+
+<sup>*</sup>  输入仅支持布尔值、整数和浮点数，强行接入其他数据将导致错误。数值之间的```and```运算输出较大的数，```or```运算输出较小的数。
 
 
 # <a id="table1">LayerMask</a>
