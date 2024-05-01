@@ -70,8 +70,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [YoloV8Detect](#YoloV8Detect) node.
 * Commit [QWenImage2Prompt](#QWenImage2Prompt) node, this node is repackage of the [ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)'s ```UForm-Gen2 Qwen Node```,  thanks to the original author.
-* Commit [BooleanOperator](#BooleanOperator), [NumberCalculator](#NumberCalculator), [TextBox](#TextBox), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) nodes. These nodes can perform mathematical and logical operations.
+* Commit [BooleanOperator](#BooleanOperator), [NumberCalculator](#NumberCalculator), [TextBox](#TextBox), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean)nodes. These nodes can perform mathematical and logical operations.
 * Commit [ExtendCanvasV2](#ExtendCanvasV2) node，support color value input.
 * Commit [AutoBrightness](#AutoBrightness) node，it can automatically adjust the brightness of image.
 * [CreateGradientMask](#CreateGradientMask) node add ```center``` option.
@@ -1140,6 +1141,22 @@ On the basis of PersonMaskUltra, the following changes have been made:
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+
+### <a id="table1">YoloV8Detect</a>
+Use the YoloV8 model to detect faces, hand box areas, or character segmentation. Supports the output of the selected number of channels.
+Download the model files from [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) or [BaiduNetdisk](https://pan.baidu.com/s/1ImoJrzL1zDgaCqaSzrNEtw?pwd=5xgk) to ```ComfyUI/models/yolo``` folder.
+
+![image](image/yolov8_detect_example.png)
+
+Node Options:  
+![image](image/yolov8_detect_node.png)
+* yolo_model: Yolo model selection. the model with ```seg``` name can output segmented masks, otherwise they can only output box masks.
+* mask_merge: Select the merged mask. ```all``` is to merge all mask outputs. The selected number is how many masks to output, sorted by recognition confidence to merge the output.
+
+Outputs:
+* mask: The output mask.
+* yolo_plot_image: Preview of yolo recognition results.
+* yolo_masks: For all masks identified by yolo, each individual mask is output as a mask.
 
 
 ### <a id="table1">Shadow</a> & Highlight Mask

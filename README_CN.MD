@@ -70,8 +70,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-* 添加 [QWenImage2Prompt](#QWenImage2Prompt)节点, 用本地模型反推提示词。(需要下载模型到models文件夹)。这个节点是[ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)中的```UForm-Gen2 Qwen Node```节点的重新封装，感谢原作者。
-* 添加 [BooleanOperator](#BooleanOperator), [NumberCalculator](#NumberCalculator), [TextBox](#TextBox), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) 节点。这些节点可进行数学和逻辑运算。
+* 添加 [YoloV8Detect](#YoloV8Detect) 节点。
+* 添加 [QWenImage2Prompt](#QWenImage2Prompt)节点, 用本地模型反推提示词。(需要下载模型到models文件夹)
+* 添加 [BooleanOperator](#BooleanOperator), [NumberCalculator](#NumberCalculator), [TextBox](#TextBox), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean)节点。这些节点可进行数学和逻辑运算。
 * 添加 [ExtendCanvasV2](#ExtendCanvasV2) 节点，支持color值输入。
 * 添加 [AutoBrightness](#AutoBrightness) 节点，可自动调整图片亮度。
 * [CreateGradientMask](#CreateGradientMask) 节点增加 ```center``` 选项。
@@ -1133,6 +1134,23 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 * detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+
+
+### <a id="table1">YoloV8Detect</a>
+使用YoloV8模型检测人脸、手部box区域，或者人物分割。支持输出所选择数量的通道。
+请在 [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) 或者 [百度网盘](https://pan.baidu.com/s/1ImoJrzL1zDgaCqaSzrNEtw?pwd=5xgk) 下载模型文件并放到 ```ComfyUI/models/yolo``` 文件夹。
+
+![image](image/yolov8_detect_example.png)
+
+节点选项说明:  
+![image](image/yolov8_detect_node.png)
+* yolo_model: yolo模型选择。带有```seg```名字的模型可以输出分割的mask, 否则只能输出box区域的遮罩。
+* mask_merge: 选择合并的遮罩。```all```是合并全部遮罩输出。选数值是输出多少个遮罩，按识别置信度排序合并输出。
+
+输出:
+* mask: 输出的遮罩。
+* yolo_plot_image: yolo识别结果预览图。
+* yolo_masks: yolo识别出来的所有遮罩，每个单独的遮罩输出为一个mask。
 
 
 ### <a id="table1">Shadow</a> & Highlight Mask
