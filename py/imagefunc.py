@@ -31,6 +31,8 @@ from .filmgrainer import processing as processing_utils
 from .filmgrainer import filmgrainer as filmgrainer
 import wget
 
+from .blendmodes import *
+
 def log(message:str, message_type:str='info'):
     name = 'LayerStyle'
 
@@ -358,6 +360,16 @@ def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacit
         alpha = 1.0 - float(opacity) / 100
         ret_image = Image.blend(ret_image, background_image, alpha)
     return ret_image
+
+def chop_image_v2(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
+    backdrop_prepped = np.asfarray(background_image.convert('RGBA'))
+    source_prepped = np.asfarray(layer_image.convert('RGBA'))
+    blended_np = BLEND_MODES[blend_mode](backdrop_prepped, source_prepped, opacity / 100)
+
+    # final_tensor = (torch.from_numpy(blended_np / 255)).unsqueeze(0)
+    # return tensor2pil(_tensor)
+
+    return Image.fromarray(np.uint8(blended_np))
 
 def remove_background(image:Image, mask:Image, color:str) -> Image:
     width = image.width
@@ -1326,6 +1338,50 @@ def image_to_colormap(image:Image, index:int) -> Image:
 
 '''Color Functions'''
 
+
+def color_balance(image:Image, shadows:list, midtones:list, highlights:list,
+                  shadow_center:float=0.15, midtone_center:float=0.5, highlight_center:float=0.8,
+                  shadow_max:float=0.1, midtone_max:float=0.3, highlight_max:float=0.2,
+                  preserve_luminosity:bool=False) -> Image:
+
+    img = pil2tensor(image)
+    # Create a copy of the img tensor
+    img_copy = img.clone()
+
+    # Calculate the original luminance if preserve_luminosity is True
+    if preserve_luminosity:
+        original_luminance = 0.2126 * img_copy[..., 0] + 0.7152 * img_copy[..., 1] + 0.0722 * img_copy[..., 2]
+
+    # Define the adjustment curves
+    def adjust(x, center, value, max_adjustment):
+        # Scale the adjustment value
+        value = value * max_adjustment
+
+        # Define control points
+        points = torch.tensor([[0, 0], [center, center + value], [1, 1]])
+
+        # Create cubic spline
+        from scipy.interpolate import CubicSpline
+        cs = CubicSpline(points[:, 0], points[:, 1])
+
+        # Apply the cubic spline to the color channel
+        return torch.clamp(torch.from_numpy(cs(x)), 0, 1)
+
+    # Apply the adjustments to each color channel
+    # shadows, midtones, highlights are lists of length 3 (for R, G, B channels) with values between -1 and 1
+    for i, (s, m, h) in enumerate(zip(shadows, midtones, highlights)):
+        img_copy[..., i] = adjust(img_copy[..., i], shadow_center, s, shadow_max)
+        img_copy[..., i] = adjust(img_copy[..., i], midtone_center, m, midtone_max)
+        img_copy[..., i] = adjust(img_copy[..., i], highlight_center, h, highlight_max)
+
+    # If preserve_luminosity is True, adjust the RGB values to match the original luminance
+    if preserve_luminosity:
+        current_luminance = 0.2126 * img_copy[..., 0] + 0.7152 * img_copy[..., 1] + 0.0722 * img_copy[..., 2]
+        img_copy *= (original_luminance / current_luminance).unsqueeze(-1)
+
+    return tensor2pil(img_copy)
+
+
 def RGB_to_Hex(RGB:tuple) -> str:
     color = '#'
     for i in RGB:
@@ -1462,6 +1518,20 @@ def is_contain_chinese(check_str:str) -> bool:
             return True
     return False
 
+def tensor_info(tensor:object) -> str:
+    value = ''
+    if isinstance(tensor, torch.Tensor):
+        value += f"\n Input dim = {tensor.dim()}, shape[0] = {tensor.shape[0]} \n"
+        for i in range(tensor.shape[0]):
+            t = tensor[i]
+            image = tensor2pil(t)
+            value += f'\n index {i}: Image.size = {image.size}, Image.mode = {image.mode}, dim = {t.dim()}, '
+            for j in range(t.dim()):
+                value += f'shape[{j}] = {t.shape[j]}, '
+    else:
+        value = f"tensor_info: Not tensor, type is {type(tensor)}"
+    return value
+
 '''CLASS'''
 
 class AnyType(str):
@@ -1471,9 +1541,31 @@ class AnyType(str):
 
 '''Constant'''
 
-chop_mode = ['normal', 'multply', 'screen', 'add', 'subtract', 'difference', 'darker', 'lighter',
-             'color_burn', 'color_dodge', 'linear_burn', 'linear_dodge', 'overlay',
-             'soft_light', 'hard_light', 'vivid_light', 'pin_light', 'linear_light', 'hard_mix']
+chop_mode = [
+    'normal',
+    'multply',
+    'screen',
+    'add',
+    'subtract',
+    'difference',
+    'darker',
+    'lighter',
+    'color_burn',
+    'color_dodge',
+    'linear_burn',
+    'linear_dodge',
+    'overlay',
+    'soft_light',
+    'hard_light',
+    'vivid_light',
+    'pin_light',
+    'linear_light',
+    'hard_mix'
+    ]
+
+# Blend Mode from Virtuoso Pack https://github.com/chrisfreilich/virtuoso-nodes
+chop_mode_v2 = list(BLEND_MODES.keys())
+
 
 '''Load INI File'''
 

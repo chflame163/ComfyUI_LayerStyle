@@ -25,3 +25,4 @@ transformers
 kornia
 image-reward
 ultralytics
+blend_modes

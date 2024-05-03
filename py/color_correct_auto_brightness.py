@@ -64,7 +64,6 @@ class AutoBrightness:
                 ret_image = RGB2RGBA(ret_image, orig_image.split()[-1])
 
             ret_images.append(pil2tensor(ret_image))
-            # ret_images.append(pil2tensor(_l.convert('RGB')))
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
