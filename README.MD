@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [ColorTemperature](#ColorTemperature) and [ColorBalance](#ColorBalance) nodes, used to adjust the color temperature and color balance of the picture.
 * Add new types of [Blend Mode V2](#BlendModeV2) between images. now supports up to 30 blend modes. The new blend mode is available for all V2 versions that support mixed mode nodes, including ImageBlend V2, ImageBlendAdvance V2, DropShadow V2, InnerShadow V2, OuterGlow V2, InnerGlow V2, Stroke V2, ColorOverlay V2, GradientOverlay V2.    
 Part of the code for BlendMode V2 is from [Virtuoso Nodes for ComfyUI](https://github.com/chrisfreilich/virtuoso-nodes). Thanks to the original authors.
 * Commit [YoloV8Detect](#YoloV8Detect) node.
@@ -360,6 +361,26 @@ Node options:
 
 Node option:  
 * exposure: Exposure value. Higher values indicate brighter image.
+
+
+### <a id="table1">ColorTemperature</a>
+![image](image/color_temperature_example.png)
+Change the color temperature of the image.
+
+Node Options:  
+![image](image/color_temperature_node.png)
+* temperature: Color temperature value. Range between-100 and 100. The higher the value, the higher the color temperature (bluer); The lower the color temperature, the lower the color temperature (yellowish).
+
+### <a id="table1">ColorBalance</a>
+![image](image/color_balance_example.png)
+Change the color balance of an image.
+
+Node Options:  
+![image](image/color_balance_node.png)
+* cyan_red: Cyan-Red balance. negative values are leaning cyan, positive values are leaning red.
+* magenta_green: Megenta-Green balance. negative values are leaning megenta, positive values are leaning green.
+* yellow_blue: Yellow-Blue balance. negative values are leaning yellow, positive values are leaning blue.
+
 
 ### <a id="table1">Gamma</a>
 Change the gamma value of the image.

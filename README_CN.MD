@@ -70,6 +70,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+
+* 添加 [ColorTemperature](#ColorTemperature) 和 [ColorBalance](#ColorBalance) 节点，用于调整图片色温和色彩平衡。
 * 更新 [混合模式](#混合模式)到V2版本，现在支持多达30种混合模式。新增的混合模式适用于所有支持混合模式节点的V2版本，包括ImageBlend V2, ImageBlendAdvance V2, DropShadow V2, InnerShadow V2, OuterGlow V2, InnerGlow V2, Stroke V2, ColorOverlay V2, GradientOverlay V2。
 混合模式V2的部分代码来自[Virtuoso Nodes for ComfyUI](https://github.com/chrisfreilich/virtuoso-nodes)的```Blend Modes```节点。感谢原作者。
 * 添加 [YoloV8Detect](#YoloV8Detect) 节点。
@@ -356,6 +358,25 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * highlight_level_offset: 亮部取值的偏移量，更小的数值使更多靠近阴暗的区域纳入亮部。
 * highlight_range: 亮部的过渡范围。
 
+### <a id="table1">ColorTemperature</a>
+![image](image/color_temperature_example.png)
+改变图像的色温。
+
+节点选项说明:  
+![image](image/color_temperature_node.png)
+* temperature: 色温值。范围在-100到100之间。值越高，色温越高(偏蓝)；越低，色温越低(偏黄)。
+
+### <a id="table1">ColorBalance</a>
+![image](image/color_balance_example.png)
+改变图像的色彩平衡。
+
+节点选项说明:  
+![image](image/color_balance_node.png)
+* cyan_red: 青-红平衡。负值为偏青，正值为偏红。
+* magenta_green: 品-绿平衡。负值为偏品，正值为偏绿。
+* yellow_blue: 黄-蓝平衡。负值为偏黄，正值为偏蓝。
+
+
 ### <a id="table1">Gamma</a>
 改变图像的Gamma值。
 
@@ -371,6 +392,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * brightness: 图像的亮度。
 * contrast: 图像的对比度。
 * saturation: 图像的色彩饱和度。
+
 
 ### <a id="table1">RGB</a>
 对图像的RGB各通道进行调整。
