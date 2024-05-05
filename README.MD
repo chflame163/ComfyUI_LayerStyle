@@ -70,6 +70,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+
+* Commit [BlendIfMask](#BlendIfMask) node, This node cooperates with ImgaeBlendV2 or ImageBlendAdvanceV2 to achieve the same Blend If function as Photoshop.
 * Commit [ColorTemperature](#ColorTemperature) and [ColorBalance](#ColorBalance) nodes, used to adjust the color temperature and color balance of the picture.
 * Add new types of [Blend Mode V2](#BlendModeV2) between images. now supports up to 30 blend modes. The new blend mode is available for all V2 versions that support mixed mode nodes, including ImageBlend V2, ImageBlendAdvance V2, DropShadow V2, InnerShadow V2, OuterGlow V2, InnerGlow V2, Stroke V2, ColorOverlay V2, GradientOverlay V2.    
 Part of the code for BlendMode V2 is from [Virtuoso Nodes for ComfyUI](https://github.com/chrisfreilich/virtuoso-nodes). Thanks to the original authors.
@@ -1032,6 +1034,22 @@ Perform a Boolean operation on two numeric values and output the result<sup>*</s
 
 # <a id="table1">LayerMask</a>
 ![image](image/layermask_nodes.png)
+
+
+### <a id="table1">BlendIfMask</a>
+Reproduction of Photoshop's layer Style - Blend If function. This node outputs a mask for layer composition on the ImageBlend or ImageBlendAdvance nodes.
+```mask``` is an optional input, and if you enter a mask here, it will act on the output.
+![image](image/blendif_mask_example.png)
+
+Node Options:  
+![image](image/blendif_mask_node.png)
+* invert_mask: Whether to reverse the mask.
+* blend_if: Channel selection for Blend If. There are four options: ```gray``` , ```red```, ```green```, and ```blue```.
+* black_point: Black point values, ranging from 0-255.
+* black_range: Dark part transition range. The larger the value, the richer the transition level of the dark part mask.
+* white_point: White point values, ranging from 0-255.
+* white_range: Brightness transition range. The larger the value is, the richer the transition level of the bright part mask is.
+
 
 ### <a id="table1">MaskBoxDetect</a>
 Detect the area where the mask is located and output its position and size.

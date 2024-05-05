@@ -693,9 +693,61 @@ def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, 
 def draw_border(image:Image, border_width:int, color:str='#FFFFFF') -> Image:
     return ImageOps.expand(image, border=border_width, fill=color)
 
+def remap_pixel(pixel:int, min_brightness:int, max_brightness:int) -> int:
+    return int((pixel - min_brightness) / (max_brightness - min_brightness) * 255)
+def histogram_range(image:Image, black_point:int, black_range:int, white_point:int, white_range:int) -> Image:
+
+    if image.mode != 'L':
+        image = image.convert('L')
+
+    if black_point == 255:
+        black_point = 254
+    if white_point == 0:
+        white_point = 1
+    if black_point + black_range > 255:
+        black_range = 255 - black_point
+    if white_range > white_point:
+        white_range = white_point
+
+    white_image = Image.new("L", size=image.size, color="white")
+    black_image = Image.new("L", size=image.size, color="black")
+
+    if black_point == white_point:
+        return white_image
+
+
+    # draw white part
+    white_part = black_image
+    if white_point < 255 or white_range > 0:
+        for y in (range(image.height)):
+            for x in range(image.width):
+                pixel = image.getpixel((x, y))
+                if pixel > white_point: # put white
+                    white_part.putpixel((x, y), 255)
+                elif pixel > white_point - white_range:
+                    pixel = remap_pixel(pixel, white_point - white_range, white_point)
+                    white_part.putpixel((x, y), pixel)
+    white_part = ImageChops.invert(white_part)
+
+
+    # draw black part
+    black_part = black_image
+    if black_point > 0 or black_range > 0:
+        for y in (range(image.height)):
+            for x in range(image.width):
+                pixel = image.getpixel((x, y))
+                if pixel < black_point: # put black
+                    black_part.putpixel((x, y), 255)
+                elif pixel < black_point + black_range:
+                    pixel = remap_pixel(pixel, black_point, black_point + black_range)
+                    black_part.putpixel((x, y), 255 - pixel)
+    black_part = ImageChops.invert(black_part)
+
+    ret_image = chop_image_v2(white_part, black_part, blend_mode='darken', opacity=100)
+
+    return ret_image
+
 def histogram_equalization(image:Image, mask:Image=None, gamma_strength=0.5) -> Image:
-    def remap_pixel(pixel, min_brightness, max_brightness):
-        return int((pixel - min_brightness) / (max_brightness - min_brightness) * 255)
 
     if image.mode != 'L':
         image = image.convert('L')
@@ -1413,7 +1465,6 @@ def Hex_to_HSV_255level(inhex:str) -> list:
         RGB = (int(rval, 16), int(gval, 16), int(bval, 16))
         HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
     return [int(x * 255) for x in HSV]
-
 
 '''Value Functions'''
 

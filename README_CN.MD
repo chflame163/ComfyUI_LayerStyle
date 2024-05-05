@@ -70,7 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-
+* 添加 [BlendIfMask](#BlendIfMask) 节点，该节点与 ImgaeBlendV2 或者 ImageBlendAdvanceV2 配合，可以实现与Photoshop相同的混合颜色带功能。
 * 添加 [ColorTemperature](#ColorTemperature) 和 [ColorBalance](#ColorBalance) 节点，用于调整图片色温和色彩平衡。
 * 更新 [混合模式](#混合模式)到V2版本，现在支持多达30种混合模式。新增的混合模式适用于所有支持混合模式节点的V2版本，包括ImageBlend V2, ImageBlendAdvance V2, DropShadow V2, InnerShadow V2, OuterGlow V2, InnerGlow V2, Stroke V2, ColorOverlay V2, GradientOverlay V2。
 混合模式V2的部分代码来自[Virtuoso Nodes for ComfyUI](https://github.com/chrisfreilich/virtuoso-nodes)的```Blend Modes```节点。感谢原作者。
@@ -1026,6 +1026,22 @@ cropped_mask: 裁切后的遮罩。
 
 # <a id="table1">LayerMask</a>
 ![image](image/layermask_nodes.png)
+
+
+### <a id="table1">BlendIfMask</a>
+Photoshop图层样式-混合颜色带功能的复现。该节点输出一个mask，用于在ImageBlend或者ImageBlendAdvance节点进行图层合成。
+mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
+![image](image/blendif_mask_example.png)
+
+节点选项说明:  
+![image](image/blendif_mask_node.png)
+* invert_mask: 是否反转遮罩。
+* blend_if: 混合色带的通道选择。有```gray```, ```red```, ```green```, ```blue```四个选项。
+* black_point: 黑点值，取值范围从0-255。
+* black_range: 暗部过渡范围。数值越大，暗部遮罩的过渡层次越丰富。
+* white_point: 白点值，取值范围从0-255。
+* white_range: 亮部过渡范围。数值越大，亮部遮罩的过渡层次越丰富。
+
 
 ### <a id="table1">MaskBoxDetect</a>
 探测mask所在区域，并输出位置和大小。
