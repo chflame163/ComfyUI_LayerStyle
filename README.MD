@@ -1493,5 +1493,10 @@ Part of the code for BlendMode V2 is from [Virtuoso Nodes for ComfyUI](https://g
 
 <sup>5</sup>  The layer_image and layer_mask must be of the same size.    
 
+## Stars 
+
+[![Star History Chart](https://api.star-history.com/svg?repos=chflame163/ComfyUI_LayerStyle&type=Date)](https://star-history.com/#chflame163/ComfyUI_LayerStyle&Date)
+
 # statement
 LayerStyle nodes follows the MIT license, Some of its functional code comes from other open-source projects. Thanks to the original author. If used for commercial purposes, please refer to the original project license to authorization agreement.
+

@@ -1487,6 +1487,9 @@ mask反转
 
 <sup>5</sup>  image和mask这两项必须是相同的尺寸。    
 
+## Star 记录 
+
+[![Star History Chart](https://api.star-history.com/svg?repos=chflame163/ComfyUI_LayerStyle&type=Date)](https://star-history.com/#chflame163/ComfyUI_LayerStyle&Date)
 
 ##  声明
 LayerStyle节点遵照MIT开源协议，有部分功能代码和模型来自其他开源项目，感谢原作者。如果作为商业用途，请查阅原项目授权协议使用。
