@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [Levels](#Levels) 节点, 可以实现与Photoshop相同的色阶调整功能。[Sharp&Soft](#Sharp)增加"None"选项。
 * 添加 [BlendIfMask](#BlendIfMask) 节点，该节点与 ImgaeBlendV2 或者 ImageBlendAdvanceV2 配合，可以实现与Photoshop相同的混合颜色带功能。
 * 添加 [ColorTemperature](#ColorTemperature) 和 [ColorBalance](#ColorBalance) 节点，用于调整图片色温和色彩平衡。
 * 更新 [混合模式](#混合模式)到V2版本，现在支持多达30种混合模式。新增的混合模式适用于所有支持混合模式节点的V2版本，包括ImageBlend V2, ImageBlendAdvance V2, DropShadow V2, InnerShadow V2, OuterGlow V2, InnerGlow V2, Stroke V2, ColorOverlay V2, GradientOverlay V2。
@@ -375,6 +376,19 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * cyan_red: 青-红平衡。负值为偏青，正值为偏红。
 * magenta_green: 品-绿平衡。负值为偏品，正值为偏绿。
 * yellow_blue: 黄-蓝平衡。负值为偏黄，正值为偏蓝。
+
+### <a id="table1">Levels</a>
+![image](image/levels_example.png)
+改变图像色阶。
+
+节点选项说明:  
+![image](image/levels_node.png)
+* channel: 选择要调整的通道。有RGB, red, green, blue可供选择。
+* black_point: 图像输入黑点值。取值范围0-255, 默认值0。
+* white_point: 图像输入白点值。取值范围0-255, 默认值255。
+* gray_point: 图像输入灰点值。取值范围0.01-9.99, 默认1。
+* output_black_point: 图像输出黑点值。取值范围0-255, 默认值0。
+* output_white_point: 图像输出黑点值。取值范围0-255, 默认值255。
 
 
 ### <a id="table1">Gamma</a>
@@ -1352,7 +1366,7 @@ mask反转
 
 节点选项说明:
 ![image](image/sharp_and_soft_node.png)
-* enhance: 提供四个预设档位，分别是very sharp、sharp、soft和very soft。
+* enhance: 提供四个预设档位，分别是very sharp、sharp、soft和very soft。选None则不做任何处理。
 
 ### <a id="table1">SkinBeauty</a>
 磨皮效果。

@@ -786,6 +786,43 @@ def histogram_equalization(image:Image, mask:Image=None, gamma_strength=0.5) -> 
 
     return image.convert('L')
 
+def adjust_levels(image:Image, input_black:int=0, input_white:int=255, midtones:float=1.0,
+                  output_black:int=0, output_white:int=255) -> Image:
+
+    if input_black == input_white or output_black == output_white:
+        return Image.new('RGB', size=image.size, color='gray')
+
+    img = pil2cv2(image).astype(np.float64)
+
+    if input_black > input_white:
+        input_black, input_white = input_white, input_black
+    if output_black > output_white:
+        output_black, output_white = output_white, output_black
+
+
+    # input_levels remap
+    if input_black > 0 or input_white < 255:
+        img = 255 * ((img - input_black) / (input_white - input_black))
+        img[img < 0] = 0
+        img[img > 255] = 255
+
+    # # mid_tone
+    if midtones != 1.0:
+        img = 255 * np.power(img / 255, 1.0 / midtones)
+
+        img[img < 0] = 0
+        img[img > 255] = 255
+
+    # output_levels remap
+    if output_black > 0 or output_white < 255:
+        img = (img / 255) * (output_white - output_black) + output_black
+        img[img < 0] = 0
+        img[img > 255] = 255
+
+    img = img.astype(np.uint8)
+    return cv22pil(img)
+
+
 def get_image_color_tone(image:Image) -> str:
     image = image.convert('RGB')
     max_score = 0.0001

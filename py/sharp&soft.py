@@ -10,7 +10,7 @@ class SharpAndSoft:
     @classmethod
     def INPUT_TYPES(self):
 
-        enhance_list = ['very sharp', 'sharp', 'soft', 'very soft']
+        enhance_list = ['very sharp', 'sharp', 'soft', 'very soft', 'None']
 
         return {
             "required": {
@@ -45,6 +45,8 @@ class SharpAndSoft:
             filter_radius = 15
             denoise = 0.06
             detail_mult = 0.01
+        else:
+            return (images,)
 
         d = int(filter_radius * 2) + 1
         s = 0.02

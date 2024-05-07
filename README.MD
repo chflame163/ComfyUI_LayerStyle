@@ -70,7 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-
+* Commit [Levels](#Levels) node, it can achieve the same color levels adjustment function as Photoshop.[Sharp&Soft](#Sharp) add the "None" option.
 * Commit [BlendIfMask](#BlendIfMask) node, This node cooperates with ImgaeBlendV2 or ImageBlendAdvanceV2 to achieve the same Blend If function as Photoshop.
 * Commit [ColorTemperature](#ColorTemperature) and [ColorBalance](#ColorBalance) nodes, used to adjust the color temperature and color balance of the picture.
 * Add new types of [Blend Mode V2](#BlendModeV2) between images. now supports up to 30 blend modes. The new blend mode is available for all V2 versions that support mixed mode nodes, including ImageBlend V2, ImageBlendAdvance V2, DropShadow V2, InnerShadow V2, OuterGlow V2, InnerGlow V2, Stroke V2, ColorOverlay V2, GradientOverlay V2.    
@@ -372,6 +372,20 @@ Change the color temperature of the image.
 Node Options:  
 ![image](image/color_temperature_node.png)
 * temperature: Color temperature value. Range between-100 and 100. The higher the value, the higher the color temperature (bluer); The lower the color temperature, the lower the color temperature (yellowish).
+
+### <a id="table1">Levels</a>
+![image](image/levels_example.png)
+Change the levels of image.
+
+Node Options:  
+![image](image/levels_node.png)
+* channel: Select the channel you want to adjust. Available in RGB, red, green, blue.
+* black_point: Input black point value. Value range 0-255, default 0.
+* white_point: Input white point value. Value range 0-255, default 255.
+* gray_point: Input grey point values. Value range 0.01-9.99, default 1.
+* output_black_point: Output black point value. Value range 0-255, default 0.
+* output_white_point: Output white point value. Value range 0-255, default 255.
+
 
 ### <a id="table1">ColorBalance</a>
 ![image](image/color_balance_example.png)
@@ -1357,7 +1371,7 @@ Enhance or smooth out details for image.
 
 Node options:
 ![image](image/sharp_and_soft_node.png)
-* enhance: Provide 4 presets, which are very sharp, sharp, soft and very soft.
+* enhance: Provide 4 presets, which are very sharp, sharp, soft and very soft. If you choose None, you will not do any processing.
 
 ### <a id="table1">SkinBeauty</a>
 Make the skin look smoother.
