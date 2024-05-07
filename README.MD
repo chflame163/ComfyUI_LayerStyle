@@ -317,9 +317,9 @@ Node options:
 * LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
 * color_space: For regular image, please select linear, for image in the log color space, please select log.
 
-<sup>*</sup>LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
+<sup>*</sup><font size="3">LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
 Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
-If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.
+If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.</font>
 
 ### <a id="table1">AutoBrightness</a>
 Automatically adjust too dark or too bright image to moderate brightness, and support mask input. When  mask input, only the content of the mask part is used as the data source of the automatic brightness. The output is still the whole adjusted image.
@@ -380,12 +380,13 @@ Change the levels of image.
 Node Options:  
 ![image](image/levels_node.png)
 * channel: Select the channel you want to adjust. Available in RGB, red, green, blue.
-* black_point: Input black point value. Value range 0-255, default 0.
-* white_point: Input white point value. Value range 0-255, default 255.
+* black_point<sup>*</sup>: Input black point value. Value range 0-255, default 0.
+* white_point<sup>*</sup>: Input white point value. Value range 0-255, default 255.
 * gray_point: Input grey point values. Value range 0.01-9.99, default 1.
-* output_black_point: Output black point value. Value range 0-255, default 0.
-* output_white_point: Output white point value. Value range 0-255, default 255.
+* output_black_point<sup>*</sup>: Output black point value. Value range 0-255, default 0.
+* output_white_point<sup>*</sup>: Output white point value. Value range 0-255, default 255.
 
+<sup>*</sup><font size="3">If the black_point or output_black_point value is greater than white_point or output_white_point, the two values are swapped, with the larger value used as white_point and the smaller value used as black_point.</font>
 
 ### <a id="table1">ColorBalance</a>
 ![image](image/color_balance_example.png)

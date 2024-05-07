@@ -313,7 +313,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * LUT<sup>*</sup>: 这里列出了LUT文件夹中可用的.cube文件列表，选中的LUT文件将被应用到图像。
 * color_space: 普通图片请选择linear, log色彩空间的图片请选择log。
 
-<sup>*</sup>LUT文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。
+<sup>*</sup><font size="3">LUT文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。</font>
 
 
 ### <a id="table1">AutoBrightness</a>
@@ -384,11 +384,13 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 节点选项说明:  
 ![image](image/levels_node.png)
 * channel: 选择要调整的通道。有RGB, red, green, blue可供选择。
-* black_point: 图像输入黑点值。取值范围0-255, 默认值0。
-* white_point: 图像输入白点值。取值范围0-255, 默认值255。
+* black_point<sup>*</sup>: 图像输入黑点值。取值范围0-255, 默认值0。
+* white_point<sup>*</sup>: 图像输入白点值。取值范围0-255, 默认值255。
 * gray_point: 图像输入灰点值。取值范围0.01-9.99, 默认1。
-* output_black_point: 图像输出黑点值。取值范围0-255, 默认值0。
-* output_white_point: 图像输出黑点值。取值范围0-255, 默认值255。
+* output_black_point<sup>*</sup>: 图像输出黑点值。取值范围0-255, 默认值0。
+* output_white_point<sup>*</sup>: 图像输出黑点值。取值范围0-255, 默认值255。
+
+<sup>*</sup><font size="3">如果 black_point 或 output_black_point 数值大于 white_point 或 output_white_point，则两个数值将交换，较大的数值作为white_point使用，较小的数值作为black_point使用。</font>
 
 
 ### <a id="table1">Gamma</a>
