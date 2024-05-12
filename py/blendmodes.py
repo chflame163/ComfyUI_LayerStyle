@@ -1,7 +1,5 @@
 """
 @author: Chris Freilich
-@title: Virtuoso Pack - Blend Modes
-@nickname: Virtuoso Pack - Blend Nodes
 @description: This extension provides a blend modes node with 30 blend modes.
 """
 from PIL import Image
