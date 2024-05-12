@@ -1,6 +1,13 @@
-'''Image process functions for ComfyUI nodes
+"""Image process functions for ComfyUI nodes
 by chflame https://github.com/chflame163
-'''
+"""
+"""
+@author: chflame
+@title: LayerStyle
+@nickname: LayerStyle
+@description: A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.
+"""
+
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -775,6 +782,9 @@ def histogram_equalization(image:Image, mask:Image=None, gamma_strength=0.5) -> 
                     max_brightness = pixel
                 average_brightness += pixel
                 total_pixel += 1
+    if total_pixel == 0:
+        log(f"histogram_equalization: mask is not available, return orinianl image.")
+        return image
     average_brightness = int(average_brightness / total_pixel)
 
     for y in range(image.height):
