@@ -2,6 +2,23 @@ from .imagefunc import AnyType
 
 any = AnyType("*")
 
+class SeedNode:
+    def __init__(self):
+        pass
+    @classmethod
+    def INPUT_TYPES(self):
+        return {"required": {
+                "seed":("INT", {"default": 0, "min": 0, "max": 99999999999999999999, "step": 1}),
+            },}
+
+    RETURN_TYPES = ("INT",)
+    RETURN_NAMES = ("seed",)
+    FUNCTION = 'seed_node'
+    CATEGORY = '😺dzNodes/LayerUtility'
+
+    def seed_node(self, seed):
+        return (seed,)
+
 
 class BooleanOperator:
     def __init__(self):
@@ -143,14 +160,14 @@ class BooleanNode:
 
 
 
-
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: BooleanOperator": BooleanOperator,
     "LayerUtility: NumberCalculator": NumberCalculator,
     "LayerUtility: TextBox": TextBoxNode,
     "LayerUtility: Integer": IntegerNode,
     "LayerUtility: Float": FloatNode,
-    "LayerUtility: Boolean": BooleanNode
+    "LayerUtility: Boolean": BooleanNode,
+    "LayerUtility: Seed": SeedNode
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -159,5 +176,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "LayerUtility: TextBox": "LayerUtility: TextBox",
     "LayerUtility: Integer": "LayerUtility: Integer",
     "LayerUtility: Float": "LayerUtility: Float",
-    "LayerUtility: Boolean": "LayerUtility: Boolean"
+    "LayerUtility: Boolean": "LayerUtility: Boolean",
+    "LayerUtility: Seed": "LayerUtility: Seed"
 }

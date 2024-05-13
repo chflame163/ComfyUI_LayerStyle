@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+  * 添加 [RGBValue](#RGBValue) 节点, 将色值输出为单独的R, G, B三个10进制数值。添加[seed](#seed) 节点，输出种子值。[ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) 节点增加```width```, ```height``` 输出。
 * 添加 [Levels](#Levels) 节点, 可以实现与Photoshop相同的色阶调整功能。[Sharp&Soft](#Sharp)增加"None"选项。
 * 添加 [BlendIfMask](#BlendIfMask) 节点，该节点与 ImgaeBlendV2 或者 ImageBlendAdvanceV2 配合，可以实现与Photoshop相同的混合颜色带功能。
 * 添加 [ColorTemperature](#ColorTemperature) 和 [ColorBalance](#ColorBalance) 节点，用于调整图片色温和色彩平衡。
@@ -541,6 +542,8 @@ CropByMask的V2升级版。支持crop_box输入，方便裁切相同尺寸的图
 * image: 缩放后的图像。
 * mask: 如果有mask输入，将输出缩放后的mask。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+* width: 输出图片的宽。
+* height: 输出图片的高。
 
 ### <a id="table1">ImageScaleRestoreV2</a>
 ImageScaleRestore的V2升级版。
@@ -570,6 +573,8 @@ ImageScaleRestore的V2升级版。
 * image: 如果有image输入，将输出缩放后的图像。
 * mask: 如果有mask输入，将输出缩放后的遮罩。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+* width: 输出图片的宽。
+* height: 输出图片的高。
 
 
 ### <a id="table1">ImageScaleByAspectRatio</a>
@@ -592,6 +597,8 @@ ImageScaleRestore的V2升级版。
 * image: 如果有image输入，将输出缩放后的图像。
 * mask: 如果有mask输入，将输出缩放后的遮罩。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+* width: 输出图片的宽。
+* height: 输出图片的高。
 
 ### <a id="table1">ImageScaleByAspectRatioV2</a>
 ImageScaleByAspectRatio的V2升级版
@@ -692,6 +699,15 @@ ImageScaleByAspectRatio的V2升级版
 
 输出:
 * value: 字符串格式。
+
+### <a id="table1">RGBValue</a>
+将色值输出为单独的R, G, B三个10进制数值。支持ColorPicker节点输出的HEX和DEC格式。
+
+![image](image/RGB_value_example.png)
+
+节点选项说明:
+* color_value： 支持十六进制(HEX)或十进制(DEC)色值，应是string或tuple类型，强行接入其他类型将导致错误。
+
 
 ### <a id="table1">GetColorTone</a>
 从图片中获取主颜色或平均色。

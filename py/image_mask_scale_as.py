@@ -27,8 +27,8 @@ class ImageMaskScaleAs:
             }
         }
 
-    RETURN_TYPES = ("IMAGE", "MASK", "BOX",)
-    RETURN_NAMES = ("image", "mask", "original_size")
+    RETURN_TYPES = ("IMAGE", "MASK", "BOX", "INT", "INT")
+    RETURN_NAMES = ("image", "mask", "original_size", "widht", "height",)
     FUNCTION = 'image_mask_scale_as'
     CATEGORY = '😺dzNodes/LayerUtility'
 
@@ -77,16 +77,16 @@ class ImageMaskScaleAs:
                 ret_masks.append(image2mask(_mask))
         if len(ret_images) > 0 and len(ret_masks) >0:
             log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
-            return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
+            return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],target_width, target_height,)
         elif len(ret_images) > 0 and len(ret_masks) == 0:
             log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
-            return (torch.cat(ret_images, dim=0), None, [orig_width, orig_height],)
+            return (torch.cat(ret_images, dim=0), None, [orig_width, orig_height],target_width, target_height,)
         elif len(ret_images) == 0 and len(ret_masks) > 0:
             log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
-            return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
+            return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height], target_width, target_height,)
         else:
             log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.", message_type='error')
-            return (None, None, [orig_width, orig_height],)
+            return (None, None, [orig_width, orig_height], 0, 0,)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ImageMaskScaleAs": ImageMaskScaleAs

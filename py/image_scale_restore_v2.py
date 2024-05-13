@@ -25,8 +25,8 @@ class ImageScaleRestoreV2:
             }
         }
 
-    RETURN_TYPES = ("IMAGE", "MASK", "BOX",)
-    RETURN_NAMES = ("image", "mask", "original_size")
+    RETURN_TYPES = ("IMAGE", "MASK", "BOX", "INT", "INT")
+    RETURN_NAMES = ("image", "mask", "original_size", "width", "height",)
     FUNCTION = 'image_scale_restore'
     CATEGORY = '😺dzNodes/LayerUtility'
 
@@ -106,7 +106,7 @@ class ImageScaleRestoreV2:
             ret_masks.append(image2mask(ret_mask))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
-        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],)
+        return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height], target_width, target_height,)
 
 
 NODE_CLASS_MAPPINGS = {

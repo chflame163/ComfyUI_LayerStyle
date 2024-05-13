@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Add the [RGBValue](#RGBValue) node to output the color value as a single decimal value of R, G, and B. Add the [seed](#seed) node to output the seed value. The [ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) nodes increase ```width```, ```height``` output.
 * Commit [Levels](#Levels) node, it can achieve the same color levels adjustment function as Photoshop.[Sharp&Soft](#Sharp) add the "None" option.
 * Commit [BlendIfMask](#BlendIfMask) node, This node cooperates with ImgaeBlendV2 or ImageBlendAdvanceV2 to achieve the same Blend If function as Photoshop.
 * Commit [ColorTemperature](#ColorTemperature) and [ColorBalance](#ColorBalance) nodes, used to adjust the color temperature and color balance of the picture.
@@ -546,6 +547,8 @@ Outputs:
 * image: The scaled image.
 * mask: If have mask input, the scaled mask will be output.
 * original_size: The original size data of the image is used for subsequent node recovery.
+* width: The output image's width.
+* height: The output image's height.
 
 ### <a id="table1">ImageScaleRestoreV2</a>
 The V2 upgraded version of ImageScaleRestore.
@@ -577,6 +580,8 @@ Outputs:
 * image: If there is an image input, the scaled image will be output.
 * mask: If there is a mask input, the scaled mask will be output.
 * original_size: The original size data of the image is used for subsequent node recovery.
+* width: The output image's width.
+* height: The output image's height.
 
 ### <a id="table1">ImageScaleByAspectRatio</a>
 Scale the image or mask by aspect ratio. the scaled size can be rounded to a multiple of 8 or 16, and can be scaled to the long side size.
@@ -596,6 +601,13 @@ The _fill_ mode does not maintain frame ratio and fills the screen with width an
 * scale_by_longest_side: Allow scaling by long edge size.
 * longest_side: When the scale_by_longest_side is set to True, this will be used this value to the long edge of the image. when the original_size have input, this setting will be ignored.
 
+
+Outputs:
+* image: If have image input, the scaled image will be output.
+* mask: If have mask input, the scaled mask will be output.
+* original_size: The original size data of the image is used for subsequent node recovery.
+* width: The output image's width.
+* height: The output image's height.
 
 ### <a id="table1">ImageScaleByAspectRatioV2</a>
 V2 Upgraded Version of ImageScaleByAspectRatio
@@ -696,6 +708,14 @@ Node options:
 
 Output type: 
 * value: String format.
+
+### <a id="table1">RGBValue</a>
+Output the color value as a single R, G, B three decimal values. Supports HEX and DEC formats for ColorPicker node output.
+
+![image](image/RGB_value_example.png)
+
+Node Options:
+* color_value: Supports hexadecimal (HEX) or decimal (DEC) color values and should be of string or tuple type. Forcing in other types will result in an error.
 
 ### <a id="table1">GetColorTone</a>
 Obtain the main color or average color from the image and output RGB values.

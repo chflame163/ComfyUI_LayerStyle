@@ -1,7 +1,6 @@
 """Image process functions for ComfyUI nodes
 by chflame https://github.com/chflame163
-"""
-"""
+
 @author: chflame
 @title: LayerStyle
 @nickname: LayerStyle
