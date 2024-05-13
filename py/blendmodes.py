@@ -1,6 +1,6 @@
 """
-@author: Chris Freilich
-@description: This extension provides a blend modes node with 30 blend modes.
+author: Chris Freilich
+description: This extension provides a blend modes node with 30 blend modes.
 """
 from PIL import Image
 import numpy as np

@@ -699,6 +699,19 @@ def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, 
 def draw_border(image:Image, border_width:int, color:str='#FFFFFF') -> Image:
     return ImageOps.expand(image, border=border_width, fill=color)
 
+# 对灰度图像进行直方图均衡化
+def normalize_gray(image:Image) -> Image:
+    if image.mode != 'L':
+        image = image.convert('L')
+    img = np.asarray(image)
+    balanced_img = img.copy()
+    hist, bins = np.histogram(img.reshape(-1), 256, (0, 256))
+    bmin = np.min(np.where(hist > (hist.sum() * 0.0005)))
+    bmax = np.max(np.where(hist > (hist.sum() * 0.0005)))
+    balanced_img = np.clip(img, bmin, bmax)
+    balanced_img = ((balanced_img - bmin) / (bmax - bmin) * 255)
+    return Image.fromarray(balanced_img).convert('L')
+
 def remap_pixel(pixel:int, min_brightness:int, max_brightness:int) -> int:
     return int((pixel - min_brightness) / (max_brightness - min_brightness) * 255)
 def histogram_range(image:Image, black_point:int, black_range:int, white_point:int, white_range:int) -> Image:

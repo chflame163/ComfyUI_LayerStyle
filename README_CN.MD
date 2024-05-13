@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [AutoAdjust](#AutoAdjust) 节点, 自动调整图片对比度和白平衡。
 * 添加 [RGBValue](#RGBValue) 节点, 将色值输出为单独的R, G, B三个10进制数值。这个想法来自[vxinhao](https://github.com/vxinhao/color2rgb)，感谢。
 * 添加[seed](#seed) 节点，输出种子值。[ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) 节点增加```width```, ```height``` 输出。
 * 添加 [Levels](#Levels) 节点, 可以实现与Photoshop相同的色阶调整功能。[Sharp&Soft](#Sharp)增加"None"选项。
@@ -129,7 +130,6 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * 添加 [ChannelShake](#ChannelShake)节点，这是一个滤镜，能产生类似抖音logo的通道错位效果。
 * 添加 [MaskGradient](#MaskGradient)节点，可使mask产生渐变。
 * 添加 [GetColorTone](#GetColorTone)节点，可以获取图片的主色或平均色。添加[MaskGrow](#MaskGrow)和[MaskEdgeShrink](#MaskEdgeShrink)节点。
-
 * 添加 [MaskBoxDetect](#MaskBoxDetect)节点，可以通过mask自动探测位置并输出到合成节点。添加[XY to Percent](#Percent)节点，将绝对坐标转换为percent坐标。添加[GaussianBlur](#GaussianBlur)节点。添加[GetImageSize](#GetImageSize)节点。
 * 添加 [ExtendCanvas](#ExtendCanvas)节点。
 * 添加 [ImageBlendAdvance](#ImageBlendAdvance)节点。这个节点允许合成尺寸不同的背景图和图层，提供了更加自由的合成体验。
@@ -317,6 +317,20 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 <sup>*</sup><font size="3">LUT文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。</font>
 
+
+### <a id="table1">AutoAdjust</a>
+自动调整图片的亮度，对比度和白平衡。提供一些手动调整选项以弥补自动调整的不足。
+![image](image/auto_adjust_example.png)
+
+节点选项说明:  
+![image](image/auto_adjust_node.png)
+* strength: 调整的强度。数值越大，与原图的差别越大。
+* brightness: 亮度手动调整。
+* contrast: 对比度手动调整。
+* saturation: 色彩饱和度手动调整。
+* red: 红色通道手动调整。
+* green: 绿色通道手动调整。
+* blue: 蓝色通道手动调整。
 
 ### <a id="table1">AutoBrightness</a>
 将过暗或过亮的图片自动调整到适中的亮度，支持遮罩输入。有遮罩输入时仅以遮罩部分的内容作为自动亮度的数据来源。输出仍然是整个调整后的图像。

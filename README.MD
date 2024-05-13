@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [AutoAdjust](#AutoAdjust) node, it can automatically adjust image contrast and white balance.
 * Commit [RGBValue](#RGBValue) node to output the color value as a single decimal value of R, G, B. This idea is from [vxinhao](https://github.com/vxinhao/color2rgb), Thanks.
 * Commit [seed](#seed) node to output the seed value. The [ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) nodes increase ```width```, ```height``` output.
 * Commit [Levels](#Levels) node, it can achieve the same color levels adjustment function as Photoshop.[Sharp&Soft](#Sharp) add the "None" option.
@@ -322,6 +323,20 @@ Node options:
 <sup>*</sup><font size="3">LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
 Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.</font>
+
+### <a id="table1">AutoAdjust</a>
+Automatically adjust the brightness, contrast, and white balance of the image. Provide some manual adjustment options to compensate for the shortcomings of automatic adjustment.
+![image](image/auto_adjust_example.png)
+
+Node Options:  
+![image](image/auto_adjust_node.png)
+* strength: Strength of adjust. The larger the value, the greater the difference from the original image.
+* brightness: Manual adjustment of brightness.
+* contrast: Manual adjustment of contrast.
+* saturation: Manual adjustment of saturation.
+* red: Manual adjustment of the red channel.
+* green: Manual adjustment of the green channel.
+* blue: Manual adjustment of the blue channel.
 
 ### <a id="table1">AutoBrightness</a>
 Automatically adjust too dark or too bright image to moderate brightness, and support mask input. When  mask input, only the content of the mask part is used as the data source of the automatic brightness. The output is still the whole adjusted image.
