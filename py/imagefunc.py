@@ -375,7 +375,7 @@ def chop_image_v2(background_image:Image, layer_image:Image, blend_mode:str, opa
     # final_tensor = (torch.from_numpy(blended_np / 255)).unsqueeze(0)
     # return tensor2pil(_tensor)
 
-    return Image.fromarray(np.uint8(blended_np))
+    return Image.fromarray(np.uint8(blended_np)).convert('RGB')
 
 def remove_background(image:Image, mask:Image, color:str) -> Image:
     width = image.width
