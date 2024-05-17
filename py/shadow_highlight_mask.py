@@ -1,6 +1,6 @@
 from .imagefunc import *
 
-NODE_NAME = 'Shadow & Highlight Mask'
+NODE_NAME = 'LayerMask: Shadow & Highlight Mask'
 
 def norm_value(value):
     if value < 0.01:
