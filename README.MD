@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [PurgeVRAM](#PurgeVRAM) node, Clean up VRAM an RAM.
 * Commit [AutoAdjust](#AutoAdjust) node, it can automatically adjust image contrast and white balance.
 * Commit [RGBValue](#RGBValue) node to output the color value as a single decimal value of R, G, B. This idea is from [vxinhao](https://github.com/vxinhao/color2rgb), Thanks.
 * Commit [seed](#seed) node to output the seed value. The [ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) nodes increase ```width```, ```height``` output.
@@ -1077,10 +1078,18 @@ Performs mathematical operations on two numeric values and outputs integer and f
 
 ### <a id="table1">BooleanOperator</a>
 ![image](image/boolean_operator_node.png)
-Perform a Boolean operation on two numeric values and output the result<sup>*</sup>. Supported operations include```==```, ```!=```, ```and```, ```or```, ```xor```, ```not```.
+Perform a Boolean operation on two numeric values and output the result<sup>*</sup>. Supported operations include```==```, ```!=```, ```and```, ```or```, ```xor```, ```not```, ```min```, ```max```.
 
 <sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error. The ```and``` operation between the values outputs a larger number, and the ```or``` operation outputs a smaller number.
 
+
+### <a id="table1">PurgeVRAM</a>
+![image](image/purge_vram_example.png)
+Clean up GPU VRAM and system RAM. any type of input can be accessed, and when executed to this node, the VRAM and garbage objects in the RAM will be cleaned up. Usually placed after the node where the inference task is completed, such as the VAE Decode node.
+
+Node Options:  
+* purge_cache: Clean up cache。
+* purge_models: Unload all loaded models。
 
 
 # <a id="table1">LayerMask</a>

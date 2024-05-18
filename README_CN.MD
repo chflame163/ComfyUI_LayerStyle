@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [PurgeVRAM](#PurgeVRAM) 节点, 清理显存和内存。
 * 添加 [AutoAdjust](#AutoAdjust) 节点, 自动调整图片对比度和白平衡。
 * 添加 [RGBValue](#RGBValue) 节点, 将色值输出为单独的R, G, B三个10进制数值。这个想法来自[vxinhao](https://github.com/vxinhao/color2rgb)，感谢。
 * 添加[seed](#seed) 节点，输出种子值。[ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) 节点增加```width```, ```height``` 输出。
@@ -1066,9 +1067,18 @@ cropped_mask: 裁切后的遮罩。
 
 ### <a id="table1">BooleanOperator</a>
 ![image](image/boolean_operator_node.png)
-对两个数值进行布尔运算并输出结果<sup>*</sup>。支持的运算包括```==```、```!=```、```and```、```or```、```xor```、```not```。
+对两个数值进行布尔运算并输出结果<sup>*</sup>。支持的运算包括```==```、```!=```、```and```、```or```、```xor```、```not```、```min```、```max```。
 
 <sup>*</sup>  输入仅支持布尔值、整数和浮点数，强行接入其他数据将导致错误。数值之间的```and```运算输出较大的数，```or```运算输出较小的数。
+
+
+### <a id="table1">PurgeVRAM</a>
+![image](image/purge_vram_example.png)
+清理GPU显存。可以接入任意类型的输入，当执行到这个节点时将清理VRAM以及RAM中的垃圾对象。通常放置在推理任务完成的节点之后，例如VAE Decode节点。
+
+节点选项说明:  
+* purge_cache: 清理缓存。
+* purge_models: 清理已加载的模型。
 
 
 # <a id="table1">LayerMask</a>

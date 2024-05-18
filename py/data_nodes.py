@@ -25,7 +25,7 @@ class BooleanOperator:
         pass
     @classmethod
     def INPUT_TYPES(self):
-        operator_list = ["==", "!=", "and", "or", "xor", "not(a)"]
+        operator_list = ["==", "!=", "and", "or", "xor", "not(a)", "min", "max"]
         return {"required": {
                 "a": (any, {}),
                 "b": (any, {}),
@@ -33,7 +33,7 @@ class BooleanOperator:
             },}
 
     RETURN_TYPES = ("BOOLEAN",)
-    RETURN_NAMES = ("boolean",)
+    RETURN_NAMES = ("output",)
     FUNCTION = 'bool_operator_node'
     CATEGORY = '😺dzNodes/LayerUtility'
 
@@ -51,6 +51,10 @@ class BooleanOperator:
             ret_value = not(a == b)
         if operator == "not(a)":
             ret_value = not a
+        if operator == "min":
+            ret_value = a or b
+        if operator == "max":
+            ret_value = a and b
 
         return (ret_value,)
 
