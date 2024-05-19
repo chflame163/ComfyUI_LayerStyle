@@ -45,11 +45,11 @@ class CropByMaskV2:
         for l in image:
             l_images.append(torch.unsqueeze(l, 0))
         if mask.dim() == 2:
-            mask = torch.unsqueeze(mask_for_crop, 0)
+            mask = torch.unsqueeze(mask, 0)
         # 如果有多张mask输入，使用第一张
         if mask.shape[0] > 1:
             log(f"Warning: Multiple mask inputs, using the first.", message_type='warning')
-            mask = torch.unsqueeze(mask_for_crop[0], 0)
+            mask = torch.unsqueeze(mask[0], 0)
         if invert_mask:
             mask = 1 - mask
         l_masks.append(tensor2pil(torch.unsqueeze(mask, 0)).convert('L'))
