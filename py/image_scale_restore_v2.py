@@ -10,7 +10,7 @@ class ImageScaleRestoreV2:
     @classmethod
     def INPUT_TYPES(self):
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
-        scale_by_list = ['by_scale', 'longest', 'shortest']
+        scale_by_list = ['by_scale', 'longest', 'shortest', 'width', 'height']
         return {
             "required": {
                 "image": ("IMAGE", ),  #
@@ -75,6 +75,12 @@ class ImageScaleRestoreV2:
                 else:
                     target_height = scale_by_length
                     target_width = int(target_height * orig_width / orig_height)
+            if scale_by == 'width':
+                target_width = scale_by_length
+                target_height = int(target_width * orig_height / orig_width)
+            if scale_by == 'height':
+                target_height = scale_by_length
+                target_width = int(target_height * orig_width / orig_height)
         if target_width < 4:
             target_width = 4
         if target_height < 4:

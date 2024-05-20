@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [ImageScaleRestoreV2](#ImageScaleRestoreV2), [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2), [ImageAutoCropV2](#ImageAutoCropV2) nodes add options for ```width``` and ```height```, which can specify width or height as fixed values.
 * Commit [PurgeVRAM](#PurgeVRAM) node, Clean up VRAM an RAM.
 * Commit [AutoAdjust](#AutoAdjust) node, it can automatically adjust image contrast and white balance.
 * Commit [RGBValue](#RGBValue) node to output the color value as a single decimal value of R, G, B. This idea is from [vxinhao](https://github.com/vxinhao/color2rgb), Thanks.
@@ -573,8 +574,8 @@ The V2 upgraded version of ImageScaleRestore.
 Node options:   
 ![image](image/image_scale_restore_v2_node.png)
 The following changes have been made based on ImageScaleRestore:
-* scale_by: Allow scaling by specified size on long or short sides.
-* scale_by_length: When scale_by is set to "longest", this will be used as the length of the long edge of the image; When set to "shortest", it serves as the length of the short edge.
+* scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
+* scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
 
 ### <a id="table1">ImageMaskScaleAs</a>
 Scale the image or mask to the size of the reference image (or reference mask).
@@ -632,8 +633,8 @@ V2 Upgraded Version of ImageScaleByAspectRatio
 Node options:   
 ![image](image/image_scale_by_aspect_ratio_v2_node.png)
 The following changes have been made based on ImageScaleByAspectRatio:
-* scale_to_side: Allow scaling by specified size on long or short sides.
-* scale_to_length: When scale_by_side is set to "longest", this will be used as the length of the long edge of the image; When set to "shortest", it serves as the length of the short edge.
+* scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
+* scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
 
 
 
@@ -1020,7 +1021,8 @@ The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes 
 * Add optional input for mask. when there is a mask input, use that input directly to skip the built-in mask generation.
 * Add ```fill_background```. When set to False, the background will not be processed and any parts beyond the frame will not be included in the output range.
 * ```aspect_ratio``` adds the ```original``` option.
-* ```scale_by_longest_side``` changed to support scaling by long or short edge, set in ```scale_to_side```. The side length is set in ```scale_to__length```.
+* scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
+* scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
 
 
 ### <a id="table1">GetImageSize</a>

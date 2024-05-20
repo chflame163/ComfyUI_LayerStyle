@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [ImageScaleRestoreV2](#ImageScaleRestoreV2), [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2), [ImageAutoCropV2](#ImageAutoCropV2)节点增加```width```和```height```选项，可指定宽度或高度为固定值。
 * 添加 [PurgeVRAM](#PurgeVRAM) 节点, 清理显存和内存。
 * 添加 [AutoAdjust](#AutoAdjust) 节点, 自动调整图片对比度和白平衡。
 * 添加 [RGBValue](#RGBValue) 节点, 将色值输出为单独的R, G, B三个10进制数值。这个想法来自[vxinhao](https://github.com/vxinhao/color2rgb)，感谢。
@@ -567,8 +568,8 @@ ImageScaleRestore的V2升级版。
 节点选项说明:   
 ![image](image/image_scale_restore_v2_node.png)
 在ImageScaleRestore基础上做了如下改变:
-* scale_by: 允许按长边或短边指定尺寸缩放。
-* scale_by_length: scale_by被设置为"longest"时，此项将作为是图像长边的长度; 设置为"shortest"时，作为短边的长度。
+* scale_by: 允许按长边、短边、宽度或高度指定尺寸缩放。
+* scale_by_length: 这里的数值作为scale_by指定边的长度。
 
 
 ### <a id="table1">ImageMaskScaleAs</a>
@@ -622,8 +623,8 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:   
 ![image](image/image_scale_by_aspect_ratio_v2_node.png)
 在ImageScaleByAspectRatio基础上做了如下改变:
-* scale_to_side: 允许按长边或短边指定尺寸缩放。
-* scale_to_length: scale_by_side被设置为"longest"时，此项将作为是图像长边的长度; 设置为"shortest"时，作为短边的长度。
+* scale_by: 允许按长边、短边、宽度或高度指定尺寸缩放。
+* scale_by_length: 这里的数值作为scale_by指定边的长度。
 
 
 
@@ -1009,7 +1010,8 @@ cropped_mask: 裁切后的遮罩。
 * 增加```mask```可选输入。当有mask输入时，直接使用该输入跳过内置遮罩生成。
 * 增加```fill_background```, 当此项设置为False时将不处理背景，并且超出画幅的部分不纳入输出范围。
 * ```aspect_ratio```增加```original```(原始画面宽高比)选项。
-* 按长边缩放改为支持按长边或短边缩放，在```scale_to_side```中设置。边长在```scale_to_length```中设置。
+* scale_by: 允许按长边、短边、宽度或高度指定尺寸缩放。
+* scale_by_length: 这里的数值作为scale_by指定边的长度。
 
 
 ### <a id="table1">GetImageSize</a>

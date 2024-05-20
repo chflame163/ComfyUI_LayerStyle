@@ -18,7 +18,7 @@ class ImageAutoCropV2:
         matting_method_list = ['RMBG 1.4', 'SegmentAnything']
         detect_mode = ['min_bounding_rect', 'max_inscribed_rect', 'mask_area']
         ratio_list = ['1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16', 'custom', 'detect_mask', 'original']
-        scale_to_side_list = ['None', 'longest', 'shortest']
+        scale_to_side_list = ['None', 'longest', 'shortest', 'width', 'height']
         return {
             "required": {
                 "image": ("IMAGE", ),  #
@@ -183,6 +183,12 @@ class ImageAutoCropV2:
                 elif scale_to_side == 'shortest':
                     target_height = scale_to_length
                     target_width = int(target_height * ratio)
+                elif scale_to_side == 'width':
+                    target_width = scale_to_length
+                    target_height = int(target_width / ratio)
+                elif scale_to_side == 'height':
+                    target_height = scale_to_length
+                    target_width = int(target_height * ratio)
                 else:
                     target_width = orig_width
                     target_height = int(target_width / ratio)
@@ -193,6 +199,12 @@ class ImageAutoCropV2:
                 elif scale_to_side == 'shortest':
                     target_width = scale_to_length
                     target_height = int(target_width / ratio)
+                elif scale_to_side == 'width':
+                    target_width = scale_to_length
+                    target_height = int(target_width / ratio)
+                elif scale_to_side == 'height':
+                    target_height = scale_to_length
+                    target_width = int(target_height * ratio)
                 else:
                     target_height = orig_height
                     target_width = int(target_height * ratio)
