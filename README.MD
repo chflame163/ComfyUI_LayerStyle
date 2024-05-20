@@ -73,7 +73,7 @@ When this error has occurred, please check the network environment.
 * Commit [PurgeVRAM](#PurgeVRAM) node, Clean up VRAM an RAM.
 * Commit [AutoAdjust](#AutoAdjust) node, it can automatically adjust image contrast and white balance.
 * Commit [RGBValue](#RGBValue) node to output the color value as a single decimal value of R, G, B. This idea is from [vxinhao](https://github.com/vxinhao/color2rgb), Thanks.
-* Commit [seed](#seed) node to output the seed value. The [ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySspectRatio](#ImageScaleBySspectRatio), [ImageScaleBySspectRatioV2](#ImageScaleBySspectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) nodes increase ```width```, ```height``` output.
+* Commit [seed](#seed) node to output the seed value. The [ImageMaskScaleAs](#ImageMaskScaleAs), [ImageScaleBySpectRatio](#ImageScaleBySpectRatio), [ImageScaleBySpectRatioV2](#ImageScaleBySpectRatioV2), [ImageScaleRestore](#ImageScaleRestore), [ImageScaleRestoreV2](#ImageScaleRestoreV2) nodes increase ```width```, ```height``` output.
 * Commit [Levels](#Levels) node, it can achieve the same color levels adjustment function as Photoshop.[Sharp&Soft](#Sharp) add the "None" option.
 * Commit [BlendIfMask](#BlendIfMask) node, This node cooperates with ImgaeBlendV2 or ImageBlendAdvanceV2 to achieve the same Blend If function as Photoshop.
 * Commit [ColorTemperature](#ColorTemperature) and [ColorBalance](#ColorBalance) nodes, used to adjust the color temperature and color balance of the picture.
