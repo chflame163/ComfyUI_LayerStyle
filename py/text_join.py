@@ -12,9 +12,10 @@ class TextJoin:
         return {
             "required": {
                 "text_1": ("STRING", {"multiline": True}),
-                "text_2": ("STRING", {"multiline": True}),
+
             },
             "optional": {
+                "text_2": ("STRING", {"multiline": True}),
                 "text_3": ("STRING", {"multiline": True}),
                 "text_4": ("STRING", {"multiline": True}),
             }
