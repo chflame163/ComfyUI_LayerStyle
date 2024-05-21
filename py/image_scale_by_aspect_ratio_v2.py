@@ -83,7 +83,7 @@ class ImageScaleByAspectRatioV2:
             ratio = int(s[0]) / int(s[1])
 
         # calculate target width and height
-        if orig_width > orig_height:
+        if ratio > 1:
             if scale_to_side == 'longest':
                 target_width = scale_to_length
                 target_height = int(target_width / ratio)
