@@ -26,3 +26,6 @@ kornia
 image-reward
 ultralytics
 blend_modes
+blind-watermark
+qrcode
+pyzbar

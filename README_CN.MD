@@ -70,6 +70,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+
+* 添加 [SaveImagePlus](#SaveImagePlus)节点，可自定义保存图片的目录，文件名增加时间戳，选择保存格式，设置图片压缩率，设置是否保存工作流，以及可选给图片添加隐形水印。
+* 添加 [AddBlindWaterMark](#AddBlindWaterMark), [ShowBlindWaterMark](#ShowBlindWaterMark)节点，为图片增加隐形水印和解码水印。添加 [CreateQRCode](#CreateQRCode), [DecodeQRCode](#DecodeQRCode)节点，可生成二维码图片和解码二维码。
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2), [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2), [ImageAutoCropV2](#ImageAutoCropV2)节点增加```width```和```height```选项，可指定宽度或高度为固定值。
 * 添加 [PurgeVRAM](#PurgeVRAM) 节点, 清理显存和内存。
 * 添加 [AutoAdjust](#AutoAdjust) 节点, 自动调整图片对比度和白平衡。
@@ -1081,6 +1084,55 @@ cropped_mask: 裁切后的遮罩。
 节点选项说明:  
 * purge_cache: 清理缓存。
 * purge_models: 清理已加载的模型。
+
+
+### <a id="table1">SaveImagePlus</a>
+增强版的保存图片节点。可自定义保存图片的目录，文件名增加时间戳，选择保存格式，设置图片压缩率，设置是否保存工作流，以及可选给图片添加隐形水印。(以肉眼无法觉察的方式添加信息，使用配套的```ShowBlindWaterMark```节点可以解码水印。)
+
+节点选项说明:
+![image](image/save_image_plus_node.png)
+* iamge: 输入的图片。
+* custom_path: 用户自定义目录，请按正确的格式输入目录名。如果为空则保存在ComfyUI默认的output目录。注意当文件被设置为保存到用户目录时，无法看到图片预览，这是正常现象。
+* filename_prefix:文件名前缀。
+* timestamp: 为文件名加上时间戳，可选择日期、时间到秒和时间到毫秒。
+* format:图片保存格式。目前提供png和jpg两种。注意RGBA模式的图片仅支持png格式。
+* quality:图片质量，数值范围10-100，数值越高，图片质量越好，文件的体积也对应增大。
+* meta_data:是否保存元数据即工作流信息。如果不希望泄露工作流，请把这里设置为false。
+* blind_watermark:这里输入的文字（不支持多语言）将被转换为二维码作为隐形水印保存，使用```ShowBlindWaterMark```节点可以解码水印。注意有水印的图片建议保存为png格式，质量较低的jpg格式将导致水印信息丢失。
+
+### <a id="table1">AddBlindWaterMark</a>
+![image](image/watermark_example.png)
+给图片添加隐形水印。以肉眼无法觉察的方式添加水印图片，使用```ShowBlindWaterMark```节点可以解码水印。
+
+节点选项说明:
+![image](image/add_blind_watermark_node.png)
+* iamge: 输入的图片。
+* watermark_image: 水印图片。这里输入的图片将自动转为正方形的黑白图片作为水印。建议使用二维码作为水印。
+
+
+### <a id="table1">ShowBlindWaterMark</a>
+对```AddBlindWaterMark``` 和 ```SaveImagePlus``` 节点添加的隐形水印解码。
+![image](image/show_blind_watermark_node.png)
+
+
+### <a id="table1">CreateQRCode</a>
+生成一个正方形的二维码图片。
+
+节点选项说明:  
+![image](image/create_qrcode_node.png)
+* size: 生成图片的边长。
+* border: 二维码四周边框的大小，数值越大，边框越宽。
+* text: 这里输入二维码文字内容，不支持多语言。
+
+### <a id="table1">DecodeQRCode</a>
+解码二维码。
+
+节点选项说明:  
+![image](image/decode_qrcode_node.png)
+* image: 输入二维码图片。
+* pre_blur: 预模糊，对难以识别的二维码可以尝试调整此数值。
+
+
 
 
 # <a id="table1">LayerMask</a>

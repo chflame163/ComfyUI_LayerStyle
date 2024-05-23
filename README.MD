@@ -70,6 +70,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+
+* Commit [SaveImagePlus](#SaveImagePlus) node，It can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture.
+* Commit [AddBlindWaterMark](#AddBlindWaterMark), [ShowBlindWaterMark](#ShowBlindWaterMark) nodes, Add invisible watermark and decoded watermark to the picture. Commit [CreateQRCode](#CreateQRCode), [DecodeQRCode](#DecodeQRCode) nodes, It can generate two-dimensional code pictures and decode two-dimensional codes.
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2), [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2), [ImageAutoCropV2](#ImageAutoCropV2) nodes add options for ```width``` and ```height```, which can specify width or height as fixed values.
 * Commit [PurgeVRAM](#PurgeVRAM) node, Clean up VRAM an RAM.
 * Commit [AutoAdjust](#AutoAdjust) node, it can automatically adjust image contrast and white balance.
@@ -1092,6 +1095,55 @@ Clean up GPU VRAM and system RAM. any type of input can be accessed, and when ex
 Node Options:  
 * purge_cache: Clean up cache。
 * purge_models: Unload all loaded models。
+
+
+
+### <a id="table1">SaveImagePlus</a>
+Enhanced save image node. You can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture. (Add information in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark. )
+
+Node Options:
+![image](image/save_image_plus_node.png)
+* iamge: The input image.
+* custom_path: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI. Note that when the file is set to save to the user directory, the picture preview cannot be seen, which is normal.
+* filename_prefix: The prefix of file name.
+* timestamp: Timestamp the file name, opting for date, time to seconds, and time to milliseconds.
+* format: The format of image save. Currently available in ```png``` and ```jpg```. Note that only png format is supported for RGBA mode pictures.
+* quality: Image quality, the value range 10-100, the higher the value, the better the picture quality, the volume of the file also correspondingly increases.
+* meta_data: Whether to save metadata, that is workflow information. Set this to false if you do not want the workflow to be leaked.
+* blind_watermark: The text entered here (does not support multilingualism) will be converted into a QR code and saved as an invisible watermark. Use ```ShowBlindWaterMark``` node can decode watermarks. Note that pictures with watermarks are recommended to be saved in png format, and lower-quality jpg format will cause watermark information to be lost.
+
+### <a id="table1">AddBlindWaterMark</a>
+![image](image/watermark_example.png)
+Add an invisible watermark to a picture. Add the watermark image in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark.
+
+Node Options:
+![image](image/add_blind_watermark_node.png)
+* iamge: The input image.
+* watermark_image: Watermark image. The image entered here will automatically be converted to a square black and white image as a watermark. It is recommended to use a QR code as a watermark.
+
+
+### <a id="table1">ShowBlindWaterMark</a>
+Decoding the invisible watermark added to the ```AddBlindWaterMark``` and ```SaveImagePlus``` nodes.
+![image](image/show_blind_watermark_node.png)
+
+
+### <a id="table1">CreateQRCode</a>
+Generate a square QR code picture.
+
+Node Options:  
+![image](image/create_qrcode_node.png)
+* size: The side length of image.
+* border: The size of the border around the QR code, the larger the value, the wider the border.
+* text: Enter the text content of the QR code here, and multi-language is not supported.
+
+### <a id="table1">DecodeQRCode</a>
+Decoding the QR code.
+
+Node Options:  
+![image](image/decode_qrcode_node.png)
+* image: The input QR code image.
+* pre_blur: Pre-blurring, you can try to adjust this value for QR codes that are difficult to identify. 
+
 
 
 # <a id="table1">LayerMask</a>

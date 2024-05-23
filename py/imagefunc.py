@@ -1162,6 +1162,96 @@ def generate_text_image(text:str, font_path:str, font_size:int, text_color:str="
             index += 1
     return (image.convert('RGB'), image.split()[3])
 
+def watermark_image_size(image:Image) -> int:
+    size = int(math.sqrt(image.width * image.height * 0.015625) * 0.9)
+    return size
+
+def add_invisibal_watermark(image:Image, watermark_image:Image) -> Image:
+    """
+    Adds an invisible watermark to an image.
+    """
+    orig_image_mode = image.mode
+    temp_dir = os.path.join(folder_paths.get_temp_directory(), generate_random_name('_watermark_', '_temp', 16))
+    if os.path.isdir(temp_dir):
+        shutil.rmtree(temp_dir)
+    image_dir = os.path.join(temp_dir, 'image')
+    wm_dir = os.path.join(temp_dir, 'wm')
+    result_dir = os.path.join(temp_dir, 'result')
+
+    try:
+        os.makedirs(image_dir)
+        os.makedirs(wm_dir)
+        os.makedirs(result_dir)
+    except Exception as e:
+        print(e)
+        log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='error')
+        return (image,)
+
+    image_file_name = os.path.join(generate_random_name('watermark_orig_', '_temp', 16) + '.png')
+    wm_file_name = os.path.join(generate_random_name('watermark_image_', '_temp', 16) + '.png')
+    output_file_name = os.path.join(generate_random_name('watermark_output_', '_temp', 16) + '.png')
+
+    try:
+        if image.mode != "RGB":
+            image = image.convert("RGB")
+        image.save(os.path.join(image_dir, image_file_name))
+        watermark_image.save(os.path.join(wm_dir, wm_file_name))
+    except IOError as e:
+        print(e)
+        log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
+        return (image,)
+
+    from blind_watermark import WaterMark
+    bwm1 = WaterMark(password_img=1, password_wm=1)
+    bwm1.read_img(os.path.join(image_dir, image_file_name))
+    bwm1.read_wm(os.path.join(wm_dir, wm_file_name))
+    output_image = os.path.join(result_dir, output_file_name)
+    bwm1.embed(output_image, compression_ratio=100)
+
+    return Image.open(output_image).convert(orig_image_mode)
+
+def decode_watermark(image:Image, watermark_image_size:int=94) -> Image:
+    temp_dir = os.path.join(folder_paths.get_temp_directory(), generate_random_name('_watermark_', '_temp', 16))
+    if os.path.isdir(temp_dir):
+        shutil.rmtree(temp_dir)
+    image_dir = os.path.join(temp_dir, 'decode_image')
+    result_dir = os.path.join(temp_dir, 'decode_result')
+
+    try:
+        os.makedirs(image_dir)
+        os.makedirs(result_dir)
+    except Exception as e:
+        print(e)
+        log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='error')
+        return (image,)
+
+    image_file_name = os.path.join(generate_random_name('watermark_decode_', '_temp', 16) + '.png')
+    output_file_name = os.path.join(generate_random_name('watermark_decode_output_', '_temp', 16) + '.png')
+
+    try:
+        image.save(os.path.join(image_dir, image_file_name))
+    except IOError as e:
+        print(e)
+        log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
+        return (image,)
+
+    from blind_watermark import WaterMark
+    bwm1 = WaterMark(password_img=1, password_wm=1)
+    decode_image = os.path.join(image_dir, image_file_name)
+    output_image = os.path.join(result_dir, output_file_name)
+
+    try:
+        bwm1.extract(filename=decode_image, wm_shape=(watermark_image_size, watermark_image_size),
+                     out_wm_name=os.path.join(output_image),)
+        ret_image = Image.open(output_image)
+    except Exception as e:
+        log(f"blind watermark extract fail, {e}")
+        ret_image = Image.new("RGB", (64, 64), color="black")
+
+    ret_image = normalize_gray(ret_image)
+
+    return ret_image
+
 
 '''Mask Functions'''
 @lru_cache(maxsize=1, typed=False)
