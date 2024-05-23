@@ -70,7 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-* [SaveImagePlus](#SaveImagePlus)节点增加输出工作流为json功能，支持使用```%date```和```%time```手动为保存路径和文件名加入时间，增加预览开关。
+* [SaveImagePlus](#SaveImagePlus)节点增加输出工作流为json功能，支持使用```%date```和```%time```在路径和文件名嵌入时间，增加预览开关。
 * 添加 [SaveImagePlus](#SaveImagePlus)节点，可自定义保存图片的目录，文件名增加时间戳，选择保存格式，设置图片压缩率，设置是否保存工作流，以及可选给图片添加隐形水印。
 * 添加 [AddBlindWaterMark](#AddBlindWaterMark), [ShowBlindWaterMark](#ShowBlindWaterMark)节点，为图片增加隐形水印和解码水印。添加 [CreateQRCode](#CreateQRCode), [DecodeQRCode](#DecodeQRCode)节点，可生成二维码图片和解码二维码。
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2), [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2), [ImageAutoCropV2](#ImageAutoCropV2)节点增加```width```和```height```选项，可指定宽度或高度为固定值。
@@ -1103,7 +1103,7 @@ cropped_mask: 裁切后的遮罩。
 * save_workflow_as_json: 是否同时输出工作流为json文件(输出的json与图片在同一目录)。
 * preview: 预览开关。
 
-<sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date_%tiem/name``` 将输出图片到```YY-mm-dd_HH-MM-SS```文件夹下，以name为文件名前缀。
+<sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date/name_%time``` 将输出图片到```YY-mm-dd```文件夹下，以```name_HH-MM-SS```为文件名前缀。
 
 ### <a id="table1">AddBlindWaterMark</a>
 ![image](image/watermark_example.jpg)    
