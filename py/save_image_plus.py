@@ -20,9 +20,11 @@ class SaveImagePlus:
                      "filename_prefix": ("STRING", {"default": "comfyui"}),
                      "timestamp": (["None", "second", "millisecond"],),
                      "format": (["png", "jpg"],),
-                     "quality": ("INT", {"default": 100, "min": 10, "max": 100, "step": 1}),
+                     "quality": ("INT", {"default": 80, "min": 10, "max": 100, "step": 1}),
                      "meta_data": ("BOOLEAN", {"default": False}),
                      "blind_watermark": ("STRING", {"default": ""}),
+                     "save_workflow_as_json": ("BOOLEAN", {"default": False}),
+                     "preview": ("BOOLEAN", {"default": False}),
                      },
                 "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
                 }
@@ -33,12 +35,19 @@ class SaveImagePlus:
     CATEGORY = '😺dzNodes/LayerUtility'
 
     def save_image_plus(self, images, custom_path, filename_prefix, timestamp, format, quality,
-                                  meta_data, blind_watermark, prompt=None, extra_pnginfo=None):
+                           meta_data, blind_watermark, preview, save_workflow_as_json,
+                           prompt=None, extra_pnginfo=None):
 
-
+        now = datetime.datetime.now()
+        custom_path = custom_path.replace("%date", now.strftime("%Y-%m-%d"))
+        custom_path = custom_path.replace("%time", now.strftime("%H-%M-%S"))
+        filename_prefix = filename_prefix.replace("%date", now.strftime("%Y-%m-%d"))
+        filename_prefix = filename_prefix.replace("%time", now.strftime("%H-%M-%S"))
         filename_prefix += self.prefix_append
         full_output_folder, filename, counter, subfolder, filename_prefix = folder_paths.get_save_image_path(filename_prefix, self.output_dir, images[0].shape[1], images[0].shape[0])
         results = list()
+        temp_sub_dir = generate_random_name('_savepreview_', '_temp', 16)
+        temp_dir = os.path.join(folder_paths.get_temp_directory(), temp_sub_dir)
         for image in images:
             i = 255. * image.cpu().numpy()
             img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
@@ -77,39 +86,81 @@ class SaveImagePlus:
                         metadata.add_text(x, json.dumps(extra_pnginfo[x]))
 
             if timestamp == "millisecond":
-                file = f'{filename}_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}.{format}'
+                file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}'
             elif timestamp == "second":
-                file = f'{filename}_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.{format}'
+                file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S")}'
             else:
-                file = f'{filename}_{counter:05}.{format}'
+                file = f'{filename}_{counter:05}'
 
+
+            preview_filename = ""
             if not os.path.exists(custom_path):
                 if custom_path != "":
                     raise FileNotFoundError("custom_path is not a valid path")
             else:
                 full_output_folder = os.path.normpath(custom_path)
+                # save preview image to temp_dir
+                if os.path.isdir(temp_dir):
+                    shutil.rmtree(temp_dir)
+                try:
+                    os.makedirs(temp_dir)
+                except Exception as e:
+                    print(e)
+                    log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='warning')
+                try:
+                    preview_filename = os.path.join(generate_random_name('saveimage_preview_', '_temp', 16) + '.png')
+                    img.save(os.path.join(temp_dir, preview_filename))
+                except Exception as e:
+                    print(e)
+                    log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='warning')
 
-            while os.path.isfile(os.path.join(full_output_folder, file)):
+            # check if file exists, change filename
+            while os.path.isfile(os.path.join(full_output_folder, f"{file}.{format}")):
                 counter += 1
                 if timestamp == "millisecond":
-                    file = f'{filename}_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}_{counter:05}.{format}'
+                    file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}_{counter:05}'
                 elif timestamp == "second":
-                    file = f'{filename}_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{counter:05}.{format}'
+                    file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S")}_{counter:05}'
                 else:
-                    file = f"{filename}_{counter:05}.{format}"
+                    file = f"{filename}_{counter:05}"
+
+            image_file_name = os.path.join(full_output_folder, f"{file}.{format}")
+            json_file_name = os.path.join(full_output_folder, f"{file}.json")
 
             if format == "png":
-                img.save(os.path.join(full_output_folder, file), pnginfo=metadata, compress_level= (100 - quality) // 10)
+                img.save(image_file_name, pnginfo=metadata, compress_level= (100 - quality) // 10)
             else:
                 if img.mode == "RGBA":
                     img = img.convert("RGB")
-                img.save(os.path.join(full_output_folder, file), quality=quality)
+                img.save(image_file_name, quality=quality)
+            log(f"Saving image to {image_file_name}")
 
-            results.append({
-                "filename": file,
-                "subfolder": subfolder,
-                "type": self.type
-            })
+            if save_workflow_as_json:
+                try:
+                    workflow = (extra_pnginfo or {}).get('workflow')
+                    if workflow is None:
+                        log('No workflow found, skipping saving of JSON')
+                    with open(f'{json_file_name}.json', 'w') as workflow_file:
+                        json.dump(workflow, workflow_file)
+                        log(f'Saved workflow to {json_file_name}.json')
+                except Exception as e:
+                    log(
+                        f'Failed to save workflow as json due to: {e}, proceeding with the remainder of saving execution', message_type="warning")
+
+            if preview:
+                if custom_path == "":
+                    results.append({
+                        "filename": f"{file}.{format}",
+                        "subfolder": subfolder,
+                        "type": self.type
+                    })
+                else:
+                    results.append({
+                        "filename": preview_filename,
+                        "subfolder": temp_sub_dir,
+                        "type": "temp"
+                    })
+
             counter += 1
 
         return { "ui": { "images": results } }

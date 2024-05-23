@@ -70,7 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-
+* [SaveImagePlus](#SaveImagePlus) node adds the output workflow to the json function, supports ```%date``` and ```%time``` to manually join the time to path and filename, and adds the preview switch.
 * Commit [SaveImagePlus](#SaveImagePlus) node，It can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture.
 * Commit [AddBlindWaterMark](#AddBlindWaterMark), [ShowBlindWaterMark](#ShowBlindWaterMark) nodes, Add invisible watermark and decoded watermark to the picture. Commit [CreateQRCode](#CreateQRCode), [DecodeQRCode](#DecodeQRCode) nodes, It can generate two-dimensional code pictures and decode two-dimensional codes.
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2), [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2), [ImageAutoCropV2](#ImageAutoCropV2) nodes add options for ```width``` and ```height```, which can specify width or height as fixed values.
@@ -1099,18 +1099,25 @@ Node Options:
 
 
 ### <a id="table1">SaveImagePlus</a>
-Enhanced save image node. You can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture. (Add information in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark. )
+![image](image/saveimage_plus_example.jpg)  
+Enhanced save image node. You can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture. (Add information in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark). Optionally output the json file of the workflow.
 
 Node Options:
-![image](image/save_image_plus_node.jpg)    
+![image](image/saveimage_plus_node.jpg)    
 * iamge: The input image.
-* custom_path: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI. Note that when the file is set to save to the user directory, the picture preview cannot be seen, which is normal.
-* filename_prefix: The prefix of file name.
+* custom_path<sup>*</sup>: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI.
+* filename_prefix<sup>*</sup>: The prefix of file name.
 * timestamp: Timestamp the file name, opting for date, time to seconds, and time to milliseconds.
 * format: The format of image save. Currently available in ```png``` and ```jpg```. Note that only png format is supported for RGBA mode pictures.
 * quality: Image quality, the value range 10-100, the higher the value, the better the picture quality, the volume of the file also correspondingly increases.
 * meta_data: Whether to save metadata to png file, that is workflow information. Set this to false if you do not want the workflow to be leaked.
 * blind_watermark: The text entered here (does not support multilingualism) will be converted into a QR code and saved as an invisible watermark. Use ```ShowBlindWaterMark``` node can decode watermarks. Note that pictures with watermarks are recommended to be saved in png format, and lower-quality jpg format will cause watermark information to be lost.
+* save_workflow_as_json: Whether the output workflow is a json file at the same time (the output json is in the same directory as the picture).
+* preview: Preview switch.
+
+<sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date_%tiem/name``` will output the image to the ```YY-mm-dd_HH-MM-SS``` folder, with name as the file name prefix.
+
+
 
 ### <a id="table1">AddBlindWaterMark</a>
 ![image](image/watermark_example.jpg)    
