@@ -10,7 +10,7 @@ A set of nodes for ComfyUI that can composite layer and mask to achieve Photosho
 
 It migrate some basic functions of PhotoShop to ComfyUI, aiming to centralize the workflow and reduce the frequency of software switching.  
 
-![image](image/title.png)  
+![image](image/title.jpg)    
 <font size="1">*this workflow (title_example_workflow.json) is in the workflow directory.  </font><br /> 
 
 
@@ -165,27 +165,27 @@ Add invalid mask input judgment and ignore it when invalid mask is input.
 ## Description
 Nodes are divided into 5 groups according to their functions: LayerStyle, LayerColor, LayerMask, LayerUtility and LayerFilter.
 * [LayerStyle](#LayerStyle) nodes provides layer styles that mimic Adobe Photoshop.
-![image](image/menu_layer_style.png)
+![image](image/menu_layer_style.jpg)    
 * [LayerColor](#LayerColor) node group provides color adjustment functionality.
-![image](image/menu_layer_color.png)
+![image](image/menu_layer_color.jpg)    
 * [LayerMask](#LayerMask) nodes provides mask assistance tools.
-![image](image/menu_layer_mask.png)
+![image](image/menu_layer_mask.jpg)    
 * [LayerUtility](#LayerUtility) nodes provides auxiliary nodes related to layer composit tools and workflows.
-![image](image/menu_layer_utility.png)
+![image](image/menu_layer_utility.jpg)    
 * [LayerFilter](#LayerFilter) nodes provides image effect filters.
-![image](image/menu_layer_filter.png)
+![image](image/menu_layer_filter.jpg)    
 
 # <a id="table1">LayerStyle</a>
-![image](image/layerstyle_title.png)
-![image](image/layerstyle_nodes.png)
+![image](image/layerstyle_title.jpg)    
+![image](image/layerstyle_nodes.jpg)    
 
 
 ### <a id="table1">DropShadow</a>
 Generate shadow
-![image](image/drop_shadow_example.png)
+![image](image/drop_shadow_example.jpg)    
 
 Node options:
-![image](image/drop_shadow_node.png)
+![image](image/drop_shadow_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
@@ -202,10 +202,10 @@ Node options:
 
 ### <a id="table1">OuterGlow</a>
 Generate outer glow
-![image](image/outer_glow_example.png)
+![image](image/outer_glow_example.jpg)    
 
 Node options:
-![image](image/outer_glow_node.png)
+![image](image/outer_glow_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image, grow are generated according to their shape.
@@ -222,10 +222,10 @@ Node options:
 
 ### <a id="table1">InnerShadow</a>
 Generate inner shadow
-![image](image/inner_shadow_example.png)
+![image](image/inner_shadow_example.jpg)    
 
 Node options:
-![image](image/inner_shadow_node.png)
+![image](image/inner_shadow_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image, shadows are generated according to their shape.
@@ -242,10 +242,10 @@ Node options:
 
 ### <a id="table1">InnerGlow</a>
 Generate inner glow
-![image](image/inner_glow_example.png)
+![image](image/inner_glow_example.jpg)    
 
 Node options:  
-![image](image/inner_glow_node.png)
+![image](image/inner_glow_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image, grow are generated according to their shape.
@@ -262,10 +262,10 @@ Node options:
 
 ### <a id="table1">Stroke</a>
 Generate a stroke of layer。
-![image](image/stroke_example.png)
+![image](image/stroke_example.jpg)    
 
 Node options:   
-![image](image/stroke_node.png)
+![image](image/stroke_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image, stroke are generated according to their shape.
@@ -281,7 +281,7 @@ Node options:
 
 ### <a id="table1">GradientOverlay</a>
 Generate gradient overlay
-![image](image/gradient_overlay_example.png)
+![image](image/gradient_overlay_example.jpg)    
 
 Node options:   
 * background_image<sup>1</sup>: The background image.
@@ -300,10 +300,10 @@ Node options:
 
 ### <a id="table1">ColorOverlay</a>
 Generate color overlay
-![image](image/color_overlay_example.png)
+![image](image/color_overlay_example.jpg)    
 
 Node options:
-![image](image/color_overlay_node.png)
+![image](image/color_overlay_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image.
@@ -314,14 +314,14 @@ Node options:
 * [note](#notes)
 
 # <a id="table1">LayerColor</a>
-![image](image/layercolor_title.png)
-![image](image/layercolor_nodes.png)
+![image](image/layercolor_title.jpg)    
+![image](image/layercolor_nodes.jpg)    
 
 ### <a id="table1">LUT</a> Apply
 Apply LUT to the image. only supports .cube format.
 
 Node options:  
-![image](image/lut_apply_node.png)
+![image](image/lut_apply_node.jpg)    
 * LUT<sup>*</sup>: Here is a list of available. cube files in the LUT folder, and the selected LUT files will be applied to the image.
 * color_space: For regular image, please select linear, for image in the log color space, please select log.
 
@@ -331,10 +331,10 @@ If the folder set in ini is invalid, the LUT folder that comes with the plugin w
 
 ### <a id="table1">AutoAdjust</a>
 Automatically adjust the brightness, contrast, and white balance of the image. Provide some manual adjustment options to compensate for the shortcomings of automatic adjustment.
-![image](image/auto_adjust_example.png)
+![image](image/auto_adjust_example.jpg)    
 
 Node Options:  
-![image](image/auto_adjust_node.png)
+![image](image/auto_adjust_node.jpg)    
 * strength: Strength of adjust. The larger the value, the greater the difference from the original image.
 * brightness: Manual adjustment of brightness.
 * contrast: Manual adjustment of contrast.
@@ -345,31 +345,31 @@ Node Options:
 
 ### <a id="table1">AutoBrightness</a>
 Automatically adjust too dark or too bright image to moderate brightness, and support mask input. When  mask input, only the content of the mask part is used as the data source of the automatic brightness. The output is still the whole adjusted image.
-![image](image/auto_brightness_example.png)
+![image](image/auto_brightness_example.jpg)    
 
 Node options:  
-![image](image/auto_brightness_node.png)
+![image](image/auto_brightness_node.jpg)    
 * strength: Automatically adjust the intensity of the brightness. The larger the value, the more biased towards the middle value, the greater the difference from the original picture.
 * saturation: Color saturation. Changes in brightness usually result in changes in color saturation, where appropriate compensation can be adjusted.
 
 ### <a id="table1">ColorAdapter</a>
 Auto adjust the color tone of the image to resemble the reference image.
-![image](image/color_adapter_example.png)
+![image](image/color_adapter_example.jpg)    
 
 Node options:  
-![image](image/color_adapter_node.png)
+![image](image/color_adapter_node.jpg)    
 * opacity: The opacity of an image after adjusting its color tone.
 
 ### <a id="table1">Exposure</a>
 Change the exposure of the image.
-![image](image/exposure_example.png)
+![image](image/exposure_example.jpg)    
 
 ### Color of Shadow & <a id="table1">Highlight</a>
 Adjust the color of the dark and bright parts of the image.
-![image](image/color_of_shadow_and_highlight_example.png)
+![image](image/color_of_shadow_and_highlight_example.jpg)    
 
 Node options:  
-![image](image/color_of_shadow_and_highlight_node.png)
+![image](image/color_of_shadow_and_highlight_node.jpg)    
 * image: The input image.
 * mask: Optional input. if there is input, only the colors within the mask range will be adjusted.
 * shadow_brightness: The brightness of the dark area.
@@ -388,19 +388,19 @@ Node option:
 
 
 ### <a id="table1">ColorTemperature</a>
-![image](image/color_temperature_example.png)
+![image](image/color_temperature_example.jpg)    
 Change the color temperature of the image.
 
 Node Options:  
-![image](image/color_temperature_node.png)
+![image](image/color_temperature_node.jpg)    
 * temperature: Color temperature value. Range between-100 and 100. The higher the value, the higher the color temperature (bluer); The lower the color temperature, the lower the color temperature (yellowish).
 
 ### <a id="table1">Levels</a>
-![image](image/levels_example.png)
+![image](image/levels_example.jpg)    
 Change the levels of image.
 
 Node Options:  
-![image](image/levels_node.png)
+![image](image/levels_node.jpg)    
 * channel: Select the channel you want to adjust. Available in RGB, red, green, blue.
 * black_point<sup>*</sup>: Input black point value. Value range 0-255, default 0.
 * white_point<sup>*</sup>: Input white point value. Value range 0-255, default 255.
@@ -411,11 +411,11 @@ Node Options:
 <sup>*</sup><font size="3">If the black_point or output_black_point value is greater than white_point or output_white_point, the two values are swapped, with the larger value used as white_point and the smaller value used as black_point.</font>
 
 ### <a id="table1">ColorBalance</a>
-![image](image/color_balance_example.png)
+![image](image/color_balance_example.jpg)    
 Change the color balance of an image.
 
 Node Options:  
-![image](image/color_balance_node.png)
+![image](image/color_balance_node.jpg)    
 * cyan_red: Cyan-Red balance. negative values are leaning cyan, positive values are leaning red.
 * magenta_green: Megenta-Green balance. negative values are leaning megenta, positive values are leaning green.
 * yellow_blue: Yellow-Blue balance. negative values are leaning yellow, positive values are leaning blue.
@@ -425,14 +425,14 @@ Node Options:
 Change the gamma value of the image.
 
 Node options:  
-![image](image/gamma_node.png)
+![image](image/gamma_node.jpg)    
 * gamma: Value of the Gamma.
 
 ### <a id="table1">Brightness</a> & Contrast
 Change the brightness, contrast, and saturation of the image.
 
 Node options:  
-![image](image/brightness_&_contrast_node.png)
+![image](image/brightness_&_contrast_node.jpg)    
 * brightness: Value of brightness.
 * contrast: Value of contrast.
 * saturation: Value of saturation.
@@ -441,7 +441,7 @@ Node options:
 Adjust the RGB channels of the image.
 
 Node options:  
-![image](image/RGB_node.png)
+![image](image/RGB_node.jpg)    
 * R: R channel.
 * G: G channel.
 * B: B channel.
@@ -450,7 +450,7 @@ Node options:
 Adjust the YUV channels of the image.
 
 Node options:  
-![image](image/YUV_node.png)
+![image](image/YUV_node.jpg)    
 * Y: Y channel.
 * U: U channel.
 * V: V channel.
@@ -459,7 +459,7 @@ Node options:
 Adjust the LAB channels of the image.
 
 Node options:  
-![image](image/LAB_node.png)
+![image](image/LAB_node.jpg)    
 * L: L channel.
 * A: A channel.
 * B: B channel.
@@ -468,14 +468,14 @@ Node options:
 Adjust the HSV channels of the image.
 
 Node options:  
-![image](image/HSV_node.png)
+![image](image/HSV_node.jpg)    
 * H: H channel.
 * S: S channel.
 * V: V channel.
 
 
 # <a id="table1">LayerUtility</a>
-![image](image/layerutility_nodes.png)
+![image](image/layerutility_nodes.jpg)    
 
 
 ### <a id="table1">ImageBlendAdvance</a>
@@ -484,10 +484,10 @@ Used for compositing layers, allowing for compositing layer images of different 
 The node provide layer transformation_methods and anti_aliasing options. helps improve the quality of synthesized images.
 
 The node provides mask output that can be used for subsequent workflows.
-![image](image/image_blend_advance_example.png)
+![image](image/image_blend_advance_example.jpg)    
 
 Node options:   
-![image](image/image_blend_advance_node.png)
+![image](image/image_blend_advance_node.jpg)    
 * background_image: The background image.
 * layer_image<sup>5</sup>: Layer image for composite.
 * layer_mask<sup>2,5</sup>: Mask for layer_image.
@@ -507,10 +507,10 @@ Node options:
 ### <a id="table1">CropByMask</a>
 Crop the image according to the mask range, and set the size of the surrounding borders to be retained.
 This node can be used in conjunction with the [RestoreCropBox](#RestoreCropBox) and [ImageScaleRestore](#ImageScaleRestore) nodes to crop and modify upscale parts of image, and then paste them back in place.
-![image](image/corp_by_mask_example.png)
+![image](image/corp_by_mask_example.jpg)    
 
 Node options:   
-![image](image/corp_by_mask_node.png)
+![image](image/corp_by_mask_node.jpg)    
 * image<sup>5</sup>: The input image.
 * mask_for_crop<sup>5</sup>: Mask of the image, it will automatically be cut according to the mask range.
 * invert_mask: Whether to reverse the mask.
@@ -531,7 +531,7 @@ Output:
 The V2 upgraded version of CropByMask. Supports crop_box input, making it easy to cut layers of the same size.
 
 The following changes have been made based on CropByMask:
-![image](image/corp_by_mask_v2_node.png)
+![image](image/corp_by_mask_v2_node.jpg)    
 * The input ```mask_for_crop``` reanme to ```mask```。
 * Add optional inputs to the ```crop_box```. If there are inputs here, mask detection will be ignored and this data will be directly used for cropping.
 
@@ -539,7 +539,7 @@ The following changes have been made based on CropByMask:
 Restore the cropped image to the original image by [CropByMask](#CropByMask).
 
 Node options:   
-![image](image/restore_crop_box_node.png)
+![image](image/restore_crop_box_node.jpg)    
 * background_image: The original image before cutting.
 * croped_image<sup>5</sup>: The cropped image. If the middle is enlarged, the size needs to be restored before restoration.
 * croped_mask<sup>5</sup>: The cut mask.
@@ -549,14 +549,14 @@ Node options:
 
 ### <a id="table1">CropBoxResolve</a>
 Parsing the ```corp_box```  to ```x``` , ```y``` , ```width``` , ```height``` .
-![image](image/corp_box_resolve_node.png)
+![image](image/corp_box_resolve_node.jpg)    
 
 ### <a id="table1">ImageScaleRestore</a>
 Image scaling. when this node is used in pairs, the image can be automatically restored to its original size on the second node.
-![image](image/image_scale_restore_example.png)
+![image](image/image_scale_restore_example.jpg)    
 
 Node options:   
-![image](image/image_scale_restore_node.png)
+![image](image/image_scale_restore_node.jpg)    
 * image<sup>5</sup>: The input image.
 * mask<sup>2,5</sup>: Mask of image.
 * original_size: Optional input, used to restore the image to its original size.
@@ -575,17 +575,17 @@ Outputs:
 The V2 upgraded version of ImageScaleRestore.
 
 Node options:   
-![image](image/image_scale_restore_v2_node.png)
+![image](image/image_scale_restore_v2_node.jpg)    
 The following changes have been made based on ImageScaleRestore:
 * scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
 * scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
 
 ### <a id="table1">ImageMaskScaleAs</a>
 Scale the image or mask to the size of the reference image (or reference mask).
-![image](image/image_mask_scale_as_example.png)
+![image](image/image_mask_scale_as_example.jpg)    
 
 Node options:
-![image](image/image_mask_scale_as_node.png)
+![image](image/image_mask_scale_as_node.jpg)    
 * scale_as<sup>*</sup>: Reference size. It can be an image or a mask.
 * image: Image to be scaled. this option is optional input. if there is no input, a black image will be output.
 * mask: Mask to be scaled. this option is optional input. if there is no input, a black mask will be output.
@@ -606,10 +606,10 @@ Outputs:
 
 ### <a id="table1">ImageScaleByAspectRatio</a>
 Scale the image or mask by aspect ratio. the scaled size can be rounded to a multiple of 8 or 16, and can be scaled to the long side size.
-![image](image/image_scale_by_aspect_ratio_example.png)
+![image](image/image_scale_by_aspect_ratio_example.jpg)    
 
 Node options:   
-![image](image/image_scale_by_aspect_ratio_node.png)
+![image](image/image_scale_by_aspect_ratio_node.jpg)    
 * aspect_ratio: Here are several common frame ratios provided. alternatively, you can choose "original" to keep original ratio or customize the ratio using "custom".
 * proportional_width: Proportional width. if the aspect ratio option is not "custom", this setting will be ignored.
 * proportional_height: Proportional height. if the aspect ratio option is not "custom", this setting will be ignored.
@@ -634,7 +634,7 @@ Outputs:
 V2 Upgraded Version of ImageScaleByAspectRatio
 
 Node options:   
-![image](image/image_scale_by_aspect_ratio_v2_node.png)
+![image](image/image_scale_by_aspect_ratio_v2_node.jpg)    
 The following changes have been made based on ImageScaleByAspectRatio:
 * scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
 * scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
@@ -645,7 +645,7 @@ The following changes have been made based on ImageScaleByAspectRatio:
 Inference the prompts based on the image. this node is repackage of the [ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)'s ```UForm-Gen2 Qwen Node```,  thanks to the original author.
 Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m) or [Baidu Netdisk](https://pan.baidu.com/s/1ztnVX_Sh800xsWZhMDe-Ww?pwd=esyt) to ```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen``` folder.
 
-![image](image/qwen_image2prompt_example.png)
+![image](image/qwen_image2prompt_example.jpg)    
 
 Node Options:   
 * question: Prompt of UForm-Gen-QWen model.
@@ -655,10 +655,10 @@ Node Options:
 ### <a id="table1">PromptTagger</a>
 Inference the prompts based on the image. it can replace key word for the prompt. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
 Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
-![image](image/prompt_tagger_example.png)
+![image](image/prompt_tagger_example.jpg)    
 
 Node options:   
-![image](image/prompt_tagger_node.png)
+![image](image/prompt_tagger_node.jpg)    
 
 * api: The Api used. At present, there is only one option, "gemini-pro-vision".
 * token_limit: The maximum token limit for generating prompt words.
@@ -669,10 +669,10 @@ Node options:
 ### <a id="table1">PromptEmbellish</a>
 Enter simple prompt words, output polished prompt words, and support inputting images as references. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
 Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
-![image](image/prompt_embellish_example.png)
+![image](image/prompt_embellish_example.jpg)    
 
 Node options:   
-![image](image/prompt_embellish_node.png)
+![image](image/prompt_embellish_node.jpg)    
 
 * image: Optional, input image as a reference for prompt words.
 * api: The Api used. At present, there is only one option, "google-gemini".
@@ -681,10 +681,10 @@ Node options:
 
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.
-![image](image/image_shift_example.png)
+![image](image/image_shift_example.jpg)    
 
 Node options:   
-![image](image/image_shift_node.png)
+![image](image/image_shift_node.jpg)    
 * image<sup>5</sup>: The input image.
 * mask<sup>2,5</sup>: The mask of image.
 * shift_x: Horizontal distance of shift.
@@ -697,10 +697,10 @@ Node options:
 
 ### <a id="table1">ImageBlend</a>
 A simple node for composit layer image and background image, multiple blend modes are available for option, and transparency can be set.
-![image](image/image_blend_example.png)
+![image](image/image_blend_example.jpg)    
 
 Node options:
-![image](image/image_blend_node.png)
+![image](image/image_blend_node.jpg)    
 * background_image<sup>1</sup>: The background image.
 * layer_image<sup>1</sup>: Layer image for composite.
 * layer_mask<sup>1,2</sup>: Mask for layer_image.
@@ -711,7 +711,7 @@ Node options:
 
 ### <a id="table1">ImageOpacity</a>
 Adjust image opacity
-![image](image/image_opacity_example.png)
+![image](image/image_opacity_example.jpg)    
 
 Node option:   
 * image<sup>5</sup>: Image input, supporting RGB and RGBA. if is RGB, the alpha channel of the entire image will be automatically added.
@@ -722,7 +722,7 @@ Node option:
 
 ### <a id="table1">ColorPicker</a>
 Modify web extensions from [mtb nodes](https://github.com/melMass/comfy_mtb). Select colors on the color palette and output RGB values, thanks to the original author.
-![image](image/color_picker.png)
+![image](image/color_picker.jpg)    
 
 Node options:
 * mode： The output format is available in hexadecimal (HEX) and decimal (DEC).  
@@ -733,17 +733,17 @@ Output type:
 ### <a id="table1">RGBValue</a>
 Output the color value as a single R, G, B three decimal values. Supports HEX and DEC formats for ColorPicker node output.
 
-![image](image/RGB_value_example.png)
+![image](image/RGB_value_example.jpg)    
 
 Node Options:
 * color_value: Supports hexadecimal (HEX) or decimal (DEC) color values and should be of string or tuple type. Forcing in other types will result in an error.
 
 ### <a id="table1">GetColorTone</a>
 Obtain the main color or average color from the image and output RGB values.
-![image](image/get_color_tone_example.png)
+![image](image/get_color_tone_example.jpg)    
 
 Node options:
-![image](image/get_color_tone_node.png)
+![image](image/get_color_tone_node.jpg)    
 * mode： There are two modes to choose from, with the main color and average color.
 
 Output type:
@@ -752,10 +752,10 @@ Output type:
 
 ### <a id="table1">GetColorToneV2</a>
 V2 upgrade of GetColorTone. You can specify the dominant or average color to get the body or background.
-![image](image/get_color_tone_v2_example.png)
+![image](image/get_color_tone_v2_example.jpg)    
 
 The following changes have been made on the basis of GetColorTong:
-![image](image/get_color_tone_v2_node.png)
+![image](image/get_color_tone_v2_node.jpg)    
 * color_of: Provides three options, entire, background, and subject, to select the color of the entire picture, background, or body, respectively.
 * remove_background_method: There are two methods of background recognition: BiRefNet and RMBG V1.4.
 * invert_mask: Whether to reverse the mask.
@@ -766,10 +766,10 @@ Output:
 
 ### <a id="table1">ExtendCanvas</a>
 Extend the canvas
-![image](image/extend_canvas_example.png)
+![image](image/extend_canvas_example.jpg)    
 
 Node options:
-![image](image/extend_canvas_node.png)
+![image](image/extend_canvas_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * top: Top extension value.
 * bottom: Bottom extension value.
@@ -781,22 +781,22 @@ Node options:
 V2 upgrade to ExtendCanvas.
 
 Based on ExtendCanvas, color is modified to be a string type, and it supports external ```ColorPicker``` input.
-![image](image/extend_canvas_v2_node.png)
+![image](image/extend_canvas_v2_node.jpg)    
 
 ### XY to <a id="table1">Percent</a>
-![image](image/xy2percent_example.png)
+![image](image/xy2percent_example.jpg)    
 Convert absolute coordinates to percentage coordinates.
 
-![image](image/xy2percent_node.png)
+![image](image/xy2percent_node.jpg)    
 Node options:
 * x: Value of X.
 * y: Value of Y.
 
 ### <a id="table1">LayerImageTransform</a>
-![image](image/layer_image_transform_example.png)
+![image](image/layer_image_transform_example.jpg)    
 This node is used to transform layer_image separately, which can change size, rotation, aspect ratio, and mirror flip without changing the image size.
 
-![image](image/layer_image_transform_node.png)
+![image](image/layer_image_transform_node.jpg)    
 Node options:
 * x: Value of X.
 * y: Value of Y.
@@ -811,7 +811,7 @@ Node options:
 ### <a id="table1">LayerMaskTransform</a>
 Similar to LayerImageTransform node, this node is used to transform the layer_mask separately, which can scale, rotate, change aspect ratio, and mirror flip without changing the mask size.
 
-![image](image/layer_mask_transform_node.png)
+![image](image/layer_mask_transform_node.jpg)    
 Node options:
 * x: Value of X.
 * y: Value of Y.
@@ -824,10 +824,10 @@ Node options:
 
 
 ### <a id="table1">ColorImage</a>
-![image](image/color_image_example.png)
+![image](image/color_image_example.jpg)    
 Generate an image of a specified color and size.
 
-![image](image/color_image_node.png)
+![image](image/color_image_node.jpg)    
 Node options:
 * width: Width of the image.
 * height: Height of the image.
@@ -836,7 +836,7 @@ Node options:
 ### <a id="table1">ColorImageV2</a>
 The V2 upgraded version of ColorImage.
 
-![image](image/color_image_v2_node.png)
+![image](image/color_image_v2_node.jpg)    
 The following changes have been made based on ColorImage:
 * size_as<sup>*</sup>: Input image or mask here to generate image according to its size. Note that this input takes priority over other size settings.
 * size<sup>**</sup>: Size preset. the preset can be customized by the user. if have size_as input, this option will be ignored.
@@ -848,10 +848,10 @@ The following changes have been made based on ColorImage:
 
 
 ### <a id="table1">GradientImage</a>
-![image](image/gradient_image_example.png)
+![image](image/gradient_image_example.jpg)    
 Generate an image with a specified size and color gradient.
 
-![image](image/gradient_image_node.png)
+![image](image/gradient_image_node.jpg)    
 Node options:
 * width: Width of the image.
 * height: Height of the image.
@@ -862,7 +862,7 @@ Node options:
 ### <a id="table1">GradientImageV2</a>
 The V2 upgraded version of GradientImage.
 
-![image](image/gradient_image_node_v2.png)
+![image](image/gradient_image_node_v2.jpg)    
 The following changes have been made based on GradientImage:
 * size_as<sup>*</sup>: Input image or mask here to generate image according to its size. Note that this input takes priority over other size settings.
 * size<sup>**</sup>: Size preset. the preset can be customized by the user. if have size_as input, this option will be ignored.
@@ -873,10 +873,10 @@ The following changes have been made based on GradientImage:
 <sup>**</sup>The preset size is defined in ```custom_size.ini```, this file is located in the root directory of the plug-in, and the default name is ```custom_size.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
 
 ### <a id="table1">ImageRewardFilter</a>
-![image](image/image_reward_filter_example.png)
+![image](image/image_reward_filter_example.jpg)    
 Rating bulk pictures and outputting top-ranked pictures. it used [ImageReward] (https://github.com/THUDM/ImageReward) for image scoring, thanks to the original authors.
 
-![image](image/image_reward_filter_node.png)
+![image](image/image_reward_filter_node.jpg)    
 Node options:
 * prompt: Optional input. Entering prompt here will be used as a basis to determine how well it matches the picture.
 * output_nun: Number of pictures outputted. This value should be less than the picture batch.
@@ -886,10 +886,10 @@ Outputs：
 * obsolete_images: Knockout pictures. Also output in order of rating from high to low.
 
 ### <a id="table1">SimpleTextImage</a>
-![image](image/simple_text_image_example.png)
+![image](image/simple_text_image_example.jpg)    
 Generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite), thanks to the original author.
 
-![image](image/simple_text_image_node.png)
+![image](image/simple_text_image_node.jpg)    
 Node options:
 * size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
 * font_file<sup>**</sup>: Here is a list of available font files in the font folder, and the selected font files will be used to generate images.
@@ -915,10 +915,10 @@ If the folder set in ini is invalid, the font folder that comes with the plugin 
 
 
 ### <a id="table1">TextImage</a>
-![image](image/text_image_example.png)
+![image](image/text_image_example.jpg)    
 Generate images and masks from text. support for adjusting the spacing between words and lines, horizontal and vertical adjustments, it can set random changes in each character, including size and position.
 
-![image](image/text_image_node.png)
+![image](image/text_image_node.jpg)    
 Node options:
 * size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
 * font_file<sup>**</sup>: Here is a list of available font files in the font folder, and the selected font files will be used to generate images.
@@ -943,13 +943,13 @@ If the folder set in ini is invalid, the font folder that comes with the plugin 
 
 
 ### <a id="table1">LaMa</a>
-![image](image/lama_example.png)
+![image](image/lama_example.jpg)    
 Erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com), powered by state-of-the-art AI models, thanks to the original author.    
 It is have [LaMa](https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) models and the SPREAD method to erase. Please refer to the original link for the introduction of each model.    
 Please download the model files from [lama models(Baidu Netdisk)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) or [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing) to ```ComfyUI/models/lama``` folder.    
 
 Node optons:
-![image](image/lama_node.png)
+![image](image/lama_node.jpg)    
 * lama_model: Choose a model or method.
 * device: After correctly installing Torch and Nvidia CUDA drivers, using cuda will significantly improve running speed.
 * invert_mask: Whether to reverse the mask.
@@ -958,43 +958,43 @@ Node optons:
 
 
 ### <a id="table1">ImageChannelSplit</a>
-![image](image/image_channel_split_example.png)
+![image](image/image_channel_split_example.jpg)    
 Split the image channel into individual images.
 
 Node options:
-![image](image/image_channel_split_node.png)
+![image](image/image_channel_split_node.jpg)    
 * mode: Channel mode, include RGBA, YCbCr, LAB adn HSV.
 
 ### <a id="table1">ImageChannelMerge</a>
-![image](image/image_channel_merge_example.png)
+![image](image/image_channel_merge_example.jpg)    
 Merge each channel image into one image.
 
 Node options:
-![image](image/image_channel_merge_node.png)
+![image](image/image_channel_merge_node.jpg)    
 * mode: Channel mode, include RGBA, YCbCr, LAB adn HSV.
 
 ### <a id="table1">ImageRemoveAlpha</a>
-![image](image/image_remove_alpha_example.png)
+![image](image/image_remove_alpha_example.jpg)    
 Remove the alpha channel from the image and convert it to RGB mode. you can choose to fill the background and set the background color.
 
 Node options:
-![image](image/image_remove_alpha_node.png)
+![image](image/image_remove_alpha_node.jpg)    
 * fill_background: Whether to fill the background.
 * background_color<sup>4</sup>: Color of background.
 
 
 ### <a id="table1">ImageCombineAlpha</a>
-![image](image/image_combine_alpha_node.png)
+![image](image/image_combine_alpha_node.jpg)    
 Merge the image and mask into an RGBA mode image containing an alpha channel.
 
 ### <a id="table1">ImageAutoCrop</a>
-![image](image/image_auto_crop_example.png)
+![image](image/image_auto_crop_example.jpg)    
 Automatically cutout and crop the image according to the mask. it can specify the background color, aspect ratio, and size for output image. this node is designed to generate the image materials for training models.   
 *Please refer to the model installation methods for [SegmentAnythingUltra](#SegmentAnythingUltra) and [RemBgUltra](#RemBgUltra).  
 
 
 Node options:
-![image](image/image_auto_crop_node.png)
+![image](image/image_auto_crop_node.jpg)    
 * background_color<sup>4</sup>: The background color.
 * aspect_ratio: Here are several common frame ratios provided. alternatively, you can choose "original" to keep original ratio or customize the ratio using "custom".
 * proportional_width: Proportional width. if the aspect ratio option is not "custom", this setting will be ignored.
@@ -1019,7 +1019,7 @@ cropped_mask: Cropped mask.
 ### <a id="table1">ImageAutoCropV2</a>
 
 The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes based on the previous version:
-![image](image/image_auto_crop_v2_node.png)
+![image](image/image_auto_crop_v2_node.jpg)    
 
 * Add optional input for mask. when there is a mask input, use that input directly to skip the built-in mask generation.
 * Add ```fill_background```. When set to False, the background will not be processed and any parts beyond the frame will not be included in the output range.
@@ -1029,7 +1029,7 @@ The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes 
 
 
 ### <a id="table1">GetImageSize</a>
-![image](image/get_image_size_node.png)
+![image](image/get_image_size_node.jpg)    
 Obtain the width and height of the image.
 
 Output:
@@ -1039,19 +1039,19 @@ Output:
 
 ### <a id="table1">ImageHub</a>
 Switch output from multiple input images and masks, supporting 9 sets of inputs. All input items are optional. if there is only image or mask in a set of input, the missing item will be output as None.
-![image](image/image_hub_example.png)
+![image](image/image_hub_example.jpg)    
 
 Node options:  
-![image](image/image_hub_node.png)
+![image](image/image_hub_node.jpg)    
 * output: Switch output. the value is the corresponding input group. when the ```random-output``` option is True, this setting will be ignored.
 * random_output: When this is true, the ```output``` setting will be ignored and a random set will be output among all valid inputs.
 
 ### <a id="table1">TextJoin</a>
-![image](image/text_join_example.png)
+![image](image/text_join_example.jpg)    
 Combine multiple paragraphs of text into one.
 
 ### <a id="table1">PrintInfo</a>
-![image](image/print_info_node.png)
+![image](image/print_info_node.jpg)    
 Used to provide assistance for workflow debugging. When running, the properties of any object connected to this node will be printed to the console.
 
 This node allows any type of input.
@@ -1059,37 +1059,37 @@ This node allows any type of input.
 
 
 ### <a id="table1">TextBox</a>
-![image](image/text_box_node.png)
+![image](image/text_box_node.jpg)    
 Output a string.
 
 ### <a id="table1">Integer</a>
-![image](image/integer_node.png)
+![image](image/integer_node.jpg)    
 Output a integer value.
 
 ### <a id="table1">Float</a>
-![image](image/float_node.png)
+![image](image/float_node.jpg)    
 Output a floating-point value with a precision of 5 decimal places.
 
 ### <a id="table1">Boolean</a>
-![image](image/boolean_node.png)
+![image](image/boolean_node.jpg)    
 Output a boolean value.
 
 ### <a id="table1">NumberCalculator</a>
-![image](image/number_calculator_node.png)
+![image](image/number_calculator_node.jpg)    
 Performs mathematical operations on two numeric values and outputs integer and floating point results<sup>*</sup>. Supported operations include```+```, ```-```, ```*```, ```/```, ```**```, ```//```, ```%```.
 
 <sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error.
 
 
 ### <a id="table1">BooleanOperator</a>
-![image](image/boolean_operator_node.png)
+![image](image/boolean_operator_node.jpg)    
 Perform a Boolean operation on two numeric values and output the result<sup>*</sup>. Supported operations include```==```, ```!=```, ```and```, ```or```, ```xor```, ```not```, ```min```, ```max```.
 
 <sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error. The ```and``` operation between the values outputs a larger number, and the ```or``` operation outputs a smaller number.
 
 
 ### <a id="table1">PurgeVRAM</a>
-![image](image/purge_vram_example.png)
+![image](image/purge_vram_example.jpg)    
 Clean up GPU VRAM and system RAM. any type of input can be accessed, and when executed to this node, the VRAM and garbage objects in the RAM will be cleaned up. Usually placed after the node where the inference task is completed, such as the VAE Decode node.
 
 Node Options:  
@@ -1102,36 +1102,36 @@ Node Options:
 Enhanced save image node. You can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture. (Add information in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark. )
 
 Node Options:
-![image](image/save_image_plus_node.png)
+![image](image/save_image_plus_node.jpg)    
 * iamge: The input image.
 * custom_path: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI. Note that when the file is set to save to the user directory, the picture preview cannot be seen, which is normal.
 * filename_prefix: The prefix of file name.
 * timestamp: Timestamp the file name, opting for date, time to seconds, and time to milliseconds.
 * format: The format of image save. Currently available in ```png``` and ```jpg```. Note that only png format is supported for RGBA mode pictures.
 * quality: Image quality, the value range 10-100, the higher the value, the better the picture quality, the volume of the file also correspondingly increases.
-* meta_data: Whether to save metadata, that is workflow information. Set this to false if you do not want the workflow to be leaked.
+* meta_data: Whether to save metadata to png file, that is workflow information. Set this to false if you do not want the workflow to be leaked.
 * blind_watermark: The text entered here (does not support multilingualism) will be converted into a QR code and saved as an invisible watermark. Use ```ShowBlindWaterMark``` node can decode watermarks. Note that pictures with watermarks are recommended to be saved in png format, and lower-quality jpg format will cause watermark information to be lost.
 
 ### <a id="table1">AddBlindWaterMark</a>
-![image](image/watermark_example.png)
+![image](image/watermark_example.jpg)    
 Add an invisible watermark to a picture. Add the watermark image in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark.
 
 Node Options:
-![image](image/add_blind_watermark_node.png)
+![image](image/add_blind_watermark_node.jpg)    
 * iamge: The input image.
 * watermark_image: Watermark image. The image entered here will automatically be converted to a square black and white image as a watermark. It is recommended to use a QR code as a watermark.
 
 
 ### <a id="table1">ShowBlindWaterMark</a>
 Decoding the invisible watermark added to the ```AddBlindWaterMark``` and ```SaveImagePlus``` nodes.
-![image](image/show_blind_watermark_node.png)
+![image](image/show_blind_watermark_node.jpg)    
 
 
 ### <a id="table1">CreateQRCode</a>
 Generate a square QR code picture.
 
 Node Options:  
-![image](image/create_qrcode_node.png)
+![image](image/create_qrcode_node.jpg)    
 * size: The side length of image.
 * border: The size of the border around the QR code, the larger the value, the wider the border.
 * text: Enter the text content of the QR code here, and multi-language is not supported.
@@ -1140,23 +1140,23 @@ Node Options:
 Decoding the QR code.
 
 Node Options:  
-![image](image/decode_qrcode_node.png)
+![image](image/decode_qrcode_node.jpg)    
 * image: The input QR code image.
 * pre_blur: Pre-blurring, you can try to adjust this value for QR codes that are difficult to identify. 
 
 
 
 # <a id="table1">LayerMask</a>
-![image](image/layermask_nodes.png)
+![image](image/layermask_nodes.jpg)    
 
 
 ### <a id="table1">BlendIfMask</a>
 Reproduction of Photoshop's layer Style - Blend If function. This node outputs a mask for layer composition on the ImageBlend or ImageBlendAdvance nodes.
 ```mask``` is an optional input, and if you enter a mask here, it will act on the output.
-![image](image/blendif_mask_example.png)
+![image](image/blendif_mask_example.jpg)    
 
 Node Options:  
-![image](image/blendif_mask_node.png)
+![image](image/blendif_mask_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * blend_if: Channel selection for Blend If. There are four options: ```gray``` , ```red```, ```green```, and ```blue```.
 * black_point: Black point values, ranging from 0-255.
@@ -1167,10 +1167,10 @@ Node Options:
 
 ### <a id="table1">MaskBoxDetect</a>
 Detect the area where the mask is located and output its position and size.
-![image](image/mask_box_detect_example.png)
+![image](image/mask_box_detect_example.jpg)    
 
 Node options:  
-![image](image/mask_box_detect_node.png)
+![image](image/mask_box_detect_node.jpg)    
 * detect: Detection method, ```min_bounding_rect``` is the minimum bounding rectangle of block shape, ```max_inscribed_rect``` is the maximum inscribed rectangle of block shape, and ```mask-area``` is the effective area for masking pixels.
 * x_adjust: Adjust of horizontal deviation after detection.
 * y_adjust: Adjust of vertical offset after detection.
@@ -1197,11 +1197,11 @@ Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_
 [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
 [mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ```ComfyUI/models/sams``` folder.
 
-![image](image/segment_anything_ultra_compare.png)
-![image](image/segment_anything_ultra_example.png)
+![image](image/segment_anything_ultra_compare.jpg)    
+![image](image/segment_anything_ultra_example.jpg)    
 
 Node options:  
-![image](image/segment_anything_ultra_node.png)
+![image](image/segment_anything_ultra_node.jpg)    
 * sam_model: Select the SAM model.
 * ground_dino_model: Select the Grounding DINO model.
 * threshold: The threshold of SAM.
@@ -1213,10 +1213,10 @@ Node options:
 
 ### <a id="table1">SegmentAnythingUltraV2</a>
 The V2 upgraded version of SegmentAnythingUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
-![image](image/ultra_v2_nodes_example.png)
+![image](image/ultra_v2_nodes_example.jpg)    
 
 On the basis of SegmentAnythingUltra, the following changes have been made: 
-![image](image/segment_anything_ultra_v2_node.png)
+![image](image/segment_anything_ultra_v2_node.jpg)    
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
@@ -1230,10 +1230,10 @@ This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](ht
 *Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (```model.pth```) to the ```/ComfyUI/models/rmbg/RMBG-1.4``` folder. This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.    
 **After downloading the model, recommended to add a line 'rmbg: models/rmbg/RMBG-1.4' in ComfyUI/extra_model_paths.yaml. (This step is not mandatory)    
 
-![image](image/rembg_ultra_example.png)
+![image](image/rembg_ultra_example.jpg)    
 
 Node options:  
-![image](image/rembg_ultra_node.png)
+![image](image/rembg_ultra_node.jpg)    
 * detail_range: Edge detail range.
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
@@ -1243,7 +1243,7 @@ Node options:
 The V2 upgraded version of RemBgUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
 
 On the basis of RemBgUltra, the following changes have been made: 
-![image](image/rmbg_ultra_v2_node.png)
+![image](image/rmbg_ultra_v2_node.jpg)    
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
@@ -1256,10 +1256,10 @@ The code for the model part of this node comes from Viper's [ComfyUI-BiRefNet](h
 
 *From [https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main) download the ```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth``` 5 files to ```ComfyUI/models/BiRefNet``` folder.
 
-![image](image/birefnet_ultra_example.png)
+![image](image/birefnet_ultra_example.jpg)    
 
 Node options:  
-![image](image/birefnet_ultra_node.png)
+![image](image/birefnet_ultra_node.jpg)    
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
@@ -1272,10 +1272,10 @@ Node options:
 Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
 The model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)， edge processing code from [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)，thanks to the original author.
 
-![image](image/person_mask_ultra_example.png)
+![image](image/person_mask_ultra_example.jpg)    
 
 Node options:  
-![image](image/person_mask_ultra_node.png)
+![image](image/person_mask_ultra_node.jpg)    
 * face: Face recognition.
 * hair: Hair recognition.
 * body: Body skin recognition.
@@ -1292,7 +1292,7 @@ Node options:
 The V2 upgraded version of PersonMaskUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
 
 On the basis of PersonMaskUltra, the following changes have been made: 
-![image](image/person_mask_ultra_v2_node.png)
+![image](image/person_mask_ultra_v2_node.jpg)    
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
@@ -1301,10 +1301,10 @@ On the basis of PersonMaskUltra, the following changes have been made:
 Use the YoloV8 model to detect faces, hand box areas, or character segmentation. Supports the output of the selected number of channels.
 Download the model files from [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) or [BaiduNetdisk](https://pan.baidu.com/s/1ImoJrzL1zDgaCqaSzrNEtw?pwd=5xgk) to ```ComfyUI/models/yolo``` folder.
 
-![image](image/yolov8_detect_example.png)
+![image](image/yolov8_detect_example.jpg)    
 
 Node Options:  
-![image](image/yolov8_detect_node.png)
+![image](image/yolov8_detect_node.jpg)    
 * yolo_model: Yolo model selection. the model with ```seg``` name can output segmented masks, otherwise they can only output box masks.
 * mask_merge: Select the merged mask. ```all``` is to merge all mask outputs. The selected number is how many masks to output, sorted by recognition confidence to merge the output.
 
@@ -1316,10 +1316,10 @@ Outputs:
 
 ### <a id="table1">Shadow</a> & Highlight Mask
 Generate masks for the dark and bright parts of the image.
-![image](image/shadow_and_highlight_mask_example.png)
+![image](image/shadow_and_highlight_mask_example.jpg)    
 
 Node options:  
-![image](image/shadow_and_highlight_mask_node.png)
+![image](image/shadow_and_highlight_mask_node.jpg)    
 * image: The input image.
 * mask: Optional input. if there is input, only the colors within the mask range will be adjusted.
 * shadow_level_offset: The offset of values in the dark area, where larger values bring more areas closer to the bright into the dark area.
@@ -1330,19 +1330,19 @@ Node options:
 
 ### <a id="table1">PixelSpread</a>
 Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image composit.
-![image](image/pixel_spread_example.png)
+![image](image/pixel_spread_example.jpg)    
 
 Node options:  
-![image](image/pixel_spread_node.png)
+![image](image/pixel_spread_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * mask_grow: Mask expansion amplitude.
 
 ### <a id="table1">MaskByDifferent</a>
 Calculate the differences between two images and output them as mask.
-![image](image/mask_by_different_example.png)
+![image](image/mask_by_different_example.jpg)    
 
 Node options:  
-![image](image/mask_by_different_node.png)
+![image](image/mask_by_different_node.jpg)    
 * gain: The gain of difference calculate. higher value will result in a more significant slight difference.
 * fix_gap: Fix the internal gaps of the mask. higher value will repair larger gaps.
 * fix_threshold: The threshold for fix_gap.
@@ -1352,10 +1352,10 @@ Node options:
 ### <a id="table1">MaskEdgeUltraDetail</a>
 Process rough masks to ultra fine edges.
 This node combines the Alpha Matte and the Guided Filter Alpha nodes functions of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters), thanks to the original author.
-![image](image/mask_edge_ultra_detail_example.png)
+![image](image/mask_edge_ultra_detail_example.jpg)    
 
 Node options:  
-![image](image/mask_edge_ultra_detail_node.png)
+![image](image/mask_edge_ultra_detail_node.jpg)    
 * method: Provide two methods for edge processing: PyMatting and OpenCV-GuidedFilter. PyMatching has a slower processing speed, but for video, it is recommended to use this method to obtain smoother mask sequences.
 * mask_grow: Mask expansion amplitude. positive values expand outward, while negative values contract inward. For rougher masks, negative values are usually used to shrink their edges for better results.
 * fix_gap: Repair the gaps in the mask. if obvious gaps in the mask, increase this value appropriately.
@@ -1367,10 +1367,10 @@ Node options:
 ### <a id="table1">MaskEdgeUltraDetailV2</a>
 The V2 upgraded version of MaskEdgeUltraDetail has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory)    
 This method is suitable for handling semi transparent areas. The following figure is an example of the difference in output between three methods.
-![image](image/mask_edge_ultra_detail_v2_example.png)
+![image](image/mask_edge_ultra_detail_v2_example.jpg)    
 
 On the basis of MaskEdgeUltraDetail, the following changes have been made: 
-![image](image/mask_edge_ultra_detail_v2_node.png)
+![image](image/mask_edge_ultra_detail_v2_node.jpg)    
 * method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * edge_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * edge_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
@@ -1378,20 +1378,20 @@ On the basis of MaskEdgeUltraDetail, the following changes have been made:
 
 ### <a id="table1">MaskGrow</a>
 Grow and shrink edges and blur the mask
-![image](image/mask_grow_example.png)
+![image](image/mask_grow_example.jpg)    
 
 Node options:
-![image](image/mask_grow_node.png)
+![image](image/mask_grow_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * grow: Positive values expand outward, while negative values contract inward.
 * blur: Blur the edge.
 
 ### <a id="table1">MaskEdgeShrink</a>
 Smooth transition and shrink the mask edges while preserving edge details.
-![image](image/mask_edge_shrink_example.png)
+![image](image/mask_edge_shrink_example.jpg)    
 
 Node options:
-![image](image/mask_edge_shrink_node.png)
+![image](image/mask_edge_shrink_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * shrink_level: Shrink the smoothness level.
 * soft: Smooth amplitude.
@@ -1399,24 +1399,24 @@ Node options:
 * edge_reserve: Preserve the amplitude of edge details, 100 represents complete preservation, and 0 represents no preservation at all.
 
 Comparison of MaskGrow and MaskEdgeShrink
-![image](image/mask_edge_compare.png)
+![image](image/mask_edge_compare.jpg)    
 
 ### <a id="table1">MaskMotionBlur</a>
 Create motion blur on the mask.
-![image](image/mask_motion_blur_example.png)
+![image](image/mask_motion_blur_example.jpg)    
 
 Node options:  
-![image](image/mask_motion_blur_node.png)
+![image](image/mask_motion_blur_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * blur: The size of blur.
 * angle: The angle of blur.
 
 ### <a id="table1">MaskGradient</a>
 Create a gradient for the mask from one side. please note the difference between this node and the CreateGradientMask node.
-![image](image/mask_gradient_example.png)
+![image](image/mask_gradient_example.jpg)    
 
 Node options:
-![image](image/mask_gradient_node.png)
+![image](image/mask_gradient_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * gradient_side: Generate gradient from which edge. There are four directions: top, bottom, left and right.
 * gradient_scale: Gradient distance. The default value of 100 indicates that one side of the gradient is completely transparent and the other side is completely opaque. The smaller the value, the shorter the distance from transparent to opaque.
@@ -1425,11 +1425,11 @@ Node options:
 
 ### <a id="table1">CreateGradientMask</a>
 Create a gradient mask. please note the difference between this node and the MaskGradient node.
-![image](image/create_gradient_mask_example.png)
-![image](image/create_gradient_mask_example2.png)
+![image](image/create_gradient_mask_example.jpg)    
+![image](image/create_gradient_mask_example2.jpg)    
 
 Node options:  
-![image](image/create_gradient_mask_node.png)
+![image](image/create_gradient_mask_node.jpg)    
 * size_as<sup>*</sup>: The input image or mask here will generate the output image and mask according to their size. this input takes priority over the width and height below.
 * width: Width of the image. If there is a size_as input, this setting will be ignored.
 * height: Height of the image. If there is a size_as input, this setting will be ignored.
@@ -1443,10 +1443,10 @@ Node options:
 
 ### <a id="table1">MaskStroke</a>
 Generate mask contour strokes.
-![image](image/mask_stroke_example.png)
+![image](image/mask_stroke_example.jpg)    
 
 Node options:  
-![image](image/mask_stroke_node.png)
+![image](image/mask_stroke_node.jpg)    
 * invert_mask: Whether to reverse the mask.
 * stroke_grow: Stroke expansion/contraction amplitude, positive values indicate expansion and negative values indicate contraction.
 * stroke_width: Stroke width.
@@ -1454,31 +1454,31 @@ Node options:
 
 ### <a id="table1">MaskPreview</a>
 Preview the input mask
-![image](image/mask_invert.png)
+![image](image/mask_invert.jpg)    
 
 
 ### <a id="table1">MaskInvert</a>
 Invert the mask
-![image](image/mask_invert_node.png)
+![image](image/mask_invert_node.jpg)    
 
 
 # <a id="table1">LayerFilter</a>
-![image](image/layerfilter_nodes.png)
+![image](image/layerfilter_nodes.jpg)    
 
 ### <a id="table1">Sharp</a> & Soft
 Enhance or smooth out details for image.
-![image](image/sharp_and_soft_example.png)
+![image](image/sharp_and_soft_example.jpg)    
 
 Node options:
-![image](image/sharp_and_soft_node.png)
+![image](image/sharp_and_soft_node.jpg)    
 * enhance: Provide 4 presets, which are very sharp, sharp, soft and very soft. If you choose None, you will not do any processing.
 
 ### <a id="table1">SkinBeauty</a>
 Make the skin look smoother.
-![image](image/skin_beauty_example.png)
+![image](image/skin_beauty_example.jpg)    
 
 Node options:
-![image](image/skin_beauty_node.png)
+![image](image/skin_beauty_node.jpg)    
 * smooth: Skin smoothness.
 * threshold: Smooth range. the larger the range with the smaller value.
 * opacity: The opacity of the smoothness.
@@ -1486,20 +1486,20 @@ Node options:
 
 ### <a id="table1">WaterColor</a>
 Watercolor painting effect
-![image](image/water_color_example.png)
+![image](image/water_color_example.jpg)    
 
 Node option:
-![image](image/water_color_node.png)
+![image](image/water_color_node.jpg)    
 * line_density: The black line density.
 * opacity: The opacity of watercolor effects.
 
 
 ### <a id="table1">SoftLight</a>
 Soft light effect, the bright highlights on the screen appear blurry.
-![image](image/soft_light_example.png)
+![image](image/soft_light_example.jpg)    
 
 Node options:
-![image](image/soft_light_node.png)
+![image](image/soft_light_node.jpg)    
 * soft: Size of soft light.
 * threshold: Soft light range. the light appears from the brightest part of the picture. in lower value, the range will be larger, and in higher value, the range will be smaller.
 * opacity: Opacity of the soft light.
@@ -1507,10 +1507,10 @@ Node options:
 
 ### <a id="table1">ChannelShake</a>
 Channel misalignment. similar to the effect of Tiktok logo.
-![image](image/channel_shake_example.png)
+![image](image/channel_shake_example.jpg)    
 
 Node options:
-![image](image/channel_shake_node.png)
+![image](image/channel_shake_node.jpg)    
 * distance: Distance of channel separation.
 * angle: Angle of channel separation.
 * mode: Channel shift arrangement order.
@@ -1519,10 +1519,10 @@ Node options:
 ### <a id="table1">HDR</a> Effects
 enhances the dynamic range and visual appeal of input images.
 This node is reorganize and encapsulate of  [HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts), thanks to the original author.
-![image](image/hdr_effects_example.png)
+![image](image/hdr_effects_example.jpg)    
 
 Node options:
-![image](image/hdr_effects_node.png)
+![image](image/hdr_effects_node.jpg)    
 * hdr_intensity: Range: 0.0 to 5.0, Controls the overall intensity of the HDR effect, Higher values result in a more pronounced HDR effect.
 * shadow_intensity: Range: 0.0 to 1.0，Adjusts the intensity of shadows in the image，Higher values darken the shadows and increase contrast.
 * highlight_intensity: Range: 0.0 to 1.0，Adjusts the intensity of highlights in the image，Higher values brighten the highlights and increase contrast.
@@ -1534,10 +1534,10 @@ Node options:
 ### <a id="table1">Film</a>
 Simulate the grain, dark edge, and blurred edge of the film, support input depth map to simulate defocus.    
 This node is reorganize and encapsulate of [digitaljohn/comfyui-propost](https://github.com/digitaljohn/comfyui-propost), thanks to the original author.
-![image](image/film_example.png)
+![image](image/film_example.jpg)    
 
 Node options:
-![image](image/film_node.png)
+![image](image/film_node.jpg)    
 * image: The input image.
 * depth_map: Input depth map to simulate defocus effect. it is an optional input. if there is no input, will simulates radial blur at the edges of the image.
 * center_x: The horizontal axis of the center point position of the dark edge and radial blur, where 0 represents the leftmost side, 1 represents the rightmost side, and 0.5 represents at the center.
@@ -1554,10 +1554,10 @@ Node options:
 
 ### <a id="table1">LightLeak</a>
 Simulate the light leakage effect of the film. please download the [light_leak.pkl(Baidu Netdisk)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3) or [light_leak.pkl(Google Drive)]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)), copy the file to ```ComfyUI/models/layerstyle``` folder.
-![image](image/light_leak_example.png)
+![image](image/light_leak_example.jpg)    
 
 Node options:
-![image](image/light_leak_node.png)
+![image](image/light_leak_node.jpg)    
 * light: 32 types of light spots are provided. random is a random selection.
 * corner: There are four options for the corner where the light appears: top left, top right, bottom left, and bottom right.
 * hue: The hue of the light.
@@ -1566,17 +1566,17 @@ Node options:
 
 ### <a id="table1">ColorMap</a>
 Pseudo color heat map effect.
-![image](image/colormap_result.png)
+![image](image/colormap_result.jpg)    
 
 Node options:
-![image](image/color_map_node.png)
+![image](image/color_map_node.jpg)    
 * color_map: Effect type. there are a total of 22 types of effects, as shown in the above figure.
 * opacity: The opacity of the color map effect.
 
 
 ### <a id="table1">MotionBlur</a>
 Make the image motion blur
-![image](image/motion_blur_example.png)
+![image](image/motion_blur_example.jpg)    
 
 Node options:
 * angle: The angle of blur.
@@ -1584,7 +1584,7 @@ Node options:
 
 ### <a id="table1">GaussianBlur</a>
 Make the image gaussian blur
-![image](image/gaussian_blur_example.png)
+![image](image/gaussian_blur_example.jpg)    
 
 Node options:
 * blur: The size of blur.
@@ -1595,12 +1595,12 @@ Node options:
 <sup>2</sup>  The mask not a mandatory input item. the alpha channel of the image is used by default. If the image input does not include an alpha channel, the entire image's alpha channel will be automatically created. if have masks input simultaneously, the alpha channel will be overwrite by the mask.    
 
 <sup>3</sup>  The <a id="table1">Blend</a> Mode include **normal, multply, screen, add, subtract, difference, darker, color_burn, color_dodge, linear_burn, linear_dodge, overlay, soft_light, hard_light, vivid_light, pin_light, linear_light, and hard_mix.** all of 19 blend modes in total.    
-![image](image/blend_mode_result.png)
+![image](image/blend_mode_result.jpg)    
 <font size="1">*Preview of the blend mode  </font><br />     
 
 <sup>3</sup>   The <a id="table1">BlendModeV2</a> include **normal, dissolve, darken, multiply, color burn, linear burn, darker color, lighten, screen, color dodge, linear dodge(add), lighter color, dodge, overlay, soft light, hard light, vivid light, linear light, pin light, hard mix, difference, exclusion, subtract, divide, hue, saturation, color, luminosity, grain extract, grain merge** all of 30 blend modes in total.      
 Part of the code for BlendMode V2 is from [Virtuoso Nodes for ComfyUI](https://github.com/chrisfreilich/virtuoso-nodes). Thanks to the original authors.
-![image](image/blend_mode_v2_example.png)
+![image](image/blend_mode_v2_example.jpg)    
 <font size="1">*Preview of the Blend Mode V2</font><br />     
 
 <sup>4</sup>  The RGB color described by hexadecimal RGB format, like '#FA3D86'.    
