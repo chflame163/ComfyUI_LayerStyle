@@ -1272,6 +1272,8 @@ def load_RMBG_model():
     net.eval()
     return net
 
+
+
 def RMBG(image:Image) -> Image:
     rmbgmodel = load_RMBG_model()
     w, h = image.size

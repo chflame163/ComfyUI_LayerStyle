@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [SegformerB2ClothesUltra](#SegformerB2ClothesUltra) node, it used to segment character clothing. The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes),  thanks to the original author.
 * [SaveImagePlus](#SaveImagePlus) node adds the output workflow to the json function, supports ```%date``` and ```%time``` to embeddint date or time to path and filename, and adds the preview switch.
 * Commit [SaveImagePlus](#SaveImagePlus) node，It can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture.
 * Commit [AddBlindWaterMark](#AddBlindWaterMark), [ShowBlindWaterMark](#ShowBlindWaterMark) nodes, Add invisible watermark and decoded watermark to the picture. Commit [CreateQRCode](#CreateQRCode), [DecodeQRCode](#DecodeQRCode) nodes, It can generate two-dimensional code pictures and decode two-dimensional codes.
@@ -1303,6 +1304,39 @@ On the basis of PersonMaskUltra, the following changes have been made:
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+
+### <a id="table1">SegformerB2ClothesUltra</a>
+![image](image/segformer_ultra_example.jpg)   
+Generate masks for characters' faces, hair, arms, legs, and clothing, mainly used for segmenting clothing.
+The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，thanks to the original author.
+Compared to the comfyui_segformer_b2_clothes, this node has ultra-high edge details. (Note: Generating images with edges exceeding 2K in size using the VITMatte method will consume a lot of memory)    
+
+*Download all model files from [https://huggingface.co/mattmdjaga/segformer_b2_clothes](https://huggingface.co/mattmdjaga/segformer_b2_clothes) to   ```ComfyUI/models/segformer_b2_clothes``` folder.
+
+Node Options:  
+![image](image/segformer_ultra_node.jpg)    
+* face: Facial recognition switch.
+* hair: Hair recognition switch.
+* hat: Hat recognition switch.
+* sunglass: Sunglass recognition switch.
+* left_arm: Left arm recognition switch.
+* right_arm: Right arm recognition switch.
+* left_leg: Left leg recognition switch.
+* right_leg: Right leg recognition switch.
+* skirt: Skirt recognition switch.
+* pants: Pants recognition switch.
+* dress: Dress recognition switch.
+* belt: Belt recognition switch.
+* shoe: Shoes recognition switch.
+* bag: Bag recognition switch.
+* scarf: Scarf recognition switch.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+
 
 ### <a id="table1">YoloV8Detect</a>
 Use the YoloV8 model to detect faces, hand box areas, or character segmentation. Supports the output of the selected number of channels.
