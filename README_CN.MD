@@ -1140,6 +1140,7 @@ cropped_mask: 裁切后的遮罩。
 * pre_blur: 预模糊，对难以识别的二维码可以尝试调整此数值。
 
 ### <a id="table1">LoadPSD</a>
+![image](image/load_image_example_psd_file.jpg)    
 ![image](image/load_image_example.jpg)    
 加载PSD格式文件，并导出图层。
 

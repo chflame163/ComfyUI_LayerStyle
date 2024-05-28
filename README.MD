@@ -1154,6 +1154,7 @@ Node Options:
 * pre_blur: Pre-blurring, you can try to adjust this value for QR codes that are difficult to identify. 
 
 ### <a id="table1">LoadPSD</a>
+![image](image/load_image_example_psd_file.jpg)    
 ![image](image/load_image_example.jpg)    
 Load the PSD format file and export the layers.
 
