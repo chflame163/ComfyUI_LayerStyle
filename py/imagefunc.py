@@ -1246,11 +1246,20 @@ def decode_watermark(image:Image, watermark_image_size:int=94) -> Image:
     except Exception as e:
         log(f"blind watermark extract fail, {e}")
         ret_image = Image.new("RGB", (64, 64), color="black")
-
     ret_image = normalize_gray(ret_image)
-
     return ret_image
 
+def generate_text_image(width:int, height:int, text:str, font_file:str, text_scale:float=1, font_color:str="#FFFFFF",) -> Image:
+    image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    font_size = int(width / len(text) * text_scale)
+    font = ImageFont.truetype(font_file, font_size)
+    bbox = draw.textbbox((0, 0), text, font=font)
+    text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    x = int((width - text_width) / 2)
+    y = int((height - text_height) / 2) - int(font_size / 2)
+    draw.text((x, y), text, font=font, fill=font_color)
+    return image
 
 '''Mask Functions'''
 @lru_cache(maxsize=1, typed=False)
@@ -1615,6 +1624,21 @@ def Hex_to_HSV_255level(inhex:str) -> list:
         RGB = (int(rval, 16), int(gval, 16), int(bval, 16))
         HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
     return [int(x * 255) for x in HSV]
+
+
+def HSV_255level_to_Hex(HSV: list) -> str:
+    if len(HSV) != 3 or any((not isinstance(v, int) or v < 0 or v > 255) for v in HSV):
+        raise ValueError('Invalid HSV values, each value should be an integer between 0 and 255')
+
+    H, S, V = HSV
+    RGB = tuple(int(x * 255) for x in hsv_to_rgb(H / 255.0, S / 255.0, V / 255.0))
+
+    # Convert RGB values to hexadecimal format
+    hex_r = format(RGB[0], '02x')
+    hex_g = format(RGB[1], '02x')
+    hex_b = format(RGB[2], '02x')
+
+    return '#' + hex_r + hex_g + hex_b
 
 '''Value Functions'''
 

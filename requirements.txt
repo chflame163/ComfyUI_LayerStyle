@@ -29,3 +29,4 @@ blend_modes
 blind-watermark
 qrcode
 pyzbar
+psd-tools

@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [LoadPSD](#LoadPSD) node, It read the psd format, and output layer images.
 * Commit [SegformerB2ClothesUltra](#SegformerB2ClothesUltra) node, it used to segment character clothing. The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes),  thanks to the original author.
 * [SaveImagePlus](#SaveImagePlus) node adds the output workflow to the json function, supports ```%date``` and ```%time``` to embeddint date or time to path and filename, and adds the preview switch.
 * Commit [SaveImagePlus](#SaveImagePlus) node，It can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture.
@@ -1152,6 +1153,23 @@ Node Options:
 * image: The input QR code image.
 * pre_blur: Pre-blurring, you can try to adjust this value for QR codes that are difficult to identify. 
 
+### <a id="table1">LoadPSD</a>
+![image](image/load_image_example.jpg)    
+Load the PSD format file and export the layers.
+
+Node Options:  
+![image](image/load_image_node.jpg)    
+* image: Here is a list of *.psd files under ```ComfyUI/input```, where previously loaded psd images can be selected.
+* file_path: The complete path and file name of the psd file.
+* include_hidden_layer: whether include hidden layers.
+* find_layer_by: The method for finding layers can be selected by layer key number or layer name. Layer groups are treated as one layer.
+* layer_index: The layer key number, where 0 is the bottom layer, is incremented sequentially. If include_hiddenlayer is set to false, hidden layers are not counted. Set to -1 to output the top layer.
+* layer_name: Layer name. Note that capitalization and punctuation must match exactly.
+
+Outputs:
+flat_image: PSD preview image.
+layer_iamge: Find the layer output.
+all_layers: Batch images containing all layers.
 
 
 # <a id="table1">LayerMask</a>

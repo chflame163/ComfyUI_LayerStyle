@@ -1,4 +1,5 @@
 import os.path
+import shutil
 from PIL.PngImagePlugin import PngInfo
 import datetime
 from .imagefunc import *
@@ -24,7 +25,7 @@ class SaveImagePlus:
                      "meta_data": ("BOOLEAN", {"default": False}),
                      "blind_watermark": ("STRING", {"default": ""}),
                      "save_workflow_as_json": ("BOOLEAN", {"default": False}),
-                     "preview": ("BOOLEAN", {"default": False}),
+                     "preview": ("BOOLEAN", {"default": True}),
                      },
                 "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
                 }
@@ -94,10 +95,15 @@ class SaveImagePlus:
 
 
             preview_filename = ""
-            if not os.path.exists(custom_path):
-                if custom_path != "":
-                    raise FileNotFoundError("custom_path is not a valid path")
-            else:
+            if custom_path != "":
+                if not os.path.exists(custom_path):
+                    try:
+                        os.makedirs(custom_path)
+                    except Exception as e:
+                        log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.",
+                            message_type='warning')
+                        raise FileNotFoundError(f"cannot create custom_path {custom_path}, {e}")
+
                 full_output_folder = os.path.normpath(custom_path)
                 # save preview image to temp_dir
                 if os.path.isdir(temp_dir):
@@ -106,7 +112,8 @@ class SaveImagePlus:
                     os.makedirs(temp_dir)
                 except Exception as e:
                     print(e)
-                    log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='warning')
+                    log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.",
+                        message_type='warning')
                 try:
                     preview_filename = os.path.join(generate_random_name('saveimage_preview_', '_temp', 16) + '.png')
                     img.save(os.path.join(temp_dir, preview_filename))
@@ -133,7 +140,7 @@ class SaveImagePlus:
                 if img.mode == "RGBA":
                     img = img.convert("RGB")
                 img.save(image_file_name, quality=quality)
-            log(f"Saving image to {image_file_name}")
+            log(f"{NODE_NAME} -> Saving image to {image_file_name}")
 
             if save_workflow_as_json:
                 try:
