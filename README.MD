@@ -70,6 +70,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [MaskByColor](#MaskByColor) node, Generate a mask based on the selected color.
 * Commit [LoadPSD](#LoadPSD) node, It read the psd format, and output layer images.
 * Commit [SegformerB2ClothesUltra](#SegformerB2ClothesUltra) node, it used to segment character clothing. The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes),  thanks to the original author.
 * [SaveImagePlus](#SaveImagePlus) node adds the output workflow to the json function, supports ```%date``` and ```%time``` to embeddint date or time to path and filename, and adds the preview switch.
@@ -1373,6 +1374,20 @@ Outputs:
 * yolo_plot_image: Preview of yolo recognition results.
 * yolo_masks: For all masks identified by yolo, each individual mask is output as a mask.
 
+
+### <a id="table1">MaskByColor</a>
+Generate a mask based on the selected color.
+![image](image/mask_by_color_example.jpg)    
+
+Node Options:  
+![image](image/mask_by_color_node.jpg)    
+* image: Input image.
+* color: Color selector. Click on the color block to select a color, and you can use the straws on the color picker panel to pick up the screen color. Note: When using straws, maximize the browser window.
+* color_in_HEX<sup>4</sup>: Enter color values. If this item has input, it will be used first, ignoring the color selected by the ```color``` .
+* threshold: Mask range threshold, the larger the value, the larger the mask range.
+* fix_gap: Repair the gaps in the mask. If there are obvious gaps in the mask, increase this value appropriately.
+* fix_threshold: The threshold for repairing masks. 
+* invert_mask: Whether to reverse the mask.
 
 ### <a id="table1">Shadow</a> & Highlight Mask
 Generate masks for the dark and bright parts of the image.

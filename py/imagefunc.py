@@ -1262,6 +1262,40 @@ def generate_text_image(width:int, height:int, text:str, font_file:str, text_sca
     return image
 
 '''Mask Functions'''
+
+def create_mask_from_color_cv2(image:Image, color:str, tolerance:int=0) -> Image:
+    (r, g, b) = Hex_to_RGB(color)
+    target_color = (b, g, r)
+    tolerance = 127 + int(tolerance * 1.28)
+    # tolerance = 255 - tolerance
+    # 将RGB颜色转换为HSV颜色空间
+    image = pil2cv2(image)
+    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+    # 定义目标颜色的HSV范围
+    lower_color = np.array([max(target_color[0] - tolerance, 0), max(target_color[1] - tolerance, 0), max(target_color[2] - tolerance, 0)])
+    upper_color = np.array([min(target_color[0] + tolerance, 255), min(target_color[1] + tolerance, 255), min(target_color[2] + tolerance, 255)])
+
+    # 创建掩码
+    mask = cv2.inRange(hsv_image, lower_color, upper_color)
+
+    return cv22pil(mask).convert("L")
+
+def create_mask_from_color_tensor(image:Image, color:str, tolerance:int=0) -> Image:
+    threshold = int(tolerance * 1.28)
+    (red, green, blue) = Hex_to_RGB(color)
+    image = pil2tensor(image).squeeze()
+    temp = (torch.clamp(image, 0, 1.0) * 255.0).round().to(torch.int)
+    color_value = torch.tensor([red, green, blue])
+    lower_bound = (color_value - threshold).clamp(min=0)
+    upper_bound = (color_value + threshold).clamp(max=255)
+    lower_bound = lower_bound.view(1, 1, 1, 3)
+    upper_bound = upper_bound.view(1, 1, 1, 3)
+    mask = (temp >= lower_bound) & (temp <= upper_bound)
+    mask = mask.all(dim=-1)
+    mask = mask.float()
+    return tensor2pil(mask).convert("L")
+
 @lru_cache(maxsize=1, typed=False)
 def load_RMBG_model():
     current_directory = os.path.dirname(os.path.abspath(__file__))

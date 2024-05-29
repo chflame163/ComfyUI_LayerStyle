@@ -70,6 +70,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [MaskByColor](#MaskByColor) 节点, 根据选择的颜色生成遮罩。
 * 添加 [LoadPSD](#LoadPSD) 节点, 读取psd格式并输出图层图片。
 * 添加 [SegformerB2ClothesUltra](#SegformerB2ClothesUltra)节点，用于分割人物服装。模型分割代码来自[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，感谢原作者。
 * [SaveImagePlus](#SaveImagePlus)节点增加输出工作流为json功能，支持使用```%date```和```%time```在路径和文件名嵌入时间，增加预览开关。
@@ -1358,6 +1359,21 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 * mask: 输出的遮罩。
 * yolo_plot_image: yolo识别结果预览图。
 * yolo_masks: yolo识别出来的所有遮罩，每个单独的遮罩输出为一个mask。
+
+
+### <a id="table1">MaskByColor</a>
+根据颜色生成遮罩。
+![image](image/mask_by_color_example.jpg)    
+
+节点选项说明:  
+![image](image/mask_by_color_node.jpg)    
+* image: 图像输入。
+* color: 颜色选择器。点击色块选择颜色，可以使用选色器面板上的吸管拾取屏幕颜色。注意:使用吸管时，需将浏览器窗口最大化。
+* color_in_HEX<sup>4</sup>: 输入色值。如果此项有输入，则优先使用，忽略```color```选取的颜色。
+* threshold: 遮罩范围阈值，数值越大，遮罩范围越大。
+* fix_gap: 修补遮罩中的空隙。如果遮罩中有比较明显的空隙，适当调高此数值。
+* fix_threshold: 修补遮罩的阈值。 
+* invert_mask: 是否反转遮罩。
 
 
 ### <a id="table1">Shadow</a> & Highlight Mask
