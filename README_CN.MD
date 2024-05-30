@@ -1368,6 +1368,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 节点选项说明:  
 ![image](image/mask_by_color_node.jpg)    
 * image: 图像输入。
+* mask: 遮罩输入。此输入是可选项，如果有遮罩则仅遮罩内的颜色被纳入范围。
 * color: 颜色选择器。点击色块选择颜色，可以使用选色器面板上的吸管拾取屏幕颜色。注意:使用吸管时，需将浏览器窗口最大化。
 * color_in_HEX<sup>4</sup>: 输入色值。如果此项有输入，则优先使用，忽略```color```选取的颜色。
 * threshold: 遮罩范围阈值，数值越大，遮罩范围越大。

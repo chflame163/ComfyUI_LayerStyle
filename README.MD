@@ -1382,6 +1382,7 @@ Generate a mask based on the selected color.
 Node Options:  
 ![image](image/mask_by_color_node.jpg)    
 * image: Input image.
+* mask: This input is optional, if there is a mask, only the colors inside the mask are included in the range.
 * color: Color selector. Click on the color block to select a color, and you can use the straws on the color picker panel to pick up the screen color. Note: When using straws, maximize the browser window.
 * color_in_HEX<sup>4</sup>: Enter color values. If this item has input, it will be used first, ignoring the color selected by the ```color``` .
 * threshold: Mask range threshold, the larger the value, the larger the mask range.

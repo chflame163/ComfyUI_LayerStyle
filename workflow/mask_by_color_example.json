@@ -1,0 +1,216 @@
+{
+  "last_node_id": 14,
+  "last_link_id": 17,
+  "nodes": [
+    {
+      "id": 13,
+      "type": "LayerMask: RmBgUltra V2",
+      "pos": [
+        391,
+        687
+      ],
+      "size": {
+        "0": 315,
+        "1": 198
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            17
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: RmBgUltra V2"
+      },
+      "widgets_values": [
+        "VITMatte",
+        6,
+        6,
+        0.01,
+        0.99,
+        false
+      ]
+    },
+    {
+      "id": 9,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        1145,
+        509
+      ],
+      "size": {
+        "0": 438.5014343261719,
+        "1": 316.36749267578125
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 13
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -103,
+        516
+      ],
+      "size": [
+        419.90505599864827,
+        365.47580918489507
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12,
+            14
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_redcar (1).png",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "LayerMask: MaskByColor",
+      "pos": [
+        774,
+        519
+      ],
+      "size": {
+        "0": 293.6735534667969,
+        "1": 242.63502502441406
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskByColor"
+      },
+      "widgets_values": [
+        "#e64549",
+        "",
+        100,
+        2,
+        0.75,
+        false
+      ]
+    }
+  ],
+  "links": [
+    [
+      12,
+      2,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      12,
+      0,
+      9,
+      0,
+      "MASK"
+    ],
+    [
+      14,
+      2,
+      0,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      13,
+      1,
+      12,
+      1,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0610764609500107,
+      "offset": [
+        424.17121706587216,
+        -130.40930841577526
+      ]
+    }
+  },
+  "version": 0.4
+}
