@@ -21,7 +21,7 @@ class LayerMaskTransform:
                 "aspect_ratio": ("FLOAT", {"default": 1, "min": 0.01, "max": 100, "step": 0.01}),
                 "rotate": ("FLOAT", {"default": 0, "min": -999999, "max": 999999, "step": 0.01}),
                 "transform_method": (method_mode,),
-                "anti_aliasing": ("INT", {"default": 0, "min": 0, "max": 16, "step": 1}),
+                "anti_aliasing": ("INT", {"default": 2, "min": 0, "max": 16, "step": 1}),
             },
             "optional": {
             }
@@ -60,8 +60,10 @@ class LayerMaskTransform:
             _mask = _mask.resize((target_layer_width, target_layer_height))
             # rotate
             _, _mask, _ = image_rotate_extend_with_alpha(_mask.convert('RGB'), rotate, _mask, transform_method, anti_aliasing)
+            paste_x = (orig_width - _mask.width) // 2 + x
+            paste_y = (orig_height - _mask.height) // 2 + y
             # composit layer
-            _mask_canvas.paste(_mask, (x, y))
+            _mask_canvas.paste(_mask, (paste_x, paste_y))
 
             ret_masks.append(image2mask(_mask_canvas))
 

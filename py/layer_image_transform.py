@@ -21,7 +21,7 @@ class LayerImageTransform:
                 "aspect_ratio": ("FLOAT", {"default": 1, "min": 0.01, "max": 100, "step": 0.01}),
                 "rotate": ("FLOAT", {"default": 0, "min": -999999, "max": 999999, "step": 0.01}),
                 "transform_method": (method_mode,),
-                "anti_aliasing": ("INT", {"default": 0, "min": 0, "max": 16, "step": 1}),
+                "anti_aliasing": ("INT", {"default": 2, "min": 0, "max": 16, "step": 1}),
             },
             "optional": {
             }
@@ -72,8 +72,10 @@ class LayerImageTransform:
             # rotate
             _image, _mask, _ = image_rotate_extend_with_alpha(_image, rotate, _mask, transform_method, anti_aliasing)
             # composit layer
-            _image_canvas.paste(_image, (x, y))
-            _mask_canvas.paste(_mask, (x, y))
+            paste_x = (orig_layer_width - _image.width) // 2 + x
+            paste_y = (orig_layer_height - _image.height) // 2 + y
+            _image_canvas.paste(_image, (paste_x, paste_y))
+            _mask_canvas.paste(_mask, (paste_x, paste_y))
             if tensor2pil(layer_image).mode == 'RGBA':
                 _image_canvas = RGB2RGBA(_image_canvas, _mask_canvas)
 

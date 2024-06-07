@@ -607,7 +607,7 @@ def image_rotate_extend_with_alpha(image:Image, angle:float, alpha:Image=None, m
         ret_image = RGB2RGBA(_image, _alpha)
     else:
         ret_image = _image
-    return (_image, _alpha, ret_image)
+    return (_image, _alpha.convert('L'), ret_image)
 
 def create_box_gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, scale:int=50) -> Image:
     # scale is percent of border to center for the rectangle
