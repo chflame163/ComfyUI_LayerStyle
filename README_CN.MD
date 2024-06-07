@@ -1,6 +1,6 @@
 ﻿# ComfyUI Layer Style
 
-如果您有定制节点、定制工作流业务，请联系email [chflame@163.com](mailto:chflame@163.com)
+商业合作请联系email [chflame@163.com](mailto:chflame@163.com)
 
 
 
@@ -34,6 +34,16 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ## 常见问题
 如果节点不能正常加载，或者使用中出现错误，请在ComfyUI终端窗口查看报错信息。以下是常见的错误及解决方法。
+
+### ModuleNotFoundError: No module named 'psd_tools'
+这个错误是```psd_tools```没有正确安装。    
+
+解决方法：
+* 关闭ComfyUI，在插件目录下打开终端窗口，执行以下命令:
+```../../../python_embeded/python.exe -s -m pip install psd_tools```
+如果安装psd_tool中出现```ModuleNotFoundError: No module named 'docopt'```错误，请下载[docopt的whl](https://www.piwheels.org/project/docopt/)手动安装。在终端执行以下命令:
+```../../../python_embeded/python.exe -s -m pip install path/docopt-0.6.2-py2.py3-none-any.whl``` path为whl文件的路径名。
+
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
 
@@ -71,7 +81,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
 * 添加 [MaskByColor](#MaskByColor) 节点, 根据选择的颜色生成遮罩。
-* 添加 [LoadPSD](#LoadPSD) 节点, 读取psd格式并输出图层图片。
+* 添加 [LoadPSD](#LoadPSD) 节点, 读取psd格式并输出图层图片。注意这个节点需要安装psd_tools依赖包，如果安装psd_tool中出现```ModuleNotFoundError: No module named 'docopt'```错误，请下载[docopt的whl](https://www.piwheels.org/project/docopt/)手动安装。
 * 添加 [SegformerB2ClothesUltra](#SegformerB2ClothesUltra)节点，用于分割人物服装。模型分割代码来自[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，感谢原作者。
 * [SaveImagePlus](#SaveImagePlus)节点增加输出工作流为json功能，支持使用```%date```和```%time```在路径和文件名嵌入时间，增加预览开关。
 * 添加 [SaveImagePlus](#SaveImagePlus)节点，可自定义保存图片的目录，文件名增加时间戳，选择保存格式，设置图片压缩率，设置是否保存工作流，以及可选给图片添加隐形水印。
@@ -1144,6 +1154,7 @@ cropped_mask: 裁切后的遮罩。
 ![image](image/load_image_example_psd_file.jpg)    
 ![image](image/load_image_example.jpg)    
 加载PSD格式文件，并导出图层。
+注意这个节点需要安装psd_tools依赖包，如果安装psd_tool中出现```ModuleNotFoundError: No module named 'docopt'```错误，请下载[docopt的whl](https://www.piwheels.org/project/docopt/)手动安装。
 
 节点选项说明:  
 ![image](image/load_image_node.jpg)    

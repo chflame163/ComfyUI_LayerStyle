@@ -5,8 +5,6 @@ import folder_paths
 import node_helpers
 from nodes import LoadImage
 from PIL import Image,ImageOps,ImageSequence,ImageDraw,ImageFont
-from psd_tools import PSDImage
-from psd_tools.api.layers import Layer
 from .imagefunc import pil2tensor, log, FONT_DICT, generate_text_image
 
 
@@ -37,6 +35,9 @@ class LoadPSD(LoadImage):
 
     def load_psd(self, image, file_path, include_hidden_layer, layer_index, find_layer_by, layer_name,):
 
+        from psd_tools import PSDImage
+        from psd_tools.api.layers import Layer
+
         NODE_NAME = 'LoadPSD'
         number_of_layers = 1
         layer_image = []
@@ -47,7 +48,10 @@ class LoadPSD(LoadImage):
             psd_file_path = folder_paths.get_annotated_filepath(file_path)
         flat_image = Image.open(psd_file_path).convert("RGB")
         width, height = flat_image.size
+
         if image.endswith(".psd"):
+            from psd_tools import PSDImage
+            from psd_tools.api.layers import Layer
             log(f"{NODE_NAME} -> Loading PSD file: {psd_file_path}")
             psd_image = PSDImage.open(psd_file_path)
             layers = []

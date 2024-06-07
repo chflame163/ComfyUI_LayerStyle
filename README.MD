@@ -41,6 +41,16 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Common Issues
 If the node cannot load properly or there are errors during use, please check the error message in the ComfyUI terminal window. The following are common errors and their solutions.
 
+### ModuleNotFoundError: No module named 'psd_tools'
+This error is that the ```psd_tools``` were not installed correctly.   
+
+Solution:
+* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
+```../../../python_embeded/python.exe -s -m pip install psd_tools```
+If error occurs during the installation of psd_tool, such as ```ModuleNotFoundError: No module named 'docopt'``` , please download [docopt's whl](https://www.piwheels.org/project/docopt/) and manual install it. 
+execute the following command in terminal window:
+```../../../python_embeded/python.exe -s -m pip install path/docopt-0.6.2-py2.py3-none-any.whl``` the ```path``` is path name of whl file.
+
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 This error is caused by incorrect version of the ```opencv-contrib-python``` package，or this package is overwriteen by other opencv packages. 
 
@@ -60,7 +70,7 @@ This error is caused by the low version of ```protobuf``` package.
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
 
-Solution：
+Solution:
 * Please adjust the parameters to change the effective area of the mask. Or use other methods to handle the edges.
 
 ### Requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
@@ -71,7 +81,7 @@ When this error has occurred, please check the network environment.
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
 * Commit [MaskByColor](#MaskByColor) node, Generate a mask based on the selected color.
-* Commit [LoadPSD](#LoadPSD) node, It read the psd format, and output layer images.
+* Commit [LoadPSD](#LoadPSD) node, It read the psd format, and output layer images. Note that this node requires the installation of the ```psd_tools``` dependency package, If error occurs during the installation of psd_tool, such as ```ModuleNotFoundError: No module named 'docopt'``` , please download [docopt's whl](https://www.piwheels.org/project/docopt/) and manual install it. 
 * Commit [SegformerB2ClothesUltra](#SegformerB2ClothesUltra) node, it used to segment character clothing. The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes),  thanks to the original author.
 * [SaveImagePlus](#SaveImagePlus) node adds the output workflow to the json function, supports ```%date``` and ```%time``` to embeddint date or time to path and filename, and adds the preview switch.
 * Commit [SaveImagePlus](#SaveImagePlus) node，It can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture.
@@ -1158,6 +1168,8 @@ Node Options:
 ![image](image/load_image_example_psd_file.jpg)    
 ![image](image/load_image_example.jpg)    
 Load the PSD format file and export the layers.
+Note that this node requires the installation of the ```psd_tools``` dependency package, If error occurs during the installation of psd_tool, such as ```ModuleNotFoundError: No module named 'docopt'``` , please download [docopt's whl](https://www.piwheels.org/project/docopt/) and manual install it. 
+
 
 Node Options:  
 ![image](image/load_image_node.jpg)    
