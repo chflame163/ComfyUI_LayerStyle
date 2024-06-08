@@ -1,3 +1,5 @@
+import math
+
 from .imagefunc import *
 
 NODE_NAME = 'ImageScaleRestore V2'
@@ -10,14 +12,14 @@ class ImageScaleRestoreV2:
     @classmethod
     def INPUT_TYPES(self):
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
-        scale_by_list = ['by_scale', 'longest', 'shortest', 'width', 'height']
+        scale_by_list = ['by_scale', 'longest', 'shortest', 'width', 'height', 'total_pixel(kilo pixel)']
         return {
             "required": {
                 "image": ("IMAGE", ),  #
                 "scale": ("FLOAT", {"default": 1, "min": 0.01, "max": 100, "step": 0.01}),
                 "method": (method_mode,),
                 "scale_by": (scale_by_list,),  # 是否按长边缩放
-                "scale_by_length": ("INT", {"default": 1024, "min": 4, "max": 999999, "step": 1}),
+                "scale_by_length": ("INT", {"default": 1024, "min": 4, "max": 99999999, "step": 1}),
             },
             "optional": {
                 "mask": ("MASK",),  #
@@ -81,6 +83,12 @@ class ImageScaleRestoreV2:
             if scale_by == 'height':
                 target_height = scale_by_length
                 target_width = int(target_height * orig_width / orig_height)
+            if scale_by == 'total_pixel(kilo pixel)':
+                r = orig_width / orig_height
+                target_width = math.sqrt(r * scale_by_length * 1000)
+                target_height = target_width / r
+                target_width = int(target_width)
+                target_height = int(target_height)
         if target_width < 4:
             target_width = 4
         if target_height < 4:
