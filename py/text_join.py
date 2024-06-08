@@ -24,7 +24,7 @@ class TextJoin:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("text",)
     FUNCTION = "text_join"
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def text_join(self, **kwargs):
 

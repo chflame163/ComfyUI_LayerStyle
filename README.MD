@@ -2,7 +2,7 @@
 
 [中文说明点这里](./README_CN.MD)    
 
-如果您有定制节点、定制工作流业务，请联系email [chflame@163.com](mailto:chflame@163.com).
+商务合作请联系email [chflame@163.com](mailto:chflame@163.com).
 
 For business cooperation, please contact email [chflame@163.com](mailto:chflame@163.com).
 
@@ -80,6 +80,10 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+
+* Commit [MediapipeFacialSegment](#MediapipeFacialSegment) node，Used to segment facial features, including left and right eyebrows, eyes, lips, and teeth.
+* Commit [BatchSelector](#BatchSelector) node，Used to retrieve specified images or masks from batch images or masks.
+* LayerUtility creates new subdirectories such as SystemIO, Data, and Prompt. Some nodes are classified into subdirectories.
 * Commit [MaskByColor](#MaskByColor) node, Generate a mask based on the selected color.
 * Commit [LoadPSD](#LoadPSD) node, It read the psd format, and output layer images. Note that this node requires the installation of the ```psd_tools``` dependency package, If error occurs during the installation of psd_tool, such as ```ModuleNotFoundError: No module named 'docopt'``` , please download [docopt's whl](https://www.piwheels.org/project/docopt/) and manual install it. 
 * Commit [SegformerB2ClothesUltra](#SegformerB2ClothesUltra) node, it used to segment character clothing. The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes),  thanks to the original author.
@@ -1059,6 +1063,19 @@ Node options:
 * output: Switch output. the value is the corresponding input group. when the ```random-output``` option is True, this setting will be ignored.
 * random_output: When this is true, the ```output``` setting will be ignored and a random set will be output among all valid inputs.
 
+
+### <a id="table1">BatchSelector</a>
+Retrieve specified images or masks from batch images or masks.
+![image](image/batch_selector_example.jpg)    
+
+Node Options:  
+![image](image/batch_selector_node.jpg)    
+* images: Batch images input. This input is optional.
+* masks: Batch masks input. This input is optional.
+* select: Select the output image or mask at the batch index value, where 0 is the first image. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese characters.
+Note: If the value exceeds the batch size, the last image will be output. If there is no corresponding input, an empty 64x64 image or a 64x64 black mask will be output.
+
+
 ### <a id="table1">TextJoin</a>
 ![image](image/text_join_example.jpg)    
 Combine multiple paragraphs of text into one.
@@ -1386,6 +1403,19 @@ Outputs:
 * yolo_plot_image: Preview of yolo recognition results.
 * yolo_masks: For all masks identified by yolo, each individual mask is output as a mask.
 
+
+### <a id="table1">MediapipeFacialSegment</a>
+Use the Mediapipe model to detect facial features, segment left and right eyebrows, eyes, lips, and tooth.
+![image](image/mediapipe_facial_segment_example.jpg)    
+
+Node Options:  
+![image](image/mediapipe_facial_segment_node.jpg)    
+* left_eye: Recognition switch of left eye.
+* left_eyebrow: Recognition switch of left eyebrow.
+* right_eye: Recognition switch of right eye.
+* right_eyebrow: Recognition switch of right eyebrow.
+* lips: Recognition switch of lips.
+* tooth: Recognition switch of tooth.
 
 ### <a id="table1">MaskByColor</a>
 Generate a mask based on the selected color.

@@ -22,7 +22,7 @@ class EncodeBlindWaterMark:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
     FUNCTION = 'watermark_encode'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
 
     def watermark_encode(self, image, watermark_image):
 
@@ -77,7 +77,7 @@ class DecodeBlindWaterMark:
     RETURN_TYPES = ("IMAGE", )
     RETURN_NAMES = ("watermark_image",)
     FUNCTION = 'watermark_decode'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
 
     def watermark_decode(self, image):
 

@@ -14,7 +14,7 @@ class SeedNode:
     RETURN_TYPES = ("INT",)
     RETURN_NAMES = ("seed",)
     FUNCTION = 'seed_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def seed_node(self, seed):
         return (seed,)
@@ -35,7 +35,7 @@ class BooleanOperator:
     RETURN_TYPES = ("BOOLEAN",)
     RETURN_NAMES = ("output",)
     FUNCTION = 'bool_operator_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def bool_operator_node(self, a, b, operator):
         ret_value = False
@@ -73,7 +73,7 @@ class NumberCalculator:
     RETURN_TYPES = ("INT", "FLOAT",)
     RETURN_NAMES = ("int", "float",)
     FUNCTION = 'number_calculator_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def number_calculator_node(self, a, b, operator):
         ret_value = 0
@@ -106,7 +106,7 @@ class TextBoxNode:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("text",)
     FUNCTION = 'text_box_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def text_box_node(self, text):
         return (text,)
@@ -123,7 +123,7 @@ class IntegerNode:
     RETURN_TYPES = ("INT",)
     RETURN_NAMES = ("int",)
     FUNCTION = 'integer_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def integer_node(self, int_value):
         return (int_value,)
@@ -140,7 +140,7 @@ class FloatNode:
     RETURN_TYPES = ("FLOAT",)
     RETURN_NAMES = ("float",)
     FUNCTION = 'float_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def float_node(self, float_value):
         return (float_value,)
@@ -157,7 +157,7 @@ class BooleanNode:
     RETURN_TYPES = ("BOOLEAN",)
     RETURN_NAMES = ("boolean",)
     FUNCTION = 'boolean_node'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def boolean_node(self, bool_value):
         return (bool_value,)

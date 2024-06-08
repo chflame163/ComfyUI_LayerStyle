@@ -80,6 +80,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [MediapipeFacialSegment](#MediapipeFacialSegment) 节点， 用于分割面部五官，包括左右眉、眼睛、嘴唇和牙齿。
+* 添加 [BatchSelector](#BatchSelector) 节点， 用于从批量图片或遮罩中获取指定的图片或遮罩。
+* LayerUtility大类新建子目录SystemIO, Data, Prompt。一部分节点被分类到子目录。
 * 添加 [MaskByColor](#MaskByColor) 节点, 根据选择的颜色生成遮罩。
 * 添加 [LoadPSD](#LoadPSD) 节点, 读取psd格式并输出图层图片。注意这个节点需要安装psd_tools依赖包，如果安装psd_tool中出现```ModuleNotFoundError: No module named 'docopt'```错误，请下载[docopt的whl](https://www.piwheels.org/project/docopt/)手动安装。
 * 添加 [SegformerB2ClothesUltra](#SegformerB2ClothesUltra)节点，用于分割人物服装。模型分割代码来自[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，感谢原作者。
@@ -1049,6 +1052,18 @@ cropped_mask: 裁切后的遮罩。
 * random_output: 当此项为True时, 将忽略```output```设置，在所有的有效输入中随机输出一组。
 
 
+### <a id="table1">BatchSelector</a>
+从批量图片或遮罩中获取指定的图片或遮罩。
+![image](image/batch_selector_example.jpg)    
+
+节点选项说明:  
+![image](image/batch_selector_node.jpg)    
+* images: 批量图片输入。此输入为可选项。
+* masks: 批量遮罩输入。此输入为可选项。
+* select: 选择输出的图片或遮罩在批量的索引值，0为第一张。可以输入多个值，中间用任意非数字字符分隔，包括不仅限于逗号，句号，分号，空格或者字母，甚至中文。
+注意:如果数值超出批量，将输出最后一张。如果没有对应的输入，将输出一个空的64x64图片或64x64黑色遮罩。
+
+
 ### <a id="table1">TextJoin</a>
 ![image](image/text_join_example.jpg)    
 将多段文字组合为一段。
@@ -1370,6 +1385,20 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 * mask: 输出的遮罩。
 * yolo_plot_image: yolo识别结果预览图。
 * yolo_masks: yolo识别出来的所有遮罩，每个单独的遮罩输出为一个mask。
+
+
+### <a id="table1">MediapipeFacialSegment</a>
+使用Mediapipe模型检测人脸五官，分割左右眉、眼睛、嘴唇和牙齿。
+![image](image/mediapipe_facial_segment_example.jpg)    
+
+节点选项说明:  
+![image](image/mediapipe_facial_segment_node.jpg)    
+* left_eye: 左眼识别开关。
+* left_eyebrow: 左眉识别开关。
+* right_eye: 右眼识别开关。
+* right_eyebrow: 右眉识别开关。
+* lips: 嘴唇识别开关。
+* tooth: 牙齿识别开关。
 
 
 ### <a id="table1">MaskByColor</a>

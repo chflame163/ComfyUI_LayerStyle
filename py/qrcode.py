@@ -21,7 +21,7 @@ class CreateQRCode:
     RETURN_TYPES = ("IMAGE", )
     RETURN_NAMES = ("image", )
     FUNCTION = 'create_qrcode'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
 
     def create_qrcode(self, size, border, text):
         import qrcode
@@ -58,7 +58,7 @@ class DecodeQRCode:
     RETURN_TYPES = ("STRING", )
     RETURN_NAMES = ("string", )
     FUNCTION = 'decode_qrcode'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
 
     def decode_qrcode(self, image, pre_blur):
         ret_texts = []

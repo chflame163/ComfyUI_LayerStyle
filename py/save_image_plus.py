@@ -33,7 +33,7 @@ class SaveImagePlus:
     RETURN_TYPES = ()
     FUNCTION = "save_image_plus"
     OUTPUT_NODE = True
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
 
     def save_image_plus(self, images, custom_path, filename_prefix, timestamp, format, quality,
                            meta_data, blind_watermark, preview, save_workflow_as_json,

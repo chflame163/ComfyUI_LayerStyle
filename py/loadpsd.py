@@ -31,7 +31,7 @@ class LoadPSD(LoadImage):
     RETURN_TYPES = ("IMAGE", "IMAGE", "IMAGE",)
     RETURN_NAMES = ("flat_image", "layer_image", "all_layers",)
     FUNCTION = "load_psd"
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
 
     def load_psd(self, image, file_path, include_hidden_layer, layer_index, find_layer_by, layer_name,):
 

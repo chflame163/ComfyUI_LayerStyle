@@ -23,7 +23,7 @@ class PurgeVRAM:
 
     RETURN_TYPES = ()
     FUNCTION = "purge_vram"
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
     OUTPUT_NODE = True
 
     def purge_vram(self, anything, purge_cache, purge_models):

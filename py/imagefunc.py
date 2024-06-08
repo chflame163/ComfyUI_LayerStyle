@@ -1777,6 +1777,10 @@ def is_contain_chinese(check_str:str) -> bool:
             return True
     return False
 
+# 提取字符串中的数字为列表
+def extract_numbers(string):
+    return [int(s) for s in re.findall(r'\d+', string)]
+
 def tensor_info(tensor:object) -> str:
     value = ''
     if isinstance(tensor, torch.Tensor):

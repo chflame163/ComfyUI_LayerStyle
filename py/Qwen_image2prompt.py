@@ -94,7 +94,7 @@ class QWenImage2Prompt:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("text",)
     FUNCTION = "uform_gen2_qwen_chat"
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Prompt'
 
     def uform_gen2_qwen_chat(self, image, question):
         history = []  # Example empty history

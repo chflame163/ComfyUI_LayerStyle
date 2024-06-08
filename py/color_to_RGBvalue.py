@@ -22,7 +22,7 @@ class ColorValuetoRGBValue:
     RETURN_TYPES = ("INT", "INT", "INT")
     RETURN_NAMES = ("R", "G", "B")
     FUNCTION = 'color_value_to_rgb_value'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def color_value_to_rgb_value(self, color_value,):
         R, G, B = 0, 0, 0

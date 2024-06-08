@@ -22,7 +22,7 @@ class XYtoPercent:
     RETURN_TYPES = ("FLOAT", "FLOAT",)
     RETURN_NAMES = ("x_percent", "x_percent",)
     FUNCTION = 'xy_to_percent'
-    CATEGORY = '😺dzNodes/LayerUtility'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def xy_to_percent(self, background_image, layer_image, x, y,):
 

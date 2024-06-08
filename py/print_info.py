@@ -14,10 +14,10 @@ class PrintInfo:
       },
     }
 
-  CATEGORY = '😺dzNodes/LayerUtility'
   RETURN_TYPES = ("STRING",)
   RETURN_NAMES = ("text",)
   FUNCTION = "print_info"
+  CATEGORY = '😺dzNodes/LayerUtility/Data'
   OUTPUT_NODE = True
 
   def print_info(self, anything=None):
