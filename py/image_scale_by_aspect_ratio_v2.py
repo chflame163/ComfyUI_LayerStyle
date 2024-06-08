@@ -15,7 +15,7 @@ class ImageScaleByAspectRatioV2:
         fit_mode = ['letterbox', 'crop', 'fill']
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
         multiple_list = ['8', '16', '32', '64', 'None']
-        scale_to_list = ['None', 'longest', 'shortest', 'width', 'height']
+        scale_to_list = ['None', 'longest', 'shortest', 'width', 'height', 'total_pixel(kilo pixel)']
         return {
             "required": {
                 "aspect_ratio": (ratio_list,),
@@ -96,6 +96,11 @@ class ImageScaleByAspectRatioV2:
             elif scale_to_side == 'height':
                 target_height = scale_to_length
                 target_width = int(target_height * ratio)
+            elif scale_to_side == 'total_pixel(kilo pixel)':
+                target_width = math.sqrt(ratio * scale_to_length * 1000)
+                target_height = target_width / ratio
+                target_width = int(target_width)
+                target_height = int(target_height)
             else:
                 target_width = orig_width
                 target_height = int(target_width / ratio)
@@ -112,6 +117,11 @@ class ImageScaleByAspectRatioV2:
             elif scale_to_side == 'height':
                 target_height = scale_to_length
                 target_width = int(target_height * ratio)
+            elif scale_to_side == 'total_pixel(kilo pixel)':
+                target_width = math.sqrt(ratio * scale_to_length * 1000)
+                target_height = target_width / ratio
+                target_width = int(target_width)
+                target_height = int(target_height)
             else:
                 target_height = orig_height
                 target_width = int(target_height * ratio)

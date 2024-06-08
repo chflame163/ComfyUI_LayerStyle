@@ -80,7 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-* [ImageScaleRestoreV2](#ImageScaleRestoreV2)节点增加TotalPixel方法缩放图片。
+* [ImageScaleRestoreV2](#ImageScaleRestoreV2) 和[ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加TotalPixel方法缩放图片。
 * 添加 [MediapipeFacialSegment](#MediapipeFacialSegment) 节点， 用于分割面部五官，包括左右眉、眼睛、嘴唇和牙齿。
 * 添加 [BatchSelector](#BatchSelector) 节点， 用于从批量图片或遮罩中获取指定的图片或遮罩。
 * LayerUtility大类新建子目录SystemIO, Data, Prompt。一部分节点被分类到子目录。
@@ -643,8 +643,8 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:   
 ![image](image/image_scale_by_aspect_ratio_v2_node.jpg)    
 在ImageScaleByAspectRatio基础上做了如下改变:
-* scale_by: 允许按长边、短边、宽度或高度指定尺寸缩放。
-* scale_by_length: 这里的数值作为scale_by指定边的长度。
+* scale_to_side: 允许按长边、短边、宽度、高度或总像素指定尺寸缩放。
+* scale_to_length: 这里的数值作为scale_to_side指定边的长度, 或者总像素数量(kilo pixels)。
 
 
 

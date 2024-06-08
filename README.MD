@@ -80,7 +80,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-* [ImageScaleRestoreV2](#ImageScaleRestoreV2) node add the ```total_pixel``` method to scale images.
+* [ImageScaleRestoreV2](#ImageScaleRestoreV2) and  [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) nodes add the ```total_pixel``` method to scale images.
 * Commit [MediapipeFacialSegment](#MediapipeFacialSegment) node，Used to segment facial features, including left and right eyebrows, eyes, lips, and teeth.
 * Commit [BatchSelector](#BatchSelector) node，Used to retrieve specified images or masks from batch images or masks.
 * LayerUtility creates new subdirectories such as SystemIO, Data, and Prompt. Some nodes are classified into subdirectories.
@@ -653,8 +653,8 @@ V2 Upgraded Version of ImageScaleByAspectRatio
 Node options:   
 ![image](image/image_scale_by_aspect_ratio_v2_node.jpg)    
 The following changes have been made based on ImageScaleByAspectRatio:
-* scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
-* scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
+* scale_to_side: Allow scaling by specified dimensions for long, short, width, height, or total pixels.
+* scale_to_length: The numerical value here serves as the length of the specified edge or the total pixels (kilo pixels) for scale_to_side.
 
 
 
