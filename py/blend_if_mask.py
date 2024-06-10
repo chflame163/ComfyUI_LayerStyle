@@ -23,9 +23,9 @@ class BlendIfMask:
                 "image": ("IMAGE", ),
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_if": (blend_if_list,),
-                "black_point": ("INT", {"default": 0, "min": 0, "max": 254, "step": 1}),
+                "black_point": ("INT", {"default": 0, "min": 0, "max": 254, "step": 1, "display": "slider"}),
                 "black_range": ("INT", {"default": 0, "min": 0, "max": 255, "step": 1}),
-                "white_point": ("INT", {"default": 255, "min": 1, "max": 255, "step": 1}),
+                "white_point": ("INT", {"default": 255, "min": 1, "max": 255, "step": 1, "display": "slider"}),
                 "white_range": ("INT", {"default": 0, "min": 0, "max": 255, "step": 1}),
             },
             "optional": {

@@ -15,8 +15,8 @@ class ColorCorrectLevels:
             "required": {
                 "image": ("IMAGE", ),  #
                 "channel": (channel_list,),
-                "black_point": ("INT", {"default": 0, "min": 0, "max": 255, "step": 1}),
-                "white_point": ("INT", {"default": 255, "min": 0, "max": 255, "step": 1}),
+                "black_point": ("INT", {"default": 0, "min": 0, "max": 255, "step": 1, "display": "slider"}),
+                "white_point": ("INT", {"default": 255, "min": 0, "max": 255, "step": 1, "display": "slider"}),
                 "gray_point": ("FLOAT", {"default": 1, "min": 0.01, "max": 9.99, "step": 0.01}),
                 "output_black_point": ("INT", {"default": 0, "min": 0, "max": 255, "step": 1}),
                 "output_white_point": ("INT", {"default": 255, "min": 0, "max": 255, "step": 1}),

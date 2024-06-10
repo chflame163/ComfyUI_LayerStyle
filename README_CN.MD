@@ -80,6 +80,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [ImageToMask](#ImageToMask) 节点，可将图片转为遮罩。支持以LAB，RGBA, YUV 和 HSV模式的任意通道转换为遮罩，同时提供色阶调整。支持mask可选输入以获取仅包括有效部分的遮罩。
+* 部分节点中blackpoint和whitepoint选项改为滑块调节，便于更直观显示。包括[MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2)，[PersonMaskUltraV2](#PersonMaskUltraV2)，[BiRefNetUltra](#BiRefNetUltra), [SegformerB2ClothesUltra](#SegformerB2ClothesUltra), [BlendIfMask](#BlendIfMask) 和 [Levels](#Levels)。
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2) 和[ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加TotalPixel方法缩放图片。
 * 添加 [MediapipeFacialSegment](#MediapipeFacialSegment) 节点， 用于分割面部五官，包括左右眉、眼睛、嘴唇和牙齿。
 * 添加 [BatchSelector](#BatchSelector) 节点， 用于从批量图片或遮罩中获取指定的图片或遮罩。
@@ -1416,6 +1418,23 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 * fix_gap: 修补遮罩中的空隙。如果遮罩中有比较明显的空隙，适当调高此数值。
 * fix_threshold: 修补遮罩的阈值。 
 * invert_mask: 是否反转遮罩。
+
+### <a id="table1">ImageToMask</a>
+将图片转为遮罩。支持以LAB，RGBA, YUV 和 HSV模式的任意通道转换为遮罩，同时提供色阶调整。支持mask可选输入以获取仅包括有效部分的遮罩。
+![image](image/image_to_mask_example.jpg)    
+
+节点选项说明:  
+![image](image/image_to_mask_node.jpg)    
+* image: 图像输入。
+* mask: 遮罩输入。此输入是可选项，如果有遮罩则仅遮罩内的颜色被纳入范围。
+* channel: 通道选择。可以选择LAB，RGBA, YUV 和 HSV模式的任意一个通道。
+* black_point<sup>*</sup>: 遮罩黑点值。取值范围0-255, 默认值0。
+* white_point<sup>*</sup>: 遮罩白点值。取值范围0-255, 默认值255。
+* gray_point: 遮罩灰点值。取值范围0.01-9.99, 默认1。
+* invert_output_mask: 是否反转遮罩。
+
+<sup>*</sup><font size="3">如果 black_point 或 output_black_point 数值大于 white_point 或 output_white_point，则两个数值将交换，较大的数值作为white_point使用，较小的数值作为black_point使用。</font>    
+
 
 
 ### <a id="table1">Shadow</a> & Highlight Mask

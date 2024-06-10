@@ -80,6 +80,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [ImageToMask](#ImageToMask) node, it can be converted image into mask. Supports converting any channel in LAB, RGBA, YUV, and HSV modes into masks, while providing color scale adjustment. Support mask optional input to obtain masks that only include valid parts.
+* The blackpoint and whitepoint options in some nodes have been changed to slider adjustment for a more intuitive display. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2)，[PersonMaskUltraV2](#PersonMaskUltraV2)，[BiRefNetUltra](#BiRefNetUltra), [SegformerB2ClothesUltra](#SegformerB2ClothesUltra), [BlendIfMask](#BlendIfMask) and [Levels](#Levels).
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2) and  [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) nodes add the ```total_pixel``` method to scale images.
 * Commit [MediapipeFacialSegment](#MediapipeFacialSegment) node，Used to segment facial features, including left and right eyebrows, eyes, lips, and teeth.
 * Commit [BatchSelector](#BatchSelector) node，Used to retrieve specified images or masks from batch images or masks.
@@ -1431,6 +1433,23 @@ Node Options:
 * fix_gap: Repair the gaps in the mask. If there are obvious gaps in the mask, increase this value appropriately.
 * fix_threshold: The threshold for repairing masks. 
 * invert_mask: Whether to reverse the mask.
+
+### <a id="table1">ImageToMask</a>
+Convert the image to a mask. Supports converting any channel in LAB, RGBA, YUV, and HSV modes into masks, while providing color scale adjustment. Support mask optional input to obtain masks that only include valid parts.
+![image](image/image_to_mask_example.jpg)    
+
+Node Options:  
+![image](image/image_to_mask_node.jpg)    
+* image: Input image.
+* mask: This input is optional, if there is a mask, only the colors inside the mask are included in the range.
+* channel: Channel selection. You can choose any channel of LAB, RGBA, YUV, or HSV modes.
+* black_point<sup>*</sup>: Black dot value for the mask. The value range is 0-255, with a default value of 0.
+* white_point<sup>*</sup>: White dot value for the mask. The value range is 0-255, with a default value of 255.
+* gray_point: Gray dot values for the mask. The value range is 0.01-9.99, with a default of 1.
+* invert_output_mask: Whether to reverse the mask.
+
+<sup>*</sup><font size="3">If the black_point or output_black_point value is greater than white_point or output_white_point, the two values are swapped, with the larger value used as white_point and the smaller value used as black_point.</font>      
+
 
 ### <a id="table1">Shadow</a> & Highlight Mask
 Generate masks for the dark and bright parts of the image.

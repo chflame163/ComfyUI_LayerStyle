@@ -62,8 +62,8 @@ class Segformer_B2_Clothes:
                 "detail_method": (method_list,),
                 "detail_erode": ("INT", {"default": 12, "min": 1, "max": 255, "step": 1}),
                 "detail_dilate": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
-                "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
-                "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
+                "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01, "display": "slider"}),
+                "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01, "display": "slider"}),
                 "process_detail": ("BOOLEAN", {"default": True}),
                 }
         }

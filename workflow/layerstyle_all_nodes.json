@@ -1,0 +1,4890 @@
+{
+  "last_node_id": 156,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 35,
+      "type": "LayerFilter: ChannelShake",
+      "pos": [
+        -3252.9131427184966,
+        3615.037113813488
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: ChannelShake"
+      },
+      "widgets_values": [
+        20,
+        40,
+        "RGB"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "LayerMask: MaskBoxDetect",
+      "pos": [
+        -3992.6048044594754,
+        2650.5560768526316
+      ],
+      "size": {
+        "0": 315,
+        "1": 250
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "box_preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "x_percent",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "y_percent",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskBoxDetect"
+      },
+      "widgets_values": [
+        "min_bounding_rect",
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 20,
+      "type": "LayerFilter: GaussianBlur",
+      "pos": [
+        -3616.6539828267732,
+        3629.6015783759854
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: GaussianBlur"
+      },
+      "widgets_values": [
+        20
+      ]
+    },
+    {
+      "id": 58,
+      "type": "LayerFilter: SkinBeauty",
+      "pos": [
+        -3615.6539828267732,
+        3760.6015783759854
+      ],
+      "size": {
+        "0": 315,
+        "1": 126
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "beauty_mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: SkinBeauty"
+      },
+      "widgets_values": [
+        20,
+        -10,
+        100
+      ]
+    },
+    {
+      "id": 59,
+      "type": "LayerFilter: WaterColor",
+      "pos": [
+        -3247.653982826773,
+        3789.6015783759854
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: WaterColor"
+      },
+      "widgets_values": [
+        50,
+        100
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LayerFilter: MotionBlur",
+      "pos": [
+        -3979.6539828267737,
+        3624.6015783759854
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: MotionBlur"
+      },
+      "widgets_values": [
+        0,
+        20
+      ]
+    },
+    {
+      "id": 36,
+      "type": "LayerMask: MaskMotionBlur",
+      "pos": [
+        -3992.1815718586113,
+        3111.8126928244315
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskMotionBlur"
+      },
+      "widgets_values": [
+        true,
+        20,
+        0
+      ]
+    },
+    {
+      "id": 37,
+      "type": "LayerFilter: SoftLight",
+      "pos": [
+        -2886.290694905618,
+        3597.2318330716635
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: SoftLight"
+      },
+      "widgets_values": [
+        1,
+        -10,
+        100
+      ]
+    },
+    {
+      "id": 77,
+      "type": "LayerFilter: LightLeak",
+      "pos": [
+        -2887.290694905618,
+        3751.2318330716635
+      ],
+      "size": {
+        "0": 315,
+        "1": 154
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: LightLeak"
+      },
+      "widgets_values": [
+        "random",
+        "left_top",
+        0,
+        0,
+        100
+      ]
+    },
+    {
+      "id": 57,
+      "type": "LayerFilter: ColorMap",
+      "pos": [
+        -3968.2906949056182,
+        3770.2318330716635
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: ColorMap"
+      },
+      "widgets_values": [
+        "autumn",
+        100
+      ]
+    },
+    {
+      "id": 79,
+      "type": "LayerFilter: Film",
+      "pos": [
+        -2523.290694905617,
+        3618.2318330716635
+      ],
+      "size": {
+        "0": 315,
+        "1": 342
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "depth_map",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: Film"
+      },
+      "widgets_values": [
+        0.5,
+        0.5,
+        1,
+        0.5,
+        0.15,
+        1,
+        0.5,
+        0.6,
+        0.2,
+        90,
+        2.2,
+        0.9
+      ]
+    },
+    {
+      "id": 78,
+      "type": "LayerFilter: Sharp & Soft",
+      "pos": [
+        -3966.2906949056182,
+        3925.2318330716653
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: Sharp & Soft"
+      },
+      "widgets_values": [
+        "very sharp"
+      ]
+    },
+    {
+      "id": 86,
+      "type": "LayerUtility: ColorImage V2",
+      "pos": [
+        -3976.4967176954938,
+        1475.9450755754724
+      ],
+      "size": {
+        "0": 315,
+        "1": 130
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ColorImage V2"
+      },
+      "widgets_values": [
+        "custom",
+        512,
+        512,
+        "#000000"
+      ]
+    },
+    {
+      "id": 73,
+      "type": "LayerUtility: ImageAutoCrop",
+      "pos": [
+        -2451.496717695495,
+        1124.9450755754726
+      ],
+      "size": {
+        "0": 426.0666198730469,
+        "1": 410
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "cropped_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "box_preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "cropped_mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageAutoCrop"
+      },
+      "widgets_values": [
+        "#FFFFFF",
+        "1:1",
+        2,
+        1,
+        true,
+        1024,
+        "min_bounding_rect",
+        100,
+        0,
+        "RMBG 1.4",
+        "sam_vit_h (2.56GB)",
+        "GroundingDINO_SwinT_OGC (694MB)",
+        0.3,
+        "subject"
+      ]
+    },
+    {
+      "id": 71,
+      "type": "LayerUtility: LayerImageTransform",
+      "pos": [
+        -2407.496717695495,
+        1584.9450755754724
+      ],
+      "size": {
+        "0": 315,
+        "1": 226
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: LayerImageTransform"
+      },
+      "widgets_values": [
+        0,
+        0,
+        "None",
+        1,
+        1,
+        0,
+        "lanczos",
+        0
+      ]
+    },
+    {
+      "id": 88,
+      "type": "LayerUtility: PromptTagger",
+      "pos": [
+        -1989.4967176954972,
+        1130.9450755754726
+      ],
+      "size": {
+        "0": 315,
+        "1": 130
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: PromptTagger"
+      },
+      "widgets_values": [
+        "gemini-pro-vision",
+        80,
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 85,
+      "type": "LayerUtility: ImageRemoveAlpha",
+      "pos": [
+        -2009.4967176954972,
+        1963.945075575474
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "RGBA_image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RGB_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageRemoveAlpha"
+      },
+      "widgets_values": [
+        false,
+        "#000000"
+      ]
+    },
+    {
+      "id": 84,
+      "type": "LayerUtility: ImageCombineAlpha",
+      "pos": [
+        -2002.4967176954972,
+        1850.945075575473
+      ],
+      "size": {
+        "0": 260.3999938964844,
+        "1": 46
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "RGB_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RGBA_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageCombineAlpha"
+      }
+    },
+    {
+      "id": 72,
+      "type": "LayerUtility: LayerMaskTransform",
+      "pos": [
+        -2022.4967176954967,
+        1569.9450755754724
+      ],
+      "size": {
+        "0": 315,
+        "1": 226
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: LayerMaskTransform"
+      },
+      "widgets_values": [
+        0,
+        0,
+        "None",
+        1,
+        1,
+        0,
+        "lanczos",
+        0
+      ]
+    },
+    {
+      "id": 87,
+      "type": "LayerUtility: GradientImage V2",
+      "pos": [
+        -3978.4967176954938,
+        1696.9450755754724
+      ],
+      "size": {
+        "0": 315,
+        "1": 178
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GradientImage V2"
+      },
+      "widgets_values": [
+        "custom",
+        512,
+        512,
+        0,
+        "#FFFFFF",
+        "#000000"
+      ]
+    },
+    {
+      "id": 80,
+      "type": "LayerUtility: LaMa",
+      "pos": [
+        -2404.496717695495,
+        1872.9450755754733
+      ],
+      "size": {
+        "0": 315,
+        "1": 174
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: LaMa"
+      },
+      "widgets_values": [
+        "lama",
+        "cuda",
+        false,
+        25,
+        8
+      ]
+    },
+    {
+      "id": 47,
+      "type": "LayerColor: HSV",
+      "pos": [
+        -3236.990147134852,
+        626.2774648124082
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: HSV"
+      },
+      "widgets_values": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 60,
+      "type": "LayerUtility: TextImage",
+      "pos": [
+        -2849.6209271136736,
+        1591.3332585302887
+      ],
+      "size": {
+        "0": 400,
+        "1": 408.00006103515625
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextImage"
+      },
+      "widgets_values": [
+        "Text",
+        "Kingsoft_Cloud_Font.ttf",
+        0,
+        0,
+        5,
+        5,
+        80,
+        0,
+        1707317572,
+        "horizontal",
+        512,
+        512,
+        "#FFA000",
+        "#FFFFFF"
+      ]
+    },
+    {
+      "id": 53,
+      "type": "LayerUtility: ImageMaskScaleAs",
+      "pos": [
+        -2849.6209271136736,
+        1376.3332585302887
+      ],
+      "size": {
+        "0": 315,
+        "1": 162
+      },
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "scale_as",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "widht",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageMaskScaleAs"
+      },
+      "widgets_values": [
+        "letterbox",
+        "lanczos"
+      ]
+    },
+    {
+      "id": 82,
+      "type": "LayerUtility: ImageScaleRestore V2",
+      "pos": [
+        -2858.6209271136736,
+        1107.3332585302887
+      ],
+      "size": {
+        "0": 342.5999755859375,
+        "1": 210
+      },
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageScaleRestore V2"
+      },
+      "widgets_values": [
+        1,
+        "lanczos",
+        "by_scale",
+        1024
+      ]
+    },
+    {
+      "id": 22,
+      "type": "LayerUtility: GetColorTone",
+      "pos": [
+        -3976.620927113673,
+        1328.3332585302887
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RGB color in HEX",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HSV color in list",
+          "type": "LIST",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GetColorTone"
+      },
+      "widgets_values": [
+        "main_color"
+      ]
+    },
+    {
+      "id": 122,
+      "type": "LayerUtility: ImageBlend V2",
+      "pos": [
+        -3973.620927113673,
+        1120.3332585302887
+      ],
+      "size": {
+        "0": 315,
+        "1": 146
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlend V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100
+      ]
+    },
+    {
+      "id": 114,
+      "type": "LayerUtility: PromptEmbellish",
+      "pos": [
+        -1976.6209271136752,
+        1330.3332585302887
+      ],
+      "size": {
+        "0": 304.84375,
+        "1": 133.19407653808594
+      },
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: PromptEmbellish"
+      },
+      "widgets_values": [
+        "google-gemini",
+        40,
+        ""
+      ]
+    },
+    {
+      "id": 135,
+      "type": "LayerMask: SegmentAnythingUltra V2",
+      "pos": [
+        -3268.609447038326,
+        2918.075849291451
+      ],
+      "size": {
+        "0": 315,
+        "1": 294
+      },
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: SegmentAnythingUltra V2"
+      },
+      "widgets_values": [
+        "sam_vit_h (2.56GB)",
+        "GroundingDINO_SwinT_OGC (694MB)",
+        0.3,
+        "VITMatte",
+        6,
+        6,
+        0.15,
+        0.99,
+        true,
+        "subject"
+      ]
+    },
+    {
+      "id": 138,
+      "type": "LayerFilter: HDREffects",
+      "pos": [
+        -2161.385199876591,
+        3627.224400345973
+      ],
+      "size": {
+        "0": 315,
+        "1": 178
+      },
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: HDREffects"
+      },
+      "widgets_values": [
+        0.5,
+        0.25,
+        0.75,
+        0.25,
+        0.1,
+        0.25
+      ]
+    },
+    {
+      "id": 49,
+      "type": "LayerColor: LUT Apply",
+      "pos": [
+        -3980.974169487287,
+        597.1791490436375
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: LUT Apply"
+      },
+      "widgets_values": [
+        "BlueArchitecture.cube",
+        "linear"
+      ]
+    },
+    {
+      "id": 50,
+      "type": "LayerColor: RGB",
+      "pos": [
+        -3988.974169487287,
+        755.1791490436375
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: RGB"
+      },
+      "widgets_values": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 97,
+      "type": "LayerColor: AutoBrightness",
+      "pos": [
+        -3613.974169487286,
+        615.1791490436375
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: AutoBrightness"
+      },
+      "widgets_values": [
+        75,
+        8
+      ]
+    },
+    {
+      "id": 98,
+      "type": "LayerColor: ColorBalance",
+      "pos": [
+        -2516.974169487284,
+        723.1791490436376
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: ColorBalance"
+      },
+      "widgets_values": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 101,
+      "type": "LayerColor: Color of Shadow & Highlight",
+      "pos": [
+        -2152.9741694872846,
+        455.17914904363766
+      ],
+      "size": {
+        "0": 327.6000061035156,
+        "1": 294
+      },
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: Color of Shadow & Highlight"
+      },
+      "widgets_values": [
+        1,
+        1,
+        0,
+        0,
+        0.25,
+        1,
+        1,
+        0,
+        0,
+        0.25
+      ]
+    },
+    {
+      "id": 44,
+      "type": "LayerColor: ColorAdapter",
+      "pos": [
+        -3240.9741694872855,
+        785.1791490436375
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "color_ref_image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: ColorAdapter"
+      },
+      "widgets_values": [
+        75
+      ]
+    },
+    {
+      "id": 89,
+      "type": "LayerStyle: ColorOverlay V2",
+      "pos": [
+        -3942.646993690912,
+        -388.3132825003091
+      ],
+      "size": {
+        "0": 315,
+        "1": 170
+      },
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: ColorOverlay V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        "#FFBF30"
+      ]
+    },
+    {
+      "id": 90,
+      "type": "LayerStyle: DropShadow V2",
+      "pos": [
+        -3942.646993690912,
+        -88.31328250030909
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: DropShadow V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        50,
+        25,
+        25,
+        6,
+        18,
+        "#000000"
+      ]
+    },
+    {
+      "id": 95,
+      "type": "LayerStyle: Stroke V2",
+      "pos": [
+        -3102.6469936909125,
+        -58.31328250030909
+      ],
+      "size": {
+        "0": 315,
+        "1": 242
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: Stroke V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        0,
+        8,
+        0,
+        "#FF0000"
+      ]
+    },
+    {
+      "id": 92,
+      "type": "LayerStyle: InnerGlow V2",
+      "pos": [
+        -3092.6469936909125,
+        -398.31328250030936
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: InnerGlow V2"
+      },
+      "widgets_values": [
+        true,
+        "screen",
+        100,
+        5,
+        48,
+        25,
+        "#FFBF30",
+        "#FE0000"
+      ]
+    },
+    {
+      "id": 91,
+      "type": "LayerStyle: GradientOverlay V2",
+      "pos": [
+        -3532.6469936909116,
+        -398.31328250030936
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: GradientOverlay V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        "#FFBF30",
+        255,
+        "#FE0000",
+        255,
+        0
+      ]
+    },
+    {
+      "id": 94,
+      "type": "LayerStyle: OuterGlow V2",
+      "pos": [
+        -3532.6469936909116,
+        -63.31328250030905
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: OuterGlow V2"
+      },
+      "widgets_values": [
+        true,
+        "screen",
+        100,
+        5,
+        48,
+        25,
+        "#FFBF30",
+        "#FE0000"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LayerUtility: ColorPicker",
+      "pos": [
+        -1628.7867504583176,
+        1137.1416209071645
+      ],
+      "size": {
+        "0": 210,
+        "1": 94
+      },
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "color",
+          "type": "COLOR",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ColorPicker"
+      },
+      "widgets_values": [
+        "#ffffff",
+        "HEX"
+      ]
+    },
+    {
+      "id": 93,
+      "type": "LayerStyle: InnerShadow V2",
+      "pos": [
+        -2672.6469936909125,
+        -388.3132825003091
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: InnerShadow V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        35,
+        5,
+        5,
+        2,
+        15,
+        "#000000"
+      ]
+    },
+    {
+      "id": 46,
+      "type": "LayerColor: Gamma",
+      "pos": [
+        -3979.9901471348526,
+        474.27746481240837
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: Gamma"
+      },
+      "widgets_values": [
+        1
+      ]
+    },
+    {
+      "id": 45,
+      "type": "LayerColor: Brightness & Contrast",
+      "pos": [
+        -3607.990147134852,
+        465.27746481240837
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: Brightness & Contrast"
+      },
+      "widgets_values": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 65,
+      "type": "LayerColor: Exposure",
+      "pos": [
+        -3616.974169487286,
+        782.1791490436375
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: Exposure"
+      },
+      "widgets_values": [
+        -5
+      ]
+    },
+    {
+      "id": 139,
+      "type": "LayerColor: YUV",
+      "pos": [
+        -3237.303971047696,
+        468.1864281175174
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: YUV"
+      },
+      "widgets_values": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 99,
+      "type": "LayerColor: ColorTemperature",
+      "pos": [
+        -2149.9359513099753,
+        802.5993359498291
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: ColorTemperature"
+      },
+      "widgets_values": [
+        -44
+      ]
+    },
+    {
+      "id": 48,
+      "type": "LayerColor: LAB",
+      "pos": [
+        -2874.3039710476965,
+        467.1864281175174
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: LAB"
+      },
+      "widgets_values": [
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 96,
+      "type": "LayerColor: AutoAdjust",
+      "pos": [
+        -2515.974169487284,
+        458.17914904363766
+      ],
+      "size": {
+        "0": 315,
+        "1": 202
+      },
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: AutoAdjust"
+      },
+      "widgets_values": [
+        100,
+        -14,
+        24,
+        -21,
+        33,
+        28,
+        -12
+      ]
+    },
+    {
+      "id": 12,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        -3962.184434678819,
+        2963.184828016494
+      ],
+      "size": {
+        "0": 247.42562866210938,
+        "1": 83.5252456665039
+      },
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 27,
+      "type": "LayerMask: MaskGrow",
+      "pos": [
+        -3997.184434678819,
+        3277.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskGrow"
+      },
+      "widgets_values": [
+        true,
+        4,
+        4
+      ]
+    },
+    {
+      "id": 64,
+      "type": "LayerMask: MaskStroke",
+      "pos": [
+        -3649.184434678819,
+        2668.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 130
+      },
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskStroke"
+      },
+      "widgets_values": [
+        true,
+        0,
+        20,
+        6
+      ]
+    },
+    {
+      "id": 25,
+      "type": "LayerMask: MaskEdgeShrink",
+      "pos": [
+        -3658.184434678819,
+        2855.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 154
+      },
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskEdgeShrink"
+      },
+      "widgets_values": [
+        true,
+        4,
+        6,
+        1,
+        25
+      ]
+    },
+    {
+      "id": 70,
+      "type": "LayerMask: CreateGradientMask",
+      "pos": [
+        -3656.184434678819,
+        3072.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 178
+      },
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: CreateGradientMask"
+      },
+      "widgets_values": [
+        512,
+        512,
+        "bottom",
+        100,
+        0,
+        100
+      ]
+    },
+    {
+      "id": 11,
+      "type": "LayerMask: MaskInvert",
+      "pos": [
+        -3595.184434678819,
+        3327.184828016494
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 56,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskInvert"
+      }
+    },
+    {
+      "id": 63,
+      "type": "LayerMask: PixelSpread",
+      "pos": [
+        -3281.184434678819,
+        3280.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: PixelSpread"
+      },
+      "widgets_values": [
+        false,
+        0
+      ]
+    },
+    {
+      "id": 132,
+      "type": "LayerMask: MaskEdgeUltraDetail V2",
+      "pos": [
+        -2912.184434678819,
+        2670.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 246
+      },
+      "flags": {},
+      "order": 58,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskEdgeUltraDetail V2"
+      },
+      "widgets_values": [
+        "VITMatte",
+        0,
+        0,
+        0.75,
+        6,
+        6,
+        0.01,
+        0.99
+      ]
+    },
+    {
+      "id": 69,
+      "type": "LayerMask: MaskByDifferent",
+      "pos": [
+        -2913.184434678819,
+        2992.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 150
+      },
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_1",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_2",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskByDifferent"
+      },
+      "widgets_values": [
+        1.5,
+        4,
+        0.75,
+        false
+      ]
+    },
+    {
+      "id": 26,
+      "type": "LayerMask: MaskGradient",
+      "pos": [
+        -2916.184434678819,
+        3223.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 154
+      },
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskGradient"
+      },
+      "widgets_values": [
+        true,
+        "top",
+        100,
+        0,
+        100
+      ]
+    },
+    {
+      "id": 133,
+      "type": "LayerMask: PersonMaskUltra V2",
+      "pos": [
+        -2529.184434678819,
+        2680.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 366
+      },
+      "flags": {},
+      "order": 61,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: PersonMaskUltra V2"
+      },
+      "widgets_values": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        0.4,
+        "VITMatte",
+        6,
+        6,
+        0.01,
+        0.99,
+        true
+      ]
+    },
+    {
+      "id": 128,
+      "type": "LayerMask: BiRefNetUltra",
+      "pos": [
+        -2529.184434678819,
+        3127.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 198
+      },
+      "flags": {},
+      "order": 62,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: BiRefNetUltra"
+      },
+      "widgets_values": [
+        "VITMatte",
+        6,
+        6,
+        0.01,
+        0.99,
+        true
+      ]
+    },
+    {
+      "id": 129,
+      "type": "LayerMask: BlendIf Mask",
+      "pos": [
+        -2157.184434678819,
+        3156.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 198
+      },
+      "flags": {},
+      "order": 63,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: BlendIf Mask"
+      },
+      "widgets_values": [
+        true,
+        "gray",
+        0,
+        0,
+        255,
+        0
+      ]
+    },
+    {
+      "id": 136,
+      "type": "LayerMask: Shadow & Highlight Mask",
+      "pos": [
+        -2148.184434678819,
+        2929.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 150
+      },
+      "flags": {},
+      "order": 64,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "shadow_mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "highlight_mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: Shadow & Highlight Mask"
+      },
+      "widgets_values": [
+        0,
+        0.25,
+        0,
+        0.25
+      ]
+    },
+    {
+      "id": 144,
+      "type": "LayerMask: MaskByColor",
+      "pos": [
+        -1765.1844346788198,
+        2668.184828016494
+      ],
+      "size": {
+        "0": 262.9359130859375,
+        "1": 210
+      },
+      "flags": {},
+      "order": 65,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskByColor"
+      },
+      "widgets_values": [
+        "#FFFFFF",
+        "",
+        0,
+        2,
+        0.75,
+        false
+      ]
+    },
+    {
+      "id": 141,
+      "type": "LayerMask: ImageToMask",
+      "pos": [
+        -2153.184434678819,
+        2668.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 174
+      },
+      "flags": {},
+      "order": 66,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ImageToMask"
+      },
+      "widgets_values": [
+        "L(LAB)",
+        0,
+        255,
+        1,
+        false
+      ]
+    },
+    {
+      "id": 145,
+      "type": "LayerMask: SegformerB2ClothesUltra",
+      "pos": [
+        -1425.1844346788198,
+        2669.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 582
+      },
+      "flags": {},
+      "order": 67,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: SegformerB2ClothesUltra"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        "VITMatte",
+        12,
+        6,
+        0.01,
+        0.99,
+        true
+      ]
+    },
+    {
+      "id": 137,
+      "type": "LayerMask: YoloV8Detect",
+      "pos": [
+        -1790.1844346788198,
+        2942.184828016494
+      ],
+      "size": {
+        "0": 315,
+        "1": 122
+      },
+      "flags": {},
+      "order": 68,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "yolo_plot_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "yolo_masks",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: YoloV8Detect"
+      },
+      "widgets_values": [
+        "face_yolov8m.pt",
+        "all"
+      ]
+    },
+    {
+      "id": 123,
+      "type": "LayerUtility: ImageHub",
+      "pos": [
+        -1259,
+        1114
+      ],
+      "size": {
+        "0": 315,
+        "1": 422
+      },
+      "flags": {},
+      "order": 69,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input1_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input1_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input2_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input2_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input3_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input3_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input4_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input4_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input5_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input5_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input6_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input6_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input7_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input7_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input8_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input8_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "input9_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "input9_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageHub"
+      },
+      "widgets_values": [
+        1,
+        false
+      ]
+    },
+    {
+      "id": 124,
+      "type": "LayerUtility: ImageRewardFilter",
+      "pos": [
+        -1235,
+        1607
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "obsolete_images",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageRewardFilter"
+      },
+      "widgets_values": [
+        "",
+        3
+      ]
+    },
+    {
+      "id": 125,
+      "type": "LayerUtility: QWenImage2Prompt",
+      "pos": [
+        -1235,
+        1795
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 71,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: QWenImage2Prompt"
+      },
+      "widgets_values": [
+        "describe this image"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "LayerUtility: PrintInfo",
+      "pos": [
+        -2858,
+        2055
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 72,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: PrintInfo"
+      }
+    },
+    {
+      "id": 140,
+      "type": "LayerUtility: TextJoin",
+      "pos": [
+        -2925,
+        2139
+      ],
+      "size": {
+        "0": 257.51568603515625,
+        "1": 136.52333068847656
+      },
+      "flags": {},
+      "order": 73,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextJoin"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 119,
+      "type": "LayerUtility: AddBlindWaterMark",
+      "pos": [
+        -2619,
+        2107
+      ],
+      "size": {
+        "0": 268.79998779296875,
+        "1": 46
+      },
+      "flags": {},
+      "order": 74,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "watermark_image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: AddBlindWaterMark"
+      }
+    },
+    {
+      "id": 120,
+      "type": "LayerUtility: ShowBlindWaterMark",
+      "pos": [
+        -2611,
+        2218
+      ],
+      "size": {
+        "0": 277.20001220703125,
+        "1": 26
+      },
+      "flags": {},
+      "order": 75,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "watermark_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ShowBlindWaterMark"
+      }
+    },
+    {
+      "id": 103,
+      "type": "LayerUtility: CropBoxResolve",
+      "pos": [
+        -2308,
+        2098
+      ],
+      "size": {
+        "0": 235.1999969482422,
+        "1": 86
+      },
+      "flags": {},
+      "order": 76,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: CropBoxResolve"
+      }
+    },
+    {
+      "id": 142,
+      "type": "LayerUtility: BatchSelector",
+      "pos": [
+        -2263,
+        2235
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 77,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: BatchSelector"
+      },
+      "widgets_values": [
+        "0,"
+      ]
+    },
+    {
+      "id": 106,
+      "type": "LayerUtility: NumberCalculator",
+      "pos": [
+        -2264,
+        2361
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 78,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: NumberCalculator"
+      },
+      "widgets_values": [
+        "+"
+      ]
+    },
+    {
+      "id": 102,
+      "type": "LayerUtility: RGB Value",
+      "pos": [
+        -2029,
+        2107
+      ],
+      "size": {
+        "0": 210,
+        "1": 66
+      },
+      "flags": {},
+      "order": 79,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "color_value",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "R",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "G",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "B",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: RGB Value"
+      }
+    },
+    {
+      "id": 108,
+      "type": "LayerUtility: Integer",
+      "pos": [
+        -1923,
+        2245
+      ],
+      "size": {
+        "0": 219.2043914794922,
+        "1": 58
+      },
+      "flags": {},
+      "order": 80,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Integer"
+      },
+      "widgets_values": [
+        0
+      ]
+    },
+    {
+      "id": 111,
+      "type": "LayerUtility: Seed",
+      "pos": [
+        -1924,
+        2358
+      ],
+      "size": {
+        "0": 210,
+        "1": 82
+      },
+      "flags": {},
+      "order": 81,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Seed"
+      },
+      "widgets_values": [
+        0,
+        "randomize"
+      ]
+    },
+    {
+      "id": 105,
+      "type": "LayerUtility: BooleanOperator",
+      "pos": [
+        -1791,
+        2126
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 82,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "BOOLEAN",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: BooleanOperator"
+      },
+      "widgets_values": [
+        "=="
+      ]
+    },
+    {
+      "id": 127,
+      "type": "LayerUtility: SimpleTextImage",
+      "pos": [
+        -1677,
+        1538
+      ],
+      "size": {
+        "0": 400,
+        "1": 384.0000305175781
+      },
+      "flags": {},
+      "order": 83,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: SimpleTextImage"
+      },
+      "widgets_values": [
+        "text",
+        "Alibaba-PuHuiTi-Bold.ttf",
+        "center",
+        80,
+        8,
+        72,
+        "#FFFFFF",
+        0,
+        "#FF8000",
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "id": 112,
+      "type": "LayerUtility: ExtendCanvasV2",
+      "pos": [
+        -1642,
+        1287
+      ],
+      "size": {
+        "0": 302.38214111328125,
+        "1": 198
+      },
+      "flags": {},
+      "order": 84,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ExtendCanvasV2"
+      },
+      "widgets_values": [
+        true,
+        0,
+        0,
+        0,
+        0,
+        "#000000"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "LayerUtility: GetImageSize",
+      "pos": [
+        -1669,
+        1989
+      ],
+      "size": {
+        "0": 218.39999389648438,
+        "1": 66
+      },
+      "flags": {},
+      "order": 85,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GetImageSize"
+      }
+    },
+    {
+      "id": 110,
+      "type": "LayerUtility: Boolean",
+      "pos": [
+        -1670,
+        2257
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 86,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "boolean",
+          "type": "BOOLEAN",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Boolean"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 109,
+      "type": "LayerUtility: Float",
+      "pos": [
+        -1671,
+        2371
+      ],
+      "size": {
+        "0": 210.5312042236328,
+        "1": 58
+      },
+      "flags": {},
+      "order": 87,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Float"
+      },
+      "widgets_values": [
+        0
+      ]
+    },
+    {
+      "id": 143,
+      "type": "LayerUtility: LoadPSD",
+      "pos": [
+        -1088,
+        1946
+      ],
+      "size": [
+        315,
+        454
+      ],
+      "flags": {},
+      "order": 88,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "flat_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "all_layers",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: LoadPSD"
+      },
+      "widgets_values": [
+        "loadpsd_test.psd",
+        "",
+        false,
+        "layer_index",
+        0,
+        "",
+        "image"
+      ]
+    },
+    {
+      "id": 115,
+      "type": "LayerUtility: PurgeVRAM",
+      "pos": [
+        -2941,
+        2332
+      ],
+      "size": {
+        "0": 295.0606689453125,
+        "1": 86.06962585449219
+      },
+      "flags": {},
+      "order": 89,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: PurgeVRAM"
+      },
+      "widgets_values": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": 107,
+      "type": "LayerUtility: TextBox",
+      "pos": [
+        -2608,
+        2318
+      ],
+      "size": {
+        "0": 304.0732727050781,
+        "1": 100.12908172607422
+      },
+      "flags": {},
+      "order": 90,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextBox"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 146,
+      "type": "LayerUtility: SaveImagePlus",
+      "pos": [
+        -1429,
+        1989
+      ],
+      "size": {
+        "0": 315,
+        "1": 250
+      },
+      "flags": {},
+      "order": 91,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: SaveImagePlus"
+      },
+      "widgets_values": [
+        "",
+        "comfyui",
+        "None",
+        "png",
+        80,
+        false,
+        "",
+        false,
+        true
+      ]
+    },
+    {
+      "id": 126,
+      "type": "LayerUtility: SaveImagePlus",
+      "pos": [
+        -3980,
+        2143
+      ],
+      "size": {
+        "0": 315,
+        "1": 250
+      },
+      "flags": {},
+      "order": 92,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: SaveImagePlus"
+      },
+      "widgets_values": [
+        "",
+        "comfyui",
+        "None",
+        "png",
+        80,
+        false,
+        "",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 9,
+      "type": "LayerUtility: ImageOpacity",
+      "pos": [
+        -3985,
+        1953
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 93,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageOpacity"
+      },
+      "widgets_values": [
+        100,
+        true
+      ]
+    },
+    {
+      "id": 113,
+      "type": "LayerUtility: GetColorToneV2",
+      "pos": [
+        -3624,
+        2209
+      ],
+      "size": {
+        "0": 315,
+        "1": 194
+      },
+      "flags": {},
+      "order": 94,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "color_in_hex",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HSV color in list",
+          "type": "LIST",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GetColorToneV2"
+      },
+      "widgets_values": [
+        "main_color",
+        "entire",
+        "BiRefNet",
+        false,
+        16
+      ]
+    },
+    {
+      "id": 81,
+      "type": "LayerUtility: ImageScaleByAspectRatio V2",
+      "pos": [
+        -3623,
+        1823
+      ],
+      "size": {
+        "0": 336,
+        "1": 306
+      },
+      "flags": {},
+      "order": 95,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageScaleByAspectRatio V2"
+      },
+      "widgets_values": [
+        "original",
+        1,
+        1,
+        "letterbox",
+        "lanczos",
+        "8",
+        "None",
+        1024
+      ]
+    },
+    {
+      "id": 52,
+      "type": "LayerUtility: ImageShift",
+      "pos": [
+        -3620,
+        1534
+      ],
+      "size": {
+        "0": 315,
+        "1": 218
+      },
+      "flags": {},
+      "order": 96,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "border_mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageShift"
+      },
+      "widgets_values": [
+        256,
+        256,
+        true,
+        "#000000",
+        20,
+        12
+      ]
+    },
+    {
+      "id": 121,
+      "type": "LayerUtility: ImageBlendAdvance V2",
+      "pos": [
+        -3613,
+        1123
+      ],
+      "size": {
+        "0": 315,
+        "1": 338
+      },
+      "flags": {},
+      "order": 97,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageBlendAdvance V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        100,
+        55.370000000000005,
+        50,
+        "None",
+        1,
+        1,
+        0,
+        "lanczos",
+        0
+      ]
+    },
+    {
+      "id": 104,
+      "type": "LayerUtility: CropByMask V2",
+      "pos": [
+        -3244,
+        1123
+      ],
+      "size": {
+        "0": 315,
+        "1": 238
+      },
+      "flags": {},
+      "order": 98,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "croped_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "croped_mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "box_preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: CropByMask V2"
+      },
+      "widgets_values": [
+        false,
+        "min_bounding_rect",
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    {
+      "id": 39,
+      "type": "LayerUtility: RestoreCropBox",
+      "pos": [
+        -3244,
+        1416
+      ],
+      "size": {
+        "0": 315,
+        "1": 118
+      },
+      "flags": {},
+      "order": 99,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "croped_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "link": null
+        },
+        {
+          "name": "croped_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: RestoreCropBox"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 42,
+      "type": "LayerUtility: ImageChannelSplit",
+      "pos": [
+        -3241,
+        1586
+      ],
+      "size": {
+        "0": 315,
+        "1": 118
+      },
+      "flags": {},
+      "order": 100,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "channel_1",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "channel_2",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "channel_3",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "channel_4",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageChannelSplit"
+      },
+      "widgets_values": [
+        "RGBA"
+      ]
+    },
+    {
+      "id": 41,
+      "type": "LayerUtility: ImageChannelMerge",
+      "pos": [
+        -3246,
+        1770
+      ],
+      "size": {
+        "0": 315,
+        "1": 118
+      },
+      "flags": {},
+      "order": 101,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "channel_1",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "channel_2",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "channel_3",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "channel_4",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageChannelMerge"
+      },
+      "widgets_values": [
+        "RGBA"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "LayerUtility: XY to Percent",
+      "pos": [
+        -3247,
+        1948
+      ],
+      "size": {
+        "0": 330,
+        "1": 102
+      },
+      "flags": {},
+      "order": 102,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_percent",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "x_percent",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: XY to Percent"
+      },
+      "widgets_values": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 116,
+      "type": "LayerUtility: CreateQRCode",
+      "pos": [
+        -3245,
+        2106
+      ],
+      "size": {
+        "0": 269.3143310546875,
+        "1": 143.97171020507812
+      },
+      "flags": {},
+      "order": 103,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: CreateQRCode"
+      },
+      "widgets_values": [
+        512,
+        1,
+        ""
+      ]
+    },
+    {
+      "id": 117,
+      "type": "LayerUtility: DecodeQRCode",
+      "pos": [
+        -3249,
+        2322
+      ],
+      "size": {
+        "0": 255.13755798339844,
+        "1": 64.73329162597656
+      },
+      "flags": {},
+      "order": 104,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: DecodeQRCode"
+      },
+      "widgets_values": [
+        2
+      ]
+    },
+    {
+      "id": 100,
+      "type": "LayerColor: Levels",
+      "pos": [
+        -2879,
+        662
+      ],
+      "size": {
+        "0": 315,
+        "1": 178
+      },
+      "flags": {},
+      "order": 105,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: Levels"
+      },
+      "widgets_values": [
+        "RGB",
+        0,
+        255,
+        1,
+        0,
+        255
+      ]
+    },
+    {
+      "id": 134,
+      "type": "LayerMask: RmBgUltra V2",
+      "pos": [
+        -3280,
+        2662
+      ],
+      "size": {
+        "0": 315,
+        "1": 198
+      },
+      "flags": {},
+      "order": 106,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: RmBgUltra V2"
+      },
+      "widgets_values": [
+        "VITMatte",
+        6,
+        6,
+        0.01,
+        0.99,
+        true
+      ]
+    }
+  ],
+  "links": [],
+  "groups": [
+    {
+      "title": "LayerStyle Nodes",
+      "bounding": [
+        -4021,
+        -509,
+        1758,
+        773
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "LayerUtility Nodes:",
+      "bounding": [
+        -4014,
+        1029,
+        3265,
+        1440
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "LayerMask Nodes:",
+      "bounding": [
+        -4020,
+        2561,
+        2940,
+        851
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "LayerFilter Nodes:",
+      "bounding": [
+        -4019,
+        3508,
+        2242,
+        519
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "LayerColor Nodes",
+      "bounding": [
+        -4020,
+        363,
+        2236,
+        559
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.27941459537662333,
+      "offset": [
+        6880.871991269499,
+        1092.1909396593524
+      ]
+    }
+  },
+  "version": 0.4
+}

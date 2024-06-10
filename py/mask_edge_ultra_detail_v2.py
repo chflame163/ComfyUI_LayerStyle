@@ -21,8 +21,8 @@ class MaskEdgeUltraDetailV2:
                 "fix_threshold": ("FLOAT", {"default": 0.75, "min": 0.01, "max": 0.99, "step": 0.01}),
                 "edge_erode": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
                 "edte_dilate": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
-                "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01}),
-                "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01}),
+                "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01, "display": "slider"}),
+                "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01, "display": "slider"}),
             },
             "optional": {
             }
