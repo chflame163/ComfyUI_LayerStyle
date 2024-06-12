@@ -80,6 +80,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [HLFrequencyDetailRestore](#HLFrequencyDetailRestore)节点, 使用低频滤波加保留高频来恢复图像细节，图像融合性更好。
+* 添加 [AddGrain](#AddGrain) 和 [MaskGrain](#MaskGrain) 节点, 为图片或遮罩添加噪声。
+* 添加 [FilmV2](#FilmV2) 节点, 在之前基础上增加了fastgrain方法，生成噪点速度加快了10倍。
 * 添加 [ImageToMask](#ImageToMask) 节点，可将图片转为遮罩。支持以LAB，RGBA, YUV 和 HSV模式的任意通道转换为遮罩，同时提供色阶调整。支持mask可选输入以获取仅包括有效部分的遮罩。
 * 部分节点中blackpoint和whitepoint选项改为滑块调节，便于更直观显示。包括[MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2)，[PersonMaskUltraV2](#PersonMaskUltraV2)，[BiRefNetUltra](#BiRefNetUltra), [SegformerB2ClothesUltra](#SegformerB2ClothesUltra), [BlendIfMask](#BlendIfMask) 和 [Levels](#Levels)。
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2) 和[ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加TotalPixel方法缩放图片。
@@ -1035,6 +1038,19 @@ cropped_mask: 裁切后的遮罩。
 * scale_by: 允许按长边、短边、宽度或高度指定尺寸缩放。
 * scale_by_length: 这里的数值作为scale_by指定边的长度。
 
+### <a id="table1">HLFrequencyDetailRestore</a>
+使用低频滤波加保留高频来恢复图像细节。相比[kijai's DetailTransfer](https://github.com/kijai/ComfyUI-IC-Light), 这个节点在保留细节的同时，与环境的融合度更好。
+![image](image/hl_frequency_detail_restore_example.jpg)    
+
+节点选项说明:  
+![image](image/hl_frequency_detail_restore_node.jpg)    
+* image: 背景图片输入。
+* detail_image: 细节原图输入。
+* mask: 可选输入，如果有遮罩输入则仅恢复遮罩部分的细节。
+* keep_high_freq: 保留的高频部分范围。数值越大，保留的高频细节越丰富。
+* erase_low_freq: 擦除的低频部分范围。数值越大，擦除的低频范围越多。
+* mask_blur: 遮罩边缘模糊度。仅在有遮罩输入的情况下有效。
+
 
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.jpg)    
@@ -1576,6 +1592,16 @@ MaskGrow与MaskEdgeShrink效果对比
 * stroke_width: 描边宽度。
 * blur: 描边模糊。
 
+### <a id="table1">MaskGrain</a>
+为遮罩生成噪声。
+![image](image/mask_grain_example.jpg)    
+
+节点选项说明:  
+![image](image/mask_grain_node.jpg)    
+* grain: 噪声强度。
+* invert_mask: 是否反转遮罩。
+
+
 ### <a id="table1">MaskPreview</a>
 预览mask
 ![image](image/mask_invert.jpg)    
@@ -1676,6 +1702,11 @@ mask反转
 * blur_focus_spread: 焦点扩散范围。数值越大，清晰的范围越大。
 * focal_depth: 模拟虚焦的焦点距离。0表示焦点在最远，1表示焦点在最近。此项设置只在depth_map有输入时才生效。
 
+### <a id="table1">FilmV2</a>
+Film节点的升级版, 在之前基础上增加了fastgrain方法，生成噪点速度加快了10倍。fastgrain的代码来自[github.com/spacepxl/ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的BetterFilmGrain部分，感谢原作者。
+![image](image/film_v2_node.jpg)    
+
+
 ### <a id="table1">LightLeak</a>
 模拟胶片漏光效果。请下载[light_leak.pkl(百度网盘)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3)或[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)将文件复制到```ComfyUI/models/layerstyle``` 文件夹。
 ![image](image/light_leak_example.jpg)    
@@ -1711,6 +1742,17 @@ mask反转
 
 节点选项说明:
 * blur: 模糊大小。
+
+### <a id="table1">AddGrain</a>
+给图片增加噪声。
+![image](image/add_grain_example.jpg)    
+
+节点选项说明:
+![image](image/add_grain_node.jpg)    
+* grain_power: 噪声强度。
+* grain_scale: 噪声的大小。
+* grain_sat: 噪声的色彩饱和度。
+
 
 ## <a id="table1">节点注解</a>
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。    

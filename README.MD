@@ -80,6 +80,10 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+
+* Commit [HLFrequencyDetailRestore](#HLFrequencyDetailRestore) node, Using low-frequency filtering and high-frequency preserving to restore image details, the fusion is better.
+* Commit [AddGrain](#AddGrain) and [MaskGrain](#MaskGrain) nodes, Add noise to a picture or mask.
+* Commit [FilmV2](#FilmV2) node, The fastgrain method is added on the basis of the previous one, and the noise generation speed is 10 times faster.
 * Commit [ImageToMask](#ImageToMask) node, it can be converted image into mask. Supports converting any channel in LAB, RGBA, YUV, and HSV modes into masks, while providing color scale adjustment. Support mask optional input to obtain masks that only include valid parts.
 * The blackpoint and whitepoint options in some nodes have been changed to slider adjustment for a more intuitive display. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2)，[PersonMaskUltraV2](#PersonMaskUltraV2)，[BiRefNetUltra](#BiRefNetUltra), [SegformerB2ClothesUltra](#SegformerB2ClothesUltra), [BlendIfMask](#BlendIfMask) and [Levels](#Levels).
 * [ImageScaleRestoreV2](#ImageScaleRestoreV2) and  [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) nodes add the ```total_pixel``` method to scale images.
@@ -1047,6 +1051,19 @@ The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes 
 * scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
 
 
+### <a id="table1">HLFrequencyDetailRestore</a>
+Using low frequency filtering and retaining high frequency to recover image details. Compared to [kijai's DetailTransfer](https://github.com/kijai/ComfyUI-IC-Light), this node is better integrated with the environment while retaining details.
+![image](image/hl_frequency_detail_restore_example.jpg)    
+
+Node Options:  
+![image](image/hl_frequency_detail_restore_node.jpg)    
+* image: Background image input.
+* detail_image: Detail image input.
+* mask: Optional input, if there is a mask input, only the details of the mask part are restored.
+* keep_high_freq: Reserved range of high frequency parts. The larger the value, the richer the retained high-frequency details.
+* erase_low_freq: The range of low frequency parts of the erasure. The larger the value, the more the low frequency range of the erasure.
+* mask_blur: Mask edge blur. Valid only if there is masked input.
+
 ### <a id="table1">GetImageSize</a>
 ![image](image/get_image_size_node.jpg)    
 Obtain the width and height of the image.
@@ -1589,6 +1606,17 @@ Node options:
 * stroke_width: Stroke width.
 * blur: Blur of stroke.
 
+### <a id="table1">MaskGrain</a>
+Generates noise for the mask.
+![image](image/mask_grain_example.jpg)    
+
+Node Options:  
+![image](image/mask_grain_node.jpg)    
+* grain: Noise intensity.
+* invert_mask: Whether to reverse the mask.
+
+
+
 ### <a id="table1">MaskPreview</a>
 Preview the input mask
 ![image](image/mask_invert.jpg)    
@@ -1689,6 +1717,10 @@ Node options:
 * blur_focus_spread: Focus diffusion range. larger value means larger clear range.
 * focal_depth: Simulate the focal distance of defucus. 0 indicates that focus is farthest, and 1 indicates that is closest. this setting only valid when input the depth_map.
 
+### <a id="table1">FilmV2</a>
+The upgraded version of the Film node adds the fastgrain method on the basis of the previous one, and the speed of generating noise is accelerated by 10 times. The code for fastgrain is from [github.com/spacepxl/ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) BetterFilmGrain node, thanks to the original authors.
+![image](image/film_v2_node.jpg)    
+
 ### <a id="table1">LightLeak</a>
 Simulate the light leakage effect of the film. please download the [light_leak.pkl(Baidu Netdisk)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3) or [light_leak.pkl(Google Drive)]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)), copy the file to ```ComfyUI/models/layerstyle``` folder.
 ![image](image/light_leak_example.jpg)    
@@ -1725,6 +1757,17 @@ Make the image gaussian blur
 
 Node options:
 * blur: The size of blur.
+
+### <a id="table1">AddGrain</a>
+Add noise to the picture.
+![image](image/add_grain_example.jpg)    
+
+Node Options:
+![image](image/add_grain_node.jpg)    
+* grain_power: Noise intensity.
+* grain_scale: Noise size.
+* grain_sat: Color saturation of noise.
+
 
 ## Annotation for <a id="table1">notes</a>
 <sup>1</sup>  The layer_image, layer_mask and the background_image(if have input), These three items must be of the same size.    

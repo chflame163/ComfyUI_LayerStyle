@@ -446,6 +446,56 @@ def vignette_image(image:Image, intensity: float, center_x: float, center_y: flo
     vignette_image = __apply_vignette(tensor_image, vignette)
     return tensor2pil(torch.from_numpy(vignette_image).unsqueeze(0))
 
+def RGB2YCbCr(t):
+    YCbCr = t.detach().clone()
+    YCbCr[:,:,:,0] = 0.2123 * t[:,:,:,0] + 0.7152 * t[:,:,:,1] + 0.0722 * t[:,:,:,2]
+    YCbCr[:,:,:,1] = 0 - 0.1146 * t[:,:,:,0] - 0.3854 * t[:,:,:,1] + 0.5 * t[:,:,:,2]
+    YCbCr[:,:,:,2] = 0.5 * t[:,:,:,0] - 0.4542 * t[:,:,:,1] - 0.0458 * t[:,:,:,2]
+    return YCbCr
+
+def YCbCr2RGB(t):
+    RGB = t.detach().clone()
+    RGB[:,:,:,0] = t[:,:,:,0] + 1.5748 * t[:,:,:,2]
+    RGB[:,:,:,1] = t[:,:,:,0] - 0.1873 * t[:,:,:,1] - 0.4681 * t[:,:,:,2]
+    RGB[:,:,:,2] = t[:,:,:,0] + 1.8556 * t[:,:,:,1]
+    return RGB
+
+# gaussian blur a tensor image batch in format [B x H x W x C] on H/W (spatial, per-image, per-channel)
+def cv_blur_tensor(images, dx, dy):
+    if min(dx, dy) > 100:
+        np_img = torch.nn.functional.interpolate(images.detach().clone().movedim(-1,1), scale_factor=0.1, mode='bilinear').movedim(1,-1).cpu().numpy()
+        for index, image in enumerate(np_img):
+            np_img[index] = cv2.GaussianBlur(image, (dx // 20 * 2 + 1, dy // 20 * 2 + 1), 0)
+        return torch.nn.functional.interpolate(torch.from_numpy(np_img).movedim(-1,1), size=(images.shape[1], images.shape[2]), mode='bilinear').movedim(1,-1)
+    else:
+        np_img = images.detach().clone().cpu().numpy()
+        for index, image in enumerate(np_img):
+            np_img[index] = cv2.GaussianBlur(image, (dx, dy), 0)
+        return torch.from_numpy(np_img)
+
+def image_add_grain(image:Image, scale:float=0.5, strength:float=0.5, saturation:float=0.7, toe:float=0.0, seed:int=0) -> Image:
+
+    image = pil2tensor(image.convert("RGB"))
+    t = image.detach().clone()
+    torch.manual_seed(seed)
+    grain = torch.rand(t.shape[0], int(t.shape[1] // scale), int(t.shape[2] // scale), 3)
+
+    YCbCr = RGB2YCbCr(grain)
+    YCbCr[:, :, :, 0] = cv_blur_tensor(YCbCr[:, :, :, 0], 3, 3)
+    YCbCr[:, :, :, 1] = cv_blur_tensor(YCbCr[:, :, :, 1], 15, 15)
+    YCbCr[:, :, :, 2] = cv_blur_tensor(YCbCr[:, :, :, 2], 11, 11)
+
+    grain = (YCbCr2RGB(YCbCr) - 0.5) * strength
+    grain[:, :, :, 0] *= 2
+    grain[:, :, :, 2] *= 3
+    grain += 1
+    grain = grain * saturation + grain[:, :, :, 1].unsqueeze(3).repeat(1, 1, 1, 3) * (1 - saturation)
+
+    grain = torch.nn.functional.interpolate(grain.movedim(-1, 1), size=(t.shape[1], t.shape[2]),
+                                            mode='bilinear').movedim(1, -1)
+    t[:, :, :, :3] = torch.clip((1 - (1 - t[:, :, :, :3]) * grain) * (1 - toe) + toe, 0, 1)
+    return tensor2pil(t)
+
 def filmgrain_image(image:Image, scale:float, grain_power:float,
                     shadows:float, highs:float, grain_sat:float,
                     sharpen:int=1, grain_type:int=4, src_gamma:float=1.0,

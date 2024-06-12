@@ -1,0 +1,358 @@
+{
+  "last_node_id": 54,
+  "last_link_id": 89,
+  "nodes": [
+    {
+      "id": 52,
+      "type": "PreviewImage",
+      "pos": [
+        1760,
+        680
+      ],
+      "size": {
+        "0": 420.5770263671875,
+        "1": 279.6587219238281
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 79
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 49,
+      "type": "PreviewImage",
+      "pos": [
+        1760,
+        1010
+      ],
+      "size": {
+        "0": 419.24365234375,
+        "1": 281.6587219238281
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 71
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 50,
+      "type": "LayerMask: RmBgUltra V2",
+      "pos": [
+        950,
+        1080
+      ],
+      "size": {
+        "0": 315,
+        "1": 198
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 72
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            89
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: RmBgUltra V2"
+      },
+      "widgets_values": [
+        "VITMatte",
+        6,
+        6,
+        0.01,
+        0.99,
+        false
+      ]
+    },
+    {
+      "id": 20,
+      "type": "LoadImage",
+      "pos": [
+        473,
+        954
+      ],
+      "size": [
+        363.2436218261719,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            70,
+            72,
+            87
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_redcar.png",
+        "image"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "LayerUtility: HLFrequencyDetailRestore",
+      "pos": [
+        1350,
+        930
+      ],
+      "size": {
+        "0": 352.79998779296875,
+        "1": 146
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 78
+        },
+        {
+          "name": "detail_image",
+          "type": "IMAGE",
+          "link": 70
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 89
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            71
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: HLFrequencyDetailRestore"
+      },
+      "widgets_values": [
+        64,
+        16,
+        50
+      ]
+    },
+    {
+      "id": 54,
+      "type": "LayerColor: RGB",
+      "pos": [
+        950,
+        690
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 87
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            88
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerColor: RGB"
+      },
+      "widgets_values": [
+        -147,
+        -46,
+        -17
+      ]
+    },
+    {
+      "id": 53,
+      "type": "LayerFilter: MotionBlur",
+      "pos": [
+        953,
+        845
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 88
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            78,
+            79
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerFilter: MotionBlur"
+      },
+      "widgets_values": [
+        0,
+        252
+      ]
+    }
+  ],
+  "links": [
+    [
+      70,
+      20,
+      0,
+      48,
+      1,
+      "IMAGE"
+    ],
+    [
+      71,
+      48,
+      0,
+      49,
+      0,
+      "IMAGE"
+    ],
+    [
+      72,
+      20,
+      0,
+      50,
+      0,
+      "IMAGE"
+    ],
+    [
+      78,
+      53,
+      0,
+      48,
+      0,
+      "IMAGE"
+    ],
+    [
+      79,
+      53,
+      0,
+      52,
+      0,
+      "IMAGE"
+    ],
+    [
+      87,
+      20,
+      0,
+      54,
+      0,
+      "IMAGE"
+    ],
+    [
+      88,
+      54,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      89,
+      50,
+      1,
+      48,
+      2,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917354,
+      "offset": [
+        134.34514513458976,
+        -171.67926369728548
+      ]
+    }
+  },
+  "version": 0.4
+}
