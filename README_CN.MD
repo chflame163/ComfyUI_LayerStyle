@@ -80,6 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [SD3NegativeConditioning](#SD3NegativeConditioning) 节点, 把SD3的Negative Conditioning 的4个节点封装为一个单独节点。
 * [ImageRemoveAlpha](#ImageRemoveAlpha) 节点增加mask可选输入。
 * 添加 [HLFrequencyDetailRestore](#HLFrequencyDetailRestore)节点, 使用低频滤波加保留高频来恢复图像细节，图像融合性更好。
 * 添加 [AddGrain](#AddGrain) 和 [MaskGrain](#MaskGrain) 节点, 为图片或遮罩添加噪声。
@@ -1206,6 +1207,14 @@ cropped_mask: 裁切后的遮罩。
 flat_image: psd预览图。
 layer_iamge: 查找的图层输出。
 all_layers: 包含全部图层的批量图片。
+
+### <a id="table1">SD3NegativeConditioning</a>
+![image](image/sd3_negative_conditioning_node_note.jpg)  
+把SD3的Negative Conditioning 的4个节点封装为一个单独节点。
+
+节点选项说明:  
+![image](image/sd3_negative_conditioning_node.jpg)    
+* zero_out_start: 设置Negative ConditioningZeroOut的ConditioningSetTimestepRange start值, 此数值与Negative的ConditioningSetTimestepRange end值相同。
 
 
 # <a id="table1">LayerMask</a>

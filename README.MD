@@ -80,6 +80,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [SD3NegativeConditioning](#SD3NegativeConditioning) node, Encapsulate the four nodes of Negative Condition in SD3 into a separate node.
 * [ImageRemoveAlpha](#ImageRemoveAlpha) node add optional mask input.
 * Commit [HLFrequencyDetailRestore](#HLFrequencyDetailRestore) node, Using low-frequency filtering and high-frequency preserving to restore image details, the fusion is better.
 * Commit [AddGrain](#AddGrain) and [MaskGrain](#MaskGrain) nodes, Add noise to a picture or mask.
@@ -1222,6 +1223,15 @@ Outputs:
 flat_image: PSD preview image.
 layer_iamge: Find the layer output.
 all_layers: Batch images containing all layers.
+
+
+### <a id="table1">SD3NegativeConditioning</a>
+![image](image/sd3_negative_conditioning_node_note.jpg)  
+Encapsulate the four nodes of Negative Condition in SD3 into a separate node.
+
+Node Options:  
+![image](image/sd3_negative_conditioning_node.jpg)    
+* zero_out_start: Set the ConditioningSetTimestepRange start value for Negative ConditioningZeroOut, which is the same as the ConditioningSetTimestepRange end value for Negative.
 
 
 # <a id="table1">LayerMask</a>
