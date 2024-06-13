@@ -17,6 +17,7 @@ class ImageRemoveAlpha:
                 "background_color": ("STRING", {"default": "#000000"}),
             },
             "optional": {
+                "mask": ("MASK",),  #
             }
         }
 
@@ -25,21 +26,27 @@ class ImageRemoveAlpha:
     FUNCTION = 'image_remove_alpha'
     CATEGORY = '😺dzNodes/LayerUtility'
 
-    def image_remove_alpha(self, RGBA_image, fill_background, background_color):
+    def image_remove_alpha(self, RGBA_image, fill_background, background_color, mask=None):
 
         ret_images = []
 
-        for i in RGBA_image:
-            i = torch.unsqueeze(i, 0)
-            _image = tensor2pil(i)
-            if _image.mode != "RGBA":
-                log(f"Error: {NODE_NAME} skipped, because the input image is not RGBA.", message_type='error')
-                return (RGBA_image)
+        for index, img in enumerate(RGBA_image):
+            _image = tensor2pil(img)
+
             if fill_background:
-                alpha = _image.split()[-1]
+                if mask is not None:
+                    m = mask[index].unsqueeze(0) if index < len(mask) else mask[-1].unsqueeze(0)
+                    alpha = tensor2pil(m).convert('L')
+                elif _image.mode == "RGBA":
+                    alpha = _image.split()[-1]
+                else:
+                    log(f"Error: {NODE_NAME} skipped, because the input image is not RGBA and mask is None.",
+                        message_type='error')
+                    return (RGBA_image,)
                 ret_image = Image.new('RGB', size=_image.size, color=background_color)
                 ret_image.paste(_image, mask=alpha)
                 ret_images.append(pil2tensor(ret_image))
+
             else:
                 ret_images.append(pil2tensor(tensor2pil(i).convert('RGB')))
 

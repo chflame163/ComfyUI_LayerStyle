@@ -80,6 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [ImageRemoveAlpha](#ImageRemoveAlpha) 节点增加mask可选输入。
 * 添加 [HLFrequencyDetailRestore](#HLFrequencyDetailRestore)节点, 使用低频滤波加保留高频来恢复图像细节，图像融合性更好。
 * 添加 [AddGrain](#AddGrain) 和 [MaskGrain](#MaskGrain) 节点, 为图片或遮罩添加噪声。
 * 添加 [FilmV2](#FilmV2) 节点, 在之前基础上增加了fastgrain方法，生成噪点速度加快了10倍。
@@ -990,6 +991,8 @@ GradientImage的V2升级版。
 
 节点选项说明:
 ![image](image/image_remove_alpha_node.jpg)    
+* RGBA_image: 输入的图像，支持RGBA或RGB模式。
+* mask:可选输入遮罩。如果有输入遮罩将优先使用, 忽略RGBA_image自带的alpha。
 * fill_background: 是否填充背景。
 * background_color<sup>4</sup>: 背景颜色。
 

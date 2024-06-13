@@ -80,7 +80,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-
+* [ImageRemoveAlpha](#ImageRemoveAlpha) node add optional mask input.
 * Commit [HLFrequencyDetailRestore](#HLFrequencyDetailRestore) node, Using low-frequency filtering and high-frequency preserving to restore image details, the fusion is better.
 * Commit [AddGrain](#AddGrain) and [MaskGrain](#MaskGrain) nodes, Add noise to a picture or mask.
 * Commit [FilmV2](#FilmV2) node, The fastgrain method is added on the basis of the previous one, and the noise generation speed is 10 times faster.
@@ -1002,6 +1002,8 @@ Remove the alpha channel from the image and convert it to RGB mode. you can choo
 
 Node options:
 ![image](image/image_remove_alpha_node.jpg)    
+* RGBA_image: The input image supports RGBA or RGB modes.
+* mask: Optional input mask. If there is an input mask, it will be used first, ignoring the alpha that comes with RGBA_image.
 * fill_background: Whether to fill the background.
 * background_color<sup>4</sup>: Color of background.
 
