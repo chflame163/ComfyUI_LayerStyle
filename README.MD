@@ -80,6 +80,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [If](#If) node，Switches output based on Boolean conditional input. Can be used for any type of data switching.
+* Commit [StringCondition](#StringCondition) node, Determines whether the text contains or does not contain a substring.
+* Commit [NumberCalculatorV2](#NumberCalculatorV2) node，Add the nth root operation. Commit [BooleanOperatorV2](#BooleanOperatorV2) node, Increasing greater/less than, greater/less then or equal logical judgment. The two nodes can access numeric inputs and can input numeric values within the node. Note: Numeric input takes precedence. Values in nodes will not be valid when there is input.
 * Commit [SD3NegativeConditioning](#SD3NegativeConditioning) node, Encapsulate the four nodes of Negative Condition in SD3 into a separate node.
 * [ImageRemoveAlpha](#ImageRemoveAlpha) node add optional mask input.
 * Commit [HLFrequencyDetailRestore](#HLFrequencyDetailRestore) node, Using low-frequency filtering and high-frequency preserving to restore image details, the fusion is better.
@@ -1132,12 +1135,45 @@ Performs mathematical operations on two numeric values and outputs integer and f
 
 <sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error.
 
+### <a id="table1">NumberCalculatorV2</a>
+![image](image/number_calculator_v2_node.jpg)  
+The upgraded version of NumberCalculator has added numerical inputs within nodes and square root operations. The square root operation option is ```nth_root```
+Note: The input takes priority, and when there is input, the values within the node will be invalid.
 
 ### <a id="table1">BooleanOperator</a>
 ![image](image/boolean_operator_node.jpg)    
 Perform a Boolean operation on two numeric values and output the result<sup>*</sup>. Supported operations include```==```, ```!=```, ```and```, ```or```, ```xor```, ```not```, ```min```, ```max```.
 
 <sup>*</sup>  The input only supports boolean, integer, and floating point numbers, forcing in other data will result in error. The ```and``` operation between the values outputs a larger number, and the ```or``` operation outputs a smaller number.
+
+
+### <a id="table1">BooleanOperatorV2</a>
+![image](image/boolean_operator_v2_node.jpg)  
+The upgraded version of Boolean Operator has added numerical inputs within nodes and added judgments for greater than, less than, greater than or equal to, and less than or equal to.
+Note: The input takes priority, and when there is input, the values within the node will be invalid.
+
+
+### <a id="table1">StringCondition</a>
+![image](image/string_condition_example.jpg)    
+Determine whether the text contains or does not contain substrings, and output a Boolean value.
+
+Node Options:    
+![image](image/string_condition_node.jpg)  
+* text: Input text.
+* condition: Judgment conditions. ```include``` determines whether it contains a substring, and ```exclude``` determines whether it does not.
+* sub_string: Substring.
+
+
+### <a id="table1">If</a>
+![image](image/if_example.jpg)    
+Switches output based on Boolean conditional input. It can be used for any type of data switching, including but not limited to numeric values, strings, pictures, masks, models, latent, pipe pipelines, etc.
+
+Node Options:    
+![image](image/if_node.jpg)    
+* if_condition: Conditional input. Boolean, integer, floating point, and string inputs are supported. When entering a value, 0 is judged to be False; When a string is entered, an empty string is judged as Flase.
+* when_True: This item is output when the condition is True.
+* when_False: This item is output when the condition is False.
+
 
 
 ### <a id="table1">PurgeVRAM</a>

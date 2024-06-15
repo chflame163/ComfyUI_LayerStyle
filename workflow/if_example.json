@@ -1,0 +1,386 @@
+{
+  "last_node_id": 17,
+  "last_link_id": 17,
+  "nodes": [
+    {
+      "id": 10,
+      "type": "LayerUtility: Integer",
+      "pos": [
+        337,
+        207
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": [
+            9
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Integer"
+      },
+      "widgets_values": [
+        2
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LayerUtility: NumberCalculatorV2",
+      "pos": [
+        729,
+        186
+      ],
+      "size": {
+        "0": 315,
+        "1": 126
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": [],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": [
+            2,
+            17
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: NumberCalculatorV2"
+      },
+      "widgets_values": [
+        "2",
+        "",
+        "nth_root"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "LayerUtility: BooleanOperatorV2",
+      "pos": [
+        731,
+        384
+      ],
+      "size": {
+        "0": 315,
+        "1": 126
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "BOOLEAN",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: BooleanOperatorV2"
+      },
+      "widgets_values": [
+        "1.5",
+        "",
+        ">="
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LayerUtility: If ",
+      "pos": [
+        1157,
+        643
+      ],
+      "size": {
+        "0": 210,
+        "1": 66
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "if_condition",
+          "type": "*",
+          "link": 11
+        },
+        {
+          "name": "when_TRUE",
+          "type": "*",
+          "link": 14
+        },
+        {
+          "name": "when_FALSE",
+          "type": "*",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "?",
+          "type": "*",
+          "links": [
+            16
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: If "
+      }
+    },
+    {
+      "id": 14,
+      "type": "PreviewImage",
+      "pos": [
+        1490,
+        623
+      ],
+      "size": [
+        427.2541053237435,
+        289.3591301309216
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 16
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 11,
+      "type": "LoadImage",
+      "pos": [
+        345,
+        554
+      ],
+      "size": [
+        292.78638838159503,
+        258.7483346763762
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            14
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1344x768_redcar (2).png",
+        "image"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        347,
+        861
+      ],
+      "size": [
+        290.92079233546224,
+        250.02575610748409
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1280x720car (1).jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        1159,
+        205
+      ],
+      "size": {
+        "0": 210,
+        "1": 76
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 2,
+          "dir": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      2,
+      2,
+      1,
+      6,
+      0,
+      "*"
+    ],
+    [
+      9,
+      10,
+      0,
+      2,
+      1,
+      "*"
+    ],
+    [
+      11,
+      1,
+      0,
+      3,
+      0,
+      "*"
+    ],
+    [
+      14,
+      11,
+      0,
+      3,
+      1,
+      "*"
+    ],
+    [
+      15,
+      13,
+      0,
+      3,
+      2,
+      "*"
+    ],
+    [
+      16,
+      3,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      2,
+      1,
+      1,
+      1,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917354,
+      "offset": [
+        131.52392339755338,
+        65.55062378272835
+      ]
+    }
+  },
+  "version": 0.4
+}

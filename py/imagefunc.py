@@ -1827,9 +1827,31 @@ def is_contain_chinese(check_str:str) -> bool:
             return True
     return False
 
-# 提取字符串中的数字为列表
+# 提取字符串中的int数为列表
 def extract_numbers(string):
     return [int(s) for s in re.findall(r'\d+', string)]
+
+# 提取字符串中的数值, 返回为列表
+def extract_all_numbers_from_str(string, checkint:bool=False):
+    # 定义浮点数的正则表达式模式
+    number_pattern = r'[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?'
+    # 使用re.findall找到所有匹配的字符串
+    matches = re.findall(number_pattern, string)
+    # 转换为浮点数
+    numbers = [float(match) for match in matches]
+    number_list = []
+    # 如果需要检查是否为整数，则将浮点数转换为整数
+    if checkint:
+        for num in numbers:
+            int_num = int(num)
+            if math.isclose(num, int_num, rel_tol=1e-19):
+                number_list.append(int_num)
+            else:
+                number_list.append(num)
+    else:
+        number_list = numbers
+
+    return number_list
 
 def tensor_info(tensor:object) -> str:
     value = ''
@@ -1849,6 +1871,8 @@ def tensor_info(tensor:object) -> str:
 
 class AnyType(str):
   """A special class that is always equal in not equal comparisons. Credit to pythongosssss"""
+  def __eq__(self, __value: object) -> bool:
+    return True
   def __ne__(self, __value: object) -> bool:
     return False
 

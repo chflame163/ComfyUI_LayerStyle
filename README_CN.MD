@@ -80,6 +80,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [If](#If) 节点，根据布尔值条件输入切换输出。可用于任意类型的数据切换。
+* 添加 [StringCondition](#StringCondition) 节点, 可判断文本中是否包含或不包含子字符串。
+* 添加 [NumberCalculatorV2](#NumberCalculatorV2) 节点，增加开方运算。添加 [BooleanOperatorV2](#BooleanOperatorV2) 节点, 增加大小于、大小于等于逻辑判断。这两个节点可接入数值输入也可在节点内输入数值。注意:数值输入更优先，当有输入时节点内数值将无效。
 * 添加 [SD3NegativeConditioning](#SD3NegativeConditioning) 节点, 把SD3的Negative Conditioning 的4个节点封装为一个单独节点。
 * [ImageRemoveAlpha](#ImageRemoveAlpha) 节点增加mask可选输入。
 * 添加 [HLFrequencyDetailRestore](#HLFrequencyDetailRestore)节点, 使用低频滤波加保留高频来恢复图像细节，图像融合性更好。
@@ -1120,12 +1123,45 @@ cropped_mask: 裁切后的遮罩。
 
 <sup>*</sup>  输入仅支持布尔值、整数和浮点数，强行接入其他数据将导致错误。
 
+### <a id="table1">NumberCalculatorV2</a>
+![image](image/number_calculator_v2_node.jpg)  
+NumberCalculator的升级版，增加了节点内数值输入，增加了开方运算。开方运算选项为```nth_root```
+注意:数值输入更优先，当有输入时节点内数值将无效。
+
 
 ### <a id="table1">BooleanOperator</a>
 ![image](image/boolean_operator_node.jpg)    
 对两个数值进行布尔运算并输出结果<sup>*</sup>。支持的运算包括```==```、```!=```、```and```、```or```、```xor```、```not```、```min```、```max```。
 
 <sup>*</sup>  输入仅支持布尔值、整数和浮点数，强行接入其他数据将导致错误。数值之间的```and```运算输出较大的数，```or```运算输出较小的数。
+
+
+### <a id="table1">BooleanOperatorV2</a>
+![image](image/boolean_operator_v2_node.jpg)  
+BooleanOperator的升级版，增加了节点内数值输入，增加了大于、小于、大于等于、小于等于的判断。
+注意:数值输入更优先，当有输入时节点内数值将无效。
+
+
+### <a id="table1">StringCondition</a>
+![image](image/string_condition_example.jpg)    
+判断文本中是否包含或不包含子字符串，输出布尔值。
+
+节点选项说明:    
+![image](image/string_condition_node.jpg)  
+* text: 输入的文本。
+* condition: 判断条件。```include```判断是否包含子字符串，```exclude```判断是否不包含子字符串。
+* sub_string: 子字符串文本。
+
+
+### <a id="table1">If</a>
+![image](image/if_example.jpg)    
+根据布尔值条件输入切换输出。可用于任意类型的数据切换，包括且不限于数值、字符串、图片、遮罩、模型、latent、pipe管线等。
+
+节点选项说明:    
+![image](image/if_node.jpg)    
+* if_condition: 条件输入。支持布尔值、整数、浮点数和字符串输入。输入数值时，0被判断为False；输入字符串时，空字符串被判断为Flase。
+* when_True: 当条件为True时，将输出此项。
+* when_False: 当条件为False时，将输出此项。
 
 
 ### <a id="table1">PurgeVRAM</a>
