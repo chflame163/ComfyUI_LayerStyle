@@ -1171,7 +1171,7 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * when_False: 当条件为False时，将输出此项。
 
 
-### <a id="table1">SwiitchCase</a>
+### <a id="table1">SwitchCase</a>
 ![image](image/switch_case_example.jpg)    
 根据匹配字符串切换输出。可用于任意类型的数据切换，包括且不限于数值、字符串、图片、遮罩、模型、latent、pipe管线等。最多支持3组case切换。
 将case与```switch_condition```进行比较，如果相同，则输出对应的输入项。如果有相同的case则按顺序优先输出。如果没有匹配的case，则输出默认的输入项。请注意，字符串区分大小写和中英文全角半角。

@@ -1180,7 +1180,7 @@ Node Options:
 * when_True: This item is output when the condition is True.
 * when_False: This item is output when the condition is False.
 
-### <a id="table1">SwiitchCase</a>
+### <a id="table1">SwitchCase</a>
 ![image](image/switch_case_example.jpg)    
 Switches the output based on the matching string. It can be used for any type of data switching, including but not limited to numeric values, strings, pictures, masks, models, latent, pipe pipelines, etc. Supports up to 3 sets of case switches.
 Compare case to ```switch_condition``` , if the same, output the corresponding input. If there are the same cases, the output is prioritized in order. If there is no matching case, the default input is output. 
