@@ -80,6 +80,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [BooleanOperatorV2](#BooleanOperatorV2), [NumberCalculatorV2](#NumberCalculatorV2), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) nodes add string output to output the value as a string for use with [SwitchCase](#SwitchCase).
+* Commit [SwitchCase](#SwitchCase) node, Switches the output based on the matching string. Can be used for any type of data switching.
+* Commit [String](#String) node, Used to output a string. It is the TextBox simplified node.
 * Commit [If](#If) node，Switches output based on Boolean conditional input. Can be used for any type of data switching.
 * Commit [StringCondition](#StringCondition) node, Determines whether the text contains or does not contain a substring.
 * Commit [NumberCalculatorV2](#NumberCalculatorV2) node，Add the nth root operation. Commit [BooleanOperatorV2](#BooleanOperatorV2) node, Increasing greater/less than, greater/less then or equal logical judgment. The two nodes can access numeric inputs and can input numeric values within the node. Note: Numeric input takes precedence. Values in nodes will not be valid when there is input.
@@ -1112,10 +1115,13 @@ Used to provide assistance for workflow debugging. When running, the properties 
 This node allows any type of input.
 
 
-
 ### <a id="table1">TextBox</a>
 ![image](image/text_box_node.jpg)    
 Output a string.
+
+### <a id="table1">String</a>
+![image](image/string_node.jpg)    
+Output a string. same as TextBox.
 
 ### <a id="table1">Integer</a>
 ![image](image/integer_node.jpg)    
@@ -1174,6 +1180,22 @@ Node Options:
 * when_True: This item is output when the condition is True.
 * when_False: This item is output when the condition is False.
 
+### <a id="table1">SwiitchCase</a>
+![image](image/switch_case_example.jpg)    
+Switches the output based on the matching string. It can be used for any type of data switching, including but not limited to numeric values, strings, pictures, masks, models, latent, pipe pipelines, etc. Supports up to 3 sets of case switches.
+Compare case to ```switch_condition``` , if the same, output the corresponding input. If there are the same cases, the output is prioritized in order. If there is no matching case, the default input is output. 
+Note that the string is case sensitive and Chinese and English full-width and half-width.
+
+Node Options:    
+![image](image/switch_case_node.jpg)    
+* input_default: Input entry for default output. This input is required.
+* input_1: Input entry used to match ```case_1```. This input is optional.
+* input_2: Input entry used to match ```case_2```. This input is optional.
+* input_3: Input entry used to match ```case_3```. This input is optional.
+* switch_condition: String used to judge with case.
+* case_1: case_1 string.
+* case_2: case_2 string.
+* case_3: case_3 string.
 
 
 ### <a id="table1">PurgeVRAM</a>

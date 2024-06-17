@@ -80,6 +80,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [BooleanOperatorV2](#BooleanOperatorV2), [NumberCalculatorV2](#NumberCalculatorV2), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean)节点增加string输出，将值输出为字符串，以配合[SwitchCase](#SwitchCase)使用。
+* 添加 [SwitchCase](#SwitchCase) 节点, 根据匹配字符串切换输出。可用于任意类型的数据切换。
+* 添加 [String](#String) 节点, 用于输出字符串。这是TextBox简化版节点。
 * 添加 [If](#If) 节点，根据布尔值条件输入切换输出。可用于任意类型的数据切换。
 * 添加 [StringCondition](#StringCondition) 节点, 可判断文本中是否包含或不包含子字符串。
 * 添加 [NumberCalculatorV2](#NumberCalculatorV2) 节点，增加开方运算。添加 [BooleanOperatorV2](#BooleanOperatorV2) 节点, 增加大小于、大小于等于逻辑判断。这两个节点可接入数值输入也可在节点内输入数值。注意:数值输入更优先，当有输入时节点内数值将无效。
@@ -1103,7 +1106,11 @@ cropped_mask: 裁切后的遮罩。
 
 ### <a id="table1">TextBox</a>
 ![image](image/text_box_node.jpg)    
-输出一段字符串。
+输出字符串。
+
+### <a id="table1">String</a>
+![image](image/string_node.jpg)    
+输出字符串。与TextBox作用相同。
 
 ### <a id="table1">Integer</a>
 ![image](image/integer_node.jpg)    
@@ -1162,6 +1169,23 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * if_condition: 条件输入。支持布尔值、整数、浮点数和字符串输入。输入数值时，0被判断为False；输入字符串时，空字符串被判断为Flase。
 * when_True: 当条件为True时，将输出此项。
 * when_False: 当条件为False时，将输出此项。
+
+
+### <a id="table1">SwiitchCase</a>
+![image](image/switch_case_example.jpg)    
+根据匹配字符串切换输出。可用于任意类型的数据切换，包括且不限于数值、字符串、图片、遮罩、模型、latent、pipe管线等。最多支持3组case切换。
+将case与```switch_condition```进行比较，如果相同，则输出对应的输入项。如果有相同的case则按顺序优先输出。如果没有匹配的case，则输出默认的输入项。请注意，字符串区分大小写和中英文全角半角。
+
+节点选项说明:    
+![image](image/switch_case_node.jpg)    
+* input_default: 用于默认输出的输入项。此输入是必选项。
+* input_1: 用于匹配```case_1```的输入项。此输入是可选项。
+* input_2: 用于匹配```case_2```的输入项。此输入是可选项。
+* input_3: 用于匹配```case_3```的输入项。此输入是可选项。
+* switch_condition: 用于与case判断的字符串。
+* case_1: case_1字符串。
+* case_2: case_2字符串。
+* case_3: case_3字符串。
 
 
 ### <a id="table1">PurgeVRAM</a>
