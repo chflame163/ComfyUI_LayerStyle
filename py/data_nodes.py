@@ -85,8 +85,8 @@ class BooleanOperatorV2:
                     }
                 }
 
-    RETURN_TYPES = ("BOOLEAN",)
-    RETURN_NAMES = ("output",)
+    RETURN_TYPES = ("BOOLEAN", "STRING",)
+    RETURN_NAMES = ("output", "string",)
     FUNCTION = 'bool_operator_node_v2'
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
@@ -137,7 +137,7 @@ class BooleanOperatorV2:
         if operator == "max":
             ret_value = max(a, b)
 
-        return (ret_value,)
+        return (ret_value, str(ret_value))
 
 class NumberCalculator:
     def __init__(self):
@@ -201,8 +201,8 @@ class NumberCalculatorV2:
                     }
                 }
 
-    RETURN_TYPES = ("INT", "FLOAT",)
-    RETURN_NAMES = ("int", "float",)
+    RETURN_TYPES = ("INT", "FLOAT", "STRING",)
+    RETURN_NAMES = ("int", "float", "string",)
     FUNCTION = 'number_calculator_node_v2'
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
@@ -251,7 +251,7 @@ class NumberCalculatorV2:
             else:
                 ret_value = 0
 
-        return (int(ret_value), float(ret_value),)
+        return (int(ret_value), float(ret_value), str(ret_value))
 
 class StringCondition:
     def __init__(self):
@@ -265,16 +265,19 @@ class StringCondition:
                 "sub_string": ("STRING", {"multiline": False}),
             },}
 
-    RETURN_TYPES = ("BOOLEAN",)
-    RETURN_NAMES = ("output",)
+    RETURN_TYPES = ("BOOLEAN", "STRING",)
+    RETURN_NAMES = ("output", "string",)
     FUNCTION = 'string_condition'
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def string_condition(self, text, condition, sub_string):
+        ret = False
         if condition == "include":
-            return (sub_string in text, )
+            ret = sub_string in text
         if condition == "exclude":
-            return (sub_string not in text, )
+            ret = sub_string not in text
+        return (ret, str(ret))
+
 
 class TextBoxNode:
     def __init__(self):
@@ -293,6 +296,23 @@ class TextBoxNode:
     def text_box_node(self, text):
         return (text,)
 
+class StringNode:
+    def __init__(self):
+        pass
+    @classmethod
+    def INPUT_TYPES(self):
+        return {"required": {
+                "string": ("STRING", {"multiline": False}),
+            },}
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("string",)
+    FUNCTION = 'string_node'
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
+
+    def string_node(self, string):
+        return (string,)
+
 class IntegerNode:
     def __init__(self):
         pass
@@ -302,13 +322,13 @@ class IntegerNode:
                 "int_value":("INT", {"default": 0, "min": -99999999999999999999, "max": 99999999999999999999, "step": 1}),
             },}
 
-    RETURN_TYPES = ("INT",)
-    RETURN_NAMES = ("int",)
+    RETURN_TYPES = ("INT", "STRING",)
+    RETURN_NAMES = ("int", "string",)
     FUNCTION = 'integer_node'
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def integer_node(self, int_value):
-        return (int_value,)
+        return (int_value, str(int_value))
 
 class FloatNode:
     def __init__(self):
@@ -319,13 +339,13 @@ class FloatNode:
                 "float_value":  ("FLOAT", {"default": 0, "min": -99999999999999999999, "max": 99999999999999999999, "step": 0.00001}),
             },}
 
-    RETURN_TYPES = ("FLOAT",)
-    RETURN_NAMES = ("float",)
+    RETURN_TYPES = ("FLOAT", "STRING",)
+    RETURN_NAMES = ("float", "string",)
     FUNCTION = 'float_node'
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def float_node(self, float_value):
-        return (float_value,)
+        return (float_value, str(float_value))
 
 class BooleanNode:
     def __init__(self):
@@ -336,13 +356,13 @@ class BooleanNode:
                 "bool_value": ("BOOLEAN", {"default": False}),
             },}
 
-    RETURN_TYPES = ("BOOLEAN",)
-    RETURN_NAMES = ("boolean",)
+    RETURN_TYPES = ("BOOLEAN", "STRING",)
+    RETURN_NAMES = ("boolean", "string",)
     FUNCTION = 'boolean_node'
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def boolean_node(self, bool_value):
-        return (bool_value,)
+        return (bool_value, str(bool_value))
 
 class IfExecute:
 
@@ -364,15 +384,53 @@ class IfExecute:
     def if_execute(self, if_condition, when_TRUE, when_FALSE):
         return (when_TRUE if if_condition else when_FALSE,)
 
+class SwitchCaseNode:
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "switch_condition": ("STRING", {"default": "", "multiline": False}),
+                "case_1": ("STRING", {"default": "", "multiline": False}),
+                "case_2": ("STRING", {"default": "", "multiline": False}),
+                "case_3": ("STRING", {"default": "", "multiline": False}),
+                "input_default": (any,),
+            },
+            "optional": {
+                "input_1": (any,),
+                "input_2": (any,),
+                "input_3": (any,),
+            }
+        }
+
+    RETURN_TYPES = (any,)
+    RETURN_NAMES = "?"
+    FUNCTION = "switch_case"
+    CATEGORY = '😺dzNodes/LayerUtility/Data'
+
+    def switch_case(self, switch_condition, case_1, case_2, case_3, input_default, input_1=None, input_2=None, input_3=None):
+
+        output=input_default
+        if switch_condition == case_1 and input_1 is not None:
+            output=input_1
+        elif switch_condition == case_2 and input_2 is not None:
+            output=input_2
+        elif switch_condition == case_3 and input_3 is not None:
+            output=input_3
+
+        return (output,)
+
 
 NODE_CLASS_MAPPINGS = {
-    "LayerUtility: StringCondition": StringCondition,
+    "LayerUtility: SwitchCase": SwitchCaseNode,
     "LayerUtility: If ": IfExecute,
+    "LayerUtility: StringCondition": StringCondition,
     "LayerUtility: BooleanOperator": BooleanOperator,
     "LayerUtility: NumberCalculator": NumberCalculator,
     "LayerUtility: BooleanOperatorV2": BooleanOperatorV2,
     "LayerUtility: NumberCalculatorV2": NumberCalculatorV2,
     "LayerUtility: TextBox": TextBoxNode,
+    "LayerUtility: String": StringNode,
     "LayerUtility: Integer": IntegerNode,
     "LayerUtility: Float": FloatNode,
     "LayerUtility: Boolean": BooleanNode,
@@ -380,13 +438,15 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerUtility: StringCondition": "LayerUtility: String Condition",
+    "LayerUtility: SwitchCase": "LayerUtility: Switch Case",
     "LayerUtility: If ": "LayerUtility: If",
-    "LayerUtility: BooleanOperator": "LayerUtility: BooleanOperator",
-    "LayerUtility: NumberCalculator": "LayerUtility: NumberCalculator",
-    "LayerUtility: BooleanOperatorV2": "LayerUtility: BooleanOperator V2",
-    "LayerUtility: NumberCalculatorV2": "LayerUtility: NumberCalculator V2",
+    "LayerUtility: StringCondition": "LayerUtility: String Condition",
+    "LayerUtility: BooleanOperator": "LayerUtility: Boolean Operator",
+    "LayerUtility: NumberCalculator": "LayerUtility: Number Calculator",
+    "LayerUtility: BooleanOperatorV2": "LayerUtility: Boolean Operator V2",
+    "LayerUtility: NumberCalculatorV2": "LayerUtility: Number Calculator V2",
     "LayerUtility: TextBox": "LayerUtility: TextBox",
+    "LayerUtility: String": "LayerUtility: String",
     "LayerUtility: Integer": "LayerUtility: Integer",
     "LayerUtility: Float": "LayerUtility: Float",
     "LayerUtility: Boolean": "LayerUtility: Boolean",
