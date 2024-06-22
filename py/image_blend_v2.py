@@ -33,8 +33,8 @@ class ImageBlendV2:
     CATEGORY = '😺dzNodes/LayerUtility'
 
     def image_blend_v2(self, background_image, layer_image,
-                  invert_mask, blend_mode, opacity,
-                  layer_mask=None, many_to_one
+                  invert_mask, blend_mode, opacity, many_to_one,
+                  layer_mask=None,
                   ):
 
         b_images = []
