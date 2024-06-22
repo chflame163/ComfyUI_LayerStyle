@@ -20,6 +20,7 @@ class ImageBlendV2:
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_mode": (chop_mode_v2,),  # 混合模式
                 "opacity": ("INT", {"default": 100, "min": 0, "max": 100, "step": 1}),  # 透明度
+                "many_to_one": ("BOOLEAN", {"default": False}),
             },
             "optional": {
                 "layer_mask": ("MASK",),  #
@@ -33,7 +34,7 @@ class ImageBlendV2:
 
     def image_blend_v2(self, background_image, layer_image,
                   invert_mask, blend_mode, opacity,
-                  layer_mask=None
+                  layer_mask=None, many_to_one
                   ):
 
         b_images = []
@@ -63,7 +64,7 @@ class ImageBlendV2:
             layer_image = l_images[i] if i < len(l_images) else l_images[-1]
             _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
 
-            _canvas = tensor2pil(background_image).convert('RGB')
+            _canvas = tensor2pil(background_image).convert('RGB') if not many_to_one and i > 0 else tensor2pil(_canvas).convert('RGB')
             _layer = tensor2pil(layer_image).convert('RGB')
 
             if _mask.size != _layer.size:
@@ -74,7 +75,7 @@ class ImageBlendV2:
             _comp = chop_image_v2(_canvas, _layer, blend_mode, opacity)
             _canvas.paste(_comp, mask=_mask)
 
-            ret_images.append(pil2tensor(_canvas))
+            if not many_to_one : ret_images.append(pil2tensor(_canvas)) else ret_images = pil2tensor(_canvas)
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
