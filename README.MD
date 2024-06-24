@@ -80,6 +80,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [CropByMaskV2](#CropByMaskV2) add option to round the cutting size by multiples.
+* Commit [CheckMask](#CheckMask) node, it detect whether the mask contains sufficient effective areas. Commit [HSVValue](#HSVValue) node, it convert color values to HSV values.
 * [BooleanOperatorV2](#BooleanOperatorV2), [NumberCalculatorV2](#NumberCalculatorV2), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) nodes add string output to output the value as a string for use with [SwitchCase](#SwitchCase).
 * Commit [SwitchCase](#SwitchCase) node, Switches the output based on the matching string. Can be used for any type of data switching.
 * Commit [String](#String) node, Used to output a string. It is the TextBox simplified node.
@@ -564,6 +566,7 @@ The following changes have been made based on CropByMask:
 ![image](image/corp_by_mask_v2_node.jpg)    
 * The input ```mask_for_crop``` reanme to ```mask```。
 * Add optional inputs to the ```crop_box```. If there are inputs here, mask detection will be ignored and this data will be directly used for cropping.
+* Add the option ```round_to_multiple``` to round the trimming edge length multiple. For example, setting it to 8 will force the width and height to be multiples of 8.
 
 ### <a id="table1">RestoreCropBox</a>
 Restore the cropped image to the original image by [CropByMask](#CropByMask).
@@ -764,6 +767,13 @@ Output type:
 Output the color value as a single R, G, B three decimal values. Supports HEX and DEC formats for ColorPicker node output.
 
 ![image](image/RGB_value_example.jpg)    
+
+Node Options:
+* color_value: Supports hexadecimal (HEX) or decimal (DEC) color values and should be of string or tuple type. Forcing in other types will result in an error.
+
+### <a id="table1">HSVValue</a>
+Output color values as individual decimal values of H, S, and V (maximum value of 255). Supports HEX and DEC formats for ColorPicker node output.
+![image](image/hsv_value_node.jpg)    
 
 Node Options:
 * color_value: Supports hexadecimal (HEX) or decimal (DEC) color values and should be of string or tuple type. Forcing in other types will result in an error.
@@ -1168,6 +1178,14 @@ Node Options:
 * text: Input text.
 * condition: Judgment conditions. ```include``` determines whether it contains a substring, and ```exclude``` determines whether it does not.
 * sub_string: Substring.
+
+### <a id="table1">CheckMask</a>
+Check if the mask contains enough valid areas and output a Boolean value.
+
+Node Options:    
+![image](image/check_mask_node.jpg)    
+* white_point: The white point threshold used to determine whether the mask is valid is considered valid if it exceeds this value.
+* area_percent: The percentage of effective areas. If the proportion of effective areas exceeds this value, output True.
 
 
 ### <a id="table1">If</a>

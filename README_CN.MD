@@ -80,6 +80,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [CropByMaskV2](#CropByMaskV2) 增加裁切尺寸按倍数取整选项。
+* 添加 [CheckMask](#CheckMask) 节点, 用于检测遮罩是否包含足够的有效区域。
+* 添加 [HSVValue](#HSVValue) 节点, 用于转换色值为HSV值。
 * [BooleanOperatorV2](#BooleanOperatorV2), [NumberCalculatorV2](#NumberCalculatorV2), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean)节点增加string输出，将值输出为字符串，以配合[SwitchCase](#SwitchCase)使用。
 * 添加 [SwitchCase](#SwitchCase) 节点, 根据匹配字符串切换输出。可用于任意类型的数据切换。
 * 添加 [String](#String) 节点, 用于输出字符串。这是TextBox简化版节点。
@@ -556,6 +559,7 @@ CropByMask的V2升级版。支持crop_box输入，方便裁切相同尺寸的图
 ![image](image/corp_by_mask_v2_node.jpg)    
 * ```mask_for_crop```更名为```mask```。
 * 增加```crop_box```可选输入，如果这里有输入将忽略遮罩探测，直接使用此数据裁切。
+* 增加```round_to_multiple```选项，使裁切边长倍数取整。例如设置为8，宽和高将强制设置为8的倍数。
 
 
 ### <a id="table1">RestoreCropBox</a>
@@ -758,6 +762,12 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:
 * color_value： 支持十六进制(HEX)或十进制(DEC)色值，应是string或tuple类型，强行接入其他类型将导致错误。
 
+### <a id="table1">HSVValue</a>
+将色值输出为单独的H, S, V三个10进制数值(最大值255)。支持ColorPicker节点输出的HEX和DEC格式。
+![image](image/hsv_value_node.jpg)    
+
+节点选项说明:
+* color_value： 支持十六进制(HEX)或十进制(DEC)色值，应是string或tuple类型，强行接入其他类型将导致错误。
 
 ### <a id="table1">GetColorTone</a>
 从图片中获取主颜色或平均色。
@@ -1159,6 +1169,14 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * condition: 判断条件。```include```判断是否包含子字符串，```exclude```判断是否不包含子字符串。
 * sub_string: 子字符串文本。
 
+
+### <a id="table1">CheckMask</a>
+检测遮罩是否包含足够的有效区域, 输出布尔值。
+
+节点选项说明:    
+![image](image/check_mask_node.jpg)    
+* white_point: 判断遮罩是否有效的白点值，高于此值被计入有效。
+* area_percent: 有效区域所占百分比。检测有效区域占比超过此值则输出True。
 
 ### <a id="table1">If</a>
 ![image](image/if_example.jpg)    

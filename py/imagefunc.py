@@ -1631,6 +1631,18 @@ def gray_threshold(image:Image, thresh:int=127, otsu:bool=False) -> Image:
 def image_to_colormap(image:Image, index:int) -> Image:
     return cv22pil(cv2.applyColorMap(pil2cv2(image), index))
 
+# 检查mask有效区域面积比例
+def mask_white_area(mask:Image, white_point:int) -> float:
+    if mask.mode != 'L':
+        mask.convert('L')
+    white_pixels = 0
+    for y in range(mask.height):
+        for x in range(mask.width):
+            mask.getpixel((x, y)) > 16
+            if mask.getpixel((x, y)) > white_point:
+                white_pixels += 1
+    return white_pixels / (mask.width * mask.height)
+
 '''Color Functions'''
 
 
@@ -1766,6 +1778,7 @@ def random_numbers(total:int, random_range:int, seed:int=0, sum_of_numbers:int=0
     ret_list.append((sum_of_numbers - sum(ret_list)) // 2)
     return ret_list
 
+# 四舍五入取整数倍
 def num_round_to_multiple(number:int, multiple:int) -> int:
     remainder = number % multiple
     if remainder == 0 :
@@ -1774,6 +1787,15 @@ def num_round_to_multiple(number:int, multiple:int) -> int:
         factor = int(number / multiple)
         if number - factor * multiple > multiple / 2:
             factor += 1
+        return factor * multiple
+
+# 向上取整数倍
+def num_round_up_to_multiple(number: int, multiple: int) -> int:
+    remainder = number % multiple
+    if remainder == 0:
+        return number
+    else:
+        factor = (number + multiple - 1) // multiple  # 向上取整的计算方式
         return factor * multiple
 
 def calculate_side_by_ratio(orig_width:int, orig_height:int, ratio:float, longest_side:int=0) -> int:

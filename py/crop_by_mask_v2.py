@@ -9,7 +9,8 @@ class CropByMaskV2:
 
     @classmethod
     def INPUT_TYPES(self):
-        detect_mode = ['min_bounding_rect', 'max_inscribed_rect', 'mask_area']
+        detect_mode = ['mask_area', 'min_bounding_rect', 'max_inscribed_rect']
+        multiple_list = ['8', '16', '32', '64', 'None']
         return {
             "required": {
                 "image": ("IMAGE", ),  #
@@ -20,6 +21,7 @@ class CropByMaskV2:
                 "bottom_reserve": ("INT", {"default": 20, "min": -9999, "max": 9999, "step": 1}),
                 "left_reserve": ("INT", {"default": 20, "min": -9999, "max": 9999, "step": 1}),
                 "right_reserve": ("INT", {"default": 20, "min": -9999, "max": 9999, "step": 1}),
+                "round_to_multiple": (multiple_list,),
             },
             "optional": {
                 "crop_box": ("BOX",),
@@ -33,7 +35,7 @@ class CropByMaskV2:
 
     def crop_by_mask_v2(self, image, mask, invert_mask, detect,
                      top_reserve, bottom_reserve,
-                     left_reserve, right_reserve,
+                     left_reserve, right_reserve, round_to_multiple,
                      crop_box=None
                      ):
 
@@ -63,24 +65,31 @@ class CropByMaskV2:
             width = 0
             height = 0
             if detect == "min_bounding_rect":
-                (x, y, width, height) = min_bounding_rect(bluredmask)
+                (x, y, w, h) = min_bounding_rect(bluredmask)
             elif detect == "max_inscribed_rect":
-                (x, y, width, height) = max_inscribed_rect(bluredmask)
+                (x, y, w, h) = max_inscribed_rect(bluredmask)
             else:
-                (x, y, width, height) = mask_area(_mask)
+                (x, y, w, h) = mask_area(_mask)
 
-            width = num_round_to_multiple(width, 8)
-            height = num_round_to_multiple(height, 8)
-
-            log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
             canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
             x1 = x - left_reserve if x - left_reserve > 0 else 0
             y1 = y - top_reserve if y - top_reserve > 0 else 0
-            x2 = x + width + right_reserve if x + width + right_reserve < canvas_width else canvas_width
-            y2 = y + height + bottom_reserve if y + height + bottom_reserve < canvas_height else canvas_height
+            x2 = x + w + right_reserve if x + w + right_reserve < canvas_width else canvas_width
+            y2 = y + h + bottom_reserve if y + h + bottom_reserve < canvas_height else canvas_height
+
+            if round_to_multiple != 'None':
+                multiple = int(round_to_multiple)
+                width = num_round_up_to_multiple(x2 - x1, multiple)
+                height = num_round_up_to_multiple(y2 - y1, multiple)
+                x1 = x1 - (width - (x2 - x1)) // 2
+                y1 = y1 - (height - (y2 - y1)) // 2
+                x2 = x1 + width
+                y2 = y1 + height
+
+            log(f"{NODE_NAME}: Box detected. x={x1},y={y1},width={width},height={height}")
             crop_box = (x1, y1, x2, y2)
-            preview_image = draw_rect(preview_image, x, y, width, height, line_color="#F00000",
-                                      line_width=(width + height) // 100)
+            preview_image = draw_rect(preview_image, x, y, w, h, line_color="#F00000",
+                                      line_width=(w + h) // 100)
         preview_image = draw_rect(preview_image, crop_box[0], crop_box[1],
                                   crop_box[2] - crop_box[0], crop_box[3] - crop_box[1],
                                   line_color="#00F000",
