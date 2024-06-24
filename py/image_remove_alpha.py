@@ -48,7 +48,7 @@ class ImageRemoveAlpha:
                 ret_images.append(pil2tensor(ret_image))
 
             else:
-                ret_images.append(pil2tensor(tensor2pil(i).convert('RGB')))
+                ret_images.append(pil2tensor(tensor2pil(img).convert('RGB')))
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), )
