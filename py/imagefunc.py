@@ -1402,6 +1402,11 @@ def generate_VITMatte(image:Image, trimap:Image, local_files_only:bool=False) ->
         image = image.convert('RGB')
     if trimap.mode != 'L':
         trimap = trimap.convert('L')
+    max_size = 2048
+    width, height = image.size
+    if width * height > max_size * max_size:
+        image = image.resize((max_size, max_size), Image.BILINEAR)
+        trimap = trimap.resize((max_size, max_size), Image.BILINEAR)
     model_name = "hustvl/vitmatte-small-composition-1k"
     vit_matte_model = load_VITMatte_model(model_name=model_name, local_files_only=local_files_only)
     inputs = vit_matte_model.processor(images=image, trimaps=trimap, return_tensors="pt")
@@ -1410,25 +1415,28 @@ def generate_VITMatte(image:Image, trimap:Image, local_files_only:bool=False) ->
     mask = tensor2pil(predictions).convert('L')
     mask = mask.crop(
         (0, 0, image.width, image.height))  # remove padding that the prediction appends (works in 32px tiles)
+    if width * height > max_size * max_size:
+        mask = mask.resize((width, height), Image.BILINEAR)
     return mask
 
 def generate_VITMatte_trimap(mask:torch.Tensor, erode_kernel_size:int, dilate_kernel_size:int) -> Image:
+    def g_trimap(mask, erode_kernel_size=10, dilate_kernel_size=10):
+        erode_kernel = np.ones((erode_kernel_size, erode_kernel_size), np.uint8)
+        dilate_kernel = np.ones((dilate_kernel_size, dilate_kernel_size), np.uint8)
+        eroded = cv2.erode(mask, erode_kernel, iterations=5)
+        dilated = cv2.dilate(mask, dilate_kernel, iterations=5)
+        trimap = np.zeros_like(mask)
+        trimap[dilated == 255] = 128
+        trimap[eroded == 255] = 255
+        return trimap
+
     mask = mask.squeeze(0).cpu().detach().numpy().astype(np.uint8) * 255
-    trimap = __generate_trimap(mask, erode_kernel_size, dilate_kernel_size).astype(np.float32)
+    trimap = g_trimap(mask, erode_kernel_size, dilate_kernel_size).astype(np.float32)
     trimap[trimap == 128] = 0.5
     trimap[trimap == 255] = 1
     trimap = torch.from_numpy(trimap).unsqueeze(0)
-    return tensor2pil(trimap).convert('L')
 
-def __generate_trimap(mask, erode_kernel_size=10, dilate_kernel_size=10):
-    erode_kernel = np.ones((erode_kernel_size, erode_kernel_size), np.uint8)
-    dilate_kernel = np.ones((dilate_kernel_size, dilate_kernel_size), np.uint8)
-    eroded = cv2.erode(mask, erode_kernel, iterations=5)
-    dilated = cv2.dilate(mask, dilate_kernel, iterations=5)
-    trimap = np.zeros_like(mask)
-    trimap[dilated == 255] = 128
-    trimap[eroded == 255] = 255
-    return trimap
+    return tensor2pil(trimap).convert('L')
 
 
 def get_a_person_mask_generator_model_path() -> str:

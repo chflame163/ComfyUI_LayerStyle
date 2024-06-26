@@ -80,6 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 优化Ultra节点的```vitmatte```方法在处理大尺寸图片时的性能。
 * [CropByMaskV2](#CropByMaskV2) 增加裁切尺寸按倍数取整选项。
 * 添加 [CheckMask](#CheckMask) 节点, 用于检测遮罩是否包含足够的有效区域。
 * 添加 [HSVValue](#HSVValue) 节点, 用于转换色值为HSV值。

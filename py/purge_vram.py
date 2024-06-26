@@ -1,9 +1,8 @@
+import comfy.model_management as mm
 from .imagefunc import AnyType
 
 any = AnyType("*")
-
 NODE_NAME = 'PurgeVRAM'
-
 class PurgeVRAM:
 
     def __init__(self):
@@ -30,14 +29,14 @@ class PurgeVRAM:
         import torch.cuda
         import gc
         import comfy.model_management
+        gc.collect()
         if purge_cache:
             if torch.cuda.is_available():
-                gc.collect()
                 torch.cuda.empty_cache()
                 torch.cuda.ipc_collect()
         if purge_models:
             comfy.model_management.unload_all_models()
-
+            comfy.model_management.soft_empty_cache()
         return (None,)
 
 
