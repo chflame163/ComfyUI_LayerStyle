@@ -425,7 +425,7 @@ class QueueStopNode():
 
     @classmethod
     def INPUT_TYPES(self):
-        mode_list = ["stop"]
+        mode_list = ["stop", "continue"]
         return {
             "required": {
                 "any": (any, ),
@@ -445,6 +445,7 @@ class QueueStopNode():
                 log(f"Queue stopped, it was terminated by node.", "error")
                 from comfy.model_management import InterruptProcessingException
                 raise InterruptProcessingException()
+
         return (any,)
 
 NODE_CLASS_MAPPINGS = {

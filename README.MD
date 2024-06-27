@@ -1223,7 +1223,7 @@ Stop the current queue. When executed at this node, the queue will stop. The wor
 
 Node Options:    
 ![image](image/queue_stop_node.jpg)    
-* mode: Stop mode. Currently, only stop mode can be selected.
+* mode: Stop mode. If you choose ```stop```, it will be determined whether to stop based on the input conditions. If you choose ```continue```, ignore the condition to continue executing the queue.
 * stop: If true, the queue will stop. If false, the queue will continue to execute.
 
 ### <a id="table1">PurgeVRAM</a>

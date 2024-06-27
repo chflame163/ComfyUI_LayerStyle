@@ -1213,7 +1213,7 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 
 节点选项说明:    
 ![image](image/queue_stop_node.jpg)    
-* mode: 停止模式。当前仅能选择stop一种模式。
+* mode: 停止模式。如果选择```stop```,将按输入条件决定是否停止。如果选择```continue```则忽略条件继续执行队列
 * stop: 如果为True，队列将停止。如果为False，队列将继续执行。
 
 
