@@ -1404,9 +1404,15 @@ def generate_VITMatte(image:Image, trimap:Image, local_files_only:bool=False) ->
         trimap = trimap.convert('L')
     max_size = 2048
     width, height = image.size
+    ratio = width / height
+    target_width = math.sqrt(ratio * max_size * max_size)
+    target_height = target_width / ratio
+    target_width = int(target_width)
+    target_height = int(target_height)
+    log(f"vitmatte image size {width}x{height} too large, resize to {target_width}x{target_height} for processing.")
     if width * height > max_size * max_size:
-        image = image.resize((max_size, max_size), Image.BILINEAR)
-        trimap = trimap.resize((max_size, max_size), Image.BILINEAR)
+        image = image.resize((target_width, target_height), Image.BILINEAR)
+        trimap = trimap.resize((target_width, target_height), Image.BILINEAR)
     model_name = "hustvl/vitmatte-small-composition-1k"
     vit_matte_model = load_VITMatte_model(model_name=model_name, local_files_only=local_files_only)
     inputs = vit_matte_model.processor(images=image, trimaps=trimap, return_tensors="pt")

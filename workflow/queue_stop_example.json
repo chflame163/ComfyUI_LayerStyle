@@ -1,0 +1,342 @@
+{
+  "last_node_id": 11,
+  "last_link_id": 15,
+  "nodes": [
+    {
+      "id": 11,
+      "type": "LayerUtility: NumberCalculator",
+      "pos": [
+        622,
+        680
+      ],
+      "size": [
+        260.3999938964844,
+        78
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": 13
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "int",
+          "type": "INT",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: NumberCalculator"
+      },
+      "widgets_values": [
+        "*"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "LayerUtility: QueueStop",
+      "pos": [
+        1259,
+        485
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "link": 5
+        },
+        {
+          "name": "stop",
+          "type": "BOOLEAN",
+          "link": 11,
+          "widget": {
+            "name": "stop"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            12
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: QueueStop"
+      },
+      "widgets_values": [
+        "stop",
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewImage",
+      "pos": [
+        1626,
+        482
+      ],
+      "size": {
+        "0": 376.1998596191406,
+        "1": 331.6813659667969
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 7,
+      "type": "LayerUtility: GetImageSize",
+      "pos": [
+        370,
+        680
+      ],
+      "size": [
+        218.39999389648438,
+        66
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            14
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "original_size",
+          "type": "BOX",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GetImageSize"
+      }
+    },
+    {
+      "id": 9,
+      "type": "LayerUtility: BooleanOperatorV2",
+      "pos": [
+        916,
+        678
+      ],
+      "size": [
+        277.20001220703125,
+        126
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "*",
+          "link": 15
+        },
+        {
+          "name": "b",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "BOOLEAN",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: BooleanOperatorV2"
+      },
+      "widgets_values": [
+        "",
+        "1048576",
+        ">"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        13,
+        482
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            5,
+            7
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "3840x2160car.jpg",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      5,
+      2,
+      0,
+      6,
+      0,
+      "*"
+    ],
+    [
+      7,
+      2,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      9,
+      0,
+      6,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      12,
+      6,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      7,
+      0,
+      11,
+      0,
+      "*"
+    ],
+    [
+      14,
+      7,
+      1,
+      11,
+      1,
+      "*"
+    ],
+    [
+      15,
+      11,
+      0,
+      9,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9090909090909091,
+      "offset": [
+        614.8169336983026,
+        127.3944912940982
+      ]
+    }
+  },
+  "version": 0.4
+}

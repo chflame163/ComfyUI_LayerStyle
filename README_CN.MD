@@ -80,6 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [QueueStop](#QueueStop) 节点，用于停止队列。
 * 优化Ultra节点的```vitmatte```方法在处理大尺寸图片时的性能。
 * [CropByMaskV2](#CropByMaskV2) 增加裁切尺寸按倍数取整选项。
 * 添加 [CheckMask](#CheckMask) 节点, 用于检测遮罩是否包含足够的有效区域。
@@ -1205,6 +1206,15 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * case_1: case_1字符串。
 * case_2: case_2字符串。
 * case_3: case_3字符串。
+
+### <a id="table1">QueueStop</a>
+![image](image/queue_stop_example.jpg)    
+停止当前的队列。执行到此节点时，队列将停止。上图工作流示意了如果图片大于1Mega像素时，队列将停止执行。
+
+节点选项说明:    
+![image](image/queue_stop_node.jpg)    
+* mode: 停止模式。当前仅能选择stop一种模式。
+* stop: 如果为True，队列将停止。如果为False，队列将继续执行。
 
 
 ### <a id="table1">PurgeVRAM</a>

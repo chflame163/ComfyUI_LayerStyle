@@ -1,5 +1,4 @@
-from .imagefunc import AnyType
-from .imagefunc import extract_all_numbers_from_str
+from .imagefunc import AnyType, log, extract_all_numbers_from_str
 
 any = AnyType("*")
 
@@ -420,8 +419,36 @@ class SwitchCaseNode:
 
         return (output,)
 
+class QueueStopNode():
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(self):
+        mode_list = ["stop"]
+        return {
+            "required": {
+                "any": (any, ),
+                "mode": (mode_list,),
+                "stop": ("BOOLEAN", {"default": True}),
+            },
+        }
+
+    RETURN_TYPES = (any,)
+    RETURN_NAMES = ("any",)
+    FUNCTION = 'stop_node'
+    CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
+
+    def stop_node(self, any, mode,stop):
+        if mode == "stop":
+            if stop:
+                log(f"Queue stopped, it was terminated by node.", "error")
+                from comfy.model_management import InterruptProcessingException
+                raise InterruptProcessingException()
+        return (any,)
 
 NODE_CLASS_MAPPINGS = {
+    "LayerUtility: QueueStop": QueueStopNode,
     "LayerUtility: SwitchCase": SwitchCaseNode,
     "LayerUtility: If ": IfExecute,
     "LayerUtility: StringCondition": StringCondition,
@@ -438,6 +465,7 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "LayerUtility: QueueStop": "LayerUtility: Queue Stop",
     "LayerUtility: SwitchCase": "LayerUtility: Switch Case",
     "LayerUtility: If ": "LayerUtility: If",
     "LayerUtility: StringCondition": "LayerUtility: String Condition",

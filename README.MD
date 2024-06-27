@@ -80,6 +80,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [QueueStop](#QueueStop) node, used to terminate the queue operation.
 * Optimize performance of the ```vitmate``` method for Ultra nodes when processing large-size image.
 * [CropByMaskV2](#CropByMaskV2) add option to round the cutting size by multiples.
 * Commit [CheckMask](#CheckMask) node, it detect whether the mask contains sufficient effective areas. Commit [HSVValue](#HSVValue) node, it convert color values to HSV values.
@@ -1216,6 +1217,14 @@ Node Options:
 * case_2: case_2 string.
 * case_3: case_3 string.
 
+### <a id="table1">QueueStop</a>
+![image](image/queue_stop_example.jpg)    
+Stop the current queue. When executed at this node, the queue will stop. The workflow diagram above illustrates that if the image is larger than 1Mega pixels, the queue will stop executing.
+
+Node Options:    
+![image](image/queue_stop_node.jpg)    
+* mode: Stop mode. Currently, only stop mode can be selected.
+* stop: If true, the queue will stop. If false, the queue will continue to execute.
 
 ### <a id="table1">PurgeVRAM</a>
 ![image](image/purge_vram_example.jpg)    
