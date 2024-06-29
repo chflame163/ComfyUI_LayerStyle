@@ -80,8 +80,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [Ultra](#Ultra) nodes added the option to run ```VitMatte``` on the CUDA device, resulting in a 5-fold increase in running speed.
 * Commit [QueueStop](#QueueStop) node, used to terminate the queue operation.
-* Optimize performance of the ```vitmate``` method for Ultra nodes when processing large-size image.
+* Optimize performance of the ```VitMate``` method for [Ultra](#Ultra) nodes when processing large-size image.
 * [CropByMaskV2](#CropByMaskV2) add option to round the cutting size by multiples.
 * Commit [CheckMask](#CheckMask) node, it detect whether the mask contains sufficient effective areas. Commit [HSVValue](#HSVValue) node, it convert color values to HSV values.
 * [BooleanOperatorV2](#BooleanOperatorV2), [NumberCalculatorV2](#NumberCalculatorV2), [Integer](#Integer), [Float](#Float), [Boolean](#Boolean) nodes add string output to output the value as a string for use with [SwitchCase](#SwitchCase).
@@ -125,7 +126,7 @@ Part of the code for BlendMode V2 is from [Virtuoso Nodes for ComfyUI](https://g
 * [CreateGradientMask](#CreateGradientMask) node add ```center``` option.
 * Commit [GetColorToneV2](#GetColorToneV2) node, can select the main and average colors for the background or body. 
 * Commit [ImageRewardFilter](#ImageRewardFilter) node, can filter out poor quality pictures.
-* Ultra nodes add ```VITMatte(local)``` method, You can choose this method to avoid accessing huggingface.co if you have already downloaded the model before.
+* [Ultra](#Ultra) nodes add ```VITMatte(local)``` method, You can choose this method to avoid accessing huggingface.co if you have already downloaded the model before.
 * Commit [HDR Effect](#HDR) node，it enhances the dynamic range and visual appeal of input images.  this node is repackage of [HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts).
 * Commit [CropBoxResolve](#CropBoxResolve) node.
 * Commit [BiRefNetUltra](#BiRefNetUltra) node, it using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
@@ -133,7 +134,7 @@ Part of the code for BlendMode V2 is from [Virtuoso Nodes for ComfyUI](https://g
 * Commit [ImageHub](#ImageHub) node, supports up to 9 sets of Image and Mask switching output, and supports random output.
 * Commit [TextJoin](#TextJoin) node.
 * Commit [PromptEmbellish](#PromptEmbellish) node. it output polished prompt words, and support inputting images as references.
-* Ultra nodes have been fully upgraded to V2 version, with the addition of VITMatte edge processing method, which is suitable for handling semi transparent areas. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) and [PersonMaskUltraV2](#PersonMaskUltraV2) nodes.
+* [Ultra](#Ultra) nodes have been fully upgraded to V2 version, with the addition of VITMatte edge processing method, which is suitable for handling semi transparent areas. Include [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) and [PersonMaskUltraV2](#PersonMaskUltraV2) nodes.
 * Commit [Color of Shadow & Highlight](#Highlight) node, it can adjust the color of the dark and bright parts separately. Commit [Shadow & Highlight Mask](#Shadow) node, it can output mask for dark and bright areas.
 * Commit [CropByMaskV2](#CropByMaskV2) node, On the basis of the original node, it supports ```crop_box``` input, making it convenient to cut layers of the same size.
 * Commit [SimpleTextImage](#SimpleTextImage) node, it generate simple typesetting images and masks from text. This node references some of the functionalities and code of [ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite).
@@ -1359,8 +1360,25 @@ Output:
 * x: The x-coordinate of the top left corner position.
 * y: The y-coordinate of the top left corner position.
 
+
+## <a id="table1">Ultra</a>节点组
+![image](image/ultra_nodes.jpg)   
+Nodes that use ultra fine edge masking processing methods, the latest version of nodes includes: SegmentAnythingUltraV2, RmBgUltraV2, BiRefNetUltra, PersonMaskUltraV2, SegformerB2ClothesUltra and MaskEdgeUltraDetailV2.
+There are three edge processing methods for these nodes:
+* ```PyMatting``` optimizes the edges of the mask by using a closed form matching to mask trimap.
+* ```GuideFilter``` uses opencv guidedfilter to feather edges based on color similarity, and performs best when edges have strong color separation.    
+The code for the above two methods is from the [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) in spacepxl's Alpha Matte, thanks to the original author.
+* ```VitMatte``` uses the transformer vit model for high-quality edge processing, preserving edge details and even generating semi transparent masks.
+Note: When running for the first time, you need to download the vitmate model file and wait for the automatic download to complete. If the download cannot be completed, you can run the command ```huggingface-cli download hustvl/vitmatte-small-composition-1k``` to manually download.
+After successfully downloading the model, you can use ```VITMatte(local)``` without accessing the network.
+* VitMatte's options: ```device``` set whether to use CUDA for vitimate operations, which is about 5 times faster than CPU. ```max_megapixels``` set the maximum image size for vitmate operation, and oversized images will be reduced in size. For 16G VRAM, it is recommended to set it to 3.
+
+The following figure is an example of the difference in output between three methods.
+![image](image/mask_edge_ultra_detail_v2_example.jpg)   
+
+
 ### <a id="table1">SegmentAnythingUltra</a>
-Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything), combined with the Alpha Matte node of [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) in spacepxl, result in more detailed edges for masks, thanks to the original author.
+Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything),  thanks to the original author.
 
 *Please refer to the installation of ComfyUI Segment Anything to install the model. If ComfyUI Segment Anything has been correctly installed, you can skip this step.
 * From [here](https://huggingface.co/bert-base-uncased/tree/main) download the config.json，model.safetensors，tokenizer_config.json，tokenizer.json and vocab.txt 5 files to ```ComfyUI/models/bert-base-uncased``` folder.
@@ -1394,7 +1412,8 @@ On the basis of SegmentAnythingUltra, the following changes have been made:
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
 
 ### <a id="table1">RemBgUltra</a>
 Remove background. compared to the similar background removal nodes, this node has ultra-high edge details.
@@ -1421,8 +1440,8 @@ On the basis of RemBgUltra, the following changes have been made:
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-
-
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
 
 ### <a id="table1">BiRefNetUltra</a>
 Using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
@@ -1440,7 +1459,8 @@ Node options:
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
 * process_detail: Set to false here will skip edge processing to save runtime.
-
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
 
 ### <a id="table1">PersonMaskUltra</a>
 Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
@@ -1470,7 +1490,9 @@ On the basis of PersonMaskUltra, the following changes have been made:
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
+* 
 ### <a id="table1">SegformerB2ClothesUltra</a>
 ![image](image/segformer_ultra_example.jpg)   
 Generate masks for characters' faces, hair, arms, legs, and clothing, mainly used for segmenting clothing.
@@ -1502,7 +1524,36 @@ Node Options:
 * black_point: Edge black sampling threshold.
 * white_point: Edge white sampling threshold.
 * process_detail: Set to false here will skip edge processing to save runtime.
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
 
+
+### <a id="table1">MaskEdgeUltraDetail</a>
+Process rough masks to ultra fine edges.
+This node combines the Alpha Matte and the Guided Filter Alpha nodes functions of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters), thanks to the original author.
+![image](image/mask_edge_ultra_detail_example.jpg)    
+
+Node options:  
+![image](image/mask_edge_ultra_detail_node.jpg)    
+* method: Provide two methods for edge processing: PyMatting and OpenCV-GuidedFilter. PyMatching has a slower processing speed, but for video, it is recommended to use this method to obtain smoother mask sequences.
+* mask_grow: Mask expansion amplitude. positive values expand outward, while negative values contract inward. For rougher masks, negative values are usually used to shrink their edges for better results.
+* fix_gap: Repair the gaps in the mask. if obvious gaps in the mask, increase this value appropriately.
+* fix_threshold: The threshold of fix_gap.
+* detail_range: Edge detail range.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+
+### <a id="table1">MaskEdgeUltraDetailV2</a>
+The V2 upgraded version of MaskEdgeUltraDetail has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory)    
+This method is suitable for handling semi transparent areas. 
+
+On the basis of MaskEdgeUltraDetail, the following changes have been made: 
+![image](image/mask_edge_ultra_detail_v2_node.jpg)    
+* method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
+* edge_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* edge_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
 
 ### <a id="table1">YoloV8Detect</a>
 Use the YoloV8 model to detect faces, hand box areas, or character segmentation. Supports the output of the selected number of channels.
@@ -1599,34 +1650,6 @@ Node options:
 * fix_gap: Fix the internal gaps of the mask. higher value will repair larger gaps.
 * fix_threshold: The threshold for fix_gap.
 * main_subject_detect: Setting this to True will enable subject detection, ignoring differences outside of the subject.
-
-
-### <a id="table1">MaskEdgeUltraDetail</a>
-Process rough masks to ultra fine edges.
-This node combines the Alpha Matte and the Guided Filter Alpha nodes functions of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters), thanks to the original author.
-![image](image/mask_edge_ultra_detail_example.jpg)    
-
-Node options:  
-![image](image/mask_edge_ultra_detail_node.jpg)    
-* method: Provide two methods for edge processing: PyMatting and OpenCV-GuidedFilter. PyMatching has a slower processing speed, but for video, it is recommended to use this method to obtain smoother mask sequences.
-* mask_grow: Mask expansion amplitude. positive values expand outward, while negative values contract inward. For rougher masks, negative values are usually used to shrink their edges for better results.
-* fix_gap: Repair the gaps in the mask. if obvious gaps in the mask, increase this value appropriately.
-* fix_threshold: The threshold of fix_gap.
-* detail_range: Edge detail range.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-
-### <a id="table1">MaskEdgeUltraDetailV2</a>
-The V2 upgraded version of MaskEdgeUltraDetail has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory)    
-This method is suitable for handling semi transparent areas. The following figure is an example of the difference in output between three methods.
-![image](image/mask_edge_ultra_detail_v2_example.jpg)    
-
-On the basis of MaskEdgeUltraDetail, the following changes have been made: 
-![image](image/mask_edge_ultra_detail_v2_node.jpg)    
-* method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* edge_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* edge_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-
 
 ### <a id="table1">MaskGrow</a>
 Grow and shrink edges and blur the mask

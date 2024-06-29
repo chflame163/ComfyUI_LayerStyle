@@ -10,7 +10,7 @@ class MaskEdgeUltraDetailV2:
     def INPUT_TYPES(cls):
 
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
-
+        device_list = ['cuda','cpu']
         return {
             "required": {
                 "image": ("IMAGE",),
@@ -23,6 +23,8 @@ class MaskEdgeUltraDetailV2:
                 "edte_dilate": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
                 "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01, "display": "slider"}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01, "display": "slider"}),
+                "device": (device_list,),
+                "max_megapixels": ("FLOAT", {"default": 2.0, "min": 1, "max": 999, "step": 0.1}),
             },
             "optional": {
             }
@@ -34,7 +36,7 @@ class MaskEdgeUltraDetailV2:
     CATEGORY = '😺dzNodes/LayerMask'
   
     def mask_edge_ultra_detail_v2(self, image, mask, method, mask_grow, fix_gap, fix_threshold,
-                               edge_erode, edte_dilate, black_point, white_point,):
+                               edge_erode, edte_dilate, black_point, white_point, device, max_megapixels,):
         ret_images = []
         ret_masks = []
         l_images = []
@@ -72,7 +74,7 @@ class MaskEdgeUltraDetailV2:
                 _mask = tensor2pil(mask_edge_detail(_image, _mask, detail_range//8, black_point, white_point))
             else:
                 _trimap = generate_VITMatte_trimap(_mask, edge_erode, edte_dilate)
-                _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only)
+                _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only, device=device, max_megapixels=max_megapixels)
                 _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
 
             ret_image = RGB2RGBA(orig_image, _mask.convert('L'))

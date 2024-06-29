@@ -8,7 +8,7 @@ class BiRefNetUltra:
     def INPUT_TYPES(cls):
 
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
-
+        device_list = ['cuda','cpu']
         return {
             "required": {
                 "image": ("IMAGE",),
@@ -18,6 +18,8 @@ class BiRefNetUltra:
                 "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01, "display": "slider"}),
                 "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01, "display": "slider"}),
                 "process_detail": ("BOOLEAN", {"default": True}),
+                "device": (device_list,),
+                "max_megapixels": ("FLOAT", {"default": 2.0, "min": 1, "max": 999, "step": 0.1}),
             },
             "optional": {
             }
@@ -29,7 +31,7 @@ class BiRefNetUltra:
     CATEGORY = '😺dzNodes/LayerMask'
   
     def birefnet_ultra(self, image, detail_method, detail_erode, detail_dilate,
-                       black_point, white_point, process_detail):
+                       black_point, white_point, process_detail, device, max_megapixels):
         ret_images = []
         ret_masks = []
 
@@ -58,7 +60,7 @@ class BiRefNetUltra:
                     _mask = tensor2pil(mask_edge_detail(i, _mask, detail_range // 8 + 1, black_point, white_point))
                 else:
                     _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
-                    _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only)
+                    _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only, device=device, max_megapixels=max_megapixels)
                     _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
             else:
                 _mask = tensor2pil(_mask)

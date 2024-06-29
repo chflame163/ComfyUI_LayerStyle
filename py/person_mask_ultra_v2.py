@@ -18,7 +18,7 @@ class PersonMaskUltraV2:
     def INPUT_TYPES(self):
 
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
-
+        device_list = ['cuda','cpu']
         return {
             "required":
                 {
@@ -36,6 +36,8 @@ class PersonMaskUltraV2:
                     "black_point": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 0.98, "step": 0.01, "display": "slider"}),
                     "white_point": ("FLOAT", {"default": 0.99, "min": 0.02, "max": 0.99, "step": 0.01, "display": "slider"}),
                     "process_detail": ("BOOLEAN", {"default": True}),
+                    "device": (device_list,),
+                    "max_megapixels": ("FLOAT", {"default": 2.0, "min": 1, "max": 999, "step": 0.1}),
                 },
             "optional":
                 {
@@ -64,7 +66,7 @@ class PersonMaskUltraV2:
     def person_mask_ultra_v2(self, images, face, hair, body, clothes,
                           accessories, background, confidence,
                           detail_method, detail_erode, detail_dilate,
-                          black_point, white_point, process_detail):
+                          black_point, white_point, process_detail, device, max_megapixels,):
 
         import mediapipe as mp
         a_person_mask_generator_model_path = get_a_person_mask_generator_model_path()
@@ -151,7 +153,7 @@ class PersonMaskUltraV2:
                                              detail_range // 8 + 1, black_point, white_point))
                     else:
                         _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
-                        _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only)
+                        _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only, device=device, max_megapixels=max_megapixels)
                         _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
                 else:
                     _mask = mask2image(_mask)

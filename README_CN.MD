@@ -80,8 +80,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [Ultra](#Ultra) 节点增加```VitMatte```方法在CUDA设备运行选项，运行速度提升5倍。
 * 添加 [QueueStop](#QueueStop) 节点，用于停止队列。
-* 优化Ultra节点的```vitmatte```方法在处理大尺寸图片时的性能。
+* 优化[Ultra](#Ultra)节点的```VitMatte```方法在处理大尺寸图片时的性能。
 * [CropByMaskV2](#CropByMaskV2) 增加裁切尺寸按倍数取整选项。
 * 添加 [CheckMask](#CheckMask) 节点, 用于检测遮罩是否包含足够的有效区域。
 * 添加 [HSVValue](#HSVValue) 节点, 用于转换色值为HSV值。
@@ -126,7 +127,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * [CreateGradientMask](#CreateGradientMask) 节点增加 ```center``` 选项。
 * 添加 [GetColorToneV2](#GetColorToneV2) 节点, 可选择背景或主体的主色和平均色。
 * 添加[ImageRewardFilter](#ImageRewardFilter) 节点, 可过滤掉品质欠佳的图片。
-* Ultra 节点增加VITMatte(local)方法，如果之前已经下载了模型，可选择此方法避免访问huggingface.co。
+* [Ultra](#Ultra) 节点增加VITMatte(local)方法，如果之前已经下载了模型，可选择此方法避免访问huggingface.co。
 * 添加 [HDR Effect](#HDR) 节点，增强图片动态范围。这个节点是[HDR Effects (SuperBeasts.AI)](https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts)的重新封装。感谢原作者。
 * 添加 [CropBoxResolve](#CropBoxResolve) 节点。
 * 添加 [BiRefNetUltra](#BiRefNetUltra) 节点, 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
@@ -134,7 +135,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * 添加 [ImageHub](#ImageHub) 节点，支持最多9组Image和Mask切换，支持随机输出。
 * 添加 [TextJoin](#TextJoin) 节点。
 * 添加 [PromptEmbellish](#PromptEmbellish) 节点, 对简单的提示词润色，支持图片输入参考，支持中文输入。
-* Ultra 节点全面升级到V2版本，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。包括 [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) 以及 [PersonMaskUltraV2](#PersonMaskUltraV2) 节点。
+* [Ultra](#Ultra) 节点全面升级到V2版本，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。包括 [MaskEdgeUltraDetailV2](#MaskEdgeUltraDetailV2), [SegmentAnythingUltraV2](#SegmentAnythingUltraV2), [RmBgUltraV2](#RmBgUltraV2) 以及 [PersonMaskUltraV2](#PersonMaskUltraV2) 节点。
 * 添加 [Color of Shadow & Highlight](#Highlight) 节点，可对暗部和亮部分别进行色彩调整。添加 [Shadow & Highlight Mask](#Shadow) 节点, 可输出暗部和亮部的遮罩。
 * 添加 [CropByMaskV2](#CropByMaskV2) 节点，在原节点基础上支持```crop_box```输入，方便裁切相同尺寸的图层。
 * 添加 [SimpleTextImage](#SimpleTextImage) 节点。从文字生成简单排版的图片以及遮罩。这个节点参考了[ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite](https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite)的部分功能和代码。
@@ -1345,9 +1346,24 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * x: 左上角位置x坐标输出。
 * y: 左上角位置y坐标输出。
 
-### <a id="table1">SegmentAnythingUltra</a>
-对[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)的改进，结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，使遮罩有更具细节的边缘，感谢原作者。
+## <a id="table1">Ultra</a>节点组
+![image](image/ultra_nodes.jpg)   
+一组使用了超精细边缘遮罩处理方法的节点，最新版节点包括SegmentAnythingUltraV2, RmBgUltraV2, BiRefNetUltra, PersonMaskUltraV2, SegformerB2ClothesUltra 和 MaskEdgeUltraDetailV2。
+这些节点有3种边缘处理方法:
+* ```PyMatting``` 通过遮罩 trimap, 对遮罩进行closed-form matting优化边缘。
+* ```GuideFilter``` 使用 opencv guidedfilter 根据颜色相似度对边缘进行羽化，对于边缘具有很强的颜色分离时效果最佳。    
+以上两种方法的代码来着spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，感谢原作者。
+* ```VitMatte``` 使用transfromer vit模型进行高质量的边缘处理，保留边缘细节，甚至可以生成半透明遮罩。
+注：首次运行时需要下载vitmatte模型文件，等待自动下载完成即可。如果无法完成下载，可运行命令```huggingface-cli download hustvl/vitmatte-small-composition-1k```手动下载模型。
+模型成功下载之后可以使用VITMatte(local)无需访问网络。
+* VitMatte的选项:```device``` 设置是否使用cuda进行vitmatte运算，cuda运算速度比cpu快5倍左右。```max_megapixels```设置vitmatte运算的最大图片尺寸，超大的图片将缩小处理。对于16G显存建议设置为3。
 
+下图为三种方法输出区别的示例。
+![image](image/mask_edge_ultra_detail_v2_example.jpg)   
+
+
+### <a id="table1">SegmentAnythingUltra</a>
+对[ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything)的改进，使遮罩有更具细节的边缘，感谢原作者。
 *请参照ComfyUI Segment Anything的安装方法安装模型。如果已经正确安装了ComfyUI Segment Anything，可跳过此步骤。
 * 从 [这里](https://huggingface.co/bert-base-uncased/tree/main) 下载 config.json，model.safetensors，tokenizer_config.json，tokenizer.json 和 vocab.txt 5个文件到 ```ComfyUI/models/bert-base-uncased```文件夹。
 * 下载 [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
@@ -1371,18 +1387,17 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * prompt: SAM的prompt输入。
 
-
 ### <a id="table1">SegmentAnythingUltraV2</a>
-SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2K尺寸的图片使用此方法将占用大量内存)
+SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
 ![image](image/ultra_v2_nodes_example.jpg)    
 
 在SegmentAnythingUltra的基础上做了如下改变:  
 ![image](image/segment_anything_ultra_v2_node.jpg)    
-* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
-
-
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
 
 ### <a id="table1">RemBgUltra</a>
 去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
@@ -1401,13 +1416,15 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。(注�
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
 ### <a id="table1">RmBgUltraV2</a>
-RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2K尺寸的图片使用此方法将占用大量内存)
+RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 
 在RemBgUltra的基础上做了如下改变:  
 ![image](image/rmbg_ultra_v2_node.jpg)    
 * detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
 
 ### <a id="table1">BiRefNetUltra</a>
 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
@@ -1425,7 +1442,8 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
-
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
 
 ### <a id="table1">PersonMaskUltra</a>
 为人物生成脸、头发、身体皮肤、衣服或配饰的遮罩。与之前的A Person Mask Generator节点相比，这个节点具有超高的边缘细节。
@@ -1447,21 +1465,21 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2
 * white_point: 边缘黑色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
-
 ### <a id="table1">PersonMaskUltraV2</a>
-PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:超过2K尺寸的图片使用此方法将占用大量内存)
+PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 
 在PersonMaskUltra的基础上做了如下改变:  
 ![image](image/person_mask_ultra_v2_node.jpg)    
 * detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
-
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
 
 ### <a id="table1">SegformerB2ClothesUltra</a>
 ![image](image/segformer_ultra_example.jpg)   
 为人物生成脸、头发、手臂、腿以及服饰的遮罩，主要用于分割服装。模型分割代码来自[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，感谢原作者。
-与comfyui_segformer_b2_clothes节点相比，这个节点具有超高的边缘细节。(注意:生成边缘超过2K尺寸的图片使用VITMatte方法将占用大量内存)    
+与comfyui_segformer_b2_clothes节点相比，这个节点具有超高的边缘细节。    
 
 *从[https://huggingface.co/mattmdjaga/segformer_b2_clothes](https://huggingface.co/mattmdjaga/segformer_b2_clothes)下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。
 
@@ -1488,7 +1506,32 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 * black_point: 边缘黑色采样阈值。
 * white_point: 边缘黑色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
 
+### <a id="table1">MaskEdgeUltraDetail</a>
+处理较粗糙的遮罩使其获得超精细边缘。
+![image](image/mask_edge_ultra_detail_example.jpg)    
+
+节点选项说明:  
+![image](image/mask_edge_ultra_detail_node.jpg)    
+* method: 提供PyMatting和OpenCV-GuidedFilter两种方法处理边缘。PyMatting处理速度较慢，但是对于视频，建议使用这种方法获得更平滑的遮罩序列。
+* mask_grow: 遮罩扩张幅度。正值是向外扩张，负值是向内收缩。对于较粗糙的遮罩，通常使用负值使其边缘收缩以获得更好的效果。
+* fix_gap: 修补遮罩中的空隙。如果遮罩中有比较明显的空隙，适当调高此数值。
+* fix_threshold: 修补遮罩的阈值。
+* detail_range: 边缘细节范围。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+
+### <a id="table1">MaskEdgeUltraDetailV2</a>
+MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。 
+在MaskEdgeUltraDetail的基础上做了如下改变:  
+![image](image/mask_edge_ultra_detail_v2_node.jpg)    
+* method: 边缘处理方法。增加了VITMatte和VITMatte(local)方法。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* edge_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* edge_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
 
 ### <a id="table1">YoloV8Detect</a>
 使用YoloV8模型检测人脸、手部box区域，或者人物分割。支持输出所选择数量的通道。
@@ -1587,34 +1630,6 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。(注意:�
 * fix_gap: 修补遮罩内部缝隙。更高的值将修补更大的缝隙。
 * fix_threshold: 修补阈值。
 * main_subject_detect: 此项设为True将开启主体侦测，忽略主体之外的差异。
-
-
-### <a id="table1">MaskEdgeUltraDetail</a>
-处理较粗糙的遮罩使其获得超精细边缘。
-本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte和Guided Filter Alpha两者功能，感谢原作者。
-![image](image/mask_edge_ultra_detail_example.jpg)    
-
-节点选项说明:  
-![image](image/mask_edge_ultra_detail_node.jpg)    
-* method: 提供PyMatting和OpenCV-GuidedFilter两种方法处理边缘。PyMatting处理速度较慢，但是对于视频，建议使用这种方法获得更平滑的遮罩序列。
-* mask_grow: 遮罩扩张幅度。正值是向外扩张，负值是向内收缩。对于较粗糙的遮罩，通常使用负值使其边缘收缩以获得更好的效果。
-* fix_gap: 修补遮罩中的空隙。如果遮罩中有比较明显的空隙，适当调高此数值。
-* fix_threshold: 修补遮罩的阈值。
-* detail_range: 边缘细节范围。
-* black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
-
-### <a id="table1">MaskEdgeUltraDetailV2</a>
-MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。(注意:超过2K尺寸的图片使用此方法将占用大量内存)    
-
-下图为三种方法输出区别的示例。
-![image](image/mask_edge_ultra_detail_v2_example.jpg)    
-
-在MaskEdgeUltraDetail的基础上做了如下改变:  
-![image](image/mask_edge_ultra_detail_v2_node.jpg)    
-* method: 边缘处理方法。增加了VITMatte和VITMatte(local)方法。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
-* edge_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
-* edge_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 
 
 ### <a id="table1">MaskGrow</a>
