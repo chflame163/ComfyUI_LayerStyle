@@ -10,7 +10,7 @@ class CropByMaskV2:
     @classmethod
     def INPUT_TYPES(self):
         detect_mode = ['mask_area', 'min_bounding_rect', 'max_inscribed_rect']
-        multiple_list = ['8', '16', '32', '64', 'None']
+        multiple_list = ['8', '16', '32', '64', '128', '256', '512', 'None']
         return {
             "required": {
                 "image": ("IMAGE", ),  #

@@ -65,8 +65,8 @@ class CropByMask:
         else:
             (x, y, width, height) = mask_area(_mask)
 
-        width = num_round_to_multiple(width, 8)
-        height = num_round_to_multiple(height, 8)
+        width = num_round_up_to_multiple(width, 8)
+        height = num_round_up_to_multiple(height, 8)
         log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
         canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
         x1 = x - left_reserve if x - left_reserve > 0 else 0

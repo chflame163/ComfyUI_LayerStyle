@@ -80,7 +80,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-* [LUT Apply](#LUT) Add the street parameter.
+* [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) node add the "background_color" option.
+* [LUT Apply](#LUT) Add the "strength" option.
 * Commit [AutoAdjustV2](#AutoAdjustV2) node, add optional mask input and support for multiple automatic color adjustment modes.
 * Due to the upcoming discontinuation of gemini-pro vision services, [PromptTagger](#PromptTagger) and [PromptEmbellish](#PromptEmbellish) have added the "gemini-1.5-flash" API to continue using it.
 * [Ultra](#Ultra) nodes added the option to run ```VitMatte``` on the CUDA device, resulting in a 5-fold increase in running speed.
@@ -688,7 +689,7 @@ Node options:
 The following changes have been made based on ImageScaleByAspectRatio:
 * scale_to_side: Allow scaling by specified dimensions for long, short, width, height, or total pixels.
 * scale_to_length: The numerical value here serves as the length of the specified edge or the total pixels (kilo pixels) for scale_to_side.
-
+* background_color<sup>4</sup>: The color of the background.
 
 
 ### <a id="table1">QWenImage2Prompt</a>
@@ -740,7 +741,7 @@ Node options:
 * shift_x: Horizontal distance of shift.
 * shift_y: Vertical distance of shift.
 * cyclic: Is the part of displacement that is out of bounds cyclic.
-* background_color: Background color. if cyclic is set to False, the setting here will be used as the background color.
+* background_color<sup>4</sup>: Background color. if cyclic is set to False, the setting here will be used as the background color.
 * border_mask_width: Border mask width.
 * border_mask_blur: Border mask blur.
 * [note](#notes)
@@ -990,7 +991,7 @@ Node options:
 * width: Width of the image. If there is a size_as input, this setting will be ignored.
 * height: Height of the image. If there is a size_as input, this setting will be ignored.
 * text_color: The color of text.
-* background_color: The color of background.
+* background_color<sup>4</sup>: The color of background.
 
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
 

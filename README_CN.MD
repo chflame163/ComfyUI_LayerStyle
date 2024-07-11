@@ -80,7 +80,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-* [LUT Apply](#LUT) 节点增加strenght参数。
+* [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加background_color选项。 
+* [LUT Apply](#LUT) 节点增加strenght选项。
 * 添加 [AutoAdjustV2](#AutoAdjustV2) 节点，增加可选遮罩输入，增加多种自动调色模式支持。
 * 由于gemini-pro-vision即将停止服务， [PromptTagger](#PromptTagger) 和 [PromptEmbellish](#PromptEmbellish) 添加"gemini-1.5-flash" API以继续使用。 
 * [Ultra](#Ultra) 节点增加```VitMatte```方法在CUDA设备运行选项，运行速度提升5倍。
@@ -678,7 +679,7 @@ ImageScaleByAspectRatio的V2升级版
 在ImageScaleByAspectRatio基础上做了如下改变:
 * scale_to_side: 允许按长边、短边、宽度、高度或总像素指定尺寸缩放。
 * scale_to_length: 这里的数值作为scale_to_side指定边的长度, 或者总像素数量(kilo pixels)。
-
+* background_color<sup>4</sup>: 背景色。
 
 
 ### <a id="table1">QWenImage2Prompt</a>
@@ -729,7 +730,7 @@ ImageScaleByAspectRatio的V2升级版
 * shift_x: 位移的横向距离。
 * shift_y: 位移的纵向距离。
 * cyclic: 位移出界的部分是否循环。
-* background_color: 背景颜色。如果cyclic设置为False,将使用这里的设置作为背景颜色。
+* background_color<sup>4</sup>: 背景颜色。如果cyclic设置为False,将使用这里的设置作为背景颜色。
 * border_mask_width: 接缝遮罩宽度。
 * border_mask_blur: 接缝遮罩模糊。
 * [节点注解](#节点注解)
@@ -981,7 +982,7 @@ GradientImage的V2升级版。
 * width: 画面的宽度。如果有size_as输入，此设置将被忽略。
 * height: 画面的高度。如果有size_as输入，此设置将被忽略。
 * text_color: 文字颜色。
-* background_color: 背景颜色。
+* background_color<sup>4</sup>: 背景颜色。
 
 
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。

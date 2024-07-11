@@ -14,7 +14,7 @@ class ImageScaleByAspectRatio:
         ratio_list = ['original', 'custom', '1:1', '3:2', '4:3', '16:9', '2:3', '3:4', '9:16']
         fit_mode = ['letterbox', 'crop', 'fill']
         method_mode = ['lanczos', 'bicubic', 'hamming', 'bilinear', 'box', 'nearest']
-        multiple_list = ['8', '16', '32', '64', 'None']
+        multiple_list = ['8', '16', '32', '64', '128', '256', '512', 'None']
 
         return {
             "required": {
@@ -107,8 +107,8 @@ class ImageScaleByAspectRatio:
 
         if round_to_multiple != 'None':
             multiple = int(round_to_multiple)
-            target_width = num_round_to_multiple(target_width, multiple)
-            target_height = num_round_to_multiple(target_height, multiple)
+            target_width = num_round_up_to_multiple(target_width, multiple)
+            target_height = num_round_up_to_multiple(target_height, multiple)
 
         _mask = Image.new('L', size=(target_width, target_height), color='black')
         _image = Image.new('RGB', size=(target_width, target_height), color='black')
