@@ -15,6 +15,7 @@ class ColorCorrectLUTapply:
                 "image": ("IMAGE", ),  #
                 "LUT": (LUT_LIST,),  # LUT文件
                 "color_space":  (color_space_list,),
+                "strength": ("INT", {"default": 100, "min": 0, "max": 100, "step": 1}),
             },
             "optional": {
             }
@@ -25,14 +26,14 @@ class ColorCorrectLUTapply:
     FUNCTION = 'color_correct_LUTapply'
     CATEGORY = '😺dzNodes/LayerColor'
 
-    def color_correct_LUTapply(self, image, LUT, color_space):
+    def color_correct_LUTapply(self, image, LUT, color_space, strength):
         ret_images = []
         for i in image:
             i = torch.unsqueeze(i, 0)
             _image = tensor2pil(i)
 
             lut_file = LUT_DICT[LUT]
-            ret_image = apply_lut(_image, lut_file, log=(color_space == 'log'))
+            ret_image = apply_lut(_image, lut_file=lut_file, colorspace=color_space, strength=strength)
 
             if _image.mode == 'RGBA':
                 ret_image = RGB2RGBA(ret_image, _image.split()[-1])

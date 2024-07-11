@@ -1077,29 +1077,79 @@ def gamma_trans(image:Image, gamma:float) -> Image:
     _corrected = cv2.LUT(cv2_image,gamma_table)
     return cv22pil(_corrected)
 
-def apply_lut(image:Image, lut_file:str, log:bool=False) -> Image:
-    from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
-    lut: Union[LUT3x1D, LUT3D] = read_LUT_IridasCube(lut_file)
-    lut.name = os.path.splitext(os.path.basename(lut_file))[0]  # use base filename instead of internal LUT name
+# def apply_lut(image:Image, lut_file:str, log:bool=False) -> Image:
+#     from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
+#     lut: Union[LUT3x1D, LUT3D] = read_LUT_IridasCube(lut_file)
+#     lut.name = os.path.splitext(os.path.basename(lut_file))[0]  # use base filename instead of internal LUT name
+#
+#     im_array = np.asarray(image.convert('RGB'), dtype=np.float32) / 255
+#     is_non_default_domain = not np.array_equal(lut.domain, np.array([[0., 0., 0.], [1., 1., 1.]]))
+#     dom_scale = None
+#     if is_non_default_domain:
+#         dom_scale = lut.domain[1] - lut.domain[0]
+#         im_array = im_array * dom_scale + lut.domain[0]
+#     if log:
+#         im_array = im_array ** (1 / 2.2)
+#     im_array = lut.apply(im_array)
+#     if log:
+#         im_array = im_array ** (2.2)
+#     if is_non_default_domain:
+#         im_array = (im_array - lut.domain[0]) / dom_scale
+#     im_array = im_array * 255
+#     ret_image = Image.fromarray(np.uint8(im_array))
+#
+#     return ret_image
 
-    im_array = np.asarray(image.convert('RGB'), dtype=np.float32) / 255
+def apply_lut(image:Image, lut_file:str, colorspace:str, strength:int, clip_values:bool=True) -> Image:
+    """
+    Apply a LUT to an image.
+    :param image: Image to apply the LUT to.
+    :param lut_file: LUT file to apply.
+    :param colorspace: Colorspace to convert the image to before applying the LUT.
+    :param clip_values: Clip the values of the LUT to the domain of the LUT.
+    :param strength: Strength of the LUT.
+    :return: Image with the LUT applied.
+    """
+    log_colorspace = False
+    if colorspace == "log":
+        log_colorspace = True
+
+    from colour.io.luts.iridas_cube import read_LUT_IridasCube
+
+    lut = read_LUT_IridasCube(lut_file)
+    lut.name = lut_file
+
+    if clip_values:
+        if lut.domain[0].max() == lut.domain[0].min() and lut.domain[1].max() == lut.domain[1].min():
+            lut.table = np.clip(lut.table, lut.domain[0, 0], lut.domain[1, 0])
+        else:
+            if len(lut.table.shape) == 2:  # 3x1D
+                for dim in range(3):
+                    lut.table[:, dim] = np.clip(lut.table[:, dim], lut.domain[0, dim], lut.domain[1, dim])
+            else:  # 3D
+                for dim in range(3):
+                    lut.table[:, :, :, dim] = np.clip(lut.table[:, :, :, dim], lut.domain[0, dim], lut.domain[1, dim])
+
+    img = pil2tensor(image)
+    lut_img = img.numpy().copy()
     is_non_default_domain = not np.array_equal(lut.domain, np.array([[0., 0., 0.], [1., 1., 1.]]))
     dom_scale = None
     if is_non_default_domain:
         dom_scale = lut.domain[1] - lut.domain[0]
-        im_array = im_array * dom_scale + lut.domain[0]
-    if log:
-        im_array = im_array ** (1 / 2.2)
-    im_array = lut.apply(im_array)
-    if log:
-        im_array = im_array ** (2.2)
+        lut_img = lut_img * dom_scale + lut.domain[0]
+    if log_colorspace:
+        lut_img = lut_img ** (1/2.2)
+    lut_img = lut.apply(lut_img)
+    if log_colorspace:
+        lut_img = lut_img ** (2.2)
     if is_non_default_domain:
-        im_array = (im_array - lut.domain[0]) / dom_scale
-    im_array = im_array * 255
-    ret_image = Image.fromarray(np.uint8(im_array))
+        lut_img = (lut_img - lut.domain[0]) / dom_scale
+    lut_img = torch.from_numpy(lut_img)
+    if strength < 100:
+        strength /= 100
+        lut_img = strength * lut_img + (1 - strength) * img
 
-    return ret_image
-
+    return tensor2pil(lut_img)
 
 def color_adapter(image:Image, ref_image:Image) -> Image:
     image = pil2cv2(image)
