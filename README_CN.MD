@@ -80,6 +80,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [AutoAdjustV2](#AutoAdjustV2) 节点，增加可选遮罩输入，增加多种自动调色模式支持。
+* 由于gemini-pro-vision即将停止服务， [PromptTagger](#PromptTagger) 和 [PromptEmbellish](#PromptEmbellish) 添加"gemini-1.5-flash" API以继续使用。 
 * [Ultra](#Ultra) 节点增加```VitMatte```方法在CUDA设备运行选项，运行速度提升5倍。
 * 添加 [QueueStop](#QueueStop) 节点，用于停止队列。
 * 优化[Ultra](#Ultra)节点的```VitMatte```方法在处理大尺寸图片时的性能。
@@ -372,6 +374,15 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * red: 红色通道手动调整。
 * green: 绿色通道手动调整。
 * blue: 蓝色通道手动调整。
+
+### <a id="table1">AutoAdjustV2</a>
+在AutoAdjust基础上增加遮罩输入, 仅计算遮罩内的内容进行自动调色。增加多种自动调整模式。
+![image](image/auto_adjust_v2_example.jpg)    
+
+在AutoAdjust基础上进行了如下改变:  
+![image](image/auto_adjust_v2_node.jpg)    
+* mask:可选遮罩输入。
+* mode: 自动调整模式。"RGB"按RGB三个通道自动调整，"lum + sat"按亮度和饱和度自动调整，"luminance"按亮度自动调整，"saturation"按饱和度自动调整, "mono"按灰度自动调整并输出单色。
 
 ### <a id="table1">AutoBrightness</a>
 将过暗或过亮的图片自动调整到适中的亮度，支持遮罩输入。有遮罩输入时仅以遮罩部分的内容作为自动亮度的数据来源。输出仍然是整个调整后的图像。
@@ -686,13 +697,13 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:   
 ![image](image/prompt_tagger_node.jpg)    
 
-* api: 使用的Api。目前只有"gemini-pro-vision"一个选项。
+* api: 使用的Api。有"gemini-1.5-flash"和"google-gemini"两个选项。
 * token_limit: 生成提示词的最大token限制。
 * exclude_word: 需要排除的关键词。
 * replace_with_word: 替换exclude_word的关键词。
 
 ### <a id="table1">PromptEmbellish</a>
-输入简单的提示词，输出经过润色的提示词，支持输入图片作为参考。这个节点目前使用Google Gemini API作为后端服务，请确保网络环境可以正常使用Gemini。
+输入简单的提示词，输出经过润色的提示词，支持输入图片作为参考，支持中文输入。这个节点目前使用Google Gemini API作为后端服务，请确保网络环境可以正常使用Gemini。
 请在[Google AI Studio](https://makersuite.google.com/app/apikey)申请你的API key, 并将其填到```api_key.ini```, 这个文件位于插件根目录下, 默认名字是```api_key.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，在```google_api_key=```后面填入你的API key并保存。
 ![image](image/prompt_embellish_example.jpg)    
 
@@ -700,7 +711,7 @@ ImageScaleByAspectRatio的V2升级版
 ![image](image/prompt_embellish_node.jpg)    
 
 * image: 可选项，输入图像作为提示词参考。
-* api: 使用的Api。目前只有"google-gemini"一个选项。
+* api: 使用的Api。有"gemini-1.5-flash"和"google-gemini"两个选项。
 * token_limit: 生成提示词的最大token限制。
 * discribe: 在这里输入简单的描述。支持中文。
 

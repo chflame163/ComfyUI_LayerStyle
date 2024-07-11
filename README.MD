@@ -80,6 +80,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [AutoAdjustV2](#AutoAdjustV2) node, add optional mask input and support for multiple automatic color adjustment modes.
+* Due to the upcoming discontinuation of gemini-pro vision services, [PromptTagger](#PromptTagger) and [PromptEmbellish](#PromptEmbellish) have added the "gemini-1.5-flash" API to continue using it.
 * [Ultra](#Ultra) nodes added the option to run ```VitMatte``` on the CUDA device, resulting in a 5-fold increase in running speed.
 * Commit [QueueStop](#QueueStop) node, used to terminate the queue operation.
 * Optimize performance of the ```VitMate``` method for [Ultra](#Ultra) nodes when processing large-size image.
@@ -377,6 +379,15 @@ Node Options:
 * red: Manual adjustment of the red channel.
 * green: Manual adjustment of the green channel.
 * blue: Manual adjustment of the blue channel.
+
+### <a id="table1">AutoAdjustV2</a>
+On the basis of AutoAdjust, add mask input and only calculate the content inside the mask for automatic color adjustment. Add multiple automatic adjustment modes.
+![image](image/auto_adjust_v2_example.jpg)    
+
+The following changes have been made based on AutoAdjust: 
+![image](image/auto_adjust_v2_node.jpg)    
+* mask: Optional mask input.
+* mode: Automatic adjustment mode. "RGB" automatically adjusts according to the three channels of RGB, "lum + sat"automatically adjusts according to luminance and saturation, "luminance" automatically adjusts according to luminance, "saturation" automatically adjusts according to saturation, and "mono" automatically adjusts according to grayscale and outputs monochrome.
 
 ### <a id="table1">AutoBrightness</a>
 Automatically adjust too dark or too bright image to moderate brightness, and support mask input. When  mask input, only the content of the mask part is used as the data source of the automatic brightness. The output is still the whole adjusted image.
@@ -696,14 +707,14 @@ Please apply for your API key on [Google AI Studio](https://makersuite.google.co
 Node options:   
 ![image](image/prompt_tagger_node.jpg)    
 
-* api: The Api used. At present, there is only one option, "gemini-pro-vision".
+* api: The Api used. At present, there are two options "gemini-1. 5-flash" and "google-gemini".
 * token_limit: The maximum token limit for generating prompt words.
 * exclude_word: Keywords that need to be excluded.
 * replace_with_word: That word will replace the exclude_word.
 
 
 ### <a id="table1">PromptEmbellish</a>
-Enter simple prompt words, output polished prompt words, and support inputting images as references. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
+Enter simple prompt words, output polished prompt words, and support inputting images as references, and support Chinese input. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
 Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
 ![image](image/prompt_embellish_example.jpg)    
 
@@ -711,7 +722,7 @@ Node options:
 ![image](image/prompt_embellish_node.jpg)    
 
 * image: Optional, input image as a reference for prompt words.
-* api: The Api used. At present, there is only one option, "google-gemini".
+* api: The Api used. At present, there are two options "gemini-1. 5-flash" and "google-gemini".
 * token_limit: The maximum token limit for generating prompt words.
 * discribe: Enter a simple description here. supports Chinese text input.
 
