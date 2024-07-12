@@ -6,7 +6,8 @@ from PIL import Image
 import numpy as np
 import torch
 import torch.nn.functional as F
-from colorsys import rgb_to_hsv, hsv_to_rgb
+# from colorsys import rgb_to_hsv, hsv_to_rgb
+from skimage.color import rgb2hsv, hsv2rgb
 from blend_modes import difference, normal, screen, soft_light, lighten_only, dodge,   \
                         addition, darken_only, multiply, hard_light,  \
                         grain_extract, grain_merge, divide, overlay
@@ -53,9 +54,11 @@ def hsv(backdrop, source, opacity, channel):
     source_alpha = source[:, :, 3] / 255.0
 
     # Convert RGB to HSV
-    backdrop_hsv = np.array([rgb_to_hsv(*rgb) for row in backdrop_rgb for rgb in row]).reshape(backdrop.shape[:2] + (3,))
-    source_hsv = np.array([rgb_to_hsv(*rgb) for row in source_rgb for rgb in row]).reshape(source.shape[:2] + (3,))
-
+    # backdrop_hsv = np.array([rgb_to_hsv(*rgb) for row in backdrop_rgb for rgb in row]).reshape(backdrop.shape[:2] + (3,))
+    # source_hsv = np.array([rgb_to_hsv(*rgb) for row in source_rgb for rgb in row]).reshape(source.shape[:2] + (3,))
+    backdrop_hsv = rgb2hsv(backdrop_rgb)
+    source_hsv = rgb2hsv(source_rgb)
+    
     # Combine HSV values
     new_hsv = backdrop_hsv.copy()
     
@@ -70,8 +73,9 @@ def hsv(backdrop, source, opacity, channel):
         new_hsv[:, :, :2] = (1 - opacity * source_alpha[..., None]) * backdrop_hsv[:, :, :2] + opacity * source_alpha[..., None] * source_hsv[:, :, :2]
 
     # Convert HSV back to RGB
-    new_rgb = np.array([hsv_to_rgb(*hsv) for row in new_hsv for hsv in row]).reshape(backdrop.shape[:2] + (3,))
-
+    # new_rgb = np.array([hsv_to_rgb(*hsv) for row in new_hsv for hsv in row]).reshape(backdrop.shape[:2] + (3,))
+    new_rgb = hsv2rgb(new_hsv)
+  
     # Apply the alpha channel of the source image to the new RGB image
     new_rgb = (1 - source_alpha[..., None]) * backdrop_rgb + source_alpha[..., None] * new_rgb
 
