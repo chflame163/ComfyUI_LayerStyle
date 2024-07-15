@@ -30,7 +30,7 @@ class TextJoin:
 
         texts = [kwargs[key] for key in kwargs if key.startswith('text')]
         combined_text = ', '.join(texts)
-        return (combined_text,)
+        return (combined_text.encode('unicode-escape').decode('unicode-escape'),)
 
 
 NODE_CLASS_MAPPINGS = {
