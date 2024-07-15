@@ -23,14 +23,16 @@ class PrintInfo:
   def print_info(self, anything=None):
     value = f'PrintInfo:\nInput type = {type(anything)}'
     if isinstance(anything, torch.Tensor):
-      value += f"\n Input dim = {anything.dim()}, shape[0] = {anything.shape[0]} \n"
+      # value += f"\n Input dim = {anything.dim()}, shape[0] = {anything.shape[0]}"
       for i in range(anything.shape[0]):
         t = anything[i]
         image = tensor2pil(t)
-        value += f'\n index {i}: Image.size = {image.size}, Image.mode = {image.mode}, dim = {t.dim()}, '
-        for j in range(t.dim()):
-          value += f'shape[{j}] = {t.shape[j]}, '
+        value += f'index {i}: size={image.size}, mode="{image.mode}", dim={t.dim()}; '
+        # for j in range(t.dim()):
+        #   value += f'shape[{j}] = {t.shape[j]}, '
         # value += f'\n {t} \n'
+    elif isinstance(anything, str):
+      value = f"{value}{anything.encode('unicode-escape').decode('unicode-escape')}"
     elif anything is not None:
       try:
         value = value + json.dumps(anything) + "\n"
