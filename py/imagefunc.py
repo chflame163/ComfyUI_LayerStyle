@@ -893,12 +893,22 @@ def adjust_levels(image:Image, input_black:int=0, input_white:int=255, midtones:
     img = img.astype(np.uint8)
     return cv22pil(img)
 
-
-def get_image_color_tone(image:Image) -> str:
+def get_image_color_tone(image:Image, mask:Image=None) -> str:
     image = image.convert('RGB')
     max_score = 0.0001
     dominant_color = (255, 255, 255)
-    for count, (r, g, b) in image.getcolors(image.width * image.height):
+    if mask is not None:
+        if mask.mode != 'L':
+            mask = mask.convert('L')
+        canvas = Image.new('RGB', size=image.size, color='black')
+        canvas.paste(image, mask=mask)
+        image = canvas
+
+    all_colors = image.getcolors(image.width * image.height)
+    for count, (r, g, b) in all_colors:
+        if mask is not None:
+            if r + g + b < 2:  # 忽略黑色
+                continue
         saturation = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)[1]
         y = min(abs(r * 2104 + g * 4130 + b * 802 + 4096 + 131072) >> 13,235)
         y = (y - 16.0) / (235 - 16)
@@ -909,22 +919,29 @@ def get_image_color_tone(image:Image) -> str:
     ret_color = RGB_to_Hex(dominant_color)
     return ret_color
 
-def get_image_color_average(image:Image) -> str:
+def get_image_color_average(image:Image, mask:Image=None) -> str:
     image = image.convert('RGB')
     width, height = image.size
     total_red = 0
     total_green = 0
     total_blue = 0
+    total_pixel =0
     for y in range(height):
         for x in range(width):
+            if mask is not None:
+                if mask.mode != 'L':
+                    mask = mask.convert('L')
+                if mask.getpixel((x, y)) <= 127:
+                    continue
             rgb = image.getpixel((x, y))
             total_red += rgb[0]
             total_green += rgb[1]
             total_blue += rgb[2]
+            total_pixel += 1
 
-    average_red = total_red // (width * height)
-    average_green = total_green // (width * height)
-    average_blue = total_blue // (width * height)
+    average_red = total_red // total_pixel
+    average_green = total_green // total_pixel
+    average_blue = total_blue // total_pixel
     color = (average_red, average_green, average_blue)
     ret_color = RGB_to_Hex(color)
     return ret_color

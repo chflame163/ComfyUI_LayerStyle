@@ -80,6 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [GetColorToneV2](#GetColorToneV2) 节点的取色选项增加```mask```方法，可精确获取遮罩内的主色和平均色。
 * [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加background_color选项。 
 * [LUT Apply](#LUT) 节点增加strenght选项。
 * 添加 [AutoAdjustV2](#AutoAdjustV2) 节点，增加可选遮罩输入，增加多种自动调色模式支持。
@@ -800,18 +801,19 @@ ImageScaleByAspectRatio的V2升级版
 
 ### <a id="table1">GetColorToneV2</a>
 GetColorTone的V2升级版。可以指定获取主体或背景的主色或平均色。
-![image](image/get_color_tone_v2_example.jpg)    
+![image](image/get_color_tone_v2_example.jpg)
+![image](image/get_color_tone_v2_example2.jpg)
 
 在GetColorTong基础上做了如下改变:
 ![image](image/get_color_tone_v2_node.jpg)    
-* color_of: 提供三个选项，entire, background和subject, 分别表示选择整个图片，背景，或主体的颜色。
+* color_of: 提供4个选项，mask, entire, background和subject, 分别表示选择遮罩区域，整个图片，背景，或主体的颜色。
 * remove_background_method: 背景识别的方法, 有BiRefNet和RMBG V1.4两种可以选择。
 * invert_mask: 是否反转遮罩。
 * mask_grow: 遮罩扩张。对于subject, 更大的值使获得的颜色更接近主体中心的颜色。
 
 输出:
 * image: 纯色图片输出, 尺寸与输入的图片相同。
-
+* mask: 遮罩输出。
 
 ### <a id="table1">ExtendCanvas</a>
 扩展画布。

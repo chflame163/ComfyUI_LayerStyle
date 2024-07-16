@@ -80,6 +80,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [GetColorToneV2](#GetColorToneV2) node add the ```mask``` method to the color selection option, which can accurately obtain the main color and average color within the mask.
 * [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) node add the "background_color" option.
 * [LUT Apply](#LUT) Add the "strength" option.
 * Commit [AutoAdjustV2](#AutoAdjustV2) node, add optional mask input and support for multiple automatic color adjustment modes.
@@ -814,13 +815,14 @@ V2 upgrade of GetColorTone. You can specify the dominant or average color to get
 
 The following changes have been made on the basis of GetColorTong:
 ![image](image/get_color_tone_v2_node.jpg)    
-* color_of: Provides three options, entire, background, and subject, to select the color of the entire picture, background, or body, respectively.
+* color_of: Provides 4 options, mask, entire, background, and subject, to select the color of the mask area, entire picture, background, or subject, respectively.
 * remove_background_method: There are two methods of background recognition: BiRefNet and RMBG V1.4.
 * invert_mask: Whether to reverse the mask.
 * mask_grow: Mask expansion. For subject, a larger value brings the obtained color closer to the color at the center of the body.
 
 Output:
 * image: Solid color picture output, the size is the same as the input picture.
+* mask: Mask output.
 
 ### <a id="table1">ExtendCanvas</a>
 Extend the canvas
