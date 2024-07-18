@@ -22,6 +22,7 @@ import scipy.ndimage
 import cv2
 import random
 import time
+from pathlib import Path
 from tqdm import tqdm
 from functools import lru_cache
 from typing import Union, List
@@ -1490,6 +1491,7 @@ class VITMatteModel:
         self.processor = processor
 
 def load_VITMatte_model(model_name:str, local_files_only:bool=False) -> object:
+    model_name = Path(os.path.join(folder_paths.models_dir, "vitmatte"))
     from transformers import VitMatteImageProcessor, VitMatteForImageMatting
     model = VitMatteForImageMatting.from_pretrained(model_name, local_files_only=local_files_only)
     processor = VitMatteImageProcessor.from_pretrained(model_name, local_files_only=local_files_only)

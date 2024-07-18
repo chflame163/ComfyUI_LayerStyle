@@ -80,6 +80,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Change the VitMatte model of the [Ultra](#Ultra) node to a local call. Please download [all files of vitmatte model](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main) to the ```ComfyUI/models/vitmatte``` folder.
 * [GetColorToneV2](#GetColorToneV2) node add the ```mask``` method to the color selection option, which can accurately obtain the main color and average color within the mask.
 * [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) node add the "background_color" option.
 * [LUT Apply](#LUT) Add the "strength" option.
@@ -1389,6 +1390,8 @@ The code for the above two methods is from the [ComfyUI-Image-Filters](https://g
 Note: When running for the first time, you need to download the vitmate model file and wait for the automatic download to complete. If the download cannot be completed, you can run the command ```huggingface-cli download hustvl/vitmatte-small-composition-1k``` to manually download.
 After successfully downloading the model, you can use ```VITMatte(local)``` without accessing the network.
 * VitMatte's options: ```device``` set whether to use CUDA for vitimate operations, which is about 5 times faster than CPU. ```max_megapixels``` set the maximum image size for vitmate operation, and oversized images will be reduced in size. For 16G VRAM, it is recommended to set it to 3.
+
+Download the vitmatte model files [all files of vitmatte model](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main) to the ```ComfyUI/models/vitmatte``` folder.
 
 The following figure is an example of the difference in output between three methods.
 ![image](image/mask_edge_ultra_detail_v2_example.jpg)   

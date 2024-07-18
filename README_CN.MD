@@ -80,6 +80,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [Ultra](#Ultra) 节点的VitMatte模型改为本地调用，请下载[所有的vitmatte模型文件](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main)到```ComfyUI/models/vitmatte```文件夹。
 * [GetColorToneV2](#GetColorToneV2) 节点的取色选项增加```mask```方法，可精确获取遮罩内的主色和平均色。
 * [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加background_color选项。 
 * [LUT Apply](#LUT) 节点增加strenght选项。
@@ -1370,9 +1371,9 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * ```GuideFilter``` 使用 opencv guidedfilter 根据颜色相似度对边缘进行羽化，对于边缘具有很强的颜色分离时效果最佳。    
 以上两种方法的代码来着spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，感谢原作者。
 * ```VitMatte``` 使用transfromer vit模型进行高质量的边缘处理，保留边缘细节，甚至可以生成半透明遮罩。
-注：首次运行时需要下载vitmatte模型文件，等待自动下载完成即可。如果无法完成下载，可运行命令```huggingface-cli download hustvl/vitmatte-small-composition-1k```手动下载模型。
-模型成功下载之后可以使用VITMatte(local)无需访问网络。
 * VitMatte的选项:```device``` 设置是否使用cuda进行vitmatte运算，cuda运算速度比cpu快5倍左右。```max_megapixels```设置vitmatte运算的最大图片尺寸，超大的图片将缩小处理。对于16G显存建议设置为3。
+
+请下载[所有的 vitmatte 模型文件](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main)到```ComfyUI/models/vitmatte```文件夹。
 
 下图为三种方法输出区别的示例。
 ![image](image/mask_edge_ultra_detail_v2_example.jpg)   
