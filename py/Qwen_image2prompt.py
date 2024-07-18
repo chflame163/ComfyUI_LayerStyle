@@ -7,10 +7,6 @@ from torchvision.transforms import ToPILImage
 from huggingface_hub import snapshot_download
 import folder_paths
 
-# Define the directory for saving files related to uform-gen2-qwen
-# files_for_uform_gen2_qwen = Path(folder_paths.folder_names_and_paths["LLavacheckpoints"][0][0]) / "files_for_uform_gen2_qwen"
-files_for_uform_gen2_qwen = Path(os.path.join(folder_paths.models_dir, "LLavacheckpoints", "files_for_uform_gen2_qwen"))
-files_for_uform_gen2_qwen.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
 
 class StopOnTokens(StoppingCriteria):
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
@@ -22,11 +18,12 @@ class StopOnTokens(StoppingCriteria):
 
 class UformGen2QwenChat:
     def __init__(self):
-        self.model_path = snapshot_download("unum-cloud/uform-gen2-qwen-500m", 
-                                            local_dir=files_for_uform_gen2_qwen,
-                                            force_download=False,  # Set to True if you always want to download, regardless of local copy
-                                            local_files_only=False,  # Set to False to allow downloading if not available locally
-                                            local_dir_use_symlinks="auto") # or set to True/False based on your symlink preference
+        # self.model_path = snapshot_download("unum-cloud/uform-gen2-qwen-500m",
+        #                                     local_dir=files_for_uform_gen2_qwen,
+        #                                     force_download=False,  # Set to True if you always want to download, regardless of local copy
+        #                                     local_files_only=True,  # Set to False to allow downloading if not available locally
+        #                                     local_dir_use_symlinks="auto") # or set to True/False based on your symlink preference
+        self.model_path = Path(os.path.join(folder_paths.models_dir, "LLavacheckpoints", "files_for_uform_gen2_qwen"))
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         self.model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True).to(self.device)
         self.processor = AutoProcessor.from_pretrained(self.model_path, trust_remote_code=True)
@@ -79,8 +76,6 @@ class UformGen2QwenChat:
 
 # Example of integrating UformGen2QwenChat into a node-like structure
 class QWenImage2Prompt:
-    def __init__(self):
-        self.chat_model = UformGen2QwenChat()
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -97,12 +92,22 @@ class QWenImage2Prompt:
     CATEGORY = '😺dzNodes/LayerUtility/Prompt'
 
     def uform_gen2_qwen_chat(self, image, question):
+        chat_model = UformGen2QwenChat()
         history = []  # Example empty history
         pil_image = ToPILImage()(image[0].permute(2, 0, 1))
         temp_path = files_for_uform_gen2_qwen / "temp.png"
         pil_image.save(temp_path)
         
-        response = self.chat_model.chat_response(question, history, temp_path)
+        response = chat_model.chat_response(question, history, temp_path)
+
+        # Cleanup
+        del chat_model
+        import gc
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.ipc_collect()
+
         return (response.split("assistant\n", 1)[1], )
 
 NODE_CLASS_MAPPINGS = {
