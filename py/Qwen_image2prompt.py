@@ -7,7 +7,7 @@ from torchvision.transforms import ToPILImage
 from huggingface_hub import snapshot_download
 import folder_paths
 
-
+files_for_uform_gen2_qwen = Path(os.path.join(folder_paths.models_dir, "LLavacheckpoints", "files_for_uform_gen2_qwen"))
 class StopOnTokens(StoppingCriteria):
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
         stop_ids = [151645]  # Define stop tokens as per your model's specifics
@@ -21,9 +21,10 @@ class UformGen2QwenChat:
         # self.model_path = snapshot_download("unum-cloud/uform-gen2-qwen-500m",
         #                                     local_dir=files_for_uform_gen2_qwen,
         #                                     force_download=False,  # Set to True if you always want to download, regardless of local copy
-        #                                     local_files_only=True,  # Set to False to allow downloading if not available locally
+        #                                     local_files_only=False,  # Set to False to allow downloading if not available locally
         #                                     local_dir_use_symlinks="auto") # or set to True/False based on your symlink preference
-        self.model_path = Path(os.path.join(folder_paths.models_dir, "LLavacheckpoints", "files_for_uform_gen2_qwen"))
+        self.model_path = files_for_uform_gen2_qwen
+        print("Model path:", self.model_path)
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         self.model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True).to(self.device)
         self.processor = AutoProcessor.from_pretrained(self.model_path, trust_remote_code=True)
