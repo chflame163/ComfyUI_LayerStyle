@@ -30,6 +30,7 @@ from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhanc
 from skimage import img_as_float, img_as_ubyte
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
+from transformers import AutoModel, AutoProcessor, StoppingCriteria, StoppingCriteriaList
 import colorsys
 from typing import Union
 import folder_paths
@@ -37,6 +38,7 @@ from .briarmbg import BriaRMBG
 from .filmgrainer import processing as processing_utils
 from .filmgrainer import filmgrainer as filmgrainer
 import wget
+import gc
 
 from .blendmodes import *
 
@@ -1972,6 +1974,13 @@ def extract_all_numbers_from_str(string, checkint:bool=False):
 
     return number_list
 
+def clear_memory():
+    # Cleanup
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
+
 def tensor_info(tensor:object) -> str:
     value = ''
     if isinstance(tensor, torch.Tensor):
@@ -1985,6 +1994,91 @@ def tensor_info(tensor:object) -> str:
     else:
         value = f"tensor_info: Not tensor, type is {type(tensor)}"
     return value
+
+# 去除重复的句子
+def remove_duplicate_string(text:str) -> str:
+    sentences = re.split(r'(?<=[:;,.!?])\s+', text)
+    unique_sentences = []
+    seen = set()
+    for sentence in sentences:
+        if sentence not in seen:
+            seen.add(sentence)
+            unique_sentences.append(sentence)
+    return ' '.join(unique_sentences)
+
+files_for_uform_gen2_qwen = Path(os.path.join(folder_paths.models_dir, "LLavacheckpoints", "files_for_uform_gen2_qwen"))
+class StopOnTokens(StoppingCriteria):
+    def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
+        stop_ids = [151645]  # Define stop tokens as per your model's specifics
+        for stop_id in stop_ids:
+            if input_ids[0][-1] == stop_id:
+                return True
+        return False
+
+class UformGen2QwenChat:
+    def __init__(self):
+        from huggingface_hub import snapshot_download
+        # self.model_path = snapshot_download("unum-cloud/uform-gen2-qwen-500m",
+        #                                     local_dir=files_for_uform_gen2_qwen,
+        #                                     force_download=False,  # Set to True if you always want to download, regardless of local copy
+        #                                     local_files_only=False,  # Set to False to allow downloading if not available locally
+        #                                     local_dir_use_symlinks="auto") # or set to True/False based on your symlink preference
+        self.model_path = files_for_uform_gen2_qwen
+        print("Model path:", self.model_path)
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True).to(self.device)
+        self.processor = AutoProcessor.from_pretrained(self.model_path, trust_remote_code=True)
+
+    def chat_response(self, message, history, image_path):
+        stop = StopOnTokens()
+        messages = [{"role": "system", "content": "You are a helpful Assistant."}]
+
+        for user_msg, assistant_msg in history:
+            messages.append({"role": "user", "content": user_msg})
+            messages.append({"role": "assistant", "content": assistant_msg})
+
+        if len(messages) == 1:
+            message = f" <image>{message}"
+
+        messages.append({"role": "user", "content": message})
+
+        model_inputs = self.processor.tokenizer.apply_chat_template(
+            messages,
+            add_generation_prompt=True,
+            return_tensors="pt"
+        )
+
+        image = Image.open(image_path)  # Load image using PIL
+        image_tensor = (
+            self.processor.feature_extractor(image)
+            .unsqueeze(0)
+        )
+
+        attention_mask = torch.ones(
+            1, model_inputs.shape[1] + self.processor.num_image_latents - 1
+        )
+
+        model_inputs = {
+            "input_ids": model_inputs,
+            "images": image_tensor,
+            "attention_mask": attention_mask
+        }
+
+        model_inputs = {k: v.to(self.device) for k, v in model_inputs.items()}
+
+        with torch.inference_mode():
+            output = self.model.generate(
+                **model_inputs,
+                max_new_tokens=512,
+                do_sample=True,
+                temperature=0.7,
+                repetition_penalty=1.2,
+                stopping_criteria=StoppingCriteriaList([stop])
+            )
+
+        response_text = self.processor.tokenizer.decode(output[0], skip_special_tokens=True)
+        response_text = remove_duplicate_string(response_text)
+        return response_text
 
 '''CLASS'''
 
@@ -2146,3 +2240,51 @@ gemini_safety_settings = [
         "threshold": "BLOCK_NONE"
     }
 ]
+
+minicpm_llama3_v25_prompts = """
+        # MISSION
+        You are an imagine generator for a slide deck tool. You will be given the text or description of a slide and you'll generate a few image descriptions that will be fed to an AI image generator. It will need to have a particular format (seen below). You will also be given some examples below. Think metaphorically and symbolically. 
+
+        # FORMAT
+        The format should follow this general pattern:
+
+        <MAIN SUBJECT>, <DESCRIPTION OF MAIN SUBJECT>, <BACKGROUND OR CONTEXT, LOCATION, ETC>, <STYLE, GENRE, MOTIF, ETC>, <COLOR SCHEME>, <CAMERA DETAILS>
+
+        It's not strictly required, as you'll see below, you can pick and choose various aspects, but this is the general order of operations
+
+        # EXAMPLES
+
+        a Shakespeare stage play, yellow mist, atmospheric, set design by Michel Crête, Aerial acrobatics design by André Simard, hyperrealistic, 4K, Octane render, unreal engine
+
+        The Moon Knight dissolving into swirling sand, volumetric dust, cinematic lighting, close up portrait
+
+        ethereal Bohemian Waxwing bird, Bombycilla garrulus :: intricate details, ornate, detailed illustration, octane render :: Johanna Rupprecht style, William Morris style :: trending on artstation
+
+        steampunk cat, octane render, hyper realistic
+
+        Hyper detailed movie still that fuses the iconic tea party scene from Alice in Wonderland showing the hatter and an adult alice. a wooden table is filled with teacups and cannabis plants. The scene is surrounded by flying weed. Some playcards flying around in the air. Captured with a Hasselblad medium format camera
+
+        venice in a carnival picture 3, in the style of fantastical compositions, colorful, eye-catching compositions, symmetrical arrangements, navy and aquamarine, distinctive noses, gothic references, spiral group –style expressive
+
+        Beautiful and terrifying Egyptian mummy, flirting and vamping with the viewer, rotting and decaying climbing out of a sarcophagus lunging at the viewer, symmetrical full body Portrait photo, elegant, highly detailed, soft ambient lighting, rule of thirds, professional photo HD Photography, film, sony, portray, kodak Polaroid 3200dpi scan medium format film Portra 800, vibrantly colored portrait photo by Joel – Peter Witkin + Diane Arbus + Rhiannon + Mike Tang, fashion shoot
+
+        A grandmotherly Fate sits on a cozy cosmic throne knitting with mirrored threads of time, the solar system spins like clockwork behind her as she knits the futures of people together like an endless collage of destiny, maximilism, cinematic quality, sharp – focus, intricate details
+
+        A cloud with several airplanes flying around on top, in the style of detailed fantasy art, nightcore, quiet moments captured in paint, radiant clusters, i cant believe how beautiful this is, detailed character design, dark cyan and light crimson
+
+        An incredibly detailed close up macro beauty photo of an Asian model, hands holding a bouquet of pink roses, surrounded by scary crows from hell. Shot on a Hasselblad medium format camera with a 100mm lens. Unmistakable to a photograph. Cinematic lighting. Photographed by Tim Walker, trending on 500px
+
+        Game-Art | An island with different geographical properties and multiple small cities floating in space ::10 Island | Floating island in space – waterfalls over the edge of the island falling into space – island fragments floating around the edge of the island, Mountain Ranges – Deserts – Snowy Landscapes – Small Villages – one larger city ::8 Environment | Galaxy – in deep space – other universes can be seen in the distance ::2 Style | Unreal Engine 5 – 8K UHD – Highly Detailed – Game-Art
+
+        a warrior sitting on a giant creature and riding it in the water, with wings spread wide in the water, camera positioned just above the water to capture this beautiful scene, surface showing intricate details of the creature’s scales, fins, and wings, majesty, Hero rides on the creature in the water, digitally enhanced, enhanced graphics, straight, sharp focus, bright lighting, closeup, cinematic, Bronze, Azure, blue, ultra highly detailed, 18k, sharp focus, bright photo with rich colors, full coverage of a scene, straight view shot
+
+        A real photographic landscape painting with incomparable reality,Super wide,Ominous sky,Sailing boat,Wooden boat,Lotus,Huge waves,Starry night,Harry potter,Volumetric lighting,Clearing,Realistic,James gurney,artstation
+
+        Tiger monster with monstera plant over him, back alley in Bangkok, art by Otomo Katsuhiro crossover Yayoi Kusama and Hayao Miyazaki
+
+        An elderly Italian woman with wrinkles, sitting in a local cafe filled with plants and wood decorations, looking out the window, wearing a white top with light purple linen blazer, natural afternoon light shining through the window
+
+        # OUTPUT
+        Your output should just be an plain list of descriptions. No numbers, no extraneous labels, no hyphens.
+        Create only one prompt.
+        """
