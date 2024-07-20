@@ -15,7 +15,9 @@
 
 
 ## 安装方法
+(以ComfyUI官方便携包和秋叶整合包为例，其他ComfyUI环境请修改依赖环境目录)
 
+### 安装插件
 * 推荐使用 ComfyUI Manager 安装。
 * 或者在CompyUI插件目录(例如“CompyUI\custom_nodes\”)中打开cmd窗口，键入    
 ```
@@ -24,13 +26,27 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
      
 * 或者下载解压zip文件，将得到的文件夹复制到 ```ComfyUI\custom_nodes\```。   
 
-* 安装依赖包，在资源管理器```ComfyUI\custom_nodes\ComfyUI_LayerStyle``` 插件目录位置打开cmd窗口，输入以下命令：     
-```
-..\..\..\python_embeded\python.exe -m pip install -r requirements.txt
-```
+### 安装依赖包
 
+* 官方便携包请双击运行插件目录下的```install_requirements.bat```，秋叶整合包请双击运行插件目录下的```install_requirements_aki.bat```，然后等待安装完成。
 
-  重新打开ComfyUI。
+* 或者在资源管理器```ComfyUI\custom_nodes\ComfyUI_LayerStyle``` 插件目录位置打开cmd窗口，  
+
+&emsp;&emsp;官方便携包输入以下命令：
+
+```
+..\..\..\python_embeded\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
+..\..\..\python_embeded\python.exe -s -m pip install -r requirements.txt
+.\repair_dependency.bat
+```
+&emsp;&emsp;秋叶整合包输入以下命令：
+
+```
+..\..\python\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
+..\..\python\python.exe -s -m pip install -r requirements.txt
+.\repair_dependency.bat
+```
+* 重新打开ComfyUI。
 
 ## 常见问题
 如果节点不能正常加载，或者使用中出现错误，请在ComfyUI终端窗口查看报错信息。以下是常见的错误及解决方法。
@@ -57,7 +73,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### insightface 加载缓慢
 这是由于```protobuf``` 版本过低造成的。
 
-## 以上三个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。 
+#### 以上三个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。 
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
@@ -80,6 +96,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加[TransparentBackgroundUltra](#TransparentBackgroundUltra) 节点，基于transparent-background模型，用于去除背景。
 * [Ultra](#Ultra) 节点的VitMatte模型改为本地调用，请下载[所有的vitmatte模型文件](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main)到```ComfyUI/models/vitmatte```文件夹。
 * [GetColorToneV2](#GetColorToneV2) 节点的取色选项增加```mask```方法，可精确获取遮罩内的主色和平均色。
 * [ImageScaleByAspectRatioV2](#ImageScaleByAspectRatioV2) 节点增加background_color选项。 
@@ -1453,6 +1470,29 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 
 节点选项说明:  
 ![image](image/birefnet_ultra_node.jpg)    
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">TransparentBackgroundUltra</a>
+使用transparent-background模型去除背景，有更好的识别能力和识别速度，同时具有超高的边缘细节。
+本节点模型部分的代码来自[github.com/plemeri/transparent-background](https://github.com/plemeri/transparent-background)，感谢原作者。
+
+*下载 [ckpt_base.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_base.pth), 
+[ckpt_fast.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_fast.pth) 和
+[ckpt_base_nightly.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_base_nightly.pth) 
+3 个文件至```ComfyUI/models/transparent-background```文件夹。
+
+![image](image/transparent_background_ultra_example.jpg)    
+
+节点选项说明:  
+![image](image/transparent_background_ultra_node.jpg)    
+* model: 选择模型。
 * detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。

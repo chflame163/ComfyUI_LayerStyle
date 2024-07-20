@@ -1097,29 +1097,6 @@ def gamma_trans(image:Image, gamma:float) -> Image:
     _corrected = cv2.LUT(cv2_image,gamma_table)
     return cv22pil(_corrected)
 
-# def apply_lut(image:Image, lut_file:str, log:bool=False) -> Image:
-#     from colour.io.luts.iridas_cube import read_LUT_IridasCube, LUT3D, LUT3x1D
-#     lut: Union[LUT3x1D, LUT3D] = read_LUT_IridasCube(lut_file)
-#     lut.name = os.path.splitext(os.path.basename(lut_file))[0]  # use base filename instead of internal LUT name
-#
-#     im_array = np.asarray(image.convert('RGB'), dtype=np.float32) / 255
-#     is_non_default_domain = not np.array_equal(lut.domain, np.array([[0., 0., 0.], [1., 1., 1.]]))
-#     dom_scale = None
-#     if is_non_default_domain:
-#         dom_scale = lut.domain[1] - lut.domain[0]
-#         im_array = im_array * dom_scale + lut.domain[0]
-#     if log:
-#         im_array = im_array ** (1 / 2.2)
-#     im_array = lut.apply(im_array)
-#     if log:
-#         im_array = im_array ** (2.2)
-#     if is_non_default_domain:
-#         im_array = (im_array - lut.domain[0]) / dom_scale
-#     im_array = im_array * 255
-#     ret_image = Image.fromarray(np.uint8(im_array))
-#
-#     return ret_image
-
 def apply_lut(image:Image, lut_file:str, colorspace:str, strength:int, clip_values:bool=True) -> Image:
     """
     Apply a LUT to an image.
@@ -2071,7 +2048,7 @@ class UformGen2QwenChat:
                 **model_inputs,
                 max_new_tokens=512,
                 do_sample=True,
-                temperature=0.7,
+                temperature=0.3,
                 repetition_penalty=1.2,
                 stopping_criteria=StoppingCriteriaList([stop])
             )

@@ -29,4 +29,5 @@ blend_modes
 blind-watermark
 qrcode
 pyzbar
+transparent-background
 psd-tools
