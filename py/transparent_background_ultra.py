@@ -2,23 +2,27 @@ from transparent_background import Remover
 from .imagefunc import *
 
 NODE_NAME = 'TransparentBackgroundUltra'
-model_file_list = glob.glob(os.path.join(folder_paths.models_dir, "transparent-background") + '/*.pth')
-model_dict = {}
-for i in range(len(model_file_list)):
-    _, __filename = os.path.split(model_file_list[i])
-    model_dict[__filename] = model_file_list[i]
-model_list = list(model_dict.keys())
+
 mode_dict = {"ckpt_base.pth": "base", "ckpt_base_nightly.pth": "base-nightly", "ckpt_fast.pth": "fast"}
+def scan_model():
+    model_file_list = glob.glob(os.path.join(folder_paths.models_dir, "transparent-background") + '/*.pth')
+    model_dict = {}
+    for i in range(len(model_file_list)):
+        _, __filename = os.path.split(model_file_list[i])
+        model_dict[__filename] = model_file_list[i]
+    return model_dict
+
 class TransparentBackgroundUltra:
 
     @classmethod
     def INPUT_TYPES(cls):
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
         device_list = ['cuda','cpu']
+
         return {
             "required": {
                 "image": ("IMAGE",),
-                "model": (model_list,),
+                "model": (list(scan_model().keys()),),
                 "detail_method": (method_list,),
                 "detail_erode": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
                 "detail_dilate": ("INT", {"default": 6, "min": 1, "max": 255, "step": 1}),
@@ -41,12 +45,11 @@ class TransparentBackgroundUltra:
                        black_point, white_point, process_detail, device, max_megapixels):
         ret_images = []
         ret_masks = []
-
         if detail_method == 'VITMatte(local)':
             local_files_only = True
         else:
             local_files_only = False
-
+        model_dict = scan_model()
         remover = Remover(mode=mode_dict[model], jit=False, device=device, ckpt=model_dict[model])
         for i in image:
             i = torch.unsqueeze(i, 0)
