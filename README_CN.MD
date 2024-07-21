@@ -51,6 +51,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 常见问题
 如果节点不能正常加载，或者使用中出现错误，请在ComfyUI终端窗口查看报错信息。以下是常见的错误及解决方法。
 
+### Warning: xxxx.ini not found, use default xxxx..
+这个警告信息是找不到ini文件的提示，不影响使用。如果不想看到这些警告，请修改插件目录下所有的 ```*.ini.example``` 文件名为```*.ini```。
+
 ### ModuleNotFoundError: No module named 'psd_tools'
 这个错误是```psd_tools```没有正确安装。    
 

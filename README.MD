@@ -56,6 +56,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## Common Issues
 If the node cannot load properly or there are errors during use, please check the error message in the ComfyUI terminal window. The following are common errors and their solutions.
 
+### Warning: xxxx.ini not found, use default xxxx..
+This warning message indicates that the ini file cannot be found and does not affect usage. If you do not want to see these warnings, please modify all ```*.ini.example``` files in the plugin directory to ```*.ini```.
+
 ### ModuleNotFoundError: No module named 'psd_tools'
 This error is that the ```psd_tools``` were not installed correctly.   
 
