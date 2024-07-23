@@ -1,0 +1,280 @@
+{
+  "last_node_id": 13,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": [
+        -770,
+        -460
+      ],
+      "size": {
+        "0": 337.95587158203125,
+        "1": 447.5793151855469
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 7,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        -770,
+        40
+      ],
+      "size": {
+        "0": 333.88427734375,
+        "1": 474.7603759765625
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 19
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: MaskPreview"
+      }
+    },
+    {
+      "id": 12,
+      "type": "LayerMask: SegformerUltraV2",
+      "pos": [
+        -1160,
+        -90
+      ],
+      "size": {
+        "0": 315,
+        "1": 246
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "segformer_pipeline",
+          "type": "SegPipeline",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            18
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            19
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: SegformerUltraV2"
+      },
+      "widgets_values": [
+        "VITMatte",
+        8,
+        6,
+        0.01,
+        0.99,
+        true,
+        "cuda",
+        2
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LayerMask: SegformerFashionPipelineLoader",
+      "pos": [
+        -1580,
+        -540
+      ],
+      "size": {
+        "0": 315,
+        "1": 1162
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "segformer_pipeline",
+          "type": "SegPipeline",
+          "links": [
+            20
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "LayerMask: Segformer Fashion Pipeline",
+      "properties": {
+        "Node name for S&R": "LayerMask: SegformerFashionPipelineLoader"
+      },
+      "widgets_values": [
+        "segformer_b3_fashion",
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        -1990,
+        -200
+      ],
+      "size": {
+        "0": 311.8735656738281,
+        "1": 470.3501892089844
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "768x1344_dress.png",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      18,
+      12,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      19,
+      12,
+      1,
+      7,
+      0,
+      "MASK"
+    ],
+    [
+      20,
+      10,
+      0,
+      12,
+      1,
+      "SegPipeline"
+    ],
+    [
+      21,
+      13,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7972024500000043,
+      "offset": [
+        2634.915464714221,
+        818.4797865982553
+      ]
+    }
+  },
+  "version": 0.4
+}

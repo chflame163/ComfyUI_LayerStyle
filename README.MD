@@ -98,7 +98,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
-* Commit install_requirements.bat and install_requirements_aki.bat, One click solution to install dependency packages.
+* Commit [SegformerUltraV2](#SegformerUltraV2), [SegfromerFashionPipeline](#SegfromerFashionPipeline) and [SegformerClothesPipeline](#SegformerClothesPipeline) nodes, used for segmentation of clothing. please download the model file according to the instructions.
+* Commit ```install_requirements.bat``` and ```install_requirements_aki.bat```, One click solution to install dependency packages.
 * Commit [TransparentBackgroundUltra](#TransparentBackgroundUltra) node, it remove background based on transparent-background model.
 * Change the VitMatte model of the [Ultra](#Ultra) node to a local call. Please download [all files of vitmatte model](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main) to the ```ComfyUI/models/vitmatte``` folder.
 * [GetColorToneV2](#GetColorToneV2) node add the ```mask``` method to the color selection option, which can accurately obtain the main color and average color within the mask.
@@ -1561,7 +1562,7 @@ Generate masks for characters' faces, hair, arms, legs, and clothing, mainly use
 The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，thanks to the original author.
 Compared to the comfyui_segformer_b2_clothes, this node has ultra-high edge details. (Note: Generating images with edges exceeding 2K in size using the VITMatte method will consume a lot of memory)    
 
-*Download all model files from [https://huggingface.co/mattmdjaga/segformer_b2_clothes](https://huggingface.co/mattmdjaga/segformer_b2_clothes) to   ```ComfyUI/models/segformer_b2_clothes``` folder.
+*Download all model files from [here](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) to   ```ComfyUI/models/segformer_b2_clothes``` folder.
 
 Node Options:  
 ![image](image/segformer_ultra_node.jpg)    
@@ -1589,6 +1590,103 @@ Node Options:
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
 
+### <a id="table1">SegformerUltraV2</a>
+![image](image/segformer_clothes_example.jpg)   
+![image](image/segformer_fashion_example.jpg)   
+Using the segformer model to segment clothing with ultra-high edge details. Currently supports segformer b2 clothes, segformer b3 clothes and segformer b3 fashion。
+
+*from [here](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) download all files to ```ComfyUI/models/segformer_b2_clothes``` folder.        
+*from [here](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main) download all files to ```ComfyUI/models/segformer_b3_clothes``` folder.    
+*from [here](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main) download all files to ```ComfyUI/models/segformer_b3_fashion``` folder.    
+
+Node Options:  
+![image](image/segformer_ultra_v2_node.jpg)    
+* image: The input image.
+* segformer_pipeline: Segformer pipeline input. The pipeline is output by SegformerClottesPipeline and SegformerFashionPipeline node.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
+
+### <a id="table1">SegformerClothesPipiline</a>
+Select the segformer clothes model and choose the segmentation content.  
+
+Node Options:  
+![image](image/segformer_clothes_pipeline_node.jpg)    
+* model: Model selection. There are currently two models available to choose from for segformer b2 clothes and segformer b3 clothes.
+* face: Facial recognition switch.
+* hair: Hair recognition switch.
+* hat: Hat recognition switch.
+* sunglass: Sunglass recognition switch.
+* left_arm: Left arm recognition switch.
+* right_arm: Right arm recognition switch.
+* left_leg: Left leg recognition switch.
+* right_leg: Right leg recognition switch.
+* left_shoe: Left shoe recognition switch.
+* right_shoe: Right shoe recognition switch.
+* skirt: Skirt recognition switch.
+* pants: Pants recognition switch.
+* dress: Dress recognition switch.
+* belt: Belt recognition switch.
+* bag: Bag recognition switch.
+* scarf: Scarf recognition switch.
+
+### <a id="table1">SegformerFashionPipiline</a> 
+Select the segformer fashion model and choose the segmentation content.
+
+Node Options:  
+![image](image/segformer_fashion_pipeline_node.jpg)    
+* model: Model selection. Currently, there is only one model available for selection: segformer b3 fashion。
+* shirt: shirt and blouse switch.
+* top: top, t-shirt, sweatshirt switch.
+* sweater: sweater switch.
+* cardigan: cardigan switch.
+* jacket: jacket switch.
+* vest: vest switch.
+* pants: pants switch.
+* shorts: shorts switch.
+* skirt: skirt switch.
+* coat: coat switch.
+* dress: dress switch.
+* jumpsuit: jumpsuit switch.
+* cape: cape switch.
+* glasses: glasses switch.
+* hat: hat switch.
+* hairaccessory: headband, head covering, hair accessory switch.
+* tie: tie switch.
+* glove: glove switch.
+* watch: watch switch.
+* belt: belt switch.
+* legwarmer: leg warmer switch.
+* tights: tights and stockings switch.
+* sock: sock switch.
+* shoe: shoes switch.
+* bagwallet: bag and wallet switch.
+* scarf: scarf switch.
+* umbrella: umbrella switch.
+* hood: hood switch.
+* collar: collar switch.
+* lapel: lapel switch.
+* epaulette: epaulette switch.
+* sleeve: sleeve switch.
+* pocket: pocket switch.
+* neckline: neckline switch.
+* buckle: buckle switch.
+* zipper: zipper switch.
+* applique: applique switch.
+* bead: bead switch.
+* bow: bow switch.
+* flower: flower switch.
+* fringe: fringe switch.
+* ribbon: ribbon switch.
+* rivet: rivet switch.
+* ruffle: ruffle switch.
+* sequin: sequin switch.
+* tassel: tassel switch.
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 Process rough masks to ultra fine edges.

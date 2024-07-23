@@ -99,7 +99,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
-* 添加 install_requirements.bat 和 install_requirements_aki.bat 文件, 一键解决安装依赖包问题。
+* 添加 [SegformerUltraV2](#SegformerUltraV2), [SegfromerFashionPipeline](#SegfromerFashionPipeline) 和 [SegformerClothesPipeline](#SegformerClothesPipeline) 节点, 用于分割服饰。请按说明下载模型文件。
+* 添加 ```install_requirements.bat``` 和 ```install_requirements_aki.bat``` 文件, 一键解决安装依赖包问题。
 * 添加[TransparentBackgroundUltra](#TransparentBackgroundUltra) 节点，基于transparent-background模型，用于去除背景。
 * [Ultra](#Ultra) 节点的VitMatte模型改为本地调用，请下载[所有的vitmatte模型文件](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main)到```ComfyUI/models/vitmatte```文件夹。
 * [GetColorToneV2](#GetColorToneV2) 节点的取色选项增加```mask```方法，可精确获取遮罩内的主色和平均色。
@@ -1542,7 +1543,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 为人物生成脸、头发、手臂、腿以及服饰的遮罩，主要用于分割服装。模型分割代码来自[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，感谢原作者。
 与comfyui_segformer_b2_clothes节点相比，这个节点具有超高的边缘细节。    
 
-*从[https://huggingface.co/mattmdjaga/segformer_b2_clothes](https://huggingface.co/mattmdjaga/segformer_b2_clothes)下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。
+*从[这里](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main)下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。
 
 节点选项说明:  
 ![image](image/segformer_ultra_node.jpg)    
@@ -1569,6 +1570,105 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
+
+
+### <a id="table1">SegformerUltraV2</a>
+![image](image/segformer_clothes_example.jpg)   
+![image](image/segformer_fashion_example.jpg)   
+使用segformer模型分割服饰，具有超高的边缘细节。目前支持segformer b2 clothes, segformer b3 clothes, segformer b3 fashion。
+
+*从[这里](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main)下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。     
+*从[这里](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main)下载全部文件至```ComfyUI/models/segformer_b3_clothes```文件夹。    
+*从[这里](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main)下载全部文件至```ComfyUI/models/segformer_b3_fashion```文件夹。    
+
+节点选项说明:  
+![image](image/segformer_ultra_v2_node.jpg)    
+* image: 图像输入。
+* segformer_pipeline: segformer管线输入。管线由SegformerClothesPipeline和SegformerFashionPipeline节点输出。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">SegformerClothesPipiline</a>
+选择segformer clothes模型，并选择分割内容。    
+
+节点选项说明:  
+![image](image/segformer_clothes_pipeline_node.jpg)    
+* model: 模型选择。目前有两种模型可供选择segformer b2 clothes, segformer b3 clothes。
+* face: 脸部识别。
+* hair: 头发识别。
+* hat: 帽子识别。
+* sunglass: 墨镜识别。
+* left_arm:左手臂识别。
+* right_arm:右手臂识别。
+* left_leg:左腿识别。
+* right_leg:右腿识别。
+* left_shoe: 左鞋子识别。
+* right_shoe: 右鞋子识别。
+* skirt:短裙识别。
+* pants:裤子识别。
+* dress:连衣裙识别。
+* belt:腰带识别。
+* bag:背包识别。
+* scarf:围巾识别。
+
+### <a id="table1">SegformerFashionPipiline</a>
+选择segformer fashion模型，并选择分割内容。    
+
+节点选项说明:  
+![image](image/segformer_fashion_pipeline_node.jpg)    
+* model: 模型选择。目前只有一种模型可供选择segformer b3 fashion。
+* shirt: 衬衫、罩衫识别。
+* top: 上衣、t恤、运动衫识别。
+* sweater: 毛衣识别。
+* cardigan: 开襟毛衫识别。
+* jacket: 夹克识别。
+* vest: 背心识别。
+* pants: 裤子识别。
+* shorts: 短裤识别。
+* skirt: 短裙识别。
+* coat: 外套识别。
+* dress: 连衣裙识别。
+* jumpsuit: 连身裤识别。
+* cape: 斗篷识别。
+* glasses: 眼镜识别。
+* hat: 帽子识别。
+* hairaccessory: 头带、头巾、发饰识别。
+* tie: 领带识别。
+* glove: 手套识别。
+* watch: 手表识别。
+* belt: 皮带识别。
+* legwarmer: 腿套识别。
+* tights: 紧身裤和长筒袜识别。
+* sock: 袜子识别。
+* shoe: 鞋子识别。
+* bagwallet: 背包、钱包识别。
+* scarf: 围巾识别。
+* umbrella: 雨伞识别。
+* hood: 兜帽识别。
+* collar: 衣领识别。
+* lapel: 翻领识别。
+* epaulette: 肩章识别。
+* sleeve: 袖子识别。
+* pocket: 口袋识别。
+* neckline: 领口识别。
+* buckle: 带扣识别。
+* zipper: 拉链识别。
+* applique: 贴花识别。
+* bead: 珠子识别。
+* bow: 蝴蝶结识别。
+* flower: 花识别。
+* fringe: 刘海识别。
+* ribbon: 丝带识别。
+* rivet: 铆钉识别。
+* ruffle: 褶饰识别。
+* sequin: 亮片识别。
+* tassel: 流苏识别。
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 处理较粗糙的遮罩使其获得超精细边缘。
