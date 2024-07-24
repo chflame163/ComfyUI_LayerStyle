@@ -91,7 +91,7 @@ class LaMa:
                     log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
                     return (image, )
                 # process
-                from iopaint import cli
+                from .iopaint import cli
                 cli.run(model=lama_model, device=device, image=Path(image_dir), mask=Path(mask_dir), output=Path(result_dir))
                 ret_image = check_image_file(os.path.join(result_dir, file_name), 500)
                 shutil.rmtree(temp_dir)
