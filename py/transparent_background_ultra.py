@@ -50,7 +50,11 @@ class TransparentBackgroundUltra:
         else:
             local_files_only = False
         model_dict = scan_model()
-        remover = Remover(mode=mode_dict[model], jit=False, device=device, ckpt=model_dict[model])
+        try :
+            mode = mode_dict[model]
+        except :
+            mode = "base"
+        remover = Remover(mode=mode, jit=False, device=device, ckpt=model_dict[model])
         for i in image:
             i = torch.unsqueeze(i, 0)
             orig_image = tensor2pil(i).convert('RGB')

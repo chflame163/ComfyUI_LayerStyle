@@ -98,6 +98,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [TransparentBackgroundUltra](#TransparentBackgroundUltra) node add new model support. Please download the model file according to the instructions.
 * Commit [SegformerUltraV2](#SegformerUltraV2), [SegfromerFashionPipeline](#SegfromerFashionPipeline) and [SegformerClothesPipeline](#SegformerClothesPipeline) nodes, used for segmentation of clothing. please download the model file according to the instructions.
 * Commit ```install_requirements.bat``` and ```install_requirements_aki.bat```, One click solution to install dependency packages.
 * Commit [TransparentBackgroundUltra](#TransparentBackgroundUltra) node, it remove background based on transparent-background model.
@@ -1506,10 +1507,7 @@ Node options:
 ### <a id="table1">TransparentBackgroundUltra</a>
 Using the transparent-background model to remove background has better recognition ability and speed, while also having ultra-high edge details.
 
-*Download [ckpt_base.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_base.pth), 
-[ckpt_fast.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_fast.pth) and 
-[ckpt_base_nightly.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_base_nightly.pth) 
- 3 files to ```ComfyUI/models/transparent-background``` folder.
+*From [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) or  [BaiduNetdisk](https://pan.baidu.com/s/1CYZ4VwvU06e-02BKRUj9QQ?pwd=jjt9)  download all files to ```ComfyUI/models/transparent-background``` folder.
 
 ![image](image/transparent_background_ultra_example.jpg)    
 

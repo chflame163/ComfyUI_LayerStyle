@@ -99,6 +99,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* [TransparentBackgroundUltra](#TransparentBackgroundUltra) 节点增加新模型支持。请按说明下载模型文件。
 * 添加 [SegformerUltraV2](#SegformerUltraV2), [SegfromerFashionPipeline](#SegfromerFashionPipeline) 和 [SegformerClothesPipeline](#SegformerClothesPipeline) 节点, 用于分割服饰。请按说明下载模型文件。
 * 添加 ```install_requirements.bat``` 和 ```install_requirements_aki.bat``` 文件, 一键解决安装依赖包问题。
 * 添加[TransparentBackgroundUltra](#TransparentBackgroundUltra) 节点，基于transparent-background模型，用于去除背景。
@@ -1486,12 +1487,8 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 
 ### <a id="table1">TransparentBackgroundUltra</a>
 使用transparent-background模型去除背景，有更好的识别能力和识别速度，同时具有超高的边缘细节。
-本节点模型部分的代码来自[github.com/plemeri/transparent-background](https://github.com/plemeri/transparent-background)，感谢原作者。
 
-*下载 [ckpt_base.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_base.pth), 
-[ckpt_fast.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_fast.pth) 和
-[ckpt_base_nightly.pth](https://github.com/plemeri/transparent-background/releases/download/1.2.12/ckpt_base_nightly.pth) 
-3 个文件至```ComfyUI/models/transparent-background```文件夹。
+*从 [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) 或 [百度网盘](https://pan.baidu.com/s/1CYZ4VwvU06e-02BKRUj9QQ?pwd=jjt9) 下载全部文件至```ComfyUI/models/transparent-background```文件夹。
 
 ![image](image/transparent_background_ultra_example.jpg)    
 
