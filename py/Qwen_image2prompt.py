@@ -7,6 +7,7 @@ from torchvision.transforms import ToPILImage
 import folder_paths
 from .imagefunc import files_for_uform_gen2_qwen, StopOnTokens, UformGen2QwenChat, clear_memory
 
+NODE_NAME = "QWenImage2Prompt"
 # Example of integrating UformGen2QwenChat into a node-like structure
 class QWenImage2Prompt:
 
@@ -44,7 +45,9 @@ class QWenImage2Prompt:
         # Cleanup
         del chat_model
         clear_memory()
-        return (response.split("assistant\n", 1)[1], )
+        ret_text = response.split("assistant\n", 1)[1]
+        log(f"{NODE_NAME} Processed, Question: {question}, Response: {ret_text} ", message_type='finish')
+        return (ret_text, )
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: QWenImage2Prompt": QWenImage2Prompt

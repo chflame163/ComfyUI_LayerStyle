@@ -98,6 +98,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) and [LoadFlorence2Model](#LoadFlorence2Model) nodes.
 * [TransparentBackgroundUltra](#TransparentBackgroundUltra) node add new model support. Please download the model file according to the instructions.
 * Commit [SegformerUltraV2](#SegformerUltraV2), [SegfromerFashionPipeline](#SegfromerFashionPipeline) and [SegformerClothesPipeline](#SegformerClothesPipeline) nodes, used for segmentation of clothing. please download the model file according to the instructions.
 * Commit ```install_requirements.bat``` and ```install_requirements_aki.bat```, One click solution to install dependency packages.
@@ -753,6 +754,22 @@ Node options:
 * api: The Api used. At present, there are two options "gemini-1. 5-flash" and "google-gemini".
 * token_limit: The maximum token limit for generating prompt words.
 * discribe: Enter a simple description here. supports Chinese text input.
+
+### <a id="table1">Florence2Image2Prompt</a>
+Use the Florence 2 model to infer prompt words. The code for this node section is from[yiwangsimple/florence_dw](https://github.com/yiwangsimple/florence_dw), thanks to the original author.
+*When using it for the first time, the model will be automatically downloaded.
+![image](image/florence2_image2prompt_example.jpg) 
+
+Node Options:
+![image](image/florence2_image2prompt_node.jpg)
+* florence2_model: Florence2 model input.
+* image: Image input.
+* task: Select the task for florence2.
+* text_input: Text input for florence2.
+* max_new_tokens: The maximum number of tokens for generating text.
+* num_beams: The number of beam searches that generate text.
+* do_sample: Whether to use text generated sampling.
+* fill_mask: Whether to use text marker mask filling.
 
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.
@@ -1456,6 +1473,35 @@ On the basis of SegmentAnythingUltra, the following changes have been made:
 * detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
+
+### <a id="table1">Florence2Ultra</a>
+Using the segmentation function of the Florence2 model, while also having ultra-high edge details.
+The code for this node section is from [spacepxl/ComfyUI-Florence-2](https://github.com/spacepxl/ComfyUI-Florence-2), thanks to the original author.
+
+![image](image/florence2_ultra_example.jpg)    
+
+Node Options:  
+![image](image/florence2_ultra_node.jpg)    
+* florence2_model: Florence2 model input.
+* image: Image input.
+* task: Select the task for florence2.
+* text_input: Text input for florence2.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
+
+### <a id="table1">LoadFlorence2Model</a>
+Florence2 model loader.
+*When using it for the first time, the model will be automatically downloaded.
+
+![image](image/load_florence2_model_node.jpg)   
+At present, there are base, base-ft, large, large-ft, DocVQA, SD3-Captioner and base-PromptGen models to choose from.
+
 
 ### <a id="table1">RemBgUltra</a>
 Remove background. compared to the similar background removal nodes, this node has ultra-high edge details.

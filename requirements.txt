@@ -30,4 +30,5 @@ blind-watermark
 qrcode
 pyzbar
 transparent-background
+huggingface_hub
 psd-tools

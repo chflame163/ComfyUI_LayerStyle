@@ -99,6 +99,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) 节点。
 * [TransparentBackgroundUltra](#TransparentBackgroundUltra) 节点增加新模型支持。请按说明下载模型文件。
 * 添加 [SegformerUltraV2](#SegformerUltraV2), [SegfromerFashionPipeline](#SegfromerFashionPipeline) 和 [SegformerClothesPipeline](#SegformerClothesPipeline) 节点, 用于分割服饰。请按说明下载模型文件。
 * 添加 ```install_requirements.bat``` 和 ```install_requirements_aki.bat``` 文件, 一键解决安装依赖包问题。
@@ -743,6 +744,21 @@ ImageScaleByAspectRatio的V2升级版
 * token_limit: 生成提示词的最大token限制。
 * discribe: 在这里输入简单的描述。支持中文。
 
+### <a id="table1">Florence2Image2Prompt</a>
+使用florence2模型反推提示词。本节点部分的代码来自[yiwangsimple/florence_dw](https://github.com/yiwangsimple/florence_dw)，感谢原作者。
+*首次使用时将自动下载模型，请在可以访问huggingface.co的网络环境下使用。
+![image](image/florence2_image2prompt_example.jpg) 
+
+节点选项说明:
+![image](image/florence2_image2prompt_node.jpg)
+* florence2_model: Florence2模型输入。
+* image: 图片输入。
+* task: 选择florence2任务。
+* text_input: florence2任务文本输入。
+* max_new_tokens: 生成文本的最大token数量。
+* num_beams: 生成文本的beam search数量。
+* do_sample: 是否使用文本生成采样。
+* fill_mask: 是否使用文本标记掩码填充。
 
 ### <a id="table1">ImageShift</a>
 使图片产生位移。此节点支持位移接缝遮罩的输出，方便制作连续贴图。
@@ -1438,6 +1454,32 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">Florence2Ultra</a>
+使用 Florence2 模型的分割功能，同时具有超高的边缘细节。
+本节点部分的代码来自[spacepxl/ComfyUI-Florence-2](https://github.com/spacepxl/ComfyUI-Florence-2)，感谢原作者。
+
+![image](image/florence2_ultra_example.jpg)    
+
+节点选项说明:  
+![image](image/florence2_ultra_node.jpg)    
+* florence2_model: Florence2模型输入。
+* image: 图片输入。
+* task: 选择florence2任务。
+* text_input: florence2任务文本输入。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">LoadFlorence2Model</a>
+Florence2 模型加载器。
+![image](image/load_florence2_model_node.jpg)   
+目前有 base, base-ft, large, large-ft, DocVQA, SD3-Captioner 和 base-PromptGen模型可以选择。
 
 ### <a id="table1">RemBgUltra</a>
 去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
