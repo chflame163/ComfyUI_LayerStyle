@@ -5,7 +5,7 @@ from PIL import Image
 import math
 from torchvision.transforms import ToPILImage
 import folder_paths
-from .imagefunc import files_for_uform_gen2_qwen, StopOnTokens, UformGen2QwenChat, clear_memory
+from .imagefunc import files_for_uform_gen2_qwen, StopOnTokens, UformGen2QwenChat, clear_memory, log
 
 NODE_NAME = "QWenImage2Prompt"
 # Example of integrating UformGen2QwenChat into a node-like structure
