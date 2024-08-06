@@ -2,7 +2,7 @@ import os
 import numpy as np
 import torch
 import folder_paths
-import node_helpers
+# import node_helpers
 from nodes import LoadImage
 from PIL import Image,ImageOps,ImageSequence,ImageDraw,ImageFont
 from .imagefunc import pil2tensor, log, FONT_DICT, generate_text_image
