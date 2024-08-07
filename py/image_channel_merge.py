@@ -46,7 +46,7 @@ class ImageChannelMerge:
             for c in channel_4:
                 c4_images.append(torch.unsqueeze(c, 0))
         else:
-            c4_images.append(Image.new('L', size=(width, height), color='white'))
+            c4_images.append(pil2tensor(Image.new('L', size=(width, height), color='white')))
 
         max_batch = max(len(c1_images), len(c2_images), len(c3_images), len(c4_images))
         for i in range(max_batch):
