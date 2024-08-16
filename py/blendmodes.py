@@ -46,6 +46,91 @@ def dissolve(backdrop, source, opacity):
 
     return result
 
+def rgb_to_hsv_via_torch(rgb_numpy: np.ndarray, device=None) -> torch.Tensor:
+    """
+    Convert an RGB image to HSV.
+
+    :param rgb: A tensor of shape (3, H, W) where the three channels correspond to R, G, B.
+                The values should be in the range [0, 1].
+    :return: A tensor of shape (3, H, W) where the three channels correspond to H, S, V.
+             The hue (H) will be in the range [0, 1], while S and V will be in the range [0, 1].
+    """
+    if device is None:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    rgb = torch.from_numpy(rgb_numpy).float().permute(2, 0, 1).to(device)
+    r, g, b = rgb[0], rgb[1], rgb[2]
+
+    max_val, _ = torch.max(rgb, dim=0)
+    min_val, _ = torch.min(rgb, dim=0)
+    delta = max_val - min_val
+
+    h = torch.zeros_like(max_val)
+    s = torch.zeros_like(max_val)
+    v = max_val
+
+    # calc hue... avoid div by zero (by masking the delta)
+    mask = delta != 0
+    r_eq_max = (r == max_val) & mask
+    g_eq_max = (g == max_val) & mask
+    b_eq_max = (b == max_val) & mask
+
+    h[r_eq_max] = (g[r_eq_max] - b[r_eq_max]) / delta[r_eq_max] % 6
+    h[g_eq_max] = (b[g_eq_max] - r[g_eq_max]) / delta[g_eq_max] + 2.0
+    h[b_eq_max] = (r[b_eq_max] - g[b_eq_max]) / delta[b_eq_max] + 4.0
+
+    h = (h / 6.0) % 1.0
+
+    # calc saturation
+    s[max_val != 0] = delta[max_val != 0] / max_val[max_val != 0]
+
+    hsv = torch.stack([h, s, v], dim=0)
+    
+    hsv_numpy = hsv.permute(1, 2, 0).cpu().numpy()
+    return hsv_numpy
+
+def hsv_to_rgb_via_torch(hsv_numpy: np.ndarray, device=None) -> torch.Tensor:
+    """
+    Convert an HSV image to RGB.
+
+    :param hsv: A tensor of shape (3, H, W) where the three channels correspond to H, S, V.
+                The H channel values should be in the range [0, 1], while S and V will be in the range [0, 1].
+    :return: A tensor of shape (3, H, W) where the three channels correspond to R, G, B.
+             The RGB values will be in the range [0, 1].
+    """
+    if device is None:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    hsv = torch.from_numpy(hsv_numpy).float().permute(2, 0, 1).to(device)
+    h, s, v = hsv[0], hsv[1], hsv[2]
+
+    c = v * s  # chroma
+    x = c * (1 - torch.abs((h * 6) % 2 - 1))
+    m = v - c  # match value
+
+    z   = torch.zeros_like(h)
+    rgb = torch.zeros_like(hsv)
+
+    # define conditions for different hue ranges
+    h_cond = [
+        (h < 1/6, torch.stack([c, x, z], dim=0)),
+        ((1/6 <= h) & (h < 2/6), torch.stack([x, c, z], dim=0)),
+        ((2/6 <= h) & (h < 3/6), torch.stack([z, c, x], dim=0)),
+        ((3/6 <= h) & (h < 4/6), torch.stack([z, x, c], dim=0)),
+        ((4/6 <= h) & (h < 5/6), torch.stack([x, z, c], dim=0)),
+        (h >= 5/6, torch.stack([c, z, x], dim=0)),
+    ]
+
+    # conditionally set RGB values based on the hue range
+    for cond, result in h_cond:
+        rgb[:, cond] = result[:, cond]
+
+    # add match value to convert to final RGB values
+    rgb = rgb + m
+
+    rgb_numpy = rgb.permute(1, 2, 0).cpu().numpy()
+    return rgb_numpy
+
 def hsv(backdrop, source, opacity, channel):
     # Convert RGBA to RGB, normalized
     backdrop_rgb = backdrop[:, :, :3] / 255.0
@@ -53,8 +138,8 @@ def hsv(backdrop, source, opacity, channel):
     source_alpha = source[:, :, 3] / 255.0
 
     # Convert RGB to HSV
-    backdrop_hsv = np.array([rgb_to_hsv(*rgb) for row in backdrop_rgb for rgb in row]).reshape(backdrop.shape[:2] + (3,))
-    source_hsv = np.array([rgb_to_hsv(*rgb) for row in source_rgb for rgb in row]).reshape(source.shape[:2] + (3,))
+    backdrop_hsv = rgb_to_hsv_via_torch(backdrop_rgb)
+    source_hsv = rgb_to_hsv_via_torch(source_rgb)
 
     # Combine HSV values
     new_hsv = backdrop_hsv.copy()
@@ -70,7 +155,7 @@ def hsv(backdrop, source, opacity, channel):
         new_hsv[:, :, :2] = (1 - opacity * source_alpha[..., None]) * backdrop_hsv[:, :, :2] + opacity * source_alpha[..., None] * source_hsv[:, :, :2]
 
     # Convert HSV back to RGB
-    new_rgb = np.array([hsv_to_rgb(*hsv) for row in new_hsv for hsv in row]).reshape(backdrop.shape[:2] + (3,))
+    new_rgb = hsv_to_rgb_via_torch(new_hsv)
 
     # Apply the alpha channel of the source image to the new RGB image
     new_rgb = (1 - source_alpha[..., None]) * backdrop_rgb + source_alpha[..., None] * new_rgb
