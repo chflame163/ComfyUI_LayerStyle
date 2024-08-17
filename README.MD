@@ -53,6 +53,10 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ```
 * Restart ComfyUI.
 
+### Download Model Files
+From [BaiduNetdisk](https://pan.baidu.com/s/1T_uXMX3OKIWOJLPuLijrgA?pwd=1yye) download all files and copy them to ```ComfyUI\models``` folder. This link provides all the model files required for this plugin.
+Or download the model file according to the instructions of each node.
+
 ## Common Issues
 If the node cannot load properly or there are errors during use, please check the error message in the ComfyUI terminal window. The following are common errors and their solutions.
 
@@ -720,7 +724,7 @@ The following changes have been made based on ImageScaleByAspectRatio:
 
 ### <a id="table1">QWenImage2Prompt</a>
 Inference the prompts based on the image. this node is repackage of the [ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)'s ```UForm-Gen2 Qwen Node```,  thanks to the original author.
-Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m) or [Baidu Netdisk](https://pan.baidu.com/s/1ztnVX_Sh800xsWZhMDe-Ww?pwd=esyt) to ```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen``` folder.
+Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m) or [Baidu Netdisk](https://pan.baidu.com/s/1oRkUoOKWaxGod_XTJ8NiTA?pwd=d5d2) to ```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen``` folder.
 
 ![image](image/qwen_image2prompt_example.jpg)    
 
@@ -758,7 +762,7 @@ Node options:
 
 ### <a id="table1">Florence2Image2Prompt</a>
 Use the Florence 2 model to infer prompt words. The code for this node section is from[yiwangsimple/florence_dw](https://github.com/yiwangsimple/florence_dw), thanks to the original author.
-*When using it for the first time, the model will be automatically downloaded.
+*When using it for the first time, the model will be automatically downloaded. You can also download the model file from [BaiduNetdisk](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) to ```ComfyUI/models/florence2``` folder.
 ![image](image/florence2_image2prompt_example.jpg) 
 
 Node Options:
@@ -1047,7 +1051,7 @@ If the folder set in ini is invalid, the font folder that comes with the plugin 
 ![image](image/lama_example.jpg)    
 Erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com), powered by state-of-the-art AI models, thanks to the original author.    
 It is have [LaMa](https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) models and the SPREAD method to erase. Please refer to the original link for the introduction of each model.    
-Please download the model files from [lama models(Baidu Netdisk)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) or [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing) to ```ComfyUI/models/lama``` folder.    
+Please download the model files from [lama models(BaiduNetdisk)](https://pan.baidu.com/s/1m7La2ELsSKaIFhQ57qg1XQ?pwd=jn10) or [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing) to ```ComfyUI/models/lama``` folder.    
 
 Node optons:
 ![image](image/lama_node.jpg)    
@@ -1431,7 +1435,7 @@ Note: When running for the first time, you need to download the vitmate model fi
 After successfully downloading the model, you can use ```VITMatte(local)``` without accessing the network.
 * VitMatte's options: ```device``` set whether to use CUDA for vitimate operations, which is about 5 times faster than CPU. ```max_megapixels``` set the maximum image size for vitmate operation, and oversized images will be reduced in size. For 16G VRAM, it is recommended to set it to 3.
 
-Download the vitmatte model files [all files of vitmatte model](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main) to the ```ComfyUI/models/vitmatte``` folder.
+*Download all model files from [BaiduNetdisk](https://pan.baidu.com/s/1xYF-V6QRwcFalEqLS7giWg?pwd=jiyz) or [Huggingface](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main) to ```ComfyUI/models/vitmatte``` folder.
 
 The following figure is an example of the difference in output between three methods.
 ![image](image/mask_edge_ultra_detail_v2_example.jpg)   
@@ -1448,7 +1452,7 @@ Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_
 [sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
 [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
 [mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ```ComfyUI/models/sams``` folder.
-
+*Or download them from [GroundingDino models on BaiduNetdisk](https://pan.baidu.com/s/1P7WQDuaqSYazlSQX8SJjxw?pwd=24ki) and  [SAM models on BaiduNetdisk](https://pan.baidu.com/s/1n7JrHb2vzV2K2z3ktqpNxg?pwd=yoqh) .
 ![image](image/segment_anything_ultra_compare.jpg)    
 ![image](image/segment_anything_ultra_example.jpg)    
 
@@ -1478,6 +1482,7 @@ On the basis of SegmentAnythingUltra, the following changes have been made:
 ### <a id="table1">Florence2Ultra</a>
 Using the segmentation function of the Florence2 model, while also having ultra-high edge details.
 The code for this node section is from [spacepxl/ComfyUI-Florence-2](https://github.com/spacepxl/ComfyUI-Florence-2), thanks to the original author.
+*Download the model files from [BaiduNetdisk](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) to ```ComfyUI/models/florence2``` folder.
 
 ![image](image/florence2_ultra_example.jpg)    
 
@@ -1509,8 +1514,7 @@ Remove background. compared to the similar background removal nodes, this node h
 
 This node combines the Alpha Matte node of Spacepxl's [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters) and the functionality of ZHO-ZHO-ZHO's [ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG), thanks to the original author.
 
-*Download the [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) model file (```model.pth```) to the ```/ComfyUI/models/rmbg/RMBG-1.4``` folder. This model was developed by BRIA AI and can be used as an open-source model for non-commercial purposes.    
-**After downloading the model, recommended to add a line 'rmbg: models/rmbg/RMBG-1.4' in ComfyUI/extra_model_paths.yaml. (This step is not mandatory)    
+*Download model files from [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) or [BaiduNetdisk](https://pan.baidu.com/s/16PMfjpkXn_35T-cVYEPTZA?pwd=qi6o) to ```ComfyUI/models/rmbg/RMBG-1.4``` folder. This model can be used for non-commercial purposes.    
 
 ![image](image/rembg_ultra_example.jpg)    
 
@@ -1536,7 +1540,7 @@ On the basis of RemBgUltra, the following changes have been made:
 Using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
 The code for the model part of this node comes from Viper's [ComfyUI-BiRefNet](https://github.com/viperyl/ComfyUI-BiRefNet)，thanks to the original author.
 
-*From [https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main) download the ```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth``` 5 files to ```ComfyUI/models/BiRefNet``` folder.
+*From [https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/1GxtuNDTIHkuu4FR4uGAT-g?pwd=t2cf) download the ```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth``` 5 files to ```ComfyUI/models/BiRefNet``` folder.
 
 ![image](image/birefnet_ultra_example.jpg)    
 
@@ -1554,7 +1558,7 @@ Node options:
 ### <a id="table1">TransparentBackgroundUltra</a>
 Using the transparent-background model to remove background has better recognition ability and speed, while also having ultra-high edge details.
 
-*From [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) or  [BaiduNetdisk](https://pan.baidu.com/s/1CYZ4VwvU06e-02BKRUj9QQ?pwd=jjt9)  download all files to ```ComfyUI/models/transparent-background``` folder.
+*From [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) or  [BaiduNetdisk](https://pan.baidu.com/s/10JO0uKzTxJaIkhN_J7RSyw?pwd=v0b0)  download all files to ```ComfyUI/models/transparent-background``` folder.
 
 ![image](image/transparent_background_ultra_example.jpg)    
 
@@ -1573,6 +1577,7 @@ Node Options:
 ### <a id="table1">PersonMaskUltra</a>
 Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
 The model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)， edge processing code from [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)，thanks to the original author.
+*Download model files from [BaiduNetdisk](https://pan.baidu.com/s/13zqZtBt89ueCyFufzUlcDg?pwd=jh5g) to ```ComfyUI/models/mediapipe``` folder.
 
 ![image](image/person_mask_ultra_example.jpg)    
 
@@ -1607,7 +1612,7 @@ Generate masks for characters' faces, hair, arms, legs, and clothing, mainly use
 The model segmentation code is from[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，thanks to the original author.
 Compared to the comfyui_segformer_b2_clothes, this node has ultra-high edge details. (Note: Generating images with edges exceeding 2K in size using the VITMatte method will consume a lot of memory)    
 
-*Download all model files from [here](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) to   ```ComfyUI/models/segformer_b2_clothes``` folder.
+*Download all model files from [huggingface](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/1OK-HfCNyZWux5iQFANq9Rw?pwd=haxg)  to  ```ComfyUI/models/segformer_b2_clothes``` folder.
 
 Node Options:  
 ![image](image/segformer_ultra_node.jpg)    
@@ -1640,9 +1645,9 @@ Node Options:
 ![image](image/segformer_fashion_example.jpg)   
 Using the segformer model to segment clothing with ultra-high edge details. Currently supports segformer b2 clothes, segformer b3 clothes and segformer b3 fashion。
 
-*from [here](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) download all files to ```ComfyUI/models/segformer_b2_clothes``` folder.        
-*from [here](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main) download all files to ```ComfyUI/models/segformer_b3_clothes``` folder.    
-*from [here](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main) download all files to ```ComfyUI/models/segformer_b3_fashion``` folder.    
+*Download modelfiles from [huggingface](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) or [百度网盘](https://pan.baidu.com/s/1OK-HfCNyZWux5iQFANq9Rw?pwd=haxg) to ```ComfyUI/models/segformer_b2_clothes``` folder.         
+*Download modelfiles from [huggingface](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main) or [百度网盘](https://pan.baidu.com/s/18KrCqNqUwmoJlqgAGDTw9g?pwd=ap4z) to ```ComfyUI/models/segformer_b3_clothes``` folder.    
+*Download modelfiles from [huggingface](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main) or [百度网盘](https://pan.baidu.com/s/10vd5PmJLFNWXaRVGW6tSvA?pwd=xzqi) to ```ComfyUI/models/segformer_b3_fashion``` folder. 
 
 Node Options:  
 ![image](image/segformer_ultra_v2_node.jpg)    
@@ -1762,7 +1767,7 @@ On the basis of MaskEdgeUltraDetail, the following changes have been made:
 
 ### <a id="table1">YoloV8Detect</a>
 Use the YoloV8 model to detect faces, hand box areas, or character segmentation. Supports the output of the selected number of channels.
-Download the model files from [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) or [BaiduNetdisk](https://pan.baidu.com/s/1ImoJrzL1zDgaCqaSzrNEtw?pwd=5xgk) to ```ComfyUI/models/yolo``` folder.
+Download the model files from [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) or [BaiduNetdisk](https://pan.baidu.com/s/1pEY6sjABQaPs6QtpK0q6XA?pwd=grqe) to ```ComfyUI/models/yolo``` folder.
 
 ![image](image/yolov8_detect_example.jpg)    
 
@@ -1779,6 +1784,8 @@ Outputs:
 
 ### <a id="table1">MediapipeFacialSegment</a>
 Use the Mediapipe model to detect facial features, segment left and right eyebrows, eyes, lips, and tooth.
+*Download the model files from [BaiduNetdisk](https://pan.baidu.com/s/13zqZtBt89ueCyFufzUlcDg?pwd=jh5g) to ```ComfyUI/models/mediapipe``` folder.
+
 ![image](image/mediapipe_facial_segment_example.jpg)    
 
 Node Options:  
@@ -1941,12 +1948,9 @@ Node Options:
 * grain: Noise intensity.
 * invert_mask: Whether to reverse the mask.
 
-
-
 ### <a id="table1">MaskPreview</a>
 Preview the input mask
 ![image](image/mask_invert.jpg)    
-
 
 ### <a id="table1">MaskInvert</a>
 Invert the mask
@@ -1974,7 +1978,6 @@ Node options:
 * threshold: Smooth range. the larger the range with the smaller value.
 * opacity: The opacity of the smoothness.
 
-
 ### <a id="table1">WaterColor</a>
 Watercolor painting effect
 ![image](image/water_color_example.jpg)    
@@ -1983,7 +1986,6 @@ Node option:
 ![image](image/water_color_node.jpg)    
 * line_density: The black line density.
 * opacity: The opacity of watercolor effects.
-
 
 ### <a id="table1">SoftLight</a>
 Soft light effect, the bright highlights on the screen appear blurry.
@@ -1995,7 +1997,6 @@ Node options:
 * threshold: Soft light range. the light appears from the brightest part of the picture. in lower value, the range will be larger, and in higher value, the range will be smaller.
 * opacity: Opacity of the soft light.
 
-
 ### <a id="table1">ChannelShake</a>
 Channel misalignment. similar to the effect of Tiktok logo.
 ![image](image/channel_shake_example.jpg)    
@@ -2005,7 +2006,6 @@ Node options:
 * distance: Distance of channel separation.
 * angle: Angle of channel separation.
 * mode: Channel shift arrangement order.
-
 
 ### <a id="table1">HDR</a> Effects
 enhances the dynamic range and visual appeal of input images.
@@ -2048,7 +2048,7 @@ The upgraded version of the Film node adds the fastgrain method on the basis of 
 ![image](image/film_v2_node.jpg)    
 
 ### <a id="table1">LightLeak</a>
-Simulate the light leakage effect of the film. please download the [light_leak.pkl(Baidu Netdisk)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3) or [light_leak.pkl(Google Drive)]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)), copy the file to ```ComfyUI/models/layerstyle``` folder.
+Simulate the light leakage effect of the film. please download the [light_leak.pkl(Baidu Netdisk)](https://pan.baidu.com/s/18Z0lhsDAejbwlOrCZFMuNg?pwd=o8sz) or [light_leak.pkl(Google Drive)]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)), copy the file to ```ComfyUI/models/layerstyle``` folder.
 ![image](image/light_leak_example.jpg)    
 
 Node options:
@@ -2067,7 +2067,6 @@ Node options:
 ![image](image/color_map_node.jpg)    
 * color_map: Effect type. there are a total of 22 types of effects, as shown in the above figure.
 * opacity: The opacity of the color map effect.
-
 
 ### <a id="table1">MotionBlur</a>
 Make the image motion blur

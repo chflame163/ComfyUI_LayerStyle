@@ -48,6 +48,10 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ```
 * 重新打开ComfyUI。
 
+### 下载模型
+从[百度网盘](https://pan.baidu.com/s/1T_uXMX3OKIWOJLPuLijrgA?pwd=1yye)下载全部模型文件并复制到```ComfyUI\models```文件夹。这个链接提供了本插件需要的所有的模型文件。
+或者按各个节点的说明下载模型文件。
+
 ## 常见问题
 如果节点不能正常加载，或者使用中出现错误，请在ComfyUI终端窗口查看报错信息。以下是常见的错误及解决方法。
 
@@ -711,7 +715,7 @@ ImageScaleByAspectRatio的V2升级版
 
 ### <a id="table1">QWenImage2Prompt</a>
 根据图片反推提示词。这个节点是[ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)中的```UForm-Gen2 Qwen Node```节点的重新封装，感谢原作者。
-请从[huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m)或者[百度网盘](https://pan.baidu.com/s/1ztnVX_Sh800xsWZhMDe-Ww?pwd=esyt)下载模型到```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen```文件夹。
+请从[huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m)或者[百度网盘](https://pan.baidu.com/s/1oRkUoOKWaxGod_XTJ8NiTA?pwd=d5d2)下载模型到```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen```文件夹。
 
 ![image](image/qwen_image2prompt_example.jpg)    
 
@@ -747,7 +751,8 @@ ImageScaleByAspectRatio的V2升级版
 
 ### <a id="table1">Florence2Image2Prompt</a>
 使用florence2模型反推提示词。本节点部分的代码来自[yiwangsimple/florence_dw](https://github.com/yiwangsimple/florence_dw)，感谢原作者。
-*首次使用时将自动下载模型，请在可以访问huggingface.co的网络环境下使用。
+*首次使用时将自动下载模型，请在可以访问huggingface.co的网络环境下使用。您也可以从[百度网盘](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3)下载模型文件并复制到```ComfyUI/models/florence2```文件夹。
+
 ![image](image/florence2_image2prompt_example.jpg) 
 
 节点选项说明:
@@ -999,11 +1004,8 @@ GradientImage的V2升级版。
 * width: 画面的宽度。如果有size_as输入，此设置将被忽略。
 * height: 画面的高度。如果有size_as输入，此设置将被忽略。
 
-
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
 <sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
-
-
 
 
 ### <a id="table1">TextImage</a>
@@ -1027,7 +1029,6 @@ GradientImage的V2升级版。
 * text_color: 文字颜色。
 * background_color<sup>4</sup>: 背景颜色。
 
-
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
 <sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
@@ -1036,7 +1037,7 @@ GradientImage的V2升级版。
 ![image](image/lama_example.jpg)    
 根据图像遮罩擦除物体。本节点是对[IOPaint](https://www.iopaint.com)的封装，由 SOTA AI 模型提供支持， 感谢原作者。   
 提供[LaMa](https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) 模型以及 SPREAD 擦除方法。请查看链接了解各个模型的介绍。  
-请下载模型文件 [lama models(百度网盘)](https://pan.baidu.com/s/1LllR9TJHP1G9uEwWT3Mvkg?pwd=tvzv) 或者 [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing), 将文件放到```ComfyUI/models/lama```
+请下载模型文件 [lama models(百度网盘)](https://pan.baidu.com/s/1m7La2ELsSKaIFhQ57qg1XQ?pwd=jn10) 或者 [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing), 将文件放到```ComfyUI/models/lama```
 
 节点选项说明:
 ![image](image/lama_node.jpg)    
@@ -1413,7 +1414,7 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * ```VitMatte``` 使用transfromer vit模型进行高质量的边缘处理，保留边缘细节，甚至可以生成半透明遮罩。
 * VitMatte的选项:```device``` 设置是否使用cuda进行vitmatte运算，cuda运算速度比cpu快5倍左右。```max_megapixels```设置vitmatte运算的最大图片尺寸，超大的图片将缩小处理。对于16G显存建议设置为3。
 
-请下载[所有的 vitmatte 模型文件](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main)到```ComfyUI/models/vitmatte```文件夹。
+*请从 [百度网盘](https://pan.baidu.com/s/1xYF-V6QRwcFalEqLS7giWg?pwd=jiyz) 或者 [Huggingface](https://huggingface.co/hustvl/vitmatte-small-composition-1k/tree/main) 下载全部模型文件到```ComfyUI/models/vitmatte```文件夹。
 
 下图为三种方法输出区别的示例。
 ![image](image/mask_edge_ultra_detail_v2_example.jpg)   
@@ -1429,6 +1430,7 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 [sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
 [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
 [mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) 这几个文件到```ComfyUI/models/sams```文件夹。
+*或者从[GroundingDino模型百度网盘](https://pan.baidu.com/s/1P7WQDuaqSYazlSQX8SJjxw?pwd=24ki) 和 [SAM模型百度网盘](https://pan.baidu.com/s/1n7JrHb2vzV2K2z3ktqpNxg?pwd=yoqh) 下载它们。
 
 ![image](image/segment_anything_ultra_compare.jpg)    
 ![image](image/segment_anything_ultra_example.jpg)    
@@ -1459,6 +1461,7 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
 ### <a id="table1">Florence2Ultra</a>
 使用 Florence2 模型的分割功能，同时具有超高的边缘细节。
 本节点部分的代码来自[spacepxl/ComfyUI-Florence-2](https://github.com/spacepxl/ComfyUI-Florence-2)，感谢原作者。
+*请从 [百度网盘](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3)下载模型文件并复制到```ComfyUI/models/florence2```文件夹。
 
 ![image](image/florence2_ultra_example.jpg)    
 
@@ -1486,8 +1489,7 @@ Florence2 模型加载器。
 去除背景。与类似的背景移除节点相比，这个节点具有超高的边缘细节。
 本节点结合了spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的Alpha Matte节点，以及ZHO-ZHO-ZHO的[ComfyUI-BRIA_AI-RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG)的功能，感谢原作者。
 
-*将[BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)模型文件(model.pth)下载至```ComfyUI/models/rmbg/RMBG-1.4```文件夹。该模型由 BRIA AI 开发，可作为非商业用途的开源模型。    
-
+*请从 [BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4)  或者 [百度网盘](https://pan.baidu.com/s/16PMfjpkXn_35T-cVYEPTZA?pwd=qi6o)下载模型文件至```ComfyUI/models/rmbg/RMBG-1.4```文件夹。该模型由 BRIA AI 开发，可作为非商业用途的开源模型。    
 
 ![image](image/rembg_ultra_example.jpg)    
 
@@ -1513,7 +1515,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
 本节点模型部分的代码来自vipery的[ComfyUI-BiRefNet](https://github.com/viperyl/ComfyUI-BiRefNet)，感谢原作者。
 
-*从[https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main)下载```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth```5个文件至```ComfyUI/models/BiRefNet```文件夹。
+*从[https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main) 或者 [百度网盘](https://pan.baidu.com/s/1GxtuNDTIHkuu4FR4uGAT-g?pwd=t2cf) 下载```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth```5个文件至```ComfyUI/models/BiRefNet```文件夹。
 
 ![image](image/birefnet_ultra_example.jpg)    
 
@@ -1531,7 +1533,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 ### <a id="table1">TransparentBackgroundUltra</a>
 使用transparent-background模型去除背景，有更好的识别能力和识别速度，同时具有超高的边缘细节。
 
-*从 [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) 或 [百度网盘](https://pan.baidu.com/s/1CYZ4VwvU06e-02BKRUj9QQ?pwd=jjt9) 下载全部文件至```ComfyUI/models/transparent-background```文件夹。
+*从 [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) 或 [百度网盘](https://pan.baidu.com/s/10JO0uKzTxJaIkhN_J7RSyw?pwd=v0b0) 下载全部文件至```ComfyUI/models/transparent-background```文件夹。
 
 ![image](image/transparent_background_ultra_example.jpg)    
 
@@ -1550,6 +1552,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 ### <a id="table1">PersonMaskUltra</a>
 为人物生成脸、头发、身体皮肤、衣服或配饰的遮罩。与之前的A Person Mask Generator节点相比，这个节点具有超高的边缘细节。
 本节点的模型代码来自[a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)，边缘处理代码来自spacepxl的[ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)，感谢原作者。
+*从[百度网盘](https://pan.baidu.com/s/13zqZtBt89ueCyFufzUlcDg?pwd=jh5g) 下载模型文件并放到```ComfyUI/models/mediapipe```文件夹。
 
 ![image](image/person_mask_ultra_example.jpg)    
 
@@ -1583,7 +1586,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 为人物生成脸、头发、手臂、腿以及服饰的遮罩，主要用于分割服装。模型分割代码来自[StartHua](https://github.com/StartHua/Comfyui_segformer_b2_clothes)，感谢原作者。
 与comfyui_segformer_b2_clothes节点相比，这个节点具有超高的边缘细节。    
 
-*从[这里](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main)下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。
+*从[huggingface](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) 或者 [百度网盘](https://pan.baidu.com/s/1OK-HfCNyZWux5iQFANq9Rw?pwd=haxg) 下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。
 
 节点选项说明:  
 ![image](image/segformer_ultra_node.jpg)    
@@ -1617,9 +1620,9 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 ![image](image/segformer_fashion_example.jpg)   
 使用segformer模型分割服饰，具有超高的边缘细节。目前支持segformer b2 clothes, segformer b3 clothes, segformer b3 fashion。
 
-*从[这里](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main)下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。     
-*从[这里](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main)下载全部文件至```ComfyUI/models/segformer_b3_clothes```文件夹。    
-*从[这里](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main)下载全部文件至```ComfyUI/models/segformer_b3_fashion```文件夹。    
+*从[huggingface](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) 或者 [百度网盘](https://pan.baidu.com/s/1OK-HfCNyZWux5iQFANq9Rw?pwd=haxg) 下载全部文件至```ComfyUI/models/segformer_b2_clothes```文件夹。     
+*从[huggingface](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main) 或者 [百度网盘](https://pan.baidu.com/s/18KrCqNqUwmoJlqgAGDTw9g?pwd=ap4z) 下载全部文件至```ComfyUI/models/segformer_b3_clothes```文件夹。    
+*从[huggingface](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main) 或者 [百度网盘](https://pan.baidu.com/s/10vd5PmJLFNWXaRVGW6tSvA?pwd=xzqi)下载全部文件至```ComfyUI/models/segformer_b3_fashion```文件夹。    
 
 节点选项说明:  
 ![image](image/segformer_ultra_v2_node.jpg)    
@@ -1736,7 +1739,7 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 
 ### <a id="table1">YoloV8Detect</a>
 使用YoloV8模型检测人脸、手部box区域，或者人物分割。支持输出所选择数量的通道。
-请在 [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) 或者 [百度网盘](https://pan.baidu.com/s/1ImoJrzL1zDgaCqaSzrNEtw?pwd=5xgk) 下载模型文件并放到 ```ComfyUI/models/yolo``` 文件夹。
+请在 [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) 或者 [百度网盘](https://pan.baidu.com/s/1pEY6sjABQaPs6QtpK0q6XA?pwd=grqe) 下载模型文件并放到 ```ComfyUI/models/yolo``` 文件夹。
 
 ![image](image/yolov8_detect_example.jpg)    
 
@@ -1753,6 +1756,8 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 
 ### <a id="table1">MediapipeFacialSegment</a>
 使用Mediapipe模型检测人脸五官，分割左右眉、眼睛、嘴唇和牙齿。
+*从[百度网盘](https://pan.baidu.com/s/13zqZtBt89ueCyFufzUlcDg?pwd=jh5g) 下载模型文件并放到```ComfyUI/models/mediapipe```文件夹。
+
 ![image](image/mediapipe_facial_segment_example.jpg)    
 
 节点选项说明:  
@@ -1763,7 +1768,6 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 * right_eyebrow: 右眉识别开关。
 * lips: 嘴唇识别开关。
 * tooth: 牙齿识别开关。
-
 
 ### <a id="table1">MaskByColor</a>
 根据颜色生成遮罩。
@@ -1796,8 +1800,6 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 
 <sup>*</sup><font size="3">如果 black_point 或 output_black_point 数值大于 white_point 或 output_white_point，则两个数值将交换，较大的数值作为white_point使用，较小的数值作为black_point使用。</font>    
 
-
-
 ### <a id="table1">Shadow</a> & Highlight Mask
 生成图像暗部和亮部的遮罩。
 ![image](image/shadow_and_highlight_mask_example.jpg)    
@@ -1810,7 +1812,6 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 * shadow_range: 暗部的过渡范围。
 * highlight_level_offset: 亮部取值的偏移量，更小的数值使更多靠近阴暗的区域纳入亮部。
 * highlight_range: 亮部的过渡范围。  
-
 
 ### <a id="table1">PixelSpread</a>
 对图像的遮罩边缘部分进行像素扩张预处理，可有效改善图像合成的边缘。
@@ -1831,7 +1832,6 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 * fix_gap: 修补遮罩内部缝隙。更高的值将修补更大的缝隙。
 * fix_threshold: 修补阈值。
 * main_subject_detect: 此项设为True将开启主体侦测，忽略主体之外的差异。
-
 
 ### <a id="table1">MaskGrow</a>
 对mask进行扩张收缩边缘和模糊处理
@@ -1897,7 +1897,6 @@ MaskGrow与MaskEdgeShrink效果对比
 
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。  
 
-
 ### <a id="table1">MaskStroke</a>
 产生mask轮廓描边。
 ![image](image/mask_stroke_example.jpg)    
@@ -1918,16 +1917,13 @@ MaskGrow与MaskEdgeShrink效果对比
 * grain: 噪声强度。
 * invert_mask: 是否反转遮罩。
 
-
 ### <a id="table1">MaskPreview</a>
 预览mask
 ![image](image/mask_invert.jpg)    
 
-
 ### <a id="table1">MaskInvert</a>
 mask反转
 ![image](image/mask_invert_node.jpg)    
-
 
 
 # <a id="table1">LayerFilter</a>
@@ -2023,9 +2019,8 @@ mask反转
 Film节点的升级版, 在之前基础上增加了fastgrain方法，生成噪点速度加快了10倍。fastgrain的代码来自[github.com/spacepxl/ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)的BetterFilmGrain部分，感谢原作者。
 ![image](image/film_v2_node.jpg)    
 
-
 ### <a id="table1">LightLeak</a>
-模拟胶片漏光效果。请下载[light_leak.pkl(百度网盘)](https://pan.baidu.com/s/1QY1ZyYm885krrqDB2t8lPg?pwd=yvs3)或[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)将文件复制到```ComfyUI/models/layerstyle``` 文件夹。
+模拟胶片漏光效果。请下载[light_leak.pkl(百度网盘)](https://pan.baidu.com/s/18Z0lhsDAejbwlOrCZFMuNg?pwd=o8sz)或[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)将文件复制到```ComfyUI/models/layerstyle``` 文件夹。
 ![image](image/light_leak_example.jpg)    
 
 节点选项说明:
