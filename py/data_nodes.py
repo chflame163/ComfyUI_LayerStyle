@@ -376,7 +376,7 @@ class IfExecute:
         }
 
     RETURN_TYPES = (any,)
-    RETURN_NAMES = "?"
+    RETURN_NAMES = ("?",)
     FUNCTION = "if_execute"
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
@@ -403,7 +403,7 @@ class SwitchCaseNode:
         }
 
     RETURN_TYPES = (any,)
-    RETURN_NAMES = "?"
+    RETURN_NAMES = ("?",)
     FUNCTION = "switch_case"
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
