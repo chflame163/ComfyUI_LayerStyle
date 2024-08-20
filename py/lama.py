@@ -35,7 +35,7 @@ class LaMa:
     CATEGORY = '😺dzNodes/LayerUtility'
 
     def lama(self, image, mask, lama_model, device, invert_mask, mask_grow, mask_blur):
-
+        log("lama copy")
         l_images = []
         l_masks = []
         ret_images = []
@@ -59,29 +59,44 @@ class LaMa:
 
         max_batch = max(len(l_images), len(l_masks))
 
-        for i in range(max_batch):
-            _image = l_images[i] if i < len(l_images) else l_images[-1]
-            _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
-            if mask_grow or mask_blur:
-                _mask = tensor2pil(expand_mask(image2mask(_mask), mask_grow, mask_blur))
-
-            if lama_model == 'spread':
+        if lama_model == 'spread':
+            for i in range(max_batch):
+                _image = l_images[i] if i < len(l_images) else l_images[-1]
+                _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+                if mask_grow or mask_blur:
+                    _mask = tensor2pil(expand_mask(image2mask(_mask), mask_grow, mask_blur))
+                
                 ret_image = pixel_spread(tensor2pil(_image).convert('RGB'), ImageChops.invert(_mask.convert('RGB')))
-            else:
-                temp_dir = os.path.join(folder_paths.get_temp_directory(), generate_random_name('_lama_', '_temp', 16))
-                if os.path.isdir(temp_dir):
-                    shutil.rmtree(temp_dir)
-                image_dir = os.path.join(temp_dir, 'image')
-                mask_dir = os.path.join(temp_dir, 'mask')
-                result_dir = os.path.join(temp_dir, 'result')
-                try:
-                    os.makedirs(image_dir)
-                    os.makedirs(mask_dir)
-                    os.makedirs(result_dir)
-                except Exception as e:
-                    print(e)
-                    log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='error')
-                    return (image, )
+                ret_images.append(ret_image)
+        else:
+            temp_dir = os.path.join(folder_paths.get_temp_directory(), generate_random_name('_lama_', '_temp', 16))
+            if os.path.isdir(temp_dir):
+                shutil.rmtree(temp_dir)
+            image_dir = os.path.join(temp_dir, 'image')
+            mask_dir = os.path.join(temp_dir, 'mask')
+            result_dir = os.path.join(temp_dir, 'result')
+            config_dir = os.path.join(temp_dir, 'config.json')
+            
+            try:
+                os.makedirs(image_dir)
+                os.makedirs(mask_dir)
+                os.makedirs(result_dir)
+                # Write Config File
+                with open(config_dir, "w") as file:
+                    json.dump({
+                        "hd_strategy_crop_trigger_size":1024
+                    },file)
+                    log(f"config file written: {config_dir}")
+            except Exception as e:
+                print(e)
+                log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='error')
+                return (image, )
+            file_name_list = []
+            for i in range(max_batch):
+                _image = l_images[i] if i < len(l_images) else l_images[-1]
+                _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
+                if mask_grow or mask_blur:
+                    _mask = tensor2pil(expand_mask(image2mask(_mask), mask_grow, mask_blur))
                 file_name = os.path.join(generate_random_name('lama_', '_temp', 16) + '.png')
                 try:
                     tensor2pil(_image).save(os.path.join(image_dir, file_name))
@@ -90,12 +105,12 @@ class LaMa:
                     print(e)
                     log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
                     return (image, )
+                file_name_list.append(file_name)
                 # process
-                from .iopaint import cli
-                cli.run(model=lama_model, device=device, image=Path(image_dir), mask=Path(mask_dir), output=Path(result_dir))
-                ret_image = check_image_file(os.path.join(result_dir, file_name), 500)
-                shutil.rmtree(temp_dir)
-            ret_images.append(pil2tensor(ret_image))
+            from .iopaint import cli
+            cli.run(model=lama_model, device=device, image=Path(image_dir), mask=Path(mask_dir), output=Path(result_dir), config=Path(config_dir))
+            ret_images = [pil2tensor(check_image_file(os.path.join(result_dir, file_name), 500)) for file_name in file_name_list]
+            shutil.rmtree(temp_dir)
 
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
