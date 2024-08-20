@@ -2048,7 +2048,7 @@ The upgraded version of the Film node adds the fastgrain method on the basis of 
 ![image](image/film_v2_node.jpg)    
 
 ### <a id="table1">LightLeak</a>
-Simulate the light leakage effect of the film. please download the [light_leak.pkl(Baidu Netdisk)](https://pan.baidu.com/s/18Z0lhsDAejbwlOrCZFMuNg?pwd=o8sz) or [light_leak.pkl(Google Drive)]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)), copy the file to ```ComfyUI/models/layerstyle``` folder.
+Simulate the light leakage effect of the film. please download model file from [Baidu Netdisk](https://pan.baidu.com/s/18Z0lhsDAejbwlOrCZFMuNg?pwd=o8sz) or [Google Drive]([light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)) and copy to ```ComfyUI/models/layerstyle``` folder.
 ![image](image/light_leak_example.jpg)    
 
 Node options:

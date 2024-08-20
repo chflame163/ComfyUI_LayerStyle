@@ -2020,7 +2020,7 @@ Film节点的升级版, 在之前基础上增加了fastgrain方法，生成噪�
 ![image](image/film_v2_node.jpg)    
 
 ### <a id="table1">LightLeak</a>
-模拟胶片漏光效果。请下载[light_leak.pkl(百度网盘)](https://pan.baidu.com/s/18Z0lhsDAejbwlOrCZFMuNg?pwd=o8sz)或[light_leak.pkl(Google Drive)(https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing)将文件复制到```ComfyUI/models/layerstyle``` 文件夹。
+模拟胶片漏光效果。请从 [百度网盘](https://pan.baidu.com/s/18Z0lhsDAejbwlOrCZFMuNg?pwd=o8sz) 或 [Google Drive](https://drive.google.com/file/d/1DcH2Zkyj7W3OiAeeGpJk1eaZpdJwdCL-/view?usp=sharing) 下载模型文件并复制到 ```ComfyUI/models/layerstyle``` 文件夹。
 ![image](image/light_leak_example.jpg)    
 
 节点选项说明:
