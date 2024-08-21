@@ -21,7 +21,7 @@ model_repos = {
     "base-PromptGen": "MiaoshouAI/Florence-2-base-PromptGen"
 }
 
-def fixed_get_imports(filename: str | os.PathLike) -> list[str]:
+def fixed_get_imports(filename) -> list[str]:
     """Workaround for FlashAttention"""
     if os.path.basename(filename) != "modeling_florence2.py":
         return get_imports(filename)
