@@ -30,16 +30,10 @@ from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhanc
 from skimage import img_as_float, img_as_ubyte
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
-from transformers import AutoModel, AutoProcessor, StoppingCriteria, StoppingCriteriaList, AutoModelForCausalLM
-import colorsys
-from typing import Union
+from transformers import StoppingCriteria, StoppingCriteriaList
+from colorsys import rgb_to_hsv
 import folder_paths
-from .briarmbg import BriaRMBG
 from .filmgrainer import processing as processing_utils
-from .filmgrainer import filmgrainer as filmgrainer
-import wget
-import gc
-
 from .blendmodes import *
 
 def log(message:str, message_type:str='info'):
@@ -371,6 +365,7 @@ def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacit
     return ret_image
 
 def chop_image_v2(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
+
     backdrop_prepped = np.asfarray(background_image.convert('RGBA'))
     source_prepped = np.asfarray(layer_image.convert('RGBA'))
     blended_np = BLEND_MODES[blend_mode](backdrop_prepped, source_prepped, opacity / 100)
@@ -508,7 +503,8 @@ def filmgrain_image(image:Image, scale:float, grain_power:float,
     grain_type_index = 3
 
     # Apply grain
-    grain_image = filmgrainer.process(image, scale=scale, src_gamma=src_gamma, grain_power=grain_power,
+    from .filmgrainer import filmgrainer as fg
+    grain_image = fg.process(image, scale=scale, src_gamma=src_gamma, grain_power=grain_power,
                                       shadows=shadows, highs=highs, grain_type=grain_type_index,
                                       grain_sat=grain_sat, gray_scale=gray_scale, sharpen=sharpen, seed=seed)
     return tensor2pil(torch.from_numpy(grain_image).unsqueeze(0))
@@ -912,7 +908,7 @@ def get_image_color_tone(image:Image, mask:Image=None) -> str:
         if mask is not None:
             if r + g + b < 2:  # 忽略黑色
                 continue
-        saturation = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)[1]
+        saturation = rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)[1]
         y = min(abs(r * 2104 + g * 4130 + b * 802 + 4096 + 131072) >> 13,235)
         y = (y - 16.0) / (235 - 16)
         score = (saturation+0.1)*count
@@ -1395,6 +1391,7 @@ def create_mask_from_color_tensor(image:Image, color:str, tolerance:int=0) -> Im
 
 @lru_cache(maxsize=1, typed=False)
 def load_RMBG_model():
+    from .briarmbg import BriaRMBG
     current_directory = os.path.dirname(os.path.abspath(__file__))
     device = "cuda" if torch.cuda.is_available() else "cpu"
     net = BriaRMBG()
@@ -1554,6 +1551,7 @@ def get_a_person_mask_generator_model_path() -> str:
         model_file_path = os.path.join(folder_paths.models_dir, model_folder_name, model_name)
 
     if not os.path.exists(model_file_path):
+        import wget
         model_url = f'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/{model_name}'
         print(f"Downloading '{model_name}' model")
         os.makedirs(model_file_path, exist_ok=True)
@@ -1785,7 +1783,7 @@ def Hex_to_RGB(inhex:str) -> tuple:
     return tuple(rgb)
 
 def RGB_to_HSV(RGB:tuple) -> list:
-    HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
+    HSV = rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
     return [int(x * 360) for x in HSV]
 
 def Hex_to_HSV_255level(inhex:str) -> list:
@@ -1796,7 +1794,7 @@ def Hex_to_HSV_255level(inhex:str) -> list:
         gval = inhex[3:5]
         bval = inhex[5:]
         RGB = (int(rval, 16), int(gval, 16), int(bval, 16))
-        HSV = colorsys.rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
+        HSV = rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
     return [int(x * 255) for x in HSV]
 
 
@@ -1954,6 +1952,7 @@ def extract_all_numbers_from_str(string, checkint:bool=False):
     return number_list
 
 def clear_memory():
+    import gc
     # Cleanup
     gc.collect()
     if torch.cuda.is_available():
@@ -1995,8 +1994,10 @@ class StopOnTokens(StoppingCriteria):
         return False
 
 class UformGen2QwenChat:
+
     def __init__(self):
         from huggingface_hub import snapshot_download
+        from transformers import AutoModel, AutoProcessor
         # self.model_path = snapshot_download("unum-cloud/uform-gen2-qwen-500m",
         #                                     local_dir=files_for_uform_gen2_qwen,
         #                                     force_download=False,  # Set to True if you always want to download, regardless of local copy
@@ -2133,8 +2134,8 @@ def load_custom_size() -> list:
                 if not line.startswith(f'#'):
                     ret_value.append(line.strip())
     except Exception as e:
-        # log(f'Warning: {custom_size_file} ' + repr(e) + f", use default size. ")
-        log(f'Warning: {custom_size_file} not found' + f", use default size. ")
+        pass
+        # log(f'Warning: {custom_size_file} not found' + f", use default size. ")
     return ret_value
 
 def get_api_key(api_name:str) -> str:

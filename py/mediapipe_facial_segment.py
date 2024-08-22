@@ -1,5 +1,4 @@
 import numpy as np
-import mediapipe as mp
 from .imagefunc import *
 
 NODE_NAME = 'MediapipeFacialSegment'
@@ -47,6 +46,7 @@ class FacialFeatureSegment:
                               left_eye, left_eyebrow, right_eye, right_eyebrow, lips, tooth
                   ):
 
+        import mediapipe as mp
         # 定义面部特征索引
         left_eye_indices = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246]
         right_eye_indices = [263, 249, 390, 373, 374, 380, 381, 382, 362, 398, 384, 385, 386, 387, 388, 466]

@@ -18,7 +18,9 @@ model_repos = {
     "large-ft": "microsoft/Florence-2-large-ft",
     "DocVQA": "HuggingFaceM4/Florence-2-DocVQA",
     "SD3-Captioner": "gokaygokay/Florence-2-SD3-Captioner",
-    "base-PromptGen": "MiaoshouAI/Florence-2-base-PromptGen"
+    "base-PromptGen": "MiaoshouAI/Florence-2-base-PromptGen",
+    "CogFlorence-2-Large-Freeze": "thwri/CogFlorence-2-Large-Freeze",
+    "CogFlorence-2.1-Large": "thwri/CogFlorence-2.1-Large"
 }
 
 def fixed_get_imports(filename) -> list[str]:

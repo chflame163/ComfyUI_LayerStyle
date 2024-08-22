@@ -6,9 +6,9 @@ from PIL import Image
 import numpy as np
 import torch
 import torch.nn.functional as F
-from colorsys import rgb_to_hsv, hsv_to_rgb
-from blend_modes import difference, normal, screen, soft_light, lighten_only, dodge,   \
-                        addition, darken_only, multiply, hard_light,  \
+from colorsys import rgb_to_hsv
+from blend_modes import difference, normal, screen, soft_light, lighten_only, dodge, \
+                        addition, darken_only, multiply, hard_light, \
                         grain_extract, grain_merge, divide, overlay
 
 def dissolve(backdrop, source, opacity):
@@ -132,6 +132,7 @@ def hsv_to_rgb_via_torch(hsv_numpy: np.ndarray, device=None) -> torch.Tensor:
     return rgb_numpy
 
 def hsv(backdrop, source, opacity, channel):
+
     # Convert RGBA to RGB, normalized
     backdrop_rgb = backdrop[:, :, :3] / 255.0
     source_rgb = source[:, :, :3] / 255.0
@@ -181,6 +182,7 @@ def color(backdrop, source, opacity):
     return hsv(backdrop, source, opacity, "color")
 
 def darker_lighter_color(backdrop, source, opacity, type):
+
     # Normalize the RGB and alpha values to 0-1
     backdrop_norm = backdrop[:, :, :3] / 255
     source_norm = source[:, :, :3] / 255
