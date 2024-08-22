@@ -103,6 +103,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 优化节点加载速度。    
+* [Florence2Image2Prompt](#Florence2Image2Prompt) 增加thwri/CogFlorence-2-Large-Freeze 和 thwri/CogFlorence-2.1-Large 模型支持。请从[百度网盘](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) 或 [huggingface/CogFlorence-2-Large-Freeze](https://huggingface.co/thwri/CogFlorence-2-Large-Freeze/tree/main) 和 [huggingface/CogFlorence-2.1-Large](https://huggingface.co/thwri/CogFlorence-2.1-Large/tree/main) 下载模型文件并复制到```ComfyUI/models/florence2```文件夹。 
 * 合并来自[ClownsharkBatwing](https://github.com/ClownsharkBatwing)的分支“使用GPU进行颜色混合模式”，某些图层的混合速度提高了十倍以上。
 * 添加 [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) 节点。
 * [TransparentBackgroundUltra](#TransparentBackgroundUltra) 节点增加新模型支持。请按说明下载模型文件。
