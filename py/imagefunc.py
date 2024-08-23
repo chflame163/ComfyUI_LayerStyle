@@ -30,7 +30,7 @@ from PIL import Image, ImageFilter, ImageChops, ImageDraw, ImageOps, ImageEnhanc
 from skimage import img_as_float, img_as_ubyte
 import torchvision.transforms.functional as TF
 import torch.nn.functional as F
-from transformers import StoppingCriteria, StoppingCriteriaList
+from transformers import AutoModel, AutoProcessor, StoppingCriteria, StoppingCriteriaList, AutoModelForCausalLM
 from colorsys import rgb_to_hsv
 import folder_paths
 from .filmgrainer import processing as processing_utils
@@ -1997,7 +1997,6 @@ class UformGen2QwenChat:
 
     def __init__(self):
         from huggingface_hub import snapshot_download
-        from transformers import AutoModel, AutoProcessor
         # self.model_path = snapshot_download("unum-cloud/uform-gen2-qwen-500m",
         #                                     local_dir=files_for_uform_gen2_qwen,
         #                                     force_download=False,  # Set to True if you always want to download, regardless of local copy
