@@ -143,7 +143,7 @@ class NumberCalculator:
         pass
     @classmethod
     def INPUT_TYPES(self):
-        operator_list = ["+", "-", "*", "/", "**", "//", "%" ]
+        operator_list = ["+", "-", "*", "/", "**", "//", "%", "nth_root", "min", "max"]
         return {"required": {
                 "a": (any, {}),
                 "b": (any, {}),
@@ -167,6 +167,12 @@ class NumberCalculator:
             ret_value = a ** b
         if operator == "%":
             ret_value = a % b
+        if operator == "nth_root":
+            ret_value = a ** (1/b)
+        if operator == "min":
+            ret_value = min(a, b)
+        if operator == "max":
+            ret_value = max(a, b)
         if operator == "/":
             if b != 0:
                 ret_value = a / b
@@ -185,7 +191,7 @@ class NumberCalculatorV2:
         pass
     @classmethod
     def INPUT_TYPES(self):
-        operator_list = ["+", "-", "*", "/", "**", "//", "%" , "nth_root"]
+        operator_list = ["+", "-", "*", "/", "**", "//", "%" , "nth_root", "min", "max"]
 
         return {
                     "required":
@@ -239,6 +245,10 @@ class NumberCalculatorV2:
             ret_value = a % b
         if operator == "nth_root":
             ret_value = a ** (1/b)
+        if operator == "min":
+            ret_value = min(a, b)
+        if operator == "max":
+            ret_value = max(a, b)
         if operator == "/":
             if b != 0:
                 ret_value = a / b

@@ -102,6 +102,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* [NumberCalculatorV2](#NumberCalculatorV2) and [NumberCalculator](#NumberCalculator) add the  ```min``` and ```max``` method.
 * Optimize node loading speed.    
 * [Florence2Image2Prompt](#Florence2Image2Prompt) add support for ```thwri/CogFlorence-2-Large-Freeze``` and ```thwri/CogFlorence-2.1-Large``` models. Please download the model files from [BaiduNetdisk](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) or [huggingface/CogFlorence-2-Large-Freeze](https://huggingface.co/thwri/CogFlorence-2-Large-Freeze/tree/main) and [huggingface/CogFlorence-2.1-Large](https://huggingface.co/thwri/CogFlorence-2.1-Large/tree/main) , then copy it to ```ComfyUI/models/florence2``` folder. 
 * Merge branch from [ClownsharkBatwing](https://github.com/ClownsharkBatwing) "Use GPU for color blend mode", the speed of some layer blends by more than ten times.
