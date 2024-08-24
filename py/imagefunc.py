@@ -1813,6 +1813,8 @@ def HSV_255level_to_Hex(HSV: list) -> str:
     return '#' + hex_r + hex_g + hex_b
 
 '''Value Functions'''
+def is_valid_mask(tensor:torch.Tensor) -> bool:
+    return not bool(torch.all(tensor == 0).item())
 
 def step_value(start_value, end_value, total_step, step) -> float:  # 按当前步数在总步数中的位置返回比例值
     factor = step / total_step
