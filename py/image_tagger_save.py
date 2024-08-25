@@ -104,7 +104,7 @@ class LSImageTaggerSave:
                 if img.mode == "RGBA":
                     img = img.convert("RGB")
                 img.save(image_file_name, quality=quality)
-            with open(tag_file_name, "w") as f:
+            with open(tag_file_name, "w", encoding="utf-8") as f:
                 f.write(remove_empty_lines(tag_text))
             log(f"{NODE_NAME} -> Saving image to {image_file_name}")
 
