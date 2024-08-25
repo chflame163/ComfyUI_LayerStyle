@@ -1,0 +1,552 @@
+{
+  "last_node_id": 61,
+  "last_link_id": 74,
+  "nodes": [
+    {
+      "id": 55,
+      "type": "LayerMask: LoadFlorence2Model",
+      "pos": [
+        1252.96286383667,
+        367.9042214660644
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "florence2_model",
+          "type": "FLORENCE2",
+          "links": [
+            64
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: LoadFlorence2Model"
+      },
+      "widgets_values": [
+        "CogFlorence-2-Large-Freeze"
+      ]
+    },
+    {
+      "id": 54,
+      "type": "LayerUtility: Florence2Image2Prompt",
+      "pos": [
+        1234.96286383667,
+        492.9042214660644
+      ],
+      "size": {
+        "0": 367.79998779296875,
+        "1": 198
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "florence2_model",
+          "type": "FLORENCE2",
+          "link": 64
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 72
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            73
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "preview_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: Florence2Image2Prompt"
+      },
+      "widgets_values": [
+        "more detailed caption",
+        "",
+        1024,
+        3,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 57,
+      "type": "LayerUtility: String",
+      "pos": [
+        177,
+        492
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            70
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: String"
+      },
+      "widgets_values": [
+        "E:\\tmp\\test"
+      ]
+    },
+    {
+      "id": 58,
+      "type": "Reroute",
+      "pos": [
+        1099,
+        594
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 71
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            72
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 31,
+      "type": "LayerUtility: ImageTaggerSave",
+      "pos": [
+        1872,
+        311
+      ],
+      "size": {
+        "0": 397.0539245605469,
+        "1": 422.8654479980469
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 68
+        },
+        {
+          "name": "tag_text",
+          "type": "STRING",
+          "link": 74,
+          "widget": {
+            "name": "tag_text"
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageTaggerSave"
+      },
+      "widgets_values": [
+        "",
+        "e:\\tmp\\test111",
+        "my_training_set",
+        "None",
+        "png",
+        80,
+        true
+      ]
+    },
+    {
+      "id": 35,
+      "type": "LayerUtility: ImageAutoCrop V3",
+      "pos": [
+        877,
+        816
+      ],
+      "size": {
+        "0": 315,
+        "1": 222
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 60
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 51
+        }
+      ],
+      "outputs": [
+        {
+          "name": "cropped_image",
+          "type": "IMAGE",
+          "links": [
+            68,
+            71
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "box_preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ImageAutoCrop V3"
+      },
+      "widgets_values": [
+        "custom",
+        768,
+        1024,
+        "lanczos",
+        "height",
+        1024,
+        "8"
+      ]
+    },
+    {
+      "id": 59,
+      "type": "Reroute",
+      "pos": [
+        1704,
+        585
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 73,
+          "widget": {
+            "name": "value"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "STRING",
+          "links": [
+            74
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 48,
+      "type": "LoadImageListFromDir //Inspire",
+      "pos": [
+        394,
+        838
+      ],
+      "size": {
+        "0": 315,
+        "1": 170
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "directory",
+          "type": "STRING",
+          "link": 70,
+          "widget": {
+            "name": "directory"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            59,
+            60
+          ],
+          "slot_index": 0,
+          "shape": 6
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 6
+        },
+        {
+          "name": "FILE PATH",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImageListFromDir //Inspire"
+      },
+      "widgets_values": [
+        "E:\\tmp\\test",
+        0,
+        0,
+        false
+      ]
+    },
+    {
+      "id": 41,
+      "type": "LayerMask: YoloV8Detect",
+      "pos": [
+        650,
+        433.7733489990234
+      ],
+      "size": {
+        "0": 315,
+        "1": 122
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            51
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "yolo_plot_image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "yolo_masks",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 2,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: YoloV8Detect"
+      },
+      "widgets_values": [
+        "face_yolov8m.pt",
+        "1"
+      ]
+    }
+  ],
+  "links": [
+    [
+      51,
+      41,
+      0,
+      35,
+      1,
+      "MASK"
+    ],
+    [
+      59,
+      48,
+      0,
+      41,
+      0,
+      "IMAGE"
+    ],
+    [
+      60,
+      48,
+      0,
+      35,
+      0,
+      "IMAGE"
+    ],
+    [
+      64,
+      55,
+      0,
+      54,
+      0,
+      "FLORENCE2"
+    ],
+    [
+      68,
+      35,
+      0,
+      31,
+      0,
+      "IMAGE"
+    ],
+    [
+      70,
+      57,
+      0,
+      48,
+      0,
+      "STRING"
+    ],
+    [
+      71,
+      35,
+      0,
+      58,
+      0,
+      "*"
+    ],
+    [
+      72,
+      58,
+      0,
+      54,
+      1,
+      "IMAGE"
+    ],
+    [
+      73,
+      54,
+      0,
+      59,
+      0,
+      "*"
+    ],
+    [
+      74,
+      59,
+      0,
+      31,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Image2Prompt (can be replaced)",
+      "bounding": [
+        1040,
+        280,
+        794,
+        454
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Input original images folder path",
+      "bounding": [
+        93,
+        280,
+        484,
+        455
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Facial recognition (optional)",
+      "bounding": [
+        598,
+        279,
+        420,
+        452
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Automatic crop and tag workflow by chflame163",
+      "bounding": [
+        95,
+        31,
+        2187,
+        208
+      ],
+      "color": "#b58b2a",
+      "font_size": 102,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9090909090909094,
+      "offset": [
+        -186.56606702980383,
+        -78.17586248866625
+      ]
+    }
+  },
+  "version": 0.4
+}

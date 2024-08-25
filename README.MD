@@ -102,6 +102,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
 
+* Commit [ImageTaggerSave](#ImageTaggerSave) and [ImageAutoCropV3](#ImageAutoCropV3) nodes. Used to implement the automatic trimming and marking workflow for the training set (the workflow ```image_tagger_save.json``` is located in the workflow directory).
 * Commit [CheckMaskV2](#CheckMaskV2) node, Added the ```simple``` method to detect masks more quickly.
 * Commit [ImageReel](#ImageReel) and [ImageReelComposite](#ImageReelComposite) nodes to composite multiple images on a canvas.
 * [NumberCalculatorV2](#NumberCalculatorV2) and [NumberCalculator](#NumberCalculator) add the  ```min``` and ```max``` method.
@@ -1178,6 +1179,26 @@ The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes 
 * scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
 
 
+### <a id="table1">ImageAutoCropV3</a> 
+Automatically crop the image to the specified size. You can input a mask to preserve the specified area of the mask. This node is designed to generate image materials for training the model.  
+
+Node Options:
+![image](image/image_auto_crop_v3_node.jpg)   
+* image: The input image.
+* mask: Optional input mask. The masking part will be preserved within the range of the cutting aspect ratio.
+* aspect_ratio: The aspect ratio of the output. Here are common frame ratios provided, with "custom" being the custom ratio and "original" being the original frame ratio.
+* proportional_width: Proportionally wide. If the aspect_ratio option is not 'custom', this setting will be ignored.
+* proportional_height: High proportion. If the aspect_ratio option is not 'custom', this setting will be ignored.
+* method: Scaling sampling methods include Lanczos, Bicubic, Hamming, Bilinear, Box, and Nearest.
+* scale_to_side: Allow scaling to be specified by long side, short side, width, height, or total pixels.
+* scale_to_length: The value here is used as the scale_to-side to specify the length of the edge or the total number of pixels (kilo pixels).
+* round_to_multiple: Multiply to the nearest whole. For example, if set to 8, the width and height will be forcibly set to multiples of 8.
+
+Outputs:
+cropped_image: The cropped image.
+box_preview: Preview of cutting position.
+
+
 ### <a id="table1">HLFrequencyDetailRestore</a>
 Using low frequency filtering and retaining high frequency to recover image details. Compared to [kijai's DetailTransfer](https://github.com/kijai/ComfyUI-IC-Light), this node is better integrated with the environment while retaining details.
 ![image](image/hl_frequency_detail_restore_example.jpg)    
@@ -1367,6 +1388,23 @@ Node Options:
 
 <sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
 
+### <a id="table1">ImageTaggerSave</a>  
+![image](image/image_tagger_save_example.jpg)  
+The node used to save the training set images and their text labels, where the image files and text label files have the same file name. Customizable directory for saving images, adding timestamps to file names, selecting save formats, and setting image compression rates.
+*The workflow image_tagger_stave.exe is located in the workflow directory.
+
+Node Options:
+![image](image/image_tagger_save_node.jpg)      
+* iamge: The input image.
+* tag_text: Text label of image.
+* custom_path<sup>*</sup>: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI.
+* filename_prefix<sup>*</sup>: The prefix of file name.
+* timestamp: Timestamp the file name, opting for date, time to seconds, and time to milliseconds.
+* format: The format of image save. Currently available in ```png``` and ```jpg```. Note that only png format is supported for RGBA mode pictures.
+* quality: Image quality, the value range 10-100, the higher the value, the better the picture quality, the volume of the file also correspondingly increases.
+* preview: Preview switch.
+
+<sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
 
 
 ### <a id="table1">AddBlindWaterMark</a>

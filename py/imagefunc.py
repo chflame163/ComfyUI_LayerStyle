@@ -1975,6 +1975,12 @@ def tensor_info(tensor:object) -> str:
         value = f"tensor_info: Not tensor, type is {type(tensor)}"
     return value
 
+# 去除空行
+def remove_empty_lines(text):
+    lines = text.split('\n')
+    non_empty_lines = [line for line in lines if line.strip() != '']
+    return '\n'.join(non_empty_lines)
+
 # 去除重复的句子
 def remove_duplicate_string(text:str) -> str:
     sentences = re.split(r'(?<=[:;,.!?])\s+', text)
