@@ -2,6 +2,7 @@ import io
 from unittest.mock import patch
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import colorsys
 from transformers.dynamic_module_utils import get_imports
 import comfy.model_management
 from .imagefunc import *
@@ -77,6 +78,51 @@ def plot_bbox(image, data):
         ax.add_patch(rect)
         enum_label = f"{i}: {label}"
         plt.text(x1 + 7, y1 + 17, enum_label, color='white', fontsize=8, bbox=dict(facecolor='red', alpha=0.5))
+    ax.axis('off')
+    return fig
+
+def generate_color(index, total_colors=25):
+    # Generate color by varying the hue to maximize difference between colors
+    hue = (index / total_colors) % 1.0  # Normalize hue to be between 0 and 1
+    saturation = 0.65  # Keep saturation constant
+    lightness = 0.5  # Keep lightness constant
+
+    # Convert HSL to RGB, then to hexadecimal
+    r, g, b = colorsys.hls_to_rgb(hue, lightness, saturation)
+    return f'#{int(r * 255):02X}{int(g * 255):02X}{int(b * 255):02X}'
+
+def plot_mask_bbox(image, data):
+    fig, ax = plt.subplots()
+    fig.set_size_inches(image.width / 100, image.height / 100)
+    ax.imshow(image)
+    num_bboxes = len(data['bboxes'])
+    for i, (bbox, label) in enumerate(list(zip(data['bboxes'], data['labels']))[1:], start=1):
+        x1, y1, x2, y2 = bbox
+        if x2 < x1:
+            x1, y1, x2, y2 = x2, y2, x1, y1
+        color = generate_color(i, total_colors=num_bboxes)
+        rect = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=1, edgecolor=color, facecolor='none')
+        ax.add_patch(rect)
+        enum_label = f"{i}: {label}"
+        plt.text(x1 + 7, y1 + 17, enum_label, color='white', fontsize=8, bbox=dict(facecolor=color, alpha=0.5))
+    ax.axis('off')
+    return fig
+
+def plot_mask(image, data, indexes):
+    # Create a black background image (mode "1" for binary, "L" for grayscale)
+    mask = Image.new("L", (image.width, image.height), 0)  # Black background
+    fig, ax = plt.subplots()
+    fig.set_size_inches(mask.width / 100, mask.height / 100)
+    ax.imshow(mask, cmap='gray')  # Display the mask in grayscale
+    ax.set_facecolor('black')  # Set the axes background to black
+    fig.patch.set_facecolor('black')  # Set the figure background to black
+    for i, (bbox, label) in enumerate(list(zip(data['bboxes'], data['labels']))[1:], start=1):
+        x1, y1, x2, y2 = bbox
+        if x2 < x1:
+            x1, y1, x2, y2 = x2, y2, x1, y1        
+        rect = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=1, edgecolor='w', facecolor='w')
+        if i in indexes:
+            ax.add_patch(rect)
     ax.axis('off')
     return fig
 
@@ -176,6 +222,23 @@ def process_image(model, processor, image, task_prompt, max_new_tokens, num_beam
         results = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
         fig = plot_bbox(image, results['<REGION_PROPOSAL>'])
         return results[task_prompt], fig_to_pil(fig)
+    elif task_prompt == 'region proposal (mask)':
+        task_prompt = '<REGION_PROPOSAL>'
+        results = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
+        indexes = []
+        if isinstance(text_input, str):
+            for i in text_input.split(','):
+                try:
+                    indexes.append(int(i))
+                except ValueError:
+                    print(f"{i} is nit an instance of int")
+        if len(indexes) > 0:
+            fig = plot_mask(image, results['<REGION_PROPOSAL>'], indexes)
+            pil = fig_to_pil(fig).resize((image.width, image.height), Image.Resampling.LANCZOS)
+        else:
+            fig = plot_mask_bbox(image, results['<REGION_PROPOSAL>'])
+            pil = fig_to_pil(fig)
+        return results[task_prompt], pil
     elif task_prompt == 'caption to phrase grounding':
         task_prompt = '<CAPTION_TO_PHRASE_GROUNDING>'
         results = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample, text_input)
@@ -426,6 +489,7 @@ class Florence2Image2Prompt:
             "object detection",
             "dense region caption",
             "region proposal",
+            "region proposal (mask)",
             "caption to phrase grounding",
             "open vocabulary detection",
             "region to category",
