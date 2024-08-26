@@ -63,17 +63,23 @@ class ImageScaleByAspectRatioV2:
                 mask = torch.unsqueeze(mask, 0)
             for m in mask:
                 m = torch.unsqueeze(m, 0)
-                orig_masks.append(m)
-            _width, _height = tensor2pil(orig_masks[0]).size
-            if (orig_width > 0 and orig_width != _width) or (orig_height > 0 and orig_height != _height):
-                log(f"Error: {NODE_NAME} skipped, because the mask is does'nt match image.", message_type='error')
-                return (None, None, None, 0, 0,)
-            elif orig_width + orig_height == 0:
-                orig_width = _width
-                orig_height = _height
+                print(f"m.shape={m.shape}")
+                if not is_valid_mask(m) and m.shape==torch.Size([1,64,64]):
+                    log(f"Warning: {NODE_NAME} input mask is empty, ignore it.", message_type='warning')
+                else:
+                    orig_masks.append(m)
+
+            if len(orig_masks) > 0:
+                _width, _height = tensor2pil(orig_masks[0]).size
+                if (orig_width > 0 and orig_width != _width) or (orig_height > 0 and orig_height != _height):
+                    log(f"Error: {NODE_NAME} execute failed, because the mask is does'nt match image.", message_type='error')
+                    return (None, None, None, 0, 0,)
+                elif orig_width + orig_height == 0:
+                    orig_width = _width
+                    orig_height = _height
 
         if orig_width + orig_height == 0:
-            log(f"Error: {NODE_NAME} skipped, because the image or mask at least one must be input.", message_type='error')
+            log(f"Error: {NODE_NAME} execute failed, because the image or mask at least one must be input.", message_type='error')
             return (None, None, None, 0, 0,)
 
         if aspect_ratio == 'original':

@@ -103,6 +103,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请重新安装相关依赖包。
 
+* 添加 [ImageTaggerSave](#ImageTaggerSave) 和 [ImageAutoCropV3](#ImageAutoCropV3) 节点，用于实现训练集自动裁切打标工作流(工作流```image_tagger_save_example.json```在workflow目录中)。
+* 添加 [CheckMaskV2](#CheckMaskV2) 节点，增加了```simple```方法以更快速检测遮罩。
+* 添加 [ImageReel ](#ImageReel) 和 [ImageReelComposit](#ImageReelComposit) 节点，可将多张图片显示在一起。
 * [NumberCalculatorV2](#NumberCalculatorV2) 和 [NumberCalculator](#NumberCalculator) 节点增加 ```min``` 和 ```max``` 方法。
 * 优化节点加载速度。    
 * [Florence2Image2Prompt](#Florence2Image2Prompt) 增加thwri/CogFlorence-2-Large-Freeze 和 thwri/CogFlorence-2.1-Large 模型支持。请从[百度网盘](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) 或 [huggingface/CogFlorence-2-Large-Freeze](https://huggingface.co/thwri/CogFlorence-2-Large-Freeze/tree/main) 和 [huggingface/CogFlorence-2.1-Large](https://huggingface.co/thwri/CogFlorence-2.1-Large/tree/main) 下载模型文件并复制到```ComfyUI/models/florence2```文件夹。 
@@ -799,6 +802,40 @@ ImageScaleByAspectRatio的V2升级版
 * opacity: 不透明度。
 * [节点注解](#节点注解)
 
+### <a id="table1">ImageReel</a>
+将多张图片显示在一个卷轴中。可为卷轴中的每张图片添加文字注解。配合[ImageReelComposite](#ImageReelComposit)节点可将多个卷轴拼合为一张图片。
+![image](image/image_reel_example.jpg)    
+
+节点选项说明:   
+![image](image/image_reel_node.jpg)    
+* image1: 第一张图片。必须输入。
+* image2: 第二张图片。可选输入图片。
+* image3: 第三张图片。可选输入图片。
+* image4: 第四张图片。可选输入图片。
+* image1_text: 第一张图片的文字注解。
+* image2_text: 第二张图片的文字注解。
+* image3_text: 第三张图片的文字注解。
+* image4_text: 第四张图片的文字注解。
+* reel_height: 卷轴高度。
+* border: 卷轴中图片的边框宽度。
+
+输出：
+* reel:卷轴，用于输入[ImageReelComposite](#ImageReelComposit)节点。 
+
+### <a id="table1">ImageReelComposite</a>
+将多个卷轴拼合为一张图片。
+
+节点选项说明:   
+![image](image/image_reel_composit_node.jpg)    
+* reel_1: 第一个卷轴。必须输入。
+* reel_2: 第二个卷轴。可选输入。
+* reel_3: 第三个卷轴。可选输入。
+* reel_4: 第四个卷轴。可选输入。
+* font_file<sup>*</sup>: 字体文件。
+* border: 卷轴的边框宽度。
+* color_theme: 主题色。    
+<sup>*</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+
 ### <a id="table1">ImageOpacity</a>
 调整图像不透明度。
 ![image](image/image_opacity_example.jpg)    
@@ -1122,6 +1159,26 @@ cropped_mask: 裁切后的遮罩。
 * scale_by: 允许按长边、短边、宽度或高度指定尺寸缩放。
 * scale_by_length: 这里的数值作为scale_by指定边的长度。
 
+### <a id="table1">ImageAutoCropV3</a> 
+自动裁切图片到指定的尺寸。可输入mask以保留遮罩指定的区域。这个节点是为生成训练模型的图片素材而设计的。  
+
+
+节点选项说明:
+![image](image/image_auto_crop_v3_node.jpg)   
+* image: 输入的图像。
+* mask: 可选输入遮罩。遮罩部分将在裁切长宽比例范围内得到保留。
+* aspect_ratio: 输出的宽高比。这里提供了常见的画幅比例， "custom"为自定义比例， "original"为原始画面比例。
+* proportional_width: 比例宽。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
+* proportional_height: 比例高。如果aspect_ratio选项不是"custom"，此处设置将被忽略。
+* method: 缩放的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。
+* scale_to_side: 允许按长边、短边、宽度、高度或总像素指定尺寸缩放。
+* scale_to_length: 这里的数值作为scale_to_side指定边的长度, 或者总像素数量(kilo pixels)。
+* round_to_multiple: 倍数取整。例如设置为8，宽和高将强制设置为8的倍数。
+
+输出:
+cropped_image: 裁切后的图像。
+box_preview: 裁切位置预览。
+
 ### <a id="table1">HLFrequencyDetailRestore</a>
 使用低频滤波加保留高频来恢复图像细节。相比[kijai's DetailTransfer](https://github.com/kijai/ComfyUI-IC-Light), 这个节点在保留细节的同时，与环境的融合度更好。
 ![image](image/hl_frequency_detail_restore_example.jpg)    
@@ -1242,6 +1299,13 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * white_point: 判断遮罩是否有效的白点值，高于此值被计入有效。
 * area_percent: 有效区域所占百分比。检测有效区域占比超过此值则输出True。
 
+### <a id="table1">CheckMaskV2</a>
+在CheckMask基础上增加了```method```选项，可以选择不同的检测方法。area_percent改为浮点数，精度为小数点后2位，可检测更小的有效区域。
+
+节点选项说明:    
+![image](image/check_mask_v2_node.jpg)    
+* method: 检测方法，有```simple``` 和 ```detect_percent``` 两种。simple方法仅检测mask是否全黑，detect_percent方法检测有效区域占比。
+
 ### <a id="table1">If</a>
 ![image](image/if_example.jpg)    
 根据布尔值条件输入切换输出。可用于任意类型的数据切换，包括且不限于数值、字符串、图片、遮罩、模型、latent、pipe管线等。
@@ -1303,6 +1367,24 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * meta_data:是否保存元数据即工作流信息到png文件。如果不希望泄露工作流，请把这里设置为false。
 * blind_watermark:这里输入的文字（不支持多语言）将被转换为二维码作为隐形水印保存，使用```ShowBlindWaterMark```节点可以解码水印。注意有水印的图片建议保存为png格式，质量较低的jpg格式将导致水印信息丢失。
 * save_workflow_as_json: 是否同时输出工作流为json文件(输出的json与图片在同一目录)。
+* preview: 预览开关。
+
+<sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date/name_%time``` 将输出图片到```YY-mm-dd```文件夹下，以```name_HH-MM-SS```为文件名前缀。
+
+### <a id="table1">ImageTaggerSave</a>  
+![image](image/image_tagger_save_example.jpg)  
+用于保存训练集图片及其文本标签的节点，图片文件和文本标签文件具有相同的文件名。可自定义保存图片的目录，文件名增加时间戳，选择保存格式，设置图片压缩率。
+*工作流image_tagger_save_example.json在workflow目录中。
+
+节点选项说明:
+![image](image/image_tagger_save_node.jpg)      
+* iamge: 输入的图片。
+* tag_text: 文本标签。
+* custom_path<sup>*</sup>: 用户自定义目录，请按正确的格式输入目录名。如果为空则保存在ComfyUI默认的output目录。
+* filename_prefix<sup>*</sup>:文件名前缀。。
+* timestamp: 为文件名加上时间戳，可选择日期、时间到秒和时间到毫秒。
+* format:图片保存格式。目前提供png和jpg两种。
+* quality:图片质量，数值范围10-100，数值越高，图片质量越好，文件的体积也对应增大。
 * preview: 预览开关。
 
 <sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date/name_%time``` 将输出图片到```YY-mm-dd```文件夹下，以```name_HH-MM-SS```为文件名前缀。

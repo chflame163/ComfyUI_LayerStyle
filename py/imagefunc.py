@@ -1813,6 +1813,8 @@ def HSV_255level_to_Hex(HSV: list) -> str:
     return '#' + hex_r + hex_g + hex_b
 
 '''Value Functions'''
+def is_valid_mask(tensor:torch.Tensor) -> bool:
+    return not bool(torch.all(tensor == 0).item())
 
 def step_value(start_value, end_value, total_step, step) -> float:  # 按当前步数在总步数中的位置返回比例值
     factor = step / total_step
@@ -1972,6 +1974,12 @@ def tensor_info(tensor:object) -> str:
     else:
         value = f"tensor_info: Not tensor, type is {type(tensor)}"
     return value
+
+# 去除空行
+def remove_empty_lines(text):
+    lines = text.split('\n')
+    non_empty_lines = [line for line in lines if line.strip() != '']
+    return '\n'.join(non_empty_lines)
 
 # 去除重复的句子
 def remove_duplicate_string(text:str) -> str:
