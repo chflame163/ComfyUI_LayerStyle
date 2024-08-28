@@ -1579,7 +1579,7 @@ Node Options:
 * image: The input image.
 * model: Select the model. Currently, there are options for evf-sam2 and evf sam.
 * presicion: Model accuracy can be selected from fp16, bf16, and fp32.
-* load_in_bit: Load the model with positional accuracy. You can choose from 16, 8, and 4.
+* load_in_bit: Load the model with positional accuracy. You can choose from full, 8, and 4.
 * pormpt: Prompt words used for segmentation.
 * detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
 * detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.

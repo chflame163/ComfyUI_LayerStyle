@@ -16,7 +16,7 @@ class EVF_SAM_Ultra:
     def INPUT_TYPES(cls):
         model_list = ["evf-sam2","evf-sam"]
         precision_list = ["fp16", "bf16", "fp32"]
-        load_in_bit_list = [16, 8, 4]
+        load_in_bit_list = ["full", "8", "4"]
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
         device_list = ['cuda', 'cpu']
         return {"required":
@@ -61,6 +61,11 @@ class EVF_SAM_Ultra:
             model_type = 'ori'
         else:
             model_type = 'effi'
+
+        if load_in_bit == 'full':
+            load_in_bit = 16
+        else:
+            load_in_bit = int(load_in_bit)
 
         model_path = ""
         model_folder_name = 'EVF-SAM'

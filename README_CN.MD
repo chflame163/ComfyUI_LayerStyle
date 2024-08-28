@@ -1557,7 +1557,7 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
 * image: 图片输入。
 * model: 选择模型。目前有 evf-sam2 和 evf-sam 可选。
 * presicion: 模型精度，可选择fp16, bf16 和 fp32。
-* load_in_bit: 按位精度加载模型。可选择16,8 和 4。
+* load_in_bit: 按位精度加载模型。可选择full, 8 和 4。
 * pormpt: 用于分割的提示词。
 * detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
