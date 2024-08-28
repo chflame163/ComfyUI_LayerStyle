@@ -4,7 +4,7 @@
 import sys
 
 from .imagefunc import *
-sys.path.append(os.path.join(os.path.dirname(__file__), 'evf-sam'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'evf_sam'))
 from inference import evf_sam_main
 class EVF_SAM_Ultra:
 
