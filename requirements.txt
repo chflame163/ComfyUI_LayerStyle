@@ -23,7 +23,6 @@ omegaconf
 tqdm
 transformers>=4.43.3
 kornia
-image-reward
 ultralytics
 blend_modes
 blind-watermark
