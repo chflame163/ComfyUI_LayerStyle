@@ -21,7 +21,7 @@ google-generativeai
 diffusers
 omegaconf
 tqdm
-transformers>=4.38.2
+transformers>=4.44.0
 kornia
 image-reward
 ultralytics
@@ -30,5 +30,9 @@ blind-watermark
 qrcode
 pyzbar
 transparent-background
-huggingface_hub
+huggingface_hub>=0.23.3
+accelerate
+torchscale
+wandb
 psd-tools
+hydra-core
