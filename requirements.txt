@@ -21,7 +21,7 @@ google-generativeai
 diffusers
 omegaconf
 tqdm
-transformers>=4.44.0
+transformers>=4.43.3
 kornia
 image-reward
 ultralytics
