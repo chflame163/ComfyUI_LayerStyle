@@ -41,6 +41,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ```
 ..\..\..\python_embeded\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
+..\..\..\python_embeded\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
 ..\..\..\python_embeded\python.exe -s -m pip install -r requirements.txt
 .\repair_dependency.bat
 ```
@@ -48,6 +49,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ```
 ..\..\python\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
+..\..\python\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
 ..\..\python\python.exe -s -m pip install -r requirements.txt
 .\repair_dependency.bat
 ```
@@ -100,10 +102,10 @@ When this error has occurred, please check the network environment.
 
 
 ## Update
-<font size="4">**If the dependency package error after updating, please reinstall the relevant dependency packages. </font><br />    
+<font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
 * Commit [EVF-SAMUltra](#EVFSAMUltra) node, it is implementation of [EVF-SAM](https://github.com/hustvl/EVF-SAM) in ComfyUI. Please download model files from [BaiduNetdisk](https://pan.baidu.com/s/1EvaxgKcCxUpMbYKzLnEx9w?pwd=69bn) or [huggingface/EVF-SAM2](https://huggingface.co/YxZhang/evf-sam2/tree/main), [huggingface/EVF-SAM](https://huggingface.co/YxZhang/evf-sam/tree/main) to ```ComfyUI/models/EVF-SAM``` folder(save the models in their respective subdirectories).
-Due to the introduction of new dependencies package, after the plugin upgrade, please execute ```install_dequirements.bat``` to install.
+Due to the introduction of new dependencies package, after the plugin upgrade, please reinstall the dependency packages.
 * Commit [ImageTaggerSave](#ImageTaggerSave) and [ImageAutoCropV3](#ImageAutoCropV3) nodes. Used to implement the automatic trimming and marking workflow for the training set (the workflow ```image_tagger_save.json``` is located in the workflow directory).
 * Commit [CheckMaskV2](#CheckMaskV2) node, Added the ```simple``` method to detect masks more quickly.
 * Commit [ImageReel](#ImageReel) and [ImageReelComposite](#ImageReelComposite) nodes to composite multiple images on a canvas.
