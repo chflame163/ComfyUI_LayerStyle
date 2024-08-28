@@ -1569,7 +1569,7 @@ On the basis of SegmentAnythingUltra, the following changes have been made:
 * max_megapixels: Set the maximum size for VitMate operations.
 
 ### <a id="table1">EVF-SAMUltra</a>
-This node is implementation of [EVF-SAM](https://github.com/hustvl/EVF-SAM) in ComfyUI. 
+This node is implementation of [EVF-SAM](https://github.com/hustvl/EVF-SAM) in ComfyUI.     
 *Please download model files from [BaiduNetdisk](https://pan.baidu.com/s/1EvaxgKcCxUpMbYKzLnEx9w?pwd=69bn) or [huggingface/EVF-SAM2](https://huggingface.co/YxZhang/evf-sam2/tree/main), [huggingface/EVF-SAM](https://huggingface.co/YxZhang/evf-sam/tree/main) to ```ComfyUI/models/EVF-SAM``` folder(save the models in their respective subdirectories).
 ![image](image/evf_sam_ultra_example.jpg)    
 
