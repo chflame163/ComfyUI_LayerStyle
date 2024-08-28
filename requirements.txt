@@ -32,6 +32,7 @@ pyzbar
 transparent-background
 huggingface_hub>=0.23.3
 accelerate
+bitsandbytes>=0.41.1
 torchscale
 wandb
 psd-tools
