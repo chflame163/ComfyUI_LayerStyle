@@ -8,7 +8,8 @@ import torch.nn.functional as F
 from torchvision import transforms
 from torchvision.transforms.functional import InterpolationMode
 from transformers import AutoTokenizer, BitsAndBytesConfig
-from model.segment_anything.utils.transforms import ResizeLongestSide
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+from .model.segment_anything.utils.transforms import ResizeLongestSide
 
 def sam_preprocess(
     x: np.ndarray,
