@@ -48,11 +48,16 @@ class GradientMap:
             pil_image = tensor2pil(img)
             
             # Convert to grayscale to get luminance
-            gray_image = pil_image.convert('L')
+            gray_image = np.array(pil_image.convert('L'))
             
             # Apply gradient map
-            gradient_mapped = np.array(gray_image)
-            gradient_mapped = gradient_array[gradient_mapped]
+            gradient_mapped = gradient_array[gray_image]
+            
+            # Preserve luminance of original image
+            original_array = np.array(pil_image)
+            luminance = np.sum(original_array * [0.299, 0.587, 0.114], axis=2, keepdims=True) / 255.0
+            gradient_mapped = gradient_mapped * luminance + original_array * (1 - luminance)
+            
             gradient_mapped_image = Image.fromarray(np.uint8(gradient_mapped))
             
             # Apply opacity
