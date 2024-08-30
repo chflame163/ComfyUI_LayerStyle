@@ -105,6 +105,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [RandomGenerator](#RandomGenerator) 节点，用于生成指定范围内的随机数，有int，float，bool输出，支持按图片批量生成不同的随机数。
 * 添加 [EVF-SAMUltra](#EVFSAMUltra) 节点，是[EVF-SAM](https://github.com/hustvl/EVF-SAM)在ComfyUI中的实现。请从[百度网盘](https://pan.baidu.com/s/1EvaxgKcCxUpMbYKzLnEx9w?pwd=69bn) 或者 [huggingface/EVF-SAM2](https://huggingface.co/YxZhang/evf-sam2/tree/main), [huggingface/EVF-SAM](https://huggingface.co/YxZhang/evf-sam/tree/main) 下载全部模型文件并复制到```ComfyUI/models/EVF-SAM```文件夹(请将模型保存在各自子目录中)。
 由于引入了新的依赖，插件升级后请重新安装依赖包。
 * 添加 [ImageTaggerSave](#ImageTaggerSave) 和 [ImageAutoCropV3](#ImageAutoCropV3) 节点，用于实现训练集自动裁切打标工作流(工作流```image_tagger_save_example.json```在workflow目录中)。
@@ -1258,6 +1259,23 @@ box_preview: 裁切位置预览。
 ### <a id="table1">Boolean</a>
 ![image](image/boolean_node.jpg)    
 输出一个布尔值。
+
+### <a id="table1">RandomGenerator</a>
+用于生成指定范围内的随机数，有int，float，bool输出，支持批量和列表，支持按图片批量生成一组不同的随机数列表。
+![image](image/random_generator_example.jpg)    
+
+节点选项说明:
+![image](image/random_generator_node.jpg)  
+* image: 可选输入，按照图片批量生成数量相符的随机数列表。
+* min_value：最小值。随机数将从最小值到最大值之间随机取值。
+* max_value：最大值。随机数将从最小值到最大值之间随机取值。
+* float_decimal_places：浮点数精度。
+* fix_seed:是否固定随机数种子。如果此选项固定，生成的随机数将始终相同。
+
+输出:
+int: 整数随机数。
+float: 浮点数随机数。
+bool: 布尔随机数。
 
 ### <a id="table1">NumberCalculator</a>
 ![image](image/number_calculator_node.jpg)    

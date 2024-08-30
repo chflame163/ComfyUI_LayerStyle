@@ -104,6 +104,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [RandomGenerator](#RandomGenerator) node, Used to generate random numbers within a specified range, with outputs of int, float, and boolean, supporting batch generation of different random numbers by image batch.
 * Commit [EVF-SAMUltra](#EVFSAMUltra) node, it is implementation of [EVF-SAM](https://github.com/hustvl/EVF-SAM) in ComfyUI. Please download model files from [BaiduNetdisk](https://pan.baidu.com/s/1EvaxgKcCxUpMbYKzLnEx9w?pwd=69bn) or [huggingface/EVF-SAM2](https://huggingface.co/YxZhang/evf-sam2/tree/main), [huggingface/EVF-SAM](https://huggingface.co/YxZhang/evf-sam/tree/main) to ```ComfyUI/models/EVF-SAM``` folder(save the models in their respective subdirectories).
 Due to the introduction of new dependencies package, after the plugin upgrade, please reinstall the dependency packages.
 * Commit [ImageTaggerSave](#ImageTaggerSave) and [ImageAutoCropV3](#ImageAutoCropV3) nodes. Used to implement the automatic trimming and marking workflow for the training set (the workflow ```image_tagger_save.json``` is located in the workflow directory).
@@ -1277,6 +1278,23 @@ Output a floating-point value with a precision of 5 decimal places.
 ### <a id="table1">Boolean</a>
 ![image](image/boolean_node.jpg)    
 Output a boolean value.
+
+### <a id="table1">RandomGenerator</a>
+Used to generate random value within a specified range, with outputs of int, float, and boolean. Supports batch and list generation, and supports batch generation of a set of different random number lists based on image batch.
+![image](image/random_generator_example.jpg)    
+
+Node Options:
+![image](image/random_generator_node.jpg)  
+* image: Optional input, generate a list of random numbers that match the quantity in batches according to the image.
+* min_value: Minimum value. Random numbers will randomly take values from the minimum to the maximum.
+* max_value: Maximum value. Random numbers will randomly take values from the minimum to the maximum.
+* float_decimal_places: Precision of float value.
+* fix_seed:Is the random number seed fixed. If this option is fixed, the generated random number will always be the same.
+
+Outputs:
+int: Integer random number.
+float: Float random number.
+bool: Boolean random number.
 
 ### <a id="table1">NumberCalculator</a>
 ![image](image/number_calculator_node.jpg)    

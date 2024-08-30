@@ -11,13 +11,13 @@ class TextJoin:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "text_1": ("STRING", {"multiline": False}),
+                "text_1": ("STRING", {"multiline": False,"forceInput":True}),
 
             },
             "optional": {
-                "text_2": ("STRING", {"multiline": False}),
-                "text_3": ("STRING", {"multiline": False}),
-                "text_4": ("STRING", {"multiline": False}),
+                "text_2": ("STRING", {"multiline": False,"forceInput":True}),
+                "text_3": ("STRING", {"multiline": False,"forceInput":True}),
+                "text_4": ("STRING", {"multiline": False,"forceInput":True}),
             }
         }
 
