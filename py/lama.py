@@ -39,6 +39,7 @@ class LaMa:
         l_images = []
         l_masks = []
         ret_images = []
+        print(f"########################mask.shape={mask.shape},dim={mask.dim()}")
 
         for l in image:
             l_images.append(torch.unsqueeze(l, 0))
@@ -47,7 +48,7 @@ class LaMa:
                 l_masks.append(m.split()[-1])
         if mask is not None:
             if mask.dim() == 2:
-                layer_mask = torch.unsqueeze(mask, 0)
+                mask = torch.unsqueeze(mask, 0)
             l_masks = []
             for m in mask:
                 if invert_mask:
@@ -106,7 +107,7 @@ class LaMa:
                     log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
                     return (image, )
                 file_name_list.append(file_name)
-                # process
+            # process
             from .iopaint import cli
             cli.run(model=lama_model, device=device, image=Path(image_dir), mask=Path(mask_dir), output=Path(result_dir), config=Path(config_dir))
             ret_images = [pil2tensor(check_image_file(os.path.join(result_dir, file_name), 500)) for file_name in file_name_list]
