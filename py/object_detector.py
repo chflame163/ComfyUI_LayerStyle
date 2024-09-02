@@ -1,0 +1,357 @@
+
+from .imagefunc import *
+
+select_list = ["all", "first", "by_index"]
+
+
+def select_bboxes(bboxes:list, bbox_select:str, select_index:str) -> list:
+    indexs = extract_numbers(select_index)
+    if bbox_select == "all":
+        return bboxes
+    elif bbox_select == "first":
+        return [bboxes[0]]
+    elif bbox_select == "by_index":
+        new_bboxes = []
+        for i in indexs:
+            try:
+                new_bboxes.append(bboxes[i])
+            except IndexError:
+                log(f"Object detector output by_index: invalid bbox index {i}", message_type='warning')
+        return new_bboxes
+
+
+class LS_BBOXES_JOIN:
+
+    def __init__(self):
+        self.NODE_NAME = 'BBoxes Join'
+
+    @classmethod
+    def INPUT_TYPES(cls):
+
+        return {
+            "required": {
+                "bboxes_1": ("BBOXES",),
+            },
+            "optional": {
+                "bboxes_2": ("BBOXES",),
+                "bboxes_3": ("BBOXES",),
+                "bboxes_4": ("BBOXES",),
+            }
+        }
+
+    RETURN_TYPES = ("BBOXES",)
+    RETURN_NAMES = ("bboxes",)
+    FUNCTION = 'bboxes_join'
+    CATEGORY = '😺dzNodes/LayerMask'
+
+    def bboxes_join(self, bboxes_1, bboxes_2=None, bboxes_3=None, bboxes_4=None):
+        if bboxes_2 is not None:
+            bboxes_1.extend(bboxes_2)
+        if bboxes_3 is not None:
+            bboxes_1.extend(bboxes_3)
+        if bboxes_4 is not None:
+            bboxes_1.extend(bboxes_4)
+        return (bboxes_1,)
+
+class LS_OBJECT_DETECTOR_FL2:
+
+    def __init__(self):
+        self.NODE_NAME = 'Object Detector Florence2'
+
+    @classmethod
+    def INPUT_TYPES(cls):
+
+        return {
+            "required": {
+                "image": ("IMAGE", ),  #
+                "prompt": ("STRING", {"default": "subject"}),
+                "florence2_model": ("FLORENCE2",),
+                "bbox_select": (select_list,),
+                "select_index": ("STRING", {"default": "0,"},),
+            },
+            "optional": {
+            }
+        }
+
+    RETURN_TYPES = ("BBOXES", "IMAGE",)
+    RETURN_NAMES = ("bboxes", "preview",)
+    FUNCTION = 'object_detector_fl2'
+    CATEGORY = '😺dzNodes/LayerMask'
+
+    def object_detector_fl2(self, image, prompt, florence2_model, bbox_select, select_index):
+
+        bboxes = []
+        ret_previews = []
+        max_new_tokens = 512
+        num_beams = 3
+        do_sample = False
+        fill_mask = False
+
+        model = florence2_model['model']
+        processor = florence2_model['processor']
+
+        img = tensor2pil(image[0]).convert("RGB")
+        task = 'caption to phrase grounding'
+        from .florence2_ultra import  process_image
+        results, _ = process_image(model, processor, img, task,
+                                   max_new_tokens, num_beams, do_sample,
+                                   fill_mask, prompt)
+
+        if isinstance(results, dict):
+            results["width"] = img.width
+            results["height"] = img.height
+
+        bboxes = self.fbboxes_to_list(results)
+        bboxes = select_bboxes(bboxes, bbox_select, select_index)
+        preview = draw_bounding_boxes(img, bboxes, color="#FF0000", line_width=-1)
+        ret_previews.append(pil2tensor(preview))
+        if len(bboxes) == 0:
+            log(f"{self.NODE_NAME} no object found", message_type='warning')
+        else:
+            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+        return (bboxes, torch.cat(ret_previews, dim=0))
+
+    def fbboxes_to_list(self, F_BBOXES) -> list:
+        if isinstance(F_BBOXES, str):
+            return None
+        ret_bboxes = []
+        width = F_BBOXES["width"]
+        height = F_BBOXES["height"]
+        x1_c = width
+        y1_c = height
+        x2_c = y2_c = 0
+        label = ""
+        if "bboxes" in F_BBOXES:
+            for idx in range(len(F_BBOXES["bboxes"])):
+                bbox = F_BBOXES["bboxes"][idx]
+                new_label = F_BBOXES["labels"][idx].removeprefix("</s>")
+                if new_label not in label:
+                    if idx > 0:
+                        label = label + ", "
+                    label = label + new_label
+                if len(bbox) == 4:
+                    x1, y1, x2, y2 = int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3])
+                elif len(bbox) == 8:
+                    x1 = int(min(bbox[0::2]))
+                    x2 = int(max(bbox[0::2]))
+                    y1 = int(min(bbox[1::2]))
+                    y2 = int(max(bbox[1::2]))
+                else:
+                    continue
+                x1_c = min(x1_c, x1)
+                y1_c = min(y1_c, y1)
+                x2_c = max(x2_c, x2)
+                y2_c = max(y2_c, y2)
+                ret_bboxes.append([x1, y1, x2, y2])
+        else:
+            x1_c = width
+            y1_c = height
+            x2_c = y2_c = 0
+            for polygon in F_BBOXES["polygons"][0]:
+                if len(_polygon) < 3:
+                    print('Invalid polygon:', _polygon)
+                    continue
+                x1_c = min(x1_c, int(min(polygon[0::2])))
+                x2_c = max(x2_c, int(max(polygon[0::2])))
+                y1_c = min(y1_c, int(min(polygon[1::2])))
+                y2_c = max(y2_c, int(max(polygon[1::2])))
+            ret_bboxes.append(x1_c, y1_c, x2_c, y2_c)
+        return ret_bboxes
+
+class LS_OBJECT_DETECTOR_MASK:
+
+    def __init__(self):
+        self.NODE_NAME = 'Object Detector MASK'
+
+    @classmethod
+    def INPUT_TYPES(cls):
+
+        return {
+            "required": {
+                "object_mask": ("MASK",),
+                "bbox_select": (select_list,),
+                "select_index": ("STRING", {"default": "0,"},),
+            },
+            "optional": {
+            }
+        }
+
+    RETURN_TYPES = ("BBOXES", "IMAGE",)
+    RETURN_NAMES = ("bboxes", "preview",)
+    FUNCTION = 'object_detector_mask'
+    CATEGORY = '😺dzNodes/LayerMask'
+
+    def object_detector_mask(self, object_mask, bbox_select, select_index):
+
+        bboxes = []
+        if object_mask.dim() == 2:
+            object_mask = torch.unsqueeze(object_mask, 0)
+
+        cv_mask = tensor2cv2(object_mask[0])
+        cv_mask = cv2.cvtColor(cv_mask, cv2.COLOR_BGR2GRAY)
+        _, binary = cv2.threshold(cv_mask, 127, 255, cv2.THRESH_BINARY)
+        # invert mask
+        # binary = cv2.bitwise_not(binary)
+        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for contour in contours:
+            x, y, w, h = cv2.boundingRect(contour)
+            bboxes.append([x, y, x + w, y + h])
+        bboxes = select_bboxes(bboxes, bbox_select, select_index)
+        ret_previews = []
+        preview = draw_bounding_boxes(tensor2pil(object_mask[0]).convert("RGB"), bboxes, color="#FF0000", line_width=-1)
+        ret_previews.append(pil2tensor(preview))
+
+        if len(bboxes) == 0:
+            log(f"{self.NODE_NAME} no object found", message_type='warning')
+        else:
+            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+
+        return (bboxes, torch.cat(ret_previews, dim=0))
+
+
+class LS_OBJECT_DETECTOR_YOLO8:
+
+    def __init__(self):
+        self.NODE_NAME = 'Object Detector YOLO8'
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        model_ext = [".pt"]
+        model_path = os.path.join(folder_paths.models_dir, 'yolo')
+        FILES_DICT = get_files(model_path, model_ext)
+        FILE_LIST = list(FILES_DICT.keys())
+        return {
+            "required": {
+                "image": ("IMAGE", ),
+                "yolo_model": (FILE_LIST,),
+                "bbox_select": (select_list,),
+                "select_index": ("STRING", {"default": "0,"},),
+            },
+            "optional": {
+            }
+        }
+
+    RETURN_TYPES = ("BBOXES", "IMAGE",)
+    RETURN_NAMES = ("bboxes", "preview",)
+    FUNCTION = 'object_detector_yolo8'
+    CATEGORY = '😺dzNodes/LayerMask'
+
+    def object_detector_yolo8(self, image, yolo_model, bbox_select, select_index):
+
+        from  ultralytics import YOLO
+        model_path = os.path.join(folder_paths.models_dir, 'yolo')
+        yolo_model = YOLO(os.path.join(model_path, yolo_model))
+
+        bboxes = []
+        ret_previews = []
+
+        img = torch.unsqueeze(image[0], 0)
+        _image = tensor2pil(img)
+        results = yolo_model(_image, retina_masks=True)
+        for result in results:
+            yolo_plot_image = cv2.cvtColor(result.plot(), cv2.COLOR_BGR2RGB)
+
+            # no mask, if have box, draw box
+            if result.boxes is not None and len(result.boxes.xyxy) > 0:
+                for box in result.boxes:
+                    x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
+                    bboxes.append([x1, y1, x2, y2])
+
+        bboxes = select_bboxes(bboxes, bbox_select, select_index)
+        preview = draw_bounding_boxes(_image.convert("RGB"), bboxes, color="#FF0000", line_width=-1)
+        ret_previews.append(pil2tensor(preview))
+
+        if len(bboxes) == 0:
+            log(f"{self.NODE_NAME} no object found", message_type='warning')
+        else:
+            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+
+        return (bboxes, torch.cat(ret_previews, dim=0),)
+
+class LS_OBJECT_DETECTOR_YOLOWORLD:
+
+    def __init__(self):
+        self.NODE_NAME = 'Object Detector YOLO-WORLD'
+        self.model_path = os.path.join(folder_paths.models_dir, 'yolo-world')
+        os.environ['MODEL_CACHE_DIR'] = self.model_path
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        model_list =['yolo_world/v2-x', 'yolo_world/v2-l', 'yolo_world/v2-m',
+                    'yolo_world/v2-s', 'yolo_world/l', 'yolo_world/m',
+                    'yolo_world/s']
+        return {
+            "required": {
+                "image": ("IMAGE", ),
+                "yolo_world_model": (model_list,),
+                "confidence_threshold": ("FLOAT", {"default": 0.05, "min": 0, "max": 1, "step": 0.01}),
+                "nms_iou_threshold": ("FLOAT", {"default": 0.3, "min": 0, "max": 1, "step": 0.01}),
+                "prompt": ("STRING", {"default": "subject"}),
+                "bbox_select": (select_list,),
+                "select_index": ("STRING", {"default": "0,"},),
+            },
+            "optional": {
+            }
+        }
+
+    RETURN_TYPES = ("BBOXES", "IMAGE",)
+    RETURN_NAMES = ("bboxes", "preview",)
+    FUNCTION = 'object_detector_yoloworld'
+    CATEGORY = '😺dzNodes/LayerMask'
+
+    def object_detector_yoloworld(self, image, yolo_world_model,
+                                  confidence_threshold, nms_iou_threshold, prompt,
+                                  bbox_select, select_index):
+        import supervision as sv
+
+        model=self.load_yolo_world_model(yolo_world_model, prompt)
+        infer_outputs = []
+        img = (255 * image[0].cpu().numpy()).astype(np.uint8)
+        results = model.infer(
+            img, confidence=confidence_threshold)
+        detections = sv.Detections.from_inference(results)
+        detections = detections.with_nms(
+            class_agnostic=False,
+            threshold=nms_iou_threshold
+        )
+        infer_outputs.append(detections)
+        bboxes = infer_outputs[0].xyxy.tolist()
+        bboxes = [[int(value) for value in sublist] for sublist in bboxes]
+        bboxes = select_bboxes(bboxes, bbox_select, select_index)
+        ret_previews = []
+        preview = draw_bounding_boxes(tensor2pil(image[0]).convert('RGB'), bboxes, color="#FF0000", line_width=-1)
+        ret_previews.append(pil2tensor(preview))
+
+        if len(bboxes) == 0:
+            log(f"{self.NODE_NAME} no object found", message_type='warning')
+        else:
+            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+
+        return (bboxes, torch.cat(ret_previews, dim=0))
+
+    def process_categories(self, categories: str) -> List[str]:
+        return [category.strip().lower() for category in categories.split(',')]
+
+    def load_yolo_world_model(self,model_id: str, categories: str) -> List[torch.nn.Module]:
+        from inference.models import YOLOWorld as YOLOWorldImpl
+        model = YOLOWorldImpl(model_id=model_id)
+        categories = self.process_categories(categories)
+        model.set_classes(categories)
+        return model
+
+
+NODE_CLASS_MAPPINGS = {
+    "LayerMask: BBoxJoin": LS_BBOXES_JOIN,
+    "LayerMask: ObjectDetectorFL2": LS_OBJECT_DETECTOR_FL2,
+    "LayerMask: ObjectDetectorMask": LS_OBJECT_DETECTOR_MASK,
+    "LayerMask: ObjectDetectorYOLO8": LS_OBJECT_DETECTOR_YOLO8,
+    "LayerMask: ObjectDetectorYOLOWorld": LS_OBJECT_DETECTOR_YOLOWORLD
+}
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "LayerMask: BBoxJoin": "LayerMask: BBox Join",
+    "LayerMask: ObjectDetectorFL2": "LayerMask: Object Detector Florence2",
+    "LayerMask: ObjectDetectorMask": "LayerMask: Object Detector Mask",
+    "LayerMask: ObjectDetectorYOLO8": "LayerMask: Object Detector YOLO8",
+    "LayerMask: ObjectDetectorYOLOWorld": "LayerMask: Object Detector YOLO World"
+}

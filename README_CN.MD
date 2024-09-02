@@ -105,6 +105,10 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [SAM2Ultra](#SAM2Ultra), [SAM2VideoUltra](#SAM2VideoUltra), [ObjectDetectorFL2](#ObjectDetectorFL2), [ObjectDetectorYOLOWorld](#ObjectDetectorYOLOWorld), [ObjectDetectorYOLO8](#ObjectDetectorYOLO8), [ObjectDetectorMask](#ObjectDetectorMask) 和 [BBoxJoin](#BBoxJoin)节点。
+请从[百度网盘](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) 或者 [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main)下载全部模型文件并复制到```ComfyUI/models/sam2```文件夹; 
+从 [百度网盘](https://pan.baidu.com/s/1QpjajeTA37vEAU2OQnbDcQ?pwd=nqsk) 或[GoogleDrive](https://drive.google.com/drive/folders/1nrsfq4S-yk9ewJgwrhXAoNVqIFLZ1at7?usp=sharing)下载模型文件并复制到```ComfyUI/models/yolo-world```文件夹。 
+本次更新引入了新的依赖，请重新安装依赖包。 
 * 添加 [RandomGenerator](#RandomGenerator) 节点，用于生成指定范围内的随机数，有int，float，bool输出，支持按图片批量生成不同的随机数。
 * 添加 [EVF-SAMUltra](#EVFSAMUltra) 节点，是[EVF-SAM](https://github.com/hustvl/EVF-SAM)在ComfyUI中的实现。请从[百度网盘](https://pan.baidu.com/s/1EvaxgKcCxUpMbYKzLnEx9w?pwd=69bn) 或者 [huggingface/EVF-SAM2](https://huggingface.co/YxZhang/evf-sam2/tree/main), [huggingface/EVF-SAM](https://huggingface.co/YxZhang/evf-sam/tree/main) 下载全部模型文件并复制到```ComfyUI/models/EVF-SAM```文件夹(请将模型保存在各自子目录中)。
 由于引入了新的依赖，插件升级后请重新安装依赖包。
@@ -1564,6 +1568,114 @@ SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">SAM2Ultra</a>
+本节点是[kijai/ComfyUI-segment-anything-2](https://github.com/kijai/ComfyUI-segment-anything-2)的改造版本。感谢[kijai](https://github.com/kijai)为ComfyUI社区做出的巨大贡献。    
+SAM2 Ultra 节点仅支持单张图片，如果需要处理多张图片，请先将image batch 转换为 image list。    
+*请从[百度网盘](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) 或者 [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main)下载全部模型文件并复制到```ComfyUI/models/sam2```文件夹。
+
+![image](image/sam2_example.jpg)    
+
+节点选项说明:  
+![image](image/sam2_ultra_node.jpg)    
+
+* image: 图片输入。
+* bboxes: 识别框数据输入。
+* sam2_model: 选择SAM2模型。
+* presicion: 模型精度，可选择fp16, bf16 和 fp32。
+* bbox_select: 选择输入的框数据。有3个选项："all"为全部选择，"first"为选择置信度最高的框，"by_index"可以指定框的索引。
+* select_index: 当bbox_select为"by_index"时，此选项有效。0为第一张。可以输入多个值，中间用任意非数字字符分隔，包括不仅限于逗号，句号，分号，空格或者字母，甚至中文。
+* cache_model: 是否缓存模型。缓存模型后将节省模型加载的时间。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">SAM2VideoUltra</a>
+SAM2 Video Ultra 节点支持处理多张图片或视频序列帧。请在序列的第一帧定义识别框数据以保证正确识别。
+
+https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
+
+节点选项说明:  
+![image](image/sam2_video_ultra_node.jpg)    
+
+* image: 图片输入。
+* bboxes: 识别框数据输入。
+* pre_mask: 可选输入遮罩，这里的遮罩将作为关注范围限制，有助于提高识别准确度。
+* sam2_model: 选择SAM2模型。
+* presicion: 模型精度，可选择fp16, bf16 和 fp32。
+* cache_model: 是否缓存模型。缓存模型后将节省模型加载的时间。
+* individual_object: 当设置为 True时，将专注于识别单一对象。设置为False时，将尝试为多个对象生成识别框。
+* mask_preview_color: 在预览输出中显示非遮罩区域的颜色。
+* detail_method: 边缘处理方法。仅VITMatte可用。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘黑色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* device: 本节点限制仅使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。更大的尺寸将获得更精细的遮罩边缘，但会导致运算速度明显下降。
+
+### <a id="table1">ObjectDetectorFL2</a>
+使用Florence2模型识别图片中的对象，并输出识别框数据。    
+*请从 [百度网盘](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3)下载模型文件并复制到```ComfyUI/models/florence2```文件夹。
+
+节点选项说明:  
+![image](image/object_detector_fl2_node.jpg)    
+
+* image: 图片输入。
+* florence2_model: Florence2模型。从[Florence2模型加载器](#LoadFlorence2Model)输入。
+* prompt: 描述需要识别的对象。
+* bbox_select: 选择输入的框数据。有3个选项："all"为全部选择，"first"为选择置信度最高的框，"by_index"可以指定框的索引。
+* select_index: 当bbox_select为"by_index"时，此选项有效。0为第一张。可以输入多个值，中间用任意非数字字符分隔，包括不仅限于逗号，句号，分号，空格或者字母，甚至中文。
+
+### <a id="table1">ObjectDetectorYOLOWorld</a>
+使用YOLO World模型识别图片中的对象，并输出识别框数据。    
+*请从 [百度网盘](https://pan.baidu.com/s/1QpjajeTA37vEAU2OQnbDcQ?pwd=nqsk) 或[GoogleDrive](https://drive.google.com/drive/folders/1nrsfq4S-yk9ewJgwrhXAoNVqIFLZ1at7?usp=sharing)下载模型文件并复制到```ComfyUI/models/yolo-world```文件夹。
+
+节点选项说明:  
+![image](image/object_detector_yolo_world_node.jpg)    
+
+* image: 图片输入。
+* confidence_threshold: 置信度阈值。
+* nms_iou_threshold: 非极大值抑制阈值。
+* prompt: 描述需要识别的对象。
+* bbox_select: 选择输入的框数据。有3个选项："all"为全部选择，"first"为选择置信度最高的框，"by_index"可以指定框的索引。
+* select_index: 当bbox_select为"by_index"时，此选项有效。0为第一张。可以输入多个值，中间用任意非数字字符分隔，包括不仅限于逗号，句号，分号，空格或者字母，甚至中文。
+
+### <a id="table1">ObjectDetectorYOLO8</a>
+使用YOLO 8模型识别图片中的对象，并输出识别框数据。   
+*请在 [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) 或者 [百度网盘](https://pan.baidu.com/s/1pEY6sjABQaPs6QtpK0q6XA?pwd=grqe) 下载模型文件并放到 ```ComfyUI/models/yolo``` 文件夹。
+
+节点选项说明:  
+![image](image/object_detector_yolo8_node.jpg)
+* image: 图片输入。
+* yolo_model: 选择yolo模型。
+* bbox_select: 选择输入的框数据。有3个选项："all"为全部选择，"first"为选择置信度最高的框，"by_index"可以指定框的索引。
+* select_index: 当bbox_select为"by_index"时，此选项有效。0为第一张。可以输入多个值，中间用任意非数字字符分隔，包括不仅限于逗号，句号，分号，空格或者字母，甚至中文。
+
+### <a id="table1">ObjectDetectorMask</a>
+使用遮罩作为识别框数据。遮罩上所有被白色区域包围的区域，将被识别为一个对象。多个封闭区域将各自识别。   
+
+节点选项说明:  
+![image](image/object_detector_mask_node.jpg)
+* object_mask: 遮罩输入。
+* bbox_select: 选择输入的框数据。有3个选项："all"为全部选择，"first"为选择置信度最高的框，"by_index"可以指定框的索引。
+* select_index: 当bbox_select为"by_index"时，此选项有效。0为第一张。可以输入多个值，中间用任意非数字字符分隔，包括不仅限于逗号，句号，分号，空格或者字母，甚至中文。
+
+### <a id="table1">BBoxJoin</a>
+合并识别框数据。   
+
+节点选项说明:  
+![image](image/bbox_join_node.jpg)
+* bboxes_1: 必选输入。第一组识别框。
+* bboxes_2: 可选输入。第二组识别框。
+* bboxes_3: 可选输入。第三组识别框。
+* bboxes_4: 可选输入。第四组识别框。
 
 ### <a id="table1">EVF-SAMUltra</a>
 本节点是[EVF-SAM](https://github.com/hustvl/EVF-SAM)在ComfyUI中的实现。    

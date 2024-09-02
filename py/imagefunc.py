@@ -33,6 +33,7 @@ import torch.nn.functional as F
 from transformers import AutoModel, AutoProcessor, StoppingCriteria, StoppingCriteriaList, AutoModelForCausalLM
 from colorsys import rgb_to_hsv
 import folder_paths
+import comfy.model_management
 from .filmgrainer import processing as processing_utils
 from .blendmodes import *
 
@@ -155,6 +156,25 @@ def mask2image(mask:torch.Tensor)  -> Image:
     return _image
 
 '''Image Functions'''
+
+def draw_bounding_boxes(image:Image, bboxes:list, color:str="#FF0000", line_width:int=5) -> Image:
+    """
+    Draw bounding boxes on the image using the coordinates provided in the bboxes dictionary.
+    """
+    if len(bboxes) > 0:
+        draw = ImageDraw.Draw(image)
+        width, height = image.size
+        if line_width < 0: #auto line width
+            line_width = (image.width + image.height) // 300
+
+        for box in bboxes:
+            xmin = min(box[0],box[2])
+            xmax = max(box[0],box[2])
+            ymin = min(box[1],box[3])
+            ymax = max(box[1], box[3])
+            draw.rectangle([xmin, ymin, xmax, ymax], outline=color, width=line_width)
+
+    return image
 
 # 颜色加深
 def blend_color_burn(background_image:Image, layer_image:Image) -> Image:
@@ -1491,7 +1511,7 @@ def generate_VITMatte(image:Image, trimap:Image, local_files_only:bool=False, de
     if width * height > max_megapixels:
         image = image.resize((target_width, target_height), Image.BILINEAR)
         trimap = trimap.resize((target_width, target_height), Image.BILINEAR)
-        log(f"vitmatte image size {width}x{height} too large, resize to {target_width}x{target_height} for processing.")
+        # log(f"vitmatte image size {width}x{height} too large, resize to {target_width}x{target_height} for processing.")
     model_name = "hustvl/vitmatte-small-composition-1k"
     if device=="cpu":
         device = torch.device('cpu')
@@ -1503,7 +1523,7 @@ def generate_VITMatte(image:Image, trimap:Image, local_files_only:bool=False, de
             device = torch.device('cpu')
     vit_matte_model = load_VITMatte_model(model_name=model_name, local_files_only=local_files_only)
     vit_matte_model.model.to(device)
-    log(f"vitmatte processing, image size = {image.width}x{image.height}, device = {device}.")
+    # log(f"vitmatte processing, image size = {image.width}x{image.height}, device = {device}.")
     inputs = vit_matte_model.processor(images=image, trimaps=trimap, return_tensors="pt")
     with torch.no_grad():
         inputs = {k: v.to(device) for k, v in inputs.items()}
@@ -2104,7 +2124,18 @@ chop_mode = [
 chop_mode_v2 = list(BLEND_MODES.keys())
 
 
-'''Load INI File'''
+'''Load File'''
+
+
+def get_files(model_path: str, file_ext_list:list) -> dict:
+    file_list = []
+    for ext in file_ext_list:
+        file_list.extend(glob.glob(os.path.join(model_path, '*' + ext)))
+    files_dict = {}
+    for i in range(len(file_list)):
+        _, filename = os.path.split(file_list[i])
+        files_dict[filename] = file_list[i]
+    return files_dict
 
 default_lut_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'lut')
 default_font_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), 'font')
@@ -2201,6 +2232,8 @@ for i in range(len(__font_file_list)):
     FONT_DICT[__filename] = __font_file_list[i]
 FONT_LIST = list(FONT_DICT.keys())
 log(f'Find {len(FONT_LIST)} Fonts in {default_font_dir}')
+
+
 
 gemini_generate_config = {
     "temperature": 0,

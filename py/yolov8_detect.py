@@ -1,28 +1,21 @@
 
 import copy
 import os.path
-
 from .imagefunc import *
-
-NODE_NAME = 'YoloV8Detect'
 
 model_path = os.path.join(folder_paths.models_dir, 'yolo')
 
 class YoloV8Detect:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'YoloV8Detect'
+
 
     @classmethod
     def INPUT_TYPES(self):
-        __file_list = glob.glob(model_path + '/*.pt')
-        # __file_list.extend(glob.glob(model_path + '/*.safetensors'))
-        FILES_DICT = {}
-        for i in range(len(__file_list)):
-            _, __filename = os.path.split(__file_list[i])
-            FILES_DICT[__filename] = __file_list[i]
+        model_ext = [".pt"]
+        FILES_DICT = get_files(model_path, model_ext)
         FILE_LIST = list(FILES_DICT.keys())
-
         mask_merge = ["all", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         return {
             "required": {
@@ -90,7 +83,7 @@ class YoloV8Detect:
                         _mask = add_mask(_mask, ret_yolo_masks[i + 1])
                 ret_masks.append(_mask)
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),
                 torch.cat(ret_yolo_plot_images, dim=0),
                 torch.cat(ret_yolo_masks, dim=0),)
