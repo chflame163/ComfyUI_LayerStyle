@@ -324,12 +324,9 @@ class LS_SAM2_ULTRA:
             tqdm_pbar = tqdm(total=len(image_np), desc="Processing Images")
             for i in range(len(image_np)):
                 model.set_image(image_np[i])
-                if bboxes is None:
-                    input_box = None
-                else:
-                    if len(image_np) > 1:
-                        input_box = final_box[i]
-                    input_box = final_box
+                # if len(image_np) > 1:
+                #     input_box = final_box[i]
+                input_box = final_box
 
                 out_masks, scores, logits = model.predict(
                     point_coords=None,
@@ -393,13 +390,43 @@ class LS_SAM2_ULTRA:
                 _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
         else:
             _mask = tensor2pil(_mask)
-        print(f"orig_image.size={orig_image.size},_mask.size={_mask.size}")
+
         ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
         ret_images.append(pil2tensor(ret_image))
         ret_masks.append(image2mask(_mask))
 
         log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0))
+
+# 在mask范围内随机生成指定数量的点
+def poisson_disk_sampling(mask:Image, radius:float=32, num_points:int=16) -> list:
+    """
+    使用泊松盘采样在掩码的白色区域内生成点，确保每个点之间至少为radius像素。
+
+    参数:
+    - mask: PIL.Image对象，将转换为numpy数组，二值化的掩码图像，白色区域为1，黑色区域为0
+    - radius: float，点之间的最小距离
+    - num_points: int，期望生成的点的数量
+
+    返回:
+    - points: list of (x, y)元组，生成的点的坐标
+    """
+
+    gray_mask = np.asarray(mask.convert('L'))
+    # gray_mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
+    _, binary_mask = cv2.threshold(gray_mask, 127, 1, cv2.THRESH_BINARY)
+    # binary_mask = binary_mask.astype(np.uint8)
+    # 计算距离变换
+    distance = cv2.distanceTransform(binary_mask, distanceType=cv2.DIST_L2, maskSize=5)
+
+    # 使用泊松盘采样算法
+    from skimage.feature import peak_local_max
+    coordinates = peak_local_max(distance, min_distance=radius, num_peaks=num_points, exclude_border=True)
+
+    # 将坐标转换为列表形式
+    points = [tuple(pt[::-1]) for pt in coordinates]  # (x, y)
+
+    return points
 
 
 class LS_SAM2_VIDEO_ULTRA:
@@ -450,6 +477,11 @@ class LS_SAM2_VIDEO_ULTRA:
                          process_detail, device, max_megapixels,
                          pre_mask=None
                          ):
+        debug_image = "e:\\tmp\\debug.jpg"
+
+        if len(bboxes) == 0:
+            log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
+            return (image, None)
 
         # load model
         sam2_path = os.path.join(folder_paths.models_dir, "sam2")
@@ -461,22 +493,32 @@ class LS_SAM2_VIDEO_ULTRA:
                 torch.backends.cudnn.allow_tf32 = True
         dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}[precision]
         sam2_device = {"cuda": torch.device("cuda"), "cpu": torch.device("cpu")}[device]
-        segmentor = 'video'
         model_mapping = {
             "base": "sam2_hiera_b+.yaml",
             "large": "sam2_hiera_l.yaml",
             "small": "sam2_hiera_s.yaml",
             "tiny": "sam2_hiera_t.yaml"
         }
-
         model_cfg_path = next(
             (os.path.join(os.path.dirname(os.path.abspath(__file__)), "sam2", "sam2_configs", cfg) for key, cfg in model_mapping.items() if key in sam2_model),
             None
         )
-
-        model = load_model(model_path, model_cfg_path, segmentor, dtype, sam2_device)
-
         offload_device = mm.unet_offload_device()
+
+        # load single_image_model
+        s_model = load_model(model_path, model_cfg_path, 'single_image', dtype, sam2_device)
+
+        # init video model
+        v_model = load_model(model_path, model_cfg_path, 'video', dtype, sam2_device)
+        model_input_image_size = v_model.image_size
+        from comfy.utils import common_upscale
+        resized_image = common_upscale(image.movedim(-1,1), model_input_image_size, model_input_image_size, "bilinear", "disabled").movedim(1,-1)
+        try:
+            v_model.to(sam2_device)
+        except:
+            v_model.model.to(sam2_device)
+
+        autocast_condition = not mm.is_device_mps(sam2_device)
 
         B, H, W, C = image.shape
 
@@ -485,18 +527,60 @@ class LS_SAM2_VIDEO_ULTRA:
             input_mask = F.interpolate(input_mask, size=(256, 256), mode="bilinear")
             input_mask = input_mask.squeeze(1)
 
+        # gen first frame mask
+        with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
+            first_frame_mask = []
+            boxes_np_batch = []
+            for bbox_list in bboxes:
+                boxes_np = []
+                for bbox in bbox_list:
+                    boxes_np.append(bbox)
+                boxes_np = np.array(boxes_np)
+                boxes_np_batch.append(boxes_np)
+            final_box = np.array(boxes_np_batch)
+            final_labels = None
 
-        model_input_image_size = model.image_size
-        from comfy.utils import common_upscale
-        resized_image = common_upscale(image.movedim(-1,1), model_input_image_size, model_input_image_size, "bilinear", "disabled").movedim(1,-1)
+            image_np = (image.contiguous() * 255).byte().numpy()
+            i = 0
+            s_model.set_image(image_np[i])
+            input_box = final_box
 
-        # Handle possible bboxes
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
-            return (image, None)
-        else:
-            coords = bboxes2coordinates(bboxes)
+            out_masks, scores, logits = s_model.predict(
+                point_coords=None,
+                point_labels=None,
+                box=input_box,
+                multimask_output=True,
+                mask_input=None,
+            )
 
+            if out_masks.ndim == 3:
+                sorted_ind = np.argsort(scores)[::-1]
+                out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
+                scores = scores[sorted_ind]
+                logits = logits[sorted_ind]
+                first_frame_mask.append(np.expand_dims(out_masks, axis=0))
+            else:
+                _, _, H, W = out_masks.shape
+                # Combine masks for all object IDs in the frame
+                combined_mask = np.zeros((H, W), dtype=bool)
+                for out_mask in out_masks:
+                    combined_mask = np.logical_or(combined_mask, out_mask)
+                combined_mask = combined_mask.astype(np.uint8)
+                first_frame_mask.append(combined_mask)
+
+            out_list = []
+            for mask in first_frame_mask:
+                mask_tensor = torch.from_numpy(mask)
+                mask_tensor = mask_tensor.permute(1, 2, 0)
+                mask_tensor = mask_tensor[:, :, 0]
+                out_list.append(mask_tensor)
+            mask_tensor = torch.stack(out_list, dim=0).cpu().float()
+            first_frame_mask = tensor2pil(mask_tensor.squeeze()).convert("L")
+            first_frame_mask.save(debug_image)
+            coords = poisson_disk_sampling(first_frame_mask, radius=32, num_points=16)
+            log(f"coords = {coords}")
+
+            # gen video mask
             if not individual_objects:
                 positive_point_coords = np.atleast_2d(np.array(coords))
             else:
@@ -512,21 +596,15 @@ class LS_SAM2_VIDEO_ULTRA:
 
             final_coords = positive_point_coords
             final_labels = positive_point_labels
-        try:
-            model.to(sam2_device)
-        except:
-            model.model.to(sam2_device)
 
-        autocast_condition = not mm.is_device_mps(sam2_device)
-        with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
             mask_list = []
             if hasattr(self, 'inference_state'):
-                model.reset_state(self.inference_state)
-            self.inference_state = model.init_state(resized_image.permute(0, 3, 1, 2).contiguous(), H, W, device=sam2_device)
+                v_model.reset_state(self.inference_state)
+            self.inference_state = v_model.init_state(resized_image.permute(0, 3, 1, 2).contiguous(), H, W, device=sam2_device)
 
             if individual_objects:
                 for i, (coord, label) in enumerate(zip(final_coords, final_labels)):
-                    _, out_obj_ids, out_mask_logits = model.add_new_points(
+                    _, out_obj_ids, out_mask_logits = v_model.add_new_points(
                         inference_state=self.inference_state,
                         frame_idx=0,
                         obj_id=i,
@@ -534,7 +612,7 @@ class LS_SAM2_VIDEO_ULTRA:
                         labels=final_labels[i],
                     )
             else:
-                _, out_obj_ids, out_mask_logits = model.add_new_points(
+                _, out_obj_ids, out_mask_logits = v_model.add_new_points(
                     inference_state=self.inference_state,
                     frame_idx=0,
                     obj_id=1,
@@ -544,7 +622,7 @@ class LS_SAM2_VIDEO_ULTRA:
 
             pbar = ProgressBar(B)
             video_segments = {}
-            for out_frame_idx, out_obj_ids, out_mask_logits in model.propagate_in_video(self.inference_state):
+            for out_frame_idx, out_obj_ids, out_mask_logits in v_model.propagate_in_video(self.inference_state):
                 video_segments[out_frame_idx] = {
                     out_obj_id: (out_mask_logits[i] > 0.0).cpu().numpy()
                     for i, out_obj_id in enumerate(out_obj_ids)
@@ -569,11 +647,14 @@ class LS_SAM2_VIDEO_ULTRA:
 
         if cache_model:
             try:
-                model.to(offload_device)
+                s_model.to(offload_device)
+                v_model.to(offload_device)
             except:
-                model.model.to(offload_device)
+                s_model.model.to(offload_device)
+                v_model.model.to(offload_device)
         else:
-            del model
+            del s_model
+            del v_model
             clear_memory()
 
         out_list = []
@@ -598,7 +679,7 @@ class LS_SAM2_VIDEO_ULTRA:
         for index, img in tqdm(enumerate(image)):
             orig_image = tensor2pil(img)
             _mask = out_list[index].unsqueeze(0)
-            _mask = mask2image(_mask).resize((orig_image.size), Image.BILINEAR)
+            _mask = tensor2pil(_mask).resize((orig_image.size), Image.BILINEAR)
             if process_detail:
                 _trimap = generate_VITMatte_trimap(pil2tensor(_mask), detail_erode, detail_dilate)
                 _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only, device=device,
