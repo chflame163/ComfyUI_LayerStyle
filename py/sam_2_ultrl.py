@@ -392,8 +392,8 @@ class LS_SAM2_ULTRA:
                                           max_megapixels=max_megapixels)
                 _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
         else:
-            _mask = mask2image(_mask)
-
+            _mask = tensor2pil(_mask)
+        print(f"orig_image.size={orig_image.size},_mask.size={_mask.size}")
         ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
         ret_images.append(pil2tensor(ret_image))
         ret_masks.append(image2mask(_mask))
