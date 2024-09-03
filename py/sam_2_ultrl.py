@@ -357,7 +357,10 @@ class LS_SAM2_ULTRA:
             try:
                 model.to(offload_device)
             except:
-                model.model.to(offload_device)
+                try:
+                    model.model.to(offload_device)
+                except:
+                    pass
         else:
             del model
             clear_memory()
@@ -657,8 +660,11 @@ class LS_SAM2_VIDEO_ULTRA:
                 v_model.to(offload_device)
                 s_model.to(offload_device)
             except:
-                v_model.model.to(offload_device)
-                s_model.model.to(offload_device)
+                try:
+                    v_model.model.to(offload_device)
+                    s_model.model.to(offload_device)
+                except:
+                    pass
         else:
             del v_model
             del s_model
