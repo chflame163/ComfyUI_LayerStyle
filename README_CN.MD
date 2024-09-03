@@ -1600,14 +1600,17 @@ SAM2 Video Ultra 节点支持处理多张图片或视频序列帧。请在序列
 
 https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
 
+https://github.com/user-attachments/assets/b2a45c96-4be1-4470-8ceb-addaf301b0cb
+
 节点选项说明:  
 ![image](image/sam2_video_ultra_node.jpg)    
 
 * image: 图片输入。
-* bboxes: 识别框数据输入。
-* pre_mask: 可选输入遮罩，这里的遮罩将作为关注范围限制，有助于提高识别准确度。
+* bboxes: 可选输入，识别框数据输入。bboxes 和 first_frame_mask 二者必须输入其中之一。如果有first_frame_mask输入，bboxes将被忽略。
+* first_frame_mask: 可选输入遮罩，这里的遮罩将作为首帧识别对象。bboxes 和 first_frame_mask 二者必须输入其中之一。如果有first_frame_mask输入，bboxes将被忽略。
+* pre_mask: 可选输入遮罩，这里的遮罩将作为传播关注范围限制，有助于提高识别准确度。
 * sam2_model: 选择SAM2模型。
-* presicion: 模型精度，可选择fp16, bf16 和 fp32。
+* presicion: 模型精度，可选择fp16, bf16。
 * cache_model: 是否缓存模型。缓存模型后将节省模型加载的时间。
 * individual_object: 当设置为 True时，将专注于识别单一对象。设置为False时，将尝试为多个对象生成识别框。
 * mask_preview_color: 在预览输出中显示非遮罩区域的颜色。

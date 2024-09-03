@@ -1,13 +1,154 @@
 {
-  "last_node_id": 127,
-  "last_link_id": 73,
+  "last_node_id": 137,
+  "last_link_id": 86,
   "nodes": [
+    {
+      "id": 126,
+      "type": "LayerMask: SAM2VideoUltra",
+      "pos": {
+        "0": 797,
+        "1": 181,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 340.20001220703125,
+        "1": 406
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 86
+        },
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "link": 83
+        },
+        {
+          "name": "pre_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "first_frame_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            78
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": [
+            71
+          ],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: SAM2VideoUltra"
+      },
+      "widgets_values": [
+        "sam2_hiera_base_plus.safetensors",
+        "fp16",
+        false,
+        false,
+        "#FF0080",
+        "VITMatte",
+        6,
+        6,
+        0.15,
+        0.99,
+        true,
+        "cuda",
+        0.5
+      ]
+    },
+    {
+      "id": 135,
+      "type": "LayerUtility: BatchSelector",
+      "pos": {
+        "0": 96,
+        "1": 288,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 263.46063232421875,
+        "1": 79.99906921386719
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 80
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            81
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: BatchSelector"
+      },
+      "widgets_values": [
+        "0,"
+      ]
+    },
     {
       "id": 116,
       "type": "VHS_LoadVideoPath",
       "pos": {
-        "0": -312,
-        "1": 180,
+        "0": -314,
+        "1": 279,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -18,7 +159,7 @@
         "9": 0
       },
       "size": [
-        283.1399841308594,
+        358.1507873535156,
         238
       ],
       "flags": {},
@@ -41,9 +182,9 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            60,
-            68,
-            73
+            73,
+            80,
+            85
           ],
           "slot_index": 0,
           "shape": 3
@@ -71,7 +212,7 @@
         "Node name for S&R": "VHS_LoadVideoPath"
       },
       "widgets_values": {
-        "video": "D:\\AIRes\\video\\3822765.mp4",
+        "video": "D:\\AIRes\\video\\hhou-test1.mp4",
         "force_rate": 0,
         "force_size": "Disabled",
         "custom_width": 512,
@@ -86,7 +227,7 @@
             "frame_load_cap": 0,
             "skip_first_frames": 0,
             "force_rate": 0,
-            "filename": "D:\\AIRes\\video\\3822765.mp4",
+            "filename": "D:\\AIRes\\video\\hhou-test1.mp4",
             "type": "path",
             "format": "video/mp4",
             "select_every_nth": 2
@@ -96,11 +237,11 @@
       }
     },
     {
-      "id": 127,
-      "type": "VHS_VideoCombine",
+      "id": 137,
+      "type": "Reroute",
       "pos": {
-        "0": -303,
-        "1": 647,
+        "0": 103,
+        "1": 186,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -111,8 +252,153 @@
         "9": 0
       },
       "size": [
-        721.9566040039062,
-        718.8505897521973
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 85
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            86
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 136,
+      "type": "LayerMask: LoadFlorence2Model",
+      "pos": {
+        "0": 93,
+        "1": 439,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 269.74298095703125,
+        "1": 58.20575714111328
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "florence2_model",
+          "type": "FLORENCE2",
+          "links": [
+            82
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: LoadFlorence2Model"
+      },
+      "widgets_values": [
+        "base"
+      ]
+    },
+    {
+      "id": 134,
+      "type": "LayerMask: ObjectDetectorFL2",
+      "pos": {
+        "0": 404,
+        "1": 337,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 343.99267578125,
+        "1": 126
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 81
+        },
+        {
+          "name": "florence2_model",
+          "type": "FLORENCE2",
+          "link": 82
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "links": [
+            83
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ObjectDetectorFL2"
+      },
+      "widgets_values": [
+        "main subject",
+        "by_index",
+        "0, 1"
+      ]
+    },
+    {
+      "id": 127,
+      "type": "VHS_VideoCombine",
+      "pos": {
+        "0": -324,
+        "1": 629,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        588.8154907226562,
+        643.9587135314941
       ],
       "flags": {},
       "order": 2,
@@ -165,7 +451,7 @@
           "hidden": false,
           "paused": false,
           "params": {
-            "filename": "orig_00007.mp4",
+            "filename": "orig_00035.mp4",
             "subfolder": "",
             "type": "output",
             "format": "video/h264-mp4",
@@ -179,8 +465,8 @@
       "id": 122,
       "type": "VHS_VideoCombine",
       "pos": {
-        "0": 456,
-        "1": 646,
+        "0": 306,
+        "1": 637,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -191,11 +477,11 @@
         "9": 0
       },
       "size": [
-        721.9566040039062,
-        718.8505897521973
+        578.6887817382812,
+        638.2624397277832
       ],
       "flags": {},
-      "order": 5,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -245,7 +531,7 @@
           "hidden": false,
           "paused": false,
           "params": {
-            "filename": "sam2_00006.mp4",
+            "filename": "sam2_00033.mp4",
             "subfolder": "",
             "type": "output",
             "format": "video/h264-mp4",
@@ -256,11 +542,11 @@
       }
     },
     {
-      "id": 120,
-      "type": "LayerUtility: BatchSelector",
+      "id": 133,
+      "type": "MaskToImage",
       "pos": {
-        "0": 29,
-        "1": 328,
+        "0": 1192,
+        "1": 539,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -271,209 +557,116 @@
         "9": 0
       },
       "size": {
-        "0": 235.1999969482422,
-        "1": 78
+        "0": 264.5999755859375,
+        "1": 26
       },
       "flags": {},
-      "order": 1,
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 78
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            79
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      }
+    },
+    {
+      "id": 132,
+      "type": "VHS_VideoCombine",
+      "pos": {
+        "0": 914,
+        "1": 638,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        571.5888671875,
+        634.2687377929688
+      ],
+      "flags": {},
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 60
+          "link": 79
         },
         {
-          "name": "masks",
-          "type": "MASK",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
           "link": null
         }
       ],
       "outputs": [
         {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            61
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerUtility: BatchSelector"
-      },
-      "widgets_values": [
-        "0,"
-      ]
-    },
-    {
-      "id": 118,
-      "type": "LayerMask: ObjectDetectorYOLOWorld",
-      "pos": {
-        "0": 333,
-        "1": 225,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 310.79998779296875,
-        "1": 198
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 61
-        }
-      ],
-      "outputs": [
-        {
-          "name": "bboxes",
-          "type": "BBOXES",
-          "links": [
-            72
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "preview",
-          "type": "IMAGE",
-          "links": [],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerMask: ObjectDetectorYOLOWorld"
-      },
-      "widgets_values": [
-        "yolo_world/v2-x",
-        0.05,
-        0.3,
-        "person",
-        "first",
-        "0,"
-      ]
-    },
-    {
-      "id": 126,
-      "type": "LayerMask: SAM2VideoUltra",
-      "pos": {
-        "0": 810,
-        "1": 164,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 340.20001220703125,
-        "1": 386
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 68
-        },
-        {
-          "name": "bboxes",
-          "type": "BBOXES",
-          "link": 72
-        },
-        {
-          "name": "pre_mask",
-          "type": "MASK",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "mask",
-          "type": "MASK",
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
           "links": [],
           "slot_index": 0,
           "shape": 3
-        },
-        {
-          "name": "preview",
-          "type": "IMAGE",
-          "links": [
-            71
-          ],
-          "slot_index": 1,
-          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "LayerMask: SAM2VideoUltra"
+        "Node name for S&R": "VHS_VideoCombine"
       },
-      "widgets_values": [
-        "sam2_hiera_base_plus.safetensors",
-        "fp16",
-        false,
-        false,
-        "#FF0080",
-        "VITMatte",
-        6,
-        4,
-        0.15,
-        0.99,
-        true,
-        "cuda",
-        0.5
-      ]
+      "widgets_values": {
+        "frame_rate": 15,
+        "loop_count": 0,
+        "filename_prefix": "mask",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "mask_00005.mp4",
+            "subfolder": "",
+            "type": "output",
+            "format": "video/h264-mp4",
+            "frame_rate": 15
+          },
+          "muted": false
+        }
+      }
     }
   ],
   "links": [
-    [
-      60,
-      116,
-      0,
-      120,
-      0,
-      "IMAGE"
-    ],
-    [
-      61,
-      120,
-      0,
-      118,
-      0,
-      "IMAGE"
-    ],
-    [
-      68,
-      116,
-      0,
-      126,
-      0,
-      "IMAGE"
-    ],
     [
       71,
       126,
@@ -483,18 +676,74 @@
       "IMAGE"
     ],
     [
-      72,
-      118,
+      73,
+      116,
+      0,
+      127,
+      0,
+      "IMAGE"
+    ],
+    [
+      78,
+      126,
+      0,
+      133,
+      0,
+      "MASK"
+    ],
+    [
+      79,
+      133,
+      0,
+      132,
+      0,
+      "IMAGE"
+    ],
+    [
+      80,
+      116,
+      0,
+      135,
+      0,
+      "IMAGE"
+    ],
+    [
+      81,
+      135,
+      0,
+      134,
+      0,
+      "IMAGE"
+    ],
+    [
+      82,
+      136,
+      0,
+      134,
+      1,
+      "FLORENCE2"
+    ],
+    [
+      83,
+      134,
       0,
       126,
       1,
       "BBOXES"
     ],
     [
-      73,
+      85,
       116,
       0,
-      127,
+      137,
+      0,
+      "*"
+    ],
+    [
+      86,
+      137,
+      0,
+      126,
       0,
       "IMAGE"
     ]
@@ -503,10 +752,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 0.7513148009015782,
       "offset": [
-        936.8487199573502,
-        -11.582724235849595
+        838.6779586252102,
+        87.72197853201384
       ]
     }
   },

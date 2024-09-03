@@ -1624,15 +1624,17 @@ SAM2 Video Ultra node support processing multiple frames of images or video sequ
 
 https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
 
+https://github.com/user-attachments/assets/b2a45c96-4be1-4470-8ceb-addaf301b0cb
 
 Node Options:  
 ![image](image/sam2_video_ultra_node.jpg)    
 
 * image: The image to segment.
-* bboxes: Input recognition box data.
-* pre_mask: Optional input mask, which will serve as a focus range limitation and help improve recognition accuracy.
+* bboxes: Optional input of recognition bbox data. ```bboxes``` and ```first_frame_mask``` must have least one input. If first_frame_mask inputed, bbboxes will be ignored.
+* first_frame_mask: Optional input of the first frame mask. The mask will be used as the first frame recognition object. ```bboxes``` and ```first_frame_mask``` must have least one input. If first_frame_mask inputed, bbboxes will be ignored.
+* pre_mask: Optional input mask, which will serve as a propagation focus range limitation and help improve recognition accuracy.
 * sam2_model: Select the SAM2 model.
-* presicion: Model's persicion. can be selected from fp16, bf16, and fp32.
+* presicion: Model's persicion. can be selected from fp16 and bf16.
 * cache_model: Whether to cache the model. After caching the model, it will save time for model loading.
 * individual_object: When set to True, it will focus on identifying a single object. When set to False, attempts will be made to generate recognition boxes for multiple objects.
 * mask_preview_color: Display the color of non masked areas in the preview output. 

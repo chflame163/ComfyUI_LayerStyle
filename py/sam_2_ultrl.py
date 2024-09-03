@@ -446,7 +446,6 @@ class LS_SAM2_VIDEO_ULTRA:
         return {
             "required": {
                 "image": ("IMAGE",),
-                "bboxes": ("BBOXES",),
                 "sam2_model": (sam2_model_list,),
                 "precision": (model_precision_list,),
                 "cache_model": ("BOOLEAN", {"default": False}),
@@ -462,6 +461,8 @@ class LS_SAM2_VIDEO_ULTRA:
                 "max_megapixels": ("FLOAT", {"default": 0.5, "min": 0.1, "max": 10, "step": 0.1}),
             },
             "optional": {
+                "bboxes": ("BBOXES",),
+                "first_frame_mask": ("MASK",),
                 "pre_mask": ("MASK",),
             }
         }
@@ -471,17 +472,20 @@ class LS_SAM2_VIDEO_ULTRA:
     FUNCTION = 'sam2_video_ultra'
     CATEGORY = '😺dzNodes/LayerMask'
 
-    def sam2_video_ultra(self, image, bboxes, sam2_model, precision,
+    def sam2_video_ultra(self, image, sam2_model, precision,
                          cache_model, individual_objects, mask_preview_color,
                          detail_method, detail_erode, detail_dilate, black_point, white_point,
                          process_detail, device, max_megapixels,
-                         pre_mask=None
+                         bboxes = None, first_frame_mask=None, pre_mask=None
                          ):
 
-
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
-            return (image, None)
+        if first_frame_mask is None:
+            if bboxes is None:
+                log(f"{self.NODE_NAME} skipped, first_frame_mask or bboxes must have input.", message_type='error')
+                return (image, None)
+            elif len(bboxes) == 0:
+                log(f"{self.NODE_NAME} skipped, because first_frame_mask is none and bboxes is empty.", message_type='error')
+                return (image, None)
 
         # load model
         sam2_path = os.path.join(folder_paths.models_dir, "sam2")
@@ -504,9 +508,14 @@ class LS_SAM2_VIDEO_ULTRA:
             None
         )
         offload_device = mm.unet_offload_device()
+        B, H, W, C = image.shape
 
-        # load single_image_model
-        s_model = load_model(model_path, model_cfg_path, 'single_image', dtype, sam2_device)
+        if pre_mask is not None:
+            input_mask = pre_mask.clone().unsqueeze(1)
+            input_mask = F.interpolate(input_mask, size=(256, 256), mode="bilinear")
+            input_mask = input_mask.squeeze(1)
+
+        autocast_condition = not mm.is_device_mps(sam2_device)
 
         # init video model
         v_model = load_model(model_path, model_cfg_path, 'video', dtype, sam2_device)
@@ -517,70 +526,68 @@ class LS_SAM2_VIDEO_ULTRA:
             v_model.to(sam2_device)
         except:
             v_model.model.to(sam2_device)
+        s_model = None
+        if first_frame_mask is None:
+            # load single_image_model
+            s_model = load_model(model_path, model_cfg_path, 'single_image', dtype, sam2_device)
 
-        autocast_condition = not mm.is_device_mps(sam2_device)
+            # gen first frame mask
+            with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
+                f_mask = []
+                boxes_np_batch = []
+                for bbox_list in bboxes:
+                    boxes_np = []
+                    for bbox in bbox_list:
+                        boxes_np.append(bbox)
+                    boxes_np = np.array(boxes_np)
+                    boxes_np_batch.append(boxes_np)
+                final_box = np.array(boxes_np_batch)
+                final_labels = None
 
-        B, H, W, C = image.shape
+                image_np = (image.contiguous() * 255).byte().numpy()
+                i = 0
+                s_model.set_image(image_np[i])
+                input_box = final_box
 
-        if pre_mask is not None:
-            input_mask = pre_mask.clone().unsqueeze(1)
-            input_mask = F.interpolate(input_mask, size=(256, 256), mode="bilinear")
-            input_mask = input_mask.squeeze(1)
+                out_masks, scores, logits = s_model.predict(
+                    point_coords=None,
+                    point_labels=None,
+                    box=input_box,
+                    multimask_output=True,
+                    mask_input=None,
+                )
 
-        # gen first frame mask
+                if out_masks.ndim == 3:
+                    sorted_ind = np.argsort(scores)[::-1]
+                    out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
+                    scores = scores[sorted_ind]
+                    logits = logits[sorted_ind]
+                    f_mask.append(np.expand_dims(out_masks, axis=0))
+                else:
+                    _, _, H, W = out_masks.shape
+                    # Combine masks for all object IDs in the frame
+                    combined_mask = np.zeros((H, W), dtype=bool)
+                    for out_mask in out_masks:
+                        combined_mask = np.logical_or(combined_mask, out_mask)
+                    combined_mask = combined_mask.astype(np.uint8)
+                    f_mask.append(combined_mask)
+
+                out_list = []
+                for mask in f_mask:
+                    mask_tensor = torch.from_numpy(mask)
+                    mask_tensor = mask_tensor.permute(1, 2, 0)
+                    mask_tensor = mask_tensor[:, :, 0]
+                    out_list.append(mask_tensor)
+                mask_tensor = torch.stack(out_list, dim=0).cpu().float()
+                f_mask = tensor2pil(mask_tensor.squeeze()).convert("L")
+        else:
+            if first_frame_mask.dim() == 2:
+                first_frame_mask = torch.unsqueeze(first_frame_mask, 0)
+            f_mask = tensor2pil(first_frame_mask[0])
+        coords = poisson_disk_sampling(f_mask, radius=32, num_points=16)
+
+        # gen video mask
         with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
-            first_frame_mask = []
-            boxes_np_batch = []
-            for bbox_list in bboxes:
-                boxes_np = []
-                for bbox in bbox_list:
-                    boxes_np.append(bbox)
-                boxes_np = np.array(boxes_np)
-                boxes_np_batch.append(boxes_np)
-            final_box = np.array(boxes_np_batch)
-            final_labels = None
-
-            image_np = (image.contiguous() * 255).byte().numpy()
-            i = 0
-            s_model.set_image(image_np[i])
-            input_box = final_box
-
-            out_masks, scores, logits = s_model.predict(
-                point_coords=None,
-                point_labels=None,
-                box=input_box,
-                multimask_output=True,
-                mask_input=None,
-            )
-
-            if out_masks.ndim == 3:
-                sorted_ind = np.argsort(scores)[::-1]
-                out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
-                scores = scores[sorted_ind]
-                logits = logits[sorted_ind]
-                first_frame_mask.append(np.expand_dims(out_masks, axis=0))
-            else:
-                _, _, H, W = out_masks.shape
-                # Combine masks for all object IDs in the frame
-                combined_mask = np.zeros((H, W), dtype=bool)
-                for out_mask in out_masks:
-                    combined_mask = np.logical_or(combined_mask, out_mask)
-                combined_mask = combined_mask.astype(np.uint8)
-                first_frame_mask.append(combined_mask)
-
-            out_list = []
-            for mask in first_frame_mask:
-                mask_tensor = torch.from_numpy(mask)
-                mask_tensor = mask_tensor.permute(1, 2, 0)
-                mask_tensor = mask_tensor[:, :, 0]
-                out_list.append(mask_tensor)
-            mask_tensor = torch.stack(out_list, dim=0).cpu().float()
-            first_frame_mask = tensor2pil(mask_tensor.squeeze()).convert("L")
-            
-            coords = poisson_disk_sampling(first_frame_mask, radius=32, num_points=16)
-            log(f"coords = {coords}")
-
-            # gen video mask
             if not individual_objects:
                 positive_point_coords = np.atleast_2d(np.array(coords))
             else:
@@ -647,14 +654,14 @@ class LS_SAM2_VIDEO_ULTRA:
 
         if cache_model:
             try:
-                s_model.to(offload_device)
                 v_model.to(offload_device)
+                s_model.to(offload_device)
             except:
-                s_model.model.to(offload_device)
                 v_model.model.to(offload_device)
+                s_model.model.to(offload_device)
         else:
-            del s_model
             del v_model
+            del s_model
             clear_memory()
 
         out_list = []
@@ -675,7 +682,7 @@ class LS_SAM2_VIDEO_ULTRA:
         ret_masks = []
         from tqdm import tqdm
         comfy_pbar = ProgressBar(len(image))
-        tqdm_pbar = tqdm(total=len(image), desc="Processing VitMatte")
+        tqdm_pbar = tqdm(total=len(image), desc="processing masks")
         for index, img in tqdm(enumerate(image)):
             orig_image = tensor2pil(img)
             _mask = out_list[index].unsqueeze(0)
