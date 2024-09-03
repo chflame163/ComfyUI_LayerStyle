@@ -157,25 +157,6 @@ def mask2image(mask:torch.Tensor)  -> Image:
 
 '''Image Functions'''
 
-def draw_bounding_boxes(image:Image, bboxes:list, color:str="#FF0000", line_width:int=5) -> Image:
-    """
-    Draw bounding boxes on the image using the coordinates provided in the bboxes dictionary.
-    """
-    if len(bboxes) > 0:
-        draw = ImageDraw.Draw(image)
-        width, height = image.size
-        if line_width < 0: #auto line width
-            line_width = (image.width + image.height) // 300
-
-        for box in bboxes:
-            xmin = min(box[0],box[2])
-            xmax = max(box[0],box[2])
-            ymin = min(box[1],box[3])
-            ymax = max(box[1], box[3])
-            draw.rectangle([xmin, ymin, xmax, ymax], outline=color, width=line_width)
-
-    return image
-
 # 颜色加深
 def blend_color_burn(background_image:Image, layer_image:Image) -> Image:
     img_1 = cv22ski(pil2cv2(background_image))
@@ -1947,6 +1928,14 @@ def is_contain_chinese(check_str:str) -> bool:
             return True
     return False
 
+# 生成随机颜色
+def generate_random_color():
+    """
+    Generate a random color in hexadecimal format.
+    """
+    # random.seed(int(time.time()))
+    return "#{:06x}".format(random.randint(0x101010, 0xFFFFFF))
+
 # 提取字符串中的int数为列表
 def extract_numbers(string):
     return [int(s) for s in re.findall(r'\d+', string)]
@@ -2233,6 +2222,32 @@ for i in range(len(__font_file_list)):
 FONT_LIST = list(FONT_DICT.keys())
 log(f'Find {len(FONT_LIST)} Fonts in {default_font_dir}')
 
+
+def draw_bounding_boxes(image: Image, bboxes: list, color: str = "#FF0000", line_width: int = 5) -> Image:
+    """
+    Draw bounding boxes on the image using the coordinates provided in the bboxes dictionary.
+    """
+    font_size = 25
+    font = ImageFont.truetype(list(FONT_DICT.items())[0][1], font_size)
+
+    if len(bboxes) > 0:
+        draw = ImageDraw.Draw(image)
+        width, height = image.size
+        if line_width < 0:  # auto line width
+            line_width = (image.width + image.height) // 1000
+
+        for index, box in enumerate(bboxes):
+            random_color = generate_random_color()
+            if color != "random":
+                random_color = color
+            xmin = min(box[0], box[2])
+            xmax = max(box[0], box[2])
+            ymin = min(box[1], box[3])
+            ymax = max(box[1], box[3])
+            draw.rectangle([xmin, ymin, xmax, ymax], outline=random_color, width=line_width)
+            draw.text((xmin, ymin - font_size*1.2), str(index), font=font, fill=random_color)
+
+    return image
 
 
 gemini_generate_config = {

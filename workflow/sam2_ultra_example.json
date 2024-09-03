@@ -1,278 +1,13 @@
 {
-  "last_node_id": 25,
-  "last_link_id": 37,
+  "last_node_id": 29,
+  "last_link_id": 46,
   "nodes": [
-    {
-      "id": 2,
-      "type": "LoadImage",
-      "pos": {
-        "0": 60,
-        "1": 180,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 315,
-        "1": 314
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            1,
-            6,
-            10,
-            18,
-            22,
-            25
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "seven_persons_1280x720.jpg",
-        "image"
-      ]
-    },
-    {
-      "id": 6,
-      "type": "LayerMask: ObjectDetectorYOLOWorld",
-      "pos": {
-        "0": 491,
-        "1": 540,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 310.79998779296875,
-        "1": 206.62655639648438
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 6
-        }
-      ],
-      "outputs": [
-        {
-          "name": "bboxes",
-          "type": "BBOXES",
-          "links": [
-            36
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "preview",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerMask: ObjectDetectorYOLOWorld"
-      },
-      "widgets_values": [
-        "yolo_world/v2-x",
-        0.05,
-        0.3,
-        "person",
-        "by_index",
-        "0,3,4"
-      ]
-    },
-    {
-      "id": 4,
-      "type": "LayerMask: LoadFlorence2Model",
-      "pos": {
-        "0": 502,
-        "1": 132,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 301.9246520996094,
-        "1": 65.07791900634766
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "florence2_model",
-          "type": "FLORENCE2",
-          "links": [
-            2
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerMask: LoadFlorence2Model"
-      },
-      "widgets_values": [
-        "base"
-      ]
-    },
-    {
-      "id": 3,
-      "type": "LayerMask: ObjectDetectorFL2",
-      "pos": {
-        "0": 502,
-        "1": 247,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 302.3999938964844,
-        "1": 129.92591857910156
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 1
-        },
-        {
-          "name": "florence2_model",
-          "type": "FLORENCE2",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "bboxes",
-          "type": "BBOXES",
-          "links": [
-            19
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "preview",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerMask: ObjectDetectorFL2"
-      },
-      "widgets_values": [
-        "women",
-        "all",
-        "0,"
-      ]
-    },
-    {
-      "id": 12,
-      "type": "LayerMask: ObjectDetectorMask",
-      "pos": {
-        "0": 497,
-        "1": 815,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 298.78375244140625,
-        "1": 102
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "object_mask",
-          "type": "MASK",
-          "link": 16
-        }
-      ],
-      "outputs": [
-        {
-          "name": "bboxes",
-          "type": "BBOXES",
-          "links": [
-            37
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "preview",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerMask: ObjectDetectorMask"
-      },
-      "widgets_values": [
-        "all",
-        "0,"
-      ]
-    },
     {
       "id": 25,
       "type": "LayerMask: BBoxJoin",
       "pos": {
-        "0": 858,
-        "1": 687,
+        "0": 1010,
+        "1": 860,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -287,18 +22,18 @@
         "1": 86
       },
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "bboxes_1",
           "type": "BBOXES",
-          "link": 36
+          "link": 42
         },
         {
           "name": "bboxes_2",
           "type": "BBOXES",
-          "link": 37
+          "link": 44
         },
         {
           "name": "bboxes_3",
@@ -318,8 +53,8 @@
           "links": [
             33
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -330,8 +65,8 @@
       "id": 22,
       "type": "LayerMask: SAM2Ultra",
       "pos": {
-        "0": 1170,
-        "1": 550,
+        "0": 1320,
+        "1": 610,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -346,7 +81,7 @@
         "1": 366
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -400,8 +135,8 @@
       "id": 23,
       "type": "LayerMask: SAM2Ultra",
       "pos": {
-        "0": 1170,
-        "1": 980,
+        "0": 1320,
+        "1": 1040,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -416,7 +151,7 @@
         "1": 366
       },
       "flags": {},
-      "order": 7,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -427,7 +162,7 @@
         {
           "name": "bboxes",
           "type": "BBOXES",
-          "link": 26
+          "link": 46
         }
       ],
       "outputs": [
@@ -470,8 +205,8 @@
       "id": 5,
       "type": "PreviewImage",
       "pos": {
-        "0": 1540,
-        "1": 130,
+        "0": 1690,
+        "1": 190,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -486,7 +221,7 @@
         "1": 368.59552001953125
       },
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -504,8 +239,8 @@
       "id": 8,
       "type": "PreviewImage",
       "pos": {
-        "0": 1540,
-        "1": 550,
+        "0": 1690,
+        "1": 610,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -538,8 +273,8 @@
       "id": 11,
       "type": "PreviewImage",
       "pos": {
-        "0": 1540,
-        "1": 970,
+        "0": 1690,
+        "1": 1030,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -554,7 +289,7 @@
         "1": 368.59552001953125
       },
       "flags": {},
-      "order": 10,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -569,11 +304,11 @@
       }
     },
     {
-      "id": 9,
-      "type": "LayerMask: ObjectDetectorYOLO8",
+      "id": 4,
+      "type": "LayerMask: LoadFlorence2Model",
       "pos": {
-        "0": 513,
-        "1": 1103,
+        "0": 670,
+        "1": 210,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -584,51 +319,37 @@
         "9": 0
       },
       "size": {
-        "0": 301.3816833496094,
-        "1": 157.36773681640625
+        "0": 301.9246520996094,
+        "1": 65.07791900634766
       },
       "flags": {},
-      "order": 4,
+      "order": 0,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 10
-        }
-      ],
+      "inputs": [],
       "outputs": [
         {
-          "name": "bboxes",
-          "type": "BBOXES",
+          "name": "florence2_model",
+          "type": "FLORENCE2",
           "links": [
-            26
+            38
           ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "preview",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "LayerMask: ObjectDetectorYOLO8"
+        "Node name for S&R": "LayerMask: LoadFlorence2Model"
       },
       "widgets_values": [
-        "face_yolov8m.pt",
-        "by_index",
-        "1,2,3,5,6"
+        "base"
       ]
     },
     {
       "id": 15,
       "type": "LoadImage",
       "pos": {
-        "0": 57,
-        "1": 792,
+        "0": 210,
+        "1": 960,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -639,11 +360,11 @@
         "9": 0
       },
       "size": [
-        320.16066817973604,
-        310.2105949521583
+        320.1606750488281,
+        314
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -658,7 +379,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            16
+            43
           ],
           "slot_index": 1,
           "shape": 3
@@ -673,11 +394,119 @@
       ]
     },
     {
+      "id": 28,
+      "type": "LayerMask: ObjectDetectorMask",
+      "pos": {
+        "0": 670,
+        "1": 880,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        305.4603283920758,
+        126
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "object_mask",
+          "type": "MASK",
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "links": [
+            44
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ObjectDetectorMask"
+      },
+      "widgets_values": [
+        "left_to_right",
+        "all",
+        "0,"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": {
+        "0": 210,
+        "1": 350,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            18,
+            22,
+            25,
+            39,
+            41,
+            45
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "seven_persons_1280x720.jpg",
+        "image"
+      ]
+    },
+    {
       "id": 21,
       "type": "LayerMask: SAM2Ultra",
       "pos": {
-        "0": 1170,
-        "1": 120,
+        "0": 1330,
+        "1": 180,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -692,7 +521,7 @@
         "1": 366
       },
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -703,7 +532,7 @@
         {
           "name": "bboxes",
           "type": "BBOXES",
-          "link": 19
+          "link": 40
         }
       ],
       "outputs": [
@@ -741,49 +570,185 @@
         "cuda",
         2
       ]
+    },
+    {
+      "id": 26,
+      "type": "LayerMask: ObjectDetectorFL2",
+      "pos": {
+        "0": 670,
+        "1": 340,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        302.3999938964844,
+        150
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 39
+        },
+        {
+          "name": "florence2_model",
+          "type": "FLORENCE2",
+          "link": 38
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "links": [
+            40
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ObjectDetectorFL2"
+      },
+      "widgets_values": [
+        "woman",
+        "left_to_right",
+        "all",
+        "0,"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "LayerMask: ObjectDetectorYOLOWorld",
+      "pos": {
+        "0": 670,
+        "1": 590,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        310.79998779296875,
+        222
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "links": [
+            42
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ObjectDetectorYOLOWorld"
+      },
+      "widgets_values": [
+        "yolo_world/v2-x",
+        0.05,
+        0.3,
+        "person",
+        "left_to_right",
+        "by_index",
+        "2,4,5"
+      ]
+    },
+    {
+      "id": 29,
+      "type": "LayerMask: ObjectDetectorYOLO8",
+      "pos": {
+        "0": 670,
+        "1": 1120,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        312.30031362156797,
+        150
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 45
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "links": [
+            46
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ObjectDetectorYOLO8"
+      },
+      "widgets_values": [
+        "face_yolov8m.pt",
+        "left_to_right",
+        "by_index",
+        "0,1,2,5,6"
+      ]
     }
   ],
   "links": [
-    [
-      1,
-      2,
-      0,
-      3,
-      0,
-      "IMAGE"
-    ],
-    [
-      2,
-      4,
-      0,
-      3,
-      1,
-      "FLORENCE2"
-    ],
-    [
-      6,
-      2,
-      0,
-      6,
-      0,
-      "IMAGE"
-    ],
-    [
-      10,
-      2,
-      0,
-      9,
-      0,
-      "IMAGE"
-    ],
-    [
-      16,
-      15,
-      1,
-      12,
-      0,
-      "MASK"
-    ],
     [
       18,
       2,
@@ -791,14 +756,6 @@
       21,
       0,
       "IMAGE"
-    ],
-    [
-      19,
-      3,
-      0,
-      21,
-      1,
-      "BBOXES"
     ],
     [
       21,
@@ -833,14 +790,6 @@
       "IMAGE"
     ],
     [
-      26,
-      9,
-      0,
-      23,
-      1,
-      "BBOXES"
-    ],
-    [
       27,
       23,
       0,
@@ -857,18 +806,74 @@
       "BBOXES"
     ],
     [
-      36,
-      6,
+      38,
+      4,
+      0,
+      26,
+      1,
+      "FLORENCE2"
+    ],
+    [
+      39,
+      2,
+      0,
+      26,
+      0,
+      "IMAGE"
+    ],
+    [
+      40,
+      26,
+      0,
+      21,
+      1,
+      "BBOXES"
+    ],
+    [
+      41,
+      2,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      42,
+      27,
       0,
       25,
       0,
       "BBOXES"
     ],
     [
-      37,
-      12,
+      43,
+      15,
+      1,
+      28,
+      0,
+      "MASK"
+    ],
+    [
+      44,
+      28,
       0,
       25,
+      1,
+      "BBOXES"
+    ],
+    [
+      45,
+      2,
+      0,
+      29,
+      0,
+      "IMAGE"
+    ],
+    [
+      46,
+      29,
+      0,
+      23,
       1,
       "BBOXES"
     ]
@@ -877,10 +882,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.751314800901578,
+      "scale": 0.683013455365071,
       "offset": [
-        412.8676235805176,
-        29.36872079491155
+        412.29938543495007,
+        64.95539321714692
       ]
     }
   },

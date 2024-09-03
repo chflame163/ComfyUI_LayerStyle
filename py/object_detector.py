@@ -2,7 +2,17 @@
 from .imagefunc import *
 
 select_list = ["all", "first", "by_index"]
+sort_method_list = ["left_to_right", "top_to_bottom", "big_to_small"]
 
+def sort_bboxes(bboxes:list, method:str) -> list:
+    sorted_bboxes = []
+    if method == "left_to_right":
+        sorted_bboxes = sorted(bboxes, key=lambda bbox: bbox[0])
+    elif method == "top_to_bottom":
+        sorted_bboxes = sorted(bboxes, key=lambda bbox: bbox[1])
+    else:# bit_to_small
+        sorted_bboxes = sorted(bboxes, key=lambda bbox: (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]), reverse=True)
+    return sorted_bboxes
 
 def select_bboxes(bboxes:list, bbox_select:str, select_index:str) -> list:
     indexs = extract_numbers(select_index)
@@ -66,6 +76,7 @@ class LS_OBJECT_DETECTOR_FL2:
                 "image": ("IMAGE", ),  #
                 "prompt": ("STRING", {"default": "subject"}),
                 "florence2_model": ("FLORENCE2",),
+                "sort_method": (sort_method_list,),
                 "bbox_select": (select_list,),
                 "select_index": ("STRING", {"default": "0,"},),
             },
@@ -78,7 +89,7 @@ class LS_OBJECT_DETECTOR_FL2:
     FUNCTION = 'object_detector_fl2'
     CATEGORY = '😺dzNodes/LayerMask'
 
-    def object_detector_fl2(self, image, prompt, florence2_model, bbox_select, select_index):
+    def object_detector_fl2(self, image, prompt, florence2_model, sort_method, bbox_select, select_index):
 
         bboxes = []
         ret_previews = []
@@ -102,8 +113,9 @@ class LS_OBJECT_DETECTOR_FL2:
             results["height"] = img.height
 
         bboxes = self.fbboxes_to_list(results)
+        bboxes = sort_bboxes(bboxes, sort_method)
         bboxes = select_bboxes(bboxes, bbox_select, select_index)
-        preview = draw_bounding_boxes(img, bboxes, color="#FF0000", line_width=-1)
+        preview = draw_bounding_boxes(img, bboxes, color="random", line_width=-1)
         ret_previews.append(pil2tensor(preview))
         if len(bboxes) == 0:
             log(f"{self.NODE_NAME} no object found", message_type='warning')
@@ -169,6 +181,7 @@ class LS_OBJECT_DETECTOR_MASK:
         return {
             "required": {
                 "object_mask": ("MASK",),
+                "sort_method": (sort_method_list,),
                 "bbox_select": (select_list,),
                 "select_index": ("STRING", {"default": "0,"},),
             },
@@ -181,7 +194,7 @@ class LS_OBJECT_DETECTOR_MASK:
     FUNCTION = 'object_detector_mask'
     CATEGORY = '😺dzNodes/LayerMask'
 
-    def object_detector_mask(self, object_mask, bbox_select, select_index):
+    def object_detector_mask(self, object_mask, sort_method, bbox_select, select_index):
 
         bboxes = []
         if object_mask.dim() == 2:
@@ -196,9 +209,10 @@ class LS_OBJECT_DETECTOR_MASK:
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
             bboxes.append([x, y, x + w, y + h])
+        bboxes = sort_bboxes(bboxes, sort_method)
         bboxes = select_bboxes(bboxes, bbox_select, select_index)
         ret_previews = []
-        preview = draw_bounding_boxes(tensor2pil(object_mask[0]).convert("RGB"), bboxes, color="#FF0000", line_width=-1)
+        preview = draw_bounding_boxes(tensor2pil(object_mask[0]).convert("RGB"), bboxes, color="random", line_width=-1)
         ret_previews.append(pil2tensor(preview))
 
         if len(bboxes) == 0:
@@ -224,6 +238,7 @@ class LS_OBJECT_DETECTOR_YOLO8:
             "required": {
                 "image": ("IMAGE", ),
                 "yolo_model": (FILE_LIST,),
+                "sort_method": (sort_method_list,),
                 "bbox_select": (select_list,),
                 "select_index": ("STRING", {"default": "0,"},),
             },
@@ -236,7 +251,7 @@ class LS_OBJECT_DETECTOR_YOLO8:
     FUNCTION = 'object_detector_yolo8'
     CATEGORY = '😺dzNodes/LayerMask'
 
-    def object_detector_yolo8(self, image, yolo_model, bbox_select, select_index):
+    def object_detector_yolo8(self, image, yolo_model, sort_method, bbox_select, select_index):
 
         from  ultralytics import YOLO
         model_path = os.path.join(folder_paths.models_dir, 'yolo')
@@ -256,9 +271,9 @@ class LS_OBJECT_DETECTOR_YOLO8:
                 for box in result.boxes:
                     x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
                     bboxes.append([x1, y1, x2, y2])
-
+        bboxes = sort_bboxes(bboxes, sort_method)
         bboxes = select_bboxes(bboxes, bbox_select, select_index)
-        preview = draw_bounding_boxes(_image.convert("RGB"), bboxes, color="#FF0000", line_width=-1)
+        preview = draw_bounding_boxes(_image.convert("RGB"), bboxes, color="random", line_width=-1)
         ret_previews.append(pil2tensor(preview))
 
         if len(bboxes) == 0:
@@ -287,6 +302,7 @@ class LS_OBJECT_DETECTOR_YOLOWORLD:
                 "confidence_threshold": ("FLOAT", {"default": 0.05, "min": 0, "max": 1, "step": 0.01}),
                 "nms_iou_threshold": ("FLOAT", {"default": 0.3, "min": 0, "max": 1, "step": 0.01}),
                 "prompt": ("STRING", {"default": "subject"}),
+                "sort_method": (sort_method_list,),
                 "bbox_select": (select_list,),
                 "select_index": ("STRING", {"default": "0,"},),
             },
@@ -301,7 +317,7 @@ class LS_OBJECT_DETECTOR_YOLOWORLD:
 
     def object_detector_yoloworld(self, image, yolo_world_model,
                                   confidence_threshold, nms_iou_threshold, prompt,
-                                  bbox_select, select_index):
+                                  sort_method, bbox_select, select_index):
         import supervision as sv
 
         model=self.load_yolo_world_model(yolo_world_model, prompt)
@@ -317,9 +333,10 @@ class LS_OBJECT_DETECTOR_YOLOWORLD:
         infer_outputs.append(detections)
         bboxes = infer_outputs[0].xyxy.tolist()
         bboxes = [[int(value) for value in sublist] for sublist in bboxes]
+        bboxes = sort_bboxes(bboxes, sort_method)
         bboxes = select_bboxes(bboxes, bbox_select, select_index)
         ret_previews = []
-        preview = draw_bounding_boxes(tensor2pil(image[0]).convert('RGB'), bboxes, color="#FF0000", line_width=-1)
+        preview = draw_bounding_boxes(tensor2pil(image[0]).convert('RGB'), bboxes, color="random", line_width=-1)
         ret_previews.append(pil2tensor(preview))
 
         if len(bboxes) == 0:

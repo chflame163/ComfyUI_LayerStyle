@@ -103,6 +103,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* The Object Detector nodes added sort bbox option, which allows sorting from left to right, top to bottom, and large to small, making object selection more intuitive and convenient. The nodes released yesterday has been abandoned, please manually replace it with the new version node (sorry).
 * Commit [SAM2Ultra](#SAM2Ultra), [SAM2VideoUltra](#SAM2VideoUltra), [ObjectDetectorFL2](#ObjectDetectorFL2), [ObjectDetectorYOLOWorld](#ObjectDetectorYOLOWorld), [ObjectDetectorYOLO8](#ObjectDetectorYOLO8), [ObjectDetectorMask](#ObjectDetectorMask) and [BBoxJoin](#BBoxJoin) nodes. 
 Download models from [BaiduNetdisk](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) or [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main) and copy to ```ComfyUI/models/sam2``` folder,
 Download models from [BaiduNetdisk](https://pan.baidu.com/s/1QpjajeTA37vEAU2OQnbDcQ?pwd=nqsk) or [GoogleDrive](https://drive.google.com/drive/folders/1nrsfq4S-yk9ewJgwrhXAoNVqIFLZ1at7?usp=sharing) and copy to ```ComfyUI/models/yolo-world``` folder.
@@ -1656,6 +1657,7 @@ Node Options:
 * image: The image to segment.
 * florence2_model: Florence2 model, it from [LoadFlorence2Model](#LoadFlorence2Model) node.
 * prompt: Describe the object that needs to be identified. 
+* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
@@ -1669,6 +1671,7 @@ Node Options:
 * confidence_threshold: The threshold of confidence.
 * nms_iou_threshold: The threshold of Non-Maximum Suppression.
 * prompt: Describe the object that needs to be identified.
+* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
@@ -1680,6 +1683,7 @@ Node Options:
 ![image](image/object_detector_yolo8_node.jpg)
 * image: The image to segment.
 * yolo_model: Choose the yolo model.
+* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
@@ -1689,6 +1693,7 @@ Use mask as recognition box data. All areas surrounded by white areas on the mas
 Node Options:  
 ![image](image/object_detector_mask_node.jpg)
 * object_mask: The mask input.
+* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
