@@ -477,7 +477,7 @@ class LS_SAM2_VIDEO_ULTRA:
                          process_detail, device, max_megapixels,
                          pre_mask=None
                          ):
-        debug_image = "e:\\tmp\\debug.jpg"
+
 
         if len(bboxes) == 0:
             log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
@@ -576,7 +576,7 @@ class LS_SAM2_VIDEO_ULTRA:
                 out_list.append(mask_tensor)
             mask_tensor = torch.stack(out_list, dim=0).cpu().float()
             first_frame_mask = tensor2pil(mask_tensor.squeeze()).convert("L")
-            first_frame_mask.save(debug_image)
+            
             coords = poisson_disk_sampling(first_frame_mask, radius=32, num_points=16)
             log(f"coords = {coords}")
 
