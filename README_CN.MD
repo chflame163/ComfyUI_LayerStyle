@@ -1553,7 +1553,7 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * threshold: SAM阈值。
 * detail_range: 边缘细节范围。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * prompt: SAM的prompt输入。
 
@@ -1590,7 +1590,7 @@ SAM2 Ultra 节点仅支持单张图片，如果需要处理多张图片，请先
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1615,7 +1615,7 @@ https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 本节点限制仅使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。更大的尺寸将获得更精细的遮罩边缘，但会导致运算速度明显下降。
@@ -1695,7 +1695,7 @@ https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1718,7 +1718,7 @@ https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1740,7 +1740,7 @@ Florence2 模型加载器。
 ![image](image/rembg_ultra_node.jpg)    
 * detail_range: 边缘细节范围。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
 ### <a id="table1">RmBgUltraV2</a>
@@ -1768,7 +1768,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1787,7 +1787,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1810,7 +1810,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * confidence: 识别阈值，更低的值将输出更多的遮罩范围。
 * detail_range: 边缘细节范围。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 
 ### <a id="table1">PersonMaskUltraV2</a>
@@ -1852,7 +1852,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1875,7 +1875,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
@@ -1968,7 +1968,7 @@ PersonMaskUltra的V2升级版，增加了VITMatte边缘处理方法。
 * fix_threshold: 修补遮罩的阈值。
 * detail_range: 边缘细节范围。
 * black_point: 边缘黑色采样阈值。
-* white_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
 
 ### <a id="table1">MaskEdgeUltraDetailV2</a>
 MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方法适合处理半透明区域。 
