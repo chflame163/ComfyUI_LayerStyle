@@ -23,7 +23,7 @@ omegaconf
 tqdm
 transformers>=4.43.3
 kornia
-ultralytics
+ultralytics>=8.2.0
 blend_modes
 blind-watermark
 qrcode
