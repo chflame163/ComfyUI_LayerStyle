@@ -1,6 +1,6 @@
 from .imagefunc import *
 
-NODE_NAME = 'TextImage'
+NODE_NAME = 'TextImageV2'
 any = AnyType("*")
 
 class TextImage_v2:
@@ -131,9 +131,9 @@ class TextImage_v2:
         return (pil2tensor(_canvas), image2mask(_mask),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerUtility: TextImage_v2": TextImage_v2
+    "LayerUtility: TextImage V2": TextImage_v2
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerUtility: TextImage_v2": "LayerUtility: TextImage_v2"
+    "LayerUtility: TextImage V2": "LayerUtility: TextImage V2"
 }
