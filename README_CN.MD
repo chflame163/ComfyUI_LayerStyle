@@ -105,6 +105,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 节点默认标题颜色改为蓝绿色，LayerStyle, LayerColor, LayerMask, LayerUtility 和 LayerFilter 的节点分别用不同的颜色区分。
+* 合并 [heshengtao](https://github.com/heshengtao) 提交的PR, 添加[TextImageV2](#TextImageV2)节点，修改图片文字节点的缩放，字体间隔跟随缩放，坐标不再以文字左上角，而是整行文字的中心点。感谢作者的贡献。
 * ObjectDectector节点组增加sort bbox功能， 可按从左到右、从上到下、从大到小排序，选择物体更直观方便。昨天发布的节点已放弃，请手动更换为新版节点(对不起)。
 * 添加 [SAM2Ultra](#SAM2Ultra), [SAM2VideoUltra](#SAM2VideoUltra), [ObjectDetectorFL2](#ObjectDetectorFL2), [ObjectDetectorYOLOWorld](#ObjectDetectorYOLOWorld), [ObjectDetectorYOLO8](#ObjectDetectorYOLO8), [ObjectDetectorMask](#ObjectDetectorMask) 和 [BBoxJoin](#BBoxJoin)节点。
 请从[百度网盘](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) 或者 [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main)下载全部模型文件并复制到```ComfyUI/models/sam2```文件夹; 
@@ -1082,6 +1084,9 @@ GradientImage的V2升级版。
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
 <sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
+### <a id="table1">TextImageV2</a>
+![image](image/text_image_v2_node.jpg)    
+本节点合并自 [heshengtao](https://github.com/heshengtao) 提交的PR, 在TextImage节点基础上，修改图片文字节点的缩放，字体间隔跟随缩放，坐标不再以文字左上角，而是整行文字的中心点。感谢作者的贡献。
 
 ### <a id="table1">LaMa</a>
 ![image](image/lama_example.jpg)    

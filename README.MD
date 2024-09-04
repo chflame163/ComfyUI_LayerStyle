@@ -103,6 +103,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* The default title color of nodes is changed to blue-green, and nodes in LayerStyle, LayerColor, LayerMask, LayerUtility, and LayerFilter are distinguished by different colors.
 * The Object Detector nodes added sort bbox option, which allows sorting from left to right, top to bottom, and large to small, making object selection more intuitive and convenient. The nodes released yesterday has been abandoned, please manually replace it with the new version node (sorry).
 * Commit [SAM2Ultra](#SAM2Ultra), [SAM2VideoUltra](#SAM2VideoUltra), [ObjectDetectorFL2](#ObjectDetectorFL2), [ObjectDetectorYOLOWorld](#ObjectDetectorYOLOWorld), [ObjectDetectorYOLO8](#ObjectDetectorYOLO8), [ObjectDetectorMask](#ObjectDetectorMask) and [BBoxJoin](#BBoxJoin) nodes. 
 Download models from [BaiduNetdisk](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) or [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main) and copy to ```ComfyUI/models/sam2``` folder,
@@ -1099,6 +1100,10 @@ Node options:
 Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
+### <a id="table1">TextImageV2</a>
+![image](image/text_image_v2_node.jpg)    
+
+This node is merged from [heshengtao](https://github.com/heshengtao). The PR modifies the scaling of the image text node based on the TextImage node. The font spacing follows the scaling, and the coordinates are no longer based on the top left corner of the text, but on the center point of the entire line of text. Thank you for the author's contribution.
 
 ### <a id="table1">LaMa</a>
 ![image](image/lama_example.jpg)    
