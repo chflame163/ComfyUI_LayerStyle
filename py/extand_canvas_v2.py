@@ -14,10 +14,10 @@ class ExtendCanvasV2:
             "required": {
                 "image": ("IMAGE", ),
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
-                "top": ("INT", {"default": 0, "min": 0, "max": 99999, "step": 1}),
-                "bottom": ("INT", {"default": 0, "min": 0, "max": 99999, "step": 1}),
-                "left": ("INT", {"default": 0, "min": 0, "max": 99999, "step": 1}),
-                "right": ("INT", {"default": 0, "min": 0, "max": 99999, "step": 1}),
+                "top": ("INT", {"default": 0, "min": -99999, "max": 99999, "step": 1}),
+                "bottom": ("INT", {"default": 0, "min": -99999, "max": 99999, "step": 1}),
+                "left": ("INT", {"default": 0, "min": -99999, "max": 99999, "step": 1}),
+                "right": ("INT", {"default": 0, "min": -99999, "max": 99999, "step": 1}),
                 "color": ("STRING", {"default": "#000000"}),
             },
             "optional": {
@@ -67,6 +67,11 @@ class ExtendCanvasV2:
 
             width = _image.width + left + right
             height = _image.height + top + bottom
+            if width < 1:
+                width = 1
+            if height < 1:
+                height = 1
+
             _canvas = Image.new('RGB', (width, height), color)
             _mask_canvas = Image.new('L', (width, height), "black")
 
