@@ -105,6 +105,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* [ExtendCanvasV2](#ExtendCanvasV2) 节点支持负值输入，负值将被裁剪。
 * 节点默认标题颜色改为蓝绿色，LayerStyle, LayerColor, LayerMask, LayerUtility 和 LayerFilter 的节点分别用不同的颜色区分。
 * 合并 [heshengtao](https://github.com/heshengtao) 提交的PR, 添加[TextImageV2](#TextImageV2)节点，修改图片文字节点的缩放，字体间隔跟随缩放，坐标不再以文字左上角，而是整行文字的中心点。感谢作者的贡献。
 * ObjectDectector节点组增加sort bbox功能， 可按从左到右、从上到下、从大到小排序，选择物体更直观方便。昨天发布的节点已放弃，请手动更换为新版节点(对不起)。
@@ -924,12 +925,12 @@ GetColorTone的V2升级版。可以指定获取主体或背景的主色或平均
 * bottom: 底部扩展值。
 * left: 左侧扩展值。
 * right: 右侧扩展值。
-* color; 画布颜色
+* color: 画布颜色
 
 ### <a id="table1">ExtendCanvasV2</a>
 ExtendCanvas的V2升级版。
 
-在ExtendCanvas基础上修改了color为字符串类型，支持外接```ColorPicker```输入。
+在ExtendCanvas基础上修改了color为字符串类型，支持外接```ColorPicker```输入。支持负值输入，负值将被裁剪。
 ![image](image/extend_canvas_v2_node.jpg)    
 
 

@@ -103,6 +103,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* [ExtendCanvasV2](#ExtendCanvasV2) node support negative value input, it means image will be cropped.
 * The default title color of nodes is changed to blue-green, and nodes in LayerStyle, LayerColor, LayerMask, LayerUtility, and LayerFilter are distinguished by different colors.
 * The Object Detector nodes added sort bbox option, which allows sorting from left to right, top to bottom, and large to small, making object selection more intuitive and convenient. The nodes released yesterday has been abandoned, please manually replace it with the new version node (sorry).
 * Commit [SAM2Ultra](#SAM2Ultra), [SAM2VideoUltra](#SAM2VideoUltra), [ObjectDetectorFL2](#ObjectDetectorFL2), [ObjectDetectorYOLOWorld](#ObjectDetectorYOLOWorld), [ObjectDetectorYOLO8](#ObjectDetectorYOLO8), [ObjectDetectorMask](#ObjectDetectorMask) and [BBoxJoin](#BBoxJoin) nodes. 
@@ -939,7 +940,7 @@ Node options:
 ### <a id="table1">ExtendCanvasV2</a>
 V2 upgrade to ExtendCanvas.
 
-Based on ExtendCanvas, color is modified to be a string type, and it supports external ```ColorPicker``` input.
+Based on ExtendCanvas, color is modified to be a string type, and it supports external ```ColorPicker``` input, Support negative value input, it means image will be cropped.
 ![image](image/extend_canvas_v2_node.jpg)    
 
 ### XY to <a id="table1">Percent</a>
