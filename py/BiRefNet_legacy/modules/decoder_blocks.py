@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from BiRefNet.modules.aspp import ASPP, ASPPDeformable
-from BiRefNet.modules.attentions import PSA, SGE
+from BiRefNet_legacy.modules.aspp import ASPP, ASPPDeformable
+from BiRefNet_legacy.modules.attentions import PSA, SGE
 from ..config import Config
 
 

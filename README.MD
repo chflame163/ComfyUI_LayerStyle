@@ -91,6 +91,17 @@ This error is caused by the low version of ```protobuf``` package.
 
 #### For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 
+### ModuleNotFoundError: No module named 'supervision'    
+### ModuleNotFoundError: No module named 'inference.models' 
+### ImportError: cannot import name 'YOLOWorld' from 'inference.models'
+One of the 3 errors encountered when running the Yolo-World node is due to the lack of dependency packages  ```inference-cli[yolo-world]``` and ```inference-gpu[yolo-world]``` .
+
+Solution:
+* Please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
+* Or manual install the dependency package ```inference-cli[yolo-world]``` and ```inference-gpu[yolo-world]```.
+
+
+
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
 
@@ -103,6 +114,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+
+* Commit [BiRefNetUltraV2](#BiRefNetUltraV2) and [LoadBiRefNetModel](#LoadBiRefNetModel) nodes, that support the use of the latest BiRefNet model.
+Download model file from [BaiduNetdisk](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) or [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) named ```BiRefNet-general-epoch_244.pth``` to  ```ComfyUI/Models/BiRefNet/pth``` folder. You can also download more BiRefNet models and put them here.
 * [ExtendCanvasV2](#ExtendCanvasV2) node support negative value input, it means image will be cropped.
 * The default title color of nodes is changed to blue-green, and nodes in LayerStyle, LayerColor, LayerMask, LayerUtility, and LayerFilter are distinguished by different colors.
 * The Object Detector nodes added sort bbox option, which allows sorting from left to right, top to bottom, and large to small, making object selection more intuitive and convenient. The nodes released yesterday has been abandoned, please manually replace it with the new version node (sorry).
@@ -1810,6 +1824,35 @@ Node options:
 * process_detail: Set to false here will skip edge processing to save runtime.
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
+
+
+### <a id="table1">BiRefNetUltra</a>
+This node supports the use of the latest BiRefNet model. 
+*Download model file from [BaiduNetdisk](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) or [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) named ```BiRefNet-general-epoch_244.pth``` to ```ComfyUI/Models/BiRefNet/pth``` folder. You can also download more BiRefNet models and put them here.
+
+![image](image/birefnet_ultra_v2_example.jpg)    
+
+Node Options:  
+![image](image/birefnet_ultra_v2_node.jpg)  
+
+* image: The input image.
+* birefnet_model: The BiRefNet model is input and it is output from the LoadBiRefNetModel node.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Due to the excellent edge processing of BiRefNet, it is set to False by default here.
+* device: Set whether the VitMatte to use cuda.
+* max_megapixels: Set the maximum size for VitMate operations.
+
+### <a id="table1">LoadBiRefNetModel</a>
+Load the BiRefNet model.
+
+Node Options:  
+![image](image/load_birefnet_model_node.jpg)  
+
+* model: Select the model. List the files in the  ```CoomfyUI/models/BiRefNet/pth```  folder for selection.
 
 ### <a id="table1">TransparentBackgroundUltra</a>
 Using the transparent-background model to remove background has better recognition ability and speed, while also having ultra-high edge details.

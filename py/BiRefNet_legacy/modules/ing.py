@@ -1,5 +1,5 @@
 import torch.nn as nn
-from BiRefNet.modules.mlp import MLPLayer
+from BiRefNet_legacy.modules.mlp import MLPLayer
 
 
 class BlockA(nn.Module):

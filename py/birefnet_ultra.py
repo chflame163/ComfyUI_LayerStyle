@@ -40,7 +40,7 @@ class BiRefNetUltra:
         else:
             local_files_only = False
 
-        from .birefnet_func import BiRefNetRemoveBackground
+        from .birefnet_legacy import BiRefNetRemoveBackground
         birefnetrmbg = BiRefNetRemoveBackground()
 
         for i in image:

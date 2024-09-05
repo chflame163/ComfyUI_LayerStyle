@@ -2,9 +2,8 @@ from .imagefunc import *
 
 import torch.nn as nn
 from torchvision import transforms
-from .BiRefNet.baseline import BiRefNet
-from .BiRefNet.config import Config
-
+from .BiRefNet_legacy.baseline import BiRefNet
+from .BiRefNet_legacy.config import Config
 
 class BiRefNet_img_processor:
     def __init__(self, config):

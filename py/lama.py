@@ -39,7 +39,6 @@ class LaMa:
         l_images = []
         l_masks = []
         ret_images = []
-        print(f"########################mask.shape={mask.shape},dim={mask.dim()}")
 
         for l in image:
             l_images.append(torch.unsqueeze(l, 0))

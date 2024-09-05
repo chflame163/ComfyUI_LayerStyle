@@ -76,13 +76,24 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### NameError: name 'guidedFilter' is not defined
 问题原因同上。
 
-###  Cannot import name 'VitMatteImageProcessor' from 'transformers' 
+### Cannot import name 'VitMatteImageProcessor' from 'transformers' 
 这个错误是由于```transformers``` 版本过低造成的
 
 ### insightface 加载缓慢
 这是由于```protobuf``` 版本过低造成的。
 
-#### 以上三个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。 
+#### 以上3个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。 
+
+
+### ModuleNotFoundError: No module named 'supervision'    
+### ModuleNotFoundError: No module named 'inference.models' 
+### ImportError: cannot import name 'YOLOWorld' from 'inference.models' 
+运行Yolo-World 节点时出现以上3个错误之一，是由于缺少 ```inference-cli[yolo-world]``` 和 ```inference-gpu[yolo-world]``` 依赖包造成的。
+
+解决方法：
+* 请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。
+* 或者手动安装 ```inference-cli[yolo-world]``` 和 ```inference-gpu[yolo-world]``` 依赖包。
+
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
@@ -105,6 +116,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [BiRefNetUltraV2](#BiRefNetUltraV2) 和 [LoadBiRefNetModel](#LoadBiRefNetModel) 节点，支持使用最新的BiRefNet模型。
+从[百度网盘](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) 或 [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) 下载 ```BiRefNet-general-epoch_244.pth``` 到 ComfyUI/Models/BiRefNet/pth 文件夹。也可以下载更多的BiRefNet模型放到这里。
 * [ExtendCanvasV2](#ExtendCanvasV2) 节点支持负值输入，负值将被裁剪。
 * 节点默认标题颜色改为蓝绿色，LayerStyle, LayerColor, LayerMask, LayerUtility 和 LayerFilter 的节点分别用不同的颜色区分。
 * 合并 [heshengtao](https://github.com/heshengtao) 提交的PR, 添加[TextImageV2](#TextImageV2)节点，修改图片文字节点的缩放，字体间隔跟随缩放，坐标不再以文字左上角，而是整行文字的中心点。感谢作者的贡献。
@@ -1786,6 +1799,37 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
+
+
+### <a id="table1">BiRefNetUltra</a>
+本节点支持使用最新的BiRefNet模型。    
+*从[百度网盘](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) 或 [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) 下载 ```BiRefNet-general-epoch_244.pth``` 到 ```ComfyUI/Models/BiRefNet/pth``` 文件夹。也可以下载更多的BiRefNet模型放到这里。
+
+![image](image/birefnet_ultra_v2_example.jpg)    
+
+节点选项说明:  
+![image](image/birefnet_ultra_v2_node.jpg)  
+
+* image: 图片输入。
+* birefnet_model: BiRefNet模型输入，模型从LoadBiRefNetModel节点输出。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
+* process_detail: 由于BiRefNet的边缘处理已经非常不错，此处默认设为False。
+* device: 设置是否使用cuda。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
+
+
+### <a id="table1">LoadBiRefNetModel</a>
+加载BiRefNet模型。 
+
+
+节点选项说明:  
+![image](image/load_birefnet_model_node.jpg)  
+
+* model: 选择模型。列出 ```CoomfyUI/models/BiRefNet/pth``` 文件夹下的文件供选择。
 
 ### <a id="table1">TransparentBackgroundUltra</a>
 使用transparent-background模型去除背景，有更好的识别能力和识别速度，同时具有超高的边缘细节。
