@@ -36,6 +36,4 @@ torchscale
 wandb
 psd-tools
 hydra-core
-inference-cli[yolo-world]>=0.13.0
-inference-gpu[yolo-world]>=0.13.0
 onnxruntime
