@@ -94,6 +94,9 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * 请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。
 * 或者手动安装 ```inference-cli[yolo-world]``` 和 ```inference-gpu[yolo-world]``` 依赖包。
 
+### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page 
+解决方法：
+请重新安装```onnxruntime```依赖包
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     

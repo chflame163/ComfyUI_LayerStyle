@@ -100,7 +100,9 @@ Solution:
 * Please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 * Or manual install the dependency package ```inference-cli[yolo-world]``` and ```inference-gpu[yolo-world]```.
 
-
+### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page 
+Solution:
+Reinstall the  ```onnxruntime``` dependency package.
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
