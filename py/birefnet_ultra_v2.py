@@ -2,7 +2,9 @@ import os
 import sys
 import torch
 from torchvision import transforms
+import tqdm
 from .imagefunc import *
+from comfy.utils import ProgressBar
 sys.path.append(os.path.join(os.path.dirname(__file__), 'BiRefNet'))
 from .BiRefNet.models.birefnet import BiRefNet
 
@@ -95,7 +97,8 @@ class LS_BiRefNetUltraV2:
         birefnet_model.to(device)
         birefnet_model.eval()
 
-
+        comfy_pbar = ProgressBar(len(image))
+        tqdm_pbar = tqdm(total=len(image), desc="Processing BiRefNet")
         for i in image:
             i = torch.unsqueeze(i, 0)
             orig_image = tensor2pil(i).convert('RGB')
@@ -114,7 +117,7 @@ class LS_BiRefNetUltraV2:
             pred = preds[0].squeeze()
             pred_pil = transforms.ToPILImage()(pred)
             _mask = pred_pil.resize(inference_image_size)
-            print(f"_mask type is = {type(_mask)}, mode = {_mask.mode}, size={_mask.size}")
+
             resize_sampler = Image.BILINEAR
             _mask = _mask.resize(orig_image.size, resize_sampler)
             brightness_image = ImageEnhance.Brightness(_mask)
@@ -139,6 +142,9 @@ class LS_BiRefNetUltraV2:
             ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
             ret_images.append(pil2tensor(ret_image))
             ret_masks.append(image2mask(_mask))
+
+            comfy_pbar.update(1)
+            tqdm_pbar.update(1)
 
         log(f"{self.NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
