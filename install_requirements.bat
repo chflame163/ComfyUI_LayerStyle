@@ -17,9 +17,6 @@ for /f "delims=" %%i in (%requirements_txt%) do (
     %python_exec% -s -m pip install "%%i"
     )
 
-%python_exec% -s -m pip install "inference-cli[yolo-world]>=0.13.0"
-%python_exec% -s -m pip install "inference-gpu[yolo-world]>=0.13.0"
-
 echo .
 echo Fixing Dependency Package...
 %python_exec% -s -m pip uninstall -y opencv-python opencv-contrib-python opencv-python-headless opencv-contrib-python-headless

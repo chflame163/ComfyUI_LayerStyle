@@ -91,15 +91,6 @@ This error is caused by the low version of ```protobuf``` package.
 
 #### For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 
-### ModuleNotFoundError: No module named 'supervision'    
-### ModuleNotFoundError: No module named 'inference.models' 
-### ImportError: cannot import name 'YOLOWorld' from 'inference.models'
-One of the 3 errors encountered when running the Yolo-World node is due to the lack of dependency packages  ```inference-cli[yolo-world]``` and ```inference-gpu[yolo-world]``` .
-
-Solution:
-* Please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
-* Or manual install the dependency package ```inference-cli[yolo-world]``` and ```inference-gpu[yolo-world]```.
-
 ### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page 
 Solution:
 Reinstall the  ```onnxruntime``` dependency package.

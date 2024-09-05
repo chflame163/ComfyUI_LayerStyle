@@ -84,16 +84,6 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 #### 以上3个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。 
 
-
-### ModuleNotFoundError: No module named 'supervision'    
-### ModuleNotFoundError: No module named 'inference.models' 
-### ImportError: cannot import name 'YOLOWorld' from 'inference.models' 
-运行Yolo-World 节点时出现以上3个错误之一，是由于缺少 ```inference-cli[yolo-world]``` 和 ```inference-gpu[yolo-world]``` 依赖包造成的。
-
-解决方法：
-* 请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。
-* 或者手动安装 ```inference-cli[yolo-world]``` 和 ```inference-gpu[yolo-world]``` 依赖包。
-
 ### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page 
 解决方法：
 请重新安装```onnxruntime```依赖包
