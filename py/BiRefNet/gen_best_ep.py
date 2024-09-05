@@ -2,7 +2,7 @@ import os
 from glob import glob
 import numpy as np
 
-from BiRefNet..config import Config
+from BiRefNet.config import Config
 
 
 config = Config()
