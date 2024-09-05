@@ -1828,7 +1828,7 @@ Node options:
 * max_megapixels: Set the maximum size for VitMate operations.
 
 
-### <a id="table1">BiRefNetUltra</a>
+### <a id="table1">BiRefNetUltraV2</a>
 This node supports the use of the latest BiRefNet model. 
 *Download model file from [BaiduNetdisk](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) or [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) named ```BiRefNet-general-epoch_244.pth``` to ```ComfyUI/Models/BiRefNet/pth``` folder. You can also download more BiRefNet models and put them here.
 

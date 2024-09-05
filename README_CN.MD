@@ -1804,7 +1804,7 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
 
 
-### <a id="table1">BiRefNetUltra</a>
+### <a id="table1">BiRefNetUltraV2</a>
 本节点支持使用最新的BiRefNet模型。    
 *从[百度网盘](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) 或 [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) 下载 ```BiRefNet-general-epoch_244.pth``` 到 ```ComfyUI/Models/BiRefNet/pth``` 文件夹。也可以下载更多的BiRefNet模型放到这里。
 
