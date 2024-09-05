@@ -1,3 +1,4 @@
+import os
 import sys
 import torch
 from torchvision import transforms
@@ -91,7 +92,7 @@ class LS_BiRefNetUltraV2:
             local_files_only = False
 
         torch.set_float32_matmul_precision(['high', 'highest'][0])
-        birefnet_model.to('cuda')
+        birefnet_model.to(device)
         birefnet_model.eval()
 
 
@@ -105,7 +106,7 @@ class LS_BiRefNetUltraV2:
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
             ])
 
-            inference_image = transform_image(orig_image).unsqueeze(0).to('cuda')
+            inference_image = transform_image(orig_image).unsqueeze(0).to(device)
 
             # Prediction
             with torch.no_grad():
