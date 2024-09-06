@@ -1,4 +1,6 @@
 image-reward
+numpy<2
+onnxruntime
 huggingface_hub>=0.23.3
 transformers>=4.43.3
 protobuf>=4.25.3

@@ -18,6 +18,7 @@ for /f "delims=" %%i in (%requirements_txt%) do (
 
 echo .
 echo Fixing Dependency Package...
+%python_exec% -s -m pip uninstall -y onnxruntime
 %python_exec% -s -m pip uninstall -y opencv-python opencv-contrib-python opencv-python-headless opencv-contrib-python-headless
 for /f "delims=" %%i in (%repair_dependency_txt%) do (
     %python_exec% -s -m pip install "%%i"
