@@ -21,7 +21,8 @@ fl2_model_repos = {
     "SD3-Captioner": "gokaygokay/Florence-2-SD3-Captioner",
     "base-PromptGen": "MiaoshouAI/Florence-2-base-PromptGen",
     "CogFlorence-2-Large-Freeze": "thwri/CogFlorence-2-Large-Freeze",
-    "CogFlorence-2.1-Large": "thwri/CogFlorence-2.1-Large"
+    "CogFlorence-2.1-Large": "thwri/CogFlorence-2.1-Large",
+    "base-PromptGen-v1.5":"MiaoshouAI/Florence-2-base-PromptGen-v1.5"
 }
 
 
