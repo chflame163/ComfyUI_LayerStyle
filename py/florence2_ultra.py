@@ -22,7 +22,8 @@ fl2_model_repos = {
     "base-PromptGen": "MiaoshouAI/Florence-2-base-PromptGen",
     "CogFlorence-2-Large-Freeze": "thwri/CogFlorence-2-Large-Freeze",
     "CogFlorence-2.1-Large": "thwri/CogFlorence-2.1-Large",
-    "base-PromptGen-v1.5":"MiaoshouAI/Florence-2-base-PromptGen-v1.5"
+    "base-PromptGen-v1.5":"MiaoshouAI/Florence-2-base-PromptGen-v1.5",
+    "large-PromptGen-v1.5":"MiaoshouAI/Florence-2-large-PromptGen-v1.5"
 }
 
 

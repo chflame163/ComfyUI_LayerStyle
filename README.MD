@@ -107,7 +107,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
-
+* [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) nodes support the MiaoshouAI/Florence-2-large-PromptGen-v1.5 and MiaoshouAI/Florence-2-base-PromptGen-v1.5 model.    
+Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1xOL6x6LijIMSh_3woErjJg?pwd=t3xa) or [huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5/tree/main) and [huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5/tree/main) , copy to  ```ComfyUI\models\florence2``` folder.
 * Commit [BiRefNetUltraV2](#BiRefNetUltraV2) and [LoadBiRefNetModel](#LoadBiRefNetModel) nodes, that support the use of the latest BiRefNet model.
 Download model file from [BaiduNetdisk](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) or [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) named ```BiRefNet-general-epoch_244.pth``` to  ```ComfyUI/Models/BiRefNet/pth``` folder. You can also download more BiRefNet models and put them here.
 * [ExtendCanvasV2](#ExtendCanvasV2) node support negative value input, it means image will be cropped.

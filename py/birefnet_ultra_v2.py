@@ -45,7 +45,7 @@ class LS_LoadBiRefNetModel:
         from .BiRefNet.utils import check_state_dict
         model_dict = get_models()
         self.birefnet = BiRefNet(bb_pretrained=False)
-        self.state_dict = torch.load(model_dict[model], map_location='cpu')
+        self.state_dict = torch.load(model_dict[model], map_location='cpu', weights_only=True)
         self.state_dict = check_state_dict(self.state_dict)
         self.birefnet.load_state_dict(self.state_dict)
         return (self.birefnet,)

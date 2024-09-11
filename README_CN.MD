@@ -102,13 +102,15 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 * 在ComfyUI画布点击右键 - Add Node, 找到 "😺dzNodes"。    
 ![image](image/node-menu.jpg)    
 
-* 或者在ComfyUI画布双击, 在搜索框输入"layer"。
+* 或者在ComfyUI画布双击, 在搜索框输入"layer"。Florence2Image2Prompt
 ![image](image/node-search.jpg)    
 
 
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) 节点支持MiaoshouAI/Florence-2-large-PromptGen-v1.5 和 MiaoshouAI/Florence-2-base-PromptGen-v1.5 模型。
+请从[百度网盘](https://pan.baidu.com/s/1xOL6x6LijIMSh_3woErjJg?pwd=t3xa) 或者 [huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5/tree/main) 以及[huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\florence2```文件夹。 
 * 添加 [BiRefNetUltraV2](#BiRefNetUltraV2) 和 [LoadBiRefNetModel](#LoadBiRefNetModel) 节点，支持使用最新的BiRefNet模型。
 从[百度网盘](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) 或 [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) 下载 ```BiRefNet-general-epoch_244.pth``` 到 ComfyUI/Models/BiRefNet/pth 文件夹。也可以下载更多的BiRefNet模型放到这里。
 * [ExtendCanvasV2](#ExtendCanvasV2) 节点支持负值输入，负值将被裁剪。
