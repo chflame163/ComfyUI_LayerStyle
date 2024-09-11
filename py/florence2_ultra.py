@@ -26,7 +26,6 @@ fl2_model_repos = {
     "large-PromptGen-v1.5":"MiaoshouAI/Florence-2-large-PromptGen-v1.5"
 }
 
-
 def fixed_get_imports(filename) -> list[str]:
     """Workaround for FlashAttention"""
     if os.path.basename(filename) != "modeling_florence2.py":
@@ -283,6 +282,21 @@ def process_image(model, processor, image, task_prompt, max_new_tokens, num_beam
         output_results = {'bboxes': results[task_prompt].get('quad_boxes', []),
                           'labels': results[task_prompt].get('labels', [])}
         return output_results, output_image
+    # gokaygokay/Florence-2-SD3-Captioner task
+    elif task_prompt == 'description':
+        task_prompt = '<DESCRIPTION>'
+        result = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
+        return result[task_prompt], None
+    # MiaoshouAI/Florence-2-large-PromptGen-v1.5 task
+    elif task_prompt == 'generate tags(PromptGen 1.5)':
+        task_prompt = '<GENERATE_TAGS>'
+        result = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
+        return result[task_prompt], None
+    elif task_prompt == 'mixed caption(PromptGen 1.5)':
+        task_prompt = '<MIXED_CAPTION>'
+        result = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
+        return result[task_prompt], None
+
     else:
         return "", None  # Return empty string and None for unknown task prompts
 
@@ -490,6 +504,9 @@ class Florence2Image2Prompt:
             "caption",
             "detailed caption",
             "more detailed caption",
+            'description',
+            'generate tags(PromptGen 1.5)',
+            'mixed caption(PromptGen 1.5)',
             "object detection",
             "dense region caption",
             "region proposal",
@@ -499,7 +516,7 @@ class Florence2Image2Prompt:
             "region to category",
             "region to description",
             "OCR",
-            "OCR with region"
+            "OCR with region",
             ]
         return {
             "required": {
