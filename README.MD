@@ -95,6 +95,15 @@ This error is caused by the low version of ```protobuf``` package.
 Solution:
 Reinstall the  ```onnxruntime``` dependency package.
 
+###  Error loading model xxx: We couldn't connect to huggingface.co ...
+Check the network environment. If you cannot access huggingface.co normally in China, try modifying the huggingface_hub package to force the use hf_mirror.
+* Find ```constants.py``` in the directory of ```huggingface_hub``` package (usually ```Lib/site packages/huggingface_hub``` in the virtual environment path),
+Add a line after ```import os```
+```
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+```
+
+
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 This error is caused by the mask area being too large or too small when using the ```PyMatting``` method to handle the mask edges.    
 
@@ -107,6 +116,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+
+* Commit [VQAPrompt](#VQAPrompt) and [LoadVQAModel](#LoadVQAModel) nodes.      
+Download the model from [BaiduNetdisk](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) or [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) and [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) and copy to ```ComfyUI\models\VQA``` folder.
 * [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) nodes support the MiaoshouAI/Florence-2-large-PromptGen-v1.5 and MiaoshouAI/Florence-2-base-PromptGen-v1.5 model.    
 Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1xOL6x6LijIMSh_3woErjJg?pwd=t3xa) or [huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5/tree/main) and [huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5/tree/main) , copy to  ```ComfyUI\models\florence2``` folder.
 * Commit [BiRefNetUltraV2](#BiRefNetUltraV2) and [LoadBiRefNetModel](#LoadBiRefNetModel) nodes, that support the use of the latest BiRefNet model.
@@ -800,6 +812,33 @@ Node Options:
 * num_beams: The number of beam searches that generate text.
 * do_sample: Whether to use text generated sampling.
 * fill_mask: Whether to use text marker mask filling.
+
+### <a id="table1">VQAPrompt</a>
+Use the blip-vqa model for visual question answering. Part of the code for this node is referenced from [celoron/ComfyUI-VisualQueryTemplate](https://github.com/celoron/ComfyUI-VisualQueryTemplate), thanks to the original author.   
+*Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) or [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) and [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) and copy to  ```ComfyUI\models\VQA``` folder.
+
+![image](image/vqa_prompt_example.jpg) 
+
+Node Options:
+![image](image/vqa_prompt_node.jpg)
+
+* image: The image input.
+* vqa_model: The vqa model input, it from [LoadVQAModel](#LoadVQAModel) node.
+* question: Task text input. A single question is enclosed in curly braces "{}", and the answer to the question will be replaced in its original position in the text output. Multiple questions can be defined using curly braces in a single Q&A.
+For example, for a picture of an item placed in a scene, the question is:"{object color} {object} on the {scene}".
+
+
+### <a id="table1">LoadVQAModel</a>
+Load the blip-vqa model.    
+
+Node Options:
+![image](image/load_vqa_model_node.jpg)
+
+* model: There are currently two models to choose from "blip-vqa-base" and "blip-vqa-capfilt-large".
+* precision: The model accuracy has two options: "fp16" and "fp32".
+* device: The model running device has two options: "cuda" and "cpu".
+
+
 
 ### <a id="table1">ImageShift</a>
 Shift the image. this node supports the output of displacement seam masks, making it convenient to create continuous textures.

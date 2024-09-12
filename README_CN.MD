@@ -72,7 +72,6 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
 
-
 ### NameError: name 'guidedFilter' is not defined
 问题原因同上。
 
@@ -87,6 +86,14 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page 
 解决方法：
 请重新安装```onnxruntime```依赖包
+
+###  Error loading model xxx: We couldn't connect to huggingface.co ...
+请检查网络环境。如果在中国不能正常访问huggingface.co，请尝试修改huggingface_hub包强制使用hf_mirror镜像。
+* 在```huggingface_hub```包的目录(通常在虚拟环境内的```Lib/site-packages/huggingface_hub```)中找到```constants.py```,
+在```import os```之后增加一行
+```
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+```
 
 ### ValueError: Trimap did not contain foreground values (xxxx...)
 这个错误是由于使用PyMatting方法处理遮罩边缘时，遮罩面积过大或者过小引起的。     
@@ -109,6 +116,8 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [VQAPrompt](#VQAPrompt) 和 [LoadVQAModel](#LoadVQAModel) 节点。      
+请从[百度网盘](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) 或者 [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) 和 [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\VQA```文件夹。
 * [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) 节点支持MiaoshouAI/Florence-2-large-PromptGen-v1.5 和 MiaoshouAI/Florence-2-base-PromptGen-v1.5 模型。
 请从[百度网盘](https://pan.baidu.com/s/1xOL6x6LijIMSh_3woErjJg?pwd=t3xa) 或者 [huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-large-PromptGen-v1.5/tree/main) 以及[huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5](https://huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v1.5/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\florence2```文件夹。 
 * 添加 [BiRefNetUltraV2](#BiRefNetUltraV2) 和 [LoadBiRefNetModel](#LoadBiRefNetModel) 节点，支持使用最新的BiRefNet模型。
@@ -792,6 +801,31 @@ ImageScaleByAspectRatio的V2升级版
 * num_beams: 生成文本的beam search数量。
 * do_sample: 是否使用文本生成采样。
 * fill_mask: 是否使用文本标记掩码填充。
+
+### <a id="table1">VQAPrompt</a>
+使用blip-vqa模型进行视觉问答。本节点的部分代码参考自[celoron/ComfyUI-VisualQueryTemplate](https://github.com/celoron/ComfyUI-VisualQueryTemplate)，感谢原作者。    
+*请从[百度网盘](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) 或者 [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) 和 [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\VQA```文件夹。
+
+![image](image/vqa_prompt_example.jpg) 
+
+节点选项说明:
+![image](image/vqa_prompt_node.jpg)
+
+* image: 图片输入。
+* vqa_model: vqa模型输入。从[LoadVQAModel](#LoadVQAModel)节点加载模型。
+* question: 任务文本输入。单个的问题用大括号"{}"包围，该问题的答案将在原位置替换问题文本输出。可以在一次问答中使用多个问题分别用大括号定义。
+例如, 对于一个物品放在场景中的图片，问题为:"{object color} {object} on the {scene}"。
+
+
+### <a id="table1">LoadVQAModel</a>
+加载blip-vqa模型。    
+
+节点选项说明:
+![image](image/load_vqa_model_node.jpg)
+
+* model: 目前有两种模型可选，"blip-vqa-base"和"blip-vqa-capfilt-large"。
+* precision: 模型精度，有"fp16"和"fp32"两个选项。
+* device: 模型运行设备，有"cpu"和"cuda"两个选项。
 
 ### <a id="table1">ImageShift</a>
 使图片产生位移。此节点支持位移接缝遮罩的输出，方便制作连续贴图。
