@@ -5,7 +5,7 @@ from typing import List
 
 from PIL import Image
 
-from iopaint.helper import pil_to_bytes, load_img
+from ..helper import pil_to_bytes, load_img
 
 current_dir = Path(__file__).parent.absolute().resolve()
 

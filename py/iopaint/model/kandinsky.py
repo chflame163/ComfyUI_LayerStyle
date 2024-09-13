@@ -3,9 +3,9 @@ import cv2
 import numpy as np
 import torch
 
-from iopaint.const import KANDINSKY22_NAME
+from ..const import KANDINSKY22_NAME
 from .base import DiffusionInpaintModel
-from iopaint.schema import InpaintRequest
+from ..schema import InpaintRequest
 from .utils import get_torch_dtype, enable_low_mem, is_local_files_only
 
 

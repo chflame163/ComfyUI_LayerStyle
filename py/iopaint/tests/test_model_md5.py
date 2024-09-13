@@ -1,6 +1,6 @@
 def test_load_model():
-    from iopaint.plugins import InteractiveSeg
-    from iopaint.model_manager import ModelManager
+    from ..plugins import InteractiveSeg
+    from ..model_manager import ModelManager
 
     interactive_seg_model = InteractiveSeg("vit_l", "cpu")
 

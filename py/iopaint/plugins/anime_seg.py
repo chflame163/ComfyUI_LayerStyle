@@ -5,9 +5,9 @@ import torch.nn.functional as F
 import numpy as np
 from PIL import Image
 
-from iopaint.helper import load_model
-from iopaint.plugins.base_plugin import BasePlugin
-from iopaint.schema import RunPluginRequest
+from ..helper import load_model
+from ..plugins.base_plugin import BasePlugin
+from ..schema import RunPluginRequest
 
 
 class REBNCONV(nn.Module):

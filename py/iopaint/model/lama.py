@@ -4,13 +4,13 @@ import cv2
 import numpy as np
 import torch
 
-from iopaint.helper import (
+from ..helper import (
     norm_img,
     get_cache_path_by_url,
     load_jit_model,
     download_model,
 )
-from iopaint.schema import InpaintRequest
+from ..schema import InpaintRequest
 from .base import InpaintModel
 
 LAMA_MODEL_URL = os.environ.get(

@@ -25,7 +25,7 @@ from diffusers import (
 )
 from loguru import logger
 
-from iopaint.schema import SDSampler
+from ..schema import SDSampler
 from torch import conv2d, conv_transpose2d
 
 

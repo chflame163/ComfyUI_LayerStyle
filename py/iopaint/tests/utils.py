@@ -3,8 +3,8 @@ import cv2
 import pytest
 import torch
 
-from iopaint.helper import encode_pil_to_base64
-from iopaint.schema import LDMSampler, HDStrategy, InpaintRequest, SDSampler
+from ..helper import encode_pil_to_base64
+from ..schema import LDMSampler, HDStrategy, InpaintRequest, SDSampler
 from PIL import Image
 
 current_dir = Path(__file__).parent.absolute().resolve()

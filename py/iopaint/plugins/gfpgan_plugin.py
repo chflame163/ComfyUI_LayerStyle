@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 from loguru import logger
 
-from iopaint.helper import download_model
-from iopaint.plugins.base_plugin import BasePlugin
-from iopaint.schema import RunPluginRequest
+from ..helper import download_model
+from ..plugins.base_plugin import BasePlugin
+from ..schema import RunPluginRequest
 
 
 class GFPGANPlugin(BasePlugin):

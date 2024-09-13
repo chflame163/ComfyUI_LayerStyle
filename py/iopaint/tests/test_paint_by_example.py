@@ -2,9 +2,9 @@ import cv2
 import pytest
 from PIL import Image
 
-from iopaint.model_manager import ModelManager
-from iopaint.schema import HDStrategy
-from iopaint.tests.utils import (
+from ..model_manager import ModelManager
+from ..schema import HDStrategy
+from ..tests.utils import (
     current_dir,
     get_config,
     get_data,

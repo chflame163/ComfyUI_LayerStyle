@@ -1,6 +1,6 @@
 import cv2
 from .base import InpaintModel
-from iopaint.schema import InpaintRequest
+from ..schema import InpaintRequest
 
 flag_map = {"INPAINT_NS": cv2.INPAINT_NS, "INPAINT_TELEA": cv2.INPAINT_TELEA}
 

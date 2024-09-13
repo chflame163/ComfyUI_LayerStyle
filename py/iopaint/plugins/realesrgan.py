@@ -3,9 +3,9 @@ import numpy as np
 import torch
 from loguru import logger
 
-from iopaint.helper import download_model
-from iopaint.plugins.base_plugin import BasePlugin
-from iopaint.schema import RunPluginRequest, RealESRGANModel
+from ..helper import download_model
+from ..plugins.base_plugin import BasePlugin
+from ..schema import RunPluginRequest, RealESRGANModel
 
 
 class RealESRGANUpscaler(BasePlugin):

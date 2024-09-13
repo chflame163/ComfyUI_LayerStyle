@@ -8,7 +8,7 @@ import torch
 
 from functools import partial
 
-from iopaint.plugins.segment_anything.modeling.tiny_vit_sam import TinyViT
+from ...plugins.segment_anything.modeling.tiny_vit_sam import TinyViT
 
 from .modeling import (
     ImageEncoderViT,

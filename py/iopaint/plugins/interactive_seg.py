@@ -5,11 +5,11 @@ import numpy as np
 import torch
 from loguru import logger
 
-from iopaint.helper import download_model
-from iopaint.plugins.base_plugin import BasePlugin
-from iopaint.plugins.segment_anything import SamPredictor, sam_model_registry
-from iopaint.plugins.segment_anything.predictor_hq import SamHQPredictor
-from iopaint.schema import RunPluginRequest
+from ..helper import download_model
+from ..plugins.base_plugin import BasePlugin
+from ..plugins.segment_anything import SamPredictor, sam_model_registry
+from ..plugins.segment_anything.predictor_hq import SamHQPredictor
+from ..schema import RunPluginRequest
 
 # 从小到大
 SEGMENT_ANYTHING_MODELS = {

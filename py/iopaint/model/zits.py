@@ -5,8 +5,8 @@ import cv2
 import torch
 import torch.nn.functional as F
 
-from iopaint.helper import get_cache_path_by_url, load_jit_model, download_model
-from iopaint.schema import InpaintRequest
+from ..helper import get_cache_path_by_url, load_jit_model, download_model
+from ..schema import InpaintRequest
 import numpy as np
 
 from .base import InpaintModel

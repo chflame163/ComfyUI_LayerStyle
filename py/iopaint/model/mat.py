@@ -8,13 +8,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
 
-from iopaint.helper import (
+from ..helper import (
     load_model,
     get_cache_path_by_url,
     norm_img,
     download_model,
 )
-from iopaint.schema import InpaintRequest
+from ..schema import InpaintRequest
 from .base import InpaintModel
 from .utils import (
     setup_filter,

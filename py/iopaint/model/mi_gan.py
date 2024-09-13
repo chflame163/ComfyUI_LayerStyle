@@ -3,7 +3,7 @@ import os
 import cv2
 import torch
 
-from iopaint.helper import (
+from ..helper import (
     load_jit_model,
     download_model,
     get_cache_path_by_url,
@@ -12,7 +12,7 @@ from iopaint.helper import (
     norm_img,
 )
 from .base import InpaintModel
-from iopaint.schema import InpaintRequest
+from ..schema import InpaintRequest
 
 MIGAN_MODEL_URL = os.environ.get(
     "MIGAN_MODEL_URL",

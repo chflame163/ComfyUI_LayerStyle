@@ -7,11 +7,11 @@ from loguru import logger
 from .base import InpaintModel
 from .ddim_sampler import DDIMSampler
 from .plms_sampler import PLMSSampler
-from iopaint.schema import InpaintRequest, LDMSampler
+from ..schema import InpaintRequest, LDMSampler
 
 torch.manual_seed(42)
 import torch.nn as nn
-from iopaint.helper import (
+from ..helper import (
     download_model,
     norm_img,
     get_cache_path_by_url,

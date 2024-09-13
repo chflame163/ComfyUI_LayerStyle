@@ -3,17 +3,17 @@ import os
 import time
 from PIL import Image
 
-from iopaint.helper import encode_pil_to_base64, gen_frontend_mask
-from iopaint.plugins.anime_seg import AnimeSeg
-from iopaint.schema import RunPluginRequest, RemoveBGModel, InteractiveSegModel
-from iopaint.tests.utils import check_device, current_dir, save_dir
+from ..helper import encode_pil_to_base64, gen_frontend_mask
+from ..plugins.anime_seg import AnimeSeg
+from ..schema import RunPluginRequest, RemoveBGModel, InteractiveSegModel
+from ..tests.utils import check_device, current_dir, save_dir
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
 import cv2
 import pytest
 
-from iopaint.plugins import (
+from ..plugins import (
     RemoveBG,
     RealESRGANUpscaler,
     GFPGANPlugin,

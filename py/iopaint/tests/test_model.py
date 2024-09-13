@@ -1,9 +1,9 @@
 import pytest
 import torch
 
-from iopaint.model_manager import ModelManager
-from iopaint.schema import HDStrategy, LDMSampler
-from iopaint.tests.utils import assert_equal, get_config, current_dir, check_device
+from ..model_manager import ModelManager
+from ..schema import HDStrategy, LDMSampler
+from ..tests.utils import assert_equal, get_config, current_dir, check_device
 
 
 @pytest.mark.parametrize("device", ["cuda", "mps", "cpu"])

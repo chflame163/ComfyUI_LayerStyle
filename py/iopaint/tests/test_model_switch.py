@@ -1,12 +1,12 @@
 import os
 
-from iopaint.schema import InpaintRequest
+from ..schema import InpaintRequest
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
 import torch
 
-from iopaint.model_manager import ModelManager
+from ..model_manager import ModelManager
 
 
 def test_model_switch():

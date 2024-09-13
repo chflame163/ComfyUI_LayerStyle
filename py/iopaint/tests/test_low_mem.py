@@ -2,15 +2,15 @@ import os
 
 from loguru import logger
 
-from iopaint.tests.utils import check_device, get_config, assert_equal, current_dir
+from ..tests.utils import check_device, get_config, assert_equal, current_dir
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
 import pytest
 import torch
 
-from iopaint.model_manager import ModelManager
-from iopaint.schema import HDStrategy, SDSampler, FREEUConfig
+from ..model_manager import ModelManager
+from ..schema import HDStrategy, SDSampler, FREEUConfig
 
 
 @pytest.mark.parametrize("device", ["cuda", "mps"])

@@ -1,6 +1,6 @@
 import os
 
-from iopaint.tests.utils import current_dir, check_device
+from ..tests.utils import current_dir, check_device
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 from pathlib import Path
@@ -8,9 +8,9 @@ from pathlib import Path
 import pytest
 import torch
 
-from iopaint.model_manager import ModelManager
-from iopaint.schema import HDStrategy, SDSampler
-from iopaint.tests.test_model import get_config, assert_equal
+from ..model_manager import ModelManager
+from ..schema import HDStrategy, SDSampler
+from ..tests.test_model import get_config, assert_equal
 
 
 @pytest.mark.parametrize("name", ["runwayml/stable-diffusion-inpainting"])

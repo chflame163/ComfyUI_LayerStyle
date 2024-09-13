@@ -1,5 +1,5 @@
-from iopaint.helper import load_img
-from iopaint.tests.utils import current_dir
+from ..helper import load_img
+from ..tests.utils import current_dir
 
 png_img_p = current_dir / "image.png"
 jpg_img_p = current_dir / "bunny.jpeg"

@@ -1,7 +1,7 @@
 from loguru import logger
 import numpy as np
 
-from iopaint.schema import RunPluginRequest
+from ..schema import RunPluginRequest
 
 
 class BasePlugin:

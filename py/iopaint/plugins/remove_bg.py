@@ -4,8 +4,8 @@ import numpy as np
 from loguru import logger
 from torch.hub import get_dir
 
-from iopaint.plugins.base_plugin import BasePlugin
-from iopaint.schema import RunPluginRequest, RemoveBGModel
+from ..plugins.base_plugin import BasePlugin
+from ..schema import RunPluginRequest, RemoveBGModel
 
 
 class RemoveBG(BasePlugin):

@@ -1,6 +1,6 @@
 import cv2
-from iopaint.helper import adjust_mask
-from iopaint.tests.utils import current_dir, save_dir
+from ..helper import adjust_mask
+from ..tests.utils import current_dir, save_dir
 
 mask_p = current_dir / "overture-creations-5sI6fQgYIuo_mask.png"
 

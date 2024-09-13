@@ -1,6 +1,6 @@
 import os
 
-from iopaint.tests.utils import check_device, get_config, assert_equal
+from ..tests.utils import check_device, get_config, assert_equal
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 from pathlib import Path
@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 import torch
 
-from iopaint.model_manager import ModelManager
-from iopaint.schema import HDStrategy
+from ..model_manager import ModelManager
+from ..schema import HDStrategy
 
 current_dir = Path(__file__).parent.absolute().resolve()
 save_dir = current_dir / "result"
