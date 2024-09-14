@@ -53,7 +53,6 @@ class LS_LoadVQAModel:
                 and self.model is not None and self.processor is not None):
             return ([self.processor, self.model, device, precision, self.model_name],)
 
-        # global vqa_model_path
         model_path = os.path.join(vqa_model_path, model)
         from transformers import BlipProcessor,BlipForQuestionAnswering
 
@@ -92,6 +91,7 @@ class LS_VQA_Prompt:
 
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("text",)
+    OUTPUT_IS_LIST = (True,)
     FUNCTION = "vqa_prompt"
     CATEGORY = '😺dzNodes/LayerUtility'
   
