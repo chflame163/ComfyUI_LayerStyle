@@ -1722,7 +1722,6 @@ def mask_white_area(mask:Image, white_point:int) -> float:
 
 '''Color Functions'''
 
-
 def color_balance(image:Image, shadows:list, midtones:list, highlights:list,
                   shadow_center:float=0.15, midtone_center:float=0.5, highlight_center:float=0.8,
                   shadow_max:float=0.1, midtone_max:float=0.3, highlight_max:float=0.2,
@@ -1765,7 +1764,6 @@ def color_balance(image:Image, shadows:list, midtones:list, highlights:list,
 
     return tensor2pil(img_copy)
 
-
 def RGB_to_Hex(RGB:tuple) -> str:
     color = '#'
     for i in RGB:
@@ -1798,7 +1796,6 @@ def Hex_to_HSV_255level(inhex:str) -> list:
         HSV = rgb_to_hsv(RGB[0] / 255.0, RGB[1] / 255.0, RGB[2] / 255.0)
     return [int(x * 255) for x in HSV]
 
-
 def HSV_255level_to_Hex(HSV: list) -> str:
     if len(HSV) != 3 or any((not isinstance(v, int) or v < 0 or v > 255) for v in HSV):
         raise ValueError('Invalid HSV values, each value should be an integer between 0 and 255')
@@ -1812,6 +1809,16 @@ def HSV_255level_to_Hex(HSV: list) -> str:
     hex_b = format(RGB[2], '02x')
 
     return '#' + hex_r + hex_g + hex_b
+
+# 返回补色色值
+def complementary_color(color: str) -> str:
+    color = Hex_to_RGB(color)
+    return RGB_to_Hex((255 - color[0], 255 - color[1], 255 - color[2]))
+
+# 返回颜色对应灰度值
+def rgb2gray(color:str)->int:
+    (r, g, b) = Hex_to_RGB(color)
+    return int((r * 299 + g * 587 + b * 114) / 1000)
 
 '''Value Functions'''
 def is_valid_mask(tensor:torch.Tensor) -> bool:

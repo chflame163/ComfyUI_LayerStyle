@@ -116,7 +116,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
-
+* Commit [GetMainColors](#GetMainColors) node, it can obtained 5 main colors of image. Commit [ColorName](#ColorName) node, it can obtain the color name of input color value.
+* Duplicate the [Brightness & Contrast](#Brightness) node as [BrightnessContrastV2](#BrightnessContrastV2), and the [Color of Shadow & Highlight](#Highlight) node as [ColorofShadowHighlight](#HighlightV2) to avoid errors in ComfyUI workflow parsing caused by the "&" character in the node name.
 * Commit [VQAPrompt](#VQAPrompt) and [LoadVQAModel](#LoadVQAModel) nodes.      
 Download the model from [BaiduNetdisk](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) or [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) and [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) and copy to ```ComfyUI\models\VQA``` folder.
 * [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) nodes support the MiaoshouAI/Florence-2-large-PromptGen-v1.5 and MiaoshouAI/Florence-2-base-PromptGen-v1.5 model.    
@@ -503,6 +504,8 @@ Node options:
 Node option:  
 * exposure: Exposure value. Higher values indicate brighter image.
 
+### Color of Shadow <a id="table1">HighlightV2</a>
+A replica of the ```Color of Shadow & Highlight``` node, with the "&" character removed from the node name to avoid ComfyUI workflow parsing errors.
 
 ### <a id="table1">ColorTemperature</a>
 ![image](image/color_temperature_example.jpg)    
@@ -553,6 +556,9 @@ Node options:
 * brightness: Value of brightness.
 * contrast: Value of contrast.
 * saturation: Value of saturation.
+
+### <a id="table1">BrightnessContrastV2</a>
+A replica of the ```Brightness & Contrast``` node, with the "&" character removed from the node name to avoid ComfyUI workflow parsing errors.
 
 ### <a id="table1">RGB</a>
 Adjust the RGB channels of the image.
@@ -970,6 +976,32 @@ The following changes have been made on the basis of GetColorTong:
 Output:
 * image: Solid color picture output, the size is the same as the input picture.
 * mask: Mask output.
+
+### <a id="table1">GetMainColors</a>
+Obtain the main color of the image. You can obtain 5 colors.
+![image](image/get_main_color_and_color_name_example.jpg)
+![image](image/get_main_colors_example.jpg)
+
+Node Options:
+![image](image/get_main_color_node.jpg)    
+* image: The image input.
+* k_means_algorithm:K-Means algorithm options. "lloyd" is the standard K-Means algorithm, while "elkan" is the triangle inequality algorithm, suitable for larger images. 
+
+Outputs:
+* preview_image: 5 main color preview images.
+* color_1~color_5: Color value output. Output an RGB string in HEX format.
+
+### <a id="table1">ColorName</a>
+Output the most similar color name in the color palette based on the color value.
+![image](image/color_name_example.jpg)
+
+Node Options:
+![image](image/color_name_node.jpg)    
+* color: Color value input, in HEX format RGB string format.
+* palette: Color palette. ```xkcd``` includes 949 colors, ```css3``` includes 147 colors, and ```html4``` includes 16 colors.
+
+Output:
+* color_name: Color name in string.
 
 ### <a id="table1">ExtendCanvas</a>
 Extend the canvas

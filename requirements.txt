@@ -4,6 +4,7 @@ torch
 matplotlib
 Scipy
 scikit_image
+scikit_learn
 opencv-contrib-python
 pymatting
 segment_anything

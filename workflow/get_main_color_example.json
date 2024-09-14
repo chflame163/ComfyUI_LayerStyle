@@ -1,0 +1,462 @@
+{
+  "last_node_id": 55,
+  "last_link_id": 81,
+  "nodes": [
+    {
+      "id": 37,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 660,
+        "1": 530
+      },
+      "size": [
+        313.2302664167988,
+        331.1310906195131
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 46
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 12,
+      "type": "LoadImage",
+      "pos": {
+        "0": 230,
+        "1": 420
+      },
+      "size": [
+        369.854603490381,
+        334.3001040695102
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            28
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "3840x2160car.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 42,
+      "type": "LayerUtility: ColorImage V2",
+      "pos": {
+        "0": 1156,
+        "1": 166
+      },
+      "size": [
+        340.20001220703125,
+        130
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "color",
+          "type": "STRING",
+          "link": 75,
+          "widget": {
+            "name": "color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            70
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ColorImage V2"
+      },
+      "widgets_values": [
+        "custom",
+        512,
+        512,
+        "#000000"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 47,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 1578,
+        "1": 122
+      },
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 70
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 53,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 1580,
+        "1": 420
+      },
+      "size": {
+        "0": 210,
+        "1": 246
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 77
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 52,
+      "type": "LayerUtility: ColorImage V2",
+      "pos": {
+        "0": 1150,
+        "1": 470
+      },
+      "size": {
+        "0": 340.20001220703125,
+        "1": 130
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "color",
+          "type": "STRING",
+          "link": 78,
+          "widget": {
+            "name": "color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            77
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ColorImage V2"
+      },
+      "widgets_values": [
+        "custom",
+        512,
+        512,
+        "#000000"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 55,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 1580,
+        "1": 730
+      },
+      "size": {
+        "0": 210,
+        "1": 246
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 80
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 54,
+      "type": "LayerUtility: ColorImage V2",
+      "pos": {
+        "0": 1150,
+        "1": 780
+      },
+      "size": {
+        "0": 340.20001220703125,
+        "1": 130
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": null
+        },
+        {
+          "name": "color",
+          "type": "STRING",
+          "link": 81,
+          "widget": {
+            "name": "color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            80
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ColorImage V2"
+      },
+      "widgets_values": [
+        "custom",
+        512,
+        512,
+        "#000000"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 17,
+      "type": "LayerUtility: GetMainColors",
+      "pos": {
+        "0": 660,
+        "1": 320
+      },
+      "size": {
+        "0": 311.9536437988281,
+        "1": 158
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "preview_image",
+          "type": "IMAGE",
+          "links": [
+            46
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "color_1",
+          "type": "STRING",
+          "links": [
+            75
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "color_2",
+          "type": "STRING",
+          "links": [
+            78
+          ],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "color_3",
+          "type": "STRING",
+          "links": [
+            81
+          ],
+          "slot_index": 3,
+          "shape": 3
+        },
+        {
+          "name": "color_4",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 4,
+          "shape": 3
+        },
+        {
+          "name": "color_5",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 5,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GetMainColors"
+      },
+      "widgets_values": [
+        "lloyd"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    }
+  ],
+  "links": [
+    [
+      28,
+      12,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      46,
+      17,
+      0,
+      37,
+      0,
+      "IMAGE"
+    ],
+    [
+      70,
+      42,
+      0,
+      47,
+      0,
+      "IMAGE"
+    ],
+    [
+      75,
+      17,
+      1,
+      42,
+      1,
+      "STRING"
+    ],
+    [
+      77,
+      52,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      78,
+      17,
+      2,
+      52,
+      1,
+      "STRING"
+    ],
+    [
+      80,
+      54,
+      0,
+      55,
+      0,
+      "IMAGE"
+    ],
+    [
+      81,
+      17,
+      3,
+      54,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9090909090909091,
+      "offset": [
+        45.96540063613157,
+        141.2842631072875
+      ]
+    }
+  },
+  "version": 0.4
+}

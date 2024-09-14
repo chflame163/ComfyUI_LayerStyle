@@ -116,6 +116,8 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [GetMainColors](#GetMainColors) 节点，可获得图片的5个主要颜色。 添加 [ColorName](#ColorName) 节点，可获得颜色名称。
+* 复制 [Brightness & Contrast](#Brightness) 节点为 [BrightnessContrastV2](#BrightnessContrastV2), [Color of Shadow & Highlight](#Highlight) 节点为 [ColorofShadowHighlight](#HighlightV2), 避免节点名称中的"&"字符造成ComfyUI工作流解析错误。 
 * 添加 [VQAPrompt](#VQAPrompt) 和 [LoadVQAModel](#LoadVQAModel) 节点。      
 请从[百度网盘](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) 或者 [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) 和 [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\VQA```文件夹。
 * [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) 节点支持MiaoshouAI/Florence-2-large-PromptGen-v1.5 和 MiaoshouAI/Florence-2-base-PromptGen-v1.5 模型。
@@ -497,6 +499,9 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 * highlight_level_offset: 亮部取值的偏移量，更小的数值使更多靠近阴暗的区域纳入亮部。
 * highlight_range: 亮部的过渡范围。
 
+### Color of Shadow <a id="table1">HighlightV2</a>
+Color of Shadow & Highlight 节点的复制品，去掉了节点名称中的"&"字符以避免ComfyUI工作流解析错误。
+
 ### <a id="table1">ColorTemperature</a>
 ![image](image/color_temperature_example.jpg)    
 改变图像的色温。
@@ -547,6 +552,8 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 * contrast: 图像的对比度。
 * saturation: 图像的色彩饱和度。
 
+### <a id="table1">BrightnessContrastV2</a>
+```Brightness & Contrast```节点的复制品，去掉了节点名称中的"&"字符以避免ComfyUI工作流解析错误。
 
 ### <a id="table1">RGB</a>
 对图像的RGB各通道进行调整。
@@ -955,6 +962,32 @@ GetColorTone的V2升级版。可以指定获取主体或背景的主色或平均
 输出:
 * image: 纯色图片输出, 尺寸与输入的图片相同。
 * mask: 遮罩输出。
+
+### <a id="table1">GetMainColors</a>
+获得图片的主色。可获得5个颜色。
+![image](image/get_main_color_and_color_name_example.jpg)
+![image](image/get_main_colors_example.jpg)
+
+节点选项:
+![image](image/get_main_color_node.jpg)    
+* image: 图片输入。
+* k_means_algorithm: K-Means 算法选项。 "lloyd" 为标准K-Means算法， "elkan" 为三角不等式算法，适合更大的图片。
+
+输出:
+* preview_image: 5个主色预览图片。
+* color_1~color_5: 色值输出。输出格式为HEX格式的RGB字符串。
+
+### <a id="table1">ColorName</a>
+根据色值输出调色盘里最近似的颜色名称。
+![image](image/color_name_example.jpg)
+
+节点选项:
+![image](image/color_name_node.jpg)    
+* color: 颜色色值输入，格式为HEX格式的RGB字符串。
+* palette: 调色板。 ```xkcd```包括了949种颜色， ```css3```包括了147种颜色, ```html4```包括了16种颜色。
+
+输出:
+* color_name: 颜色名称，格式为字符串。
 
 ### <a id="table1">ExtendCanvas</a>
 扩展画布。

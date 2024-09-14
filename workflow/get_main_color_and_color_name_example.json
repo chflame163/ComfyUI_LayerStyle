@@ -1,0 +1,488 @@
+{
+  "last_node_id": 41,
+  "last_link_id": 61,
+  "nodes": [
+    {
+      "id": 17,
+      "type": "LayerUtility: GetMainColors",
+      "pos": {
+        "0": 660,
+        "1": 320
+      },
+      "size": {
+        "0": 311.9536437988281,
+        "1": 158
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "preview_image",
+          "type": "IMAGE",
+          "links": [
+            46
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "color_1",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "color_2",
+          "type": "STRING",
+          "links": [
+            48,
+            55
+          ],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "color_3",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 3,
+          "shape": 3
+        },
+        {
+          "name": "color_4",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 4,
+          "shape": 3
+        },
+        {
+          "name": "color_5",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 5,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: GetMainColors"
+      },
+      "widgets_values": [
+        "lloyd"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 38,
+      "type": "LayerUtility: SimpleTextImage",
+      "pos": {
+        "0": 1400,
+        "1": 490
+      },
+      "size": [
+        333.2885159321711,
+        364.1828329417617
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "size_as",
+          "type": "*",
+          "link": 53
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 54,
+          "widget": {
+            "name": "text"
+          }
+        },
+        {
+          "name": "text_color",
+          "type": "STRING",
+          "link": 55,
+          "widget": {
+            "name": "text_color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            60
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: SimpleTextImage"
+      },
+      "widgets_values": [
+        "text",
+        "Alibaba-PuHuiTi-Heavy.ttf",
+        "center",
+        80,
+        8,
+        400,
+        "#FFFFFF",
+        0,
+        "#FF8000",
+        0,
+        0,
+        512,
+        512
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 40,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 2160,
+        "1": 410
+      },
+      "size": [
+        697.0121532340336,
+        405.5093656051548
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 61
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 12,
+      "type": "LoadImage",
+      "pos": {
+        "0": 240,
+        "1": 420
+      },
+      "size": [
+        369.854603490381,
+        334.3001040695102
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            28,
+            53,
+            59
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "3840x2160car.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 37,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 660,
+        "1": 530
+      },
+      "size": [
+        313.2302664167988,
+        331.1310906195131
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 46
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 41,
+      "type": "LayerStyle: DropShadow V2",
+      "pos": {
+        "0": 1780,
+        "1": 490
+      },
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 59
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 60
+        },
+        {
+          "name": "layer_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            61
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerStyle: DropShadow V2"
+      },
+      "widgets_values": [
+        true,
+        "normal",
+        50,
+        25,
+        25,
+        6,
+        18,
+        "#000000"
+      ],
+      "color": "rgba(20, 95, 121, 0.7)"
+    },
+    {
+      "id": 30,
+      "type": "ShowText|pysssss",
+      "pos": {
+        "0": 1410,
+        "1": 350
+      },
+      "size": [
+        320.67863272622117,
+        76
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 35,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "bubblegum pink"
+      ]
+    },
+    {
+      "id": 25,
+      "type": "LayerUtility: ColorName",
+      "pos": {
+        "0": 1026,
+        "1": 354
+      },
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "color",
+          "type": "STRING",
+          "link": 48,
+          "widget": {
+            "name": "color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "color_name",
+          "type": "STRING",
+          "links": [
+            35,
+            54
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ColorName"
+      },
+      "widgets_values": [
+        "#000000",
+        "xkcd"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    }
+  ],
+  "links": [
+    [
+      28,
+      12,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      35,
+      25,
+      0,
+      30,
+      0,
+      "STRING"
+    ],
+    [
+      46,
+      17,
+      0,
+      37,
+      0,
+      "IMAGE"
+    ],
+    [
+      48,
+      17,
+      2,
+      25,
+      0,
+      "STRING"
+    ],
+    [
+      53,
+      12,
+      0,
+      38,
+      0,
+      "*"
+    ],
+    [
+      54,
+      25,
+      0,
+      38,
+      1,
+      "STRING"
+    ],
+    [
+      55,
+      17,
+      2,
+      38,
+      2,
+      "STRING"
+    ],
+    [
+      59,
+      12,
+      0,
+      41,
+      0,
+      "IMAGE"
+    ],
+    [
+      60,
+      38,
+      0,
+      41,
+      1,
+      "IMAGE"
+    ],
+    [
+      61,
+      41,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6830134553650709,
+      "offset": [
+        91.9153139552357,
+        304.8849710151086
+      ]
+    }
+  },
+  "version": 0.4
+}
