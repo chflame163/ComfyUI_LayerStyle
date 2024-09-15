@@ -61,7 +61,7 @@ class GetColorToneV2:
         max_batch = max(len(_images), len(_masks))
 
         if remove_bkgd_method == 'BiRefNet':
-            from .birefnet_func import BiRefNetRemoveBackground
+            from .birefnet_legacy import BiRefNetRemoveBackground
             birefnetrmbg = BiRefNetRemoveBackground()
 
         for i in range(max_batch):
