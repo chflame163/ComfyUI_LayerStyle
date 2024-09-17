@@ -116,6 +116,9 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [UserPromptGeneratorTxtImg](#UserPromptGeneratorTxtImg) 以及 [UserPromptGeneratorReplaceWord](#UserPromptGeneratorReplaceWord) 节点, 用于生成文生图提示词和替换提示词内容。
+* 添加 [PhiPrompt](#PhiPrompt) 节点，使用Micrisoft Phi 3.5文字及视觉模型进行本地推理。可以用于生成提示词，加工提示词或者反推图片的提示词。运行这个模型需要至少16GB的显存。        
+请从[百度网盘](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) 或者 [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) 和 [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\LLM``` 文件夹。
 * 添加 [GetMainColors](#GetMainColors) 节点，可获得图片的5个主要颜色。 添加 [ColorName](#ColorName) 节点，可获得颜色名称。
 * 复制 [Brightness & Contrast](#Brightness) 节点为 [BrightnessContrastV2](#BrightnessContrastV2), [Color of Shadow & Highlight](#Highlight) 节点为 [ColorofShadowHighlight](#HighlightV2), [Shadow & Highlight Mask](#Shadow) 为 [Shadow Highlight Mask V2](#ShadowV2), 以避免节点名称中的"&"字符造成ComfyUI工作流解析错误。 
 * 添加 [VQAPrompt](#VQAPrompt) 和 [LoadVQAModel](#LoadVQAModel) 节点。      
@@ -755,7 +758,6 @@ ImageScaleByAspectRatio的V2升级版
 * scale_to_length: 这里的数值作为scale_to_side指定边的长度, 或者总像素数量(kilo pixels)。
 * background_color<sup>4</sup>: 背景色。
 
-
 ### <a id="table1">QWenImage2Prompt</a>
 根据图片反推提示词。这个节点是[ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)中的```UForm-Gen2 Qwen Node```节点的重新封装，感谢原作者。
 请从[huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m)或者[百度网盘](https://pan.baidu.com/s/1oRkUoOKWaxGod_XTJ8NiTA?pwd=d5d2)下载模型到```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen```文件夹。
@@ -765,6 +767,45 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:   
 * question: 对UForm-Gen-QWen模型的提示词。
 
+### <a id="table1">PhiPrompt</a>
+使用Micrisoft Phi 3.5文字及视觉模型进行本地推理。可以用于生成提示词，加工提示词或者反推图片的提示词。运行这个模型需要至少16GB的显存。
+请从[百度网盘](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) 或者 [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) 和 [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\LLM``` 文件夹。
+![image](image/phi_prompt_example.jpg)    
+
+节点选项说明:   
+![image](image/phi_prompt_node.jpg)    
+
+* image: 可选输入。输入的图片将作为Phi-3.5-vision-instruct的输入。
+* model: 可选择加载的Phi-3.5-vision-instruct模型，或者Phi-3.5-mini-instruct模型。默认值auto将根据是否有图片输入自动加载对应模型。
+* device: 模型加载设备。支持cpu和cuda。
+* dtype: 模型加载精度，有fp16、bf16和fp32三个选项。
+* cache_model: 是否缓存模型。
+* system_prompt: Phi-3.5-mini-instruct的系统提示词。
+* user_prompt: LLM模型的用户提示词。
+* do_sample: LLM的do_sample参数，默认为True。
+* temperature: LLM的temperature参数，默认为0.5。
+* max_new_tokens: LLM的max_new_tokens参数，默认为512。
+
+### <a id="table1">UserPromptGeneratorTxtImg</a>
+用于生成SD文本到图片提示词的UserPrompt预设。
+
+节点选项说明:   
+![image](image/userprompt_generator_txt2img_node.jpg)
+
+* template: 提示词模板。目前仅有“SD txt2img prompt”可用。
+* describe: 提示词描述。在这里输入简单的描述。
+* limit_word: 输出的提示词最大长度限制。例如200即表示输出文本将被限制在200个词以内。
+
+### <a id="table1">UserPromptGeneratorReplaceWord</a>
+用于将文本中的某个关键词替换为不同内容的UserPrompt预设。这不仅是简单的替换，还可以根据提示词上下文进行文字逻辑梳理以达到输出内容的合理性。
+
+节点选项说明:   
+![image](image/userprompt_generator_replace_word_node.jpg)
+
+* orig_prompt: 原始提示词输入。
+* template: 提示词模板。目前仅有“prompt replace word”可用。
+* exclude_word: 需要排除的关键词。
+* replace_with_word: 替换exclude_word的关键词。
 
 ### <a id="table1">PromptTagger</a>
 根据图片反推提示词，可以设置替换词。这个节点目前使用Google Gemini API作为后端服务，请确保网络环境可以正常使用Gemini。

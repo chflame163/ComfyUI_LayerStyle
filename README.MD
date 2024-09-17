@@ -116,6 +116,10 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+
+* Commit [UserPromptGeneratorTxtImg](#UserPromptGeneratorTxtImg) and [UserPromptGeneratorReplaceWord](#UserPromptGeneratorReplaceWord) nodes, Used to generate text and image prompts and replace prompt content.
+* Commit [PhiPrompt](#PhiPrompt) node, Use Microsoft Phi 3.5 text and visual models for local inference. Can be used to generate prompt words, process prompt words, or infer prompt words from images. Running this model requires at least 16GB of video memory.      
+Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) or [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) and [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) and copy to ```ComfyUI\models\LLM``` folder.
 * Commit [GetMainColors](#GetMainColors) node, it can obtained 5 main colors of image. Commit [ColorName](#ColorName) node, it can obtain the color name of input color value.
 * Duplicate the [Brightness & Contrast](#Brightness) node as [BrightnessContrastV2](#BrightnessContrastV2), the [Color of Shadow & Highlight](#Highlight) node as [ColorofShadowHighlight](#HighlightV2), and [Shadow & Highlight Mask](#Shadow) to [Shadow Highlight Mask V2](#ShadowV2), to avoid errors in ComfyUI workflow parsing caused by the "&" character in the node name.
 * Commit [VQAPrompt](#VQAPrompt) and [LoadVQAModel](#LoadVQAModel) nodes.      
@@ -774,6 +778,46 @@ Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-
 Node Options:   
 * question: Prompt of UForm-Gen-QWen model.
 
+
+### <a id="table1">PhiPrompt</a>
+Use Microsoft Phi 3.5 text and visual models for local inference. Can be used to generate prompt words, process prompt words, or infer prompt words from images. Running this model requires at least 16GB of video memory.
+Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) or [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) and [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) and copy to ```ComfyUI\models\LLM``` folder.
+![image](image/phi_prompt_example.jpg)    
+
+Node Options:   
+![image](image/phi_prompt_node.jpg)    
+
+* image: Optional input. The input image will serve as the input for Phi-3.5-vision-instruct.
+* model: Selectable to load Phi-3.5-vision-instruct or Phi-3.5-mini-instruct model. The default value of auto will automatically load the corresponding model based on whether there is image input.
+* device: Model loading device. Supports CPU and CUDA.
+* dtype: The model loading accuracy has three options: fp16, bf16, and fp32.
+* cache_model: Whether to cache the model.
+* system_prompt: The system prompt of Phi-3.5-mini-instruct.
+* user_prompt: User prompt words for LLM model.
+* do_sample: The do_Sample parameter of LLM defaults to True.
+* temperature: The temperature parameter of LLM defaults to 0.5.
+* max_new_tokens: The max_new_token parameter of LLM defaults to 512.
+
+### <a id="table1">UserPromptGeneratorTxtImg</a>
+UserPrompt preset for generating SD text to image prompt words.
+
+Node options:   
+![image](image/userprompt_generator_txt2img_node.jpg)
+
+* template: Prompt word template. Currently, only the 'SD txt2img prompt' is available.
+* describe: Prompt word description. Enter a simple description here.
+* limit_word: Maximum length limit for output prompt words. For example, 200 means that the output text will be limited to 200 words.
+
+### <a id="table1">UserPromptGeneratorReplaceWord</a>
+UserPrompt preset used to replace a keyword in text with different content. This is not only a simple replacement, but also a logical sorting of the text based on the context of the prompt words to achieve the rationality of the output content.
+
+Node options:   
+![image](image/userprompt_generator_replace_word_node.jpg)
+
+* orig_prompt: Original prompt word input.
+* template: Prompt word template. Currently, only 'prompt replace word' is available.
+* exclude_word: Keywords that need to be excluded.
+* replace_with_word: That word will replace the exclude_word.
 
 
 ### <a id="table1">PromptTagger</a>
