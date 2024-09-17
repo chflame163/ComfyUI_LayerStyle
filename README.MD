@@ -117,7 +117,7 @@ When this error has occurred, please check the network environment.
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
 * Commit [GetMainColors](#GetMainColors) node, it can obtained 5 main colors of image. Commit [ColorName](#ColorName) node, it can obtain the color name of input color value.
-* Duplicate the [Brightness & Contrast](#Brightness) node as [BrightnessContrastV2](#BrightnessContrastV2), and the [Color of Shadow & Highlight](#Highlight) node as [ColorofShadowHighlight](#HighlightV2) to avoid errors in ComfyUI workflow parsing caused by the "&" character in the node name.
+* Duplicate the [Brightness & Contrast](#Brightness) node as [BrightnessContrastV2](#BrightnessContrastV2), the [Color of Shadow & Highlight](#Highlight) node as [ColorofShadowHighlight](#HighlightV2), and [Shadow & Highlight Mask](#Shadow) to [Shadow Highlight Mask V2](#ShadowV2), to avoid errors in ComfyUI workflow parsing caused by the "&" character in the node name.
 * Commit [VQAPrompt](#VQAPrompt) and [LoadVQAModel](#LoadVQAModel) nodes.      
 Download the model from [BaiduNetdisk](https://pan.baidu.com/s/1ILREVgM0eFJlkWaYlKsR0g?pwd=yw75) or [huggingface.co/Salesforce/blip-vqa-capfilt-large](https://huggingface.co/Salesforce/blip-vqa-capfilt-large/tree/main) and [huggingface.co/Salesforce/blip-vqa-base](https://huggingface.co/Salesforce/blip-vqa-base/tree/main) and copy to ```ComfyUI\models\VQA``` folder.
 * [Florence2Ultra](#Florence2Ultra),  [Florence2Image2Prompt](#Florence2Image2Prompt) 和 [LoadFlorence2Model](#LoadFlorence2Model) nodes support the MiaoshouAI/Florence-2-large-PromptGen-v1.5 and MiaoshouAI/Florence-2-base-PromptGen-v1.5 model.    
@@ -2206,6 +2206,8 @@ Node options:
 * highlight_level_offset: The offset of values in the highlight area, where larger values bring more areas closer to the dark into the highlight area.
 * highlight_range: The transitional range of the highlight area. 
 
+### <a id="table1">Shadow</a> Highlight Mask V2
+A replica of the ```Shadow & Highlight Mask``` node, with the "&" character removed from the node name to avoid ComfyUI workflow parsing errors.
 
 ### <a id="table1">PixelSpread</a>
 Pixel expansion preprocessing on the masked edge of an image can effectively improve the edges of image composit.

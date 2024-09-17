@@ -116,7 +116,7 @@ class ColorCorrectShadowAndHighlight:
                 _canvas.paste(_image, mask=ImageChops.invert(_mask))
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 
@@ -228,7 +228,7 @@ class LS_ColorCorrectShadow_And_Highlight_V2:
                 _canvas.paste(_image, mask=ImageChops.invert(_mask))
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 
