@@ -116,7 +116,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
-
+* Commit [DrawBBoxMask](#DrawBBoxMask) node, used to convert the BBoxes output by the Object Detector node into a mask.
 * Commit [UserPromptGeneratorTxtImg](#UserPromptGeneratorTxtImg) and [UserPromptGeneratorReplaceWord](#UserPromptGeneratorReplaceWord) nodes, Used to generate text and image prompts and replace prompt content.
 * Commit [PhiPrompt](#PhiPrompt) node, Use Microsoft Phi 3.5 text and visual models for local inference. Can be used to generate prompt words, process prompt words, or infer prompt words from images. Running this model requires at least 16GB of video memory.      
 Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) or [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) and [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) and copy to ```ComfyUI\models\LLM``` folder.
@@ -1835,6 +1835,19 @@ Node Options:
 * bboxes_2: Optional input. The second set of identification boxes.
 * bboxes_3: Optional input. The third set of identification boxes.
 * bboxes_4: Optional input. The fourth set of identification boxes.
+
+### <a id="table1">DrawBBoxMask</a>
+Draw the recognition BBoxes data output by the Object Detector node as a mask.     
+![image](image/draw_bbox_mask_example.jpg)
+
+Node Options:  
+![image](image/draw_bbox_mask_node.jpg)
+* image: Image input. It must be consistent with the image recognized by the Object Detector node.  
+* bboxes: Input recognition BBoxes data.
+* grow_top: Each BBox expands upwards as a percentage of its height, positive values indicate upward expansion and negative values indicate downward expansion.
+* grow_bottom: Each BBox expands downwards as a percentage of its height, positive values indicating downward expansion and negative values indicating upward expansion.
+* grow_left: Each BBox expands to the left as a percentage of its width, positive values expand to the left and negative values expand to the right.
+* grow_right: Each BBox expands to the right as a percentage of its width, positive values indicate expansion to the right and negative values indicate expansion to the left.
 
 ### <a id="table1">EVF-SAMUltra</a>
 This node is implementation of [EVF-SAM](https://github.com/hustvl/EVF-SAM) in ComfyUI.     
