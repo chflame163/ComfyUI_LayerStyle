@@ -2,7 +2,7 @@
 from .imagefunc import *
 
 select_list = ["all", "first", "by_index"]
-sort_method_list = ["left_to_right", "top_to_bottom", "big_to_small"]
+sort_method_list = ["left_to_right", "top_to_bottom", "big_to_small", "confidence"]
 
 
 # 规范bbox，保证x1 < x2, y1 < y2, 并返回int
@@ -22,8 +22,10 @@ def sort_bboxes(bboxes:list, method:str) -> list:
         sorted_bboxes = sorted(bboxes, key=lambda bbox: bbox[0])
     elif method == "top_to_bottom":
         sorted_bboxes = sorted(bboxes, key=lambda bbox: bbox[1])
-    else:# bit_to_small
+    elif method == "big_to_small":
         sorted_bboxes = sorted(bboxes, key=lambda bbox: (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]), reverse=True)
+    else:
+        sorted_bboxes = bboxes
     return sorted_bboxes
 
 def select_bboxes(bboxes:list, bbox_select:str, select_index:str) -> list:

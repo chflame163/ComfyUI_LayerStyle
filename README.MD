@@ -116,6 +116,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* ObjectDetector nodes add sort by confidence option.
 * Commit [DrawBBoxMask](#DrawBBoxMask) node, used to convert the BBoxes output by the Object Detector node into a mask.
 * Commit [UserPromptGeneratorTxtImg](#UserPromptGeneratorTxtImg) and [UserPromptGeneratorReplaceWord](#UserPromptGeneratorReplaceWord) nodes, Used to generate text and image prompts and replace prompt content.
 * Commit [PhiPrompt](#PhiPrompt) node, Use Microsoft Phi 3.5 text and visual models for local inference. Can be used to generate prompt words, process prompt words, or infer prompt words from images. Running this model requires at least 16GB of video memory.      
@@ -1786,7 +1787,7 @@ Node Options:
 * image: The image to segment.
 * florence2_model: Florence2 model, it from [LoadFlorence2Model](#LoadFlorence2Model) node.
 * prompt: Describe the object that needs to be identified. 
-* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
+* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
@@ -1800,7 +1801,7 @@ Node Options:
 * confidence_threshold: The threshold of confidence.
 * nms_iou_threshold: The threshold of Non-Maximum Suppression.
 * prompt: Describe the object that needs to be identified.
-* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
+* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
@@ -1812,7 +1813,7 @@ Node Options:
 ![image](image/object_detector_yolo8_node.jpg)
 * image: The image to segment.
 * yolo_model: Choose the yolo model.
-* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
+* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
@@ -1822,7 +1823,7 @@ Use mask as recognition box data. All areas surrounded by white areas on the mas
 Node Options:  
 ![image](image/object_detector_mask_node.jpg)
 * object_mask: The mask input.
-* sort_method: The selection box sorting method has 3 options: "left_to_right", "top_to_bottom" and "big_to_small".
+* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
 * bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
 * select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
 
