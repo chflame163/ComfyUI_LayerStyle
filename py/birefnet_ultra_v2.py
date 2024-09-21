@@ -5,7 +5,7 @@ from torchvision import transforms
 import tqdm
 from .imagefunc import *
 from comfy.utils import ProgressBar
-sys.path.append(os.path.join(os.path.dirname(__file__), 'BiRefNet'))
+# sys.path.append(os.path.join(os.path.dirname(__file__), 'BiRefNet'))
 from .BiRefNet.models.birefnet import BiRefNet
 
 def get_models():
@@ -121,7 +121,7 @@ class LS_BiRefNetUltraV2:
             resize_sampler = Image.BILINEAR
             _mask = _mask.resize(orig_image.size, resize_sampler)
             brightness_image = ImageEnhance.Brightness(_mask)
-            _mask = brightness_image.enhance(factor=1.01)
+            _mask = brightness_image.enhance(factor=1.08)
             _mask = image2mask(_mask)
 
             detail_range = detail_erode + detail_dilate

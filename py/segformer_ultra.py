@@ -486,9 +486,9 @@ class SegformerUltraV2:
             mask_image = Image.fromarray((1 - mask) * 255)
             mask_image = mask_image.convert("L")
             brightness_image = ImageEnhance.Brightness(mask_image)
-            mask_image = brightness_image.enhance(factor=1.01)
+            mask_image = brightness_image.enhance(factor=1.08)
             _mask = pil2tensor(mask_image)
-            
+
             detail_range = detail_erode + detail_dilate
             if process_detail:
                 if detail_method == 'GuidedFilter':
