@@ -38,7 +38,7 @@ class Segformer_B2_Clothes:
 
     def __init__(self):
         self.NODE_NAME = 'SegformerB2ClothesUltra'
-        pass
+
 
     # Labels: 0: "Background", 1: "Hat", 2: "Hair", 3: "Sunglasses", 4: "Upper-clothes", 5: "Skirt",
     # 6: "Pants", 7: "Dress", 8: "Belt", 9: "Left-shoe", 10: "Right-shoe", 11: "Face",
