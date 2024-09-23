@@ -2335,6 +2335,9 @@ def draw_bounding_boxes(image: Image, bboxes: list, color: str = "#FF0000", line
     """
     Draw bounding boxes on the image using the coordinates provided in the bboxes dictionary.
     """
+
+    (_, FONT_DICT) = get_resource_dir()
+
     font_size = 25
     font = ImageFont.truetype(list(FONT_DICT.items())[0][1], font_size)
 
