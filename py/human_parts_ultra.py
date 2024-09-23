@@ -72,7 +72,7 @@ class LS_HumanPartsUltra:
         Return a Tensor with the mask of the human parts in the image.
         """
 
-        model = ort.InferenceSession(model_path)
+        model = ort.InferenceSession(model_path, providers=['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider'])
         ret_images = []
         ret_masks = []
         for img in image:
