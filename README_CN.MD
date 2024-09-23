@@ -116,6 +116,8 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [GrayValue](#GrayValue) 节点，输出RGB色值对应的灰度值。
+* [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) 等节点支持在 ```resource_dir.ini``` 中定义多个文件夹，之间用逗号，分号或者空格分隔。同时支持刷新实时更新。
 * 添加 [HumanPartsUltra](#HumanPartsUltra) 节点，用于人物肢体分割。本节点是基于[metal3d/ComfyUI_Human_Parts](https://github.com/metal3d/ComfyUI_Human_Parts) 的重新封装，感谢原作者。
 请从[百度网盘](https://pan.baidu.com/s/1-6uwH6RB0FhIVfa3qO7hhQ?pwd=d862) 或 [huggingface](https://huggingface.co/Metal3d/deeplabv3p-resnet50-human/tree/main) 下载模型文件并复制到 ```ComfyUI\models\onnx\human-parts``` 文件夹。
 * ObjectDetector 节点添加按置信度排序选项。
@@ -437,7 +439,10 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 * color_space: 普通图片请选择linear, log色彩空间的图片请选择log。
 * strength: 范围0~100, LUT应用强度。数值越大，与原图的差别越大, 数值越小，越接近原图。
 
-<sup>*</sup><font size="3">LUT文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。</font>
+<sup>*</sup><font size="3">LUT文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。
+用文本编辑软件打开，找到“LUT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.cube文件将在ComfyUI初始化时被收集并显示在节点的列表中。
+支持定义多个文件夹，之间用逗号，分号或者空格分隔。
+如果ini中设定的文件夹无效，将启用插件自带的LUT文件夹。</font>
 
 
 ### <a id="table1">AutoAdjust</a>
@@ -941,7 +946,11 @@ ImageScaleByAspectRatio的V2升级版
 * font_file<sup>*</sup>: 字体文件。
 * border: 卷轴的边框宽度。
 * color_theme: 主题色。    
-<sup>*</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+<sup>*</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。
+用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。
+支持定义多个文件夹，之间用逗号，分号或者空格分隔。
+文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。
+如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
 ### <a id="table1">ImageOpacity</a>
 调整图像不透明度。
@@ -979,6 +988,17 @@ ImageScaleByAspectRatio的V2升级版
 
 节点选项说明:
 * color_value： 支持十六进制(HEX)或十进制(DEC)色值，应是string或tuple类型，强行接入其他类型将导致错误。
+
+### <a id="table1">GrayValue</a>
+将色值输出灰度数值。支持输出256级和100级灰度值。
+![image](image/gray_value_node.jpg)    
+
+节点选项说明:
+* color_value： 支持十六进制(HEX)或十进制(DEC)色值，应是string或tuple类型，强行接入其他类型将导致错误。
+
+输出：
+* gray(256_level): 256级灰度值。整数类型，范围0~255。
+* gray(100_level): 100级灰度值。整数类型，范围0~100。
 
 ### <a id="table1">GetColorTone</a>
 从图片中获取主颜色或平均色。
@@ -1178,7 +1198,11 @@ GradientImage的V2升级版。
 * height: 画面的高度。如果有size_as输入，此设置将被忽略。
 
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
-<sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+<sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。 
+用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。
+支持定义多个文件夹，之间用逗号，分号或者空格分隔。
+文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。
+如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
 
 ### <a id="table1">TextImage</a>
@@ -1203,7 +1227,11 @@ GradientImage的V2升级版。
 * background_color<sup>4</sup>: 背景颜色。
 
 <sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
-<sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。这个文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
+<sup>**</sup>font文件夹在```resource_dir.ini```中定义，这个文件位于插件根目录下, 默认名字是```resource_dir.ini.example```, 初次使用这个文件需将文件后缀改为.ini。
+用文本编辑软件打开，找到“FONT_dir=”开头的这一行，编辑“=”之后为自定义文件夹路径名。
+支持定义多个文件夹，之间用逗号，分号或者空格分隔。
+文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。
+如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
 
 ### <a id="table1">TextImageV2</a>
 ![image](image/text_image_v2_node.jpg)    

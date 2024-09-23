@@ -9,7 +9,11 @@ class ColorCorrectLUTapply:
 
     @classmethod
     def INPUT_TYPES(self):
+        (LUT_DICT, _) = get_resource_dir()
+        LUT_LIST = list(LUT_DICT.keys())
+
         color_space_list = ['linear', 'log']
+
         return {
             "required": {
                 "image": ("IMAGE", ),  #
@@ -27,6 +31,9 @@ class ColorCorrectLUTapply:
     CATEGORY = '😺dzNodes/LayerColor'
 
     def color_correct_LUTapply(self, image, LUT, color_space, strength):
+
+        (LUT_DICT, _) = get_resource_dir()
+        log(f"LUT_DICT={LUT_DICT}")
         ret_images = []
         for i in image:
             i = torch.unsqueeze(i, 0)
@@ -41,6 +48,9 @@ class ColorCorrectLUTapply:
 
         log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
+
+
+
 
 NODE_CLASS_MAPPINGS = {
     "LayerColor: LUT Apply": ColorCorrectLUTapply

@@ -116,6 +116,9 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [GrayValue](#GrayValue) node, output the grayscale values corresponding to the RGB color values.
+* [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) nodes to support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. Simultaneously supports refreshing real-time updates.
+* [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) nodes support defining multi directory fonts and lut folders, and support refreshing and real-time updates.
 * Commit [HumanPartsUltra](#HumanPartsUltra) node, used to generate human body parts masks. It is based on the warrper of [metal3d/ComfyUI_Human_Parts](https://github.com/metal3d/ComfyUI_Human_Parts), thank the original author.
 Download model file from [BaiduNetdisk](https://pan.baidu.com/s/1-6uwH6RB0FhIVfa3qO7hhQ?pwd=d862) or [huggingface](https://huggingface.co/Metal3d/deeplabv3p-resnet50-human/tree/main) and copy to ```ComfyUI\models\onnx\human-parts``` folder.
 * ObjectDetector nodes add sort by confidence option.
@@ -442,7 +445,9 @@ Node options:
 * strength: Range 0~100, LUT application strength. The larger the value, the greater the difference from the original image, and the smaller the value, the closer it is to the original image.
 
 <sup>*</sup><font size="3">LUT folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
-Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name. all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+Open the text editing software and find the line starting with "LUT_dir=", after "=", enter the custom folder path name.
+support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. 
+all .cube files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the LUT folder that comes with the plugin will be enabled.</font>
 
 ### <a id="table1">AutoAdjust</a>
@@ -956,8 +961,11 @@ Node Options:
 * font_file<sup>**</sup>: Here is a list of available font files in the font folder, and the selected font files will be used to generate images.
 * border: The border width of the reel.
 * color_theme: Theme color for the output image.            
-<sup>*</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
-Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+<sup>*</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. 
+to use this file for the first time, you need to change the file suffix to ```.ini```.
+Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. 
+support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. 
+all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
 
@@ -996,6 +1004,17 @@ Output color values as individual decimal values of H, S, and V (maximum value o
 
 Node Options:
 * color_value: Supports hexadecimal (HEX) or decimal (DEC) color values and should be of string or tuple type. Forcing in other types will result in an error.
+
+### <a id="table1">GrayValue</a>
+Output grayscale values based on color values. Supports outputting 256 level and 100 level grayscale values.
+![image](image/gray_value_node.jpg)    
+
+Node Options:
+* color_value: Supports hexadecimal (HEX) or decimal (DEC) color values and should be of string or tuple type. Forcing in other types will result in an error.
+
+Outputs:
+* gray(256_level): 256 level grayscale value. Integer type, range 0~255.
+* gray(100_level): 100 level grayscale value. Integer type, range 0~100.
 
 ### <a id="table1">GetColorTone</a>
 Obtain the main color or average color from the image and output RGB values.
@@ -1195,7 +1214,9 @@ Node options:
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
 
 <sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
-Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. 
+support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. 
+all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
 
@@ -1224,7 +1245,9 @@ Node options:
 <sup>*</sup>Only limited to input image and mask. forcing the integration of other types of inputs will result in node errors.
 
 <sup>**</sup>The font folder is defined in ```resource_dir.ini```, this file is located in the root directory of the plug-in, and the default name is ```resource_dir.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```.
-Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
+Open the text editing software and find the line starting with "FONT_dir=", after "=", enter the custom folder path name. 
+support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. 
+all font files in this folder will be collected and displayed in the node list during ComfyUI initialization.
 If the folder set in ini is invalid, the font folder that comes with the plugin will be enabled.
 
 ### <a id="table1">TextImageV2</a>
