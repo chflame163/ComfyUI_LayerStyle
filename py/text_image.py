@@ -10,8 +10,13 @@ class TextImage:
 
     @classmethod
     def INPUT_TYPES(self):
+
+        (_, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
+
         layout_list = ['horizontal', 'vertical']
         random_seed = int(time.time())
+
         return {
             "required": {
                 "text": ("STRING", {"multiline": True, "default": "Text"}),
@@ -44,6 +49,9 @@ class TextImage:
                   size_as=None
                   ):
 
+
+        (_, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
         # spacing -= 20
         # leading += 20
         # scale *= 0.7

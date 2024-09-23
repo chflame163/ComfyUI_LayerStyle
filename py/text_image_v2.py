@@ -10,6 +10,10 @@ class TextImage_v2:
 
     @classmethod
     def INPUT_TYPES(self):
+
+        (_, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
+
         layout_list = ['horizontal', 'vertical']
         random_seed = int(time.time())
         return {
@@ -43,6 +47,10 @@ class TextImage_v2:
                     variation_range, variation_seed, layout, width, height, text_color, background_color,
                     size_as=None
                     ):
+
+
+        (_, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
 
         if size_as is not None:
             width, height = tensor2pil(size_as).size

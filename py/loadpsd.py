@@ -5,7 +5,7 @@ import folder_paths
 # import node_helpers
 from nodes import LoadImage
 from PIL import Image,ImageOps,ImageSequence,ImageDraw,ImageFont
-from .imagefunc import pil2tensor, log, FONT_DICT, generate_text_image
+from .imagefunc import pil2tensor, log, generate_text_image, get_resource_dir
 
 
 class LoadPSD(LoadImage):
@@ -37,6 +37,8 @@ class LoadPSD(LoadImage):
 
         from psd_tools import PSDImage
         from psd_tools.api.layers import Layer
+
+        (LUT_DICT, FONT_DICT) = get_resource_dir()
 
         NODE_NAME = 'LoadPSD'
         number_of_layers = 1

@@ -91,9 +91,15 @@ class ImageReelComposit:
 
     def __init__(self):
         self.NODE_NAME = 'ImageReelComposit'
+        (_, self.FONT_DICT) = get_resource_dir()
+        self.FONT_LIST = list(self.FONT_DICT.keys())
 
     @classmethod
     def INPUT_TYPES(self):
+        (LUT_DICT, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
+        LUT_LIST = list(LUT_DICT.keys())
+
         color_theme_list = ['light', 'dark']
         return {
             "required": {
@@ -116,6 +122,7 @@ class ImageReelComposit:
     CATEGORY = '😺dzNodes/LayerUtility'
 
     def image_reel_composit(self, reel_1, font_file, font_size, border, color_theme, reel_2=None, reel_3=None, reel_4=None,):
+
 
         ret_images = []
 
@@ -182,7 +189,8 @@ class ImageReelComposit:
         return background_image
 
     def draw_reel_text(self, reel, font_file, font_size, text_color) -> Image:
-        font_path = FONT_DICT.get(font_file)
+
+        font_path = self.FONT_DICT.get(font_file)
         font = ImageFont.truetype(font_path, font_size)
         texts = reel.texts
         text_image = Image.new('RGBA', (reel.image.width, reel.reel_border + int(font_size * 1.5)), color=(0, 0, 0, 0))

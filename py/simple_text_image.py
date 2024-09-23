@@ -13,6 +13,9 @@ class SimpleTextImage:
     @classmethod
     def INPUT_TYPES(self):
 
+        (_, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
+
         return {
             "required": {
                 "text": ("STRING",{"default": "text", "multiline": True},
@@ -45,6 +48,9 @@ class SimpleTextImage:
                           stroke_width, stroke_color, x_offset, y_offset,
                           width, height, size_as=None
                           ):
+
+        (_, FONT_DICT) = get_resource_dir()
+        FONT_LIST = list(FONT_DICT.keys())
 
         ret_images = []
         ret_masks = []
