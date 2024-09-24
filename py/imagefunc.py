@@ -2279,7 +2279,9 @@ def get_resource_dir() -> list:
                         if os.path.exists(dir):
                             default_font_dir.append(dir)
     except Exception as e:
-        log(f'Warning: {resource_dir_ini_file} not found' + f", default directory to be used. ")
+        pass
+        # log(f'Warning: {resource_dir_ini_file} not found' + f", default directory to be used. ")
+
 
     LUT_DICT = {}
     for dir in default_lut_dir:
