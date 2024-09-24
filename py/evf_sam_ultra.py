@@ -14,7 +14,8 @@ class EVF_SAM_Ultra:
 
     @classmethod
     def INPUT_TYPES(cls):
-        model_list = ["evf-sam2","evf-sam"]
+        # model_list = ["evf-sam2","evf-sam", "evf-sam2-multitask", "evf-sam-multitask"]
+        model_list = ["evf-sam2", "evf-sam"]
         precision_list = ["fp16", "bf16", "fp32"]
         load_in_bit_list = ["full", "8", "4"]
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
@@ -55,9 +56,9 @@ class EVF_SAM_Ultra:
         else:
             local_files_only = False
 
-        if model == 'evf-sam2':
+        if model == 'evf-sam2' or model == 'evf-sam2-multitask':
             model_type = 'sam2'
-        elif model == 'evf-sam':
+        elif model == 'evf-sam' or model == 'evf-sam-multitask':
             model_type = 'ori'
         else:
             model_type = 'effi'

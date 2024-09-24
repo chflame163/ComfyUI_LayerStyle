@@ -2276,8 +2276,8 @@ def get_resource_dir() -> list:
                 elif line.startswith('FONT_dir='):
                     _fdir = line[line.find('=') + 1:].rstrip().lstrip()
                     for dir in extract_substr_from_str(_fdir):
-                        if os.path.exists(_fdir):
-                            default_font_dir.append(_fdir)
+                        if os.path.exists(dir):
+                            default_font_dir.append(dir)
     except Exception as e:
         log(f'Warning: {resource_dir_ini_file} not found' + f", default directory to be used. ")
 

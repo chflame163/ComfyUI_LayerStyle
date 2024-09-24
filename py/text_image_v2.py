@@ -10,7 +10,6 @@ class TextImage_v2:
 
     @classmethod
     def INPUT_TYPES(self):
-
         (_, FONT_DICT) = get_resource_dir()
         FONT_LIST = list(FONT_DICT.keys())
 
