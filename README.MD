@@ -116,6 +116,8 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+
+* Commit [GaussianBlurV2](#GaussianBlurV2) node, The parameter accuracy has been improved to 0.01.
 * Commit [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) node.
 * Commit [GrayValue](#GrayValue) node, output the grayscale values corresponding to the RGB color values.
 * [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) nodes to support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. Simultaneously supports refreshing real-time updates.
@@ -2575,7 +2577,14 @@ Make the image gaussian blur
 ![image](image/gaussian_blur_example.jpg)    
 
 Node options:
-* blur: The size of blur.
+* blur: The size of blur, integer, range 1-999.
+
+### <a id="table1">GaussianBlurV2</a>
+Gaussian blur. Change the parameter precision to floating-point number, with a precision of 0.01
+
+Node options:
+![image](image/gaussian_blur_v2_node.jpg)    
+* blur: The size of blur, float, range 0 - 1000.
 
 ### <a id="table1">AddGrain</a>
 Add noise to the picture.

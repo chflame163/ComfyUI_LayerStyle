@@ -116,6 +116,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [GaussianBlurV2](#GaussianBlurV2) 节点，参数精度提升到0.01。
 * 添加 [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) 节点。 
 * 添加 [GrayValue](#GrayValue) 节点，输出RGB色值对应的灰度值。
 * [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) 等节点支持在 ```resource_dir.ini``` 中定义多个文件夹，之间用逗号，分号或者空格分隔。同时支持刷新实时更新。
@@ -2550,7 +2551,14 @@ Film节点的升级版, 在之前基础上增加了fastgrain方法，生成噪�
 ![image](image/gaussian_blur_example.jpg)    
 
 节点选项说明:
-* blur: 模糊大小。
+* blur: 模糊大小。整数，范围 1-999。
+
+### <a id="table1">GaussianBlur</a>
+高斯模糊。参数精度改为浮点数，精度为0.01
+
+节点选项说明:
+![image](image/gaussian_blur_v2_node.jpg)    
+* blur: 模糊大小。浮点数，范围 0-1000。
 
 ### <a id="table1">AddGrain</a>
 给图片增加噪声。
