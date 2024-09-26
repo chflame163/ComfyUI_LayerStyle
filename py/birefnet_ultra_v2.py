@@ -5,8 +5,8 @@ from torchvision import transforms
 import tqdm
 from .imagefunc import *
 from comfy.utils import ProgressBar
-# sys.path.append(os.path.join(os.path.dirname(__file__), 'BiRefNet'))
-from .BiRefNet.models.birefnet import BiRefNet
+sys.path.append(os.path.join(os.path.dirname(__file__), 'BiRefNet_v2'))
+
 
 def get_models():
     model_path = os.path.join(folder_paths.models_dir, 'BiRefNet', 'pth')
@@ -42,7 +42,8 @@ class LS_LoadBiRefNetModel:
     CATEGORY = '😺dzNodes/LayerMask'
 
     def load_birefnet_model(self, model):
-        from .BiRefNet.utils import check_state_dict
+        from .BiRefNet_v2.models.birefnet import BiRefNet
+        from .BiRefNet_v2.utils import check_state_dict
         model_dict = get_models()
         self.birefnet = BiRefNet(bb_pretrained=False)
         self.state_dict = torch.load(model_dict[model], map_location='cpu', weights_only=True)

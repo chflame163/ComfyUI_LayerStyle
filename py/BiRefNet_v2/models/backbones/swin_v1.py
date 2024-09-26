@@ -12,7 +12,7 @@ import torch.utils.checkpoint as checkpoint
 import numpy as np
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 
-from BiRefNet.config import Config
+from ...config import Config
 
 
 config = Config()

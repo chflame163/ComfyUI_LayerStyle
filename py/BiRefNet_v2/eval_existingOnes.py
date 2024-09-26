@@ -3,8 +3,8 @@ import argparse
 from glob import glob
 import prettytable as pt
 
-from BiRefNet.evaluation.evaluate import evaluator
-from BiRefNet.config import Config
+from .evaluation.evaluate import evaluator
+from .config import Config
 
 
 config = Config()

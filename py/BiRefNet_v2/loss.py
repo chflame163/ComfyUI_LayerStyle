@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from math import exp
 
-from BiRefNet.config import Config
+from .config import Config
 
 
 class Discriminator(nn.Module):

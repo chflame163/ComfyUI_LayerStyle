@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from BiRefNet.models.modules.deform_conv import DeformableConv2d
-from BiRefNet.config import Config
+from ...models.modules.deform_conv import DeformableConv2d
+from ...config import Config
 
 
 config = Config()

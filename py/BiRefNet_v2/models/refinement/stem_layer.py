@@ -1,5 +1,5 @@
 import torch.nn as nn
-from BiRefNet.models.modules.utils import build_act_layer, build_norm_layer
+from ...models.modules.utils import build_act_layer, build_norm_layer
 
 
 class StemLayer(nn.Module):

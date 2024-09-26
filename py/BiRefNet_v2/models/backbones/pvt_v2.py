@@ -7,7 +7,7 @@ from timm.models.registry import register_model
 
 import math
 
-from BiRefNet.config import Config
+from ...config import Config
 
 config = Config()
 

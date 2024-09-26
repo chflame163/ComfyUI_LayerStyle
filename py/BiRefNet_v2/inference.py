@@ -5,10 +5,10 @@ from tqdm import tqdm
 import cv2
 import torch
 
-from BiRefNet.dataset import MyData
-from BiRefNet.models.birefnet import BiRefNet
-from BiRefNet.utils import save_tensor_img, check_state_dict
-from BiRefNet.config import Config
+from .dataset import MyData
+from .models.birefnet import BiRefNet
+from .utils import save_tensor_img, check_state_dict
+from .config import Config
 
 
 config = Config()

@@ -6,11 +6,11 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
 
-from BiRefNet.config import Config
-from BiRefNet.loss import PixLoss, ClsLoss
-from BiRefNet.dataset import MyData
-from BiRefNet.models.birefnet import BiRefNet
-from BiRefNet.utils import Logger, AverageMeter, set_seed, check_state_dict
+from .config import Config
+from .loss import PixLoss, ClsLoss
+from .dataset import MyData
+from .models.birefnet import BiRefNet
+from .utils import Logger, AverageMeter, set_seed, check_state_dict
 
 from torch.utils.data.distributed import DistributedSampler
 from torch.nn.parallel import DistributedDataParallel as DDP
