@@ -1,5 +1,42 @@
 from .imagefunc import log
 
+class LS_UserPromptGenerator_Txt2ImgPromptWithReference:
+
+    def __init__(self):
+        self.NODE_NAME = 'UserPromptGenerator-Txt2ImgPromptWithReference'
+
+    @classmethod
+    def INPUT_TYPES(self):
+        template_list = ['SD txt2img prompt',]
+        return {
+            "required": {
+                "template": (template_list,),
+                "reference_text": ("STRING", {"multiline": False,"forceInput":True}),
+                "describe": ("STRING", {"default": "1 girl","multiline": True}),
+                "limit_words": ("INT", {"default": 200, "min": 2, "max": 999, "step": 1}),
+            },
+            "optional": {
+            }
+        }
+
+    RETURN_TYPES = ("STRING", )
+    RETURN_NAMES = ("user_prompt", )
+    FUNCTION = 'user_prompt_generator_txt2img_prompt_with_reference'
+    CATEGORY = '😺dzNodes/LayerUtility/Prompt'
+
+    def user_prompt_generator_txt2img_prompt_with_reference(self, template, reference_text, describe, limit_words):
+
+        if template == 'SD txt2img prompt':
+            prompt = (f'The REFERENCE TEXT is "{reference_text}".\r\n'
+                      f"You are creating a prompt for Stable Diffusion to generate an image.\r\n"
+                      f"Using '{describe}' as the basic content and depicting it as main subject, refer to the visual style described in the REFERENCE TEXT, polish and embellish it to describe into text.\r\n"
+                      f"The word limit for the answer is between {int(limit_words * 0.7)} - {int(limit_words * 1.1)} words. Not too little, nor too much.\r\n"
+                      f"Only output the prompt itself, don't output any unnecessary content like word count info.")
+
+        log(f'{self.NODE_NAME} Processed. result is \r\n"{prompt}".')
+        return (prompt,)
+
+
 class LS_UserPromptGenerator_Txt2ImgPrompt:
 
     def __init__(self):
@@ -73,10 +110,12 @@ class LS_UserPromptGenerator_ReplaceWord:
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: UserPromptGeneratorTxt2ImgPrompt": LS_UserPromptGenerator_Txt2ImgPrompt,
+    "LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference": LS_UserPromptGenerator_Txt2ImgPromptWithReference,
     "LayerUtility: UserPromptGeneratorReplaceWord": LS_UserPromptGenerator_ReplaceWord
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "LayerUtility: UserPromptGeneratorTxt2ImgPrompt": "LayerUtility: UserPrompt Generator Txt2Img",
+    "LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference": "LayerUtility: UserPrompt Generator Txt2Img with Reference",
     "LayerUtility: UserPromptGeneratorReplaceWord": "LayerUtility: UserPrompt Generator Replace Word"
 }

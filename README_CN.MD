@@ -116,6 +116,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) 节点。 
 * 添加 [GrayValue](#GrayValue) 节点，输出RGB色值对应的灰度值。
 * [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) 等节点支持在 ```resource_dir.ini``` 中定义多个文件夹，之间用逗号，分号或者空格分隔。同时支持刷新实时更新。
 * 添加 [HumanPartsUltra](#HumanPartsUltra) 节点，用于人物肢体分割。本节点是基于[metal3d/ComfyUI_Human_Parts](https://github.com/metal3d/ComfyUI_Human_Parts) 的重新封装，感谢原作者。
@@ -804,6 +805,18 @@ ImageScaleByAspectRatio的V2升级版
 * template: 提示词模板。目前仅有“SD txt2img prompt”可用。
 * describe: 提示词描述。在这里输入简单的描述。
 * limit_word: 输出的提示词最大长度限制。例如200即表示输出文本将被限制在200个词以内。
+
+### <a id="table1">UserPromptGeneratorTxtImgWithReference</a>
+用于参考输入的内容生成SD文本到图片提示词的UserPrompt预设。
+
+节点选项说明:   
+![image](image/userprompt_generator_txt2img_with_reference_node.jpg)
+
+* reference_text: 参考文本输入。通常是图片的风格描述。
+* template: 提示词模板。目前仅有“SD txt2img prompt”可用。
+* describe: 提示词描述。在这里输入简单的描述。
+* limit_word: 输出的提示词最大长度限制。例如200即表示输出文本将被限制在200个词以内。
+
 
 ### <a id="table1">UserPromptGeneratorReplaceWord</a>
 用于将文本中的某个关键词替换为不同内容的UserPrompt预设。这不仅是简单的替换，还可以根据提示词上下文进行文字逻辑梳理以达到输出内容的合理性。

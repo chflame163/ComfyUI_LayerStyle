@@ -116,6 +116,7 @@ When this error has occurred, please check the network environment.
 ## Update
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) node.
 * Commit [GrayValue](#GrayValue) node, output the grayscale values corresponding to the RGB color values.
 * [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) nodes to support defining multiple folders in ```resource-dir.ini```, separated by commas, semicolons, or spaces. Simultaneously supports refreshing real-time updates.
 * [LUT Apply](#LUT), [TextImageV2](#TextImageV2), [TextImage](#TextImage), [SimpleTextImage](#SimpleTextImage) nodes support defining multi directory fonts and lut folders, and support refreshing and real-time updates.
@@ -815,6 +816,19 @@ Node options:
 * template: Prompt word template. Currently, only the 'SD txt2img prompt' is available.
 * describe: Prompt word description. Enter a simple description here.
 * limit_word: Maximum length limit for output prompt words. For example, 200 means that the output text will be limited to 200 words.
+
+
+### <a id="table1">UserPromptGeneratorTxtImgWithReference</a>
+UserCompt preset for generating SD text to image prompt words based on input content.
+
+Node options:     
+![image](image/userprompt_generator_txt2img_with_reference_node.jpg)
+
+* reference_text: Reference text input. Usually it is a style description of the image.
+* template: Prompt word template. Currently, only the 'SD txt2img prompt' is available.
+* describe: Prompt word description. Enter a simple description here.
+* limit_word: Maximum length limit for output prompt words. For example, 200 means that the output text will be limited to 200 words.
+
 
 ### <a id="table1">UserPromptGeneratorReplaceWord</a>
 UserPrompt preset used to replace a keyword in text with different content. This is not only a simple replacement, but also a logical sorting of the text based on the context of the prompt words to achieve the rationality of the output content.

@@ -1,2 +1,2 @@
-FONT_dir=C:\font,C:\another\font
-LUT_dir=C:\lut,C:\another\lut
+FONT_dir=C:\font,D:\other_font
+LUT_dir=C:\lut,D:\other_lut
