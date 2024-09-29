@@ -19,13 +19,13 @@ class ImageScaleByAspectRatioV2:
         return {
             "required": {
                 "aspect_ratio": (ratio_list,),
-                "proportional_width": ("INT", {"default": 1, "min": 1, "max": 999, "step": 1}),
-                "proportional_height": ("INT", {"default": 1, "min": 1, "max": 999, "step": 1}),
+                "proportional_width": ("INT", {"default": 1, "min": 1, "max": 1e8, "step": 1}),
+                "proportional_height": ("INT", {"default": 1, "min": 1, "max": 1e8, "step": 1}),
                 "fit": (fit_mode,),
                 "method": (method_mode,),
                 "round_to_multiple": (multiple_list,),
                 "scale_to_side": (scale_to_list,),  # 是否按长边缩放
-                "scale_to_length": ("INT", {"default": 1024, "min": 4, "max": 999999, "step": 1}),
+                "scale_to_length": ("INT", {"default": 1024, "min": 4, "max": 1e8, "step": 1}),
                 "background_color": ("STRING", {"default": "#000000"}),  # 背景颜色
             },
             "optional": {
