@@ -116,6 +116,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [TextJoinV2](#TextJoinV2) 节点，在TextJion基础上增加分隔符选项。
 * 添加 [GaussianBlurV2](#GaussianBlurV2) 节点，参数精度提升到0.01。
 * 添加 [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) 节点。 
 * 添加 [GrayValue](#GrayValue) 节点，输出RGB色值对应的灰度值。
@@ -1406,6 +1407,9 @@ box_preview: 裁切位置预览。
 ![image](image/text_join_example.jpg)    
 将多段文字组合为一段。
 
+### <a id="table1">TextJoinV2</a>
+![image](image/text_join_v2_node.jpg)    
+在[TextJoin](#TextJoin) 的基础上增加了分隔符选项。
 
 ### <a id="table1">PrintInfo</a>
 ![image](image/print_info_node.jpg)    

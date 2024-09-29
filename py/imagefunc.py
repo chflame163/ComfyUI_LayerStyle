@@ -2241,7 +2241,7 @@ def file_is_extension(filename:str, ext_list:tuple) -> bool:
     return False
 
 # 遍历目录下包括子目录指定后缀文件，返回字典
-def collect_files(default_dir:str, root_dir:str, suffixes:tuple):
+def collect_files(root_dir:str, suffixes:tuple, default_dir:str=""):
     result = {}
     for dirpath, _, filenames in os.walk(root_dir):
         for file in filenames:
@@ -2285,12 +2285,12 @@ def get_resource_dir() -> list:
 
     LUT_DICT = {}
     for dir in default_lut_dir:
-        LUT_DICT.update(collect_files(default_lut_dir[0], dir, ('.cube'))) # 后缀要小写
+        LUT_DICT.update(collect_files(root_dir=dir, suffixes= ('.cube'), default_dir=default_lut_dir[0] )) # 后缀要小写
     LUT_LIST = list(LUT_DICT.keys())
 
     FONT_DICT = {}
     for dir in default_font_dir:
-        FONT_DICT.update(collect_files(default_font_dir[0], dir, ('.ttf', '.otf'))) # 后缀要小写
+        FONT_DICT.update(collect_files(root_dir=dir, suffixes=('.ttf', '.otf'), default_dir=default_font_dir[0])) # 后缀要小写
     FONT_LIST = list(FONT_DICT.keys())
 
     return (LUT_DICT, FONT_DICT)
@@ -2361,6 +2361,34 @@ def draw_bounding_boxes(image: Image, bboxes: list, color: str = "#FF0000", line
             draw.text((xmin, ymin - font_size*1.2), str(index), font=font, fill=random_color)
 
     return image
+
+def draw_bbox(image: Image, bbox: tuple, color: str = "#FF0000", line_width: int = 5, title: str = "", font_size: int = 10) -> Image:
+    """
+    Draw bounding boxes on the image using the coordinates provided in the bboxes dictionary.
+    """
+
+    (_, FONT_DICT) = get_resource_dir()
+
+    font = ImageFont.truetype(list(FONT_DICT.items())[0][1], font_size)
+
+    draw = ImageDraw.Draw(image)
+    width, height = image.size
+    if line_width < 0:  # auto line width
+        line_width = (image.width + image.height) // 1000
+
+    random_color = generate_random_color()
+    if color != "random":
+        random_color = color
+    xmin = min(bbox[0], bbox[2])
+    xmax = max(bbox[0], bbox[2])
+    ymin = min(bbox[1], bbox[3])
+    ymax = max(bbox[1], bbox[3])
+    draw.rectangle([xmin, ymin, xmax, ymax], outline=random_color, width=line_width)
+    if title != "":
+        draw.text((xmin, ymin - font_size*1.2), title, font=font, fill=random_color)
+
+    return image
+
 
 
 '''Constant'''

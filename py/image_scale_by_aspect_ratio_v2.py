@@ -63,7 +63,6 @@ class ImageScaleByAspectRatioV2:
                 mask = torch.unsqueeze(mask, 0)
             for m in mask:
                 m = torch.unsqueeze(m, 0)
-                print(f"m.shape={m.shape}")
                 if not is_valid_mask(m) and m.shape==torch.Size([1,64,64]):
                     log(f"Warning: {NODE_NAME} input mask is empty, ignore it.", message_type='warning')
                 else:
