@@ -52,13 +52,36 @@ def load_model(version):
             model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
             processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
     except Exception as e:
-        log(f"Error loading model {version}: {str(e)}")
-        log("Attempting to load tokenizer instead of processor...")
         try:
             model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
             processor = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         except Exception as e:
-            log(f"Error loading model or tokenizer: {str(e)}")
+            sys.path.append(model_path)
+            # Import the Florence modules
+            if version == 'large-PromptGen-v1.5':
+                from florence2_large.modeling_florence2 import Florence2ForConditionalGeneration
+                from florence2_large.configuration_florence2 import Florence2Config
+            elif version == 'base-PromptGen-v1.5':
+                from florence2_base_ft.modeling_florence2 import Florence2ForConditionalGeneration
+                from florence2_base_ft.configuration_florence2 import Florence2Config
+            else:
+                log(f"Error loading model or tokenizer: {str(e)}", message_type='error')
+                return (None, None)
+
+            attention = 'sdpa'
+            # Load the model configuration
+            model_config = Florence2Config.from_pretrained(model_path)
+            # Load the model
+            with patch("transformers.dynamic_module_utils.get_imports", fixed_get_imports):
+                model = Florence2ForConditionalGeneration.from_pretrained(
+                    model_path,
+                    config=model_config,
+                    attn_implementation=attention,
+                    device_map=device
+                ).to(device)
+
+            processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
+
 
     return (model.to(device), processor)
 
