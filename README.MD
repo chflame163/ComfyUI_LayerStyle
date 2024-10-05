@@ -62,7 +62,8 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 
 ### Download Model Files
 
-From [BaiduNetdisk](https://pan.baidu.com/s/1T_uXMX3OKIWOJLPuLijrgA?pwd=1yye) download all files and copy them to ```ComfyUI\models``` folder. This link provides all the model files required for this plugin.
+Chinese domestic users from  [BaiduNetdisk](https://pan.baidu.com/s/1T_uXMX3OKIWOJLPuLijrgA?pwd=1yye)  and other users from [huggingface.co/chflame163/ComfyUI_LayerStyle](https://huggingface.co/chflame163/ComfyUI_LayerStyle/tree/main)  
+download all files and copy them to ```ComfyUI\models``` folder. This link provides all the model files required for this plugin.
 Or download the model file according to the instructions of each node.
 
 ## Common Issues
