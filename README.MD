@@ -136,6 +136,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [RandomGeneratorV2](#RandomGeneratorV2) node, add least random range and seed options.
 * Commit [TextJoinV2](#TextJoinV2) node, add delimiter options on top of TextJion.
 * Commit [GaussianBlurV2](#GaussianBlurV2) node, The parameter accuracy has been improved to 0.01.
 * Commit [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) node.
@@ -1633,6 +1634,25 @@ Outputs:
 int: Integer random number.
 float: Float random number.
 bool: Boolean random number.
+
+### <a id="table1">RandomGeneratorV2</a>
+On the based of [RandomGenerator](#RandomGenerator), add  the least random range and seed options.
+
+Node Options:
+![image](image/random_generator_v2_node.jpg)  
+* image: Optional input, generate a list of random numbers that match the quantity in batches according to the image.
+* min_value: Minimum value. Random numbers will randomly take values from the minimum to the maximum.
+* max_value: Maximum value. Random numbers will randomly take values from the minimum to the maximum.
+* least: Minimum random range. Random numbers will randomly at least take this value.
+* float_decimal_places: Precision of float value.
+* seed: The seed of random number.
+* control_after_generate: Seed change options. If this option is fixed, the generated random number will always be the same.
+
+Outputs:
+int: Integer random number.
+float: Float random number.
+bool: Boolean random number.
+
 
 ### <a id="table1">NumberCalculator</a>
 

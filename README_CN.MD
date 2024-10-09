@@ -117,6 +117,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [RandomGeneratorV2](#RandomGeneratorV2) 节点，增加最小随机范围和种子选项。 
 * 添加 [TextJoinV2](#TextJoinV2) 节点，在TextJion基础上增加分隔符选项。
 * 添加 [GaussianBlurV2](#GaussianBlurV2) 节点，参数精度提升到0.01。
 * 添加 [UserPromptGeneratorTxtImgWithReference](#UserPromptGeneratorTxtImgWithReference) 节点。 
@@ -1449,6 +1450,24 @@ box_preview: 裁切位置预览。
 * max_value：最大值。随机数将从最小值到最大值之间随机取值。
 * float_decimal_places：浮点数精度。
 * fix_seed:是否固定随机数种子。如果此选项固定，生成的随机数将始终相同。
+
+输出:
+int: 整数随机数。
+float: 浮点数随机数。
+bool: 布尔随机数。
+
+### <a id="table1">RandomGeneratorV2</a>
+在[RandomGenerator](#RandomGenerator) 的基础上，增加了最小随机范围选项，以及seed选项。
+
+节点选项说明:
+![image](image/random_generator_v2_node.jpg)  
+* image: 可选输入，按照图片批量生成数量相符的随机数列表。
+* min_value：最小值。随机数将从最小值到最大值之间随机取值。
+* max_value：最大值。随机数将从最小值到最大值之间随机取值。
+* least: 最小随机范围。随机数将至少取到该值。
+* float_decimal_places：浮点数精度。
+* seed: 随机数种子。
+* control_after_generate: 种子值变化选项。如果此选项固定，生成的随机数将始终相同。
 
 输出:
 int: 整数随机数。

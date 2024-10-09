@@ -31,15 +31,18 @@ def fixed_get_imports(filename) -> list[str]:
     if os.path.basename(filename) != "modeling_florence2.py":
         return get_imports(filename)
     imports = get_imports(filename)
-    imports.remove("flash_attn")
+    try:
+        imports.remove("flash_attn")
+    except:
+        pass
     return imports
 
 def load_model(version):
     florence_path = os.path.join(folder_paths.models_dir, "florence2")
     os.makedirs(florence_path, exist_ok=True)
 
-
     model_path = os.path.join(florence_path, version)
+    attention = 'sdpa'
 
     if not os.path.exists(model_path):
         log(f"Downloading Florence2 {version} model...")
@@ -49,11 +52,14 @@ def load_model(version):
 
     try:
         with patch("transformers.dynamic_module_utils.get_imports", fixed_get_imports):
-            model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
+            # model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
+            model = AutoModelForCausalLM.from_pretrained(model_path, attn_implementation=attention, device_map=device,
+                                                         torch_dtype=torch.float32, trust_remote_code=True)
             processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
     except Exception as e:
         try:
-            model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
+            model = AutoModelForCausalLM.from_pretrained(model_path, attn_implementation=attention, device_map=device,
+                                                         torch_dtype=torch.float32, trust_remote_code=True)
             processor = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         except Exception as e:
             sys.path.append(model_path)
@@ -68,7 +74,6 @@ def load_model(version):
                 log(f"Error loading model or tokenizer: {str(e)}", message_type='error')
                 return (None, None)
 
-            attention = 'sdpa'
             # Load the model configuration
             model_config = Florence2Config.from_pretrained(model_path)
             # Load the model
@@ -82,9 +87,7 @@ def load_model(version):
 
             processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
 
-
     return (model.to(device), processor)
-
 
 def fig_to_pil(fig):
     buf = io.BytesIO()
