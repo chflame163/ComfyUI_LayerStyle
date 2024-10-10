@@ -136,6 +136,16 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [JoyCaption2](#JoyCaption2) and [JoyCaption2ExtraOptions](#JoyCaption2ExtraOptions) nodes. New dependency packages need to be installed and the ```transformers``` need upgraded to 4.45.0 or higher.
+Use the JoyCaption-alpha-two model for local inference. Can be used to generate prompt words. this node is https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod Implementation in ComfyUI, thank you to the original author.
+Download models form [BaiduNetdisk](https://pan.baidu.com/s/1dOjbUEacUOhzFitAQ3uIeQ?pwd=4ypv) and [BaiduNetdisk](https://pan.baidu.com/s/1mH1SuW45Dy6Wga7aws5siQ?pwd=w6h5) , 
+or [huggingface/Orenguteng](https://huggingface.co/Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2/tree/main) and [huggingface/unsloth](https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct/tree/main) , then copy to ```ComfyUI/models/LLM```,
+Download models from [BaiduNetdisk](https://pan.baidu.com/s/1pkVymOsDcXqL7IdQJ6lMVw?pwd=v8wp) or [huggingface/google](https://huggingface.co/google/siglip-so400m-patch14-384/tree/main) , and copy to ```ComfyUI/models/clip```,
+Donwload the ```cgrkzexw-599808``` folder from [BaiduNetdisk](https://pan.baidu.com/s/12TDwZAeI68hWT6MgRrrK7Q?pwd=d7dh) or [huggingface/John6666](https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod/tree/main) , and copy to ```ComfyUI/models/Joy_caption```。
+
+* Commit [LlamaVision](#LlamaVision) node, Use the Llama 3.2 vision model for local inference. Can be used to generate prompt words. part of the code for this node comes from [ComfyUI-PixtralLlamaMolmoVision](https://github.com/SeanScripts/ComfyUI-PixtralLlamaMolmoVision), thank you to the original author.
+Download models from [BaiduNetdisk](https://pan.baidu.com/s/18oHnTrkNMiwKLMcUVrfFjA?pwd=4g81) or [huggingface/SeanScripts](https://huggingface.co/SeanScripts/Llama-3.2-11B-Vision-Instruct-nf4/tree/main) , and copy to ```ComfyUI/models/LLM```.
+
 * Commit [RandomGeneratorV2](#RandomGeneratorV2) node, add least random range and seed options.
 * Commit [TextJoinV2](#TextJoinV2) node, add delimiter options on top of TextJion.
 * Commit [GaussianBlurV2](#GaussianBlurV2) node, The parameter accuracy has been improved to 0.01.
@@ -874,6 +884,80 @@ Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-
 Node Options:   
 
 * question: Prompt of UForm-Gen-QWen model.
+
+
+### <a id="table1">LlamaVision</a>
+Use the Llama 3.2 vision model for local inference. Can be used to generate prompt words. part of the code for this node comes from [ComfyUI-PixtralLlamaMolmoVision](https://github.com/SeanScripts/ComfyUI-PixtralLlamaMolmoVision), thank you to the original author.
+Download models from [BaiduNetdisk](https://pan.baidu.com/s/18oHnTrkNMiwKLMcUVrfFjA?pwd=4g81) or [huggingface/SeanScripts](https://huggingface.co/SeanScripts/Llama-3.2-11B-Vision-Instruct-nf4/tree/main) , and copy to ```ComfyUI/models/LLM```.
+![image](image/llama_vision_example.jpg)    
+
+Node Options:   
+![image](image/llama_vision_node.jpg)    
+
+* image: Image input.
+* model: Currently, only the "Llama-3.2-11B-Vision-Instruct-nf4" is available.
+* system_prompt: System prompt words for LLM model.
+* user_prompt: User prompt words for LLM model.
+* max_new_tokens: max_new_tokens for LLM model.
+* do_sample: do_sample for LLM model.
+* top-p: top_p for LLM model. 
+* top_k: top_k for LLM model.
+* stop_strings: The stop strings.
+* seed: The seed of random number.
+* control_after_generate: Seed change options. If this option is fixed, the generated random number will always be the same.
+* include_prompt_in_output: Does the output contain prompt words.
+* cache_model: Whether to cache the model.
+
+### <a id="table1">JoyCaption2</a>
+Use the JoyCaption-alpha-two model for local inference. Can be used to generate prompt words. this node is https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod Implementation in ComfyUI, thank you to the original author.
+Download models form [BaiduNetdisk](https://pan.baidu.com/s/1dOjbUEacUOhzFitAQ3uIeQ?pwd=4ypv) and [BaiduNetdisk](https://pan.baidu.com/s/1mH1SuW45Dy6Wga7aws5siQ?pwd=w6h5) , 
+or [huggingface/Orenguteng](https://huggingface.co/Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2/tree/main) and [huggingface/unsloth](https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct/tree/main) , then copy to ```ComfyUI/models/LLM```,
+Download models from [BaiduNetdisk](https://pan.baidu.com/s/1pkVymOsDcXqL7IdQJ6lMVw?pwd=v8wp) or [huggingface/google](https://huggingface.co/google/siglip-so400m-patch14-384/tree/main) , and copy to ```ComfyUI/models/clip```,
+Donwload the ```cgrkzexw-599808``` folder from [BaiduNetdisk](https://pan.baidu.com/s/12TDwZAeI68hWT6MgRrrK7Q?pwd=d7dh) or [huggingface/John6666](https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod/tree/main) , and copy to ```ComfyUI/models/Joy_caption```。
+![image](image/joycaption2_example.jpg)    
+
+Node Options:   
+![image](image/joycaption2_node.jpg)    
+
+* image: Image input.
+* extra_options: Input the extra_options.
+* llm_model: There are two LLM models to choose, Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2 and unsloth/Meta-Llama-3.1-8B-Instruct.
+* device: Model loading device. Currently, only CUDA is supported.
+* dtype: Model precision, nf4 and bf16.
+* vlm_lora: Whether to load text_madel.
+* caption_type: Caption type options, including: "Descriptive", "Descriptive (Informal)", "Training Prompt", "MidJourney", "Booru tag list", "Booru-like tag list", "Art Critic", "Product Listing", "Social Media Post".
+* caption_length: The length of caption.
+* user_prompt: User prompt words for LLM model. If there is content here, it will overwrite all the settings for caption_type and extra_options.
+* max_new_tokens: The max_new_token parameter of LLM.
+* do_sample: The do_sample parameter of LLM.
+* top-p: The top_p parameter of LLM.
+* temperature: The temperature parameter of LLM.
+* cache_model: Whether to cache the model.
+
+### <a id="table1">JoyCaption2ExtraOptions</a>
+The extra_options parameter node of JoyCaption2.
+
+Node Options:   
+![image](image/joycaption2_extra_options_node.jpg)    
+
+* refer_character_name: If there is a person/character in the image you must refer to them as {name}.
+* exclude_people_info: Do NOT include information about people/characters that cannot be changed (like ethnicity, gender, etc), but do still include changeable attributes (like hair style).
+* include_lighting: Include information about lighting.
+* include_camera_angle: Include information about camera angle.
+* include_watermark: Include information about whether there is a watermark or not.
+* include_JPEG_artifacts: Include information about whether there are JPEG artifacts or not.
+* include_exif: If it is a photo you MUST include information about what camera was likely used and details such as aperture, shutter speed, ISO, etc.
+* exclude_sexual: Do NOT include anything sexual; keep it PG.
+* exclude_image_resolution: Do NOT mention the image's resolution.
+* include_aesthetic_quality: You MUST include information about the subjective aesthetic quality of the image from low to very high.
+* include_composition_style: Include information on the image's composition style, such as leading lines, rule of thirds, or symmetry.
+* exclude_text: Do NOT mention any text that is in the image.
+* specify_depth_field: Specify the depth of field and whether the background is in focus or blurred.
+* specify_lighting_sources: If applicable, mention the likely use of artificial or natural lighting sources.
+* do_not_use_ambiguous_language: Do NOT use any ambiguous language.
+* include_nsfw: Include whether the image is sfw, suggestive, or nsfw.
+* only_describe_most_important_elements: ONLY describe the most important elements of the image.
+* character_name: Person/Character Name, if choice ```refer_character_name```.
 
 ### <a id="table1">PhiPrompt</a>
 

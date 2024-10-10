@@ -1,0 +1,228 @@
+{
+  "last_node_id": 16,
+  "last_link_id": 26,
+  "nodes": [
+    {
+      "id": 15,
+      "type": "ShowText|pysssss",
+      "pos": {
+        "0": 1343,
+        "1": 475
+      },
+      "size": {
+        "0": 505.7555847167969,
+        "1": 384.9247131347656
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 26,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "Huluwa, a young girl with a radiant smile, sits atop a vibrant green Tyrannosaurus Rex, surrounded by the lush foliage of a dense jungle. The warm, golden light of the early morning sun filters through the canopy above, casting dappled shadows on the forest floor. In this idyllic scene, Huluwa appears carefree, her eyes shining with excitement as she gazes out at the camera.\n\nThe camera, positioned at a slight angle, captures the dynamic interaction between Huluwa and the T-Rex, emphasizing their symbiotic relationship. The composition of the image is guided by the rule of thirds, with the T-Rex's massive head positioned along the top third line, and Huluwa situated along the bottom third line, creating a sense of balance and harmony.\n\nAs the camera pans across the jungle, the viewer's attention is drawn to the intricate details of the foliage, from the delicate fronds of the tropical plants to the towering trunks of the ancient trees. The use of leading lines, in the form of the winding jungle path, adds depth and visual interest to the image, drawing the viewer's eye into the heart of the jungle.\n\nIn this captivating scene, Huluwa's bright orange t-shirt and blue shorts provide a pop of color against the lush greenery, while the T-Rex's vibrant green and orange scales seem to come alive in the soft, diffused light. The overall effect is one of enchantment and wonder, as if the"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": {
+        "0": 141,
+        "1": 461
+      },
+      "size": {
+        "0": 633.7820434570312,
+        "1": 491.7446594238281
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            24
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "girl_dino_1024.png",
+        "image"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LayerUtility: JoyCaption2ExtraOptions",
+      "pos": {
+        "0": 844,
+        "1": 868
+      },
+      "size": {
+        "0": 426.57257080078125,
+        "1": 466
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "extra_option",
+          "type": "JoyCaption2ExtraOption",
+          "links": [
+            25
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: JoyCaption2ExtraOptions"
+      },
+      "widgets_values": [
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        "Huluwa"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 16,
+      "type": "LayerUtility: JoyCaption2",
+      "pos": {
+        "0": 850,
+        "1": 459
+      },
+      "size": [
+        407.4161570409117,
+        333.63231036410366
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 24
+        },
+        {
+          "name": "extra_options",
+          "type": "JoyCaption2ExtraOption",
+          "link": 25
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            26
+          ],
+          "shape": 6,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: JoyCaption2"
+      },
+      "widgets_values": [
+        "Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2",
+        "cuda",
+        "nf4",
+        "text_model",
+        "Descriptive",
+        "any",
+        "",
+        300,
+        0.9,
+        0.6,
+        false
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    }
+  ],
+  "links": [
+    [
+      24,
+      3,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      25,
+      13,
+      0,
+      16,
+      1,
+      "JoyCaption2ExtraOption"
+    ],
+    [
+      26,
+      16,
+      0,
+      15,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.683013455365071,
+      "offset": [
+        117.4235173548397,
+        -35.459722936583276
+      ]
+    }
+  },
+  "version": 0.4
+}

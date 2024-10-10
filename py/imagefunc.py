@@ -34,7 +34,6 @@ from transformers import AutoModel, AutoProcessor, StoppingCriteria, StoppingCri
 from colorsys import rgb_to_hsv
 import folder_paths
 import comfy.model_management
-from .filmgrainer import processing as processing_utils
 from .blendmodes import *
 
 def log(message:str, message_type:str='info'):
@@ -511,6 +510,7 @@ def filmgrain_image(image:Image, scale:float, grain_power:float,
     return tensor2pil(torch.from_numpy(grain_image).unsqueeze(0))
 
 def __apply_radialblur(image, blur_strength, radial_mask, focus_spread, steps):
+    from .filmgrainer import processing as processing_utils
     needs_normalization = image.max() > 1
     if needs_normalization:
         image = image.astype(np.float32) / 255
@@ -546,6 +546,7 @@ def radialblur_image(image:Image, blur_strength:float, center_x:float, center_y:
     return tensor2pil(torch.from_numpy(blur_image).unsqueeze(0))
 
 def __apply_depthblur(image, depth_map, blur_strength, focal_depth, focus_spread, steps):
+    from .filmgrainer import processing as processing_utils
     # Normalize the input image if needed
     needs_normalization = image.max() > 1
     if needs_normalization:
@@ -1342,7 +1343,7 @@ def add_invisibal_watermark(image:Image, watermark_image:Image) -> Image:
         os.makedirs(wm_dir)
         os.makedirs(result_dir)
     except Exception as e:
-        print(e)
+        # print(e)
         log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='error')
         return (image,)
 
@@ -1356,7 +1357,7 @@ def add_invisibal_watermark(image:Image, watermark_image:Image) -> Image:
         image.save(os.path.join(image_dir, image_file_name))
         watermark_image.save(os.path.join(wm_dir, wm_file_name))
     except IOError as e:
-        print(e)
+        # print(e)
         log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
         return (image,)
 
@@ -1380,7 +1381,7 @@ def decode_watermark(image:Image, watermark_image_size:int=94) -> Image:
         os.makedirs(image_dir)
         os.makedirs(result_dir)
     except Exception as e:
-        print(e)
+        # print(e)
         log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.", message_type='error')
         return (image,)
 
@@ -1390,7 +1391,7 @@ def decode_watermark(image:Image, watermark_image_size:int=94) -> Image:
     try:
         image.save(os.path.join(image_dir, image_file_name))
     except IOError as e:
-        print(e)
+        # print(e)
         log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='error')
         return (image,)
 
@@ -1620,7 +1621,7 @@ def get_a_person_mask_generator_model_path() -> str:
     if not os.path.exists(model_file_path):
         import wget
         model_url = f'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/{model_name}'
-        print(f"Downloading '{model_name}' model")
+        log(f"Downloading '{model_name}' model")
         os.makedirs(model_file_path, exist_ok=True)
         wget.download(model_url, model_file_path)
     return model_file_path
@@ -1989,7 +1990,7 @@ def check_image_file(file_name:str, interval:int) -> object:
                 image.close()
                 return ret_image
             except Exception as e:
-                print(e)
+                log(e)
                 return None
             break
         time.sleep(interval / 1000)
@@ -2099,7 +2100,6 @@ class UformGen2QwenChat:
         #                                     local_files_only=False,  # Set to False to allow downloading if not available locally
         #                                     local_dir_use_symlinks="auto") # or set to True/False based on your symlink preference
         self.model_path = files_for_uform_gen2_qwen
-        print("Model path:", self.model_path)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True).to(self.device)
         self.processor = AutoProcessor.from_pretrained(self.model_path, trust_remote_code=True)
@@ -2167,6 +2167,15 @@ class AnyType(str):
 
 
 '''Load File'''
+
+def download_hg_model(model_id:str,exDir:str='') -> str:
+    # 下载本地
+    model_checkpoint = os.path.join(folder_paths.models_dir, exDir, os.path.basename(model_id))
+    if not os.path.exists(model_checkpoint):
+        from huggingface_hub import snapshot_download
+        snapshot_download(repo_id=model_id, local_dir=model_checkpoint, local_dir_use_symlinks=False)
+    return model_checkpoint
+
 
 def get_files(model_path: str, file_ext_list:list) -> dict:
     file_list = []

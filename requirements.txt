@@ -22,7 +22,6 @@ google-generativeai
 diffusers
 omegaconf
 tqdm
-transformers>=4.43.3
 kornia
 ultralytics>=8.2.0
 blend_modes
@@ -30,13 +29,15 @@ blind-watermark
 qrcode
 pyzbar
 transparent-background
-huggingface_hub>=0.23.3
+huggingface_hub>=0.23.4
 accelerate
 onnxruntime
-bitsandbytes>=0.41.1
 torchscale
 wandb
 psd-tools
 hydra-core
 inference-cli>=0.13.0
 inference-gpu[yolo-world]>=0.13.0
+bitsandbytes>=0.41.1
+transformers>=4.45.0
+peft>=0.12.0

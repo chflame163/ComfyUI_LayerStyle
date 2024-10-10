@@ -117,6 +117,13 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [JoyCaption2](#JoyCaption2) 和 [JoyCaption2ExtraOptions](#JoyCaption2ExtraOptions) 节点，使用JoyCaption-alpha-two模型生成提示词。需要安装新的依赖包并且transformers升级到4.45.0以上。
+请从 [百度网盘](https://pan.baidu.com/s/1dOjbUEacUOhzFitAQ3uIeQ?pwd=4ypv) 以及 [百度网盘](https://pan.baidu.com/s/1mH1SuW45Dy6Wga7aws5siQ?pwd=w6h5) ， 
+或者 [huggingface/Orenguteng](https://huggingface.co/Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2/tree/main) 以及 [huggingface/unsloth](https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct/tree/main) 下载整个文件夹，并复制到ComfyUI/models/LLM,
+从 [百度网盘](https://pan.baidu.com/s/1pkVymOsDcXqL7IdQJ6lMVw?pwd=v8wp) 或者 [huggingface/google](https://huggingface.co/google/siglip-so400m-patch14-384/tree/main) 下载整个文件夹，并复制到ComfyUI/models/clip,
+从 [百度网盘](https://pan.baidu.com/s/12TDwZAeI68hWT6MgRrrK7Q?pwd=d7dh) 或者 [huggingface/John6666](https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod/tree/main)下载 ```cgrkzexw-599808``` 文件夹，并复制到ComfyUI/models/Joy_caption。
+* 添加 [LlamaVision](#LlamaVision) 节点，使用Llama 3.2 视觉模型生成提示词。
+请从 [百度网盘](https://pan.baidu.com/s/18oHnTrkNMiwKLMcUVrfFjA?pwd=4g81) 或 [huggingface/SeanScripts](https://huggingface.co/SeanScripts/Llama-3.2-11B-Vision-Instruct-nf4/tree/main)下载整个文件夹，并复制到ComfyUI/models/LLM。
 * 添加 [RandomGeneratorV2](#RandomGeneratorV2) 节点，增加最小随机范围和种子选项。 
 * 添加 [TextJoinV2](#TextJoinV2) 节点，在TextJion基础上增加分隔符选项。
 * 添加 [GaussianBlurV2](#GaussianBlurV2) 节点，参数精度提升到0.01。
@@ -781,6 +788,80 @@ ImageScaleByAspectRatio的V2升级版
 节点选项说明:   
 * question: 对UForm-Gen-QWen模型的提示词。
 
+### <a id="table1">LlamaVision</a>
+使用Llama 3.2 vision 模型进行本地推理。可以用于生成提示词。本节点部分代码来自[ComfyUI-PixtralLlamaMolmoVision](https://github.com/SeanScripts/ComfyUI-PixtralLlamaMolmoVision)，感谢原作者。
+请从 [百度网盘](https://pan.baidu.com/s/18oHnTrkNMiwKLMcUVrfFjA?pwd=4g81) 或 [huggingface/SeanScripts](https://huggingface.co/SeanScripts/Llama-3.2-11B-Vision-Instruct-nf4/tree/main)下载整个文件夹，并复制到ComfyUI/models/LLM。
+
+![image](image/llama_vision_example.jpg)    
+
+节点选项说明:   
+![image](image/llama_vision_node.jpg)    
+
+* image: 图片输入。
+* model: 目前仅有"Llama-3.2-11B-Vision-Instruct-nf4"这一个模型可用。
+* system_prompt: LLM模型的系统提示词。
+* user_prompt: LLM模型的用户提示词。
+* max_new_tokens: LLM的max_new_tokens参数。
+* do_sample: LLM的do_sample参数。
+* top-p: LLM的top_p参数。
+* top_k: LLM的top_k参数。
+* stop_strings: 截止字符串。
+* seed: 随机种子。
+* control_after_generate: 种子变化选项。
+* include_prompt_in_output: 输出是否包含提示词。
+* cache_model: 是否缓存模型。
+
+### <a id="table1">JoyCaption2</a>
+使用JoyCaption-alpha-two模型生成提示词。本节点是 https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod 在ComfyUI中的实现，感谢原作者。
+请从 [百度网盘](https://pan.baidu.com/s/1dOjbUEacUOhzFitAQ3uIeQ?pwd=4ypv) 以及 [百度网盘](https://pan.baidu.com/s/1mH1SuW45Dy6Wga7aws5siQ?pwd=w6h5) ， 
+或者 [huggingface/Orenguteng](https://huggingface.co/Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2/tree/main) 以及 [huggingface/unsloth](https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct/tree/main) 下载整个文件夹，并复制到ComfyUI/models/LLM,
+从 [百度网盘](https://pan.baidu.com/s/1pkVymOsDcXqL7IdQJ6lMVw?pwd=v8wp) 或者 [huggingface/google](https://huggingface.co/google/siglip-so400m-patch14-384/tree/main) 下载整个文件夹，并复制到ComfyUI/models/clip,
+从 [百度网盘](https://pan.baidu.com/s/12TDwZAeI68hWT6MgRrrK7Q?pwd=d7dh) 或者 [huggingface/John6666](https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod/tree/main)下载 ```cgrkzexw-599808``` 文件夹，并复制到ComfyUI/models/Joy_caption。
+![image](image/joycaption2_example.jpg)    
+
+节点选项说明:   
+![image](image/joycaption2_node.jpg)    
+
+* image: 图片输入。
+* extra_options: extra_options参数输入。
+* llm_model: 目前有 Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2 和 unsloth/Meta-Llama-3.1-8B-Instruct 两种LLM模型可选择。
+* device: 模型加载设备。目前仅支持cuda。
+* dtype: 模型加载精度，有nf4 和 bf16 两个选项。
+* vlm_lora: 是否加载text_model。
+* caption_type: caption类型选项, 包括"Descriptive"(正式语气描述), "Descriptive (Informal)"(非正式语气描述), "Training Prompt"(SD训练描述), "MidJourney"(MJ风格描述), "Booru tag list"(标签列表), "Booru-like tag list"(类标签列表), "Art Critic"(艺术评论), "Product Listing"(产品列表), "Social Media Post"(社交媒体风格)。
+* caption_length: 描述长度。
+* user_prompt: LLM模型的用户提示词。如果这里有内容将覆盖caption_type和extra_options的所有设置。
+* max_new_tokens: LLM的max_new_tokens参数。
+* do_sample: LLM的do_sample参数。
+* top-p: LLM的top_p参数。
+* temperature: LLM的temperature参数。
+* cache_model: 是否缓存模型。
+
+### <a id="table1">JoyCaption2ExtraOptions</a>
+JoyCaption2的extra_options参数节点。 
+
+节点选项说明:   
+![image](image/joycaption2_extra_options_node.jpg)    
+
+* refer_character_name: 如果图像中有人物/角色，必须将其称为{name}
+* exclude_people_info: 不要包含有关无法更改的人物/角色的信息（例如种族、性别等），但仍包含可更改的属性（例如发型）。
+* include_lighting: 包括照明信息。
+* include_camera_angle: 包括摄影机角度信息。
+* include_watermark: 包括是否有水印信息。
+* include_JPEG_artifacts: 包括是否存在 JPEG 伪影信息。
+* include_exif: 如果是照片，包含相机的信息以及光圈、快门速度、ISO等信息。
+* exclude_sexual: 不要包含任何与性有关的内容，保持PG。
+* exclude_image_resolution: 不要包含图像分辨率信息。
+* include_aesthetic_quality: 包含图像美学（从低到非常高）信息。
+* include_composition_style: 包括有关图像构图风格的信息，例如引导线、三分法或对称性。
+* exclude_text: 不要包含任何文字信息。
+* specify_depth_field: 包含景深以及背景模糊信息。
+* specify_lighting_sources: 如果可以判别人造或自然光源，则包含在内。
+* do_not_use_ambiguous_language: 不要使用任何含糊不清的言辞。
+* include_nsfw: 包含NSFW或性暗示信息。
+* only_describe_most_important_elements: 只描述最重要的元素。
+* character_name: 如果选择了```refer_character_name```，则使用此处的名字。
+
 ### <a id="table1">PhiPrompt</a>
 使用Micrisoft Phi 3.5文字及视觉模型进行本地推理。可以用于生成提示词，加工提示词或者反推图片的提示词。运行这个模型需要至少16GB的显存。
 请从[百度网盘](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) 或者 [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) 和 [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) 下载全部模型文件并放到 ```ComfyUI\models\LLM``` 文件夹。
@@ -799,6 +880,7 @@ ImageScaleByAspectRatio的V2升级版
 * do_sample: LLM的do_sample参数，默认为True。
 * temperature: LLM的temperature参数，默认为0.5。
 * max_new_tokens: LLM的max_new_tokens参数，默认为512。
+
 
 ### <a id="table1">UserPromptGeneratorTxtImg</a>
 用于生成SD文本到图片提示词的UserPrompt预设。
