@@ -30,7 +30,7 @@ qrcode
 pyzbar
 transparent-background
 huggingface_hub>=0.23.4
-accelerate
+accelerate>=0.26.0
 onnxruntime
 torchscale
 wandb
