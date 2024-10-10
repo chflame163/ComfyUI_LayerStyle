@@ -1,6 +1,6 @@
 # Based on https://github.com/SeanScripts/ComfyUI-PixtralLlamaMolmoVision
 import os
-from transformers import MllamaForConditionalGeneration, AutoProcessor, GenerationConfig, StopStringCriteria, set_seed
+
 import comfy.model_management as mm
 import folder_paths
 
@@ -43,6 +43,8 @@ class LS_LlamaVision:
 
     def llama_vision(self, image, model, system_prompt, user_prompt, max_new_tokens, do_sample, temperature,
                       top_p, top_k, stop_strings, seed, include_prompt_in_output, cache_model,):
+
+        from transformers import MllamaForConditionalGeneration, AutoProcessor, GenerationConfig, StopStringCriteria, set_seed
 
         device = mm.get_torch_device()
         if self.previous_model is not None:

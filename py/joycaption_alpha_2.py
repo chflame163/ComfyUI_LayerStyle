@@ -3,9 +3,7 @@ import sys
 import torch
 import torch.amp.autocast_mode
 from torch import nn
-from transformers import AutoModel, AutoProcessor, AutoTokenizer, PreTrainedTokenizer, PreTrainedTokenizerFast, AutoModelForCausalLM
 from typing import List, Union
-import torchvision.transforms.functional as TVF
 from PIL import Image
 
 import folder_paths
@@ -67,7 +65,8 @@ class ImageAdapter(nn.Module):
         return self.other_tokens(torch.tensor([2], device=self.other_tokens.weight.device)).squeeze(0)
 
 def load_models(model_path, dtype, vlm_lora, device):
-
+    from transformers import AutoModel, AutoProcessor, AutoTokenizer, PreTrainedTokenizer, PreTrainedTokenizerFast, \
+        AutoModelForCausalLM
     from peft import PeftModel
 
     use_lora = True if vlm_lora != "none" else False
@@ -247,6 +246,7 @@ def stream_chat(input_images: List[Image.Image], caption_type: str, caption_leng
 
     # For debugging
     print(f"Prompt: {prompt_str}")
+    import torchvision.transforms.functional as TVF
 
     for i in range(0, len(input_images), batch_size):
         batch = input_images[i:i + batch_size]
