@@ -105,6 +105,16 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ### Requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
 出现这个错误，请检查网络环境。
 
+### UnboundLocalError: local variable 'clip_processor' referenced before assignment
+### UnboundLocalError: local variable 'text_model' referenced before assignment
+如果执行JoyCaption2节点时出现这个报错，同时已确定模型文件已放在正确的目录，请检查```transformers```依赖包版本至少在4.43.2以上。
+如果```transformers```依赖包版本大于等于4.45.0, 并同时有报错信息：
+```
+Error loading models: De️️scriptors cannot be created directly.                                                                                           
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.                                
+......
+```
+请尝试降级```protobuf```依赖包到3.20.3, 或者设置环境变量：```PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python```。
 
 ## 如何找到本节点组
 * 在ComfyUI画布点击右键 - Add Node, 找到 "😺dzNodes"。    

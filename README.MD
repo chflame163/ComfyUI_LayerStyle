@@ -132,6 +132,20 @@ Solution:
 
 When this error has occurred, please check the network environment.
 
+### UnboundLocalError: local variable 'clip_processor' referenced before assignment
+### UnboundLocalError: local variable 'text_model' referenced before assignment
+If this error occurs when executing ```JoyCaption2``` node and it has been confirmed that the model file has been placed in the correct directory, 
+please check the ```transformers``` dependency package version is at least 4.43.2 or higher.
+If ```transformers``` version is higher than or equal to 4.45.0, and also have error message:
+```
+Error loading models: De️️scriptors cannot be created directly.                                                                                           
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.                                
+......
+```
+Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set environment variables: ```PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python```.
+
+
+
 ## Update
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
