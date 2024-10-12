@@ -1,12 +1,6 @@
 from .imagefunc import AnyType
 import random
 
-def generate_unique_seed() -> int:
-    while True:
-        new_number = random.randint(0, 1e14)
-        if new_number not in self.previous_seeds:
-            self.previous_seeds.add(new_number)
-            return new_number
 
 class LSRandomGenerator:
 
@@ -42,7 +36,7 @@ class LSRandomGenerator:
             batch_size = image.shape[0]
         ret_nunbers = []
         for i in range(batch_size):
-            new_seed = generate_unique_seed()
+            new_seed = self.generate_unique_seed()
             if fix_seed:
                 if self.fixed_seed == 0:
                     self.fixed_seed = new_seed
@@ -64,6 +58,14 @@ class LSRandomGenerator:
             return (ret_ints, ret_floats, ret_bools)
         else:
             return (ret_nunbers[0][0], ret_nunbers[0][1], ret_nunbers[0][2])
+
+
+    def generate_unique_seed(self) -> int:
+        while True:
+            new_number = random.randint(0, 1e14)
+            if new_number not in self.previous_seeds:
+                self.previous_seeds.add(new_number)
+                return new_number
 
 class LS_RandomGeneratorV2:
 
