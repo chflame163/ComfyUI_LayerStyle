@@ -1,6 +1,5 @@
 import os
 from typing import Tuple
-import onnxruntime as ort
 import torch
 import numpy as np
 from PIL import Image, ImageEnhance
@@ -71,6 +70,7 @@ class LS_HumanPartsUltra:
         """
         Return a Tensor with the mask of the human parts in the image.
         """
+        import onnxruntime as ort
 
         model = ort.InferenceSession(model_path, providers=['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider'])
         ret_images = []
@@ -115,7 +115,7 @@ class LS_HumanPartsUltra:
         log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
-    def get_mask(self, pil_image:Image, model:ort.InferenceSession, rotation:float, **kwargs) -> tuple:
+    def get_mask(self, pil_image:Image, model, rotation:float, **kwargs) -> tuple:
         """
         Return a Tensor with the mask of the human parts in the image.
 

@@ -1,6 +1,5 @@
 # Based on https://github.com/SeanScripts/ComfyUI-PixtralLlamaMolmoVision
 import os
-
 import comfy.model_management as mm
 import folder_paths
 

@@ -1,3 +1,5 @@
+# Based on https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod
+
 import os
 import sys
 import torch
@@ -8,6 +10,14 @@ from PIL import Image
 
 import folder_paths
 from .imagefunc import download_hg_model, log, tensor2pil, clear_memory
+
+class Joy2_Model():
+    def __init__(self, clip_processor, clip_model, tokenizer, text_model, image_adapter):
+        self.clip_processor = clip_processor
+        self.clip_model = clip_model
+        self.tokenizer =  tokenizer
+        self.text_model = text_model
+        self.image_adapter = image_adapter
 
 class ImageAdapter(nn.Module):
     def __init__(self, input_features: int, output_features: int, ln1: bool, pos_emb: bool, num_image_tokens: int,
@@ -113,7 +123,7 @@ def load_models(model_path, dtype, vlm_lora, device):
             image_adapter = ImageAdapter(clip_model.config.hidden_size, text_model.config.hidden_size, False, False, 38,
                                          False).eval().to("cpu")
             image_adapter.load_state_dict(
-                torch.load(os.path.join(CHECKPOINT_PATH, "image_adapter.pt"), map_location="cpu", weights_only=False))
+                torch.load(os.path.join(CHECKPOINT_PATH, "image_adapter.pt"), map_location=device, weights_only=False))
             image_adapter.eval().to(device)
         else: # bf16
             print("Loading in bfloat16")
@@ -154,12 +164,13 @@ def load_models(model_path, dtype, vlm_lora, device):
         print(f"Error loading models: {e}")
     finally:
         clear_memory()
-    return clip_processor, clip_model, tokenizer, text_model, image_adapter
+
+    return Joy2_Model(clip_processor, clip_model, tokenizer, text_model, image_adapter)
 
 @torch.inference_mode()
 def stream_chat(input_images: List[Image.Image], caption_type: str, caption_length: Union[str, int],
                 extra_options: list[str], name_input: str, custom_prompt: str,
-                max_new_tokens: int, top_p: float, temperature: float, batch_size: int, models: tuple, device=str):
+                max_new_tokens: int, top_p: float, temperature: float, batch_size: int, model:Joy2_Model, device=str):
 
     CAPTION_TYPE_MAP = {
         "Descriptive": [
@@ -209,7 +220,6 @@ def stream_chat(input_images: List[Image.Image], caption_type: str, caption_leng
         ],
     }
 
-    clip_processor, clip_model, tokenizer, text_model, image_adapter = models
     clear_memory()
     all_captions = []
 
@@ -266,9 +276,9 @@ def stream_chat(input_images: List[Image.Image], caption_type: str, caption_leng
             # Embed image
             # This results in Batch x Image Tokens x Features
             with torch.amp.autocast_mode.autocast(device, enabled=True):
-                vision_outputs = clip_model(pixel_values=pixel_values, output_hidden_states=True)
+                vision_outputs = model.clip_model(pixel_values=pixel_values, output_hidden_states=True)
                 image_features = vision_outputs.hidden_states
-                embedded_images = image_adapter(image_features).to(device)
+                embedded_images = model.image_adapter(image_features).to(device)
 
             # Build the conversation
             convo = [
@@ -283,28 +293,28 @@ def stream_chat(input_images: List[Image.Image], caption_type: str, caption_leng
             ]
 
             # Format the conversation
-            convo_string = tokenizer.apply_chat_template(convo, tokenize=False, add_generation_prompt=True)
+            convo_string = model.tokenizer.apply_chat_template(convo, tokenize=False, add_generation_prompt=True)
             assert isinstance(convo_string, str)
 
             # Tokenize the conversation
             # prompt_str is tokenized separately so we can do the calculations below
-            convo_tokens = tokenizer.encode(convo_string, return_tensors="pt", add_special_tokens=False,
+            convo_tokens = model.tokenizer.encode(convo_string, return_tensors="pt", add_special_tokens=False,
                                             truncation=False)
-            prompt_tokens = tokenizer.encode(prompt_str, return_tensors="pt", add_special_tokens=False,
+            prompt_tokens = model.tokenizer.encode(prompt_str, return_tensors="pt", add_special_tokens=False,
                                              truncation=False)
             assert isinstance(convo_tokens, torch.Tensor) and isinstance(prompt_tokens, torch.Tensor)
             convo_tokens = convo_tokens.squeeze(0)  # Squeeze just to make the following easier
             prompt_tokens = prompt_tokens.squeeze(0)
 
             # Calculate where to inject the image
-            eot_id_indices = (convo_tokens == tokenizer.convert_tokens_to_ids("<|eot_id|>")).nonzero(as_tuple=True)[
+            eot_id_indices = (convo_tokens == model.tokenizer.convert_tokens_to_ids("<|eot_id|>")).nonzero(as_tuple=True)[
                 0].tolist()
             assert len(eot_id_indices) == 2, f"Expected 2 <|eot_id|> tokens, got {len(eot_id_indices)}"
 
             preamble_len = eot_id_indices[1] - prompt_tokens.shape[0]  # Number of tokens before the prompt
 
             # Embed the tokens
-            convo_embeds = text_model.model.embed_tokens(convo_tokens.unsqueeze(0).to(device))
+            convo_embeds = model.text_model.model.embed_tokens(convo_tokens.unsqueeze(0).to(device))
 
             # Construct the input
             input_embeds = torch.cat([
@@ -320,18 +330,18 @@ def stream_chat(input_images: List[Image.Image], caption_type: str, caption_leng
             ], dim=1).to(device)
             attention_mask = torch.ones_like(input_ids)
 
-            generate_ids = text_model.generate(input_ids=input_ids, inputs_embeds=input_embeds,
+            generate_ids = model.text_model.generate(input_ids=input_ids, inputs_embeds=input_embeds,
                                                attention_mask=attention_mask, do_sample=True,
                                                suppress_tokens=None, max_new_tokens=max_new_tokens, top_p=top_p,
                                                temperature=temperature)
 
             # Trim off the prompt
             generate_ids = generate_ids[:, input_ids.shape[1]:]
-            if generate_ids[0][-1] == tokenizer.eos_token_id or generate_ids[0][-1] == tokenizer.convert_tokens_to_ids(
+            if generate_ids[0][-1] == model.tokenizer.eos_token_id or generate_ids[0][-1] == model.tokenizer.convert_tokens_to_ids(
                     "<|eot_id|>"):
                 generate_ids = generate_ids[:, :-1]
 
-            caption = tokenizer.batch_decode(generate_ids, skip_special_tokens=False, clean_up_tokenization_spaces=False)[0]
+            caption = model.tokenizer.batch_decode(generate_ids, skip_special_tokens=False, clean_up_tokenization_spaces=False)[0]
             all_captions.append(caption.strip())
 
     return all_captions
@@ -484,11 +494,11 @@ class LS_JoyCaption2:
                     extra_options=None):
 
         ret_text = []
-        model_path = download_hg_model(llm_model, "LLM")
+        llm_model_path = download_hg_model(llm_model, "LLM")
         if self.previous_model is None:
-            models = load_models(model_path, dtype, vlm_lora, device)
+            model = load_models(llm_model_path, dtype, vlm_lora, device)
         else:
-            models = self.previous_model
+            model = self.previous_model
 
         extra = []
         character_name = ""
@@ -497,19 +507,19 @@ class LS_JoyCaption2:
 
         for img in image:
             img = tensor2pil(img.unsqueeze(0)).convert('RGB')
-            log(f"{self.NODE_NAME}: caption_type={caption_type}, caption_length={caption_length}, extra={extra}, character_name={character_name}, user_prompt={user_prompt}")
+            # log(f"{self.NODE_NAME}: caption_type={caption_type}, caption_length={caption_length}, extra={extra}, character_name={character_name}, user_prompt={user_prompt}")
             caption = stream_chat([img], caption_type, caption_length,
                                    extra, character_name, user_prompt,
                                    max_new_tokens, top_p, temperature, 1,
-                                   models, device)
+                                   model, device)
             log(f"{self.NODE_NAME}: caption={caption[0]}")
             ret_text.append(caption[0])
 
         if cache_model:
-            self.previous_model = models
+            self.previous_model = model
         else:
             self.previous_model = None
-            del models
+            del model
             clear_memory()
 
         return (ret_text,)
