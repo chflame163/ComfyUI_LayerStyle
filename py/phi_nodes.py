@@ -154,6 +154,7 @@ class LS_Phi_Prompt:
             torch_dtype = torch.bfloat16
         else:
             torch_dtype = torch.float32
+        clear_memory()
         if model == "Phi-3.5-mini-instruct":
             try:
                 phi_model.model = AutoModelForCausalLM.from_pretrained(
