@@ -66,7 +66,6 @@ class ShadowAndHighlightMask:
             _image = tensor2pil(_image).convert('RGB')
             _mask = input_masks[i] if i < len(input_masks) else input_masks[-1]
 
-
             avg_gray = get_gray_average(_image, _mask)
             shadow_level, highlight_level = calculate_shadow_highlight_level(avg_gray)
             shadow_low_threshold = (shadow_level + shadow_level_offset) / 100 + shadow_range / 2

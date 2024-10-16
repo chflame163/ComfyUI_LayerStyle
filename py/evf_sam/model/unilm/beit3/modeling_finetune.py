@@ -8,7 +8,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from timm.models.registry import register_model
+from timm.models import register_model
 import numpy as np
 
 import utils

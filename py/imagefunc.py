@@ -950,25 +950,30 @@ def get_image_color_average(image:Image, mask:Image=None) -> str:
 def get_gray_average(image:Image, mask:Image=None) -> int:
     # image.mode = 'HSV', mask.mode = 'L'
     image = image.convert('HSV')
-    _, _, _v = image.convert('HSV').split()
+
     if mask is not None:
         if mask.mode != 'L':
             mask = mask.convert('L')
-    width, height = image.size
-    total_gray = 0
-    valid_pixels = 0
-    for y in range(height):
-        for x in range(width):
-            if mask is not None:
-                if mask.getpixel((x, y)) > 16:  #mask亮度低于16的忽略不计
-                    gray = _v.getpixel((x, y))
-                    total_gray += gray
-                    valid_pixels += 1
-            else:
-                gray = _v.getpixel((x, y))
-                total_gray += gray
-                valid_pixels += 1
-    average_gray = total_gray // valid_pixels
+    else:
+        mask = Image.new('L', size=image.size, color='white')
+    _, _, _v = image.convert('HSV').split()
+    _v = np.array(_v)
+    average_gray = _v[np.array(mask) > 16].mean()
+    # width, height = image.size
+    # total_gray = 0
+    # valid_pixels = 0
+    # for y in range(height):
+    #     for x in range(width):
+    #         if mask is not None:
+    #             if mask.getpixel((x, y)) > 16:  #mask亮度低于16的忽略不计
+    #                 gray = _v.getpixel((x, y))
+    #                 total_gray += gray
+    #                 valid_pixels += 1
+    #         else:
+    #             gray = _v.getpixel((x, y))
+    #             total_gray += gray
+    #             valid_pixels += 1
+    # average_gray = total_gray // valid_pixels
     return average_gray
 
 def calculate_shadow_highlight_level(gray:int) -> float:
