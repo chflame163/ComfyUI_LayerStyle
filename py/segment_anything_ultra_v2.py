@@ -3,13 +3,15 @@ from .segment_anything_func import *
 
 NODE_NAME = 'SegmentAnythingUltra V2'
 
-SAM_MODEL = None
-DINO_MODEL = None
-previous_sam_model = ""
-previous_dino_model = ""
+
+
 
 class SegmentAnythingUltraV2:
     def __init__(self):
+        self.SAM_MODEL = None
+        self.DINO_MODEL = None
+        self.previous_sam_model = ""
+        self.previous_dino_model = ""
         pass
 
     @classmethod
@@ -32,6 +34,7 @@ class SegmentAnythingUltraV2:
                 "prompt": ("STRING", {"default": "subject"}),
                 "device": (device_list,),
                 "max_megapixels": ("FLOAT", {"default": 2.0, "min": 1, "max": 999, "step": 0.1}),
+                "cache_model": ("BOOLEAN", {"default": False}),
             },
             "optional": {
             }
@@ -45,24 +48,23 @@ class SegmentAnythingUltraV2:
     def segment_anything_ultra_v2(self, image, sam_model, grounding_dino_model, threshold,
                                   detail_method, detail_erode, detail_dilate,
                                   black_point, white_point, process_detail, prompt,
-                                  device, max_megapixels
+                                  device, max_megapixels, cache_model
                                   ):
-        global SAM_MODEL
-        global DINO_MODEL
-        global previous_sam_model
-        global previous_dino_model
 
         if detail_method == 'VITMatte(local)':
             local_files_only = True
         else:
             local_files_only = False
 
-        if previous_sam_model != sam_model:
-            SAM_MODEL = load_sam_model(sam_model)
-            previous_sam_model = sam_model
-        if previous_dino_model != grounding_dino_model:
-            DINO_MODEL = load_groundingdino_model(grounding_dino_model)
-            previous_dino_model = grounding_dino_model
+        if self.previous_sam_model != sam_model or self.SAM_MODEL is None:
+            self.SAM_MODEL = load_sam_model(sam_model)
+            self.previous_sam_model = sam_model
+        if self.previous_dino_model != grounding_dino_model or self.DINO_MODEL is None:
+            self.DINO_MODEL = load_groundingdino_model(grounding_dino_model)
+            self.previous_dino_model = grounding_dino_model
+
+        SAM_MODEL = load_sam_model(sam_model)
+        DINO_MODEL = load_groundingdino_model(grounding_dino_model)
         ret_images = []
         ret_masks = []
 
@@ -70,10 +72,10 @@ class SegmentAnythingUltraV2:
             i = torch.unsqueeze(i, 0)
             i = pil2tensor(tensor2pil(i).convert('RGB'))
             _image = tensor2pil(i).convert('RGBA')
-            boxes = groundingdino_predict(DINO_MODEL, _image, prompt, threshold)
+            boxes = groundingdino_predict(self.DINO_MODEL, _image, prompt, threshold)
             if boxes.shape[0] == 0:
                 break
-            (_, _mask) = sam_segment(SAM_MODEL, _image, boxes)
+            (_, _mask) = sam_segment(self.SAM_MODEL, _image, boxes)
             _mask = _mask[0]
             detail_range = detail_erode + detail_dilate
             if process_detail:
@@ -96,6 +98,13 @@ class SegmentAnythingUltraV2:
             _, height, width, _ = image.size()
             empty_mask = torch.zeros((1, height, width), dtype=torch.uint8, device="cpu")
             return (empty_mask, empty_mask)
+
+        if not cache_model:
+            self.SAM_MODEL = None
+            self.DINO_MODEL = None
+            self.previous_sam_model = ""
+            self.previous_dino_model = ""
+            clear_memory()
 
         log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)

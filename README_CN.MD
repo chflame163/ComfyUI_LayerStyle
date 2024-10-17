@@ -127,6 +127,8 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [JoyCaption2Split](#JoyCaption2Split) 和 [LoadJoyCaption2Model](#LoadJoyCaption2Model) 节点，在多个JoyCaption2节点时共用模型提高效率。
+* [SegmentAnythingUltra](#SegmentAnythingUltra) 和 [SegmentAnythingUltraV2](#SegmentAnythingUltraV2) 增加 ```cache_model``` 参数，便于灵活管理显存。
 * 鉴于[LlamaVision](#LlamaVision)节点对 ```transformers``` 的要求版本较高而影响某些旧版第三方插件的加载，LayerStyle 插件已将默认要求降低到4.43.2， 如有运行LlamaVision的需求请自行升级至4.45.0以上。
 * 添加 [JoyCaption2](#JoyCaption2) 和 [JoyCaption2ExtraOptions](#JoyCaption2ExtraOptions) 节点，使用JoyCaption-alpha-two模型生成提示词。
 请从 [百度网盘](https://pan.baidu.com/s/1dOjbUEacUOhzFitAQ3uIeQ?pwd=4ypv) 以及 [百度网盘](https://pan.baidu.com/s/1mH1SuW45Dy6Wga7aws5siQ?pwd=w6h5) ， 
@@ -848,6 +850,35 @@ ImageScaleByAspectRatio的V2升级版
 * top-p: LLM的top_p参数。
 * temperature: LLM的temperature参数。
 * cache_model: 是否缓存模型。
+
+### <a id="table1">JoyCaption2Split</a>
+JoyCaption2 的分离式节点，将模型加载与推理分离，使用多个JoyCaption2节点时可共用模型提高效率。
+
+节点选项说明:   
+![image](image/joycaption2_split_node.jpg)    
+
+* image: 图片输入。
+* joy2_model: JoyCaption模型输入。
+* extra_options: extra_options参数输入。
+* caption_type: caption类型选项, 包括"Descriptive"(正式语气描述), "Descriptive (Informal)"(非正式语气描述), "Training Prompt"(SD训练描述), "MidJourney"(MJ风格描述), "Booru tag list"(标签列表), "Booru-like tag list"(类标签列表), "Art Critic"(艺术评论), "Product Listing"(产品列表), "Social Media Post"(社交媒体风格)。
+* caption_length: 描述长度。
+* user_prompt: LLM模型的用户提示词。如果这里有内容将覆盖caption_type和extra_options的所有设置。
+* max_new_tokens: LLM的max_new_tokens参数。
+* do_sample: LLM的do_sample参数。
+* top-p: LLM的top_p参数。
+* temperature: LLM的temperature参数。
+
+### <a id="table1">LoadJoyCaption2Model</a>
+JoyCaption2 的模型加载节点，与JoyCaption2Split配合使用。
+
+节点选项说明:   
+![image](image/load_joycaption2_model_node.jpg)    
+
+* llm_model: 目前有 Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2 和 unsloth/Meta-Llama-3.1-8B-Instruct 两种LLM模型可选择。
+* device: 模型加载设备。目前仅支持cuda。
+* dtype: 模型加载精度，有nf4 和 bf16 两个选项。
+* vlm_lora: 是否加载text_model。
+
 
 ### <a id="table1">JoyCaption2ExtraOptions</a>
 JoyCaption2的extra_options参数节点。 
@@ -1843,6 +1874,7 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * white_point: 边缘白色采样阈值。
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * prompt: SAM的prompt输入。
+* cache_model: 是否缓存模型。
 
 ### <a id="table1">SegmentAnythingUltraV2</a>
 SegmentAnythingUltra的V2升级版，增加了VITMatte边缘处理方法。

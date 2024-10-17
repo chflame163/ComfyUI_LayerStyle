@@ -524,13 +524,115 @@ class LS_JoyCaption2:
 
         return (ret_text,)
 
+class LS_LoadJoyCaption2Model:
+
+    CATEGORY = '😺dzNodes/LayerUtility'
+    FUNCTION = "load_joycaption2_model"
+    RETURN_TYPES = ("JoyCaption2_Model",)
+    RETURN_NAMES = ("joy2_model",)
+    OUTPUT_IS_LIST = (True,)
+
+    def __init__(self):
+        self.NODE_NAME = 'LoadJoyCaption2Model'
+
+    @classmethod
+    def INPUT_TYPES(self):
+        llm_model_list = ["Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2", "unsloth/Meta-Llama-3.1-8B-Instruct"]
+        device_list = ['cuda']
+        dtype_list = ['nf4','bf16']
+        vlm_lora_list = ['text_model', 'none']
+
+        return {
+            "required": {
+                "llm_model": (llm_model_list,),
+                "device": (device_list,),
+                "dtype": (dtype_list,),
+                "vlm_lora": (vlm_lora_list,),
+            },
+            "optional": {
+            }
+        }
+
+    def load_joycaption2_model(self, llm_model, device, dtype, vlm_lora):
+        llm_model_path = download_hg_model(llm_model, "LLM")
+        model = load_models(llm_model_path, dtype, vlm_lora, device)
+
+        return ([[model,device]],)
+
+class LS_JoyCaption2Split:
+
+    CATEGORY = '😺dzNodes/LayerUtility'
+    FUNCTION = "joycaption2split"
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("text",)
+    OUTPUT_IS_LIST = (True,)
+
+    def __init__(self):
+        self.NODE_NAME = 'JoyCaption2split'
+        self.previous_model = None
+
+    @classmethod
+    def INPUT_TYPES(self):
+        caption_type_list = ["Descriptive", "Descriptive (Informal)", "Training Prompt", "MidJourney",
+                   "Booru tag list", "Booru-like tag list", "Art Critic", "Product Listing",
+                   "Social Media Post"]
+        caption_length_list = ["any", "very short", "short", "medium-length", "long", "very long"] + [str(i) for i in range(20, 261, 10)]
+
+        return {
+            "required": {
+                "image": ("IMAGE",),
+                "joy2_model": ("JoyCaption2_Model",),
+                "caption_type": (caption_type_list,),
+                "caption_length": (caption_length_list,),
+                "user_prompt": ("STRING", {"default": "","multiline": False}),
+                "max_new_tokens": ("INT", {"default": 300, "min": 8, "max": 4096, "step": 1}),
+                "top_p": ("FLOAT", {"default": 0.9, "min": 0, "max": 1, "step": 0.01}),
+                "temperature": ("FLOAT", {"default": 0.6, "min": 0, "max": 1, "step": 0.01}),
+            },
+            "optional": {
+                "extra_options": ("JoyCaption2ExtraOption",),
+            }
+        }
+
+    def joycaption2split(self, image, joy2_model, caption_type, caption_length,
+                         user_prompt, max_new_tokens, top_p, temperature,
+                         extra_options=None):
+
+        model, device = joy2_model
+        # device = "cuda"
+        ret_text = []
+        extra = []
+        character_name = ""
+        if extra_options is not None:
+            extra, character_name = extra_options
+
+        for img in image:
+            img = tensor2pil(img.unsqueeze(0)).convert('RGB')
+            # log(f"{self.NODE_NAME}: caption_type={caption_type}, caption_length={caption_length}, extra={extra}, character_name={character_name}, user_prompt={user_prompt}")
+            caption = stream_chat([img], caption_type, caption_length,
+                                   extra, character_name, user_prompt,
+                                   max_new_tokens, top_p, temperature, 1,
+                                   model, device)
+            log(f"{self.NODE_NAME}: caption={caption[0]}")
+            ret_text.append(caption[0])
+
+        del joy2_model
+        del model, device
+        clear_memory()
+
+        return (ret_text,)
+
 
 NODE_CLASS_MAPPINGS = {
+    "LayerUtility: LoadJoyCaption2Model": LS_LoadJoyCaption2Model,
+    "LayerUtility: JoyCaption2Split": LS_JoyCaption2Split,
     "LayerUtility: JoyCaption2": LS_JoyCaption2,
     "LayerUtility: JoyCaption2ExtraOptions": LS_JoyCaptionExtraOptions
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "LayerUtility: LoadJoyCaption2Model": "LayerUtility: Load JoyCaption2 Model",
+    "LayerUtility: JoyCaption2Split": "LayerUtility: JoyCaption2 Split",
     "LayerUtility: JoyCaption2": "LayerUtility: JoyCaption2",
     "LayerUtility: JoyCaption2ExtraOptions": "LayerUtility: JoyCaption2 Extra Options"
 }
