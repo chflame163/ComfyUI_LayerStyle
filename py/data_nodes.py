@@ -8,7 +8,7 @@ class SeedNode:
     @classmethod
     def INPUT_TYPES(self):
         return {"required": {
-                "seed":("INT", {"default": 0, "min": 0, "max": 99999999999999999999, "step": 1}),
+                "seed":("INT", {"default": 0, "min": 0, "max": 1e18, "step": 1}),
             },}
 
     RETURN_TYPES = ("INT",)
@@ -345,7 +345,7 @@ class FloatNode:
     @classmethod
     def INPUT_TYPES(self):
         return {"required": {
-                "float_value":  ("FLOAT", {"default": 0, "min": -99999999999999999999, "max": 99999999999999999999, "step": 0.00001}),
+                "float_value":  ("FLOAT", {"default": 0, "min": -1e18, "max": 1e18, "step": 0.00001}),
             },}
 
     RETURN_TYPES = ("FLOAT", "STRING",)
