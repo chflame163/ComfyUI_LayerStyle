@@ -337,7 +337,7 @@ class IntegerNode:
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
     def integer_node(self, int_value):
-        return (int_value, str(int_value))
+        return (int(int_value), str(int_value))
 
 class FloatNode:
     def __init__(self):
