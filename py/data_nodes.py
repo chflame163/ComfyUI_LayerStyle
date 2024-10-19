@@ -328,7 +328,7 @@ class IntegerNode:
     @classmethod
     def INPUT_TYPES(self):
         return {"required": {
-                "int_value":("INT", {"default": 0, "min": -99999999999999999999, "max": 99999999999999999999, "step": 1}),
+                "int_value":("INT", {"default": 0, "min": -1e18, "max": 1e18, "step": 1}),
             },}
 
     RETURN_TYPES = ("INT", "STRING",)
