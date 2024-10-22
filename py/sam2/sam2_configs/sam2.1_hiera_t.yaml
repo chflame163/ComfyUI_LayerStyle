@@ -8,11 +8,11 @@ model:
     scalp: 1
     trunk:
       _target_: sam2.modeling.backbones.hieradet.Hiera
-      embed_dim: 112
-      num_heads: 2
-      stages: [2, 3, 16, 3]
-      global_att_blocks: [12, 16, 20]
-      window_pos_embed_bkg_spatial_size: [14, 14]
+      embed_dim: 96
+      num_heads: 1
+      stages: [1, 2, 7, 2]
+      global_att_blocks: [5, 7, 9]
+      window_pos_embed_bkg_spatial_size: [7, 7]
     neck:
       _target_: sam2.modeling.backbones.image_encoder.FpnNeck
       position_encoding:
@@ -22,7 +22,7 @@ model:
         scale: null
         temperature: 10000
       d_model: 256
-      backbone_channel_list: [896, 448, 224, 112]
+      backbone_channel_list: [768, 384, 192, 96]
       fpn_top_down_levels: [2, 3]  # output level 0 and 1 directly use the backbone features
       fpn_interp_model: nearest
 
@@ -87,12 +87,13 @@ model:
   num_maskmem: 7
   image_size: 1024
   # apply scaled sigmoid on mask logits for memory encoder, and directly feed input mask as output mask
+  # SAM decoder
   sigmoid_scale_for_mem_enc: 20.0
   sigmoid_bias_for_mem_enc: -10.0
   use_mask_input_as_output_without_sam: true
   # Memory
   directly_add_no_mem_embed: true
-  no_obj_embed_spatial: false
+  no_obj_embed_spatial: true
   # use high-resolution feature map in the SAM mask decoder
   use_high_res_features_in_sam: true
   # output 3 masks on the first click on initial conditioning frames
@@ -101,9 +102,9 @@ model:
   iou_prediction_use_sigmoid: True
   # cross-attend to object pointers from other frames (based on SAM output tokens) in the encoder
   use_obj_ptrs_in_encoder: true
-  add_tpos_enc_to_obj_ptrs: false
-  proj_tpos_enc_in_obj_ptrs: false
-  use_signed_tpos_enc_to_obj_ptrs: false
+  add_tpos_enc_to_obj_ptrs: true
+  proj_tpos_enc_in_obj_ptrs: true
+  use_signed_tpos_enc_to_obj_ptrs: true
   only_obj_ptrs_in_the_past_for_eval: true
   # object occlusion prediction
   pred_obj_scores: true
@@ -116,4 +117,5 @@ model:
   multimask_max_pt_num: 1
   use_mlp_for_obj_ptr_proj: true
   # Compilation flag
+  # HieraT does not currently support compilation, should always be set to False
   compile_image_encoder: False
