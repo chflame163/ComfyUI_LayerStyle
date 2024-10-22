@@ -42,3 +42,4 @@ inference-gpu[yolo-world]>=0.13.0
 bitsandbytes>=0.41.1
 transformers>=4.43.2
 peft>=0.12.0
+iopath
