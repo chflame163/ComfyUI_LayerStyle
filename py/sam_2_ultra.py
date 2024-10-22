@@ -4,6 +4,7 @@ import yaml
 import comfy.model_management as mm
 from comfy.utils import ProgressBar
 from comfy.utils import load_torch_file
+from contextlib import nullcontext
 from .imagefunc import *
 
 def bboxes2coordinates(bboxes:list) -> list:
@@ -11,7 +12,9 @@ def bboxes2coordinates(bboxes:list) -> list:
     for bbox in bboxes:
         coordinates.append(((bbox[0]+bbox[2]) // 2, (bbox[1]+bbox[3]) // 2))
     return coordinates
+
 def load_model(model_path, model_cfg_path, segmentor, dtype, device):
+    # import yaml
     from .sam2.modeling.sam2_base import SAM2Base
     from .sam2.modeling.backbones.image_encoder import ImageEncoder
     from .sam2.modeling.backbones.hieradet import Hiera
@@ -20,9 +23,11 @@ def load_model(model_path, model_cfg_path, segmentor, dtype, device):
     from .sam2.modeling.memory_attention import MemoryAttention, MemoryAttentionLayer
     from .sam2.modeling.sam.transformer import RoPEAttention
     from .sam2.modeling.memory_encoder import MemoryEncoder, MaskDownSampler, Fuser, CXBlock
+
     from .sam2.sam2_image_predictor import SAM2ImagePredictor
     from .sam2.sam2_video_predictor import SAM2VideoPredictor
     from .sam2.automatic_mask_generator import SAM2AutomaticMaskGenerator
+    # from comfy.utils import load_torch_file
 
     # Load the YAML configuration
     with open(model_cfg_path, 'r') as file:
@@ -51,14 +56,9 @@ def load_model(model_path, model_cfg_path, segmentor, dtype, device):
         fpn_interp_model=neck_config['fpn_interp_model']
     )
 
-    trunk = Hiera(
-        embed_dim=trunk_config['embed_dim'],
-        num_heads=trunk_config['num_heads'],
-        stages=trunk_config['stages'],
-        global_att_blocks=trunk_config['global_att_blocks'],
-        window_pos_embed_bkg_spatial_size=trunk_config['window_pos_embed_bkg_spatial_size']
-
-    )
+    keys_to_include = ['embed_dim', 'num_heads', 'global_att_blocks', 'window_pos_embed_bkg_spatial_size', 'stages']
+    trunk_kwargs = {key: trunk_config[key] for key in keys_to_include if key in trunk_config}
+    trunk = Hiera(**trunk_kwargs)
 
     image_encoder = ImageEncoder(
         scalp=model_config['image_encoder']['scalp'],
@@ -179,6 +179,9 @@ def load_model(model_path, model_cfg_path, segmentor, dtype, device):
             multimask_min_pt_num=model_config['multimask_min_pt_num'],
             multimask_max_pt_num=model_config['multimask_max_pt_num'],
             use_mlp_for_obj_ptr_proj=model_config['use_mlp_for_obj_ptr_proj'],
+            proj_tpos_enc_in_obj_ptrs=model_config['proj_tpos_enc_in_obj_ptrs'],
+            no_obj_embed_spatial=model_config['no_obj_embed_spatial'],
+            use_signed_tpos_enc_to_obj_ptrs=model_config['use_signed_tpos_enc_to_obj_ptrs'],
             binarize_mask_from_pts_for_mem_enc=True if segmentor == 'video' else False,
         ).to(dtype).to(device).eval()
 
@@ -202,19 +205,27 @@ def load_model(model_path, model_cfg_path, segmentor, dtype, device):
         model = SAM2AutomaticMaskGenerator(model)
     else:
         raise ValueError(f"Segmentor {segmentor} not supported")
+
     return model
+
 
 class LS_SAM2_ULTRA:
 
-    model_path = os.path.join(folder_paths.models_dir, 'sam2')
-    model_dict = get_files(model_path, ['safetensors'])
     def __init__(self):
         self.NODE_NAME = 'SAM2 Ultra'
         pass
 
     @classmethod
     def INPUT_TYPES(cls):
-        sam2_model_list = list(cls.model_dict.keys())
+        sam2_model_list = ['sam2_hiera_base_plus.safetensors',
+                           'sam2_hiera_large.safetensors',
+                           'sam2_hiera_small.safetensors',
+                           'sam2_hiera_tiny.safetensors',
+                           'sam2.1_hiera_base_plus.safetensors',
+                           'sam2.1_hiera_large.safetensors',
+                           'sam2.1_hiera_small.safetensors',
+                           'sam2.1_hiera_tiny.safetensors',
+                           ]
         model_precision_list = [ 'fp16','bf16','fp32']
         select_list = ["all", "first", "by_index"]
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
@@ -257,32 +268,55 @@ class LS_SAM2_ULTRA:
 
         # load model
         sam2_path = os.path.join(folder_paths.models_dir, "sam2")
+        if precision != 'fp32' and "2.1" in sam2_model:
+            base_name, extension = sam2_model.rsplit('.', 1)
+            sam2_model = f"{base_name}-fp16.{extension}"
         model_path = os.path.join(sam2_path, sam2_model)
+
         if device == "cuda":
             if torch.cuda.get_device_properties(0).major >= 8:
                 # turn on tfloat32 for Ampere GPUs (https://pytorch.org/docs/stable/notes/cuda.html#tensorfloat-32-tf32-on-ampere-devices)
                 torch.backends.cuda.matmul.allow_tf32 = True
                 torch.backends.cudnn.allow_tf32 = True
         dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}[precision]
-        sam2_device = {"cuda": torch.device("cuda"), "cpu": torch.device("cpu")}[device]
+        # device = {"cuda": torch.device("cuda"), "cpu": torch.device("cpu")}[device]
         segmentor = 'single_image'
+        if not os.path.exists(model_path):
+            log(f"{self.NODE_NAME}: Downloading SAM2 model to: {model_path}")
+            from huggingface_hub import snapshot_download
+            snapshot_download(repo_id="Kijai/sam2-safetensors",
+                            allow_patterns=[f"*{sam2_model}*"],
+                            local_dir=sam2_path,
+                            local_dir_use_symlinks=False)
+
         model_mapping = {
-            "base": "sam2_hiera_b+.yaml",
-            "large": "sam2_hiera_l.yaml",
-            "small": "sam2_hiera_s.yaml",
-            "tiny": "sam2_hiera_t.yaml"
+            "2.0": {
+                "base": "sam2_hiera_b+.yaml",
+                "large": "sam2_hiera_l.yaml",
+                "small": "sam2_hiera_s.yaml",
+                "tiny": "sam2_hiera_t.yaml"
+            },
+            "2.1": {
+                "base": "sam2.1_hiera_b+.yaml",
+                "large": "sam2.1_hiera_l.yaml",
+                "small": "sam2.1_hiera_s.yaml",
+                "tiny": "sam2.1_hiera_t.yaml"
+            }
         }
+        version = "2.1" if "2.1" in sam2_model else "2.0"
 
         model_cfg_path = next(
-            (os.path.join(os.path.dirname(os.path.abspath(__file__)), "sam2", "sam2_configs", cfg) for key, cfg in model_mapping.items() if key in sam2_model),
+            (os.path.join(os.path.dirname(os.path.abspath(__file__)), "sam2", "sam2_configs", cfg)
+             for key, cfg in model_mapping[version].items() if key in sam2_model),
             None
         )
+        log(f"{self.NODE_NAME}: Using model config: {model_cfg_path}")
 
-        model = load_model(model_path, model_cfg_path, segmentor, dtype, sam2_device)
+        model = load_model(model_path, model_cfg_path, segmentor, dtype, device)
 
         offload_device = mm.unet_offload_device()
 
-        B, H, W, C = image.shape
+        # B, H, W, C = image.shape
         indexs = extract_numbers(select_index)
 
         # Handle possible bboxes
@@ -308,16 +342,16 @@ class LS_SAM2_ULTRA:
                     log(f"{self.NODE_NAME} invalid bbox index {i}", message_type='warning')
             else:
                 final_box = np.array(boxes_np_batch[0])
-            final_labels = None
+            # final_labels = None
 
         mask_list = []
         try:
-            model.to(sam2_device)
+            model.to(device)
         except:
-            model.model.to(sam2_device)
+            model.model.to(device)
 
-        autocast_condition = not mm.is_device_mps(sam2_device)
-        with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
+        autocast_condition = not mm.is_device_mps(device)
+        with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
 
             image_np = (image.contiguous() * 255).byte().numpy()
             comfy_pbar = ProgressBar(len(image_np))
@@ -339,8 +373,8 @@ class LS_SAM2_ULTRA:
                 if out_masks.ndim == 3:
                     sorted_ind = np.argsort(scores)[::-1]
                     out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
-                    scores = scores[sorted_ind]
-                    logits = logits[sorted_ind]
+                    # scores = scores[sorted_ind]
+                    # logits = logits[sorted_ind]
                     mask_list.append(np.expand_dims(out_masks, axis=0))
                 else:
                     _, _, H, W = out_masks.shape
@@ -434,15 +468,21 @@ def poisson_disk_sampling(mask:Image, radius:float=32, num_points:int=16) -> lis
 
 class LS_SAM2_VIDEO_ULTRA:
 
-    model_path = os.path.join(folder_paths.models_dir, 'sam2')
-    model_dict = get_files(model_path, ['safetensors'])
+
     def __init__(self):
         self.NODE_NAME = 'SAM2 Video Ultra'
-        pass
 
     @classmethod
     def INPUT_TYPES(cls):
-        sam2_model_list = list(cls.model_dict.keys())
+        sam2_model_list = ['sam2_hiera_base_plus.safetensors',
+                           'sam2_hiera_large.safetensors',
+                           'sam2_hiera_small.safetensors',
+                           'sam2_hiera_tiny.safetensors',
+                           'sam2.1_hiera_base_plus.safetensors',
+                           'sam2.1_hiera_large.safetensors',
+                           'sam2.1_hiera_small.safetensors',
+                           'sam2.1_hiera_tiny.safetensors',
+                           ]
         model_precision_list = ['fp16','bf16']
         method_list = ['VITMatte']
         device_list = ['cuda']
@@ -492,24 +532,49 @@ class LS_SAM2_VIDEO_ULTRA:
 
         # load model
         sam2_path = os.path.join(folder_paths.models_dir, "sam2")
+        if precision != 'fp32' and "2.1" in sam2_model:
+            base_name, extension = sam2_model.rsplit('.', 1)
+            sam2_model = f"{base_name}-fp16.{extension}"
         model_path = os.path.join(sam2_path, sam2_model)
+
         if device == "cuda":
             if torch.cuda.get_device_properties(0).major >= 8:
                 # turn on tfloat32 for Ampere GPUs (https://pytorch.org/docs/stable/notes/cuda.html#tensorfloat-32-tf32-on-ampere-devices)
                 torch.backends.cuda.matmul.allow_tf32 = True
                 torch.backends.cudnn.allow_tf32 = True
         dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}[precision]
-        sam2_device = {"cuda": torch.device("cuda"), "cpu": torch.device("cpu")}[device]
+
+        if not os.path.exists(model_path):
+            log(f"{self.NODE_NAME}: Downloading SAM2 model to: {model_path}")
+            from huggingface_hub import snapshot_download
+            snapshot_download(repo_id="Kijai/sam2-safetensors",
+                              allow_patterns=[f"*{sam2_model}*"],
+                              local_dir=sam2_path,
+                              local_dir_use_symlinks=False)
+
         model_mapping = {
-            "base": "sam2_hiera_b+.yaml",
-            "large": "sam2_hiera_l.yaml",
-            "small": "sam2_hiera_s.yaml",
-            "tiny": "sam2_hiera_t.yaml"
+            "2.0": {
+                "base": "sam2_hiera_b+.yaml",
+                "large": "sam2_hiera_l.yaml",
+                "small": "sam2_hiera_s.yaml",
+                "tiny": "sam2_hiera_t.yaml"
+            },
+            "2.1": {
+                "base": "sam2.1_hiera_b+.yaml",
+                "large": "sam2.1_hiera_l.yaml",
+                "small": "sam2.1_hiera_s.yaml",
+                "tiny": "sam2.1_hiera_t.yaml"
+            }
         }
+        version = "2.1" if "2.1" in sam2_model else "2.0"
+
         model_cfg_path = next(
-            (os.path.join(os.path.dirname(os.path.abspath(__file__)), "sam2", "sam2_configs", cfg) for key, cfg in model_mapping.items() if key in sam2_model),
+            (os.path.join(os.path.dirname(os.path.abspath(__file__)), "sam2", "sam2_configs", cfg)
+             for key, cfg in model_mapping[version].items() if key in sam2_model),
             None
         )
+        log(f"{self.NODE_NAME}: Using model config: {model_cfg_path}")
+
         offload_device = mm.unet_offload_device()
         B, H, W, C = image.shape
 
@@ -518,24 +583,24 @@ class LS_SAM2_VIDEO_ULTRA:
             input_mask = F.interpolate(input_mask, size=(256, 256), mode="bilinear")
             input_mask = input_mask.squeeze(1)
 
-        autocast_condition = not mm.is_device_mps(sam2_device)
+        autocast_condition = not mm.is_device_mps(device)
 
         # init video model
-        v_model = load_model(model_path, model_cfg_path, 'video', dtype, sam2_device)
+        v_model = load_model(model_path, model_cfg_path, 'video', dtype, device)
         model_input_image_size = v_model.image_size
         from comfy.utils import common_upscale
         resized_image = common_upscale(image.movedim(-1,1), model_input_image_size, model_input_image_size, "bilinear", "disabled").movedim(1,-1)
         try:
-            v_model.to(sam2_device)
+            v_model.to(device)
         except:
-            v_model.model.to(sam2_device)
+            v_model.model.to(device)
         s_model = None
         if first_frame_mask is None:
             # load single_image_model
-            s_model = load_model(model_path, model_cfg_path, 'single_image', dtype, sam2_device)
+            s_model = load_model(model_path, model_cfg_path, 'single_image', dtype, device)
 
             # gen first frame mask
-            with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
+            with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
                 f_mask = []
                 boxes_np_batch = []
                 for bbox_list in bboxes:
@@ -557,14 +622,15 @@ class LS_SAM2_VIDEO_ULTRA:
                     point_labels=None,
                     box=input_box,
                     multimask_output=True,
-                    mask_input=None,
+                    # mask_input=None,
+                    mask_input=input_mask[0].unsqueeze(0) if pre_mask is not None else None,
                 )
 
                 if out_masks.ndim == 3:
                     sorted_ind = np.argsort(scores)[::-1]
                     out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
-                    scores = scores[sorted_ind]
-                    logits = logits[sorted_ind]
+                    # scores = scores[sorted_ind]
+                    # logits = logits[sorted_ind]
                     f_mask.append(np.expand_dims(out_masks, axis=0))
                 else:
                     _, _, H, W = out_masks.shape
@@ -590,7 +656,7 @@ class LS_SAM2_VIDEO_ULTRA:
         coords = poisson_disk_sampling(f_mask, radius=32, num_points=16)
 
         # gen video mask
-        with torch.autocast(mm.get_autocast_device(sam2_device), dtype=dtype) if autocast_condition else nullcontext():
+        with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
             if not individual_objects:
                 positive_point_coords = np.atleast_2d(np.array(coords))
             else:
@@ -610,7 +676,7 @@ class LS_SAM2_VIDEO_ULTRA:
             mask_list = []
             if hasattr(self, 'inference_state'):
                 v_model.reset_state(self.inference_state)
-            self.inference_state = v_model.init_state(resized_image.permute(0, 3, 1, 2).contiguous(), H, W, device=sam2_device)
+            self.inference_state = v_model.init_state(resized_image.permute(0, 3, 1, 2).contiguous(), H, W, device=device)
 
             if individual_objects:
                 for i, (coord, label) in enumerate(zip(final_coords, final_labels)):

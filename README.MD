@@ -150,6 +150,7 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* [SAM2Ultra](#SAM2Ultra) and [SAM2VideoUltra](#SAM2VideoUltra) nodes add support for SAM2.1 model, including [kijai](https://github.com/kijai)'s FP16 model. Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) or [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main) and copy to ```ComfyUI/models/sam2``` folder.
 * Commit [JoyCaption2Split](#JoyCaption2Split) and [LoadJoyCaption2Model](#LoadJoyCaption2Model) nodes, Sharing the model across multiple JoyCaption2 nodes improves efficiency.
 * [SegmentAnythingUltra](#SegmentAnythingUltra) and [SegmentAnythingUltraV2](#SegmentAnythingUltraV2) add the  ```cache_model``` option, Easy to flexibly manage VRAM usage.
 
@@ -2487,9 +2488,9 @@ Node Options:
 ![image](image/segformer_fashion_example.jpg)   
 Using the segformer model to segment clothing with ultra-high edge details. Currently supports segformer b2 clothes, segformer b3 clothes and segformer b3 fashion。
 
-*Download modelfiles from [huggingface](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) or [百度网盘](https://pan.baidu.com/s/1OK-HfCNyZWux5iQFANq9Rw?pwd=haxg) to ```ComfyUI/models/segformer_b2_clothes``` folder.         
-*Download modelfiles from [huggingface](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main) or [百度网盘](https://pan.baidu.com/s/18KrCqNqUwmoJlqgAGDTw9g?pwd=ap4z) to ```ComfyUI/models/segformer_b3_clothes``` folder.    
-*Download modelfiles from [huggingface](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main) or [百度网盘](https://pan.baidu.com/s/10vd5PmJLFNWXaRVGW6tSvA?pwd=xzqi) to ```ComfyUI/models/segformer_b3_fashion``` folder. 
+*Download modelfiles from [huggingface](https://huggingface.co/mattmdjaga/segformer_b2_clothes/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/1OK-HfCNyZWux5iQFANq9Rw?pwd=haxg) to ```ComfyUI/models/segformer_b2_clothes``` folder.         
+*Download modelfiles from [huggingface](https://huggingface.co/sayeed99/segformer_b3_clothes/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/18KrCqNqUwmoJlqgAGDTw9g?pwd=ap4z) to ```ComfyUI/models/segformer_b3_clothes``` folder.    
+*Download modelfiles from [huggingface](https://huggingface.co/sayeed99/segformer-b3-fashion/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/10vd5PmJLFNWXaRVGW6tSvA?pwd=xzqi) to ```ComfyUI/models/segformer_b3_fashion``` folder. 
 
 Node Options:  
 ![image](image/segformer_ultra_v2_node.jpg)    
