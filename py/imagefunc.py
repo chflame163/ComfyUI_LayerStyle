@@ -138,9 +138,11 @@ def tensor2cv2(image:torch.Tensor) -> np.array:
     return cv2.cvtColor(cv2image, cv2.COLOR_RGB2BGR)
 
 def image2mask(image:Image) -> torch.Tensor:
-    if image.mode != 'L':
-        image = image.convert('L')
-    return torch.tensor([pil2tensor(image)[0, :, :].tolist()])
+    if image.mode == 'L':
+        return torch.tensor([pil2tensor(image)[0, :, :].tolist()])
+    else:
+        image = image.convert('RGB').split()[0]
+        return torch.tensor([pil2tensor(image)[0, :, :].tolist()])
 
 def mask2image(mask:torch.Tensor)  -> Image:
     masks = tensor2np(mask)
