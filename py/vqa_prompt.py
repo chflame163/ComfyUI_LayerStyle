@@ -56,6 +56,10 @@ class LS_LoadVQAModel:
         model_path = os.path.join(vqa_model_path, model)
         from transformers import BlipProcessor,BlipForQuestionAnswering
 
+        # if there is no local files, use repo id to auto-download the dependencies. 
+        if not os.path.exists(model_path):
+            model_path = vqa_model_repos[model]
+            
         vqa_processor = BlipProcessor.from_pretrained(model_path)
         if precision == 'fp16':
             vqa_model = BlipForQuestionAnswering.from_pretrained(model_path, torch_dtype=torch.float16).to(device)
