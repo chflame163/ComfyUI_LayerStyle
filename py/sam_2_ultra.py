@@ -192,16 +192,16 @@ def load_model(model_path, model_cfg_path, segmentor, dtype, device):
     if segmentor == 'single_image':
         model_class = SAM2Base
         model = initialize_model(model_class, model_config, segmentor, image_encoder, memory_attention, memory_encoder, sam_mask_decoder_extra_args, dtype, device)
-        model.load_state_dict(sd)
+        model.load_state_dict(sd, strict=False)
         model = SAM2ImagePredictor(model)
     elif segmentor == 'video':
         model_class = SAM2VideoPredictor
         model = initialize_model(model_class, model_config, segmentor, image_encoder, memory_attention, memory_encoder, sam_mask_decoder_extra_args, dtype, device)
-        model.load_state_dict(sd)
+        model.load_state_dict(sd, strict=False)
     elif segmentor == 'automaskgenerator':
         model_class = SAM2Base
         model = initialize_model(model_class, model_config, segmentor, image_encoder, memory_attention, memory_encoder, sam_mask_decoder_extra_args, dtype, device)
-        model.load_state_dict(sd)
+        model.load_state_dict(sd, strict=False)
         model = SAM2AutomaticMaskGenerator(model)
     else:
         raise ValueError(f"Segmentor {segmentor} not supported")
