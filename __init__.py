@@ -10,35 +10,37 @@ NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}
 
 python = sys.executable
-extentions_folder = os.path.join(os.path.dirname(os.path.realpath(__main__.__file__)),
-                                 "web" + os.sep + "extensions" + os.sep + "dzNodes")
-javascript_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "js")
-outdate_file_list = ['comfy_shared.js', 'debug.js', 'mtb_widgets.js', 'parse-css.js', 'dz_widgets.js']
+try:
+    extentions_folder = os.path.join(os.path.dirname(os.path.realpath(__main__.__file__)),
+                                     "web" + os.sep + "extensions" + os.sep + "dzNodes")
+    javascript_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "js")
+    outdate_file_list = ['comfy_shared.js', 'debug.js', 'mtb_widgets.js', 'parse-css.js', 'dz_widgets.js']
 
-if not os.path.exists(extentions_folder):
-    print('# 😺dzNodes: Making the "web\extensions\dzNodes" folder')
-    os.mkdir(extentions_folder)
-else:
-    for i in outdate_file_list:
-        outdate_file = os.path.join(extentions_folder, i)
-        if os.path.exists(outdate_file):
-            os.remove(outdate_file)
+    if not os.path.exists(extentions_folder):
+        print('# 😺dzNodes: Making the "web\extensions\dzNodes" folder')
+        os.mkdir(extentions_folder)
+    else:
+        for i in outdate_file_list:
+            outdate_file = os.path.join(extentions_folder, i)
+            if os.path.exists(outdate_file):
+                os.remove(outdate_file)
 
-result = filecmp.dircmp(javascript_folder, extentions_folder)
+    result = filecmp.dircmp(javascript_folder, extentions_folder)
 
-if result.left_only or result.diff_files:
-    print('# 😺dzNodes: Update to javascripts files detected')
-    file_list = list(result.left_only)
-    file_list.extend(x for x in result.diff_files if x not in file_list)
+    if result.left_only or result.diff_files:
+        print('# 😺dzNodes: Update to javascripts files detected')
+        file_list = list(result.left_only)
+        file_list.extend(x for x in result.diff_files if x not in file_list)
 
-    for file in file_list:
-        print(f'# 😺dzNodes:: Copying {file} to extensions folder')
-        src_file = os.path.join(javascript_folder, file)
-        dst_file = os.path.join(extentions_folder, file)
-        if os.path.exists(dst_file):
-            os.remove(dst_file)
-        shutil.copy(src_file, dst_file)
-
+        for file in file_list:
+            print(f'# 😺dzNodes:: Copying {file} to extensions folder')
+            src_file = os.path.join(javascript_folder, file)
+            dst_file = os.path.join(extentions_folder, file)
+            if os.path.exists(dst_file):
+                os.remove(dst_file)
+            shutil.copy(src_file, dst_file)
+except Exception as e:
+    print(f'# 😺dzNodes: Error in update js files: {e}')
 
 def get_ext_dir(subpath=None, mkdir=False):
     dir = os.path.dirname(__file__)
