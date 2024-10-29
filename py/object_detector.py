@@ -105,6 +105,7 @@ class LS_OBJECT_DETECTOR_FL2:
 
     def object_detector_fl2(self, image, prompt, florence2_model, sort_method, bbox_select, select_index):
 
+        ret_bboxes = []
         bboxes = []
         ret_previews = []
         max_new_tokens = 512
@@ -115,27 +116,30 @@ class LS_OBJECT_DETECTOR_FL2:
         model = florence2_model['model']
         processor = florence2_model['processor']
 
-        img = tensor2pil(image[0]).convert("RGB")
-        task = 'caption to phrase grounding'
-        from .florence2_ultra import  process_image
-        results, _ = process_image(model, processor, img, task,
-                                   max_new_tokens, num_beams, do_sample,
-                                   fill_mask, prompt)
+        for img in image:
+            img = tensor2pil(img.unsqueeze(0)).convert("RGB")
+            task = 'caption to phrase grounding'
+            from .florence2_ultra import  process_image
+            results, _ = process_image(model, processor, img, task,
+                                       max_new_tokens, num_beams, do_sample,
+                                       fill_mask, prompt)
 
-        if isinstance(results, dict):
-            results["width"] = img.width
-            results["height"] = img.height
+            if isinstance(results, dict):
+                results["width"] = img.width
+                results["height"] = img.height
 
-        bboxes = self.fbboxes_to_list(results)
-        bboxes = sort_bboxes(bboxes, sort_method)
-        bboxes = select_bboxes(bboxes, bbox_select, select_index)
-        preview = draw_bounding_boxes(img, bboxes, color="random", line_width=-1)
-        ret_previews.append(pil2tensor(preview))
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} no object found", message_type='warning')
-        else:
-            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
-        return (standardize_bbox(bboxes), torch.cat(ret_previews, dim=0))
+            bboxes = self.fbboxes_to_list(results)
+            bboxes = sort_bboxes(bboxes, sort_method)
+            bboxes = select_bboxes(bboxes, bbox_select, select_index)
+            preview = draw_bounding_boxes(img, bboxes, color="random", line_width=-1)
+            ret_previews.append(pil2tensor(preview))
+            ret_bboxes.append(standardize_bbox(bboxes))
+            if len(bboxes) == 0:
+                log(f"{self.NODE_NAME} no object found", message_type='warning')
+            else:
+                log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+
+        return (ret_bboxes, torch.cat(ret_previews, dim=0))
 
     def fbboxes_to_list(self, F_BBOXES) -> list:
         if isinstance(F_BBOXES, str):
@@ -210,31 +214,34 @@ class LS_OBJECT_DETECTOR_MASK:
 
     def object_detector_mask(self, object_mask, sort_method, bbox_select, select_index):
 
+        ret_bboxes = []
+        ret_previews = []
         bboxes = []
         if object_mask.dim() == 2:
             object_mask = torch.unsqueeze(object_mask, 0)
 
-        cv_mask = tensor2cv2(object_mask[0])
-        cv_mask = cv2.cvtColor(cv_mask, cv2.COLOR_BGR2GRAY)
-        _, binary = cv2.threshold(cv_mask, 127, 255, cv2.THRESH_BINARY)
-        # invert mask
-        # binary = cv2.bitwise_not(binary)
-        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        for contour in contours:
-            x, y, w, h = cv2.boundingRect(contour)
-            bboxes.append([x, y, x + w, y + h])
-        bboxes = sort_bboxes(bboxes, sort_method)
-        bboxes = select_bboxes(bboxes, bbox_select, select_index)
-        ret_previews = []
-        preview = draw_bounding_boxes(tensor2pil(object_mask[0]).convert("RGB"), bboxes, color="random", line_width=-1)
-        ret_previews.append(pil2tensor(preview))
+        for msk in object_mask:
+            cv_mask = tensor2cv2(msk)
+            cv_mask = cv2.cvtColor(cv_mask, cv2.COLOR_BGR2GRAY)
+            _, binary = cv2.threshold(cv_mask, 127, 255, cv2.THRESH_BINARY)
+            # invert mask
+            # binary = cv2.bitwise_not(binary)
+            contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            for contour in contours:
+                x, y, w, h = cv2.boundingRect(contour)
+                bboxes.append([x, y, x + w, y + h])
+            bboxes = sort_bboxes(bboxes, sort_method)
+            bboxes = select_bboxes(bboxes, bbox_select, select_index)
+            preview = draw_bounding_boxes(tensor2pil(msk).convert("RGB"), bboxes, color="random", line_width=-1)
+            ret_previews.append(pil2tensor(preview))
 
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} no object found", message_type='warning')
-        else:
-            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+            if len(bboxes) == 0:
+                log(f"{self.NODE_NAME} no object found", message_type='warning')
+            else:
+                log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+            ret_bboxes.append(standardize_bbox(bboxes))
 
-        return (standardize_bbox(bboxes), torch.cat(ret_previews, dim=0))
+        return (ret_bboxes, torch.cat(ret_previews, dim=0))
 
 
 class LS_OBJECT_DETECTOR_YOLO8:
@@ -271,31 +278,34 @@ class LS_OBJECT_DETECTOR_YOLO8:
         model_path = os.path.join(folder_paths.models_dir, 'yolo')
         yolo_model = YOLO(os.path.join(model_path, yolo_model))
 
+        ret_bboxes = []
         bboxes = []
         ret_previews = []
 
-        img = torch.unsqueeze(image[0], 0)
-        _image = tensor2pil(img)
-        results = yolo_model(_image, retina_masks=True)
-        for result in results:
-            yolo_plot_image = cv2.cvtColor(result.plot(), cv2.COLOR_BGR2RGB)
+        for img in image:
+            img = torch.unsqueeze(img.unsqueeze(0), 0)
+            _image = tensor2pil(img)
+            results = yolo_model(_image, retina_masks=True)
+            for result in results:
+                yolo_plot_image = cv2.cvtColor(result.plot(), cv2.COLOR_BGR2RGB)
 
-            # no mask, if have box, draw box
-            if result.boxes is not None and len(result.boxes.xyxy) > 0:
-                for box in result.boxes:
-                    x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
-                    bboxes.append([x1, y1, x2, y2])
-        bboxes = sort_bboxes(bboxes, sort_method)
-        bboxes = select_bboxes(bboxes, bbox_select, select_index)
-        preview = draw_bounding_boxes(_image.convert("RGB"), bboxes, color="random", line_width=-1)
-        ret_previews.append(pil2tensor(preview))
+                # no mask, if have box, draw box
+                if result.boxes is not None and len(result.boxes.xyxy) > 0:
+                    for box in result.boxes:
+                        x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
+                        bboxes.append([x1, y1, x2, y2])
+            bboxes = sort_bboxes(bboxes, sort_method)
+            bboxes = select_bboxes(bboxes, bbox_select, select_index)
+            preview = draw_bounding_boxes(_image.convert("RGB"), bboxes, color="random", line_width=-1)
+            ret_previews.append(pil2tensor(preview))
 
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} no object found", message_type='warning')
-        else:
-            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+            if len(bboxes) == 0:
+                log(f"{self.NODE_NAME} no object found", message_type='warning')
+            else:
+                log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+            ret_bboxes.append(standardize_bbox(bboxes))
 
-        return (standardize_bbox(bboxes), torch.cat(ret_previews, dim=0),)
+        return (ret_bboxes, torch.cat(ret_previews, dim=0),)
 
 class LS_OBJECT_DETECTOR_YOLOWORLD:
 
@@ -332,33 +342,44 @@ class LS_OBJECT_DETECTOR_YOLOWORLD:
     def object_detector_yoloworld(self, image, yolo_world_model,
                                   confidence_threshold, nms_iou_threshold, prompt,
                                   sort_method, bbox_select, select_index):
+        ret_previews = []
+        ret_bboxes = []
+
         import supervision as sv
 
         model=self.load_yolo_world_model(yolo_world_model, prompt)
-        infer_outputs = []
-        img = (255 * image[0].cpu().numpy()).astype(np.uint8)
-        results = model.infer(
-            img, confidence=confidence_threshold)
-        detections = sv.Detections.from_inference(results)
-        detections = detections.with_nms(
-            class_agnostic=False,
-            threshold=nms_iou_threshold
-        )
-        infer_outputs.append(detections)
-        bboxes = infer_outputs[0].xyxy.tolist()
-        bboxes = [[int(value) for value in sublist] for sublist in bboxes]
-        bboxes = sort_bboxes(bboxes, sort_method)
-        bboxes = select_bboxes(bboxes, bbox_select, select_index)
-        ret_previews = []
-        preview = draw_bounding_boxes(tensor2pil(image[0]).convert('RGB'), bboxes, color="random", line_width=-1)
-        ret_previews.append(pil2tensor(preview))
 
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} no object found", message_type='warning')
-        else:
-            log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+        for i in image:
+            infer_outputs = []
+            # img = (255 * img.unsqueeze(0).cpu().numpy()).astype(np.uint8)
+            img = tensor2np(i)
+            results = model.infer(
+                img, confidence=confidence_threshold)
+            detections = sv.Detections.from_inference(results)
+            detections = detections.with_nms(
+                class_agnostic=False,
+                threshold=nms_iou_threshold
+            )
+            infer_outputs.append(detections)
 
-        return (standardize_bbox(bboxes), torch.cat(ret_previews, dim=0))
+            if len(infer_outputs[0].xyxy) > 0:
+                bboxes = infer_outputs[0].xyxy.tolist()
+                bboxes = [[int(value) for value in sublist] for sublist in bboxes]
+                bboxes = sort_bboxes(bboxes, sort_method)
+                bboxes = select_bboxes(bboxes, bbox_select, select_index)
+            else:
+                bboxes = [[0, 0, i.shape[1], i.shape[0]]]
+
+            preview = draw_bounding_boxes(tensor2pil(i.unsqueeze(0)).convert('RGB'), bboxes, color="random", line_width=-1)
+            ret_previews.append(pil2tensor(preview))
+
+            if len(bboxes) == 0:
+                log(f"{self.NODE_NAME} no object found", message_type='warning')
+            else:
+                log(f"{self.NODE_NAME} found {len(bboxes)} object(s)", message_type='info')
+            ret_bboxes.append(standardize_bbox(bboxes))
+
+        return (ret_bboxes, torch.cat(ret_previews, dim=0))
 
     def process_categories(self, categories: str) -> List[str]:
         return [category.strip().lower() for category in categories.split(',')]
