@@ -285,9 +285,9 @@ class LS_SAM2_ULTRA:
             log(f"{self.NODE_NAME}: Downloading SAM2 model to: {model_path}")
             from huggingface_hub import snapshot_download
             snapshot_download(repo_id="Kijai/sam2-safetensors",
-                            allow_patterns=[f"*{sam2_model}*"],
-                            local_dir=sam2_path,
-                            local_dir_use_symlinks=False)
+                              allow_patterns=[f"*{sam2_model}*"],
+                              local_dir=sam2_path,
+                              local_dir_use_symlinks=False)
 
         model_mapping = {
             "2.0": {
@@ -311,81 +311,115 @@ class LS_SAM2_ULTRA:
             None
         )
         log(f"{self.NODE_NAME}: Using model config: {model_cfg_path}")
-
         model = load_model(model_path, model_cfg_path, segmentor, dtype, device)
 
         offload_device = mm.unet_offload_device()
 
-        # B, H, W, C = image.shape
         indexs = extract_numbers(select_index)
 
-        # Handle possible bboxes
-        if len(bboxes) == 0:
-            log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
-            return (image, None)
-        else:
-            boxes_np_batch = []
-            for bbox_list in bboxes:
-                boxes_np = []
-                for bbox in bbox_list:
-                    boxes_np.append(bbox)
-                boxes_np = np.array(boxes_np)
-                boxes_np_batch.append(boxes_np)
-            if bbox_select == "all":
-                final_box = np.array(boxes_np_batch)
-            elif bbox_select == "by_index":
-                final_box = []
-                try:
-                    for i in indexs:
-                        final_box.append(boxes_np_batch[i])
-                except IndexError:
-                    log(f"{self.NODE_NAME} invalid bbox index {i}", message_type='warning')
-            else:
-                final_box = np.array(boxes_np_batch[0])
-            # final_labels = None
-
-        mask_list = []
         try:
             model.to(device)
         except:
             model.model.to(device)
-
         autocast_condition = not mm.is_device_mps(device)
-        with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
 
-            image_np = (image.contiguous() * 255).byte().numpy()
-            comfy_pbar = ProgressBar(len(image_np))
-            tqdm_pbar = tqdm(total=len(image_np), desc="Processing Images")
-            for i in range(len(image_np)):
-                model.set_image(image_np[i])
-                # if len(image_np) > 1:
-                #     input_box = final_box[i]
-                input_box = final_box
+        for index in range(len(image)):
+            img = image[index].unsqueeze(0)
 
-                out_masks, scores, logits = model.predict(
-                    point_coords=None,
-                    point_labels=None,
-                    box=input_box,
-                    multimask_output=True,
-                    mask_input=None,
-                )
-
-                if out_masks.ndim == 3:
-                    sorted_ind = np.argsort(scores)[::-1]
-                    out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
-                    # scores = scores[sorted_ind]
-                    # logits = logits[sorted_ind]
-                    mask_list.append(np.expand_dims(out_masks, axis=0))
+            # Handle possible bboxes
+            if len(bboxes) == 0:
+                log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
+                return (image, None)
+            else:
+                boxes_np_batch = []
+                for bbox_list in bboxes[index]:
+                    boxes_np = []
+                    for bbox in bbox_list:
+                        boxes_np.append(bbox)
+                    boxes_np = np.array(boxes_np)
+                    boxes_np_batch.append(boxes_np)
+                if bbox_select == "all":
+                    final_box = np.array(boxes_np_batch)
+                elif bbox_select == "by_index":
+                    final_box = []
+                    try:
+                        for i in indexs:
+                            final_box.append(boxes_np_batch[i])
+                    except IndexError:
+                        log(f"{self.NODE_NAME} invalid bbox index {i}", message_type='warning')
                 else:
-                    _, _, H, W = out_masks.shape
-                    # Combine masks for all object IDs in the frame
-                    combined_mask = np.zeros((H, W), dtype=bool)
-                    for out_mask in out_masks:
-                        combined_mask = np.logical_or(combined_mask, out_mask)
-                    combined_mask = combined_mask.astype(np.uint8)
-                    mask_list.append(combined_mask)
-                comfy_pbar.update(1)
-                tqdm_pbar.update(1)
+                    final_box = np.array(boxes_np_batch[0])
+
+            mask_list = []
+
+            with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
+
+                image_np = (img.contiguous() * 255).byte().numpy()
+                comfy_pbar = ProgressBar(len(image_np))
+                tqdm_pbar = tqdm(total=len(image_np), desc="Processing Images")
+                for i in range(len(image_np)):
+                    model.set_image(image_np[i])
+                    # if len(image_np) > 1:
+                    #     input_box = final_box[i]
+                    input_box = final_box
+
+                    out_masks, scores, logits = model.predict(
+                        point_coords=None,
+                        point_labels=None,
+                        box=input_box,
+                        multimask_output=True,
+                        mask_input=None,
+                    )
+
+                    if out_masks.ndim == 3:
+                        sorted_ind = np.argsort(scores)[::-1]
+                        out_masks = out_masks[sorted_ind][0]  # choose only the best result for now
+                        # scores = scores[sorted_ind]
+                        # logits = logits[sorted_ind]
+                        mask_list.append(np.expand_dims(out_masks, axis=0))
+                    else:
+                        _, _, H, W = out_masks.shape
+                        # Combine masks for all object IDs in the frame
+                        combined_mask = np.zeros((H, W), dtype=bool)
+                        for out_mask in out_masks:
+                            combined_mask = np.logical_or(combined_mask, out_mask)
+                        combined_mask = combined_mask.astype(np.uint8)
+                        mask_list.append(combined_mask)
+                    comfy_pbar.update(1)
+                    tqdm_pbar.update(1)
+
+            out_list = []
+            for mask in mask_list:
+                mask_tensor = torch.from_numpy(mask)
+                mask_tensor = mask_tensor.permute(1, 2, 0)
+                mask_tensor = mask_tensor[:, :, 0]
+                out_list.append(mask_tensor)
+            mask_tensor = torch.stack(out_list, dim=0).cpu().float()
+            _mask = mask_tensor.squeeze()
+
+            if detail_method == 'VITMatte(local)':
+                local_files_only = True
+            else:
+                local_files_only = False
+            orig_image = tensor2pil(img)
+            detail_range = detail_erode + detail_dilate
+            if process_detail:
+                if detail_method == 'GuidedFilter':
+                    _mask = guided_filter_alpha(pil2tensor(orig_image), _mask, detail_range // 6 + 1)
+                    _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
+                elif detail_method == 'PyMatting':
+                    _mask = tensor2pil(mask_edge_detail(pil2tensor(orig_image), _mask, detail_range // 8 + 1, black_point, white_point))
+                else:
+                    _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
+                    _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only, device=device,
+                                              max_megapixels=max_megapixels)
+                    _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
+            else:
+                _mask = tensor2pil(_mask)
+
+            ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
+            ret_images.append(pil2tensor(ret_image))
+            ret_masks.append(image2mask(_mask))
 
         if cache_model:
             try:
@@ -398,40 +432,6 @@ class LS_SAM2_ULTRA:
         else:
             del model
             clear_memory()
-
-        out_list = []
-        for mask in mask_list:
-            mask_tensor = torch.from_numpy(mask)
-            mask_tensor = mask_tensor.permute(1, 2, 0)
-            mask_tensor = mask_tensor[:, :, 0]
-            out_list.append(mask_tensor)
-        mask_tensor = torch.stack(out_list, dim=0).cpu().float()
-        _mask = mask_tensor.squeeze()
-
-        if detail_method == 'VITMatte(local)':
-            local_files_only = True
-        else:
-            local_files_only = False
-        orig_image = tensor2pil(image[0])
-        detail_range = detail_erode + detail_dilate
-        if process_detail:
-            if detail_method == 'GuidedFilter':
-                _mask = guided_filter_alpha(pil2tensor(orig_image), _mask, detail_range // 6 + 1)
-                _mask = tensor2pil(histogram_remap(_mask, black_point, white_point))
-            elif detail_method == 'PyMatting':
-                _mask = tensor2pil(mask_edge_detail(pil2tensor(orig_image), _mask, detail_range // 8 + 1, black_point, white_point))
-            else:
-                _trimap = generate_VITMatte_trimap(_mask, detail_erode, detail_dilate)
-                _mask = generate_VITMatte(orig_image, _trimap, local_files_only=local_files_only, device=device,
-                                          max_megapixels=max_megapixels)
-                _mask = tensor2pil(histogram_remap(pil2tensor(_mask), black_point, white_point))
-        else:
-            _mask = tensor2pil(_mask)
-
-        ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
-        ret_images.append(pil2tensor(ret_image))
-        ret_masks.append(image2mask(_mask))
-
         log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0))
 
