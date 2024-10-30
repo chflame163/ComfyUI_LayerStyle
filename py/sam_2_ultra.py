@@ -325,11 +325,16 @@ class LS_SAM2_ULTRA:
 
         for index in range(len(image)):
             img = image[index].unsqueeze(0)
+            orig_image = tensor2pil(img)
 
             # Handle possible bboxes
-            if len(bboxes) == 0:
-                log(f"{self.NODE_NAME} skipped, because bboxes is empty.", message_type='error')
-                return (image, None)
+            if len(bboxes[index]) == 0:
+                log(f"{self.NODE_NAME} bboxes index {index} is empty, output black mask.", message_type='warning')
+                _mask = Image.new("L", orig_image.size, color="black")
+                ret_image = RGB2RGBA(orig_image, _mask.convert('L'))
+                ret_images.append(pil2tensor(ret_image))
+                ret_masks.append(image2mask(_mask))
+                continue
             else:
                 boxes_np_batch = []
                 for bbox_list in bboxes[index]:
@@ -401,7 +406,7 @@ class LS_SAM2_ULTRA:
                 local_files_only = True
             else:
                 local_files_only = False
-            orig_image = tensor2pil(img)
+
             detail_range = detail_erode + detail_dilate
             if process_detail:
                 if detail_method == 'GuidedFilter':

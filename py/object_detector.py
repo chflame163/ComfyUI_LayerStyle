@@ -1,4 +1,3 @@
-
 from .imagefunc import *
 
 select_list = ["all", "first", "by_index"]
@@ -106,7 +105,6 @@ class LS_OBJECT_DETECTOR_FL2:
     def object_detector_fl2(self, image, prompt, florence2_model, sort_method, bbox_select, select_index):
 
         ret_bboxes = []
-        bboxes = []
         ret_previews = []
         max_new_tokens = 512
         num_beams = 3
@@ -117,6 +115,7 @@ class LS_OBJECT_DETECTOR_FL2:
         processor = florence2_model['processor']
 
         for img in image:
+            bboxes = []
             img = tensor2pil(img.unsqueeze(0)).convert("RGB")
             task = 'caption to phrase grounding'
             from .florence2_ultra import  process_image
@@ -216,11 +215,12 @@ class LS_OBJECT_DETECTOR_MASK:
 
         ret_bboxes = []
         ret_previews = []
-        bboxes = []
+
         if object_mask.dim() == 2:
             object_mask = torch.unsqueeze(object_mask, 0)
 
         for msk in object_mask:
+            bboxes = []
             cv_mask = tensor2cv2(msk)
             cv_mask = cv2.cvtColor(cv_mask, cv2.COLOR_BGR2GRAY)
             _, binary = cv2.threshold(cv_mask, 127, 255, cv2.THRESH_BINARY)
@@ -279,10 +279,10 @@ class LS_OBJECT_DETECTOR_YOLO8:
         yolo_model = YOLO(os.path.join(model_path, yolo_model))
 
         ret_bboxes = []
-        bboxes = []
         ret_previews = []
 
         for img in image:
+            bboxes = []
             img = torch.unsqueeze(img.unsqueeze(0), 0)
             _image = tensor2pil(img)
             results = yolo_model(_image, retina_masks=True)
@@ -362,13 +362,19 @@ class LS_OBJECT_DETECTOR_YOLOWORLD:
             )
             infer_outputs.append(detections)
 
-            if len(infer_outputs[0].xyxy) > 0:
-                bboxes = infer_outputs[0].xyxy.tolist()
-                bboxes = [[int(value) for value in sublist] for sublist in bboxes]
-                bboxes = sort_bboxes(bboxes, sort_method)
-                bboxes = select_bboxes(bboxes, bbox_select, select_index)
-            else:
-                bboxes = [[0, 0, i.shape[1], i.shape[0]]]
+            # if len(infer_outputs[0].xyxy) > 0:
+            #     bboxes = infer_outputs[0].xyxy.tolist()
+            #     bboxes = [[int(value) for value in sublist] for sublist in bboxes]
+            #     bboxes = sort_bboxes(bboxes, sort_method)
+            #     bboxes = select_bboxes(bboxes, bbox_select, select_index)
+            # else:
+            #     bboxes = []
+
+            bboxes = infer_outputs[0].xyxy.tolist()
+            bboxes = [[int(value) for value in sublist] for sublist in bboxes]
+            bboxes = sort_bboxes(bboxes, sort_method)
+            bboxes = select_bboxes(bboxes, bbox_select, select_index)
+
 
             preview = draw_bounding_boxes(tensor2pil(i.unsqueeze(0)).convert('RGB'), bboxes, color="random", line_width=-1)
             ret_previews.append(pil2tensor(preview))
@@ -423,11 +429,21 @@ class LS_DrawBBoxMask:
                       ):
 
         ret_masks = []
-        for img in image:
-            img = tensor2pil(img)
+        for index in range(len(image)):
+            img = tensor2pil(image[index].unsqueeze(0))
             mask = Image.new("L", img.size, color='black')
-            for bbox in bboxes:
-                x1, y1, x2, y2 = bbox
+            bboxes_i = bboxes[index]
+            for bbox in bboxes_i:
+                try:
+                    if len(bbox) == 0:
+                        continue
+                    else:
+                        x1, y1, x2, y2 = bbox
+                except ValueError:
+                    if len(bbox) == 0:
+                        continue
+                    else:
+                        x1, y1, x2, y2 = bbox[index]
                 w = x2 - x1
                 h = y2 - y1
                 if grow_top:
@@ -443,7 +459,6 @@ class LS_DrawBBoxMask:
                     continue
                 draw = ImageDraw.Draw(mask)
                 draw.rectangle([x1, y1, x2, y2], fill='white', outline='white', width=0)
-                del draw
             ret_masks.append(pil2tensor(mask))
 
         log(f"{self.NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
