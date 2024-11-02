@@ -63,8 +63,8 @@ class SegmentAnythingUltraV2:
             self.DINO_MODEL = load_groundingdino_model(grounding_dino_model)
             self.previous_dino_model = grounding_dino_model
 
-        SAM_MODEL = load_sam_model(sam_model)
-        DINO_MODEL = load_groundingdino_model(grounding_dino_model)
+        # SAM_MODEL = load_sam_model(sam_model)
+        # DINO_MODEL = load_groundingdino_model(grounding_dino_model)
         ret_images = []
         ret_masks = []
 
