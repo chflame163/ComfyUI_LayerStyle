@@ -2,23 +2,23 @@ import importlib.util
 import glob
 import os
 import sys
+import __main__
 import filecmp
 import shutil
-import folder_paths
 
 NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}
 
 python = sys.executable
-
 try:
-    base_path = os.path.dirname(folder_paths.base_path)
-    extentions_folder = os.path.join(base_path, "web", "extensions", "dzNodes")
+    comfy_path = os.path.join(os.path.dirname(os.path.realpath(__main__.__file__)))
+    extentions_folder = os.path.join(comfy_path, "web", "extensions", "dzNodes")
+
     javascript_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "js")
     outdate_file_list = ['comfy_shared.js', 'debug.js', 'mtb_widgets.js', 'parse-css.js', 'dz_widgets.js']
-    
+
     if not os.path.exists(extentions_folder):
-        print('# 😺dzNodes: Making the "web\extensions\dzNodes" folder')
+        print(f'# 😺dzNodes: Making the "{extentions_folder}" folder')
         os.makedirs(extentions_folder, exist_ok=True)
     else:
         for i in outdate_file_list:
