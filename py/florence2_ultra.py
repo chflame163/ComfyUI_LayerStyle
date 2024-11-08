@@ -23,7 +23,9 @@ fl2_model_repos = {
     "CogFlorence-2-Large-Freeze": "thwri/CogFlorence-2-Large-Freeze",
     "CogFlorence-2.1-Large": "thwri/CogFlorence-2.1-Large",
     "base-PromptGen-v1.5":"MiaoshouAI/Florence-2-base-PromptGen-v1.5",
-    "large-PromptGen-v1.5":"MiaoshouAI/Florence-2-large-PromptGen-v1.5"
+    "large-PromptGen-v1.5":"MiaoshouAI/Florence-2-large-PromptGen-v1.5",
+    "base-PromptGen-v2.0":"MiaoshouAI/Florence-2-base-PromptGen-v2.0",
+    "large-PromptGen-v2.0":"MiaoshouAI/Florence-2-large-PromptGen-v2.0"
 }
 
 def fixed_get_imports(filename) -> list[str]:
@@ -322,6 +324,14 @@ def process_image(model, processor, image, task_prompt, max_new_tokens, num_beam
         task_prompt = '<MIXED_CAPTION>'
         result = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
         return result[task_prompt], None
+    elif task_prompt == 'mixed caption plus(PromptGen 2.0)':
+        task_prompt = '<MIXED_CAPTION_PLUS>'
+        result = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
+        return result[task_prompt], None
+    elif task_prompt == 'analyze(PromptGen 2.0)':
+        task_prompt = '<<ANALYZE>>'
+        result = run_example(model, processor, task_prompt, image, max_new_tokens, num_beams, do_sample)
+        return result[task_prompt], None
 
     else:
         return "", None  # Return empty string and None for unknown task prompts
@@ -533,6 +543,8 @@ class Florence2Image2Prompt:
             'description',
             'generate tags(PromptGen 1.5)',
             'mixed caption(PromptGen 1.5)',
+            'mixed caption plus(PromptGen 2.0)',
+            'analyze(PromptGen 2.0)',
             "object detection",
             "dense region caption",
             "region proposal",
