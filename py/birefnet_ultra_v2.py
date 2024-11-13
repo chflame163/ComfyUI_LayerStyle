@@ -80,18 +80,19 @@ class LS_LoadBiRefNetModelV2:
         os.makedirs(birefnet_path, exist_ok=True)
 
         model_path = os.path.join(birefnet_path, version)
-        old_model_path = os.path.join(birefnet_path, 'pth')
 
-        if version == "BiRefNet-General" and os.path.exists(old_model_path):
-            model = "BiRefNet-general-epoch_244.pth"
-            from .BiRefNet_v2.models.birefnet import BiRefNet
-            from .BiRefNet_v2.utils import check_state_dict
-            model_dict = get_models()
-            self.birefnet = BiRefNet(bb_pretrained=False)
-            self.state_dict = torch.load(model_dict[model], map_location='cpu', weights_only=True)
-            self.state_dict = check_state_dict(self.state_dict)
-            self.birefnet.load_state_dict(self.state_dict)
-            return (self.birefnet,)
+        if version == "BiRefNet-General":
+            old_birefnet_path = os.path.join(birefnet_path, 'pth')
+            old_model = "BiRefNet-general-epoch_244.pth"
+            old_model_path = os.path.join(old_birefnet_path, old_model)
+            if os.path.exists(old_model_path):
+                from .BiRefNet_v2.models.birefnet import BiRefNet
+                from .BiRefNet_v2.utils import check_state_dict
+                self.birefnet = BiRefNet(bb_pretrained=False)
+                self.state_dict = torch.load(old_model_path, map_location='cpu', weights_only=True)
+                self.state_dict = check_state_dict(self.state_dict)
+                self.birefnet.load_state_dict(self.state_dict)
+                return (self.birefnet,)
         elif not os.path.exists(model_path):
             log(f"Downloading {version} model...")
             repo_id = self.birefnet_model_repos[version]
