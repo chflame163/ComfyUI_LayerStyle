@@ -2,6 +2,7 @@ import os
 import sys
 import torch
 from torchvision import transforms
+from transformers import AutoModelForImageSegmentation
 import tqdm
 from .imagefunc import *
 from comfy.utils import ProgressBar
@@ -51,6 +52,55 @@ class LS_LoadBiRefNetModel:
         self.birefnet.load_state_dict(self.state_dict)
         return (self.birefnet,)
 
+class LS_LoadBiRefNetModelV2:
+    def __init__(self):
+        self.model = None
+
+    @classmethod
+    def INPUT_TYPES(s):
+        model_list = list(s.birefnet_model_repos.keys())
+        return {
+            "required": {
+                "version": (model_list,{"default": model_list[0]}),
+            },
+        }
+    
+    RETURN_TYPES = ("BIREFNET_MODEL",)
+    RETURN_NAMES = ("birefnet_model",)
+    FUNCTION = "load_birefnet_model"
+    CATEGORY = '😺dzNodes/LayerMask'
+
+    birefnet_model_repos = {
+        "BiRefNet-General": "ZhengPeng7/BiRefNet",
+        "RMBG-2.0": "briaai/RMBG-2.0"
+    }
+
+    def load_birefnet_model(self, version):
+        birefnet_path = os.path.join(folder_paths.models_dir, 'BiRefNet')
+        os.makedirs(birefnet_path, exist_ok=True)
+
+        model_path = os.path.join(birefnet_path, version)
+
+        if version == "BiRefNet-General":
+            old_birefnet_path = os.path.join(birefnet_path, 'pth')
+            old_model = "BiRefNet-general-epoch_244.pth"
+            old_model_path = os.path.join(old_birefnet_path, old_model)
+            if os.path.exists(old_model_path):
+                from .BiRefNet_v2.models.birefnet import BiRefNet
+                from .BiRefNet_v2.utils import check_state_dict
+                self.birefnet = BiRefNet(bb_pretrained=False)
+                self.state_dict = torch.load(old_model_path, map_location='cpu', weights_only=True)
+                self.state_dict = check_state_dict(self.state_dict)
+                self.birefnet.load_state_dict(self.state_dict)
+                return (self.birefnet,)
+        elif not os.path.exists(model_path):
+            log(f"Downloading {version} model...")
+            repo_id = self.birefnet_model_repos[version]
+            from huggingface_hub import snapshot_download
+            snapshot_download(repo_id=repo_id, local_dir=model_path, ignore_patterns=["*.md", "*.txt"])
+
+        self.model = AutoModelForImageSegmentation.from_pretrained(model_path, trust_remote_code=True)
+        return (self.model,)
 
 class LS_BiRefNetUltraV2:
 
@@ -61,11 +111,11 @@ class LS_BiRefNetUltraV2:
     def INPUT_TYPES(cls):
 
         method_list = ['VITMatte', 'VITMatte(local)', 'PyMatting', 'GuidedFilter', ]
-        device_list = ['cuda','cpu']
+        device_list = ['cuda', 'cpu']
         return {
             "required": {
                 "image": ("IMAGE",),
-                "birefnet_model":("BIREFNET_MODEL",),
+                "birefnet_model": ("BIREFNET_MODEL",),
                 "detail_method": (method_list,),
                 "detail_erode": ("INT", {"default": 4, "min": 1, "max": 255, "step": 1}),
                 "detail_dilate": ("INT", {"default": 2, "min": 1, "max": 255, "step": 1}),
@@ -83,7 +133,7 @@ class LS_BiRefNetUltraV2:
     RETURN_NAMES = ("image", "mask", )
     FUNCTION = "birefnet_ultra_v2"
     CATEGORY = '😺dzNodes/LayerMask'
-  
+
     def birefnet_ultra_v2(self, image, birefnet_model, detail_method, detail_erode, detail_dilate,
                        black_point, white_point, process_detail, device, max_megapixels):
         ret_images = []
@@ -152,10 +202,12 @@ class LS_BiRefNetUltraV2:
 
 NODE_CLASS_MAPPINGS = {
     "LayerMask: BiRefNetUltraV2": LS_BiRefNetUltraV2,
-    "LayerMask: LoadBiRefNetModel": LS_LoadBiRefNetModel
+    "LayerMask: LoadBiRefNetModel": LS_LoadBiRefNetModel,
+    "LayerMask: LoadBiRefNetModelV2": LS_LoadBiRefNetModelV2
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "LayerMask: BiRefNetUltraV2": "LayerMask: BiRefNet Ultra V2",
-    "LayerMask: LoadBiRefNetModel": "LayerMask: Load BiRefNet Model"
+    "LayerMask: LoadBiRefNetModel": "LayerMask: Load BiRefNet Model",
+    "LayerMask: LoadBiRefNetModelV2": "LayerMask: Load BiRefNet Model V2"
 }
