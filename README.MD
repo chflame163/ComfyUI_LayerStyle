@@ -152,7 +152,7 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 
 * Commit [BenUltra](#BenUltra) and [LoadBenModel](#LoadBenModel) nodes. These two nodes are the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) project in ComfyUI.   
-Download the model files from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
+Download the ```BEN_Base.pth``` and ```config.json``` from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
 * Merge the PR submitted by [jimlee2048](https://github.com/jimlee2048), add the LoadBiRefNetModelV2 node, and support loading RMBG 2.0 models.       
 Download the model files from [huggingface](https://huggingface.co/briaai/RMBG-2.0/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/1viIXlZnpTYTKkm2F-QMj_w?pwd=axr9) and copy to ```ComfyUI/models/BiRefNet/RMBG-2.0``` folder.
 
@@ -2352,7 +2352,7 @@ On the basis of RemBgUltra, the following changes have been made:
 ### <a id="table1">BenUltra</a>
 It is the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN)  project in ComfyUI. Thank you to the original author.
    
-Download the model files from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
+Download the ```BEN_Base.pth``` and ```config.json``` from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
 
 ![image](image/ben_ultra_example.jpg)
 
