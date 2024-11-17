@@ -150,6 +150,12 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+
+* Commit [BenUltra](#BenUltra) and [LoadBenModel](#LoadBenModel) nodes. These two nodes are the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) project in ComfyUI.   
+Download the model files from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
+* Merge the PR submitted by [jimlee2048](https://github.com/jimlee2048), add the LoadBiRefNetModelV2 node, and support loading RMBG 2.0 models.       
+Download the model files from [huggingface](https://huggingface.co/briaai/RMBG-2.0/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/1viIXlZnpTYTKkm2F-QMj_w?pwd=axr9) and copy to ```ComfyUI/models/BiRefNet/RMBG-2.0``` folder.
+
 * Florence2 nodes support base-PromptGen-v2.0 and large-PromptGen-v2.0, Download ```base-PromptGen-v2.0``` and ```large-PromptGen-v2.0``` two folder from [huggingface](https://huggingface.co/chflame163/ComfyUI_LayerStyle/tree/main/ComfyUI/models/florence2) or [BaiduNetdisk](https://pan.baidu.com/s/1BVvXt3N7zrBnToyF-GrC_A?pwd=xm0x) and copy to ```ComfyUI/models/florence2``` folder.
 * [SAM2Ultra](#SAM2Ultra) and ObjectDetector nodes support image batch.
 * [SAM2Ultra](#SAM2Ultra) and [SAM2VideoUltra](#SAM2VideoUltra) nodes add support for SAM2.1 model, including [kijai](https://github.com/kijai)'s FP16 model. Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) or [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main) and copy to ```ComfyUI/models/sam2``` folder.
@@ -2341,6 +2347,38 @@ On the basis of RemBgUltra, the following changes have been made:
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
 
+
+
+### <a id="table1">BenUltra</a>
+It is the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN)  project in ComfyUI. Thank you to the original author.
+   
+Download the model files from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
+
+![image](image/ben_ultra_example.jpg)
+
+Node Options：
+![image](image/ben_ultra_node.jpg)
+* ben_model: Ben model input.
+* image: Image input.
+* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
+* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
+* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
+* black_point: Edge black sampling threshold.
+* white_point: Edge white sampling threshold.
+* process_detail: Set to false here will skip edge processing to save runtime.
+* max_megapixels: Set the maximum size for VitMate operations.
+
+### <a id="table1">LoadBenModel</a>
+Load the BEN model. 
+
+
+Node Options:  
+![image](image/load_ben_model_node.jpg)  
+
+* model: Select the model. Currently, only the Ben_Sase model is available for selection.
+
+
+
 ### <a id="table1">BiRefNetUltra</a>
 
 Using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
@@ -2391,6 +2429,18 @@ Node Options:
 ![image](image/load_birefnet_model_node.jpg)  
 
 * model: Select the model. List the files in the  ```CoomfyUI/models/BiRefNet/pth```  folder for selection.
+
+
+### <a id="table1">LoadBiRefNetModelV2</a>
+This node is a PR submitted by [jimlee2048](https://github.com/jimlee2048) and supports loading RMBG-2.0 models.
+    
+Download model files from [huggingface](https://huggingface.co/briaai/RMBG-2.0/tree/main) or [百度网盘](https://pan.baidu.com/s/1viIXlZnpTYTKkm2F-QMj_w?pwd=axr9) and copy to ```ComfyUI/models/BiRefNet/RMBG-2.0``` folder.
+
+Node Options:  
+![image](image/load_birefnet_model_v2_node.jpg)  
+
+* model: Select the model. There are two options, ```BiRefNet-General``` and ```RMBG-2.0```. 
+
 
 ### <a id="table1">TransparentBackgroundUltra</a>
 

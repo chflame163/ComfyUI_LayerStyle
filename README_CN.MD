@@ -127,6 +127,10 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加[BenUltra](#BenUltra) 和 [LoadBenModel](#LoadBenModel)节点。这两个节点是[PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) 项目在ComfyUI中的实现。    
+从 [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) 或 [百度网盘](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3)下载模型文件并复制到 ```ComfyUI/models/BEN```文件夹。
+* 合并[jimlee2048](https://github.com/jimlee2048)提交的PR, 添加[LoadBiRefNetModelV2](#LoadBiRefNetModelV2) 节点，支持加载RMBG 2.0模型。    
+从 [huggingface](https://huggingface.co/briaai/RMBG-2.0/tree/main) 或 [百度网盘](https://pan.baidu.com/s/1viIXlZnpTYTKkm2F-QMj_w?pwd=axr9) 下载全部文件并复制到```ComfyUI/models/BiRefNet/RMBG-2.0```文件夹。
 * Florence2 节点更新支持 base-PromptGen-v2.0 和 large-PromptGen-v2.0 模型。从 [huggingface](https://huggingface.co/chflame163/ComfyUI_LayerStyle/tree/main/ComfyUI/models/florence2) 或 [BaiduNetdisk](https://pan.baidu.com/s/1BVvXt3N7zrBnToyF-GrC_A?pwd=xm0x) 下载  ```base-PromptGen-v2.0``` 和 ```large-PromptGen-v2.0``` 两个文件夹并复制到 ```ComfyUI/models/florence2```。
 * [SAM2Ultra](#SAM2Ultra) 及 ObjectDetector 节点支持图像批次。
 * [SAM2Ultra](#SAM2Ultra) 及 [SAM2VideoUltra](#SAM2VideoUltra) 节点增加支持SAM2.1模型，包括[kijai](https://github.com/kijai)量化版fp16模型。请从请从[百度网盘](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) 或者 [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main)下载模型文件并复制到```ComfyUI/models/sam2```文件夹。 
@@ -2097,6 +2101,34 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
 
+### <a id="table1">BenUltra</a>
+是[PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) 项目在ComfyUI中的实现。感谢原作者。    
+从 [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) 或 [百度网盘](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3)下载模型文件并复制到 ```ComfyUI/models/BEN```文件夹。
+
+![image](image/ben_ultra_example.jpg)
+
+节点选项说明：
+![image](image/ben_ultra_node.jpg)
+* ben_model: Ben模型输入。
+* image: 图片输入。
+* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
+* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
+* black_point: 边缘黑色采样阈值。
+* white_point: 边缘白色采样阈值。
+* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
+* max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">LoadBenModel</a>
+加载BEN模型。 
+
+
+节点选项说明:  
+![image](image/load_ben_model_node.jpg)  
+
+* model: 选择模型。目前仅有Ben_Base 模型可选。
+
+
 ### <a id="table1">BiRefNetUltra</a>
 使用BiRefNet模型去除背景，有更好的识别能力，同时具有超高的边缘细节。
 本节点模型部分的代码来自vipery的[ComfyUI-BiRefNet](https://github.com/viperyl/ComfyUI-BiRefNet)，感谢原作者。
@@ -2146,6 +2178,17 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 ![image](image/load_birefnet_model_node.jpg)  
 
 * model: 选择模型。列出 ```CoomfyUI/models/BiRefNet/pth``` 文件夹下的文件供选择。
+
+### <a id="table1">LoadBiRefNetModelV2</a>
+本节点是[jimlee2048](https://github.com/jimlee2048)提交的PR，支持加载RMBG-2.0模型。    
+从 [huggingface](https://huggingface.co/briaai/RMBG-2.0/tree/main) 或 [百度网盘](https://pan.baidu.com/s/1viIXlZnpTYTKkm2F-QMj_w?pwd=axr9) 下载全部文件并复制到```ComfyUI/models/BiRefNet/RMBG-2.0```文件夹。
+
+节点选项说明:  
+![image](image/load_birefnet_model_v2_node.jpg)  
+
+* model: 选择模型。有两个选项： ```BiRefNet-General``` 和 ```RMBG-2.0```。
+
+
 
 ### <a id="table1">TransparentBackgroundUltra</a>
 使用transparent-background模型去除背景，有更好的识别能力和识别速度，同时具有超高的边缘细节。
