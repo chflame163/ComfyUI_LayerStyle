@@ -20,7 +20,7 @@ class DropShadowV2:
                 "distance_x": ("INT", {"default": 25, "min": -9999, "max": 9999, "step": 1}),  # x_偏移
                 "distance_y": ("INT", {"default": 25, "min": -9999, "max": 9999, "step": 1}),  # y_偏移
                 "grow": ("INT", {"default": 6, "min": -9999, "max": 9999, "step": 1}),  # 扩张
-                "blur": ("INT", {"default": 18, "min": 0, "max": 100, "step": 1}),  # 模糊
+                "blur": ("INT", {"default": 18, "min": 0, "max": 1000, "step": 1}),  # 模糊
                 "shadow_color": ("STRING", {"default": "#000000"}),  # 背景颜色
             },
             "optional": {
