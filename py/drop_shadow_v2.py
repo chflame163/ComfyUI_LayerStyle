@@ -39,13 +39,12 @@ class DropShadowV2:
                        background_image=None, layer_mask=None
                        ):
 
-        # If background image is empty, create transparent background
-        # image for each layer image
+        # If background image is empty, create transparent background image for each layer image
         if background_image == None:
             background_image = []
             for l in layer_image:
                 m = tensor2pil(l)
-            background_image.append(pil2tensor(Image.new('RGBA', (m.width, m.height), (0, 0, 0, 0))))
+                background_image.append(pil2tensor(Image.new('RGBA', (m.width, m.height), (0, 0, 0, 0))))
 
         b_images = []
         l_images = []
