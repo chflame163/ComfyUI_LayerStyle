@@ -1,4 +1,3 @@
-from PIL import Image
 from .imagefunc import *
 
 NODE_NAME = 'DropShadowV2'
@@ -13,6 +12,7 @@ class DropShadowV2:
 
         return {
             "required": {
+                "background_image": ("IMAGE", ),  #
                 "layer_image": ("IMAGE",),  #
                 "invert_mask": ("BOOLEAN", {"default": True}),  # 反转mask
                 "blend_mode": (chop_mode_v2,),  # 混合模式
@@ -20,11 +20,10 @@ class DropShadowV2:
                 "distance_x": ("INT", {"default": 25, "min": -9999, "max": 9999, "step": 1}),  # x_偏移
                 "distance_y": ("INT", {"default": 25, "min": -9999, "max": 9999, "step": 1}),  # y_偏移
                 "grow": ("INT", {"default": 6, "min": -9999, "max": 9999, "step": 1}),  # 扩张
-                "blur": ("INT", {"default": 18, "min": 0, "max": 1000, "step": 1}),  # 模糊
+                "blur": ("INT", {"default": 18, "min": 0, "max": 100, "step": 1}),  # 模糊
                 "shadow_color": ("STRING", {"default": "#000000"}),  # 背景颜色
             },
             "optional": {
-                "background_image": ("IMAGE", ),  #
                 "layer_mask": ("MASK",),  #
             }
         }
@@ -34,17 +33,11 @@ class DropShadowV2:
     FUNCTION = 'drop_shadow_v2'
     CATEGORY = '😺dzNodes/LayerStyle'
 
-    def drop_shadow_v2(self, layer_image, invert_mask, blend_mode, opacity,
-                       distance_x, distance_y, grow, blur, shadow_color,
-                       background_image=None, layer_mask=None
-                       ):
-
-        # If background image is empty, create transparent background image for each layer image
-        if background_image == None:
-            background_image = []
-            for l in layer_image:
-                m = tensor2pil(l)
-                background_image.append(pil2tensor(Image.new('RGBA', (m.width, m.height), (0, 0, 0, 0))))
+    def drop_shadow_v2(self, background_image, layer_image,
+                  invert_mask, blend_mode, opacity, distance_x, distance_y,
+                  grow, blur, shadow_color,
+                  layer_mask=None
+                  ):
 
         b_images = []
         l_images = []
@@ -72,7 +65,7 @@ class DropShadowV2:
         max_batch = max(len(b_images), len(l_images), len(l_masks))
         distance_x = -distance_x
         distance_y = -distance_y
-        shadow_color = Image.new("RGBA", tensor2pil(l_images[0]).size, color=shadow_color)
+        shadow_color = Image.new("RGB", tensor2pil(l_images[0]).size, color=shadow_color)
 
         for i in range(max_batch):
             background_image = b_images[i] if i < len(b_images) else b_images[-1]
@@ -80,7 +73,7 @@ class DropShadowV2:
             _mask = l_masks[i] if i < len(l_masks) else l_masks[-1]
 
             # preprocess
-            _canvas = tensor2pil(background_image).convert('RGBA')
+            _canvas = tensor2pil(background_image).convert('RGB')
             _layer = tensor2pil(layer_image)
 
             if _mask.size != _layer.size:
