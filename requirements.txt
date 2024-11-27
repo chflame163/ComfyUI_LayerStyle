@@ -37,7 +37,7 @@ wandb
 psd-tools
 hydra-core
 protobuf>=3.20.3
-inference-cli>=0.13.0
+inference-cli[yolo-world]>=0.13.0
 inference-gpu[yolo-world]>=0.13.0
 bitsandbytes>=0.41.1
 transformers>=4.43.2
