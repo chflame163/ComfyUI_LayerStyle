@@ -71,7 +71,7 @@ class YoloV8Detect:
                 else:
                     ret_yolo_masks.append(torch.zeros((1, _image.size[1], _image.size[0]), dtype=torch.float32))
                     # ret_yolo_masks.append(image2mask(Image.new('L', _image.size, "black")))
-                    log(f"{NODE_NAME} mask or box not detected.")
+                    log(f"{self.NODE_NAME} mask or box not detected.")
 
                 # merge mask
                 _mask = ret_yolo_masks[0]
