@@ -17,7 +17,7 @@ LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: 
 LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
 LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
 
-如果最近更新了插件，请安装[ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance)保证之前的工作流不会缺失节点。
+如果最近更新了插件，请安装[ComfyUI_LayerStyle_Advance](https://github.com/chflame163/ComfyUI_LayerStyle_Advance)保证之前的工作流不会缺失节点。
 如果因为拆分仓库导致问题，请回滚插件版本到```3d4a3526a9d1a19671a133e9215077bda520ee5d```
 在插件目录打开终端，使用下列命令回滚版本：
 ```

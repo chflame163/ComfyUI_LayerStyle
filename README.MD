@@ -17,7 +17,7 @@ LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: 
 LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
 LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
 
-If there are recent updates, you need to install [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) to ensure that previous workflows do not lose nodes. 
+If there are recent updates, you need to install [ComfyUI_LayerStyle_Advance](https://github.com/chflame163/ComfyUI_LayerStyle_Advance) to ensure that previous workflows do not lose nodes. 
 If the problem is caused by splitting the warehouse, please roll back the plugin version to```3d4a3526a9d1a19671a133e9215077bda520ee5d```
 Open the terminal in the plugin directory and use the following command to roll back the version:
 ```
