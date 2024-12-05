@@ -68,8 +68,6 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 &emsp;&emsp;for ComfyUI official portable package, type:
 
 ```
-..\..\..\python_embeded\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
-..\..\..\python_embeded\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
 ..\..\..\python_embeded\python.exe -s -m pip install -r requirements.txt
 .\repair_dependency.bat
 ```
@@ -77,8 +75,6 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 &emsp;&emsp;for Aki ComfyUI package, type:
 
 ```
-..\..\python\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
-..\..\python\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
 ..\..\python\python.exe -s -m pip install -r requirements.txt
 .\repair_dependency.bat
 ```
@@ -99,18 +95,6 @@ If the node cannot load properly or there are errors during use, please check th
 
 This warning message indicates that the ini file cannot be found and does not affect usage. If you do not want to see these warnings, please modify all ```*.ini.example``` files in the plugin directory to ```*.ini```.
 
-### ModuleNotFoundError: No module named 'psd_tools'
-
-This error is that the ```psd_tools``` were not installed correctly.   
-
-Solution:
-
-* Close ComfyUI and open the terminal window in the plugin directory and execute the following command:
-  ```../../../python_embeded/python.exe -s -m pip install psd_tools```
-  If error occurs during the installation of psd_tool, such as ```ModuleNotFoundError: No module named 'docopt'``` , please download [docopt's whl](https://www.piwheels.org/project/docopt/) and manual install it. 
-  execute the following command in terminal window:
-  ```../../../python_embeded/python.exe -s -m pip install path/docopt-0.6.2-py2.py3-none-any.whl``` the ```path``` is path name of whl file.
-
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 
 This error is caused by incorrect version of the ```opencv-contrib-python``` package，or this package is overwriteen by other opencv packages. 
@@ -118,6 +102,7 @@ This error is caused by incorrect version of the ```opencv-contrib-python``` pac
 ### NameError: name 'guidedFilter' is not defined
 
 The reason for the problem is the same as above.
+#### For the issues with the above, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 
 ### Cannot import name 'VitMatteImageProcessor' from 'transformers'
 
@@ -127,7 +112,6 @@ This error is caused by the low version of ```transformers``` package.
 
 This error is caused by the low version of ```protobuf``` package. 
 
-#### For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
 
 ### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page
 
@@ -156,19 +140,6 @@ Solution:
 ### Requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
 
 When this error has occurred, please check the network environment.
-
-### UnboundLocalError: local variable 'clip_processor' referenced before assignment
-### UnboundLocalError: local variable 'text_model' referenced before assignment
-If this error occurs when executing ```JoyCaption2``` node and it has been confirmed that the model file has been placed in the correct directory, 
-please check the ```transformers``` dependency package version is at least 4.43.2 or higher.
-If ```transformers``` version is higher than or equal to 4.45.0, and also have error message:
-```
-Error loading models: De️️scriptors cannot be created directly.                                                                                           
-If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.                                
-......
-```
-Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set environment variables: ```PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python```.
-
 
 
 ## Update

@@ -60,11 +60,13 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ```
 ..\..\..\python_embeded\python.exe -s -m pip install -r requirements.txt
+.\repair_dependency.bat
 ```
 &emsp;&emsp;秋叶整合包输入以下命令：
 
 ```
 ..\..\python\python.exe -s -m pip install -r requirements.txt
+.\repair_dependency.bat
 ```
 * 重新打开ComfyUI。
 
@@ -80,18 +82,17 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 这个警告信息是找不到ini文件的提示，不影响使用。如果不想看到这些警告，请修改插件目录下所有的 ```*.ini.example``` 文件名为```*.ini```。
 
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
-这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
+这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。
 
 ### NameError: name 'guidedFilter' is not defined
 问题原因同上。
+#### 以上问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。
 
 ### Cannot import name 'VitMatteImageProcessor' from 'transformers' 
 这个错误是由于```transformers``` 版本过低造成的
 
 ### insightface 加载缓慢
-这是由于```protobuf``` 版本过低造成的。
-
-#### 以上3个依赖包的问题，请双击运行插件目录下的```repair_dependency.bat```(官方便携包)或者```repair_dependency_aki.bat```(秋叶整合包)自动修复。 
+这是由于```protobuf``` 版本过低造成的。 
 
 ### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page 
 解决方法：
