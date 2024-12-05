@@ -1,3 +1,5 @@
+import torch
+import time
 from PIL import ImageEnhance
 from .imagefunc import log, tensor2pil, pil2tensor
 from .imagefunc import gamma_trans, depthblur_image, radialblur_image, vignette_image, filmgrain_image
@@ -72,7 +74,7 @@ class Film:
                 _canvas = vignette_image(_canvas, vignette_intensity, center_x, center_y)
 
             if grain_power:
-                _canvas = filmgrain_image(_canvas, grain_scale, grain_power, grain_shadows, grain_highs, grain_sat)
+                _canvas = filmgrain_image(_canvas, grain_scale, grain_power, grain_shadows, grain_highs, grain_sat, seed=int(time.time()))
 
             ret_image = _canvas
             ret_images.append(pil2tensor(ret_image))

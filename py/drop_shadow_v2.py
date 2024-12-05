@@ -1,4 +1,5 @@
 import torch
+import time
 from PIL import Image
 from .imagefunc import log, tensor2pil, pil2tensor, image2mask, mask2image
 from .imagefunc import chop_image_v2, chop_mode_v2, shift_image, expand_mask
