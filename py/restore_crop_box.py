@@ -1,6 +1,6 @@
 import torch
 from PIL import Image
-from .imagefunc import tensor2pil, pil2tensor, image2mask
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask
 
 
 
