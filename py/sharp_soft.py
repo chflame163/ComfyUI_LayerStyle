@@ -4,7 +4,6 @@ import cv2
 import numpy as np
 from PIL import Image
 from .imagefunc import log
-from cv2.ximgproc import guidedFilter
 
 
 
@@ -59,6 +58,7 @@ class SharpAndSoft:
         n = denoise / 10
         dup = copy.deepcopy(images.cpu().numpy())
 
+        from cv2.ximgproc import guidedFilter
         for index, image in enumerate(dup):
             imgB = image
             if denoise > 0.0:
