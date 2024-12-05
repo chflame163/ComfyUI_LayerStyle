@@ -1,5 +1,30 @@
 ﻿# ComfyUI Layer Style
 
+## 重要通知
+分拆部分依赖易出问题的节点至[ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance)仓库。包括下列节点：    
+LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
+LayerMask: EVFSAMUltra, LayerMask: Florence2Ultra, LayerMask: LoadFlorence2Model, LayerUtility: Florence2Image2Prompt,    
+LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,    
+LayerUtility: ImageAutoCrop, LayerUtility: ImageAutoCropV2, LayerUtility: ImageAutoCropV3,    
+LayerUtility: ImageRewardFilter, LayerUtility: LoadJoyCaption2Model, LayerUtility: JoyCaption2Split,    
+LayerUtility: JoyCaption2, LayerUtility: JoyCaption2ExtraOptions, LayerUtility: LaMa,    
+LayerUtility: LlamaVision, LayerUtility: LoadPSD, LayerMask: MaskByDifferent, LayerMask: MediapipeFacialSegment,    
+LayerMask: BBoxJoin, LayerMask: DrawBBoxMask, LayerMask: ObjectDetectorFL2, LayerMask: ObjectDetectorMask,    
+LayerMask: ObjectDetectorYOLO8, LayerMask: ObjectDetectorYOLOWorld, LayerMask: PersonMaskUltra, LayerMask: PersonMaskUltra V2,    
+LayerUtility: PhiPrompt, LayerUtility: PromptEmbellish, LayerUtility: PromptTagger, LayerUtility: CreateQRCode, LayerUtility: DecodeQRCode,    
+LayerUtility: QWenImage2Prompt, LayerMask: SAM2Ultra, LayerMask: SAM2VideoUltra, LayerUtility: SaveImagePlus, LayerUtility: SD3NegativeConditioning,    
+LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: TransparentBackgroundUltra,     
+LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
+LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
+
+如果最近更新了插件，请安装[ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance)保证之前的工作流不会缺失节点。
+如果因为拆分仓库导致问题，请回滚插件版本到```3d4a3526a9d1a19671a133e9215077bda520ee5d```
+在插件目录打开终端，使用下列命令回滚版本：
+```
+git reset --hard 3d4a3526a9d1a19671a133e9215077bda520ee5d
+```
+
+
 商业合作请联系email [chflame@163.com](mailto:chflame@163.com)
 
 

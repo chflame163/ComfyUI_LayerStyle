@@ -1,5 +1,30 @@
 # ComfyUI Layer Style
 
+## Important note
+Split some nodes of the dependencies that are prone to problems into [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) repository. Including:     
+LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
+LayerMask: EVFSAMUltra, LayerMask: Florence2Ultra, LayerMask: LoadFlorence2Model, LayerUtility: Florence2Image2Prompt,    
+LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,    
+LayerUtility: ImageAutoCrop, LayerUtility: ImageAutoCropV2, LayerUtility: ImageAutoCropV3,    
+LayerUtility: ImageRewardFilter, LayerUtility: LoadJoyCaption2Model, LayerUtility: JoyCaption2Split,    
+LayerUtility: JoyCaption2, LayerUtility: JoyCaption2ExtraOptions, LayerUtility: LaMa,    
+LayerUtility: LlamaVision, LayerUtility: LoadPSD, LayerMask: MaskByDifferent, LayerMask: MediapipeFacialSegment,    
+LayerMask: BBoxJoin, LayerMask: DrawBBoxMask, LayerMask: ObjectDetectorFL2, LayerMask: ObjectDetectorMask,    
+LayerMask: ObjectDetectorYOLO8, LayerMask: ObjectDetectorYOLOWorld, LayerMask: PersonMaskUltra, LayerMask: PersonMaskUltra V2,    
+LayerUtility: PhiPrompt, LayerUtility: PromptEmbellish, LayerUtility: PromptTagger, LayerUtility: CreateQRCode, LayerUtility: DecodeQRCode,    
+LayerUtility: QWenImage2Prompt, LayerMask: SAM2Ultra, LayerMask: SAM2VideoUltra, LayerUtility: SaveImagePlus, LayerUtility: SD3NegativeConditioning,    
+LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: TransparentBackgroundUltra,     
+LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
+LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
+
+If there are recent updates, you need to install [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) to ensure that previous workflows do not lose nodes. 
+If the problem is caused by splitting the warehouse, please roll back the plugin version to```3d4a3526a9d1a19671a133e9215077bda520ee5d```
+Open the terminal in the plugin directory and use the following command to roll back the version:
+```
+git reset --hard 3d4a3526a9d1a19671a133e9215077bda520ee5d
+```
+
+
 [中文说明点这里](./README_CN.MD)    
 
 商务合作请联系email [chflame@163.com](mailto:chflame@163.com).
@@ -152,7 +177,7 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 
 * Optimize dependency packages. Optimize some algorithms.
-* Split some of the dependencies that are prone to problems into [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) repository. Including the following nodes:
+* Split some nodes of the dependencies that are prone to problems into [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) repository. Including:
 LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
 LayerMask: EVFSAMUltra, LayerMask: Florence2Ultra, LayerMask: LoadFlorence2Model, LayerUtility: Florence2Image2Prompt,    
 LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,    
