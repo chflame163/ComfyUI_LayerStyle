@@ -1,0 +1,2 @@
+numpy<2
+opencv-contrib-python>=4.9.0.80

@@ -59,18 +59,12 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 &emsp;&emsp;官方便携包输入以下命令：
 
 ```
-..\..\..\python_embeded\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
-..\..\..\python_embeded\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
 ..\..\..\python_embeded\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency.bat
 ```
 &emsp;&emsp;秋叶整合包输入以下命令：
 
 ```
-..\..\python\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
-..\..\python\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
 ..\..\python\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency.bat
 ```
 * 重新打开ComfyUI。
 
@@ -84,15 +78,6 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ### Warning: xxxx.ini not found, use default xxxx..
 这个警告信息是找不到ini文件的提示，不影响使用。如果不想看到这些警告，请修改插件目录下所有的 ```*.ini.example``` 文件名为```*.ini```。
-
-### ModuleNotFoundError: No module named 'psd_tools'
-这个错误是```psd_tools```没有正确安装。    
-
-解决方法：
-* 关闭ComfyUI，在插件目录下打开终端窗口，执行以下命令:
-```../../../python_embeded/python.exe -s -m pip install psd_tools```
-如果安装psd_tool中出现```ModuleNotFoundError: No module named 'docopt'```错误，请下载[docopt的whl](https://www.piwheels.org/project/docopt/)手动安装。在终端执行以下命令:
-```../../../python_embeded/python.exe -s -m pip install path/docopt-0.6.2-py2.py3-none-any.whl``` path为whl文件的路径名。
 
 ### Cannot import name 'guidedFilter' from 'cv2.ximgproc'
 这个错误是```opencv-contrib-python```没有正确安装，或者安装后又安装了其他opencv包导致。    
@@ -129,16 +114,6 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ### Requests.exceptions.ProxyError: HTTPSConnectionPool(xxxx...)
 出现这个错误，请检查网络环境。
 
-### UnboundLocalError: local variable 'clip_processor' referenced before assignment
-### UnboundLocalError: local variable 'text_model' referenced before assignment
-如果执行JoyCaption2节点时出现这个报错，同时已确定模型文件已放在正确的目录，请检查```transformers```依赖包版本至少在4.43.2以上。
-如果```transformers```依赖包版本大于等于4.45.0, 并同时有报错信息：
-```
-Error loading models: De️️scriptors cannot be created directly.                                                                                           
-If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.                                
-......
-```
-请尝试降级```protobuf```依赖包到3.20.3, 或者设置环境变量：```PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python```。
 
 ## 如何找到本节点组
 * 在ComfyUI画布点击右键 - Add Node, 找到 "😺dzNodes"。    
