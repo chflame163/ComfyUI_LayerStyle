@@ -3,7 +3,8 @@ import copy
 import cv2
 import numpy as np
 from PIL import Image
-from .imagefunc import log, guidedFilter
+from .imagefunc import log
+from cv2.ximgproc import guidedFilter
 
 
 
