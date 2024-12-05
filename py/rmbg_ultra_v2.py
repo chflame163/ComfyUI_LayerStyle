@@ -1,6 +1,6 @@
 import torch
 from PIL import Image
-from .imagefunc import log, tensor2pil, pil2tensor, image2mask, RMBG, RGB2RGBA, mask_edge_detail
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, mask2image, RMBG, RGB2RGBA, mask_edge_detail
 from .imagefunc import guided_filter_alpha, histogram_remap, generate_VITMatte, generate_VITMatte_trimap
 
 
