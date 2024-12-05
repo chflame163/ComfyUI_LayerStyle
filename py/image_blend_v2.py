@@ -1,14 +1,17 @@
+import torch
 import numpy as np
+from PIL import Image
+from .imagefunc import log, pil2tensor, tensor2pil, image2mask, mask2image, chop_image_v2, chop_mode_v2
 
-from .imagefunc import *
 
-NODE_NAME = 'ImageBlendV2'
+
+
 
 
 class ImageBlendV2:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageBlendV2'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -68,14 +71,14 @@ class ImageBlendV2:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             # 合成layer
             _comp = chop_image_v2(_canvas, _layer, blend_mode, opacity)
             _canvas.paste(_comp, mask=_mask)
 
             ret_images.append(pil2tensor(_canvas))
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

@@ -1,11 +1,12 @@
-from .imagefunc import *
+import torch
+from PIL import Image, ImageChops
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, shift_image, expand_mask, chop_image, chop_mode
 
-NODE_NAME = 'InnerShadow'
 
 class InnerShadow:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'InnerShadow'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -60,7 +61,7 @@ class InnerShadow:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         if len(l_masks) == 0:
-            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because the available mask is not found.", message_type='error')
             return (background_image,)
         max_batch = max(len(b_images), len(l_images), len(l_masks))
         distance_x = -distance_x
@@ -75,7 +76,7 @@ class InnerShadow:
             _layer = tensor2pil(layer_image).convert('RGB')
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             if distance_x != 0 or distance_y != 0:
                 __mask = shift_image(_mask, distance_x, distance_y)  # 位移
@@ -89,7 +90,7 @@ class InnerShadow:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -306,92 +306,92 @@ export const DZWidgets = {
     return widget
   },
 
-  DEBUG_IMG: (name, val) => {
-    const w = {
-      name,
-      type: 'image',
-      value: val,
-      draw: function (ctx, node, widgetWidth, widgetY, height) {
-        const [cw, ch] = this.computeSize(widgetWidth)
-        shared.offsetDOMWidget(this, ctx, node, widgetWidth, widgetY, ch)
-      },
-      computeSize: function (width) {
-        const ratio = this.inputRatio || 1
-        if (width) {
-          return [width, width / ratio + 4]
-        }
-        return [128, 128]
-      },
-      onRemoved: function () {
-        if (this.inputEl) {
-          this.inputEl.remove()
-        }
-      },
-    }
-
-    w.inputEl = document.createElement('img')
-    w.inputEl.src = w.value
-    w.inputEl.onload = function () {
-      w.inputRatio = w.inputEl.naturalWidth / w.inputEl.naturalHeight
-    }
-    document.body.appendChild(w.inputEl)
-    return w
-  },
-  DEBUG_STRING: (name, val) => {
-    const fontSize = 16
-    const w = {
-      name,
-      type: 'debug_text',
-
-      draw: function (ctx, node, widgetWidth, widgetY, height) {
-        // const [cw, ch] = this.computeSize(widgetWidth)
-        shared.offsetDOMWidget(this, ctx, node, widgetWidth, widgetY, height)
-      },
-      computeSize(width) {
-        if (!this.value) {
-          return [32, 32]
-        }
-        if (!width) {
-          console.debug(`No width ${this.parent.size}`)
-        }
-        let dimensions
-        withFont(app.ctx, `${fontSize}px monospace`, () => {
-          dimensions = calculateTextDimensions(app.ctx, this.value, width)
-        })
-        const widgetWidth = Math.max(
-          width || this.width || 32,
-          dimensions.maxLineWidth
-        )
-        const widgetHeight = dimensions.textHeight * 1.5
-        return [widgetWidth, widgetHeight]
-      },
-      onRemoved: function () {
-        if (this.inputEl) {
-          this.inputEl.remove()
-        }
-      },
-      get value() {
-        return this.inputEl.innerHTML
-      },
-      set value(val) {
-        this.inputEl.innerHTML = val
-        this.parent?.setSize?.(this.parent?.computeSize())
-      },
-    }
-
-    w.inputEl = document.createElement('p')
-    w.inputEl.style = `
-      text-align: center;
-      font-size: ${fontSize}px;
-      color: var(--input-text);
-      line-height: 0;
-      font-family: monospace;
-    `
-    w.value = val
-    document.body.appendChild(w.inputEl)
-
-    return w
-  },
+//  DEBUG_IMG: (name, val) => {
+//    const w = {
+//      name,
+//      type: 'image',
+//      value: val,
+//      draw: function (ctx, node, widgetWidth, widgetY, height) {
+//        const [cw, ch] = this.computeSize(widgetWidth)
+//        shared.offsetDOMWidget(this, ctx, node, widgetWidth, widgetY, ch)
+//      },
+//      computeSize: function (width) {
+//        const ratio = this.inputRatio || 1
+//        if (width) {
+//          return [width, width / ratio + 4]
+//        }
+//        return [128, 128]
+//      },
+//      onRemoved: function () {
+//        if (this.inputEl) {
+//          this.inputEl.remove()
+//        }
+//      },
+//    }
+//
+//    w.inputEl = document.createElement('img')
+//    w.inputEl.src = w.value
+//    w.inputEl.onload = function () {
+//      w.inputRatio = w.inputEl.naturalWidth / w.inputEl.naturalHeight
+//    }
+//    document.body.appendChild(w.inputEl)
+//    return w
+//  },
+//  DEBUG_STRING: (name, val) => {
+//    const fontSize = 16
+//    const w = {
+//      name,
+//      type: 'debug_text',
+//
+//      draw: function (ctx, node, widgetWidth, widgetY, height) {
+//        // const [cw, ch] = this.computeSize(widgetWidth)
+//        shared.offsetDOMWidget(this, ctx, node, widgetWidth, widgetY, height)
+//      },
+//      computeSize(width) {
+//        if (!this.value) {
+//          return [32, 32]
+//        }
+//        if (!width) {
+//          console.debug(`No width ${this.parent.size}`)
+//        }
+//        let dimensions
+//        withFont(app.ctx, `${fontSize}px monospace`, () => {
+//          dimensions = calculateTextDimensions(app.ctx, this.value, width)
+//        })
+//        const widgetWidth = Math.max(
+//          width || this.width || 32,
+//          dimensions.maxLineWidth
+//        )
+//        const widgetHeight = dimensions.textHeight * 1.5
+//        return [widgetWidth, widgetHeight]
+//      },
+//      onRemoved: function () {
+//        if (this.inputEl) {
+//          this.inputEl.remove()
+//        }
+//      },
+//      get value() {
+//        return this.inputEl.innerHTML
+//      },
+//      set value(val) {
+//        this.inputEl.innerHTML = val
+//        this.parent?.setSize?.(this.parent?.computeSize())
+//      },
+//    }
+//
+//    w.inputEl = document.createElement('p')
+//    w.inputEl.style = `
+//      text-align: center;
+//      font-size: ${fontSize}px;
+//      color: var(--input-text);
+//      line-height: 0;
+//      font-family: monospace;
+//    `
+//    w.value = val
+//    document.body.appendChild(w.inputEl)
+//
+//    return w
+//  },
 }
 
 /**
@@ -402,53 +402,53 @@ const DZ_widgets = {
 
   init: async () => {
     log('Registering DZ.widgets')
-    try {
-      const res = await api.fetchApi('/DZ/debug')
-      const msg = await res.json()
-      if (!window.DZ) {
-        window.DZ = {}
-      }
-      window.DZ.DEBUG = msg.enabled
-    } catch (e) {
-      console.error('Error:', error)
-    }
+//    try {
+//      const res = await api.fetchApi('/DZ/debug')
+//      const msg = await res.json()
+//      if (!window.DZ) {
+//        window.DZ = {}
+//      }
+//      window.DZ.DEBUG = msg.enabled
+//    } catch (e) {
+//      console.error('Error:', error)
+//    }
   },
 
   setup: () => {
-    app.ui.settings.addSetting({
-      id: 'DZ.Debug.enabled',
-      name: '[DZ] Enable Debug (py and js)',
-      type: 'boolean',
-      defaultValue: false,
-
-      tooltip:
-        'This will enable debug messages in the console and in the python console respectively',
-      attrs: {
-        style: {
-          fontFamily: 'monospace',
-        },
-      },
-      async onChange(value) {
-        if (value) {
-          console.log('Enabled DEBUG mode')
-        }
-        if (!window.DZ) {
-          window.DZ = {}
-        }
-        window.DZ.DEBUG = value
-        await api
-          .fetchApi('/DZ/debug', {
-            method: 'POST',
-            body: JSON.stringify({
-              enabled: value,
-            }),
-          })
-          .then((response) => {})
-          .catch((error) => {
-            console.error('Error:', error)
-          })
-      },
-    })
+//    app.ui.settings.addSetting({
+//      id: 'DZ.Debug.enabled',
+//      name: '[DZ] Enable Debug (py and js)',
+//      type: 'boolean',
+//      defaultValue: false,
+//
+//      tooltip:
+//        'This will enable debug messages in the console and in the python console respectively',
+//      attrs: {
+//        style: {
+//          fontFamily: 'monospace',
+//        },
+//      },
+//      async onChange(value) {
+//        if (value) {
+//          console.log('Enabled DEBUG mode')
+//        }
+//        if (!window.DZ) {
+//          window.DZ = {}
+//        }
+//        window.DZ.DEBUG = value
+//        await api
+//          .fetchApi('/DZ/debug', {
+//            method: 'POST',
+//            body: JSON.stringify({
+//              enabled: value,
+//            }),
+//          })
+//          .then((response) => {})
+//          .catch((error) => {
+//            console.error('Error:', error)
+//          })
+//      },
+//    })
   },
 
   getCustomWidgets: function () {
@@ -642,13 +642,13 @@ const DZ_widgets = {
                 )
               }
               let i = 0
-              for (const img of imgURLs) {
-                const w = this.addCustomWidget(
-                  DZWidgets.DEBUG_IMG(`${prefix}_${i}`, img)
-                )
-                w.parent = this
-                i++
-              }
+//              for (const img of imgURLs) {
+//                const w = this.addCustomWidget(
+//                  DZWidgets.DEBUG_IMG(`${prefix}_${i}`, img)
+//                )
+//                w.parent = this
+//                i++
+//              }
             }
             const onRemoved = this.onRemoved
             this.onRemoved = () => {
@@ -686,15 +686,15 @@ const DZ_widgets = {
 
           raw_iteration._value = 0
 
-          const value_preview = this.addCustomWidget(
-            DZWidgets['DEBUG_STRING']('value_preview', 'Idle')
-          )
-          value_preview.parent = this
+//          const value_preview = this.addCustomWidget(
+//            DZWidgets['DEBUG_STRING']('value_preview', 'Idle')
+//          )
+//          value_preview.parent = this
 
-          const loop_preview = this.addCustomWidget(
-            DZWidgets['DEBUG_STRING']('loop_preview', 'Iteration: Idle')
-          )
-          loop_preview.parent = this
+//          const loop_preview = this.addCustomWidget(
+//            DZWidgets['DEBUG_STRING']('loop_preview', 'Iteration: Idle')
+//          )
+//          loop_preview.parent = this
 
           const onReset = () => {
             raw_iteration.value = 0

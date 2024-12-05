@@ -1,11 +1,12 @@
-from .imagefunc import *
+import torch
+from .imagefunc import log, tensor2pil, pil2tensor, gaussian_blur
 
-NODE_NAME = 'GaussianBlur'
+
 
 class GaussianBlur:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'GaussianBlur'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -33,14 +34,14 @@ class GaussianBlur:
 
             ret_images.append(pil2tensor(gaussian_blur(_canvas, blur)))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 
 class LS_GaussianBlurV2:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'GaussianBlurV2'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -71,7 +72,7 @@ class LS_GaussianBlurV2:
         else:
             return (image,)
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

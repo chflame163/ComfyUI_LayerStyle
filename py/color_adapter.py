@@ -1,11 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import color_adapter, chop_image, RGB2RGBA
 
-NODE_NAME = 'ColorAdapter'
+
 
 class ColorAdapter:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ColorAdapter'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -46,7 +50,7 @@ class ColorAdapter:
                 ret_image = RGB2RGBA(ret_image, __image.split()[-1])
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

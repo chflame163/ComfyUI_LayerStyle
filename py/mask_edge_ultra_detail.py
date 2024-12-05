@@ -1,10 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, expand_mask, mask_fix
+from  .imagefunc import guided_filter_alpha, histogram_remap, mask_edge_detail ,RGB2RGBA
 
-NODE_NAME = 'MaskEdgeUltraDetail'
+
 
 class MaskEdgeUltraDetail:
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskEdgeUltraDetail'
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -43,7 +46,7 @@ class MaskEdgeUltraDetail:
         for m in mask:
             l_masks.append(torch.unsqueeze(m, 0))
         if len(l_images) != len(l_masks) or tensor2pil(l_images[0]).size != tensor2pil(l_masks[0]).size:
-            log(f"Error: {NODE_NAME} skipped, because mask does'nt match image.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because mask does'nt match image.", message_type='error')
             return (image, mask,)
 
         for i in range(len(l_images)):
@@ -65,7 +68,7 @@ class MaskEdgeUltraDetail:
             ret_images.append(pil2tensor(ret_image))
             ret_masks.append(image2mask(_mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

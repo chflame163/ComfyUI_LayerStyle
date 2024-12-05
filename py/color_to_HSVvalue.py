@@ -1,12 +1,11 @@
-from .imagefunc import *
+from .imagefunc import AnyType, Hex_to_HSV_255level, log
 
-NODE_NAME = 'HSV Value'
 any = AnyType("*")
 
 class ColorValuetoHSVValue:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'HSV Value'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -31,7 +30,7 @@ class ColorValuetoHSVValue:
         elif isinstance(color_value, tuple):
             H, S, V = Hex_to_HSV_255level(RGB_to_Hex(color_value))
         else:
-            log(f"{NODE_NAME}: color_value input type must be tuple or string.", message_type="error")
+            log(f"{self.NODE_NAME}: color_value input type must be tuple or string.", message_type="error")
 
         return (H, S, V,)
 

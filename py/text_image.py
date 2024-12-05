@@ -1,12 +1,16 @@
-from .imagefunc import *
+import torch
+import time
+import random
+from PIL import Image, ImageFont, ImageDraw
+from .imagefunc import AnyType, log, tensor2pil, pil2tensor, image2mask, get_resource_dir, RGB2RGBA, random_numbers
 
-NODE_NAME = 'TextImage'
+
 any = AnyType("*")
 
 class TextImage:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'TextImage'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -132,7 +136,7 @@ class TextImage:
         _color = Image.new('RGB', size=(width, height), color=text_color)
         _canvas.paste(_color, mask=_mask.convert('L'))
         _canvas = RGB2RGBA(_canvas, _mask)
-        log(f"{NODE_NAME} Processed.", message_type='finish')
+        log(f"{self.NODE_NAME} Processed.", message_type='finish')
         return (pil2tensor(_canvas), image2mask(_mask),)
 
 NODE_CLASS_MAPPINGS = {

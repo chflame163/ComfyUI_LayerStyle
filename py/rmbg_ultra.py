@@ -1,10 +1,11 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, RMBG, RGB2RGBA, mask_edge_detail
 
-NODE_NAME = 'RemBgUltra'
 
 class RemBgUltra:
     def __init__(self):
-        pass
+        self.NODE_NAME = 'RemBgUltra'
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -41,7 +42,7 @@ class RemBgUltra:
             ret_images.append(pil2tensor(ret_image))
             ret_masks.append(image2mask(_mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

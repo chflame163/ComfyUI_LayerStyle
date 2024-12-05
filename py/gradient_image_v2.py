@@ -1,7 +1,8 @@
-from .imagefunc import *
+import torch
+from .imagefunc import log, AnyType, gradient, pil2tensor, tensor2pil, load_custom_size
 
 
-NODE_NAME = 'GradientImage V2'
+
 
 any = AnyType("*")
 
@@ -9,7 +10,7 @@ any = AnyType("*")
 class GradientImageV2:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'GradientImage V2'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -52,7 +53,7 @@ class GradientImageV2:
                     width = int(_s[0].strip())
                     height = int(_s[1].strip())
                 except Exception as e:
-                    log(f"Warning: {NODE_NAME} invalid size, check {custom_size_file}", message_type='warning')
+                    log(f"Warning: {self.NODE_NAME} invalid size, check {custom_size_file}", message_type='warning')
                     width = custom_width
                     height = custom_height
 

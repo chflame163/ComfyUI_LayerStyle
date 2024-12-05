@@ -1,5 +1,6 @@
 from .imagefunc import AnyType, log, extract_all_numbers_from_str
 
+
 any = AnyType("*")
 
 class SeedNode:

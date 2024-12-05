@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, image2mask, expand_mask
 
-NODE_NAME = ''
+
 
 class MaskGrow:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskGrow'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -44,7 +46,7 @@ class MaskGrow:
             _mask = l_masks[i]
             ret_masks.append(expand_mask(image2mask(_mask), grow, blur) )
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 

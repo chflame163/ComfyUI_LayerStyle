@@ -1,4 +1,6 @@
-from .imagefunc import *
+from PIL import Image
+from .imagefunc import log, pil2tensor
+
 
 class ColorImage:
 

@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image, ImageChops
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, mask_invert, step_color, expand_mask, step_value, chop_image
 
-NODE_NAME = 'MaskEdgeShrink'
+
 
 class MaskEdgeShrink:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskEdgeShrink'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -66,7 +68,7 @@ class MaskEdgeShrink:
 
             ret_masks.append(image2mask(_layer))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 

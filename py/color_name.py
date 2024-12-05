@@ -1,5 +1,6 @@
 from .imagefunc import Hex_to_RGB
 
+
 class LS_ColorName:
 
     def __init__(self):

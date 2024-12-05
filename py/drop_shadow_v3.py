@@ -1,12 +1,14 @@
+import torch
 from PIL import Image
-from .imagefunc import *
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, mask2image
+from .imagefunc import chop_image_v2, chop_mode_v2, shift_image, expand_mask
 
-NODE_NAME = 'DropShadowV3'
+
 
 class DropShadowV3:
 
     def __init__(self):
-        pass
+        NODE_NAME = 'DropShadowV3'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -66,7 +68,7 @@ class DropShadowV3:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         if len(l_masks) == 0:
-            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because the available mask is not found.", message_type='error')
             return (background_image,)
 
         max_batch = max(len(b_images), len(l_images), len(l_masks))
@@ -85,7 +87,7 @@ class DropShadowV3:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             if distance_x != 0 or distance_y != 0:
                 __mask = shift_image(_mask, distance_x, distance_y)  # 位移
@@ -99,7 +101,7 @@ class DropShadowV3:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

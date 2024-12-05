@@ -1,11 +1,14 @@
-from .imagefunc import *
+import torch
+import time
+from .imagefunc import log, tensor2pil, image_add_grain, pil2tensor
 
-NODE_NAME = 'AddGrain'
+
 
 class AddGrain:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'AddGrain'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -35,7 +38,7 @@ class AddGrain:
             _canvas = image_add_grain(_canvas, grain_scale, grain_power, grain_sat, toe=0, seed=int(time.time()))
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

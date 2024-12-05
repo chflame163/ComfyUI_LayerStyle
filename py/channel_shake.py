@@ -1,11 +1,17 @@
-from .imagefunc import *
+import torch
+import math
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import shift_image
 
-NODE_NAME = 'ChannelShake'
+
+
 
 class ChannelShake:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ChannelShake'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -52,7 +58,7 @@ class ChannelShake:
             ret_image = Image.merge('RGB', [R, G, B])
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

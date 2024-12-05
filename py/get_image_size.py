@@ -1,9 +1,10 @@
-from .imagefunc import *
+import torch
+from .imagefunc import tensor2pil
 
 class GetImageSize:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'GetImageSize'
 
     @classmethod
     def INPUT_TYPES(self):

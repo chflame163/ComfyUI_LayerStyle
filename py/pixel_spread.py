@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, mask2image, expand_mask, pixel_spread
 
-NODE_NAME = 'PixelSpread'
+
 
 class PixelSpread:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'PixelSpread'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -55,25 +57,14 @@ class PixelSpread:
             if mask_grow != 0:
                 _mask = expand_mask(image2mask(_mask), mask_grow, 0)  # 扩张，模糊
                 _mask = mask2image(_mask)
-            # i1 = pil2tensor(_image.convert('RGB'))
-            # _mask = _mask.convert('RGB')
+
             if _image.size != _mask.size:
-                log(f"Error: {NODE_NAME} skipped, because the mask is not match image.", message_type='error')
+                log(f"Error: {self.NODE_NAME} skipped, because the mask is not match image.", message_type='error')
                 return (image,)
             ret_image = pixel_spread(_image.convert('RGB'), _mask.convert('RGB'))
             ret_images.append(pil2tensor(ret_image))
-            #
-            # i_dup = copy.deepcopy(i1.cpu().numpy().astype(np.float64))
-            # a_dup = copy.deepcopy(pil2tensor(_mask).cpu().numpy().astype(np.float64))
-            # fg = copy.deepcopy(i1.cpu().numpy().astype(np.float64))
-            #
-            # for index, img in enumerate(i_dup):
-            #     alpha = a_dup[index][:, :, 0]
-            #     fg[index], _ = estimate_foreground_ml(img, np.array(alpha), return_background=True)
-            #
-            # ret_images.append(torch.from_numpy(fg.astype(np.float32)))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

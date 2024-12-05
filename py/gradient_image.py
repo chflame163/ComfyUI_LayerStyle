@@ -1,9 +1,10 @@
-from .imagefunc import *
+import torch
+from .imagefunc import gradient, pil2tensor
 
 class GradientImage:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'GradientImage'
 
     @classmethod
     def INPUT_TYPES(self):

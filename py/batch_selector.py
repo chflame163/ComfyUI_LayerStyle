@@ -1,13 +1,13 @@
-
-from .imagefunc import *
-
-NODE_NAME = 'BatchSelector'
+import torch
+from .imagefunc import log, pil2tensor,image2mask, extract_numbers
+from PIL import Image
 
 
 
 class BatchSelector:
 
     def __init__(self):
+        self.NODE_NAME = 'BatchSelector'
         pass
 
     @classmethod
@@ -53,7 +53,7 @@ class BatchSelector:
         if len(ret_masks) == 0:
             ret_masks.append(empty_mask)
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,10 +1,15 @@
 '''
 原始代码来自 https://github.com/StartHua/Comfyui_segformer_b2_clothes
 '''
-
+import torch
+import os
+import numpy as np
+from PIL import Image, ImageEnhance
 from transformers import SegformerImageProcessor, AutoModelForSemanticSegmentation
 import torch.nn as nn
-from .imagefunc import *
+import folder_paths
+from .imagefunc import log, tensor2pil, pil2tensor, mask2image, image2mask, RGB2RGBA
+from .imagefunc import guided_filter_alpha, mask_edge_detail, histogram_remap, generate_VITMatte, generate_VITMatte_trimap
 
 
 class SegformerPipeline:

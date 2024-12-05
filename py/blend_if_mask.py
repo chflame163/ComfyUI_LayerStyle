@@ -1,6 +1,9 @@
-from .imagefunc import *
+import torch
+from PIL import Image, ImageChops
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask
+from .imagefunc import image_channel_split, histogram_range
 
-NODE_NAME = 'BlendIfMask'
+
 
 def norm_value(value):
     if value < 0.01:
@@ -12,7 +15,8 @@ def norm_value(value):
 class BlendIfMask:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'BlendIfMask'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -88,7 +92,7 @@ class BlendIfMask:
 
             ret_masks.append(image2mask(gray))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

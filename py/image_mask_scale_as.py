@@ -1,13 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import AnyType, log, tensor2pil, pil2tensor, fit_resize_image
 
-NODE_NAME = 'ImageMaskScaleAs'
+
 
 any = AnyType("*")
 
 class ImageMaskScaleAs:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageMaskScaleAs'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -76,16 +78,16 @@ class ImageMaskScaleAs:
                 _mask = fit_resize_image(_mask, target_width, target_height, fit, resize_sampler).convert('L')
                 ret_masks.append(image2mask(_mask))
         if len(ret_images) > 0 and len(ret_masks) >0:
-            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+            log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
             return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height],target_width, target_height,)
         elif len(ret_images) > 0 and len(ret_masks) == 0:
-            log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+            log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
             return (torch.cat(ret_images, dim=0), None, [orig_width, orig_height],target_width, target_height,)
         elif len(ret_images) == 0 and len(ret_masks) > 0:
-            log(f"{NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
+            log(f"{self.NODE_NAME} Processed {len(ret_masks)} image(s).", message_type='finish')
             return (None, torch.cat(ret_masks, dim=0), [orig_width, orig_height], target_width, target_height,)
         else:
-            log(f"Error: {NODE_NAME} skipped, because the available image or mask is not found.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because the available image or mask is not found.", message_type='error')
             return (None, None, [orig_width, orig_height], 0, 0,)
 
 NODE_CLASS_MAPPINGS = {

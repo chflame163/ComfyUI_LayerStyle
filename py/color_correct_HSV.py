@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import image_hue_offset, image_gray_offset, image_channel_merge, RGB2RGBA
 
-NODE_NAME = 'HSV'
+
 
 class ColorCorrectHSV:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'HSV'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -47,7 +49,7 @@ class ColorCorrectHSV:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,10 +1,14 @@
 import os.path
 import shutil
+from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 import datetime
-from .imagefunc import *
+import torch
+import numpy as np
+import folder_paths
+from .imagefunc import log, generate_random_name, remove_empty_lines
 
-NODE_NAME = 'ImageTaggerSave'
+
 
 class LSImageTaggerSave:
     def __init__(self):
@@ -12,6 +16,7 @@ class LSImageTaggerSave:
         self.type = "output"
         self.prefix_append = ""
         self.compress_level = 4
+        self.NODE_NAME = 'ImageTaggerSave'
 
     @classmethod
     def INPUT_TYPES(s):
@@ -64,65 +69,67 @@ class LSImageTaggerSave:
                 try:
                     os.makedirs(custom_path)
                 except Exception as e:
-                    log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.",
+                    log(f"Error: {self.NODE_NAME} skipped, because unable to create temporary folder.",
                         message_type='warning')
                     raise FileNotFoundError(f"cannot create custom_path {custom_path}, {e}")
+        else:
+            custom_path = folder_paths.get_output_directory()
 
-            full_output_folder = os.path.normpath(custom_path)
-            # save preview image to temp_dir
-            if os.path.isdir(temp_dir):
-                shutil.rmtree(temp_dir)
-            try:
-                os.makedirs(temp_dir)
-            except Exception as e:
-                print(e)
-                log(f"Error: {NODE_NAME} skipped, because unable to create temporary folder.",
-                    message_type='warning')
-            try:
-                preview_filename = os.path.join(generate_random_name('saveimage_preview_', '_temp', 16) + '.png')
-                img.save(os.path.join(temp_dir, preview_filename))
-            except Exception as e:
-                print(e)
-                log(f"Error: {NODE_NAME} skipped, because unable to create temporary file.", message_type='warning')
+        full_output_folder = os.path.normpath(custom_path)
+        # save preview image to temp_dir
+        if os.path.isdir(temp_dir):
+            shutil.rmtree(temp_dir)
+        try:
+            os.makedirs(temp_dir)
+        except Exception as e:
+            print(e)
+            log(f"Error: {self.NODE_NAME} skipped, because unable to create temporary folder.",
+                message_type='warning')
+        try:
+            preview_filename = os.path.join(generate_random_name('saveimage_preview_', '_temp', 16) + '.png')
+            img.save(os.path.join(temp_dir, preview_filename))
+        except Exception as e:
+            print(e)
+            log(f"Error: {self.NODE_NAME} skipped, because unable to create temporary file.", message_type='warning')
 
-            # check if file exists, change filename
-            while os.path.isfile(os.path.join(full_output_folder, f"{file}.{format}")):
-                counter += 1
-                if timestamp == "millisecond":
-                    file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}_{counter:08}'
-                elif timestamp == "second":
-                    file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S")}_{counter:08}'
-                else:
-                    file = f"{filename}_{counter:08}"
-
-            image_file_name = os.path.join(full_output_folder, f"{file}.{format}")
-            tag_file_name = os.path.join(full_output_folder, f"{file}.txt")
-
-            if format == "png":
-                img.save(image_file_name, pnginfo=metadata, compress_level= (100 - quality) // 10)
-            else:
-                if img.mode == "RGBA":
-                    img = img.convert("RGB")
-                img.save(image_file_name, quality=quality)
-            with open(tag_file_name, "w", encoding="utf-8") as f:
-                f.write(remove_empty_lines(tag_text))
-            log(f"{NODE_NAME} -> Saving image to {image_file_name}")
-
-            if preview:
-                if custom_path == "":
-                    results.append({
-                        "filename": f"{file}.{format}",
-                        "subfolder": subfolder,
-                        "type": self.type
-                    })
-                else:
-                    results.append({
-                        "filename": preview_filename,
-                        "subfolder": temp_sub_dir,
-                        "type": "temp"
-                    })
-
+        # check if file exists, change filename
+        while os.path.isfile(os.path.join(full_output_folder, f"{file}.{format}")):
             counter += 1
+            if timestamp == "millisecond":
+                file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}_{counter:08}'
+            elif timestamp == "second":
+                file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S")}_{counter:08}'
+            else:
+                file = f"{filename}_{counter:08}"
+
+        image_file_name = os.path.join(full_output_folder, f"{file}.{format}")
+        tag_file_name = os.path.join(full_output_folder, f"{file}.txt")
+
+        if format == "png":
+            img.save(image_file_name, pnginfo=metadata, compress_level= (100 - quality) // 10)
+        else:
+            if img.mode == "RGBA":
+                img = img.convert("RGB")
+            img.save(image_file_name, quality=quality)
+        with open(tag_file_name, "w", encoding="utf-8") as f:
+            f.write(remove_empty_lines(tag_text))
+        log(f"{self.NODE_NAME} -> Saving image to {image_file_name}")
+
+        if preview:
+            if custom_path == "":
+                results.append({
+                    "filename": f"{file}.{format}",
+                    "subfolder": subfolder,
+                    "type": self.type
+                })
+            else:
+                results.append({
+                    "filename": preview_filename,
+                    "subfolder": temp_sub_dir,
+                    "type": "temp"
+                })
+
+        counter += 1
 
         return { "ui": { "images": results } }
 

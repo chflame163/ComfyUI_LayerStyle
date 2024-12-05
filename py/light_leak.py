@@ -1,18 +1,18 @@
 import os.path
 import random
 import time
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, load_light_leak_images, image_hue_offset, image_gray_offset, image_channel_merge, fit_resize_image, chop_image
 
-from .imagefunc import *
 
-
-NODE_NAME = 'LightLeak'
 
 blend_mode = 'screen'
 
 class LightLeak:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'LightLeak'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -73,7 +73,7 @@ class LightLeak:
             ret_image = chop_image(_canvas, _light, blend_mode=blend_mode, opacity = opacity)
             ret_images.append(pil2tensor(ret_image))
             
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

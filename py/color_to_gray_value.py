@@ -1,12 +1,12 @@
-from .imagefunc import *
+from .imagefunc import AnyType, rgb2gray
 
-NODE_NAME = 'Gray Value'
+
 any = AnyType("*")
 
 class ColorValuetoGrayValue:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'Gray Value'
 
     @classmethod
     def INPUT_TYPES(self):

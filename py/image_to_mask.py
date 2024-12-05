@@ -1,8 +1,12 @@
-from .imagefunc import *
+import torch
+from PIL import Image, ImageChops
+from .imagefunc import log, tensor2pil, image2mask, image_channel_split, normalize_gray, adjust_levels
 
-NODE_NAME = 'ImageToMask'
+
 
 class ImageToMask:
+    def __init__(self):
+        self.NODE_NAME = 'ImageToMask'
     @classmethod
     def INPUT_TYPES(s):
         channel_list = ["L(LAB)", "A(Lab)", "B(Lab)",

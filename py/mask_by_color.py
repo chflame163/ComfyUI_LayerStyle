@@ -1,9 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, create_mask_from_color_tensor, mask_fix
 
-NODE_NAME = 'MaskByColor'
+
 
 
 class MaskByColor:
+
+    def __init__(self):
+        self.NODE_NAME = 'MaskByColor'
+
     @classmethod
     def INPUT_TYPES(s):
         return {

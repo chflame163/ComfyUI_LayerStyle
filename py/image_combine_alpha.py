@@ -1,11 +1,12 @@
-from .imagefunc import *
+import torch
+from .imagefunc import log, tensor2pil, pil2tensor, image_channel_split, image_channel_merge
 
-NODE_NAME = 'ImageCombineAlpha'
+
 
 class ImageCombineAlpha:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageCombineAlpha'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -46,7 +47,7 @@ class ImageCombineAlpha:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

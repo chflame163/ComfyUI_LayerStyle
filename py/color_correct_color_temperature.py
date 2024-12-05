@@ -1,10 +1,14 @@
 # Adapt from https://github.com/EllangoK/ComfyUI-post-processing-nodes/blob/master/post_processing/color_correct.py
 
-from .imagefunc import *
+import torch
+import numpy as np
+from PIL import Image
+from .imagefunc import log
 
-NODE_NAME = 'ColorTemperature'
 
 class ColorTemperature:
+    def __init__(self):
+        self.NODE_NAME = 'ColorTemperature'
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -45,7 +49,7 @@ class ColorTemperature:
             modified_image = torch.from_numpy(modified_image).unsqueeze(0)
             result[b] = modified_image
 
-        log(f"{NODE_NAME} Processed {len(result)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(result)} image(s).", message_type='finish')
         return (result,)
 
 NODE_CLASS_MAPPINGS = {

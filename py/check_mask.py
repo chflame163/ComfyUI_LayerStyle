@@ -1,12 +1,17 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import mask_white_area
 
-NODE_NAME = 'CheckMask'
+
+
 
 # 检查mask是否有效，如果mask面积少于指定比例则判为无效mask
 class CheckMask:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'CheckMask'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -35,7 +40,9 @@ class CheckMask:
             target_width = 512
             target_height = int(target_width * mask.height / mask.width)
             mask = mask.resize((target_width, target_height), Image.LANCZOS)
-        return (mask_white_area(mask, white_point) * 100 > area_percent,)
+        ret = mask_white_area(mask, white_point) * 100 > area_percent
+        log(f"{self.NODE_NAME}:{ret}", message_type="finish")
+        return (ret,)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: CheckMask": CheckMask

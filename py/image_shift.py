@@ -1,11 +1,12 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, draw_border, gaussian_blur, shift_image
 
-NODE_NAME = 'ImageShift'
 
 class ImageShift:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageShift'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -75,7 +76,7 @@ class ImageShift:
             ret_masks.append(image2mask(_mask))
             ret_border_masks.append(image2mask(_border))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), torch.cat(ret_border_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

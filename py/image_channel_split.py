@@ -1,11 +1,12 @@
-from .imagefunc import *
+import torch
+from .imagefunc import log, tensor2pil, pil2tensor, image_channel_split
 
-NODE_NAME = 'ImageChannelSplit'
+
 
 class ImageChannelSplit:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageChannelSplit'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -40,7 +41,7 @@ class ImageChannelSplit:
             c3_images.append(pil2tensor(channel3))
             c4_images.append(pil2tensor(channel4))
 
-        log(f"{NODE_NAME} Processed {len(c1_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(c1_images)} image(s).", message_type='finish')
         return (torch.cat(c1_images, dim=0), torch.cat(c2_images, dim=0), torch.cat(c3_images, dim=0), torch.cat(c4_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

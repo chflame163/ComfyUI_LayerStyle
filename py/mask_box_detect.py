@@ -1,12 +1,14 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, gaussian_blur, mask2image
+from .imagefunc import min_bounding_rect, max_inscribed_rect, mask_area, draw_rect
 
-NODE_NAME = 'MaskBoxDetect'
 
 class MaskBoxDetect:
 
     def __init__(self):
-        pass
-
+        self.NODE_NAME = 'MaskBoxDetect'
+    
     @classmethod
     def INPUT_TYPES(self):
         detect_mode = ['min_bounding_rect', 'max_inscribed_rect', 'mask_area']
@@ -49,7 +51,7 @@ class MaskBoxDetect:
             (x, y, width, height) = max_inscribed_rect(_mask)
         else:
             (x, y, width, height) = mask_area(_mask)
-        log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
+        log(f"{self.NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
         _width = width
         _height = height
         if scale_adjust != 1.0:
@@ -64,7 +66,7 @@ class MaskBoxDetect:
         preview_image = tensor2pil(mask).convert('RGB')
         preview_image = draw_rect(preview_image, x - x_adjust, y - y_adjust, width, height, line_color="#F00000", line_width=int(preview_image.height / 60))
         preview_image = draw_rect(preview_image, x, y, width, height, line_color="#00F000", line_width=int(preview_image.height / 40))
-        log(f"{NODE_NAME} Processed.", message_type='finish')
+        log(f"{self.NODE_NAME} Processed.", message_type='finish')
         return ( pil2tensor(preview_image), round(x_percent, 2), round(y_percent, 2), _width, _height, x, y,)
 
 NODE_CLASS_MAPPINGS = {

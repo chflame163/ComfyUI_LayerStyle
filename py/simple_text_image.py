@@ -1,14 +1,17 @@
-from .imagefunc import *
+import torch
 import textwrap
+import copy
+from PIL import Image, ImageFont, ImageDraw
 from typing import cast
+from .imagefunc import AnyType, log, get_resource_dir, tensor2pil, pil2tensor, image2mask
 
-NODE_NAME = 'SimpleTextImage'
+
 any = AnyType("*")
 
 class SimpleTextImage:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'SimpleTextImage'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -110,7 +113,7 @@ class SimpleTextImage:
             ret_images.append(pil2tensor(img))
             ret_masks.append(image2mask(img.split()[3]))
 
-        log(f"{NODE_NAME} Processed.", message_type='finish')
+        log(f"{self.NODE_NAME} Processed.", message_type='finish')
         return (torch.cat(ret_images, dim=0),torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
 
-NODE_NAME = 'ImageRemoveAlpha'
+
 
 class ImageRemoveAlpha:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageRemoveAlpha'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -40,7 +42,7 @@ class ImageRemoveAlpha:
                 elif _image.mode == "RGBA":
                     alpha = _image.split()[-1]
                 else:
-                    log(f"Error: {NODE_NAME} skipped, because the input image is not RGBA and mask is None.",
+                    log(f"Error: {self.NODE_NAME} skipped, because the input image is not RGBA and mask is None.",
                         message_type='error')
                     return (RGBA_image,)
                 ret_image = Image.new('RGB', size=_image.size, color=background_color)
@@ -50,7 +52,7 @@ class ImageRemoveAlpha:
             else:
                 ret_images.append(pil2tensor(tensor2pil(img).convert('RGB')))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), )
 
 NODE_CLASS_MAPPINGS = {

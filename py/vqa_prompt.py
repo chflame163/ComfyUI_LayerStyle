@@ -2,9 +2,10 @@ import os
 import sys
 import torch
 import re
-from .imagefunc import *
 from transformers import pipeline
 import folder_paths
+
+from .imagefunc import log, tensor2pil
 
 vqa_model_path = os.path.join(folder_paths.models_dir, 'VQA')
 

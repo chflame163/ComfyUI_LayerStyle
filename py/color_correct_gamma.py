@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import gamma_trans, RGB2RGBA
 
-NODE_NAME = 'Gamma'
+
 
 class ColorCorrectGamma:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'Gamma'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -38,7 +40,7 @@ class ColorCorrectGamma:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

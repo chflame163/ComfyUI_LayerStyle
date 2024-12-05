@@ -1,6 +1,7 @@
 
 from .imagefunc import Hex_to_RGB
 
+
 class ColorPicker:
 
     def __init__(self):

@@ -1,11 +1,14 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, gaussian_blur, chop_image
+from .imagefunc import gray_threshold, remove_background, get_image_bright_average
 
-NODE_NAME = 'SoftLight'
+
 
 class SoftLight:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'SoftLight'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -48,7 +51,7 @@ class SoftLight:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

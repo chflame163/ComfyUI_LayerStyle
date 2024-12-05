@@ -1,12 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import image_channel_merge, image_channel_split, RGB2RGBA, adjust_levels
 
 
-NODE_NAME = 'Levels'
+
 
 class ColorCorrectLevels:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'Levels'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -77,7 +80,7 @@ class ColorCorrectLevels:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

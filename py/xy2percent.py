@@ -1,4 +1,5 @@
-from .imagefunc import *
+
+from .imagefunc import tensor2pil
 
 class XYtoPercent:
 

@@ -1,11 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image, ImageEnhance
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import image_channel_split, image_channel_merge, normalize_gray, gamma_trans, chop_image_v2, RGB2RGBA
 
-NODE_NAME = 'AutoAdjust'
+
 
 class AutoAdjust:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'AutoAdjust'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -96,7 +100,7 @@ class AutoAdjust:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
     def balance_to_gamma(self, balance:int) -> float:

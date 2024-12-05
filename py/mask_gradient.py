@@ -1,13 +1,14 @@
 import torch
+import copy
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, chop_image, gradient, mask_area
 
-from .imagefunc import *
 
-NODE_NAME = 'MaskGradient'
 
 class MaskGradient:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskGradient'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -53,9 +54,9 @@ class MaskGradient:
                                  1024, 1024, 0)
             # (box_x, box_y, box_width, box_height) = min_bounding_rect(_mask)
             (box_x, box_y, box_width, box_height) = mask_area(_mask)
-            log(f"{NODE_NAME}: Box detected. x={box_x},y={box_y},width={box_width},height={box_height}")
+            log(f"{self.NODE_NAME}: Box detected. x={box_x},y={box_y},width={box_width},height={box_height}")
             if box_width < 1 or box_height < 1:
-                log(f"Error: {NODE_NAME} skipped, because the mask is does'nt have valid area", message_type='error')
+                log(f"Error: {self.NODE_NAME} skipped, because the mask is does'nt have valid area", message_type='error')
                 return (mask,)
 
             if gradient_side == 'top':
@@ -139,7 +140,7 @@ class MaskGradient:
                 _canvas = chop_image(_mask, _canvas, 'normal', opacity)
             ret_masks.append(image2mask(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

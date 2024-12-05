@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, gaussian_blur, chop_image
+from .imagefunc import image_channel_split, gray_threshold, remove_background, get_image_bright_average, image_beauty
 
-NODE_NAME = 'SkinBeauty'
 
 class SkinBeauty:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'SkinBeauty'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -49,7 +51,7 @@ class SkinBeauty:
             ret_images.append(pil2tensor(_canvas))
             ret_masks.append(image2mask(light_mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 

@@ -1,11 +1,14 @@
-from .imagefunc import *
+import torch
 
-NODE_NAME = 'CropByMask'
+from .imagefunc import log, tensor2pil, pil2tensor, mask2image, image2mask, gaussian_blur, min_bounding_rect, max_inscribed_rect, mask_area
+from .imagefunc import num_round_up_to_multiple, draw_rect
+
+
 
 class CropByMask:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'CropByMask'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -67,7 +70,7 @@ class CropByMask:
 
         width = num_round_up_to_multiple(width, 8)
         height = num_round_up_to_multiple(height, 8)
-        log(f"{NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
+        log(f"{self.NODE_NAME}: Box detected. x={x},y={y},width={width},height={height}")
         canvas_width, canvas_height = tensor2pil(torch.unsqueeze(image[0], 0)).convert('RGB').size
         x1 = x - left_reserve if x - left_reserve > 0 else 0
         y1 = y - top_reserve if y - top_reserve > 0 else 0
@@ -84,7 +87,7 @@ class CropByMask:
             ret_images.append(pil2tensor(_canvas.crop(crop_box)))
             ret_masks.append(image2mask(_mask.crop(crop_box)))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), list(crop_box), pil2tensor(preview_image),)
 
 

@@ -1,10 +1,15 @@
-from .imagefunc import *
+import torch
+import numpy as np
+from PIL import Image, ImageEnhance
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import RGB2RGBA
 
-NODE_NAME = 'Exposure'
+
 
 class ColorCorrectExposure:
 
     def __init__(self):
+        self.NODE_NAME = 'Exposure'
         pass
 
     @classmethod
@@ -45,7 +50,7 @@ class ColorCorrectExposure:
 
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

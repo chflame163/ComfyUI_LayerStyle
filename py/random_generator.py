@@ -1,7 +1,6 @@
 from .imagefunc import AnyType
 import random
 
-
 class LSRandomGenerator:
 
     def __init__(self):
@@ -62,7 +61,7 @@ class LSRandomGenerator:
 
     def generate_unique_seed(self) -> int:
         while True:
-            new_number = random.randint(0, 1e14)
+            new_number = random.randint(0, int(1e14))
             if new_number not in self.previous_seeds:
                 self.previous_seeds.add(new_number)
                 return new_number

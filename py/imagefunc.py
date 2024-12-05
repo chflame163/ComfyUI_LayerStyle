@@ -1050,46 +1050,25 @@ def image_channel_merge(channels:tuple, mode = 'RGB' ) -> Image:
 
 def image_gray_offset(image:Image, offset:int) -> Image:
     image = image.convert('L')
-    width = image.width
-    height = image.height
-    ret_image = Image.new('L', size=(width, height), color='black')
-    for x in range(width):
-        for y in range(height):
-                pixel = image.getpixel((x, y))
-                _pixel = pixel + offset
-                if _pixel > 255:
-                    _pixel = 255
-                if _pixel < 0:
-                    _pixel = 0
-                ret_image.putpixel((x, y), _pixel)
+    image_array = np.array(image, dtype=np.int16)
+    image_array = np.clip(image_array + offset, 0, 255).astype(np.uint8)
+    ret_image = Image.fromarray(image_array, mode='L')
     return ret_image
 
 def image_gray_ratio(image:Image, ratio:float) -> Image:
     image = image.convert('L')
-    width = image.width
-    height = image.height
-    ret_image = Image.new('L', size=(width, height), color='black')
-    for x in range(width):
-        for y in range(height):
-                pixel = image.getpixel((x, y))
-                _pixel = int(pixel * ratio)
-                ret_image.putpixel((x, y), _pixel)
+    image_array = np.array(image, dtype=np.float32)
+    image_array = np.clip(image_array * ratio, 0, 255).astype(np.uint8)
+    ret_image = Image.fromarray(image_array, mode='L')
     return ret_image
 
 def image_hue_offset(image:Image, offset:int) -> Image:
     image = image.convert('L')
-    width = image.width
-    height = image.height
-    ret_image = Image.new('L', size=(width, height), color='black')
-    for x in range(width):
-        for y in range(height):
-                pixel = image.getpixel((x, y))
-                _pixel = pixel + offset
-                if _pixel > 255:
-                    _pixel -= 256
-                if _pixel < 0:
-                    _pixel += 256
-                ret_image.putpixel((x, y), _pixel)
+    image_array = np.array(image, dtype=np.int16)
+    image_array = (image_array + offset) % 256
+    image_array = image_array.astype(np.uint8)
+    ret_image = Image.fromarray(image_array, mode='L')
+
     return ret_image
 
 def gamma_trans(image:Image, gamma:float) -> Image:

@@ -1,13 +1,14 @@
-from .imagefunc import *
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, AnyType, load_custom_size
 
-NODE_NAME = 'ColorImage V2'
+
 
 any = AnyType("*")
 
 class ColorImageV2:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ColorImage V2'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -48,7 +49,7 @@ class ColorImageV2:
                     width = int(_s[0].strip())
                     height = int(_s[1].strip())
                 except Exception as e:
-                    log(f"Warning: {NODE_NAME} invalid size, check {custom_size_file}", message_type='warning')
+                    log(f"Warning: {self.NODE_NAME} invalid size, check {custom_size_file}", message_type='warning')
                     width = custom_width
                     height = custom_height
 

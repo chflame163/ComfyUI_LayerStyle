@@ -151,6 +151,24 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
 
+* Optimize dependency packages. Optimize some algorithms.
+* Split some of the dependencies that are prone to problems into [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) repository. Including the following nodes:
+LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
+LayerMask: EVFSAMUltra, LayerMask: Florence2Ultra, LayerMask: LoadFlorence2Model, LayerUtility: Florence2Image2Prompt,    
+LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,    
+LayerUtility: ImageAutoCrop, LayerUtility: ImageAutoCropV2, LayerUtility: ImageAutoCropV3,    
+LayerUtility: ImageRewardFilter, LayerUtility: LoadJoyCaption2Model, LayerUtility: JoyCaption2Split,    
+LayerUtility: JoyCaption2, LayerUtility: JoyCaption2ExtraOptions, LayerUtility: LaMa,    
+LayerUtility: LlamaVision, LayerUtility: LoadPSD, LayerMask: MaskByDifferent, LayerMask: MediapipeFacialSegment,    
+LayerMask: BBoxJoin, LayerMask: DrawBBoxMask, LayerMask: ObjectDetectorFL2, LayerMask: ObjectDetectorMask,    
+LayerMask: ObjectDetectorYOLO8, LayerMask: ObjectDetectorYOLOWorld, LayerMask: PersonMaskUltra, LayerMask: PersonMaskUltra V2,    
+LayerUtility: PhiPrompt, LayerUtility: PromptEmbellish, LayerUtility: PromptTagger, LayerUtility: CreateQRCode, LayerUtility: DecodeQRCode,    
+LayerUtility: QWenImage2Prompt, LayerMask: SAM2Ultra, LayerMask: SAM2VideoUltra, LayerUtility: SaveImagePlus, LayerUtility: SD3NegativeConditioning,    
+LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: TransparentBackgroundUltra,     
+LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
+LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
+
+
 * Commit [BenUltra](#BenUltra) and [LoadBenModel](#LoadBenModel) nodes. These two nodes are the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) project in ComfyUI.   
 Download the ```BEN_Base.pth``` and ```config.json``` from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
 * Merge the PR submitted by [jimlee2048](https://github.com/jimlee2048), add the LoadBiRefNetModelV2 node, and support loading RMBG 2.0 models.       
@@ -903,220 +921,6 @@ The following changes have been made based on ImageScaleByAspectRatio:
 * scale_to_length: The numerical value here serves as the length of the specified edge or the total pixels (kilo pixels) for scale_to_side.
 * background_color<sup>4</sup>: The color of the background.
 
-### <a id="table1">QWenImage2Prompt</a>
-
-Inference the prompts based on the image. this node is repackage of the [ComfyUI_VLM_nodes](https://github.com/gokayfem/ComfyUI_VLM_nodes)'s ```UForm-Gen2 Qwen Node```,  thanks to the original author.
-Download model files from [huggingface](https://huggingface.co/unum-cloud/uform-gen2-qwen-500m) or [Baidu Netdisk](https://pan.baidu.com/s/1oRkUoOKWaxGod_XTJ8NiTA?pwd=d5d2) to ```ComfyUI/models/LLavacheckpoints/files_for_uform_gen2_qwen``` folder.
-
-![image](image/qwen_image2prompt_example.jpg)    
-
-Node Options:   
-
-* question: Prompt of UForm-Gen-QWen model.
-
-
-### <a id="table1">LlamaVision</a>
-Use the Llama 3.2 vision model for local inference. Can be used to generate prompt words. part of the code for this node comes from [ComfyUI-PixtralLlamaMolmoVision](https://github.com/SeanScripts/ComfyUI-PixtralLlamaMolmoVision), thank you to the original author.
-To use this node, the ```transformers``` need upgraded to 4.45.0 or higher.
-Download models from [BaiduNetdisk](https://pan.baidu.com/s/18oHnTrkNMiwKLMcUVrfFjA?pwd=4g81) or [huggingface/SeanScripts](https://huggingface.co/SeanScripts/Llama-3.2-11B-Vision-Instruct-nf4/tree/main) , and copy to ```ComfyUI/models/LLM```.
-![image](image/llama_vision_example.jpg)    
-
-Node Options:   
-![image](image/llama_vision_node.jpg)    
-
-* image: Image input.
-* model: Currently, only the "Llama-3.2-11B-Vision-Instruct-nf4" is available.
-* system_prompt: System prompt words for LLM model.
-* user_prompt: User prompt words for LLM model.
-* max_new_tokens: max_new_tokens for LLM model.
-* do_sample: do_sample for LLM model.
-* top-p: top_p for LLM model. 
-* top_k: top_k for LLM model.
-* stop_strings: The stop strings.
-* seed: The seed of random number.
-* control_after_generate: Seed change options. If this option is fixed, the generated random number will always be the same.
-* include_prompt_in_output: Does the output contain prompt words.
-* cache_model: Whether to cache the model.
-
-### <a id="table1">JoyCaption2</a>
-Use the JoyCaption-alpha-two model for local inference. Can be used to generate prompt words. this node is https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod Implementation in ComfyUI, thank you to the original author.
-Download models form [BaiduNetdisk](https://pan.baidu.com/s/1dOjbUEacUOhzFitAQ3uIeQ?pwd=4ypv) and [BaiduNetdisk](https://pan.baidu.com/s/1mH1SuW45Dy6Wga7aws5siQ?pwd=w6h5) , 
-or [huggingface/Orenguteng](https://huggingface.co/Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2/tree/main) and [huggingface/unsloth](https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct/tree/main) , then copy to ```ComfyUI/models/LLM```,
-Download models from [BaiduNetdisk](https://pan.baidu.com/s/1pkVymOsDcXqL7IdQJ6lMVw?pwd=v8wp) or [huggingface/google](https://huggingface.co/google/siglip-so400m-patch14-384/tree/main) , and copy to ```ComfyUI/models/clip```,
-Donwload the ```cgrkzexw-599808``` folder from [BaiduNetdisk](https://pan.baidu.com/s/12TDwZAeI68hWT6MgRrrK7Q?pwd=d7dh) or [huggingface/John6666](https://huggingface.co/John6666/joy-caption-alpha-two-cli-mod/tree/main) , and copy to ```ComfyUI/models/Joy_caption```。
-![image](image/joycaption2_example.jpg)    
-
-Node Options:   
-![image](image/joycaption2_node.jpg)    
-
-* image: Image input.
-* extra_options: Input the extra_options.
-* llm_model: There are two LLM models to choose, Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2 and unsloth/Meta-Llama-3.1-8B-Instruct.
-* device: Model loading device. Currently, only CUDA is supported.
-* dtype: Model precision, nf4 and bf16.
-* vlm_lora: Whether to load text_madel.
-* caption_type: Caption type options, including: "Descriptive", "Descriptive (Informal)", "Training Prompt", "MidJourney", "Booru tag list", "Booru-like tag list", "Art Critic", "Product Listing", "Social Media Post".
-* caption_length: The length of caption.
-* user_prompt: User prompt words for LLM model. If there is content here, it will overwrite all the settings for caption_type and extra_options.
-* max_new_tokens: The max_new_token parameter of LLM.
-* do_sample: The do_sample parameter of LLM.
-* top-p: The top_p parameter of LLM.
-* temperature: The temperature parameter of LLM.
-* cache_model: Whether to cache the model.
-
-### <a id="table1">JoyCaption2Split</a>
-The node of JoyCaption2 separate model loading and inference, and when multiple JoyCaption2 nodes are used, the model can be shared to improve efficiency.
-
-Node Options:   
-![image](image/joycaption2_split_node.jpg)    
-
-* image: Image input.。
-* joy2_model: The JoyCaption model input.
-* extra_options: Input the extra_options.
-* caption_type: Caption type options, including: "Descriptive", "Descriptive (Informal)", "Training Prompt", "MidJourney", "Booru tag list", "Booru-like tag list", "Art Critic", "Product Listing", "Social Media Post".
-* caption_length: The length of caption.
-* user_prompt: User prompt words for LLM model. If there is content here, it will overwrite all the settings for caption_type and extra_options.
-* max_new_tokens: The max_new_token parameter of LLM.
-* do_sample: The do_sample parameter of LLM.
-* top-p: The top_p parameter of LLM.
-* temperature: The temperature parameter of LLM.
-
-### <a id="table1">LoadJoyCaption2Model</a>
-JoyCaption2's model loading node, used in conjunction with JoyCaption2Split.
-
-Node Options:   
-![image](image/load_joycaption2_model_node.jpg)    
-
-* llm_model: There are two LLM models to choose, Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2 and unsloth/Meta-Llama-3.1-8B-Instruct.
-* device: Model loading device. Currently, only CUDA is supported.
-* dtype: Model precision, nf4 and bf16.
-* vlm_lora: Whether to load text_madel.
-
-### <a id="table1">JoyCaption2ExtraOptions</a>
-The extra_options parameter node of JoyCaption2.
-
-Node Options:   
-![image](image/joycaption2_extra_options_node.jpg)    
-
-* refer_character_name: If there is a person/character in the image you must refer to them as {name}.
-* exclude_people_info: Do NOT include information about people/characters that cannot be changed (like ethnicity, gender, etc), but do still include changeable attributes (like hair style).
-* include_lighting: Include information about lighting.
-* include_camera_angle: Include information about camera angle.
-* include_watermark: Include information about whether there is a watermark or not.
-* include_JPEG_artifacts: Include information about whether there are JPEG artifacts or not.
-* include_exif: If it is a photo you MUST include information about what camera was likely used and details such as aperture, shutter speed, ISO, etc.
-* exclude_sexual: Do NOT include anything sexual; keep it PG.
-* exclude_image_resolution: Do NOT mention the image's resolution.
-* include_aesthetic_quality: You MUST include information about the subjective aesthetic quality of the image from low to very high.
-* include_composition_style: Include information on the image's composition style, such as leading lines, rule of thirds, or symmetry.
-* exclude_text: Do NOT mention any text that is in the image.
-* specify_depth_field: Specify the depth of field and whether the background is in focus or blurred.
-* specify_lighting_sources: If applicable, mention the likely use of artificial or natural lighting sources.
-* do_not_use_ambiguous_language: Do NOT use any ambiguous language.
-* include_nsfw: Include whether the image is sfw, suggestive, or nsfw.
-* only_describe_most_important_elements: ONLY describe the most important elements of the image.
-* character_name: Person/Character Name, if choice ```refer_character_name```.
-
-### <a id="table1">PhiPrompt</a>
-
-Use Microsoft Phi 3.5 text and visual models for local inference. Can be used to generate prompt words, process prompt words, or infer prompt words from images. Running this model requires at least 16GB of video memory.
-Download model files from [BaiduNetdisk](https://pan.baidu.com/s/1BdTLdaeGC3trh1U3V-6XTA?pwd=29dh) or [huggingface.co/microsoft/Phi-3.5-vision-instruct](https://huggingface.co/microsoft/Phi-3.5-vision-instruct/tree/main) and [huggingface.co/microsoft/Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct/tree/main) and copy to ```ComfyUI\models\LLM``` folder.
-![image](image/phi_prompt_example.jpg)    
-
-Node Options:   
-![image](image/phi_prompt_node.jpg)    
-
-* image: Optional input. The input image will serve as the input for Phi-3.5-vision-instruct.
-* model: Selectable to load Phi-3.5-vision-instruct or Phi-3.5-mini-instruct model. The default value of auto will automatically load the corresponding model based on whether there is image input.
-* device: Model loading device. Supports CPU and CUDA.
-* dtype: The model loading accuracy has three options: fp16, bf16, and fp32.
-* cache_model: Whether to cache the model.
-* system_prompt: The system prompt of Phi-3.5-mini-instruct.
-* user_prompt: User prompt words for LLM model.
-* do_sample: The do_Sample parameter of LLM defaults to True.
-* temperature: The temperature parameter of LLM defaults to 0.5.
-* max_new_tokens: The max_new_token parameter of LLM defaults to 512.
-
-### <a id="table1">UserPromptGeneratorTxtImg</a>
-
-UserPrompt preset for generating SD text to image prompt words.
-
-Node options:   
-![image](image/userprompt_generator_txt2img_node.jpg)
-
-* template: Prompt word template. Currently, only the 'SD txt2img prompt' is available.
-* describe: Prompt word description. Enter a simple description here.
-* limit_word: Maximum length limit for output prompt words. For example, 200 means that the output text will be limited to 200 words.
-
-### <a id="table1">UserPromptGeneratorTxtImgWithReference</a>
-
-UserCompt preset for generating SD text to image prompt words based on input content.
-
-Node options:     
-![image](image/userprompt_generator_txt2img_with_reference_node.jpg)
-
-* reference_text: Reference text input. Usually it is a style description of the image.
-* template: Prompt word template. Currently, only the 'SD txt2img prompt' is available.
-* describe: Prompt word description. Enter a simple description here.
-* limit_word: Maximum length limit for output prompt words. For example, 200 means that the output text will be limited to 200 words.
-
-### <a id="table1">UserPromptGeneratorReplaceWord</a>
-
-UserPrompt preset used to replace a keyword in text with different content. This is not only a simple replacement, but also a logical sorting of the text based on the context of the prompt words to achieve the rationality of the output content.
-
-Node options:   
-![image](image/userprompt_generator_replace_word_node.jpg)
-
-* orig_prompt: Original prompt word input.
-* template: Prompt word template. Currently, only 'prompt replace word' is available.
-* exclude_word: Keywords that need to be excluded.
-* replace_with_word: That word will replace the exclude_word.
-
-### <a id="table1">PromptTagger</a>
-
-Inference the prompts based on the image. it can replace key word for the prompt. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
-Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
-![image](image/prompt_tagger_example.jpg)    
-
-Node options:   
-![image](image/prompt_tagger_node.jpg)    
-
-* api: The Api used. At present, there are two options "gemini-1. 5-flash" and "google-gemini".
-* token_limit: The maximum token limit for generating prompt words.
-* exclude_word: Keywords that need to be excluded.
-* replace_with_word: That word will replace the exclude_word.
-
-### <a id="table1">PromptEmbellish</a>
-
-Enter simple prompt words, output polished prompt words, and support inputting images as references, and support Chinese input. This node currently uses Google Gemini API as the backend service. Please ensure that the network environment can use Gemini normally.
-Please apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
-![image](image/prompt_embellish_example.jpg)    
-
-Node options:   
-![image](image/prompt_embellish_node.jpg)    
-
-* image: Optional, input image as a reference for prompt words.
-* api: The Api used. At present, there are two options "gemini-1. 5-flash" and "google-gemini".
-* token_limit: The maximum token limit for generating prompt words.
-* discribe: Enter a simple description here. supports Chinese text input.
-
-### <a id="table1">Florence2Image2Prompt</a>
-
-Use the Florence 2 model to infer prompt words. The code for this node section is from[yiwangsimple/florence_dw](https://github.com/yiwangsimple/florence_dw), thanks to the original author.
-*When using it for the first time, the model will be automatically downloaded. You can also download the model file from [BaiduNetdisk](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) to ```ComfyUI/models/florence2``` folder.
-![image](image/florence2_image2prompt_example.jpg) 
-
-Node Options:
-![image](image/florence2_image2prompt_node.jpg)
-
-* florence2_model: Florence2 model input.
-* image: Image input.
-* task: Select the task for florence2.
-* text_input: Text input for florence2.
-* max_new_tokens: The maximum number of tokens for generating text.
-* num_beams: The number of beam searches that generate text.
-* do_sample: Whether to use text generated sampling.
-* fill_mask: Whether to use text marker mask filling.
 
 ### <a id="table1">VQAPrompt</a>
 
@@ -1281,38 +1085,6 @@ Outputs:
 * gray(256_level): 256 level grayscale value. Integer type, range 0~255.
 * gray(100_level): 100 level grayscale value. Integer type, range 0~100.
 
-### <a id="table1">GetColorTone</a>
-
-Obtain the main color or average color from the image and output RGB values.
-![image](image/get_color_tone_example.jpg)    
-
-Node options:
-![image](image/get_color_tone_node.jpg)    
-
-* mode： There are two modes to choose from, with the main color and average color.
-
-Output type:
-
-* RGB color in HEX: The RGB color described by hexadecimal RGB format, like '#FA3D86'.
-* HSV color in list: The HSV color described by python's list data format.
-
-### <a id="table1">GetColorToneV2</a>
-
-V2 upgrade of GetColorTone. You can specify the dominant or average color to get the body or background.
-![image](image/get_color_tone_v2_example.jpg)    
-
-The following changes have been made on the basis of GetColorTong:
-![image](image/get_color_tone_v2_node.jpg)    
-
-* color_of: Provides 4 options, mask, entire, background, and subject, to select the color of the mask area, entire picture, background, or subject, respectively.
-* remove_background_method: There are two methods of background recognition: BiRefNet and RMBG V1.4.
-* invert_mask: Whether to reverse the mask.
-* mask_grow: Mask expansion. For subject, a larger value brings the obtained color closer to the color at the center of the body.
-
-Output:
-
-* image: Solid color picture output, the size is the same as the input picture.
-* mask: Mask output.
 
 ### <a id="table1">GetMainColors</a>
 
@@ -1468,21 +1240,6 @@ The following changes have been made based on GradientImage:
 <sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
 <sup>**</sup>The preset size is defined in ```custom_size.ini```, this file is located in the root directory of the plug-in, and the default name is ```custom_size.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
 
-### <a id="table1">ImageRewardFilter</a>
-
-![image](image/image_reward_filter_example.jpg)    
-Rating bulk pictures and outputting top-ranked pictures. it used [ImageReward] (https://github.com/THUDM/ImageReward) for image scoring, thanks to the original authors.
-
-![image](image/image_reward_filter_node.jpg)    
-Node options:
-
-* prompt: Optional input. Entering prompt here will be used as a basis to determine how well it matches the picture.
-* output_nun: Number of pictures outputted. This value should be less than the picture batch.
-
-Outputs：
-
-* images: Bulk pictures output from high to low in order of rating.
-* obsolete_images: Knockout pictures. Also output in order of rating from high to low.
 
 ### <a id="table1">SimpleTextImage</a>
 
@@ -1551,21 +1308,7 @@ If the folder set in ini is invalid, the font folder that comes with the plugin 
 
 This node is merged from [heshengtao](https://github.com/heshengtao). The PR modifies the scaling of the image text node based on the TextImage node. The font spacing follows the scaling, and the coordinates are no longer based on the top left corner of the text, but on the center point of the entire line of text. Thank you for the author's contribution.
 
-### <a id="table1">LaMa</a>
 
-![image](image/lama_example.jpg)    
-Erase objects from the image based on the mask. this node is repackage of [IOPaint](https://www.iopaint.com), powered by state-of-the-art AI models, thanks to the original author.    
-It is have [LaMa](https://github.com/advimman/lama), [LDM](https://github.com/CompVis/latent-diffusion), [ZITS](https://github.com/DQiaole/ZITS_inpainting),[MAT](https://github.com/fenglinglwb/MAT),  [FcF](https://github.com/SHI-Labs/FcF-Inpainting), [Manga](https://github.com/msxie92/MangaInpainting) models and the SPREAD method to erase. Please refer to the original link for the introduction of each model.    
-Please download the model files from [lama models(BaiduNetdisk)](https://pan.baidu.com/s/1m7La2ELsSKaIFhQ57qg1XQ?pwd=jn10) or [lama models(Google Drive)](https://drive.google.com/drive/folders/1Aq0a4sybb3SRxi7j1e1_ZbBRjaWDdP9e?usp=sharing) to ```ComfyUI/models/lama``` folder.    
-
-Node optons:
-![image](image/lama_node.jpg)    
-
-* lama_model: Choose a model or method.
-* device: After correctly installing Torch and Nvidia CUDA drivers, using cuda will significantly improve running speed.
-* invert_mask: Whether to reverse the mask.
-* grow: Positive values expand outward, while negative values contract inward.
-* blur: Blur the edge.
 
 ### <a id="table1">ImageChannelSplit</a>
 
@@ -1605,66 +1348,6 @@ Node options:
 ![image](image/image_combine_alpha_node.jpg)    
 Merge the image and mask into an RGBA mode image containing an alpha channel.
 
-### <a id="table1">ImageAutoCrop</a>
-
-![image](image/image_auto_crop_example.jpg)    
-Automatically cutout and crop the image according to the mask. it can specify the background color, aspect ratio, and size for output image. this node is designed to generate the image materials for training models.   
-*Please refer to the model installation methods for [SegmentAnythingUltra](#SegmentAnythingUltra) and [RemBgUltra](#RemBgUltra).  
-
-Node options:
-![image](image/image_auto_crop_node.jpg)    
-
-* background_color<sup>4</sup>: The background color.
-* aspect_ratio: Here are several common frame ratios provided. alternatively, you can choose "original" to keep original ratio or customize the ratio using "custom".
-* proportional_width: Proportional width. if the aspect ratio option is not "custom", this setting will be ignored.
-* proportional_height: Proportional height. if the aspect ratio option is not "custom", this setting will be ignored.
-* scale_by_longest_side: Allow scaling by long edge size.
-* longest_side: When the scale_by_longest_side is set to True, this will be used this value to the long edge of the image. when the original_size have input, this setting will be ignored.
-* detect: Detection method, min_bounding_rect is the minimum bounding rectangle, max_inscribed_rect is the maximum inscribed rectangle.
-* border_reserve: Keep the border. expand the cutting range beyond the detected mask body area.
-* ultra_detail_range: Mask edge ultra fine processing range, 0 is not processed, which can save generation time.
-* matting_method: The method of generate masks. There are two methods available: Segment Anything and RMBG 1.4. RMBG 1.4 runs faster.
-* sam_model: Select the SAM model used by Segment Anything here.
-* grounding_dino_model: Select the Grounding_Dino model used by Segment Anything here.
-* sam_threshold: The threshold for Segment Anything.
-* sam_prompt: The prompt for Segment Anything.
-
-Output:
-cropped_image: Crop and replace the background image.
-box_preview: Crop position preview.
-cropped_mask: Cropped mask.
-
-### <a id="table1">ImageAutoCropV2</a>
-
-The V2 upgrad version of ```ImageAutoCrop```, it has made the following changes based on the previous version:
-![image](image/image_auto_crop_v2_node.jpg)    
-
-* Add optional input for mask. when there is a mask input, use that input directly to skip the built-in mask generation.
-* Add ```fill_background```. When set to False, the background will not be processed and any parts beyond the frame will not be included in the output range.
-* ```aspect_ratio``` adds the ```original``` option.
-* scale_by: Allow scaling by specified dimensions for longest, shortest, width, or height.
-* scale_by_length: The value here is used as ```scale_by``` to specify the length of the edge.
-
-### <a id="table1">ImageAutoCropV3</a>
-
-Automatically crop the image to the specified size. You can input a mask to preserve the specified area of the mask. This node is designed to generate image materials for training the model.  
-
-Node Options:
-![image](image/image_auto_crop_v3_node.jpg)   
-
-* image: The input image.
-* mask: Optional input mask. The masking part will be preserved within the range of the cutting aspect ratio.
-* aspect_ratio: The aspect ratio of the output. Here are common frame ratios provided, with "custom" being the custom ratio and "original" being the original frame ratio.
-* proportional_width: Proportionally wide. If the aspect_ratio option is not 'custom', this setting will be ignored.
-* proportional_height: High proportion. If the aspect_ratio option is not 'custom', this setting will be ignored.
-* method: Scaling sampling methods include Lanczos, Bicubic, Hamming, Bilinear, Box, and Nearest.
-* scale_to_side: Allow scaling to be specified by long side, short side, width, height, or total pixels.
-* scale_to_length: The value here is used as the scale_to-side to specify the length of the edge or the total number of pixels (kilo pixels).
-* round_to_multiple: Multiply to the nearest whole. For example, if set to 8, the width and height will be forcibly set to multiples of 8.
-
-Outputs:
-cropped_image: The cropped image.
-box_preview: Preview of cutting position.
 
 ### <a id="table1">HLFrequencyDetailRestore</a>
 
@@ -1905,26 +1588,6 @@ Node Options:
 * purge_cache: Clean up cache。
 * purge_models: Unload all loaded models。
 
-### <a id="table1">SaveImagePlus</a>
-
-![image](image/saveimage_plus_example.jpg)  
-Enhanced save image node. You can customize the directory where the picture is saved, add a timestamp to the file name, select the save format, set the image compression rate, set whether to save the workflow, and optionally add invisible watermarks to the picture. (Add information in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark). Optionally output the json file of the workflow.
-
-Node Options:
-![image](image/saveimage_plus_node.jpg)    
-
-* iamge: The input image.
-* custom_path<sup>*</sup>: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI.
-* filename_prefix<sup>*</sup>: The prefix of file name.
-* timestamp: Timestamp the file name, opting for date, time to seconds, and time to milliseconds.
-* format: The format of image save. Currently available in ```png``` and ```jpg```. Note that only png format is supported for RGBA mode pictures.
-* quality: Image quality, the value range 10-100, the higher the value, the better the picture quality, the volume of the file also correspondingly increases.
-* meta_data: Whether to save metadata to png file, that is workflow information. Set this to false if you do not want the workflow to be leaked.
-* blind_watermark: The text entered here (does not support multilingualism) will be converted into a QR code and saved as an invisible watermark. Use ```ShowBlindWaterMark``` node can decode watermarks. Note that pictures with watermarks are recommended to be saved in png format, and lower-quality jpg format will cause watermark information to be lost.
-* save_workflow_as_json: Whether the output workflow is a json file at the same time (the output json is in the same directory as the picture).
-* preview: Preview switch.
-
-<sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
 
 ### <a id="table1">ImageTaggerSave</a>
 
@@ -1946,74 +1609,6 @@ Node Options:
 
 <sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
 
-### <a id="table1">AddBlindWaterMark</a>
-
-![image](image/watermark_example.jpg)    
-Add an invisible watermark to a picture. Add the watermark image in a way that is invisible to the naked eye, and use the ```ShowBlindWaterMark``` node to decode the watermark.
-
-Node Options:
-![image](image/add_blind_watermark_node.jpg)    
-
-* iamge: The input image.
-* watermark_image: Watermark image. The image entered here will automatically be converted to a square black and white image as a watermark. It is recommended to use a QR code as a watermark.
-
-### <a id="table1">ShowBlindWaterMark</a>
-
-Decoding the invisible watermark added to the ```AddBlindWaterMark``` and ```SaveImagePlus``` nodes.
-![image](image/show_blind_watermark_node.jpg)    
-
-### <a id="table1">CreateQRCode</a>
-
-Generate a square QR code picture.
-
-Node Options:  
-![image](image/create_qrcode_node.jpg)    
-
-* size: The side length of image.
-* border: The size of the border around the QR code, the larger the value, the wider the border.
-* text: Enter the text content of the QR code here, and multi-language is not supported.
-
-### <a id="table1">DecodeQRCode</a>
-
-Decoding the QR code.
-
-Node Options:  
-![image](image/decode_qrcode_node.jpg)    
-
-* image: The input QR code image.
-* pre_blur: Pre-blurring, you can try to adjust this value for QR codes that are difficult to identify. 
-
-### <a id="table1">LoadPSD</a>
-
-![image](image/load_image_example_psd_file.jpg)    
-![image](image/load_image_example.jpg)    
-Load the PSD format file and export the layers.
-Note that this node requires the installation of the ```psd_tools``` dependency package, If error occurs during the installation of psd_tool, such as ```ModuleNotFoundError: No module named 'docopt'``` , please download [docopt's whl](https://www.piwheels.org/project/docopt/) and manual install it. 
-
-Node Options:  
-![image](image/load_image_node.jpg)    
-
-* image: Here is a list of *.psd files under ```ComfyUI/input```, where previously loaded psd images can be selected.
-* file_path: The complete path and file name of the psd file.
-* include_hidden_layer: whether include hidden layers.
-* find_layer_by: The method for finding layers can be selected by layer key number or layer name. Layer groups are treated as one layer.
-* layer_index: The layer key number, where 0 is the bottom layer, is incremented sequentially. If include_hiddenlayer is set to false, hidden layers are not counted. Set to -1 to output the top layer.
-* layer_name: Layer name. Note that capitalization and punctuation must match exactly.
-
-Outputs:
-flat_image: PSD preview image.
-layer_iamge: Find the layer output.
-all_layers: Batch images containing all layers.
-
-### <a id="table1">SD3NegativeConditioning</a>
-
-![image](image/sd3_negative_conditioning_node_note.jpg)  
-Encapsulate the four nodes of Negative Condition in SD3 into a separate node.
-
-Node Options:  
-![image](image/sd3_negative_conditioning_node.jpg)    
-
-* zero_out_start: Set the ConditioningSetTimestepRange start value for Negative ConditioningZeroOut, which is the same as the ConditioningSetTimestepRange end value for Negative.
 
 # <a id="table1">LayerMask</a>
 
@@ -2077,244 +1672,6 @@ There are three edge processing methods for these nodes:
 The following figure is an example of the difference in output between three methods.
 ![image](image/mask_edge_ultra_detail_v2_example.jpg)   
 
-### <a id="table1">SegmentAnythingUltra</a>
-
-Improvements to [ComfyUI Segment Anything](https://github.com/storyicon/comfyui_segment_anything),  thanks to the original author.
-
-*Please refer to the installation of ComfyUI Segment Anything to install the model. If ComfyUI Segment Anything has been correctly installed, you can skip this step.
-
-* From [here](https://huggingface.co/bert-base-uncased/tree/main) download the config.json，model.safetensors，tokenizer_config.json，tokenizer.json and vocab.txt 5 files to ```ComfyUI/models/bert-base-uncased``` folder.
-* Download [GroundingDINO_SwinT_OGC config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py), [GroundingDINO_SwinT_OGC model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth), 
-  [GroundingDINO_SwinB config file](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py), [GroundingDINO_SwinB model](https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth) to ```ComfyUI/models/grounding-dino``` folder.
-* Download [sam_vit_h](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)，[sam_vit_l](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), 
-  [sam_vit_b](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth), [sam_hq_vit_h](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth),
-  [sam_hq_vit_l](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_l.pth), [sam_hq_vit_b](https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_b.pth), 
-  [mobile_sam](https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt) to ```ComfyUI/models/sams``` folder.
-  *Or download them from [GroundingDino models on BaiduNetdisk](https://pan.baidu.com/s/1P7WQDuaqSYazlSQX8SJjxw?pwd=24ki) and  [SAM models on BaiduNetdisk](https://pan.baidu.com/s/1n7JrHb2vzV2K2z3ktqpNxg?pwd=yoqh) .
-  ![image](image/segment_anything_ultra_compare.jpg)    
-  ![image](image/segment_anything_ultra_example.jpg)    
-
-Node options:  
-![image](image/segment_anything_ultra_node.jpg)    
-
-* sam_model: Select the SAM model.
-* ground_dino_model: Select the Grounding DINO model.
-* threshold: The threshold of SAM.
-* detail_range: Edge detail range.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* prompt: Input for SAM's prompt.
-* cache_model: Set whether to cache the model.
-
-### <a id="table1">SegmentAnythingUltraV2</a>
-
-The V2 upgraded version of SegmentAnythingUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
-![image](image/ultra_v2_nodes_example.jpg)    
-
-On the basis of SegmentAnythingUltra, the following changes have been made: 
-![image](image/segment_anything_ultra_v2_node.jpg)    
-
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">SAM2Ultra</a>
-
-This node is modified from [kijai/ComfyUI-segment-anything-2](https://github.com/kijai/ComfyUI-segment-anything-2). Thank to [kijai](https://github.com/kijai) for making significant contributions to the Comfyui community.    
-SAM2 Ultra node only support single image. If you need to process multiple images, please first convert the image batch to image list.    
-*Download models from [BaiduNetdisk](https://pan.baidu.com/s/1xaQYBA6ktxvAxm310HXweQ?pwd=auki) or [huggingface.co/Kijai/sam2-safetensors](https://huggingface.co/Kijai/sam2-safetensors/tree/main) and copy to ```ComfyUI/models/sam2``` folder.
-
-![image](image/sam2_example.jpg)    
-
-Node Options:  
-![image](image/sam2_ultra_node.jpg)    
-
-* image: The image to segment.
-* bboxes: Input recognition box data.
-* sam2_model: Select the SAM2 model.
-* presicion: Model's persicion. can be selected from fp16, bf16, and fp32.
-* bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
-* select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
-* cache_model: Whether to cache the model. After caching the model, it will save time for model loading.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">SAM2VideoUltra</a>
-
-SAM2 Video Ultra node support processing multiple frames of images or video sequences. Please define the recognition box data in the first frame of the sequence to ensure correct recognition.
-
-https://github.com/user-attachments/assets/4726b8bf-9b98-4630-8f54-cb7ed7a3d2c5
-
-https://github.com/user-attachments/assets/b2a45c96-4be1-4470-8ceb-addaf301b0cb
-
-Node Options:  
-![image](image/sam2_video_ultra_node.jpg)    
-
-* image: The image to segment.
-* bboxes: Optional input of recognition bbox data. ```bboxes``` and ```first_frame_mask``` must have least one input. If first_frame_mask inputed, bbboxes will be ignored.
-* first_frame_mask: Optional input of the first frame mask. The mask will be used as the first frame recognition object. ```bboxes``` and ```first_frame_mask``` must have least one input. If first_frame_mask inputed, bbboxes will be ignored.
-* pre_mask: Optional input mask, which will serve as a propagation focus range limitation and help improve recognition accuracy.
-* sam2_model: Select the SAM2 model.
-* presicion: Model's persicion. can be selected from fp16 and bf16.
-* cache_model: Whether to cache the model. After caching the model, it will save time for model loading.
-* individual_object: When set to True, it will focus on identifying a single object. When set to False, attempts will be made to generate recognition boxes for multiple objects.
-* mask_preview_color: Display the color of non masked areas in the preview output. 
-* detail_method: Edge processing methods. Only VITMatte method can be used.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Only cuda can be used.
-* max_megapixels: Set the maximum size for VitMate operations.A larger size will result in finer mask edges, but it will lead to a significant decrease in computation speed.
-
-### <a id="table1">ObjectDetectorFL2</a>
-
-Use the Florence2 model to identify objects in images and output recognition box data.    
-*Download models from [BaiduNetdisk](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) and copy to ```ComfyUI/models/florence2``` folder.
-
-Node Options:  
-![image](image/object_detector_fl2_node.jpg)    
-
-* image: The image to segment.
-* florence2_model: Florence2 model, it from [LoadFlorence2Model](#LoadFlorence2Model) node.
-* prompt: Describe the object that needs to be identified. 
-* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
-* bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
-* select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
-
-### <a id="table1">ObjectDetectorYOLOWorld</a>
-
-Use the YOLO-World model to identify objects in images and output recognition box data.     
-*Download models from [BaiduNetdisk](https://pan.baidu.com/s/1QpjajeTA37vEAU2OQnbDcQ?pwd=nqsk) or [GoogleDrive](https://drive.google.com/drive/folders/1nrsfq4S-yk9ewJgwrhXAoNVqIFLZ1at7?usp=sharing) and copy to ```ComfyUI/models/yolo-world``` folder.
-
-Node Options:  
-![image](image/object_detector_yolo_world_node.jpg)    
-
-* image: The image to segment.
-* confidence_threshold: The threshold of confidence.
-* nms_iou_threshold: The threshold of Non-Maximum Suppression.
-* prompt: Describe the object that needs to be identified.
-* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
-* bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
-* select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
-
-### <a id="table1">ObjectDetectorYOLO8</a>
-
-Use the YOLO-8 model to identify objects in images and output recognition box data.    
-*Download models from [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) or [BaiduNetdisk](https://pan.baidu.com/s/1pEY6sjABQaPs6QtpK0q6XA?pwd=grqe)  and copy to ```ComfyUI/models/yolo``` folder.
-
-Node Options:  
-![image](image/object_detector_yolo8_node.jpg)
-
-* image: The image to segment.
-* yolo_model: Choose the yolo model.
-* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
-* bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
-* select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
-
-### <a id="table1">ObjectDetectorMask</a>
-
-Use mask as recognition box data. All areas surrounded by white areas on the mask will be recognized as an object. Multiple enclosed areas will be identified separately.   
-
-Node Options:  
-![image](image/object_detector_mask_node.jpg)
-
-* object_mask: The mask input.
-* sort_method: The selection box sorting method has 4 options: "left_to_right", "top_to_bottom", "big_to_small" and "confidence".
-* bbox_select: Select the input box data. There are three options: "all" to select all, "first" to select the box with the highest confidence, and "by_index" to specify the index of the box.
-* select_index: This option is valid when bbox_delect is 'by_index'. 0 is the first one. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese.
-
-### <a id="table1">BBoxJoin</a>
-
-Merge recognition box data.   
-
-Node Options:  
-![image](image/bbox_join_node.jpg)
-
-* bboxes_1: Required input. The first set of identification boxes.
-* bboxes_2: Optional input. The second set of identification boxes.
-* bboxes_3: Optional input. The third set of identification boxes.
-* bboxes_4: Optional input. The fourth set of identification boxes.
-
-### <a id="table1">DrawBBoxMask</a>
-
-Draw the recognition BBoxes data output by the Object Detector node as a mask.     
-![image](image/draw_bbox_mask_example.jpg)
-
-Node Options:  
-![image](image/draw_bbox_mask_node.jpg)
-
-* image: Image input. It must be consistent with the image recognized by the Object Detector node.  
-* bboxes: Input recognition BBoxes data.
-* grow_top: Each BBox expands upwards as a percentage of its height, positive values indicate upward expansion and negative values indicate downward expansion.
-* grow_bottom: Each BBox expands downwards as a percentage of its height, positive values indicating downward expansion and negative values indicating upward expansion.
-* grow_left: Each BBox expands to the left as a percentage of its width, positive values expand to the left and negative values expand to the right.
-* grow_right: Each BBox expands to the right as a percentage of its width, positive values indicate expansion to the right and negative values indicate expansion to the left.
-
-### <a id="table1">EVF-SAMUltra</a>
-
-This node is implementation of [EVF-SAM](https://github.com/hustvl/EVF-SAM) in ComfyUI.     
-*Please download model files from [BaiduNetdisk](https://pan.baidu.com/s/1EvaxgKcCxUpMbYKzLnEx9w?pwd=69bn) or [huggingface/EVF-SAM2](https://huggingface.co/YxZhang/evf-sam2/tree/main), [huggingface/EVF-SAM](https://huggingface.co/YxZhang/evf-sam/tree/main) to ```ComfyUI/models/EVF-SAM``` folder(save the models in their respective subdirectories).
-![image](image/evf_sam_ultra_example.jpg)    
-
-Node Options:  
-![image](image/evf_sam_ultra_node.jpg)    
-
-* image: The input image.
-* model: Select the model. Currently, there are options for evf-sam2 and evf sam.
-* presicion: Model accuracy can be selected from fp16, bf16, and fp32.
-* load_in_bit: Load the model with positional accuracy. You can choose from full, 8, and 4.
-* pormpt: Prompt words used for segmentation.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">Florence2Ultra</a>
-
-Using the segmentation function of the Florence2 model, while also having ultra-high edge details.
-The code for this node section is from [spacepxl/ComfyUI-Florence-2](https://github.com/spacepxl/ComfyUI-Florence-2), thanks to the original author.
-*Download the model files from [BaiduNetdisk](https://pan.baidu.com/s/1hzw9-QiU1vB8pMbBgofZIA?pwd=mfl3) to ```ComfyUI/models/florence2``` folder.
-
-![image](image/florence2_ultra_example.jpg)    
-
-Node Options:  
-![image](image/florence2_ultra_node.jpg)    
-
-* florence2_model: Florence2 model input.
-* image: Image input.
-* task: Select the task for florence2.
-* text_input: Text input for florence2.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">LoadFlorence2Model</a>
-
-Florence2 model loader.
-*When using it for the first time, the model will be automatically downloaded.
-
-![image](image/load_florence2_model_node.jpg)   
-At present, there are base, base-ft, large, large-ft, DocVQA, SD3-Captioner and base-PromptGen models to choose from.
 
 ### <a id="table1">RemBgUltra</a>
 
@@ -2378,127 +1735,7 @@ Node Options:
 * model: Select the model. Currently, only the Ben_Sase model is available for selection.
 
 
-
-### <a id="table1">BiRefNetUltra</a>
-
-Using the BiRefNet model to remove background has better recognition ability and ultra-high edge details.
-The code for the model part of this node comes from Viper's [ComfyUI-BiRefNet](https://github.com/viperyl/ComfyUI-BiRefNet)，thanks to the original author.
-
-*From [https://huggingface.co/ViperYX/BiRefNet](https://huggingface.co/ViperYX/BiRefNet/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/1GxtuNDTIHkuu4FR4uGAT-g?pwd=t2cf) download the ```BiRefNet-ep480.pth```,```pvt_v2_b2.pth```,```pvt_v2_b5.pth```,```swin_base_patch4_window12_384_22kto1k.pth```, ```swin_large_patch4_window12_384_22kto1k.pth``` 5 files to ```ComfyUI/models/BiRefNet``` folder.
-
-![image](image/birefnet_ultra_example.jpg)    
-
-Node options:  
-![image](image/birefnet_ultra_node.jpg)    
-
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">BiRefNetUltraV2</a>
-
-This node supports the use of the latest BiRefNet model. 
-*Download model file from [BaiduNetdisk](https://pan.baidu.com/s/12z3qUuqag3nqpN2NJ5pSzg?pwd=ek65) or [GoogleDrive](https://drive.google.com/drive/folders/1s2Xe0cjq-2ctnJBR24563yMSCOu4CcxM) named ```BiRefNet-general-epoch_244.pth``` to ```ComfyUI/Models/BiRefNet/pth``` folder. You can also download more BiRefNet models and put them here.
-
-![image](image/birefnet_ultra_v2_example.jpg)    
-
-Node Options:  
-![image](image/birefnet_ultra_v2_node.jpg)  
-
-* image: The input image.
-* birefnet_model: The BiRefNet model is input and it is output from the LoadBiRefNetModel node.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Due to the excellent edge processing of BiRefNet, it is set to False by default here.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">LoadBiRefNetModel</a>
-
-Load the BiRefNet model.
-
-Node Options:  
-![image](image/load_birefnet_model_node.jpg)  
-
-* model: Select the model. List the files in the  ```CoomfyUI/models/BiRefNet/pth```  folder for selection.
-
-
-### <a id="table1">LoadBiRefNetModelV2</a>
-This node is a PR submitted by [jimlee2048](https://github.com/jimlee2048) and supports loading RMBG-2.0 models.
-    
-Download model files from [huggingface](https://huggingface.co/briaai/RMBG-2.0/tree/main) or [百度网盘](https://pan.baidu.com/s/1viIXlZnpTYTKkm2F-QMj_w?pwd=axr9) and copy to ```ComfyUI/models/BiRefNet/RMBG-2.0``` folder.
-
-Node Options:  
-![image](image/load_birefnet_model_v2_node.jpg)  
-
-* model: Select the model. There are two options, ```BiRefNet-General``` and ```RMBG-2.0```. 
-
-
-### <a id="table1">TransparentBackgroundUltra</a>
-
-Using the transparent-background model to remove background has better recognition ability and speed, while also having ultra-high edge details.
-
-*From [googledrive](https://drive.google.com/drive/folders/10KBDY19egb8qEQBv34cqIVSwd38bUAa9?usp=sharing) or  [BaiduNetdisk](https://pan.baidu.com/s/10JO0uKzTxJaIkhN_J7RSyw?pwd=v0b0)  download all files to ```ComfyUI/models/transparent-background``` folder.
-
-![image](image/transparent_background_ultra_example.jpg)    
-
-Node Options:  
-![image](image/transparent_background_ultra_node.jpg)    
-
-* model: Select the model.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">PersonMaskUltra</a>
-
-Generate masks for portrait's face, hair, body skin, clothing, or accessories. Compared to the previous A Person Mask Generator node, this node has ultra-high edge details.
-The model code for this node comes from [a-person-mask-generator](https://github.com/djbielejeski/a-person-mask-generator)， edge processing code from [ComfyUI-Image-Filters](https://github.com/spacepxl/ComfyUI-Image-Filters)，thanks to the original author.
-*Download model files from [BaiduNetdisk](https://pan.baidu.com/s/13zqZtBt89ueCyFufzUlcDg?pwd=jh5g) to ```ComfyUI/models/mediapipe``` folder.
-
-![image](image/person_mask_ultra_example.jpg)    
-
-Node options:  
-![image](image/person_mask_ultra_node.jpg)    
-
-* face: Face recognition.
-* hair: Hair recognition.
-* body: Body skin recognition.
-* clothes: Clothing recognition.
-* accessories: Identification of accessories (such as backpacks).
-* background: Background recognition.
-* confidence: Recognition threshold, lower values will output more mask ranges.
-* detail_range: Edge detail range.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-
-### <a id="table1">PersonMaskUltraV2</a>
-
-The V2 upgraded version of PersonMaskUltra has added the VITMatte edge processing method.(Note: Images larger than 2K in size using this method will consume huge memory) 
-
-On the basis of PersonMaskUltra, the following changes have been made: 
-![image](image/person_mask_ultra_v2_node.jpg)    
-
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
-* ### <a id="table1">SegformerB2ClothesUltra</a>
+### <a id="table1">SegformerB2ClothesUltra</a>
   
   ![image](image/segformer_ultra_example.jpg)   
   Generate masks for characters' faces, hair, arms, legs, and clothing, mainly used for segmenting clothing.
@@ -2638,36 +1875,6 @@ Node Options:
 * sequin: sequin switch.
 * tassel: tassel switch.
 
-### <a id="table1">HumanPartsUltra</a>
-
-Used for generate human body parts masks, it is based on the warrper of [metal3d/ComfyUI_Human_Parts](https://github.com/metal3d/ComfyUI_Human_Parts), thank the original author.
-This node has added ultra-fine edge processing based on the original work. Download model file from [BaiduNetdisk](https://pan.baidu.com/s/1-6uwH6RB0FhIVfa3qO7hhQ?pwd=d862) or [huggingface](https://huggingface.co/Metal3d/deeplabv3p-resnet50-human/tree/main) and copy to ```ComfyUI\models\onnx\human-parts``` folder.
-![image](image/human_parts_ultra_example.jpg)    
-
-Node Options:  
-![image](image/human_parts_node.jpg)    
-
-* image: The input image.
-* face: Recognize face switch.
-* hair: Recognize hair switch.
-* galsses: Recognize glasses switch.
-* top_clothes: Recognize top clothes switch.
-* bottom_clothes: Recognize bottom clothes switch.
-* torso_skin: Recognize torso skin switch.
-* left_arm: Recognize left arm switch.
-* right_arm: Recognize right arm switch.
-* left_leg: Recognize left leg switch.
-* right_leg: Recognize right leg switch.
-* left_foot: Recognize left foot switch.
-* right_foot: Recognize right foot switch.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* device: Set whether the VitMatte to use cuda.
-* max_megapixels: Set the maximum size for VitMate operations.
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 
@@ -2700,41 +1907,6 @@ On the basis of MaskEdgeUltraDetail, the following changes have been made:
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
 
-### <a id="table1">YoloV8Detect</a>
-
-Use the YoloV8 model to detect faces, hand box areas, or character segmentation. Supports the output of the selected number of channels.
-Download the model files from [GoogleDrive](https://drive.google.com/drive/folders/1I5TISO2G1ArSkKJu1O9b4Uvj3DVgn5d2) or [BaiduNetdisk](https://pan.baidu.com/s/1pEY6sjABQaPs6QtpK0q6XA?pwd=grqe) to ```ComfyUI/models/yolo``` folder.
-
-![image](image/yolov8_detect_example.jpg)    
-
-Node Options:  
-![image](image/yolov8_detect_node.jpg)    
-
-* yolo_model: Yolo model selection. the model with ```seg``` name can output segmented masks, otherwise they can only output box masks.
-* mask_merge: Select the merged mask. ```all``` is to merge all mask outputs. The selected number is how many masks to output, sorted by recognition confidence to merge the output.
-
-Outputs:
-
-* mask: The output mask.
-* yolo_plot_image: Preview of yolo recognition results.
-* yolo_masks: For all masks identified by yolo, each individual mask is output as a mask.
-
-### <a id="table1">MediapipeFacialSegment</a>
-
-Use the Mediapipe model to detect facial features, segment left and right eyebrows, eyes, lips, and tooth.
-*Download the model files from [BaiduNetdisk](https://pan.baidu.com/s/13zqZtBt89ueCyFufzUlcDg?pwd=jh5g) to ```ComfyUI/models/mediapipe``` folder.
-
-![image](image/mediapipe_facial_segment_example.jpg)    
-
-Node Options:  
-![image](image/mediapipe_facial_segment_node.jpg)    
-
-* left_eye: Recognition switch of left eye.
-* left_eyebrow: Recognition switch of left eyebrow.
-* right_eye: Recognition switch of right eye.
-* right_eyebrow: Recognition switch of right eyebrow.
-* lips: Recognition switch of lips.
-* tooth: Recognition switch of tooth.
 
 ### <a id="table1">MaskByColor</a>
 
@@ -2801,18 +1973,6 @@ Node options:
 * invert_mask: Whether to reverse the mask.
 * mask_grow: Mask expansion amplitude.
 
-### <a id="table1">MaskByDifferent</a>
-
-Calculate the differences between two images and output them as mask.
-![image](image/mask_by_different_example.jpg)    
-
-Node options:  
-![image](image/mask_by_different_node.jpg)    
-
-* gain: The gain of difference calculate. higher value will result in a more significant slight difference.
-* fix_gap: Fix the internal gaps of the mask. higher value will repair larger gaps.
-* fix_threshold: The threshold for fix_gap.
-* main_subject_detect: Setting this to True will enable subject detection, ignoring differences outside of the subject.
 
 ### <a id="table1">MaskGrow</a>
 

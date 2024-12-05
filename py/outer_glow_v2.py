@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+import copy
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, step_color, step_value, expand_mask, chop_image_v2, chop_mode_v2, BLEND_MODES
 
-NODE_NAME = 'OuterGlowV2'
 
 class OuterGlowV2:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'OuterGlowV2'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -66,7 +68,7 @@ class OuterGlowV2:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         if len(l_masks) == 0:
-            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because the available mask is not found.", message_type='error')
             return (background_image,)
         max_batch = max(len(b_images), len(l_images), len(l_masks))
         blur_factor = blur / 20.0
@@ -79,7 +81,7 @@ class OuterGlowV2:
             _layer = tensor2pil(layer_image).convert('RGB')
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
             grow = glow_range
             for x in range(brightness):
                 blur = int(grow * blur_factor)
@@ -96,7 +98,7 @@ class OuterGlowV2:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

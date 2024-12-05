@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, motion_blur
 
-NODE_NAME = 'MotionBlur'
+
 
 class MotionBlur:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MotionBlur'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -35,7 +37,7 @@ class MotionBlur:
 
             ret_images.append(pil2tensor(motion_blur(_canvas, angle, blur)))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

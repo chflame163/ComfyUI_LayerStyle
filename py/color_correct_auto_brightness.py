@@ -1,11 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import histogram_equalization, chop_image, image_channel_merge, image_gray_offset, RGB2RGBA
 
-NODE_NAME = 'AutoBrightness'
+
 
 class AutoBrightness:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'AutoBrightness'
+
 
     @classmethod
     def INPUT_TYPES(self):
@@ -64,7 +68,7 @@ class AutoBrightness:
                 ret_image = RGB2RGBA(ret_image, orig_image.split()[-1])
 
             ret_images.append(pil2tensor(ret_image))
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

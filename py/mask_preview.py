@@ -1,7 +1,8 @@
-# import random
-from .imagefunc import *
+import torch
+import random
 from nodes import SaveImage
 import folder_paths
+
 
 class MaskPreview(SaveImage):
     def __init__(self):

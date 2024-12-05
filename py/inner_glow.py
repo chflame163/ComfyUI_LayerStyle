@@ -1,11 +1,12 @@
-from .imagefunc import *
+import torch
+from PIL import Image, ImageChops
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, step_color, expand_mask, mask_invert, chop_mode, chop_image, step_value
 
-NODE_NAME = 'InnerGlow'
 
 class InnerGlow:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'InnerGlow'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -61,7 +62,7 @@ class InnerGlow:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         if len(l_masks) == 0:
-            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because the available mask is not found.", message_type='error')
             return (background_image,)
         max_batch = max(len(b_images), len(l_images), len(l_masks))
         for i in range(max_batch):
@@ -74,7 +75,7 @@ class InnerGlow:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             blur_factor = blur / 20.0
             grow = glow_range
@@ -93,7 +94,7 @@ class InnerGlow:
             _layer.paste(_canvas, mask=ImageChops.invert(_mask))
             ret_images.append(pil2tensor(_layer))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 

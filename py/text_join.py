@@ -1,23 +1,22 @@
 
 
-NODE_NAME = 'TextJoin'
 
 class TextJoin:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'TextJoin'
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "text_1": ("STRING", {"multiline": False,"forceInput":True}),
+                "text_1": ("STRING", {"default": "", "multiline": False,"forceInput":False}),
 
             },
             "optional": {
-                "text_2": ("STRING", {"multiline": False,"forceInput":True}),
-                "text_3": ("STRING", {"multiline": False,"forceInput":True}),
-                "text_4": ("STRING", {"multiline": False,"forceInput":True}),
+                "text_2": ("STRING", {"default": "", "multiline": False,"forceInput":False}),
+                "text_3": ("STRING", {"default": "", "multiline": False,"forceInput":False}),
+                "text_4": ("STRING", {"default": "", "multiline": False,"forceInput":False}),
             }
         }
 
@@ -26,11 +25,22 @@ class TextJoin:
     FUNCTION = "text_join"
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
-    def text_join(self, **kwargs):
+    def text_join(self, text_1, text_2="", text_3="", text_4=""):
 
-        texts = [kwargs[key] for key in kwargs if key.startswith('text')]
-        combined_text = ', '.join(texts)
-        return (combined_text.encode('unicode-escape').decode('unicode-escape'),)
+        texts = []
+        if text_1 != "":
+            texts.append(text_1)
+        if text_2 != "":
+            texts.append(text_2)
+        if text_3 != "":
+            texts.append(text_3)
+        if text_4 != "":
+            texts.append(text_4)
+        if len(texts) > 0:
+            combined_text = ', '.join(texts)
+            return (combined_text.encode('unicode-escape').decode('unicode-escape'),)
+        else:
+            return ('',)
 
 
 class LS_TextJoinV2:
@@ -42,13 +52,13 @@ class LS_TextJoinV2:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "text_1": ("STRING", {"multiline": False,"forceInput":True}),
+                "text_1": ("STRING", {"default": "", "multiline": False,"forceInput":True}),
                 "delimiter": ("STRING", {"default": ",", "multiline": False}),
             },
             "optional": {
-                "text_2": ("STRING", {"multiline": False,"forceInput":True}),
-                "text_3": ("STRING", {"multiline": False,"forceInput":True}),
-                "text_4": ("STRING", {"multiline": False,"forceInput":True}),
+                "text_2": ("STRING", {"default": "", "multiline": False,"forceInput":True}),
+                "text_3": ("STRING", {"default": "", "multiline": False,"forceInput":True}),
+                "text_4": ("STRING", {"default": "", "multiline": False,"forceInput":True}),
             }
         }
 
@@ -57,18 +67,22 @@ class LS_TextJoinV2:
     FUNCTION = "text_join"
     CATEGORY = '😺dzNodes/LayerUtility/Data'
 
-    def text_join(self, text_1, delimiter, text_2=None, text_3=None, text_4=None):
+    def text_join(self, text_1, delimiter, text_2="", text_3="", text_4=""):
 
-        texts = [text_1]
-        if text_2 is not None:
+        texts = []
+        if text_1 != "":
+            texts.append(text_1)
+        if text_2 != "":
             texts.append(text_2)
-        if text_3 is not None:
+        if text_3 != "":
             texts.append(text_3)
-        if text_4 is not None:
+        if text_4 != "":
             texts.append(text_4)
-        combined_text = delimiter.join(texts)
-
-        return (combined_text.encode('unicode-escape').decode('unicode-escape'),)
+        if len(texts) > 0:
+            combined_text = delimiter.join(texts)
+            return (combined_text.encode('unicode-escape').decode('unicode-escape'),)
+        else:
+            return ('',)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: TextJoin": TextJoin,

@@ -1,11 +1,14 @@
-from .imagefunc import *
+import torch
+import copy
+from PIL import Image
+from .imagefunc import log, pil2tensor, tensor2pil, image2mask, mask2image, chop_image, chop_mode, image_rotate_extend_with_alpha
 
-NODE_NAME = 'ImageBlendAdvance'
+
 
 class ImageBlendAdvance:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageBlendAdvance'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -79,7 +82,7 @@ class ImageBlendAdvance:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             orig_layer_width = _layer.width
             orig_layer_height = _layer.height
@@ -120,7 +123,7 @@ class ImageBlendAdvance:
             ret_images.append(pil2tensor(_canvas))
             ret_masks.append(image2mask(_compmask))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

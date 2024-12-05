@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, expand_mask, subtract_mask, chop_image_v2, chop_mode_v2
 
-NODE_NAME = 'StorkeV2'
+
 
 class StrokeV2:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'StorkeV2'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -58,7 +60,7 @@ class StrokeV2:
                     m = 1 - m
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         if len(l_masks) == 0:
-            log(f"Error: {NODE_NAME} skipped, because the available mask is not found.", message_type='error')
+            log(f"Error: {self.NODE_NAME} skipped, because the available mask is not found.", message_type='error')
             return (background_image,)
 
         max_batch = max(len(b_images), len(l_images), len(l_masks))
@@ -77,7 +79,7 @@ class StrokeV2:
 
             if _mask.size != _layer.size:
                 _mask = Image.new('L', _layer.size, 'white')
-                log(f"Warning: {NODE_NAME} mask mismatch, dropped!", message_type='warning')
+                log(f"Warning: {self.NODE_NAME} mask mismatch, dropped!", message_type='warning')
 
             inner_mask = expand_mask(image2mask(_mask), inner_stroke, blur)
             outer_mask = expand_mask(image2mask(_mask), outer_stroke, blur)
@@ -89,7 +91,7 @@ class StrokeV2:
 
             ret_images.append(pil2tensor(_canvas))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

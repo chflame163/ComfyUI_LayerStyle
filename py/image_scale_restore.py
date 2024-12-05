@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask
 
-NODE_NAME = 'ImageScaleRestore'
+
 
 class ImageScaleRestore:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageScaleRestore'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -97,7 +99,7 @@ class ImageScaleRestore:
             ret_images.append(pil2tensor(ret_image))
             ret_masks.append(image2mask(ret_mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), torch.cat(ret_masks, dim=0), [orig_width, orig_height], target_width, target_height,)
 
 

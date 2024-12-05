@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, image2mask, mask_invert
 
-NODE_NAME = 'MaskInvert'
+
 
 class MaskInvert:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskInvert'
 
     @classmethod
     def INPUT_TYPES(self):

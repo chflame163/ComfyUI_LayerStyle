@@ -1,11 +1,15 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import mask_white_area, is_valid_mask
 
-NODE_NAME = 'CheckMaskV2'
+
 
 # 检查mask是否有效，如果mask面积少于指定比例则判为无效mask
 class CheckMaskV2:
 
     def __init__(self):
+        self.NODE_NAME = 'CheckMaskV2'
         pass
 
     @classmethod
@@ -33,7 +37,7 @@ class CheckMaskV2:
         if mask.dim() == 2:
             mask = torch.unsqueeze(mask, 0)
         tensor_mask = mask[0]
-        print(f"tensor_mask={tensor_mask},shape is {tensor_mask.shape}")
+
         pil_mask = tensor2pil(tensor_mask)
         if pil_mask.width * pil_mask.height > 262144:
             target_width = 512
@@ -44,7 +48,7 @@ class CheckMaskV2:
             ret_bool = is_valid_mask(tensor_mask)
         else:
             ret_bool = mask_white_area(pil_mask, white_point) * 100 > area_percent
-
+        log(f"{self.NODE_NAME}: {ret_bool}", message_type='finish')
         return (ret_bool,)
 
 NODE_CLASS_MAPPINGS = {

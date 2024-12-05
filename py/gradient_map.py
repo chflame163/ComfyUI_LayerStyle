@@ -1,12 +1,13 @@
 import torch
 from PIL import Image
 import numpy as np
-from .imagefunc import *
+from .imagefunc import log, tensor2pil, pil2tensor, gradient, Hex_to_RGB
 
-NODE_NAME = 'GradientMap'
+
 
 class GradientMap:
-
+    def __init__(self):
+        self.NODE_NAME = 'GradientMap'
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -73,7 +74,7 @@ class GradientMap:
             
             ret_images.append(pil2tensor(pil_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0), gradient_tensor)
     
 NODE_CLASS_MAPPINGS = {

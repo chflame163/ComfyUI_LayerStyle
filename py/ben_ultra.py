@@ -9,6 +9,7 @@ from PIL import Image, ImageFilter, ImageOps
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 from torchvision import transforms
 
+
 class Mlp(nn.Module):
     """ Multilayer perceptron."""
 
@@ -936,8 +937,12 @@ def postprocess_image(result: torch.Tensor, im_size: list) -> np.ndarray:
 # ************ ComfyUI Nodes ************
 
 import tqdm
+import os
+import torch
+import folder_paths
 from comfy.utils import ProgressBar
-from .imagefunc import *
+from .imagefunc import log,tensor2pil, image2mask, pil2tensor, get_files
+from .imagefunc import mask_edge_detail, guided_filter_alpha, generate_VITMatte, generate_VITMatte_trimap, histogram_remap, RGB2RGBA
 
 
 
@@ -1021,7 +1026,7 @@ class LS_BenUltra:
             local_files_only = False
 
         comfy_pbar = ProgressBar(len(image))
-        tqdm_pbar = tqdm(total=len(image), desc="Processing BEN", leave=False)
+        tqdm_pbar = tqdm.tqdm(total=len(image), desc="Processing BEN", leave=False)
         for i in image:
             i = torch.unsqueeze(i, 0)
             orig_image = tensor2pil(i).convert('RGB')

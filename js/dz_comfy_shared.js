@@ -9,9 +9,9 @@
 import { app } from '../../scripts/app.js'
 
 export const log = (...args) => {
-  if (window.DZ?.DEBUG) {
-    console.debug(...args)
-  }
+//  if (window.DZ?.DEBUG) {
+//    console.debug(...args)
+//  }
 }
 
 //- WIDGET UTILS

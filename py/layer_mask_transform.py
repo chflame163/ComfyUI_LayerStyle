@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, image_rotate_extend_with_alpha, RGB2RGBA
 
-NODE_NAME = 'LayerMaskTransform'
+
 
 class LayerMaskTransform:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'LayerMaskTransform'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -67,7 +69,7 @@ class LayerMaskTransform:
 
             ret_masks.append(image2mask(_mask_canvas))
 
-        log(f"{NODE_NAME} Processed {len(l_masks)} mask(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(l_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

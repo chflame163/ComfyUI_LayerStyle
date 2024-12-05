@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+import random
+from .imagefunc import log
 
-NODE_NAME = 'ImageHub'
+
 
 class ImageHub:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'ImageHub'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -76,7 +78,7 @@ class ImageHub:
 
         log(f"output_list={output_list}")
         if len(output_list) == 0:
-            log(f"{NODE_NAME} is skip, because No Input.", message_type='error')
+            log(f"{self.NODE_NAME} is skip, because No Input.", message_type='error')
             return (None, None)
 
         if random_output:
@@ -132,13 +134,13 @@ class ImageHub:
                 ret_mask = input9_mask
 
         if ret_image is None and ret_mask is None:
-            log(f"{NODE_NAME} have {output_list} inputs, output is {output}, but there is no corresponding input.", message_type="error")
+            log(f"{self.NODE_NAME} have {output_list} inputs, output is {output}, but there is no corresponding input.", message_type="error")
         elif ret_image is None:
-            log(f"{NODE_NAME} have {output_list} inputs, output is {output}, but image is None.", message_type='finish')
+            log(f"{self.NODE_NAME} have {output_list} inputs, output is {output}, but image is None.", message_type='finish')
         elif ret_mask is None:
-            log(f"{NODE_NAME} have {output_list} inputs, output is {output}, but mask is None.", message_type='finish')
+            log(f"{self.NODE_NAME} have {output_list} inputs, output is {output}, but mask is None.", message_type='finish')
         else:
-            log(f"{NODE_NAME} have {output_list} inputs, output is {output}.", message_type='finish')
+            log(f"{self.NODE_NAME} have {output_list} inputs, output is {output}.", message_type='finish')
 
         return (ret_image, ret_mask)
 NODE_CLASS_MAPPINGS = {

@@ -1,11 +1,10 @@
-from .imagefunc import *
 
-NODE_NAME = 'CropBoxResolve'
+
 
 class CropBoxResolve:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'CropBoxResolve'
 
     @classmethod
     def INPUT_TYPES(self):

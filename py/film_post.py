@@ -1,12 +1,13 @@
-from .imagefunc import *
+from PIL import ImageEnhance
+from .imagefunc import log, tensor2pil, pil2tensor
+from .imagefunc import gamma_trans, depthblur_image, radialblur_image, vignette_image, filmgrain_image
 
 
-NODE_NAME = 'Film'
 
 class Film:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'Film'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -76,7 +77,7 @@ class Film:
             ret_image = _canvas
             ret_images.append(pil2tensor(ret_image))
 
-        log(f"{NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

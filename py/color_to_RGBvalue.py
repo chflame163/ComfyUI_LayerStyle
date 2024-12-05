@@ -1,12 +1,12 @@
-from .imagefunc import *
+from .imagefunc import AnyType, Hex_to_RGB, log
 
-NODE_NAME = 'RGB Value'
+
 any = AnyType("*")
 
 class ColorValuetoRGBValue:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'RGB Value'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -32,7 +32,7 @@ class ColorValuetoRGBValue:
         elif isinstance(color_value, tuple):
             R, G, B = color_value[0], color_value[1], color_value[2]
         else:
-            log(f"{NODE_NAME}: color_value input type must be tuple or string.", message_type="error")
+            log(f"{self.NODE_NAME}: color_value input type must be tuple or string.", message_type="error")
 
         return (R, G, B,)
 

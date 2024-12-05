@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, expand_mask, chop_image_v2
 
-NODE_NAME = 'MaskGrain'
+
 
 class MaskGrain:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskGrain'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -49,7 +51,7 @@ class MaskGrain:
             else:
                 ret_masks.append(image2mask(mask))
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

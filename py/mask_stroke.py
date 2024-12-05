@@ -1,11 +1,13 @@
-from .imagefunc import *
+import torch
+from PIL import Image
+from .imagefunc import log, tensor2pil, image2mask, expand_mask, subtract_mask
 
-NODE_NAME = 'MaskStroke'
+
 
 class MaskStroke:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'MaskStroke'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -50,7 +52,7 @@ class MaskStroke:
             stroke_mask = subtract_mask(outer_mask, inner_mask)
             ret_masks.append(stroke_mask)
 
-        log(f"{NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
+        log(f"{self.NODE_NAME} Processed {len(ret_masks)} mask(s).", message_type='finish')
         return (torch.cat(ret_masks, dim=0),)
 
 NODE_CLASS_MAPPINGS = {

@@ -1,12 +1,15 @@
-from .imagefunc import *
+import torch
+import copy
+from PIL import Image
+from .imagefunc import log, tensor2pil, pil2tensor, image2mask, chop_image, AnyType
+from .imagefunc import create_gradient, create_box_gradient, gaussian_blur, gamma_trans, mask_area
 
-NODE_NAME = 'CreateGradientMask'
 
 any = AnyType("*")
 class CreateGradientMask:
 
     def __init__(self):
-        pass
+        self.NODE_NAME = 'CreateGradientMask'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -110,7 +113,7 @@ class CreateGradientMask:
         # opacity
         if opacity < 100:
             _canvas = chop_image(_black, _canvas, 'normal', opacity)
-        log(f"{NODE_NAME} Processed.", message_type='finish')
+        log(f"{self.NODE_NAME} Processed.", message_type='finish')
         return (image2mask(_canvas),)
 
 NODE_CLASS_MAPPINGS = {
