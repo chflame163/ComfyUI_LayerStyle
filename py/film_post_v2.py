@@ -1,6 +1,6 @@
 import torch
 import time
-from PIL import ImageEnhance
+from PIL import Image,ImageEnhance
 from .imagefunc import log, tensor2pil, pil2tensor
 from .imagefunc import gamma_trans, depthblur_image, radialblur_image, vignette_image, filmgrain_image, image_add_grain
 
