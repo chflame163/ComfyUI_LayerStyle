@@ -4,7 +4,7 @@
 分拆部分依赖易出问题的节点至[ComfyUI_LayerStyle_Advance](https://github.com/chflame163/ComfyUI_LayerStyle_Advance)仓库。包括下列节点：    
 LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
 LayerMask: EVFSAMUltra, LayerMask: Florence2Ultra, LayerMask: LoadFlorence2Model, LayerUtility: Florence2Image2Prompt,    
-LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,    
+LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra, LayerMask: BenUltra, LayerMask: LoadBenModel,           
 LayerUtility: ImageAutoCrop, LayerUtility: ImageAutoCropV2, LayerUtility: ImageAutoCropV3,    
 LayerUtility: ImageRewardFilter, LayerUtility: LoadJoyCaption2Model, LayerUtility: JoyCaption2Split,    
 LayerUtility: JoyCaption2, LayerUtility: JoyCaption2ExtraOptions, LayerUtility: LaMa,    
@@ -19,7 +19,7 @@ LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: Yo
 
 如果最近更新了插件，请安装[ComfyUI_LayerStyle_Advance](https://github.com/chflame163/ComfyUI_LayerStyle_Advance)保证之前的工作流不会缺失节点。
 如果因为拆分仓库导致问题，请回滚插件版本到```3d4a3526a9d1a19671a133e9215077bda520ee5d```
-在插件目录打开终端，使用下列命令回滚版本：
+在插件目录打开终端，使用下列命令回滚版本：****
 ```
 git reset --hard 3d4a3526a9d1a19671a133e9215077bda520ee5d
 ```
@@ -66,7 +66,7 @@ git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
 
 ```
 ..\..\python\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency_aki.bat
+.\repair_dependency.bat
 ```
 * 重新打开ComfyUI。
 
@@ -1503,34 +1503,6 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
-
-### <a id="table1">BenUltra</a>
-是[PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) 项目在ComfyUI中的实现。感谢原作者。    
-从 [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) 或 [百度网盘](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3)下载```BEN_Base.pth``` 和 ```config.json``` 两个文件并复制到 ```ComfyUI/models/BEN```文件夹。
-
-![image](image/ben_ultra_example.jpg)
-
-节点选项说明：
-![image](image/ben_ultra_node.jpg)
-* ben_model: Ben模型输入。
-* image: 图片输入。
-* detail_method: 边缘处理方法。提供了VITMatte, VITMatte(local), PyMatting, GuidedFilter。如果首次使用VITMatte后模型已经下载，之后可以使用VITMatte(local)。
-* detail_erode: 遮罩边缘向内侵蚀范围。数值越大，向内修复的范围越大。
-* detail_dilate: 遮罩边缘向外扩张范围。数值越大，向外修复的范围越大。
-* black_point: 边缘黑色采样阈值。
-* white_point: 边缘白色采样阈值。
-* process_detail: 此处设为False将跳过边缘处理以节省运行时间。
-* max_megapixels: 设置vitmatte运算的最大尺寸。
-
-### <a id="table1">LoadBenModel</a>
-加载BEN模型。 
-
-
-节点选项说明:  
-![image](image/load_ben_model_node.jpg)  
-
-* model: 选择模型。目前仅有Ben_Base 模型可选。
-
 
 ### <a id="table1">SegformerB2ClothesUltra</a>
 ![image](image/segformer_ultra_example.jpg)   

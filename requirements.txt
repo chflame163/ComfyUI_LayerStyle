@@ -14,4 +14,3 @@ blend_modes
 huggingface_hub>=0.23.4
 diffusers
 loguru
-wandb

@@ -4,7 +4,7 @@
 Split some nodes of the dependencies that are prone to problems into [ComfyUI_LayerStyle_Advance](https://github.com/chflame163/ComfyUI_LayerStyle_Advance) repository. Including:     
 LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
 LayerMask: EVFSAMUltra, LayerMask: Florence2Ultra, LayerMask: LoadFlorence2Model, LayerUtility: Florence2Image2Prompt,    
-LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,    
+LayerUtility: GetColorTone, LayerUtility: GetColorToneV2, LayerMask: HumanPartsUltra,  LayerMask: BenUltra, LayerMask: LoadBenModel,        
 LayerUtility: ImageAutoCrop, LayerUtility: ImageAutoCropV2, LayerUtility: ImageAutoCropV3,    
 LayerUtility: ImageRewardFilter, LayerUtility: LoadJoyCaption2Model, LayerUtility: JoyCaption2Split,    
 LayerUtility: JoyCaption2, LayerUtility: JoyCaption2ExtraOptions, LayerUtility: LaMa,    
@@ -56,14 +56,14 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
   git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
   ```
 
-* Or download the zip file and extracted, copy the resulting folder to ```ComfyUI\custom_nodes```    
+* Or download the zip file and extracted, copy the resulting folder to ```ComfyUI\custom_ Nodes```    
 
 ### Install dependency packages
 
 * for ComfyUI official portable package, double-click the ```install_requirements.bat``` in the plugin directory, for Aki ComfyUI package double-click on the ```install_requirements_aki.bat``` in the plugin directory, and wait for the installation to complete.
 
 * Or install dependency packages, open the cmd window in the ComfyUI_LayerStyle plugin directory like 
-  ```ComfyUI\custom_nodes\ComfyUI_LayerStyle``` and enter the following command,
+  ```ComfyUI\custom_ Nodes\ComfyUI_LayerStyle``` and enter the following command,
 
 &emsp;&emsp;for ComfyUI official portable package, type:
 
@@ -76,7 +76,7 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 
 ```
 ..\..\python\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency_aki.bat
+.\repair_dependency.bat
 ```
 
 * Restart ComfyUI.
@@ -1700,35 +1700,6 @@ On the basis of RemBgUltra, the following changes have been made:
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
 
-
-
-### <a id="table1">BenUltra</a>
-It is the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN)  project in ComfyUI. Thank you to the original author.
-   
-Download the ```BEN_Base.pth``` and ```config.json``` from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
-
-![image](image/ben_ultra_example.jpg)
-
-Node Options：
-![image](image/ben_ultra_node.jpg)
-* ben_model: Ben model input.
-* image: Image input.
-* detail_method: Edge processing methods. provides VITMatte, VITMatte(local), PyMatting, GuidedFilter. If the model has been downloaded after the first use of VITMatte, you can use VITMatte (local) afterwards.
-* detail_erode: Mask the erosion range inward from the edge. the larger the value, the larger the range of inward repair.
-* detail_dilate: The edge of the mask expands outward. the larger the value, the wider the range of outward repair.
-* black_point: Edge black sampling threshold.
-* white_point: Edge white sampling threshold.
-* process_detail: Set to false here will skip edge processing to save runtime.
-* max_megapixels: Set the maximum size for VitMate operations.
-
-### <a id="table1">LoadBenModel</a>
-Load the BEN model. 
-
-
-Node Options:  
-![image](image/load_ben_model_node.jpg)  
-
-* model: Select the model. Currently, only the Ben_Sase model is available for selection.
 
 
 ### <a id="table1">SegformerB2ClothesUltra</a>
