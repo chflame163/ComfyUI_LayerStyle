@@ -76,7 +76,7 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 
 ```
 ..\..\python\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency.bat
+.\repair_dependency_aki.bat
 ```
 
 * Restart ComfyUI.
