@@ -56,14 +56,14 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
   git clone https://github.com/chflame163/ComfyUI_LayerStyle.git
   ```
 
-* Or download the zip file and extracted, copy the resulting folder to ```ComfyUI\custom_ Nodes```    
+* Or download the zip file and extracted, copy the resulting folder to ```ComfyUI\custom_nodes```    
 
 ### Install dependency packages
 
 * for ComfyUI official portable package, double-click the ```install_requirements.bat``` in the plugin directory, for Aki ComfyUI package double-click on the ```install_requirements_aki.bat``` in the plugin directory, and wait for the installation to complete.
 
 * Or install dependency packages, open the cmd window in the ComfyUI_LayerStyle plugin directory like 
-  ```ComfyUI\custom_ Nodes\ComfyUI_LayerStyle``` and enter the following command,
+  ```ComfyUI\custom_nodes\ComfyUI_LayerStyle``` and enter the following command,
 
 &emsp;&emsp;for ComfyUI official portable package, type:
 

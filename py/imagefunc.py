@@ -1253,58 +1253,6 @@ def pixel_spread(image:Image, mask:Image) -> Image:
     return tensor2pil(torch.from_numpy(fg.astype(np.float32)))
 
 
-def generate_text_image(text:str, font_path:str, font_size:int, text_color:str="#FFFFFF",
-                        vertical:bool=True, stroke_width:int=1, stroke_color:str="#000000",
-                         spacing:int=0, leading:int=0) -> tuple:
-
-    lines = text.split("\n")
-    if vertical:
-        layout = "vertical"
-    else:
-        layout = "horizontal"
-    char_coordinates = []
-    if layout == "vertical":
-        x = 0
-        y = 0
-        for i in range(len(lines)):
-            line = lines[i]
-            for char in line:
-                char_coordinates.append((x, y))
-                y += font_size + spacing
-            x += font_size + leading
-            y = 0
-    else:
-        x = 0
-        y = 0
-        for line in lines:
-            for char in line:
-                char_coordinates.append((x, y))
-                x += font_size + spacing
-            y += font_size + leading
-            x = 0
-    if layout == "vertical":
-        width = (len(lines) * (font_size + spacing)) - spacing
-        height = ((len(max(lines, key=len)) + 1) * (font_size + spacing)) + spacing
-    else:
-        width = (len(max(lines, key=len)) * (font_size + spacing)) - spacing
-        height = ((len(lines) - 1) * (font_size + spacing)) + font_size
-
-    image = Image.new('RGBA', size=(width, height), color=stroke_color)
-    draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype(font_path, font_size)
-    index = 0
-    for i, line in enumerate(lines):
-        for j, char in enumerate(line):
-            x, y = char_coordinates[index]
-            if stroke_width > 0:
-                draw.text((x - stroke_width, y), char, font=font, fill=stroke_color)
-                draw.text((x + stroke_width, y), char, font=font, fill=stroke_color)
-                draw.text((x, y - stroke_width), char, font=font, fill=stroke_color)
-                draw.text((x, y + stroke_width), char, font=font, fill=stroke_color)
-            draw.text((x, y), char, font=font, fill=text_color)
-            index += 1
-    return (image.convert('RGB'), image.split()[3])
-
 def watermark_image_size(image:Image) -> int:
     size = int(math.sqrt(image.width * image.height * 0.015625) * 0.9)
     return size
@@ -1392,6 +1340,58 @@ def decode_watermark(image:Image, watermark_image_size:int=94) -> Image:
         ret_image = Image.new("RGB", (64, 64), color="black")
     ret_image = normalize_gray(ret_image)
     return ret_image
+
+# def generate_text_image(text:str, font_path:str, font_size:int, text_color:str="#FFFFFF",
+#                         vertical:bool=True, stroke_width:int=1, stroke_color:str="#000000",
+#                          spacing:int=0, leading:int=0) -> tuple:
+#
+#     lines = text.split("\n")
+#     if vertical:
+#         layout = "vertical"
+#     else:
+#         layout = "horizontal"
+#     char_coordinates = []
+#     if layout == "vertical":
+#         x = 0
+#         y = 0
+#         for i in range(len(lines)):
+#             line = lines[i]
+#             for char in line:
+#                 char_coordinates.append((x, y))
+#                 y += font_size + spacing
+#             x += font_size + leading
+#             y = 0
+#     else:
+#         x = 0
+#         y = 0
+#         for line in lines:
+#             for char in line:
+#                 char_coordinates.append((x, y))
+#                 x += font_size + spacing
+#             y += font_size + leading
+#             x = 0
+#     if layout == "vertical":
+#         width = (len(lines) * (font_size + spacing)) - spacing
+#         height = ((len(max(lines, key=len)) + 1) * (font_size + spacing)) + spacing
+#     else:
+#         width = (len(max(lines, key=len)) * (font_size + spacing)) - spacing
+#         height = ((len(lines) - 1) * (font_size + spacing)) + font_size
+#
+#     image = Image.new('RGBA', size=(width, height), color=stroke_color)
+#     draw = ImageDraw.Draw(image)
+#     font = ImageFont.truetype(font_path, font_size)
+#     index = 0
+#     for i, line in enumerate(lines):
+#         for j, char in enumerate(line):
+#             x, y = char_coordinates[index]
+#             if stroke_width > 0:
+#                 draw.text((x - stroke_width, y), char, font=font, fill=stroke_color)
+#                 draw.text((x + stroke_width, y), char, font=font, fill=stroke_color)
+#                 draw.text((x, y - stroke_width), char, font=font, fill=stroke_color)
+#                 draw.text((x, y + stroke_width), char, font=font, fill=stroke_color)
+#             draw.text((x, y), char, font=font, fill=text_color)
+#             index += 1
+#     return (image.convert('RGB'), image.split()[3])
 
 def generate_text_image(width:int, height:int, text:str, font_file:str, text_scale:float=1, font_color:str="#FFFFFF",) -> Image:
     image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
