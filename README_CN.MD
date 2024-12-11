@@ -127,6 +127,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [GetMainColorsV2](#GetMainColorsV2) 节点，增加按颜色面积排序，并在预览图中输出色值和比例。这部分代码由@HL完善，感谢。
 * 优化依赖包。优化部分图形算法。
 * 分拆部分依赖易出问题的节点至[ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance)仓库。包括下列节点：    
 LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
@@ -972,6 +973,12 @@ ImageScaleByAspectRatio的V2升级版
 输出:
 * preview_image: 5个主色预览图片。
 * color_1~color_5: 色值输出。输出格式为HEX格式的RGB字符串。
+
+### <a id="table1">GetMainColorsV2</a>
+在[GetMainColors](#GetMainColors)节点基础上增加按颜色面积排序，并在预览图片中显示色值和颜色面积。
+这部分代码由@HL完善，感谢。
+![image](image/get_main_color_v2_example.jpg)
+
 
 ### <a id="table1">ColorName</a>
 根据色值输出调色盘里最近似的颜色名称。

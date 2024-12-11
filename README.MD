@@ -146,7 +146,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
-
+* Commit [GetMainColorsV2](#GetMainColorsV2) node, add sorting by color area and output color values and proportions in the preview image. This part of the code was improved by @ HL, thanks.
 * Optimize dependency packages. Optimize some algorithms.
 * Split some nodes of the dependencies that are prone to problems into [ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance) repository. Including:
 LayerMask: BiRefNetUltra, LayerMask: BiRefNetUltraV2, LayerMask: LoadBiRefNetModel, LayerMask: LoadBiRefNetModelV2,    
@@ -1098,6 +1098,12 @@ Outputs:
 
 * preview_image: 5 main color preview images.
 * color_1~color_5: Color value output. Output an RGB string in HEX format.
+
+### <a id="table1">GetMainColorsV2</a>
+Add sorting by color area to the [GetMainColors](#GetMainColors) node and display color values and color areas in the preview image. 
+This part of the code was improved by @ HL, thanks.
+![image](image/get_main_color_v2_example.jpg)
+
 
 ### <a id="table1">ColorName</a>
 
