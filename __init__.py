@@ -43,11 +43,6 @@ for file in files:
         pass
 
 
-# 保存为文件
-with open("all_nodes.json", "w", encoding="utf-8") as f:
-    json.dump(all_nodes, f, ensure_ascii=False, indent=4)
-
-
 WEB_DIRECTORY = "./js"
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS", "WEB_DIRECTORY"]
