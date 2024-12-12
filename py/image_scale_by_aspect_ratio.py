@@ -1,5 +1,6 @@
 import torch
 from PIL import Image
+import math
 from .imagefunc import log, tensor2pil, pil2tensor, image2mask, num_round_up_to_multiple, fit_resize_image
 
 
