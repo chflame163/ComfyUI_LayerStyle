@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [ICMask](#ICMask) 和 [ICMaskCropBack](#ICMaskCropBack) 节点，用于生成一致性上下文图片和遮罩，以及自动回裁。代码来自[lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) 感谢原作者@小志Jason
 * 添加 [GetMainColorsV2](#GetMainColorsV2) 节点，增加按颜色面积排序，并在预览图中输出色值和比例。这部分代码由@HL完善，感谢。
 * 优化依赖包。优化部分图形算法。
 * 分拆部分依赖易出问题的节点至[ComfyUI_LayerStyle_Advance](#https://github.com/chflame163/ComfyUI_LayerStyle_Advance)仓库。包括下列节点：    
@@ -817,6 +818,35 @@ ImageScaleByAspectRatio的V2升级版
 * scale_to_side: 允许按长边、短边、宽度、高度或总像素指定尺寸缩放。
 * scale_to_length: 这里的数值作为scale_to_side指定边的长度, 或者总像素数量(kilo pixels)。
 * background_color<sup>4</sup>: 背景色。
+
+### <a id="table1">ICMask</a>
+用于生成一致性上下文图片和遮罩。代码来自[lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) 感谢原作者@小志Jason
+![image](image/icmask_example.jpg)
+
+节点选项说明:   
+![image](image/icmask_node.jpg)    
+
+* first_image: 用作上下文参考的图像。
+* first_mask: 可选输入，上下文参考图像的遮罩。
+* second_image: 用于重绘的图像。
+* second_mask: 用于重绘的图像的遮罩。
+* patch_mode: 拼接模式，有三种模式：auto、patch_right 和 patch_bottom。patch_right为左右拼接，patch_bottom为上下拼接，auto为自动模式。
+* output_length: 输出图像的长边尺寸。
+* patch_color: 填充颜色。
+
+输出:
+* image: 输出图像。
+* mask: 输出遮罩。
+* icmask_data: 图像的拼接信息，用于后续节点进行自动裁切。
+
+### <a id="table1">ICMaskCropBack</a>
+对ICMask生成的图像推理输出进行裁切。
+
+节点选项说明:   
+![image](image/icmask_crop_back_node.jpg)    
+
+* image: 图像输入。
+* icmask_data: 从ICMask输出的拼接信息。
 
 
 ### <a id="table1">VQAPrompt</a>
