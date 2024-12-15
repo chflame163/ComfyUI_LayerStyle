@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [AnyRerouter](#AnyRerouter) node, Used for reroute any type of data.
 * Commit [ICMask](#ICMask) and [ICMaskCropBack](#ICMaskCropBack) nodes, Used for generating In-Context image and mask, and automatic crop back. The code is from [lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) , Thanks to the original author @小志Jason.
 * Commit [GetMainColorsV2](#GetMainColorsV2) node, add sorting by color area and output color values and proportions in the preview image. This part of the code was improved by @ HL, thanks.
 * Optimize dependency packages. Optimize some algorithms.
@@ -1408,6 +1409,11 @@ Output:
 * height: The height of image.
 * original_size: The original size data of the image is used for subsequent node recovery.
 
+### <a id="table1">AnyRerouter</a>
+![image](image/any_rerouter_node.jpg)    
+Used for rerouter any type of data, this node allows for any type of input.
+
+
 ### <a id="table1">ImageHub</a>
 
 Switch output from multiple input images and masks, supporting 9 sets of inputs. All input items are optional. if there is only image or mask in a set of input, the missing item will be output as None.
@@ -1448,6 +1454,7 @@ Added delimiter options on the basis of [TextJoin](#TextJoin).
 Used to provide assistance for workflow debugging. When running, the properties of any object connected to this node will be printed to the console.
 
 This node allows any type of input.
+
 
 ### <a id="table1">TextBox</a>
 

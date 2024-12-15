@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [AnyRerouter](#AnyRerouter) 节点，用于将任意类型数据中转转发。
 * 添加 [ICMask](#ICMask) 和 [ICMaskCropBack](#ICMaskCropBack) 节点，用于生成一致性上下文图片和遮罩，以及自动回裁。代码来自[lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) 感谢原作者@小志Jason
 * 添加 [GetMainColorsV2](#GetMainColorsV2) 节点，增加按颜色面积排序，并在预览图中输出色值和比例。这部分代码由@HL完善，感谢。
 * 优化依赖包。优化部分图形算法。
@@ -1250,6 +1251,10 @@ GradientImage的V2升级版。
 * width: 图像宽度。
 * height: 图像高度。
 * original_size: 图像的原始大小数据，用于后续节点进行恢复。
+
+### <a id="table1">AnyRerouter</a>
+![image](image/any_rerouter_node.jpg)    
+用于将任意类型数据中转转发，这个节点允许任意类型的输入。
 
 ### <a id="table1">ImageHub</a>
 从多路输入图片和遮罩中切换其中一组输出，支持9组输入。所有的输入项都是可选项。如果一组输入中只有image或者只有mask, 缺失项将输出为None。
