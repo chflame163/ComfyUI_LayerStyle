@@ -4,7 +4,7 @@ import torch
 import numpy as np
 from PIL import Image
 import cv2
-from .imagefunc import log
+from .imagefunc import log, fit_resize_image, tensor2pil, pil2tensor
 
 
 def resize_img(img, resolution, interpolation=cv2.INTER_CUBIC):
@@ -27,7 +27,6 @@ def fit_image(image, mask=None, output_length=1536, patch_mode="auto"):
     if mask is not None:
         mask = mask.detach().cpu().numpy()
 
-    # print("np.all(mask == 0)",np.all(mask == 0))
     base_length = int(output_length / 3 * 2)
     half_length = int(output_length / 2)
     image_height, image_width, _ = image.shape
@@ -88,14 +87,25 @@ def fit_image(image, mask=None, output_length=1536, patch_mode="auto"):
 
     return resized_image, resized_mask, target_width, target_height, patch_mode
 
+def crop_and_scale_as(image:Image, size:tuple):
+
+        target_width, target_height = size
+        _image = Image.new('RGB', size=size, color='black')
+
+        ret_image = fit_resize_image(image, target_width, target_height, "crop", Image.LANCZOS)
+        return ret_image
+
+
 class ICMask_Data:
-    def __init__(self, x_offset, y_offset, target_width, target_height, total_width, total_height):
+    def __init__(self, x_offset, y_offset, target_width, target_height, total_width, total_height, orig_width, orig_height):
         self.x_offset = x_offset
         self.y_offset = y_offset
         self.target_width = target_width
         self.target_height = target_height
         self.total_width = total_width
         self.total_height = total_height
+        self.orig_width = orig_width
+        self.orig_height = orig_height
 
 
 class LS_ICMask:
@@ -131,7 +141,8 @@ class LS_ICMask:
 
     def ic_mask(self, first_image, patch_mode, output_length, patch_color, first_mask=None, second_image=None,
                  second_mask=None):
-
+        orig_width = 0
+        orig_height = 0
         if output_length % 64 != 0:
             output_length = output_length - (output_length % 64)
 
@@ -149,6 +160,8 @@ class LS_ICMask:
                 image2_mask = torch.zeros((image2.shape[0], image2.shape[1]))
             else:
                 image2_mask = second_mask[0]
+            orig_width = image2.shape[1]
+            orig_height = image2.shape[0]
             image2, image2_mask, _, _, _ = fit_image(image2, image2_mask, output_length, patch_mode)
         else:
             image2 = create_image_from_color(target_width, target_height, color=patch_color)
@@ -157,6 +170,8 @@ class LS_ICMask:
                 image2_mask = torch.zeros((image2.shape[0], image2.shape[1]))
             else:
                 image2_mask = second_mask[0]
+            orig_width = image2.shape[1]
+            orig_height = image2.shape[0]
             image2, image2_mask, _, _, _ = fit_image(image2, image2_mask, output_length)
 
         min_y = 0
@@ -183,7 +198,7 @@ class LS_ICMask:
 
         return_images = concatenated_image
         icmask_data = ICMask_Data(min_x, min_y, target_width, target_height, concatenated_image.shape[1],
-                                  concatenated_image.shape[0])
+                                  concatenated_image.shape[0], orig_width, orig_height)
 
         return (return_images, return_masks, icmask_data)
 
@@ -199,20 +214,24 @@ class LS_ICMask_CropBack:
                               "icmask_data": ("ICMASK_DATA",),
                               }}
     RETURN_TYPES = ("IMAGE",)
-    FUNCTION = "crop"
+    FUNCTION = "crop_back"
     CATEGORY = '😺dzNodes/LayerUtility'
 
-    def crop(self, image, icmask_data):
+    def crop_back(self, image, icmask_data):
         width = icmask_data.target_width
         height = icmask_data.target_height
         x = icmask_data.x_offset
         y = icmask_data.y_offset
+        orig_width = icmask_data.orig_width
+        orig_height = icmask_data.orig_height
         x = min(x, image.shape[2] - 1)
         y = min(y, image.shape[1] - 1)
         to_x = width + x
         to_y = height + y
         img = image[:,y:to_y, x:to_x, :]
-        return (img,)
+        pil_image = tensor2pil(img)
+        ret_image = crop_and_scale_as(pil_image, (orig_width, orig_height))
+        return (pil2tensor(ret_image,),)
 
 NODE_CLASS_MAPPINGS = {
     "LayerUtility: ICMask": LS_ICMask,
@@ -221,5 +240,5 @@ NODE_CLASS_MAPPINGS = {
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "LayerUtility: ICMask": "LayerUtility: IC Mask",
-    "LayerUtility: ICMaskCropBack": "LayerUtility: IC Mask Crop Back"
+    "LayerUtility: ICMaskCropBack": "LayerUtility: IC Mask Crop Back",
 }

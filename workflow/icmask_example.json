@@ -1,6 +1,6 @@
 {
-  "last_node_id": 439,
-  "last_link_id": 634,
+  "last_node_id": 441,
+  "last_link_id": 638,
   "nodes": [
     {
       "id": 11,
@@ -682,8 +682,7 @@
           "name": "croped_image",
           "type": "IMAGE",
           "links": [
-            598,
-            616
+            598
           ],
           "slot_index": 0
         },
@@ -781,138 +780,6 @@
         false
       ],
       "color": "rgba(27, 80, 119, 0.7)"
-    },
-    {
-      "id": 432,
-      "type": "LayerUtility: ImageMaskScaleAs",
-      "pos": [
-        1282.739013671875,
-        1840.77587890625
-      ],
-      "size": [
-        378,
-        162
-      ],
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "scale_as",
-          "type": "*",
-          "link": 616
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 615,
-          "shape": 7
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            617
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "links": null
-        },
-        {
-          "name": "original_size",
-          "type": "BOX",
-          "links": null
-        },
-        {
-          "name": "widht",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerUtility: ImageMaskScaleAs"
-      },
-      "widgets_values": [
-        "crop",
-        "lanczos"
-      ],
-      "color": "rgba(38, 73, 116, 0.7)"
-    },
-    {
-      "id": 370,
-      "type": "LayerUtility: RestoreCropBox",
-      "pos": [
-        1290.447998046875,
-        2105.74853515625
-      ],
-      "size": [
-        365.7912902832031,
-        118
-      ],
-      "flags": {},
-      "order": 21,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "background_image",
-          "type": "IMAGE",
-          "link": 610
-        },
-        {
-          "name": "croped_image",
-          "type": "IMAGE",
-          "link": 617
-        },
-        {
-          "name": "crop_box",
-          "type": "BOX",
-          "link": 460
-        },
-        {
-          "name": "croped_mask",
-          "type": "MASK",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            603
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerUtility: RestoreCropBox"
-      },
-      "widgets_values": [
-        false
-      ],
-      "color": "rgba(38, 73, 116, 0.7)"
     },
     {
       "id": 252,
@@ -1061,6 +928,33 @@
       "color": "rgba(38, 73, 116, 0.7)"
     },
     {
+      "id": 424,
+      "type": "PreviewImage",
+      "pos": [
+        1759.7010498046875,
+        1737.902587890625
+      ],
+      "size": [
+        607.7578735351562,
+        616.5079345703125
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 603
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
       "id": 427,
       "type": "LayerUtility: ICMaskCropBack",
       "pos": [
@@ -1091,7 +985,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            615
+            637
           ],
           "slot_index": 0
         }
@@ -1103,31 +997,64 @@
       "color": "rgba(38, 73, 116, 0.7)"
     },
     {
-      "id": 424,
-      "type": "PreviewImage",
+      "id": 370,
+      "type": "LayerUtility: RestoreCropBox",
       "pos": [
-        1759.7010498046875,
-        1737.902587890625
+        1285.8817138671875,
+        1942.3494873046875
       ],
       "size": [
-        607.7578735351562,
-        616.5079345703125
+        365.7912902832031,
+        118
       ],
       "flags": {},
-      "order": 22,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
-          "name": "images",
+          "name": "background_image",
           "type": "IMAGE",
-          "link": 603
+          "link": 610
+        },
+        {
+          "name": "croped_image",
+          "type": "IMAGE",
+          "link": 637
+        },
+        {
+          "name": "crop_box",
+          "type": "BOX",
+          "link": 460
+        },
+        {
+          "name": "croped_mask",
+          "type": "MASK",
+          "link": null,
+          "shape": 7
         }
       ],
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            603
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        }
+      ],
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "LayerUtility: RestoreCropBox"
       },
-      "widgets_values": []
+      "widgets_values": [
+        false
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
     }
   ],
   "links": [
@@ -1324,30 +1251,6 @@
       "IMAGE"
     ],
     [
-      615,
-      427,
-      0,
-      432,
-      1,
-      "IMAGE"
-    ],
-    [
-      616,
-      364,
-      0,
-      432,
-      0,
-      "*"
-    ],
-    [
-      617,
-      432,
-      0,
-      370,
-      1,
-      "IMAGE"
-    ],
-    [
       621,
       103,
       0,
@@ -1402,6 +1305,14 @@
       102,
       0,
       "MODEL"
+    ],
+    [
+      637,
+      427,
+      0,
+      370,
+      1,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -1461,10 +1372,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537781,
+      "scale": 0.6830134553650707,
       "offset": [
-        1389.037077059614,
-        -664.2146906381768
+        1070.8293436182964,
+        -836.2221698058116
       ]
     },
     "workspace_info": {
