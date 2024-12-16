@@ -8,7 +8,7 @@ from .imagefunc import chop_image_v2, chop_mode_v2, shift_image, expand_mask
 class DropShadowV3:
 
     def __init__(self):
-        NODE_NAME = 'DropShadowV3'
+        self.NODE_NAME = 'DropShadowV3'
 
     @classmethod
     def INPUT_TYPES(self):

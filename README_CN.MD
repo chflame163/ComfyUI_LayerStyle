@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [RoundedRectangle](#RoundedRectangle) 节点，用于创建圆角矩形及遮罩。
 * 添加 [AnyRerouter](#AnyRerouter) 节点，用于将任意类型数据中转转发。
 * 添加 [ICMask](#ICMask) 和 [ICMaskCropBack](#ICMaskCropBack) 节点，用于生成一致性上下文图片和遮罩，以及自动回裁。代码来自[lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) 感谢原作者@小志Jason
 * 添加 [GetMainColorsV2](#GetMainColorsV2) 节点，增加按颜色面积排序，并在预览图中输出色值和比例。这部分代码由@HL完善，感谢。
@@ -148,6 +149,7 @@ LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: 
 LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
 LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
 
+* 合并[alexisrolland](https://github.com/alexisrolland) 提交的分支，添加Image Blend Advanced v3 和 Drop Shadow v3 节点，支持透明背景。
 * 添加[BenUltra](#BenUltra) 和 [LoadBenModel](#LoadBenModel)节点。这两个节点是[PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) 项目在ComfyUI中的实现。    
 从 [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) 或 [百度网盘](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3)下载```BEN_Base.pth``` 和 ```config.json``` 两个文件并复制到 ```ComfyUI/models/BEN```文件夹。
 * 合并[jimlee2048](https://github.com/jimlee2048)提交的PR, 添加[LoadBiRefNetModelV2](#LoadBiRefNetModelV2) 节点，支持加载RMBG 2.0模型。    
@@ -1132,6 +1134,27 @@ GradientImage的V2升级版。
 <sup>**</sup>预设尺寸在```custom_size.ini```中定义，这个文件位于插件根目录下, 默认名字是```custom_size.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，编辑自定义尺寸。每行表示一个尺寸，第一个数值是宽度，第二个是高度，中间用小写的"x"分隔。为避免错误请不要输入多余的字符。
 
 
+### <a id="table1">RoundedRectangle</a>
+![image](image/rounded_rectangle_example.jpg)    
+生成圆角矩形及遮罩。
+
+![image](image/rounded_rectangle_node.jpg)    
+节点选项说明:
+* image: 图片输入。
+* object_mask: 可选输入。可由此遮罩生成圆角矩形区域。如果```crop_box```有输入，则此选项将被忽略。
+* crop_box: 可选输入。可由此裁剪区域生成圆角矩形区域。
+* rounded_rect_radius: 圆角矩形半径。范围0-100, 数值越大圆角越明显。
+* anti_aliasing: 抗锯齿，范围从0-16，数值越大，锯齿越不明显。过高的数值将显著降低节点的处理速度。
+* top: 圆角矩形顶部边距，为图片高度的百分比，允许设置负值。如果有crop_box或者object_mask输入，此选项将被忽略。
+* bottom: 圆角矩形底部边距，为图片高度的百分比，允许设置负值。如果有crop_box或者object_mask输入，此选项将被忽略。
+* left: 圆角矩形左侧边距，为图片宽度的百分比，允许设置负值。如果有crop_box或者object_mask输入，此选项将被忽略。
+* right: 圆角矩形右侧边距，为图片宽度的百分比，允许设置负值。如果有crop_box或者object_mask输入，此选项将被忽略。
+* detect: 当object_mask输入时，检测遮罩区域的方法。```min_bounding_rect```是大块形状最小外接矩形, ```max_inscribed_rect```是大块形状最大内接矩形, ```mask_area```是遮罩像素有效区域。
+* obj_ext_top: 当object_mask或crop_box输入时，圆角矩形区域顶部外扩范围，为区域高度的百分比，允许设置负值。
+* obj_ext_bottom: 当object_mask或crop_box输入时，圆角矩形区域底部外扩范围，为区域高度的百分比，允许设置负值。
+* obj_ext_left: 当object_mask或crop_box输入时，圆角矩形区域左侧外扩范围，为区域宽度的百分比，允许设置负值。
+* obj_ext_right: 当object_mask或crop_box输入时，圆角矩形区域右侧外扩范围，为区域宽度的百分比，允许设置负值。
+
 
 ### <a id="table1">SimpleTextImage</a>
 ![image](image/simple_text_image_example.jpg)    
@@ -1160,7 +1183,6 @@ GradientImage的V2升级版。
 支持定义多个文件夹，之间用逗号，分号或者空格分隔。
 文件夹里面所有的.ttf和.otf文件将在ComfyUI初始化时被收集并显示在节点的列表中。
 如果ini中设定的文件夹无效，将启用插件自带的font文件夹。
-
 
 ### <a id="table1">TextImage</a>
 ![image](image/text_image_example.jpg)    

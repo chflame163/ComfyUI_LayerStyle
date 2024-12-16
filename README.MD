@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [RoundedRectangle](#RoundedRectangle) node, Used to create rounded rectangle and mask.
 * Commit [AnyRerouter](#AnyRerouter) node, Used for reroute any type of data.
 * Commit [ICMask](#ICMask) and [ICMaskCropBack](#ICMaskCropBack) nodes, Used for generating In-Context image and mask, and automatic crop back. The code is from [lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) , Thanks to the original author @小志Jason.
 * Commit [GetMainColorsV2](#GetMainColorsV2) node, add sorting by color area and output color values and proportions in the preview image. This part of the code was improved by @ HL, thanks.
@@ -167,7 +168,7 @@ LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: 
 LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
 LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
 
-
+* Merge the PR submitted by [alexisrolland](https://github.com/alexisrolland) , commit the ```Image Blend Advanced v3``` and ```Drop Shadow v3``` nodes, support transparent background.
 * Commit [BenUltra](#BenUltra) and [LoadBenModel](#LoadBenModel) nodes. These two nodes are the implementation of [PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) project in ComfyUI.   
 Download the ```BEN_Base.pth``` and ```config.json``` from [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) or [BaiduNetdisk](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3) and copy to ```ComfyUI/models/BEN``` folder.
 * Merge the PR submitted by [jimlee2048](https://github.com/jimlee2048), add the LoadBiRefNetModelV2 node, and support loading RMBG 2.0 models.       
@@ -1273,6 +1274,27 @@ The following changes have been made based on GradientImage:
 
 <sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
 <sup>**</sup>The preset size is defined in ```custom_size.ini```, this file is located in the root directory of the plug-in, and the default name is ```custom_size.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+
+### <a id="table1">RoundedRectangle</a>
+![image](image/rounded_rectangle_example.jpg)    
+Generate rounded rectangles and masks.
+
+![image](image/rounded_rectangle_node.jpg)    
+Node Options:
+* image: The image to be processed.
+* object_mask: Optional input. This mask can generate rounded rectangular regions. If have input for ```crop-box```, this option will be ignored.
+* crop_box: Optional input. This can generate a rounded rectangular area by cropping the region.
+* rounded_rect_radius: Rounded rectangle radius. The range is 0-100, and the larger the value, the more pronounced the rounded corners.
+* anti_aliasing: Anti aliasing, ranging from 0-16, with larger values indicating less pronounced aliasing. Excessive values will significantly reduce the processing speed of nodes.
+* top: Top margin of the rounded rectangle is a percentage of the image height, and negative values are allowed. If there is crox_box or object_mask input, this option will be ignored.
+* bottom: Bottom margin of the rounded rectangle is a percentage of the image height, and negative values are allowed. If there is crox_box or object_mask input, this option will be ignored.
+* left: Left margin of the rounded rectangle is a percentage of the image width, and negative values are allowed. If there is crox_box or object_mask input, this option will be ignored.
+* right: Right margin of the rounded rectangle is a percentage of the image width, and negative values are allowed. If there is crox_box or object_mask input, this option will be ignored.
+* detect: The method of detecting mask regions when object_mask is input. ```min_bounding_rect``` is the minimum bounding rectangle of block shape, ```max_inscribed_rect``` is the maximum inscribed rectangle of block shape, and ```mask-area``` is the effective area for masking pixels.
+* obj_ext_top: When object_mask or crop-box is input, the top of the rounded rectangle area expands outward as a percentage of the area height, and negative values are allowed.
+* obj_ext_bottom: When object_mask or crop-box is input, the bottom of the rounded rectangle area expands outward as a percentage of the area height, and negative values are allowed.
+* obj_ext_left: When object_mask or crop-box is input, the left of the rounded rectangle area expands outward as a percentage of the area width, and negative values are allowed.
+* obj_ext_right: When object_mask or crop-box is input, the right of the rounded rectangle area expands outward as a percentage of the area width, and negative values are allowed.
 
 
 ### <a id="table1">SimpleTextImage</a>

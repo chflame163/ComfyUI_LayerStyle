@@ -748,6 +748,31 @@ def gradient(start_color_inhex:str, end_color_inhex:str, width:int, height:int, 
     ret_image = ret_image.resize((width, height))
     return ret_image
 
+def draw_rounded_rectangle(image:Image, radius:int, bboxes:list, scale_factor:int=2, color:str="white") -> Image:
+        """
+        绘制圆角矩形图像。
+        image:输入图片
+        radius: 半径，100为纯椭圆
+        bboxes: (x1,y1,x2,y2)列表
+        scale_factor: 放大倍数
+        :return: 绘制好的pillow图像
+        """
+        if scale_factor < 1 : scale_factor = 1
+
+        img = image.resize((image.width * scale_factor, image.height * scale_factor), Image.LANCZOS)
+        draw = ImageDraw.Draw(img)
+
+        for (x1, y1, x2, y2) in bboxes:
+            r = radius * min(x2-x1, y2-y1) * 0.005
+            x1, y1, x2, y2 = x1 * scale_factor, y1 * scale_factor, x2 * scale_factor, y2 * scale_factor
+            # 计算圆角矩形的四个角的圆弧
+            draw.rounded_rectangle([x1, y1, x2, y2], radius=r * scale_factor, fill=color)
+
+        img = img.filter(ImageFilter.SMOOTH_MORE)
+        img = img.resize((image.width, image.height), Image.LANCZOS)
+
+        return img
+
 def draw_rect(image:Image, x:int, y:int, width:int, height:int, line_color:str, line_width:int,
               box_color:str=None) -> Image:
     draw = ImageDraw.Draw(image)
@@ -1529,8 +1554,7 @@ class VITMatteModel:
 def load_VITMatte_model(model_name:str, local_files_only:bool=False) -> object:
     model_name = "vitmatte"
     model_repo = "hustvl/vitmatte-small-composition-1k"
-    model_path = check_and_download_model(model_name, model_repo)
-
+    model_path  = check_and_download_model(model_name, model_repo)
     from transformers import VitMatteImageProcessor, VitMatteForImageMatting
     model = VitMatteForImageMatting.from_pretrained(model_path, local_files_only=local_files_only)
     processor = VitMatteImageProcessor.from_pretrained(model_path, local_files_only=local_files_only)
