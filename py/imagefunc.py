@@ -2321,43 +2321,16 @@ def get_resource_dir() -> list:
 
     return (LUT_DICT, FONT_DICT)
 
-# (LUT_DICT, FONT_DICT) = get_resource_dir()
-# FONT_LIST = list(FONT_DICT.keys())
-# LUT_LIST = list(LUT_DICT.keys())
-
-# def get_models_dir() -> dict:
-#     models_dir_ini_file = os.path.join(os.path.dirname(os.path.dirname(os.path.normpath(__file__))), "models_dir.ini")
-#     MODELS_DIR = {}
-#     model_dir_list = [
-#         "birefnet_dir",
-#         "evf-sam_dir",
-#         "florence2_dir",
-#         "lama_dir",
-#         "rmbg_dir",
-#         "segformerB2_dir",
-#         "segformerB3_clothes_dir",
-#         "segformerB3_fashion_dir",
-#         "sam2_dir",
-#         "transparent-background_dir",
-#         "yolo8_dir",
-#         "yolo_world_dir"
-#     ]
-#     try:
-#         with open(models_dir_ini_file, 'r') as f:
-#             ini = f.readlines()
-#             for line in ini:
-#                 for model_dir in model_dir_list:
-#                     if line.startswith(model_dir):
-#                         path = line[line.find('=') + 1:].rstrip().lstrip()
-#                         if os.path.exists(path):
-#                             MODELS_DIR[model_dir] = path
-#         log(f'Find {len(MODELS_DIR)} path(s) in {models_dir_ini_file}.')
-#     except Exception as e:
-#         log(f'Warning: {models_dir_ini_file} not found' + f', default directory to be used.')
-#
-#     return MODELS_DIR
-#
-# MODELS_DIR = get_models_dir()
+# 规范bbox，保证x1 < x2, y1 < y2, 并返回int
+def standardize_bbox(bboxes:list) -> list:
+    ret_bboxes = []
+    for bbox in bboxes:
+        x1 = int(min(bbox[0], bbox[2]))
+        y1 = int(min(bbox[1], bbox[3]))
+        x2 = int(max(bbox[0], bbox[2]))
+        y2 = int(max(bbox[1], bbox[3]))
+        ret_bboxes.append([x1, y1, x2, y2])
+    return ret_bboxes
 
 def draw_bounding_boxes(image: Image, bboxes: list, color: str = "#FF0000", line_width: int = 5) -> Image:
     """
