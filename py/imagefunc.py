@@ -1718,10 +1718,13 @@ def mask_area(image:Image) -> tuple:
     gray = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2GRAY)
     _, thresh = cv2.threshold(gray, 127, 255, 0)
     locs = np.where(thresh == 255)
-    x1 = np.min(locs[1]) if len(locs[1]) > 0 else 0
-    x2 = np.max(locs[1]) if len(locs[1]) > 0 else image.width
-    y1 = np.min(locs[0]) if len(locs[0]) > 0 else 0
-    y2 = np.max(locs[0]) if len(locs[0]) > 0 else image.height
+    try:
+        x1 = np.min(locs[1])
+        x2 = np.max(locs[1])
+        y1 = np.min(locs[0])
+        y2 = np.max(locs[0])
+    except ValueError:
+        x1, y1, x2, y2 = -1, -1, 0, 0
     x1, y1, x2, y2 = min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
     return (x1, y1, x2 - x1, y2 - y1)
 
