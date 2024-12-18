@@ -1,14 +1,14 @@
 from PIL import Image
 from .imagefunc import log, tensor2pil, pil2tensor, AnyType, load_custom_size
-
+from .color_name import LS_ColorName
 
 
 any = AnyType("*")
 
-class ColorImageV2:
+class LS_ColorImageV3:
 
     def __init__(self):
-        self.NODE_NAME = 'ColorImage V2'
+        self.NODE_NAME = 'ColorImage V3'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -23,15 +23,16 @@ class ColorImageV2:
             },
             "optional": {
                 "size_as": (any, {}),
+                "color_name": ("STRING", {"default": "white",},),
             }
         }
 
-    RETURN_TYPES = ("IMAGE", )
-    RETURN_NAMES = ("image", )
+    RETURN_TYPES = ("IMAGE", "STRING", )
+    RETURN_NAMES = ("image", "color",)
     FUNCTION = 'color_image_v2'
     CATEGORY = '😺dzNodes/LayerUtility'
 
-    def color_image_v2(self, size, custom_width, custom_height, color, size_as=None ):
+    def color_image_v2(self, size, custom_width, custom_height, color, size_as=None, color_name=None):
 
         if size_as is not None:
             if size_as.shape[0] > 0:
@@ -53,13 +54,19 @@ class ColorImageV2:
                     width = custom_width
                     height = custom_height
 
+        if color_name is not None:
+            try:
+                color_table = LS_ColorName()
+                color = color_table.XKCD_NAME_TO_HEX[color_name]
+            except KeyError:
+                log(f"{self.NODE_NAME}: {color_name} not in XKCD color table, use custom color value.")
         ret_image = Image.new('RGB', (width, height), color=color)
-        return (pil2tensor(ret_image), )
+        return (pil2tensor(ret_image), color,)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerUtility: ColorImage V2": ColorImageV2
+    "LayerUtility: ColorImage V3": LS_ColorImageV3
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerUtility: ColorImage V2": "LayerUtility: ColorImage V2"
+    "LayerUtility: ColorImage V3": "LayerUtility: ColorImage V3"
 }

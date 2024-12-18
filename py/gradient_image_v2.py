@@ -53,7 +53,7 @@ class GradientImageV2:
                     width = int(_s[0].strip())
                     height = int(_s[1].strip())
                 except Exception as e:
-                    log(f"Warning: {self.NODE_NAME} invalid size, check {custom_size_file}", message_type='warning')
+                    log(f'Warning: {self.NODE_NAME} invalid size, check "custom_size.ini"', message_type='warning')
                     width = custom_width
                     height = custom_height
 
