@@ -147,6 +147,8 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [NameToColor](#NameToColor) node, Output colors based on their names.
+* Commit [ImageMaskScaleAsV2](#ImageMaskScaleAsV2) node, Add background color settings on the basis of the original node.
 * Commit [RoundedRectangle](#RoundedRectangle) node, Used to create rounded rectangle and mask.
 * Commit [AnyRerouter](#AnyRerouter) node, Used for reroute any type of data.
 * Commit [ICMask](#ICMask) and [ICMaskCropBack](#ICMaskCropBack) nodes, Used for generating In-Context image and mask, and automatic crop back. The code is from [lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) , Thanks to the original author @小志Jason.
@@ -881,6 +883,15 @@ Outputs:
 * width: The output image's width.
 * height: The output image's height.
 
+### <a id="table1">ImageMaskScaleAsV2</a>
+The upgraded version of ImageMaskScaleAs adds background color settings on top of the original nodes.
+![image](image/image_mask_scale_as_v2_example.jpg)    
+
+New Option:   
+![image](image/image_mask_scale_as_v2_node.jpg)    
+* background_color: Expand background color.
+
+
 ### <a id="table1">ImageScaleByAspectRatio</a>
 
 Scale the image or mask by aspect ratio. the scaled size can be rounded to a multiple of 8 or 16, and can be scaled to the long side size.
@@ -1147,11 +1158,35 @@ Node Options:
 ![image](image/color_name_node.jpg)    
 
 * color: Color value input, in HEX format RGB string format.
-* palette: Color palette. ```xkcd``` includes 949 colors, ```css3``` includes 147 colors, and ```html4``` includes 16 colors.
+* palette: Color palette. There are 6 color mapping tables available, including xkcd, wiki_color, flux_sdxl, css4, css3, and html4.
 
 Output:
 
 * color_name: Color name in string.
+
+### <a id="table1">NameToColor</a>
+Output color images and color values from color names.
+![image](image/name_to_color_example.jpg)
+
+Node Options:
+![image](image/name_to_color_node.jpg)
+* size_as<sup>*</sup>: Input image or mask here to generate image according to its size. Note that this input takes priority over other size settings.
+* color_name: The name of color describe.
+* palette: Color palette. There are 6 color mapping tables available, including xkcd, wiki_color, flux_sdxl, css4, css3, and html4.
+* in_palette_only: Set to only output colors from the color palette. If set to True, search only in the current color palette. If there is no matching name, output default_color.
+If set to False, search for all color palettes. If there is no matching name in all color palettes, output the color with the closest name.
+* default_color: Default color. If no matching name is found, output the color.
+* size<sup>**</sup>: Size preset. the preset can be customized by the user. if have size_as input, this option will be ignored.
+* custom_width: Image width. it valid when size is set to "custom". if have size_as input, this option will be ignored.
+* custom_height: Image height. it valid when size is set to "custom". if have size_as input, this option will be ignored.
+
+<sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
+<sup>**</sup>The preset size is defined in ```custom_size.ini```, this file is located in the root directory of the plug-in, and the default name is ```custom_size.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open with text editing software. Each row represents a size, with the first value being width and the second being height, separated by a lowercase "x" in the middle. To avoid errors, please do not enter extra characters.
+
+输出:
+* image: The output color image.
+* color: Color value output, in HEX format RGB string format.
+
 
 ### <a id="table1">ExtendCanvas</a>
 

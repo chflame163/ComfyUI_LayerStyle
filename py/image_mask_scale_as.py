@@ -107,7 +107,7 @@ class LS_ImageMaskScaleAsV2:
                 "scale_as": (any, {}),
                 "fit": (fit_mode,),
                 "method": (method_mode,),
-                "background_color": ("STRING", {"default": "#000000"},),
+                "background_color": ("STRING", {"default": "#FFFFFF"},),
             },
             "optional": {
                 "image": ("IMAGE",),  #

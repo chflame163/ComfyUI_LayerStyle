@@ -128,6 +128,8 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [NameToColor](#NameToColor)节点，根据颜色名称输出颜色。
+* 添加 [ImageMaskScaleAsV2](#ImageMaskScaleAsV2)节点，在原节点基础上增加背景颜色设置。
 * 添加 [RoundedRectangle](#RoundedRectangle) 节点，用于创建圆角矩形及遮罩。
 * 添加 [AnyRerouter](#AnyRerouter) 节点，用于将任意类型数据中转转发。
 * 添加 [ICMask](#ICMask) 和 [ICMaskCropBack](#ICMaskCropBack) 节点，用于生成一致性上下文图片和遮罩，以及自动回裁。代码来自[lrzjason/Comfyui-In-Context-Lora-Utils](https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils) 感谢原作者@小志Jason
@@ -788,6 +790,13 @@ ImageScaleRestore的V2升级版。
 * width: 输出图片的宽。
 * height: 输出图片的高。
 
+### <a id="table1">ImageMaskScaleAsV2</a>
+ImageMaskScaleAs的升级版，在原节点基础上增加背景颜色设置。
+![image](image/image_mask_scale_as_v2_example.jpg)    
+
+新增选项:   
+![image](image/image_mask_scale_as_v2_node.jpg)    
+* background_color: 扩展背景颜色。
 
 ### <a id="table1">ImageScaleByAspectRatio</a>
 将图像或遮罩按宽高比缩放。可设置将缩放后的尺寸按8或者16的倍数取整，可按长边尺寸缩放。
@@ -1021,10 +1030,34 @@ ImageScaleByAspectRatio的V2升级版
 节点选项:
 ![image](image/color_name_node.jpg)    
 * color: 颜色色值输入，格式为HEX格式的RGB字符串。
-* palette: 调色板。 ```xkcd```包括了949种颜色， ```css3```包括了147种颜色, ```html4```包括了16种颜色。
+* palette: 调色板。 有xkcd、wiki_color、flux_sdxl、css4、css3以及html4多种色彩映射表可选。
 
 输出:
 * color_name: 颜色名称，格式为字符串。
+
+### <a id="table1">NameToColor</a>
+从颜色名称输出彩色图片以及色值。
+![image](image/name_to_color_example.jpg)
+
+节点选项:
+![image](image/name_to_color_node.jpg)
+* size_as<sup>*</sup>: 此处输入图像或遮罩，将按照其尺寸生成输出图像。注意，此输入优先级高于其他的尺寸设置。
+* color_name: 颜色名称。
+* palette: 调色板。 有xkcd、wiki_color、flux_sdxl、css4、css3以及html4多种色彩映射表可选。
+* in_palette_only: 是否只输出调色盘内的颜色。如果设置为True，仅在当前调色盘内搜索，如果没有匹配名称，输出default_color。
+如果设置为False，在全部调色盘搜索，如果在所有调色盘中都没有匹配名称，则输出一个最近似名称的颜色。
+* default_color: 默认颜色。如果没有搜索到匹配名称，则输出该颜色。
+* size<sup>**</sup>: 尺寸预设。预设可以用户自定义。如果有size_as输入，此处选项将被忽略。
+* custom_width: 图像宽度。当size设置为"custom"时有效。如果有size_as输入，此处选项将被忽略。
+* custom_height: 图像高度。当size设置为"custom"时有效。如果有size_as输入，此处选项将被忽略。
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+<sup>**</sup>预设尺寸在custom_size.ini中定义，这个文件位于插件根目录下。用文本编辑软件打开，编辑自定义尺寸。每行表示一个尺寸，第一个数值是宽度，第二个是高度，中间用小写的"x"分隔。为避免错误请不要输入多余的字符。
+
+输出:
+* image: 彩色图片。
+* color: 色值，格式为HEX格式的RGB字符串。
+
 
 ### <a id="table1">ExtendCanvas</a>
 扩展画布。

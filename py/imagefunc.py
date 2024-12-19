@@ -2062,6 +2062,63 @@ def extract_all_numbers_from_str(string, checkint:bool=False):
 def extract_substr_from_str(string) -> list:
     return re.split(r'[,\s;，；]+', string)
 
+# lcs匹配算法，计算最长公共子序列 (LCS)：子字符串顺序：以相同顺序出现，权重更高。额外字符惩罚：多余字符会降低相似度。
+def lcs_with_order(s1, s2):
+    """Calculate the length of the longest common subsequence (LCS) with the same order."""
+    m, n = len(s1), len(s2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if s1[i - 1] == s2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[m][n]
+
+# 使用正则表达式将字符串拆分为单词（token），对比的同时忽略大小写和非字母数字字符。
+def tokenize_string(s):
+    """Tokenize a string by splitting on non-alphanumeric characters and normalizing case."""
+    return re.findall(r'\b\w+\b', s.lower())
+
+# 在列表中找到字符串的最佳匹配
+def find_best_match_by_similarity(target, candidates):
+    """
+    Find the best matching string based on substring order, extra character penalties, and tokenization.
+
+    Parameters:
+        target (str): The target string.
+        candidates (list of str): List of candidate strings.
+
+    Returns:
+        str: The best matching string.
+    """
+    target_tokens = tokenize_string(target)
+    best_match = None
+    highest_score = float('-inf')
+
+    for candidate in candidates:
+        candidate_tokens = tokenize_string(candidate)
+
+        # Calculate LCS on tokens
+        target_str = ''.join(target_tokens)
+        candidate_str = ''.join(candidate_tokens)
+        lcs = lcs_with_order(target_str, candidate_str)
+
+        # Calculate similarity score
+        match_ratio = lcs / len(target_str)  # Ratio of matched characters
+        extra_char_penalty = len(candidate_str) - lcs  # Penalty for extra characters
+        unmatched_tokens_penalty = len(set(candidate_tokens) - set(target_tokens))  # Penalty for unmatched tokens
+        score = match_ratio - 0.1 * extra_char_penalty - 0.2 * unmatched_tokens_penalty  # Weighted score
+
+        if score > highest_score:
+            highest_score = score
+            best_match = candidate
+
+    return best_match
+
+
 def clear_memory():
     import gc
     # Cleanup
