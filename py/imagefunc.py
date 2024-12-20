@@ -1862,6 +1862,8 @@ def Hex_to_RGB(inhex:str) -> tuple:
     if not inhex.startswith('#'):
         raise ValueError(f'Invalid Hex Code in {inhex}')
     else:
+        if len(inhex) == 4:
+            inhex = "#" + "".join([char * 2 for char in inhex[1:]])
         rval = inhex[1:3]
         gval = inhex[3:5]
         bval = inhex[5:]
@@ -1876,6 +1878,8 @@ def Hex_to_HSV_255level(inhex:str) -> list:
     if not inhex.startswith('#'):
         raise ValueError(f'Invalid Hex Code in {inhex}')
     else:
+        if len(inhex) == 4:
+            inhex = "#" + "".join([char * 2 for char in inhex[1:]])
         rval = inhex[1:3]
         gval = inhex[3:5]
         bval = inhex[5:]
