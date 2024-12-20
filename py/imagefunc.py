@@ -1478,7 +1478,7 @@ def create_mask_from_color_tensor(image:Image, color:str, tolerance:int=0) -> Im
 def load_RMBG_model():
     from .briarmbg import BriaRMBG
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = comfy.model_management.get_torch_device()
     net = BriaRMBG()
     model_path = ""
     try:
