@@ -1510,8 +1510,8 @@ def RMBG(image:Image) -> Image:
     mi = torch.min(result)
     result = (result - mi) / (ma - mi)
     im_array = (result * 255).cpu().data.numpy().astype(np.uint8)
-    _mask = torch.from_numpy(np.squeeze(im_array).astype(np.float32))
-    return tensor2pil(_mask)
+    return Image.fromarray(np.squeeze(im_array))
+
 
 def guided_filter_alpha(image:torch.Tensor, mask:torch.Tensor, filter_radius:int) -> torch.Tensor:
     sigma = 0.15
