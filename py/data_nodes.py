@@ -268,7 +268,7 @@ class StringCondition:
         pass
     @classmethod
     def INPUT_TYPES(self):
-        string_condition_list = ["include", "exclude",]
+        string_condition_list = ["include", "exclude", "equal"]
         return {"required": {
                 "text": ("STRING", {"multiline": False}),
                 "condition": (string_condition_list,),
@@ -286,6 +286,8 @@ class StringCondition:
             ret = sub_string in text
         if condition == "exclude":
             ret = sub_string not in text
+        if condition == "equal":
+            ret = text == sub_string
         return (ret, str(ret))
 
 

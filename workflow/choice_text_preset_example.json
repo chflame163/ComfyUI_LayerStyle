@@ -1,0 +1,314 @@
+{
+  "last_node_id": 6,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LayerUtility: TextPreseter",
+      "pos": [
+        -2816.744384765625,
+        -73.45758056640625
+      ],
+      "size": [
+        370.747802734375,
+        183.99403381347656
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextPreseter"
+      },
+      "widgets_values": [
+        "New York",
+        "a vibrant, multicultural, and boundless global metropolis."
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 2,
+      "type": "LayerUtility: TextPreseter",
+      "pos": [
+        -2814.857421875,
+        173.76841735839844
+      ],
+      "size": [
+        370.747802734375,
+        183.99403381347656
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "link": 1,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextPreseter"
+      },
+      "widgets_values": [
+        "Beijing",
+        "a city that blends ancient history with modern innovation, showcasing a rich cultural heritage and vibrant energy."
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 3,
+      "type": "LayerUtility: TextPreseter",
+      "pos": [
+        -2806.807861328125,
+        432.1820983886719
+      ],
+      "size": [
+        370.747802734375,
+        183.99403381347656
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "link": 2,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: TextPreseter"
+      },
+      "widgets_values": [
+        "Dubai",
+        "a city that symbolizes luxury, the future, and innovation, with some of the world’s most advanced architecture and facilities."
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 4,
+      "type": "LayerUtility: ChoiceTextPreset",
+      "pos": [
+        -2317.017578125,
+        131.33035278320312
+      ],
+      "size": [
+        403.1999816894531,
+        174
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text_preset",
+          "type": "LS_TEXT_PRESET",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "title",
+          "type": "STRING",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "content",
+          "type": "STRING",
+          "links": [
+            5
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerUtility: ChoiceTextPreset"
+      },
+      "widgets_values": [
+        "Beijing",
+        false,
+        0,
+        739495926040636,
+        "randomize"
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 6,
+      "type": "ShowText|pysssss",
+      "pos": [
+        -1750.7901611328125,
+        271.31744384765625
+      ],
+      "size": [
+        339.7099304199219,
+        106.7203598022461
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "a city that blends ancient history with modern innovation, showcasing a rich cultural heritage and vibrant energy."
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ShowText|pysssss",
+      "pos": [
+        -1749.0072021484375,
+        65.63809967041016
+      ],
+      "size": [
+        331,
+        83.1112060546875
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "Beijing"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "LS_TEXT_PRESET"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "LS_TEXT_PRESET"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "LS_TEXT_PRESET"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      4,
+      1,
+      6,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        3930.093726936615,
+        706.5574798546296
+      ]
+    }
+  },
+  "version": 0.4
+}

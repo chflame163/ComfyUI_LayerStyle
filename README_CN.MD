@@ -128,6 +128,8 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [ChoiceTextPreset](#ChoiceTextPreset) 和 [TextPreseter](#TextPreseter) 节点，用于预设文本和选择预设文本输出。
+* [StringCondition](#StringCondition) 节点增加比较字符串是否相同功能。
 * 添加 [NameToColor](#NameToColor)节点，根据颜色名称输出颜色。
 * 添加 [ImageMaskScaleAsV2](#ImageMaskScaleAsV2)节点，在原节点基础上增加背景颜色设置。
 * 添加 [RoundedRectangle](#RoundedRectangle) 节点，用于创建圆角矩形及遮罩。
@@ -1333,6 +1335,32 @@ GradientImage的V2升级版。
 注意:如果数值超出批量，将输出最后一张。如果没有对应的输入，将输出一个空的64x64图片或64x64黑色遮罩。
 
 
+### <a id="table1">ChoiceTextPreset</a>
+从预设文本字典选择输出。
+![image](image/choice_text_preset_example.jpg)    
+
+节点选项说明:  
+![image](image/chioce_text_preset_node.jpg)    
+* text_preset: 预设的文本。由[TextPreseter](#TextPreseter) 节点设置输出。
+* choice_title: 选择预设标题，将输出此标题对应的文本内容。
+* random_choice: 是否随机选择预设。
+* default: 默认输出文本，0对应第一段，依次类推。注意此数值超出预设文本段落长度将导致错误。
+* seed: 随机选择时使用的随机种子。
+* control_after_generate: 是否在每次运行时改变种子。
+
+输出:
+* title: 文本段落标题。
+* content: 文本段落内容。
+
+### <a id="table1">TextPreseter</a>
+预设文本字典，每个节点设置一段文本，支持多个节点串联。    
+
+节点选项说明:  
+![image](image/text_preseter_node.jpg)    
+* text_preset: 预设的文本，可选输入。多个预设文本节点可以串联。
+* title: 文本段落标题。
+* content: 文本段落内容。
+
 ### <a id="table1">TextJoin</a>
 ![image](image/text_join_example.jpg)    
 将多段文字组合为一段。
@@ -1434,7 +1462,7 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 节点选项说明:    
 ![image](image/string_condition_node.jpg)  
 * text: 输入的文本。
-* condition: 判断条件。```include```判断是否包含子字符串，```exclude```判断是否不包含子字符串。
+* condition: 判断条件。```include```判断是否包含子字符串，```exclude```判断是否不包含子字符串, ```equal```判断是否与子字符串相等。
 * sub_string: 子字符串文本。
 
 

@@ -147,6 +147,8 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [ChoiceTextPreset](#ChoiceTextPreset) and [TextPreseter](#TextPreseter) nodes, used for preset text and selecting preset text output.
+* [StringCondition](#StringCondition) add the option of comparing strings to determine if they are the same.
 * Commit [NameToColor](#NameToColor) node, Output colors based on their names.
 * Commit [ImageMaskScaleAsV2](#ImageMaskScaleAsV2) node, Add background color settings on the basis of the original node.
 * Commit [RoundedRectangle](#RoundedRectangle) node, Used to create rounded rectangle and mask.
@@ -1495,6 +1497,32 @@ Node Options:
 * select: Select the output image or mask at the batch index value, where 0 is the first image. Multiple values can be entered, separated by any non numeric character, including but not limited to commas, periods, semicolons, spaces or letters, and even Chinese characters.
   Note: If the value exceeds the batch size, the last image will be output. If there is no corresponding input, an empty 64x64 image or a 64x64 black mask will be output.
 
+### <a id="table1">ChoiceTextPreset</a>
+Select output from the preset text dictionary.
+![image](image/choice_text_preset_example.jpg)    
+
+Node Options:  
+![image](image/chioce_text_preset_node.jpg)    
+* text_preset: Preset text. Set the output by the [TextPreseter](#TextPreseter) node.
+* choice_title: Select a preset title to output the corresponding text content.
+* random_choice: Whether to randomly select a preset.
+* default: Default output text, 0 corresponds to the first paragraph, and so on. Note that exceeding the preset text paragraph length will result in errors.
+* seed: The random seed used for random selection.
+* control_after_generate: Whether to change the seed every time it runs.
+
+Outputs:
+* title: Text paragraph title.
+* content: Text paragraph content.
+
+### <a id="table1">TextPreseter</a>
+Preset text dictionary, set a section of text for each node, supporting multiple nodes to be concatenated.
+
+Node Options:  
+![image](image/text_preseter_node.jpg)    
+* text_preset: Preset text input, optional input. Multiple preset text nodes can be concatenated.
+* title: Text paragraph title.
+* content: Text paragraph content.
+
 ### <a id="table1">TextJoin</a>
 
 ![image](image/text_join_example.jpg)    
@@ -1611,7 +1639,7 @@ Node Options:
 ![image](image/string_condition_node.jpg)  
 
 * text: Input text.
-* condition: Judgment conditions. ```include``` determines whether it contains a substring, and ```exclude``` determines whether it does not.
+* condition: Judgment conditions. ```include``` determines whether it contains a substring, ```exclude``` determines whether it does not, and  ```equal``` determine whether it is equal to the substring.
 * sub_string: Substring.
 
 ### <a id="table1">CheckMask</a>
