@@ -1,15 +1,15 @@
 [project]
-name = "comfyui_layerstyle"
-description = "A set of nodes for ComfyUI it generate image like Adobe Photoshop's Layer Style. the Drop Shadow is first completed node, and follow-up work is in progress."
-version = "2.0.13"
+name = "comfyui_layerstyle_advance"
+description = "The nodes detached from ComfyUI Layer Style are mainly those with complex requirements for dependency packages."
+version = "2.0.10"
 license = "MIT"
-dependencies = ["numpy", "pillow", "torch", "matplotlib", "Scipy", "scikit_image", "scikit_learn", "opencv-contrib-python", "pymatting", "timm", "colour-science",  "transformers",  "blend_modes",  "huggingface_hub", "loguru"]
+dependencies = ["numpy", "matplotlib", "scikit_image", "scikit_learn", "opencv-contrib-python", "pymatting", "timm", "blend_modes", "transformers", "diffusers", "loguru", "colour-science", "huggingface_hub", "segment_anything", "addict", "omegaconf", "yapf", "wget", "iopath", "mediapipe", "typer_config", "fastapi", "rich", "google-generativeai", "ultralytics", "transparent-background", "accelerate", "onnxruntime", "bitsandbytes", "peft", "protobuf", "hydra-core", "blind-watermark", "qrcode", "pyzbar", "psd-tools", "wandb"]
 
 [project.urls]
-Repository = "https://github.com/chflame163/ComfyUI_LayerStyle"
+Repository = "https://github.com/chflame163/ComfyUI_LayerStyle_Advance"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
 PublisherId = "chflame163"
-DisplayName = "ComfyUI_LayerStyle"
+DisplayName = "ComfyUI_LayerStyle_Advance"
 Icon = ""
