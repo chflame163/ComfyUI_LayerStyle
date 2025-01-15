@@ -1264,8 +1264,8 @@ def image_beauty(image:Image, level:int=50) -> Image:
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     factor = (level / 50.0)**2
     d = int((image.width + image.height) / 256 * factor)
-    sigmaColor = int((image.width + image.height) / 256 * factor)
-    sigmaSpace = int((image.width + image.height) / 160 * factor)
+    sigmaColor = max(1, float((image.width + image.height) / 256 * factor))
+    sigmaSpace = max(1, float((image.width + image.height) / 160 * factor))
     img_bit = cv2.bilateralFilter(src=img, d=d, sigmaColor=sigmaColor, sigmaSpace=sigmaSpace)
     ret_image = cv2.cvtColor(img_bit, cv2.COLOR_BGR2RGB)
     return cv22pil(ret_image)
