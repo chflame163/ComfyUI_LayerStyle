@@ -33,9 +33,9 @@ class AddGrain:
 
         ret_images = []
 
-        for i in image:
-            _canvas = tensor2pil(torch.unsqueeze(i, 0)).convert('RGB')
-            _canvas = image_add_grain(_canvas, grain_scale, grain_power, grain_sat, toe=0, seed=int(time.time()))
+        for i in range(len(image)):
+            _canvas = tensor2pil(torch.unsqueeze(image[i], 0)).convert('RGB')
+            _canvas = image_add_grain(_canvas, grain_scale, grain_power, grain_sat, toe=0, seed=int(time.time()) + i)
             ret_images.append(pil2tensor(_canvas))
 
         log(f"{self.NODE_NAME} Processed {len(ret_images)} image(s).", message_type='finish')
