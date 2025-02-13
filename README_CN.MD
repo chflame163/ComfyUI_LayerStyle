@@ -128,7 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
-* [PurgeVRAM](#PurgeVRAM)增加any输出。
+* 添加 [PurgeVRAM V2](#PurgeVRAMV2) 节点，不强制执行，增加any输出，便于在流程中灵活释放显存。
 * 添加 [ChoiceTextPreset](#ChoiceTextPreset) 和 [TextPreseter](#TextPreseter) 节点，用于预设文本和选择预设文本输出。
 * [StringCondition](#StringCondition) 节点增加比较字符串是否相同功能。
 * 添加 [NameToColor](#NameToColor)节点，根据颜色名称输出颜色。
@@ -1522,12 +1522,15 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 ### <a id="table1">PurgeVRAM</a>
 ![image](image/purge_vram_example.jpg)    
 清理GPU显存。可以接入任意类型的输入，当执行到这个节点时将清理VRAM以及RAM中的垃圾对象。通常放置在推理任务完成的节点之后，例如VAE Decode节点。
+此节点为强制执行，即接在此节点之前的所有节点都将被执行。
 
 节点选项说明:  
 * purge_cache: 清理缓存。
 * purge_models: 清理已加载的模型。
 
-
+### <a id="table1">PurgeVRAMV2</a>
+![image](image/purge_vram_v2_example.jpg)    
+与PurgeVRAM不同，此节点不是强制执行，可在流程中接入任意输入，并保持原输出，灵活清理。
 
 ### <a id="table1">ImageTaggerSave</a>  
 ![image](image/image_tagger_save_example.jpg)  
