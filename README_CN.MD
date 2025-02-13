@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* [PurgeVRAM](#PurgeVRAM)增加any输出。
 * 添加 [ChoiceTextPreset](#ChoiceTextPreset) 和 [TextPreseter](#TextPreseter) 节点，用于预设文本和选择预设文本输出。
 * [StringCondition](#StringCondition) 节点增加比较字符串是否相同功能。
 * 添加 [NameToColor](#NameToColor)节点，根据颜色名称输出颜色。

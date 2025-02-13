@@ -22,7 +22,9 @@ class PurgeVRAM:
             }
         }
 
-    RETURN_TYPES = ()
+
+    RETURN_TYPES = (any,)
+    RETURN_NAMES = ("any",)
     FUNCTION = "purge_vram"
     CATEGORY = '😺dzNodes/LayerUtility/SystemIO'
     OUTPUT_NODE = True
@@ -32,7 +34,7 @@ class PurgeVRAM:
         if purge_models:
             comfy.model_management.unload_all_models()
             comfy.model_management.soft_empty_cache()
-        return (None,)
+        return (anything,)
 
 
 NODE_CLASS_MAPPINGS = {

@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* [PurgeVRAM](#PurgeVRAM) node add any output.
 * Commit [ChoiceTextPreset](#ChoiceTextPreset) and [TextPreseter](#TextPreseter) nodes, used for preset text and selecting preset text output.
 * [StringCondition](#StringCondition) add the option of comparing strings to determine if they are the same.
 * Commit [NameToColor](#NameToColor) node, Output colors based on their names.
