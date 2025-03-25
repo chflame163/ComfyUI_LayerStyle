@@ -36,17 +36,18 @@ def _getGrainMask(img_width:int, img_height:int, saturation:float, grayscale:boo
         str_sat = str(saturation)
         sat = saturation
 
-    filename = MASK_CACHE_PATH + "grain-%d-%d-%s-%s-%s-%d.png" % (
-        img_width, img_height, str_sat, str(grain_size), str(grain_gauss), seed)
-    if os.path.isfile(filename):
-        # print("Reusing: %s" % filename)
-        mask = Image.open(filename)
-    else:
-        mask = graingen.grainGen(img_width, img_height, grain_size, grain_gauss, sat, seed)
-        # print("Saving: %s" % filename)
-        if not os.path.isdir(MASK_CACHE_PATH):
-            os.mkdir(MASK_CACHE_PATH)
-        mask.save(filename, format="png", compress_level=1)
+    # filename = MASK_CACHE_PATH + "grain-%d-%d-%s-%s-%s-%d.png" % (
+    #     img_width, img_height, str_sat, str(grain_size), str(grain_gauss), seed)
+    # if os.path.isfile(filename):
+    #     # print("Reusing: %s" % filename)
+    #     mask = Image.open(filename)
+    # else:
+    #     mask = graingen.grainGen(img_width, img_height, grain_size, grain_gauss, sat, seed)
+    #     # print("Saving: %s" % filename)
+    #     if not os.path.isdir(MASK_CACHE_PATH):
+    #         os.mkdir(MASK_CACHE_PATH)
+    #     mask.save(filename, format="png", compress_level=1)
+    mask = graingen.grainGen(img_width, img_height, grain_size, grain_gauss, sat, seed)
     return mask
 
 
