@@ -113,10 +113,10 @@ def halftone(image: Image, dot_size:int = 10, shape: str = 'circle', angle: floa
     return output
 
 
-class LS_Halftone:
+class LS_HalfTone:
 
     def __init__(self):
-        self.NODE_NAME = 'Halftone'
+        self.NODE_NAME = 'HalfTone'
 
     @classmethod
     def INPUT_TYPES(self):
@@ -178,9 +178,9 @@ class LS_Halftone:
         return (torch.cat(ret_images, dim=0),)
 
 NODE_CLASS_MAPPINGS = {
-    "LayerFilter: Halftone": LS_Halftone
+    "LayerFilter: HalfTone": LS_HalfTone
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LayerFilter: Halftone": "LayerFilter: Halftone"
+    "LayerFilter: HalfTone": "LayerFilter: HalfTone"
 }
