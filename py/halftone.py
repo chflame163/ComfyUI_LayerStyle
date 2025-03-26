@@ -127,8 +127,8 @@ class LS_HalfTone:
                 "dot_size": ("INT", {"default": 10, "min": 4, "max": 100, "step": 1}),  # 点大小
                 "angle": ("FLOAT", {"default": 45, "min": -90, "max": 90, "step": 0.1}),  # 角度
                 "shape": (shape_list,),
-                "dot_color":("STRING",{"default": "#FFFFFF"}),
-                "background_color": ("STRING", {"default": "#000000"}),
+                "dot_color":("STRING",{"default": "#000000"}),
+                "background_color": ("STRING", {"default": "#FFFFFF"}),
                 "anti_aliasing": ("INT", {"default": 1, "min": 0, "max": 4, "step": 1}),
             },
             "optional": {
@@ -153,7 +153,7 @@ class LS_HalfTone:
             for m in mask:
                 l_masks.append(tensor2pil(torch.unsqueeze(m, 0)).convert('L'))
         else:
-            l_masks.append(Image.new('L', image[0].size, color='white'))
+            l_masks.append(Image.new('L', tensor2pil(image[0]).size, color='white'))
 
         for idx,img in enumerate(image):
             orig_image = tensor2pil(img.unsqueeze(0)).convert('RGB')
