@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [HalfTone](#HalfTone) 节点，用于对图像进行半色调处理。
 * 增加模型下载夸克网盘链接。
 * 支持numpy 2.x依赖包。
 * 添加 [PurgeVRAM V2](#PurgeVRAMV2) 节点，不强制执行，增加any输出，便于在流程中灵活释放显存。
@@ -1974,6 +1975,21 @@ mask反转
 ![image](image/water_color_node.jpg)    
 * line_density: 线条密度。
 * opacity: 水彩效果的不透明度。
+
+### <a id="table1">HalfTone</a>
+将图片转为半色调效果。
+![image](image/halftone_example.jpg)    
+
+节点选项说明:
+![image](image/halftone_node.jpg)    
+* image: 图片输入。
+* mask: 可选遮罩输入。
+* dot_size: 点的大小。
+* angle: 点的排列角度。
+* shape: 点的形状。有3个选项：circle、diamond、square。
+* dot_color: 点的颜色。
+* background_color: 背景颜色。
+* anti_alias: 反锯齿强度。更高的值将使点的边缘更平滑，同时增加处理时间。
 
 
 ### <a id="table1">SoftLight</a>

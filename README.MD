@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [HalfTone](#HalfTone) node, use for halftone processing of images.
 * Add QuarkNetdisk model download link.
 * Support numpy 2.x dependency package.
 * Commit [PurgeVRAM V2](#PurgeVRAMV2) node.
@@ -2221,6 +2222,21 @@ Node option:
 
 * line_density: The black line density.
 * opacity: The opacity of watercolor effects.
+
+### <a id="table1">HalfTone</a>
+Convert the image to a halfton.
+![image](image/halftone_example.jpg)    
+
+Node Options:
+![image](image/halftone_node.jpg)    
+* image: The input image.
+* mask: Optional mask input.
+* dot_size: The size of the dots.
+* angle: The angle of arrangement of dots.
+* shape: The shape of the dots. There are three options: circle、diamond、square。
+* dot_color: The color of dots.
+* background_color: The color of the background.
+* anti_alias: Anti aliasing intensity. the higher value will make the edges of the points smoother and increase processing time.
 
 ### <a id="table1">SoftLight</a>
 
