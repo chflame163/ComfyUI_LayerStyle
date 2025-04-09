@@ -1,0 +1,4790 @@
+{
+  "LayerFilter: AddGrain": {
+    "display_name": "LayerFilter: ノイズ追加",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "grain_power": {
+        "name": "ノイズ強度"
+      },
+      "grain_scale": {
+        "name": "ノイズスケール"
+      },
+      "grain_sat": {
+        "name": "ノイズ彩度"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: AnyRerouter": {
+    "display_name": "LayerUtility: 任意リルーター",
+    "inputs": {
+      "any": {
+        "name": "任意"
+      }
+    },
+    "outputs": {
+      "anything": {
+        "name": "何でも"
+      }
+    }
+  },
+  "LayerUtility: BatchSelector": {
+    "display_name": "LayerUtility: バッチセレクター",
+    "inputs": {
+      "select": {
+        "name": "選択"
+      },
+      "images": {
+        "name": "画像群"
+      },
+      "masks": {
+        "name": "マスク群"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: BlendIf Mask": {
+    "display_name": "LayerMask: BlendIfマスク",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_if": {
+        "name": "blend_if"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "black_range": {
+        "name": "黒範囲"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "white_range": {
+        "name": "白範囲"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: ChannelShake": {
+    "display_name": "LayerFilter: チャンネルシフト",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "distance": {
+        "name": "距離"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "mode": {
+        "name": "モード"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: CheckMask": {
+    "display_name": "LayerUtility: マスクチェック",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "area_percent": {
+        "name": "面積パーセント"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "ブール"
+      }
+    }
+  },
+  "LayerUtility: CheckMaskV2": {
+    "display_name": "LayerUtility: マスクチェック V2",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "area_percent": {
+        "name": "面積パーセント"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "ブール"
+      }
+    }
+  },
+  "LayerColor: ColorAdapter": {
+    "display_name": "LayerColor: カラーアダプタ",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "color_ref_image": {
+        "name": "カラー参照画像"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: AutoAdjust": {
+    "display_name": "LayerColor: 自動調整",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "strength": {
+        "name": "強度"
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "contrast": {
+        "name": "コントラスト"
+      },
+      "saturation": {
+        "name": "彩度"
+      },
+      "red": {
+        "name": "赤"
+      },
+      "green": {
+        "name": "緑"
+      },
+      "blue": {
+        "name": "青"
+      },
+      "balance": {
+        "name": "バランス"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: AutoAdjustV2": {
+    "display_name": "LayerColor: 自動調整 V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "strength": {
+        "name": "強度"
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "contrast": {
+        "name": "コントラスト"
+      },
+      "saturation": {
+        "name": "彩度"
+      },
+      "red": {
+        "name": "赤"
+      },
+      "green": {
+        "name": "緑"
+      },
+      "blue": {
+        "name": "青"
+      },
+      "mode": {
+        "name": "モード"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "balance": {
+        "name": "バランス"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: AutoBrightness": {
+    "display_name": "LayerColor: 自動輝度",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "strength": {
+        "name": "強度"
+      },
+      "saturation": {
+        "name": "彩度"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: Brightness & Contrast": {
+    "display_name": "LayerColor: 輝度/コントラスト",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "contrast": {
+        "name": "コントラスト"
+      },
+      "saturation": {
+        "name": "彩度"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: BrightnessContrastV2": {
+    "display_name": "LayerColor: 輝度コントラスト V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "contrast": {
+        "name": "コントラスト"
+      },
+      "saturation": {
+        "name": "彩度"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: ColorBalance": {
+    "display_name": "LayerColor: カラーバランス",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "cyan_red": {
+        "name": "シアン/赤"
+      },
+      "magenta_green": {
+        "name": "マゼンタ/緑"
+      },
+      "yellow_blue": {
+        "name": "イエロー/青"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: ColorTemperature": {
+    "display_name": "LayerColor: 色温度",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "temperature": {
+        "name": "温度"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: Exposure": {
+    "display_name": "LayerColor: 露光",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "exposure": {
+        "name": "露光"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: Gamma": {
+    "display_name": "LayerColor: ガンマ",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "gamma": {
+        "name": "ガンマ"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: HSV": {
+    "display_name": "LayerColor: HSV",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "H": {
+        "name": "H"
+      },
+      "S": {
+        "name": "S"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: LAB": {
+    "display_name": "LayerColor: LAB",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "L": {
+        "name": "L"
+      },
+      "A": {
+        "name": "A"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: Levels": {
+    "display_name": "LayerColor: レベル補正",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "channel": {
+        "name": "チャンネル"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "gray_point": {
+        "name": "グレーポイント"
+      },
+      "output_black_point": {
+        "name": "出力黒点"
+      },
+      "output_white_point": {
+        "name": "出力白点"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: LUT Apply": {
+    "display_name": "LayerColor: LUT適用",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "LUT": {
+        "name": "LUT"
+      },
+      "color_space": {
+        "name": "カラースペース"
+      },
+      "strength": {
+        "name": "強度"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: RGB": {
+    "display_name": "LayerColor: RGB",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "R": {
+        "name": "R"
+      },
+      "G": {
+        "name": "G"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: Color of Shadow & Highlight": {
+    "display_name": "LayerColor: シャドウ/ハイライト",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "shadow_brightness": {
+        "name": "シャドウ輝度"
+      },
+      "shadow_saturation": {
+        "name": "シャドウ彩度"
+      },
+      "shadow_hue": {
+        "name": "シャドウ色相"
+      },
+      "shadow_level_offset": {
+        "name": "シャドウレベルオフセット"
+      },
+      "shadow_range": {
+        "name": "シャドウ範囲"
+      },
+      "highlight_brightness": {
+        "name": "ハイライト輝度"
+      },
+      "highlight_saturation": {
+        "name": "ハイライト彩度"
+      },
+      "highlight_hue": {
+        "name": "ハイライト色相"
+      },
+      "highlight_level_offset": {
+        "name": "ハイライトレベルオフセット"
+      },
+      "highlight_range": {
+        "name": "ハイライト範囲"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: ColorofShadowHighlightV2": {
+    "display_name": "LayerColor: シャドウハイライト V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "shadow_brightness": {
+        "name": "シャドウ輝度"
+      },
+      "shadow_saturation": {
+        "name": "シャドウ彩度"
+      },
+      "shadow_hue": {
+        "name": "シャドウ色相"
+      },
+      "shadow_level_offset": {
+        "name": "シャドウレベルオフセット"
+      },
+      "shadow_range": {
+        "name": "シャドウ範囲"
+      },
+      "highlight_brightness": {
+        "name": "ハイライト輝度"
+      },
+      "highlight_saturation": {
+        "name": "ハイライト彩度"
+      },
+      "highlight_hue": {
+        "name": "ハイライト色相"
+      },
+      "highlight_level_offset": {
+        "name": "ハイライトレベルオフセット"
+      },
+      "highlight_range": {
+        "name": "ハイライト範囲"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerColor: YUV": {
+    "display_name": "LayerColor: YUV",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "Y": {
+        "name": "Y"
+      },
+      "U": {
+        "name": "U"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ColorImage": {
+    "display_name": "LayerUtility: 単色画像",
+    "inputs": {
+      "width": {
+        "name": "幅"
+      },
+      "height": {
+        "name": "高さ"
+      },
+      "color": {
+        "name": "色"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ColorImage V2": {
+    "display_name": "LayerUtility: 単色画像 V2",
+    "inputs": {
+      "size": {
+        "name": "サイズ"
+      },
+      "custom_width": {
+        "name": "カスタム幅"
+      },
+      "custom_height": {
+        "name": "カスタム高さ"
+      },
+      "color": {
+        "name": "色"
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerFilter: ColorMap": {
+    "display_name": "LayerFilter: カラーマップ",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "color_map": {
+        "name": "カラーマップ"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ColorName": {
+    "display_name": "LayerUtility: カラー名",
+    "inputs": {
+      "color": {
+        "name": "色"
+      },
+      "palette": {
+        "name": "パレット"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: NameToColor": {
+    "display_name": "LayerUtility: 名から色",
+    "inputs": {
+      "color_name": {
+        "name": "カラー名"
+      },
+      "palette": {
+        "name": "パレット"
+      },
+      "in_palette_only": {
+        "name": "パレット内のみ"
+      },
+      "default_color": {
+        "name": "デフォルト色"
+      },
+      "size": {
+        "name": "サイズ"
+      },
+      "custom_width": {
+        "name": "カスタム幅"
+      },
+      "custom_height": {
+        "name": "カスタム高さ"
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay V2": {
+    "display_name": "LayerStyle: カラーオーバーレイ V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "color": {
+        "name": "色"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay": {
+    "display_name": "LayerStyle: カラーオーバーレイ",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "color": {
+        "name": "色"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ColorPicker": {
+    "display_name": "LayerUtility: カラーピッカー",
+    "inputs": {
+      "color": {
+        "name": "色"
+      },
+      "mode": {
+        "name": "モード"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: GrayValue": {
+    "display_name": "LayerUtility: グレー値",
+    "inputs": {
+      "color_value": {
+        "name": "カラー値"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: HSV Value": {
+    "display_name": "LayerUtility: HSV値",
+    "inputs": {
+      "color_value": {
+        "name": "カラー値"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: RGB Value": {
+    "display_name": "LayerUtility: RGB値",
+    "inputs": {
+      "color_value": {
+        "name": "カラー値"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerMask: CreateGradientMask": {
+    "display_name": "LayerMask: グラデーションマスク作成",
+    "inputs": {
+      "width": {
+        "name": "幅"
+      },
+      "height": {
+        "name": "高さ"
+      },
+      "gradient_side": {
+        "name": "グラデーション側"
+      },
+      "gradient_scale": {
+        "name": "グラデーションスケール"
+      },
+      "gradient_offset": {
+        "name": "グラデーションオフセット"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: CropBoxResolve": {
+    "display_name": "LayerUtility: クロップ解析",
+    "inputs": {
+      "crop_box": {
+        "name": "クロップボックス"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: CropByMask": {
+    "display_name": "LayerUtility: マスククロップ",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask_for_crop": {
+        "name": "クロップ用マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "detect": {
+        "name": "検出"
+      },
+      "top_reserve": {
+        "name": "上部余白"
+      },
+      "bottom_reserve": {
+        "name": "下部余白"
+      },
+      "left_reserve": {
+        "name": "左余白"
+      },
+      "right_reserve": {
+        "name": "右余白"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V2": {
+    "display_name": "LayerUtility: マスククロップ V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "detect": {
+        "name": "検出"
+      },
+      "top_reserve": {
+        "name": "上部余白"
+      },
+      "bottom_reserve": {
+        "name": "下部余白"
+      },
+      "left_reserve": {
+        "name": "左余白"
+      },
+      "right_reserve": {
+        "name": "右余白"
+      },
+      "round_to_multiple": {
+        "name": "倍数丸め"
+      },
+      "crop_box": {
+        "name": "クロップボックス"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V3": {
+    "display_name": "LayerUtility: マスククロップ V3",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "detect": {
+        "name": "検出"
+      },
+      "top_reserve": {
+        "name": "上部余白"
+      },
+      "bottom_reserve": {
+        "name": "下部余白"
+      },
+      "left_reserve": {
+        "name": "左余白"
+      },
+      "right_reserve": {
+        "name": "右余白"
+      },
+      "round_to_multiple": {
+        "name": "倍数丸め"
+      },
+      "crop_box": {
+        "name": "クロップボックス"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      }
+    }
+  },
+  "LayerUtility: Seed": {
+    "display_name": "LayerUtility: シード",
+    "inputs": {
+      "seed": {
+        "name": "シード"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperator": {
+    "display_name": "LayerUtility: ブール演算子",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "演算子"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "ブール"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperatorV2": {
+    "display_name": "LayerUtility: ブール演算子 V2",
+    "inputs": {
+      "a_value": {
+        "name": "a値"
+      },
+      "b_value": {
+        "name": "b値"
+      },
+      "operator": {
+        "name": "演算子"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "ブール"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculator": {
+    "display_name": "LayerUtility: 数値計算",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "演算子"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      },
+      "float": {
+        "name": "浮動小数点数"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculatorV2": {
+    "display_name": "LayerUtility: 数値計算 V2",
+    "inputs": {
+      "a_value": {
+        "name": "a値"
+      },
+      "b_value": {
+        "name": "b値"
+      },
+      "operator": {
+        "name": "演算子"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      },
+      "float": {
+        "name": "浮動小数点数"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: StringCondition": {
+    "display_name": "LayerUtility: 文字列条件",
+    "inputs": {
+      "text": {
+        "name": "テキスト"
+      },
+      "condition": {
+        "name": "条件"
+      },
+      "sub_string": {
+        "name": "部分文字列"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "ブール"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: TextBox": {
+    "display_name": "LayerUtility: テキストボックス",
+    "inputs": {
+      "text": {
+        "name": "テキスト"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: String": {
+    "display_name": "LayerUtility: 文字列",
+    "inputs": {
+      "string": {
+        "name": "文字列"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: Integer": {
+    "display_name": "LayerUtility: 整数",
+    "inputs": {
+      "int_value": {
+        "name": "整数値"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: Float": {
+    "display_name": "LayerUtility: 浮動小数点数",
+    "inputs": {
+      "float_value": {
+        "name": "浮動小数点数値"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "浮動小数点数"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: Boolean": {
+    "display_name": "LayerUtility: ブール",
+    "inputs": {
+      "bool_value": {
+        "name": "ブール値"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "ブール"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: If ": {
+    "display_name": "LayerUtility: 条件分岐",
+    "inputs": {
+      "if_condition": {
+        "name": "条件"
+      },
+      "when_TRUE": {
+        "name": "真の場合"
+      },
+      "when_FALSE": {
+        "name": "偽の場合"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "任意"
+      }
+    }
+  },
+  "LayerUtility: SwitchCase": {
+    "display_name": "LayerUtility: スイッチケース",
+    "inputs": {
+      "switch_condition": {
+        "name": "スイッチ条件"
+      },
+      "case_1": {
+        "name": "ケース1"
+      },
+      "case_2": {
+        "name": "ケース2"
+      },
+      "case_3": {
+        "name": "ケース3"
+      },
+      "input_default": {
+        "name": "デフォルト入力"
+      },
+      "input_1": {
+        "name": "入力1"
+      },
+      "input_2": {
+        "name": "入力2"
+      },
+      "input_3": {
+        "name": "入力3"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "任意"
+      }
+    }
+  },
+  "LayerUtility: QueueStop": {
+    "display_name": "LayerUtility: キュー停止",
+    "inputs": {
+      "any": {
+        "name": "任意"
+      },
+      "mode": {
+        "name": "モード"
+      },
+      "stop": {
+        "name": "停止"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "任意"
+      }
+    }
+  },
+  "LayerStyle: DropShadow": {
+    "display_name": "LayerStyle: ドロップシャドウ",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "distance_x": {
+        "name": "X距離"
+      },
+      "distance_y": {
+        "name": "Y距離"
+      },
+      "grow": {
+        "name": "拡大"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "shadow_color": {
+        "name": "シャドウ色"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V2": {
+    "display_name": "LayerStyle: ドロップシャドウ V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "distance_x": {
+        "name": "X距離"
+      },
+      "distance_y": {
+        "name": "Y距離"
+      },
+      "grow": {
+        "name": "拡大"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "shadow_color": {
+        "name": "シャドウ色"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V3": {
+    "display_name": "LayerStyle: DropShadow V3",
+    "inputs": {
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "distance_x": {
+        "name": "X距離"
+      },
+      "distance_y": {
+        "name": "Y距離"
+      },
+      "grow": {
+        "name": "拡大"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "shadow_color": {
+        "name": "シャドウ色"
+      },
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvas": {
+    "display_name": "LayerUtility: ExtendCanvas",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "top": {
+        "name": "top"
+      },
+      "bottom": {
+        "name": "bottom"
+      },
+      "left": {
+        "name": "left"
+      },
+      "right": {
+        "name": "right"
+      },
+      "color": {
+        "name": "色"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvasV2": {
+    "display_name": "LayerUtility: ExtendCanvas V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "top": {
+        "name": "top"
+      },
+      "bottom": {
+        "name": "bottom"
+      },
+      "left": {
+        "name": "left"
+      },
+      "right": {
+        "name": "right"
+      },
+      "color": {
+        "name": "色"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: Film": {
+    "display_name": "LayerFilter: Film",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "center_x": {
+        "name": "center_x"
+      },
+      "center_y": {
+        "name": "center_y"
+      },
+      "saturation": {
+        "name": "彩度"
+      },
+      "vignette_intensity": {
+        "name": "vignette_intensity"
+      },
+      "grain_power": {
+        "name": "ノイズ強度"
+      },
+      "grain_scale": {
+        "name": "ノイズスケール"
+      },
+      "grain_sat": {
+        "name": "ノイズ彩度"
+      },
+      "grain_shadows": {
+        "name": "grain_shadows"
+      },
+      "grain_highs": {
+        "name": "grain_highs"
+      },
+      "blur_strength": {
+        "name": "blur_strength"
+      },
+      "blur_focus_spread": {
+        "name": "blur_focus_spread"
+      },
+      "focal_depth": {
+        "name": "focal_depth"
+      },
+      "depth_map": {
+        "name": "depth_map"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerFilter: FilmV2": {
+    "display_name": "LayerFilter: Film V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "center_x": {
+        "name": "center_x"
+      },
+      "center_y": {
+        "name": "center_y"
+      },
+      "saturation": {
+        "name": "彩度"
+      },
+      "vignette_intensity": {
+        "name": "vignette_intensity"
+      },
+      "grain_method": {
+        "name": "grain_method"
+      },
+      "grain_power": {
+        "name": "ノイズ強度"
+      },
+      "grain_scale": {
+        "name": "ノイズスケール"
+      },
+      "grain_sat": {
+        "name": "ノイズ彩度"
+      },
+      "filmgrainer_shadows": {
+        "name": "filmgrainer_shadows"
+      },
+      "filmgrainer_highs": {
+        "name": "filmgrainer_highs"
+      },
+      "blur_strength": {
+        "name": "blur_strength"
+      },
+      "blur_focus_spread": {
+        "name": "blur_focus_spread"
+      },
+      "focal_depth": {
+        "name": "focal_depth"
+      },
+      "depth_map": {
+        "name": "depth_map"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlur": {
+    "display_name": "LayerFilter: GaussianBlur",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "blur": {
+        "name": "ぼかし"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlurV2": {
+    "display_name": "LayerFilter: Gaussian Blur V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "blur": {
+        "name": "ぼかし"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: GetImageSize": {
+    "display_name": "LayerUtility: GetImageSize",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      },
+      "box": {
+        "name": "ボックス"
+      }
+    }
+  },
+  "LayerUtility: GetMainColorsV2": {
+    "display_name": "LayerUtility: Get Main Colors V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "k_means_algorithm": {
+        "name": "k_means_algorithm"
+      },
+      "colors": {
+        "name": "colors"
+      },
+      "num_colors": {
+        "name": "num_colors"
+      },
+      "algorithm": {
+        "name": "algorithm"
+      },
+      "mix_iter": {
+        "name": "mix_iter"
+      },
+      "random_state": {
+        "name": "random_state"
+      },
+      "hex_color": {
+        "name": "hex_color"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: GetMainColors": {
+    "display_name": "LayerUtility: Get Main Colors",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "k_means_algorithm": {
+        "name": "k_means_algorithm"
+      },
+      "colors": {
+        "name": "colors"
+      },
+      "num_colors": {
+        "name": "num_colors"
+      },
+      "algorithm": {
+        "name": "algorithm"
+      },
+      "mix_iter": {
+        "name": "mix_iter"
+      },
+      "random_state": {
+        "name": "random_state"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: GradientImage": {
+    "display_name": "LayerUtility: GradientImage",
+    "inputs": {
+      "width": {
+        "name": "幅"
+      },
+      "height": {
+        "name": "高さ"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "end_color": {
+        "name": "end_color"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: GradientImage V2": {
+    "display_name": "LayerUtility: GradientImage V2",
+    "inputs": {
+      "size": {
+        "name": "サイズ"
+      },
+      "custom_width": {
+        "name": "カスタム幅"
+      },
+      "custom_height": {
+        "name": "カスタム高さ"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: Gradient Map": {
+    "display_name": "LayerStyle: Gradient Map",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "mid_color": {
+        "name": "mid_color"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "mid_point": {
+        "name": "mid_point"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay": {
+    "display_name": "LayerStyle: GradientOverlay",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "start_alpha": {
+        "name": "start_alpha"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "end_alpha": {
+        "name": "end_alpha"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay V2": {
+    "display_name": "LayerStyle: GradientOverlay V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "start_alpha": {
+        "name": "start_alpha"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "end_alpha": {
+        "name": "end_alpha"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerFilter: HalfTone": {
+    "display_name": "LayerFilter: HalfTone",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "dot_size": {
+        "name": "dot_size"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "shape": {
+        "name": "shape"
+      },
+      "dot_color": {
+        "name": "dot_color"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerFilter: HDREffects": {
+    "display_name": "LayerFilter: HDR Effects",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "hdr_intensity": {
+        "name": "hdr_intensity"
+      },
+      "shadow_intensity": {
+        "name": "shadow_intensity"
+      },
+      "highlight_intensity": {
+        "name": "highlight_intensity"
+      },
+      "gamma_intensity": {
+        "name": "gamma_intensity"
+      },
+      "contrast": {
+        "name": "コントラスト"
+      },
+      "enhance_color": {
+        "name": "enhance_color"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: HLFrequencyDetailRestore": {
+    "display_name": "LayerUtility: H/L Frequency Detail Restore",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "detail_image": {
+        "name": "detail_image"
+      },
+      "keep_high_freq": {
+        "name": "keep_high_freq"
+      },
+      "erase_low_freq": {
+        "name": "erase_low_freq"
+      },
+      "mask_blur": {
+        "name": "mask_blur"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ICMask": {
+    "display_name": "LayerUtility: IC Mask",
+    "inputs": {
+      "first_image": {
+        "name": "first_image"
+      },
+      "patch_mode": {
+        "name": "patch_mode"
+      },
+      "output_length": {
+        "name": "output_length"
+      },
+      "patch_color": {
+        "name": "patch_color"
+      },
+      "first_mask": {
+        "name": "first_mask"
+      },
+      "second_image": {
+        "name": "second_image"
+      },
+      "second_mask": {
+        "name": "second_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "icmask_data": {
+        "name": "icmask_data"
+      }
+    }
+  },
+  "LayerUtility: ICMaskCropBack": {
+    "display_name": "LayerUtility: IC Mask Crop Back",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "icmask_data": {
+        "name": "icmask_data"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend": {
+    "display_name": "LayerUtility: ImageBlend",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance": {
+    "display_name": "LayerUtility: ImageBlendAdvance",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "x_percent": {
+        "name": "x_percent"
+      },
+      "y_percent": {
+        "name": "y_percent"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V2": {
+    "display_name": "LayerUtility: ImageBlendAdvance V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "x_percent": {
+        "name": "x_percent"
+      },
+      "y_percent": {
+        "name": "y_percent"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V3": {
+    "display_name": "LayerUtility: ImageBlendAdvance V3",
+    "inputs": {
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "x_percent": {
+        "name": "x_percent"
+      },
+      "y_percent": {
+        "name": "y_percent"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend V2": {
+    "display_name": "LayerUtility: ImageBlend V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelMerge": {
+    "display_name": "LayerUtility: ImageChannelMerge",
+    "inputs": {
+      "channel_1": {
+        "name": "channel_1"
+      },
+      "channel_2": {
+        "name": "channel_2"
+      },
+      "channel_3": {
+        "name": "channel_3"
+      },
+      "mode": {
+        "name": "モード"
+      },
+      "channel_4": {
+        "name": "channel_4"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelSplit": {
+    "display_name": "LayerUtility: ImageChannelSplit",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mode": {
+        "name": "モード"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageCombineAlpha": {
+    "display_name": "LayerUtility: ImageCombineAlpha",
+    "inputs": {
+      "RGB_image": {
+        "name": "RGB_image"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageHub": {
+    "display_name": "LayerUtility: ImageHub",
+    "inputs": {
+      "output": {
+        "name": "output"
+      },
+      "random_output": {
+        "name": "random_output"
+      },
+      "input1_image": {
+        "name": "input1_image"
+      },
+      "input1_mask": {
+        "name": "input1_mask"
+      },
+      "input2_image": {
+        "name": "input2_image"
+      },
+      "input2_mask": {
+        "name": "input2_mask"
+      },
+      "input3_image": {
+        "name": "input3_image"
+      },
+      "input3_mask": {
+        "name": "input3_mask"
+      },
+      "input4_image": {
+        "name": "input4_image"
+      },
+      "input4_mask": {
+        "name": "input4_mask"
+      },
+      "input5_image": {
+        "name": "input5_image"
+      },
+      "input5_mask": {
+        "name": "input5_mask"
+      },
+      "input6_image": {
+        "name": "input6_image"
+      },
+      "input6_mask": {
+        "name": "input6_mask"
+      },
+      "input7_image": {
+        "name": "input7_image"
+      },
+      "input7_mask": {
+        "name": "input7_mask"
+      },
+      "input8_image": {
+        "name": "input8_image"
+      },
+      "input8_mask": {
+        "name": "input8_mask"
+      },
+      "input9_image": {
+        "name": "input9_image"
+      },
+      "input9_mask": {
+        "name": "input9_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAs": {
+    "display_name": "LayerUtility: Image Mask Scale As",
+    "inputs": {
+      "scale_as": {
+        "name": "scale_as"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAsV2": {
+    "display_name": "LayerUtility: Image Mask Scale As V2",
+    "inputs": {
+      "scale_as": {
+        "name": "scale_as"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: ImageOpacity": {
+    "display_name": "LayerUtility: ImageOpacity",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ImageReel": {
+    "display_name": "LayerUtility: Image Reel",
+    "inputs": {
+      "image1": {
+        "name": "image1"
+      },
+      "image1_text": {
+        "name": "image1_text"
+      },
+      "image2_text": {
+        "name": "image2_text"
+      },
+      "image3_text": {
+        "name": "image3_text"
+      },
+      "image4_text": {
+        "name": "image4_text"
+      },
+      "reel_height": {
+        "name": "reel_height"
+      },
+      "border": {
+        "name": "border"
+      },
+      "image2": {
+        "name": "image2"
+      },
+      "image3": {
+        "name": "image3"
+      },
+      "image4": {
+        "name": "image4"
+      },
+      "image": {
+        "name": "画像"
+      },
+      "target_height": {
+        "name": "target_height"
+      },
+      "image_list": {
+        "name": "image_list"
+      }
+    },
+    "outputs": {
+      "reel": {
+        "name": "reel"
+      }
+    }
+  },
+  "LayerUtility: ImageReelComposit": {
+    "display_name": "LayerUtility: Image Reel Composit",
+    "inputs": {
+      "reel_1": {
+        "name": "reel_1"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "font_size": {
+        "name": "font_size"
+      },
+      "border": {
+        "name": "border"
+      },
+      "color_theme": {
+        "name": "color_theme"
+      },
+      "reel_2": {
+        "name": "reel_2"
+      },
+      "reel_3": {
+        "name": "reel_3"
+      },
+      "reel_4": {
+        "name": "reel_4"
+      },
+      "background_image": {
+        "name": "背景画像"
+      },
+      "image": {
+        "name": "画像"
+      },
+      "text_image": {
+        "name": "text_image"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "shadow_size": {
+        "name": "shadow_size"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "reel": {
+        "name": "reel"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageRemoveAlpha": {
+    "display_name": "LayerUtility: ImageRemoveAlpha",
+    "inputs": {
+      "RGBA_image": {
+        "name": "RGBA_image"
+      },
+      "fill_background": {
+        "name": "fill_background"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio": {
+    "display_name": "LayerUtility: ImageScaleByAspectRatio",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "proportional_width": {
+        "name": "proportional_width"
+      },
+      "proportional_height": {
+        "name": "proportional_height"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "round_to_multiple": {
+        "name": "倍数丸め"
+      },
+      "scale_to_longest_side": {
+        "name": "scale_to_longest_side"
+      },
+      "longest_side": {
+        "name": "longest_side"
+      },
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio V2": {
+    "display_name": "LayerUtility: ImageScaleByAspectRatio V2",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "proportional_width": {
+        "name": "proportional_width"
+      },
+      "proportional_height": {
+        "name": "proportional_height"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "round_to_multiple": {
+        "name": "倍数丸め"
+      },
+      "scale_to_side": {
+        "name": "scale_to_side"
+      },
+      "scale_to_length": {
+        "name": "scale_to_length"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore": {
+    "display_name": "LayerUtility: ImageScaleRestore",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "scale_by_longest_side": {
+        "name": "scale_by_longest_side"
+      },
+      "longest_side": {
+        "name": "longest_side"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "original_size": {
+        "name": "original_size"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore V2": {
+    "display_name": "LayerUtility: ImageScaleRestore V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "scale_by": {
+        "name": "scale_by"
+      },
+      "scale_by_length": {
+        "name": "scale_by_length"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "original_size": {
+        "name": "original_size"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "box": {
+        "name": "ボックス"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerUtility: ImageShift": {
+    "display_name": "LayerUtility: ImageShift",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "shift_x": {
+        "name": "shift_x"
+      },
+      "shift_y": {
+        "name": "shift_y"
+      },
+      "cyclic": {
+        "name": "cyclic"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "border_mask_width": {
+        "name": "border_mask_width"
+      },
+      "border_mask_blur": {
+        "name": "border_mask_blur"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: ImageTaggerSave": {
+    "display_name": "LayerUtility: Image Tagger Save",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "tag_text": {
+        "name": "tag_text"
+      },
+      "custom_path": {
+        "name": "custom_path"
+      },
+      "filename_prefix": {
+        "name": "filename_prefix"
+      },
+      "timestamp": {
+        "name": "timestamp"
+      },
+      "format": {
+        "name": "format"
+      },
+      "quality": {
+        "name": "quality"
+      },
+      "preview": {
+        "name": "preview"
+      },
+      "prompt": {
+        "name": "prompt"
+      },
+      "extra_pnginfo": {
+        "name": "extra_pnginfo"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: ImageToMask": {
+    "display_name": "LayerMask: Image To Mask",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "channel": {
+        "name": "チャンネル"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "gray_point": {
+        "name": "グレーポイント"
+      },
+      "invert_output_mask": {
+        "name": "invert_output_mask"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow": {
+    "display_name": "LayerStyle: InnerGlow",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow V2": {
+    "display_name": "LayerStyle: InnerGlow V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow": {
+    "display_name": "LayerStyle: InnerShadow",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "distance_x": {
+        "name": "X距離"
+      },
+      "distance_y": {
+        "name": "Y距離"
+      },
+      "grow": {
+        "name": "拡大"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "shadow_color": {
+        "name": "シャドウ色"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow V2": {
+    "display_name": "LayerStyle: InnerShadow V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "distance_x": {
+        "name": "X距離"
+      },
+      "distance_y": {
+        "name": "Y距離"
+      },
+      "grow": {
+        "name": "拡大"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "shadow_color": {
+        "name": "シャドウ色"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: LayerImageTransform": {
+    "display_name": "LayerUtility: LayerImageTransform",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: LayerMaskTransform": {
+    "display_name": "LayerUtility: LayerMaskTransform",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: LightLeak": {
+    "display_name": "LayerFilter: LightLeak",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "light": {
+        "name": "light"
+      },
+      "corner": {
+        "name": "corner"
+      },
+      "hue": {
+        "name": "hue"
+      },
+      "saturation": {
+        "name": "彩度"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerMask: MaskBoxDetect": {
+    "display_name": "LayerMask: MaskBoxDetect",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "detect": {
+        "name": "検出"
+      },
+      "x_adjust": {
+        "name": "x_adjust"
+      },
+      "y_adjust": {
+        "name": "y_adjust"
+      },
+      "scale_adjust": {
+        "name": "scale_adjust"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "float": {
+        "name": "浮動小数点数"
+      },
+      "int": {
+        "name": "整数"
+      }
+    }
+  },
+  "LayerMask: MaskByColor": {
+    "display_name": "LayerMask: Mask by Color",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "color": {
+        "name": "色"
+      },
+      "color_in_HEX": {
+        "name": "color_in_HEX"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeShrink": {
+    "display_name": "LayerMask: MaskEdgeShrink",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "shrink_level": {
+        "name": "shrink_level"
+      },
+      "soft": {
+        "name": "soft"
+      },
+      "edge_shrink": {
+        "name": "edge_shrink"
+      },
+      "edge_reserve": {
+        "name": "edge_reserve"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail": {
+    "display_name": "LayerMask: MaskEdgeUltraDetail",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "detail_range": {
+        "name": "detail_range"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail V2": {
+    "display_name": "LayerMask: MaskEdgeUltraDetail V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      },
+      "method": {
+        "name": "方法"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "edge_erode": {
+        "name": "edge_erode"
+      },
+      "edte_dilate": {
+        "name": "edte_dilate"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskGradient": {
+    "display_name": "LayerMask: MaskGradient",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "gradient_side": {
+        "name": "グラデーション側"
+      },
+      "gradient_scale": {
+        "name": "グラデーションスケール"
+      },
+      "gradient_offset": {
+        "name": "グラデーションオフセット"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskGrain": {
+    "display_name": "LayerMask: Mask Grain",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "grain": {
+        "name": "grain"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskGrow": {
+    "display_name": "LayerMask: MaskGrow",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "grow": {
+        "name": "拡大"
+      },
+      "blur": {
+        "name": "ぼかし"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskInvert": {
+    "display_name": "LayerMask: MaskInvert",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskMotionBlur": {
+    "display_name": "LayerMask: MaskMotionBlur",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "angle": {
+        "name": "角度"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: MaskPreview": {
+    "display_name": "LayerMask: MaskPreview",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: MaskStroke": {
+    "display_name": "LayerMask: MaskStroke",
+    "inputs": {
+      "mask": {
+        "name": "マスク"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "ぼかし"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: MotionBlur": {
+    "display_name": "LayerFilter: MotionBlur",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "angle": {
+        "name": "角度"
+      },
+      "blur": {
+        "name": "ぼかし"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow": {
+    "display_name": "LayerStyle: OuterGlow",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow V2": {
+    "display_name": "LayerStyle: OuterGlow V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "brightness": {
+        "name": "輝度"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerMask: PixelSpread": {
+    "display_name": "LayerMask: PixelSpread",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: PrintInfo": {
+    "display_name": "LayerUtility: PrintInfo",
+    "inputs": {
+      "anything": {
+        "name": "何でも"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: PurgeVRAM": {
+    "display_name": "LayerUtility: Purge VRAM",
+    "inputs": {
+      "anything": {
+        "name": "何でも"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_models"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerUtility: PurgeVRAM V2": {
+    "display_name": "LayerUtility: Purge VRAM V2",
+    "inputs": {
+      "anything": {
+        "name": "何でも"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_models"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "任意"
+      }
+    }
+  },
+  "LayerUtility: RandomGenerator": {
+    "display_name": "LayerUtility: Random Generator",
+    "inputs": {
+      "min_value": {
+        "name": "min_value"
+      },
+      "max_value": {
+        "name": "max_value"
+      },
+      "float_decimal_places": {
+        "name": "float_decimal_places"
+      },
+      "fix_seed": {
+        "name": "fix_seed"
+      },
+      "image": {
+        "name": "画像"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      },
+      "float": {
+        "name": "浮動小数点数"
+      },
+      "boolean": {
+        "name": "ブール"
+      }
+    }
+  },
+  "LayerUtility: RandomGeneratorV2": {
+    "display_name": "LayerUtility: Random Generator V2",
+    "inputs": {
+      "min_value": {
+        "name": "min_value"
+      },
+      "max_value": {
+        "name": "max_value"
+      },
+      "least": {
+        "name": "least"
+      },
+      "float_decimal_places": {
+        "name": "float_decimal_places"
+      },
+      "seed": {
+        "name": "シード"
+      },
+      "image": {
+        "name": "画像"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "整数"
+      },
+      "float": {
+        "name": "浮動小数点数"
+      },
+      "boolean": {
+        "name": "ブール"
+      }
+    }
+  },
+  "LayerUtility: RestoreCropBox": {
+    "display_name": "LayerUtility: RestoreCropBox",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "croped_image": {
+        "name": "croped_image"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "crop_box": {
+        "name": "クロップボックス"
+      },
+      "croped_mask": {
+        "name": "croped_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: RemBgUltra": {
+    "display_name": "LayerMask: RemBgUltra",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "detail_range": {
+        "name": "detail_range"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: RmBgUltra V2": {
+    "display_name": "LayerMask: RmBgUltra V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: RoundedRectangle": {
+    "display_name": "LayerUtility: RoundedRectangle",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "rounded_rect_radius": {
+        "name": "rounded_rect_radius"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "top": {
+        "name": "top"
+      },
+      "bottom": {
+        "name": "bottom"
+      },
+      "left": {
+        "name": "left"
+      },
+      "right": {
+        "name": "right"
+      },
+      "detect": {
+        "name": "検出"
+      },
+      "obj_ext_top": {
+        "name": "obj_ext_top"
+      },
+      "obj_ext_bottom": {
+        "name": "obj_ext_bottom"
+      },
+      "obj_ext_left": {
+        "name": "obj_ext_left"
+      },
+      "obj_ext_right": {
+        "name": "obj_ext_right"
+      },
+      "object_mask": {
+        "name": "object_mask"
+      },
+      "crop_box": {
+        "name": "クロップボックス"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: SegformerB2ClothesUltra": {
+    "display_name": "LayerMask: Segformer B2 Clothes Ultra",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "face": {
+        "name": "face"
+      },
+      "hair": {
+        "name": "hair"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "sunglass": {
+        "name": "sunglass"
+      },
+      "left_arm": {
+        "name": "left_arm"
+      },
+      "right_arm": {
+        "name": "right_arm"
+      },
+      "left_leg": {
+        "name": "left_leg"
+      },
+      "right_leg": {
+        "name": "right_leg"
+      },
+      "upper_clothes": {
+        "name": "upper_clothes"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "shoe": {
+        "name": "shoe"
+      },
+      "bag": {
+        "name": "bag"
+      },
+      "scarf": {
+        "name": "scarf"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: SegformerClothesPipelineLoader": {
+    "display_name": "LayerMask: Segformer Clothes Pipeline",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "face": {
+        "name": "face"
+      },
+      "hair": {
+        "name": "hair"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "sunglass": {
+        "name": "sunglass"
+      },
+      "left_arm": {
+        "name": "left_arm"
+      },
+      "right_arm": {
+        "name": "right_arm"
+      },
+      "left_leg": {
+        "name": "left_leg"
+      },
+      "right_leg": {
+        "name": "right_leg"
+      },
+      "left_shoe": {
+        "name": "left_shoe"
+      },
+      "right_shoe": {
+        "name": "right_shoe"
+      },
+      "upper_clothes": {
+        "name": "upper_clothes"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "bag": {
+        "name": "bag"
+      },
+      "scarf": {
+        "name": "scarf"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "segpipeline"
+      }
+    }
+  },
+  "LayerMask: SegformerFashionPipelineLoader": {
+    "display_name": "LayerMask: Segformer Fashion Pipeline",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "shirt": {
+        "name": "shirt"
+      },
+      "top": {
+        "name": "top"
+      },
+      "sweater": {
+        "name": "sweater"
+      },
+      "cardigan": {
+        "name": "cardigan"
+      },
+      "jacket": {
+        "name": "jacket"
+      },
+      "vest": {
+        "name": "vest"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "shorts": {
+        "name": "shorts"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "coat": {
+        "name": "coat"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "jumpsuit": {
+        "name": "jumpsuit"
+      },
+      "cape": {
+        "name": "cape"
+      },
+      "glasses": {
+        "name": "glasses"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "hairaccessory": {
+        "name": "hairaccessory"
+      },
+      "tie": {
+        "name": "tie"
+      },
+      "glove": {
+        "name": "glove"
+      },
+      "watch": {
+        "name": "watch"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "legwarmer": {
+        "name": "legwarmer"
+      },
+      "tights": {
+        "name": "tights"
+      },
+      "sock": {
+        "name": "sock"
+      },
+      "shoe": {
+        "name": "shoe"
+      },
+      "bagwallet": {
+        "name": "bagwallet"
+      },
+      "scarf": {
+        "name": "scarf"
+      },
+      "umbrella": {
+        "name": "umbrella"
+      },
+      "hood": {
+        "name": "hood"
+      },
+      "collar": {
+        "name": "collar"
+      },
+      "lapel": {
+        "name": "lapel"
+      },
+      "epaulette": {
+        "name": "epaulette"
+      },
+      "sleeve": {
+        "name": "sleeve"
+      },
+      "pocket": {
+        "name": "pocket"
+      },
+      "neckline": {
+        "name": "neckline"
+      },
+      "buckle": {
+        "name": "buckle"
+      },
+      "zipper": {
+        "name": "zipper"
+      },
+      "applique": {
+        "name": "applique"
+      },
+      "bead": {
+        "name": "bead"
+      },
+      "bow": {
+        "name": "bow"
+      },
+      "flower": {
+        "name": "flower"
+      },
+      "fringe": {
+        "name": "fringe"
+      },
+      "ribbon": {
+        "name": "ribbon"
+      },
+      "rivet": {
+        "name": "rivet"
+      },
+      "ruffle": {
+        "name": "ruffle"
+      },
+      "sequin": {
+        "name": "sequin"
+      },
+      "tassel": {
+        "name": "tassel"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "segpipeline"
+      }
+    }
+  },
+  "LayerMask: SegformerUltraV2": {
+    "display_name": "LayerMask: Segformer Ultra V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "segformer_pipeline": {
+        "name": "segformer_pipeline"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "黒点"
+      },
+      "white_point": {
+        "name": "白点"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: Shadow & Highlight Mask": {
+    "display_name": "LayerMask: Shadow & Highlight Mask",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "shadow_level_offset": {
+        "name": "シャドウレベルオフセット"
+      },
+      "shadow_range": {
+        "name": "シャドウ範囲"
+      },
+      "highlight_level_offset": {
+        "name": "ハイライトレベルオフセット"
+      },
+      "highlight_range": {
+        "name": "ハイライト範囲"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerMask: ShadowHighlightMaskV2": {
+    "display_name": "LayerMask: Shadow Highlight Mask V2",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "shadow_level_offset": {
+        "name": "シャドウレベルオフセット"
+      },
+      "shadow_range": {
+        "name": "シャドウ範囲"
+      },
+      "highlight_level_offset": {
+        "name": "ハイライトレベルオフセット"
+      },
+      "highlight_range": {
+        "name": "ハイライト範囲"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: Sharp & Soft": {
+    "display_name": "LayerFilter: Sharp & Soft",
+    "inputs": {
+      "images": {
+        "name": "画像群"
+      },
+      "enhance": {
+        "name": "enhance"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: SimpleTextImage": {
+    "display_name": "LayerUtility: SimpleTextImage",
+    "inputs": {
+      "text": {
+        "name": "テキスト"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "align": {
+        "name": "align"
+      },
+      "char_per_line": {
+        "name": "char_per_line"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "font_size": {
+        "name": "font_size"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "x_offset": {
+        "name": "x_offset"
+      },
+      "y_offset": {
+        "name": "y_offset"
+      },
+      "width": {
+        "name": "幅"
+      },
+      "height": {
+        "name": "高さ"
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: SkinBeauty": {
+    "display_name": "LayerFilter: SkinBeauty",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "smooth": {
+        "name": "smooth"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerFilter: SoftLight": {
+    "display_name": "LayerFilter: SoftLight",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "soft": {
+        "name": "soft"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: Stroke": {
+    "display_name": "LayerStyle: Stroke",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerStyle: Stroke V2": {
+    "display_name": "LayerStyle: Stroke V2",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "invert_mask": {
+        "name": "マスク反転"
+      },
+      "blend_mode": {
+        "name": "ブレンドモード"
+      },
+      "opacity": {
+        "name": ""
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "ぼかし"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "layer_mask": {
+        "name": "レイヤーマスク"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: TextImage": {
+    "display_name": "LayerUtility: TextImage",
+    "inputs": {
+      "text": {
+        "name": "テキスト"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "spacing": {
+        "name": "spacing"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "horizontal_border": {
+        "name": "horizontal_border"
+      },
+      "vertical_border": {
+        "name": "vertical_border"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "variation_range": {
+        "name": "variation_range"
+      },
+      "variation_seed": {
+        "name": "variation_seed"
+      },
+      "layout": {
+        "name": "layout"
+      },
+      "width": {
+        "name": "幅"
+      },
+      "height": {
+        "name": "高さ"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: TextImage V2": {
+    "display_name": "LayerUtility: TextImage V2",
+    "inputs": {
+      "text": {
+        "name": "テキスト"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "spacing": {
+        "name": "spacing"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "horizontal_border": {
+        "name": "horizontal_border"
+      },
+      "vertical_border": {
+        "name": "vertical_border"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "variation_range": {
+        "name": "variation_range"
+      },
+      "variation_seed": {
+        "name": "variation_seed"
+      },
+      "layout": {
+        "name": "layout"
+      },
+      "width": {
+        "name": "幅"
+      },
+      "height": {
+        "name": "高さ"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "size_as": {
+        "name": "サイズ参照"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      },
+      "mask": {
+        "name": "マスク"
+      }
+    }
+  },
+  "LayerUtility: TextJoin": {
+    "display_name": "LayerUtility: TextJoin",
+    "inputs": {
+      "text_1": {
+        "name": "text_1"
+      },
+      "text_2": {
+        "name": "text_2"
+      },
+      "text_3": {
+        "name": "text_3"
+      },
+      "text_4": {
+        "name": "text_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: TextJoinV2": {
+    "display_name": "LayerUtility: TextJoinV2",
+    "inputs": {
+      "text_1": {
+        "name": "text_1"
+      },
+      "delimiter": {
+        "name": "delimiter"
+      },
+      "text_2": {
+        "name": "text_2"
+      },
+      "text_3": {
+        "name": "text_3"
+      },
+      "text_4": {
+        "name": "text_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: TextPreseter": {
+    "display_name": "LayerUtility: Text Preseter",
+    "inputs": {
+      "title": {
+        "name": "title"
+      },
+      "content": {
+        "name": "content"
+      },
+      "text_preset": {
+        "name": "text_preset"
+      }
+    },
+    "outputs": {
+      "ls_text_preset": {
+        "name": "ls_text_preset"
+      }
+    }
+  },
+  "LayerUtility: ChoiceTextPreset": {
+    "display_name": "LayerUtility: Choice Text Preset",
+    "inputs": {
+      "text_preset": {
+        "name": "text_preset"
+      },
+      "choice_title": {
+        "name": "choice_title"
+      },
+      "random_choice": {
+        "name": "random_choice"
+      },
+      "default": {
+        "name": "default"
+      },
+      "seed": {
+        "name": "シード"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerUtility: LoadVQAModel": {
+    "display_name": "LayerUtility: Load VQA Model",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "precision": {
+        "name": "precision"
+      },
+      "device": {
+        "name": "device"
+      }
+    },
+    "outputs": {
+      "vqa_model": {
+        "name": "vqa_model"
+      }
+    }
+  },
+  "LayerUtility: VQAPrompt": {
+    "display_name": "LayerUtility: VQA Prompt",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "vqa_model": {
+        "name": "vqa_model"
+      },
+      "question": {
+        "name": "question"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "文字列"
+      }
+    }
+  },
+  "LayerFilter: WaterColor": {
+    "display_name": "LayerFilter: WaterColor",
+    "inputs": {
+      "image": {
+        "name": "画像"
+      },
+      "line_density": {
+        "name": "line_density"
+      },
+      "opacity": {
+        "name": ""
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "画像"
+      }
+    }
+  },
+  "LayerUtility: XY to Percent": {
+    "display_name": "LayerUtility: XY to Percent",
+    "inputs": {
+      "background_image": {
+        "name": "背景画像"
+      },
+      "layer_image": {
+        "name": "レイヤー画像"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "浮動小数点数"
+      }
+    }
+  }
+}

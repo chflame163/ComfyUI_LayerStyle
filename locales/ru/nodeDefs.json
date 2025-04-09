@@ -1,0 +1,4790 @@
+{
+  "LayerFilter: AddGrain": {
+    "display_name": "LayerFilter: Шум",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "grain_power": {
+        "name": "интенсивность_шума"
+      },
+      "grain_scale": {
+        "name": "масштаб_шума"
+      },
+      "grain_sat": {
+        "name": "насыщенность_шума"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: AnyRerouter": {
+    "display_name": "LayerUtility: Any Rerouter",
+    "inputs": {
+      "any": {
+        "name": "любой"
+      }
+    },
+    "outputs": {
+      "anything": {
+        "name": "что-угодно"
+      }
+    }
+  },
+  "LayerUtility: BatchSelector": {
+    "display_name": "LayerUtility: Пакетный выбор",
+    "inputs": {
+      "select": {
+        "name": "выбор"
+      },
+      "images": {
+        "name": "изображения"
+      },
+      "masks": {
+        "name": "маски"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: BlendIf Mask": {
+    "display_name": "LayerMask: Маска BlendIf",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_if": {
+        "name": "смешивание_если"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "black_range": {
+        "name": "черный_диапазон"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "white_range": {
+        "name": "белый_диапазон"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: ChannelShake": {
+    "display_name": "LayerFilter: Сдвиг каналов",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "distance": {
+        "name": "расстояние"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "mode": {
+        "name": "режим"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: CheckMask": {
+    "display_name": "LayerUtility: Проверка маски",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "area_percent": {
+        "name": "процент_площади"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "булевый"
+      }
+    }
+  },
+  "LayerUtility: CheckMaskV2": {
+    "display_name": "LayerUtility: Проверка маски V2",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "area_percent": {
+        "name": "процент_площади"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "булевый"
+      }
+    }
+  },
+  "LayerColor: ColorAdapter": {
+    "display_name": "LayerColor: Цветовой адаптер",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "color_ref_image": {
+        "name": "эталонное_изображение_цвета"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: AutoAdjust": {
+    "display_name": "LayerColor: Автокоррекция",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "strength": {
+        "name": "интенсивность"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "contrast": {
+        "name": "контраст"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      },
+      "red": {
+        "name": "красный"
+      },
+      "green": {
+        "name": "зеленый"
+      },
+      "blue": {
+        "name": "синий"
+      },
+      "balance": {
+        "name": "баланс"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: AutoAdjustV2": {
+    "display_name": "LayerColor: Автокоррекция V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "strength": {
+        "name": "интенсивность"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "contrast": {
+        "name": "контраст"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      },
+      "red": {
+        "name": "красный"
+      },
+      "green": {
+        "name": "зеленый"
+      },
+      "blue": {
+        "name": "синий"
+      },
+      "mode": {
+        "name": "режим"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "balance": {
+        "name": "баланс"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: AutoBrightness": {
+    "display_name": "LayerColor: Автояркость",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "strength": {
+        "name": "интенсивность"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: Brightness & Contrast": {
+    "display_name": "LayerColor: Яркость/Контраст",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "contrast": {
+        "name": "контраст"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: BrightnessContrastV2": {
+    "display_name": "LayerColor: Яркость/Контраст V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "contrast": {
+        "name": "контраст"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: ColorBalance": {
+    "display_name": "LayerColor: Баланс цветов",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "cyan_red": {
+        "name": "циан-красный"
+      },
+      "magenta_green": {
+        "name": "пурпурный-зеленый"
+      },
+      "yellow_blue": {
+        "name": "желтый-синий"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: ColorTemperature": {
+    "display_name": "LayerColor: Цветовая температура",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "temperature": {
+        "name": "температура"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: Exposure": {
+    "display_name": "LayerColor: Экспозиция",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "exposure": {
+        "name": "экспозиция"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: Gamma": {
+    "display_name": "LayerColor: Gamma",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "gamma": {
+        "name": "gamma"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: HSV": {
+    "display_name": "LayerColor: HSV",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "H": {
+        "name": "H"
+      },
+      "S": {
+        "name": "S"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: LAB": {
+    "display_name": "LayerColor: LAB",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "L": {
+        "name": "L"
+      },
+      "A": {
+        "name": "A"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: Levels": {
+    "display_name": "LayerColor: Уровни",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "channel": {
+        "name": "канал"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "gray_point": {
+        "name": "серая_точка"
+      },
+      "output_black_point": {
+        "name": "выходная_черная_точка"
+      },
+      "output_white_point": {
+        "name": "выходная_белая_точка"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: LUT Apply": {
+    "display_name": "LayerColor: Применить LUT",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "LUT": {
+        "name": "LUT"
+      },
+      "color_space": {
+        "name": "цветовое_пространство"
+      },
+      "strength": {
+        "name": "интенсивность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: RGB": {
+    "display_name": "LayerColor: RGB",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "R": {
+        "name": "R"
+      },
+      "G": {
+        "name": "G"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: Color of Shadow & Highlight": {
+    "display_name": "LayerColor: Тени и Света",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "shadow_brightness": {
+        "name": "яркость_теней"
+      },
+      "shadow_saturation": {
+        "name": "насыщенность_теней"
+      },
+      "shadow_hue": {
+        "name": "оттенок_теней"
+      },
+      "shadow_level_offset": {
+        "name": "смещение_уровня_теней"
+      },
+      "shadow_range": {
+        "name": "диапазон_теней"
+      },
+      "highlight_brightness": {
+        "name": "яркость_светов"
+      },
+      "highlight_saturation": {
+        "name": "насыщенность_светов"
+      },
+      "highlight_hue": {
+        "name": "оттенок_светов"
+      },
+      "highlight_level_offset": {
+        "name": "смещение_уровня_светов"
+      },
+      "highlight_range": {
+        "name": "диапазон_светов"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: ColorofShadowHighlightV2": {
+    "display_name": "LayerColor: Тени и Света V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "shadow_brightness": {
+        "name": "яркость_теней"
+      },
+      "shadow_saturation": {
+        "name": "насыщенность_теней"
+      },
+      "shadow_hue": {
+        "name": "оттенок_теней"
+      },
+      "shadow_level_offset": {
+        "name": "смещение_уровня_теней"
+      },
+      "shadow_range": {
+        "name": "диапазон_теней"
+      },
+      "highlight_brightness": {
+        "name": "яркость_светов"
+      },
+      "highlight_saturation": {
+        "name": "насыщенность_светов"
+      },
+      "highlight_hue": {
+        "name": "оттенок_светов"
+      },
+      "highlight_level_offset": {
+        "name": "смещение_уровня_светов"
+      },
+      "highlight_range": {
+        "name": "диапазон_светов"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerColor: YUV": {
+    "display_name": "LayerColor: YUV",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "Y": {
+        "name": "Y"
+      },
+      "U": {
+        "name": "U"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ColorImage": {
+    "display_name": "LayerUtility: Однотонное изображение",
+    "inputs": {
+      "width": {
+        "name": "ширина"
+      },
+      "height": {
+        "name": "высота"
+      },
+      "color": {
+        "name": "цвет"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ColorImage V2": {
+    "display_name": "LayerUtility: Однотонное изображение_V2",
+    "inputs": {
+      "size": {
+        "name": "размер"
+      },
+      "custom_width": {
+        "name": "пользовательская_ширина"
+      },
+      "custom_height": {
+        "name": "пользовательская_высота"
+      },
+      "color": {
+        "name": "цвет"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerFilter: ColorMap": {
+    "display_name": "LayerFilter: Цветовая карта",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "color_map": {
+        "name": "цветовая_карта"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ColorName": {
+    "display_name": "LayerUtility: Название цвета",
+    "inputs": {
+      "color": {
+        "name": "цвет"
+      },
+      "palette": {
+        "name": "палитра"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: NameToColor": {
+    "display_name": "LayerUtility: Цвет по названию",
+    "inputs": {
+      "color_name": {
+        "name": "название_цвета"
+      },
+      "palette": {
+        "name": "палитра"
+      },
+      "in_palette_only": {
+        "name": "только_в_палитре"
+      },
+      "default_color": {
+        "name": "цвет_по_умолчанию"
+      },
+      "size": {
+        "name": "размер"
+      },
+      "custom_width": {
+        "name": "пользовательская_ширина"
+      },
+      "custom_height": {
+        "name": "пользовательская_высота"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay V2": {
+    "display_name": "LayerStyle: Цветовое наложение V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "color": {
+        "name": "цвет"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay": {
+    "display_name": "LayerStyle: Цветовое наложение",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "color": {
+        "name": "цвет"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ColorPicker": {
+    "display_name": "LayerUtility: Пипетка",
+    "inputs": {
+      "color": {
+        "name": "цвет"
+      },
+      "mode": {
+        "name": "режим"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: GrayValue": {
+    "display_name": "LayerUtility: Значение серого",
+    "inputs": {
+      "color_value": {
+        "name": "значение_цвета"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: HSV Value": {
+    "display_name": "LayerUtility: Значение HSV",
+    "inputs": {
+      "color_value": {
+        "name": "значение_цвета"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: RGB Value": {
+    "display_name": "LayerUtility: Значение RGB",
+    "inputs": {
+      "color_value": {
+        "name": "значение_цвета"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerMask: CreateGradientMask": {
+    "display_name": "LayerMask: Создать градиентную маску",
+    "inputs": {
+      "width": {
+        "name": "ширина"
+      },
+      "height": {
+        "name": "высота"
+      },
+      "gradient_side": {
+        "name": "сторона_градиента"
+      },
+      "gradient_scale": {
+        "name": "масштаб_градиента"
+      },
+      "gradient_offset": {
+        "name": "смещение_градиента"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: CropBoxResolve": {
+    "display_name": "LayerUtility: Анализ кадрирования",
+    "inputs": {
+      "crop_box": {
+        "name": "область_кадрирования"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: CropByMask": {
+    "display_name": "LayerUtility: Кадрирование по маске",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask_for_crop": {
+        "name": "маска_для_кадрирования"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "detect": {
+        "name": "обнаружение"
+      },
+      "top_reserve": {
+        "name": "резерв_сверху"
+      },
+      "bottom_reserve": {
+        "name": "резерв_снизу"
+      },
+      "left_reserve": {
+        "name": "резерв_слева"
+      },
+      "right_reserve": {
+        "name": "резерв_справа"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V2": {
+    "display_name": "LayerUtility: Кадрирование по маске_V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "detect": {
+        "name": "обнаружение"
+      },
+      "top_reserve": {
+        "name": "резерв_сверху"
+      },
+      "bottom_reserve": {
+        "name": "резерв_снизу"
+      },
+      "left_reserve": {
+        "name": "резерв_слева"
+      },
+      "right_reserve": {
+        "name": "резерв_справа"
+      },
+      "round_to_multiple": {
+        "name": "округление_до_кратного"
+      },
+      "crop_box": {
+        "name": "область_кадрирования"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V3": {
+    "display_name": "LayerUtility: Кадрирование по маске_V3",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "detect": {
+        "name": "обнаружение"
+      },
+      "top_reserve": {
+        "name": "резерв_сверху"
+      },
+      "bottom_reserve": {
+        "name": "резерв_снизу"
+      },
+      "left_reserve": {
+        "name": "резерв_слева"
+      },
+      "right_reserve": {
+        "name": "резерв_справа"
+      },
+      "round_to_multiple": {
+        "name": "округление_до_кратного"
+      },
+      "crop_box": {
+        "name": "область_кадрирования"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      }
+    }
+  },
+  "LayerUtility: Seed": {
+    "display_name": "LayerUtility: Семя",
+    "inputs": {
+      "seed": {
+        "name": "семя"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperator": {
+    "display_name": "LayerUtility: Булевый оператор",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "оператор"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "булевый"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperatorV2": {
+    "display_name": "LayerUtility: Булевый оператор V2",
+    "inputs": {
+      "a_value": {
+        "name": "значение_a"
+      },
+      "b_value": {
+        "name": "значение_b"
+      },
+      "operator": {
+        "name": "оператор"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "булевый"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculator": {
+    "display_name": "LayerUtility: Калькулятор чисел",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "оператор"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      },
+      "float": {
+        "name": "число с плавающей точкой"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculatorV2": {
+    "display_name": "LayerUtility: Калькулятор чисел V2",
+    "inputs": {
+      "a_value": {
+        "name": "значение_a"
+      },
+      "b_value": {
+        "name": "значение_b"
+      },
+      "operator": {
+        "name": "оператор"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      },
+      "float": {
+        "name": "число с плавающей точкой"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: StringCondition": {
+    "display_name": "LayerUtility: Условие строки",
+    "inputs": {
+      "text": {
+        "name": "текст"
+      },
+      "condition": {
+        "name": "условие"
+      },
+      "sub_string": {
+        "name": "подстрока"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "булевый"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: TextBox": {
+    "display_name": "LayerUtility: Текстовое поле",
+    "inputs": {
+      "text": {
+        "name": "текст"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: String": {
+    "display_name": "LayerUtility: Строка",
+    "inputs": {
+      "string": {
+        "name": "строка"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: Integer": {
+    "display_name": "LayerUtility: Целое число",
+    "inputs": {
+      "int_value": {
+        "name": "значение_целого"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: Float": {
+    "display_name": "LayerUtility: Число с плавающей точкой",
+    "inputs": {
+      "float_value": {
+        "name": "значение_числа"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "число с плавающей точкой"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: Boolean": {
+    "display_name": "LayerUtility: Булевый",
+    "inputs": {
+      "bool_value": {
+        "name": "булевое_значение"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "булевый"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: If ": {
+    "display_name": "LayerUtility: Если",
+    "inputs": {
+      "if_condition": {
+        "name": "условие_если"
+      },
+      "when_TRUE": {
+        "name": "когда_ИСТИНА"
+      },
+      "when_FALSE": {
+        "name": "когда_ЛОЖЬ"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "любой"
+      }
+    }
+  },
+  "LayerUtility: SwitchCase": {
+    "display_name": "LayerUtility: Переключатель",
+    "inputs": {
+      "switch_condition": {
+        "name": "условие_переключателя"
+      },
+      "case_1": {
+        "name": "случай_1"
+      },
+      "case_2": {
+        "name": "случай_2"
+      },
+      "case_3": {
+        "name": "случай_3"
+      },
+      "input_default": {
+        "name": "вход_по_умолчанию"
+      },
+      "input_1": {
+        "name": "вход_1"
+      },
+      "input_2": {
+        "name": "вход_2"
+      },
+      "input_3": {
+        "name": "вход_3"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "любой"
+      }
+    }
+  },
+  "LayerUtility: QueueStop": {
+    "display_name": "LayerUtility: Остановка очереди",
+    "inputs": {
+      "any": {
+        "name": "любой"
+      },
+      "mode": {
+        "name": "режим"
+      },
+      "stop": {
+        "name": "остановка"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "любой"
+      }
+    }
+  },
+  "LayerStyle: DropShadow": {
+    "display_name": "LayerStyle: Тень",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "distance_x": {
+        "name": "расстояние_x"
+      },
+      "distance_y": {
+        "name": "расстояние_y"
+      },
+      "grow": {
+        "name": "увеличение"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "shadow_color": {
+        "name": "цвет_тени"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V2": {
+    "display_name": "LayerStyle: Тень V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "distance_x": {
+        "name": "расстояние_x"
+      },
+      "distance_y": {
+        "name": "расстояние_y"
+      },
+      "grow": {
+        "name": "увеличение"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "shadow_color": {
+        "name": "цвет_тени"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V3": {
+    "display_name": "LayerStyle: DropShadow V3",
+    "inputs": {
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "distance_x": {
+        "name": "расстояние_x"
+      },
+      "distance_y": {
+        "name": "расстояние_y"
+      },
+      "grow": {
+        "name": "увеличение"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "shadow_color": {
+        "name": "цвет_тени"
+      },
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvas": {
+    "display_name": "LayerUtility: ExtendCanvas",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "top": {
+        "name": "top"
+      },
+      "bottom": {
+        "name": "bottom"
+      },
+      "left": {
+        "name": "left"
+      },
+      "right": {
+        "name": "right"
+      },
+      "color": {
+        "name": "цвет"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvasV2": {
+    "display_name": "LayerUtility: ExtendCanvas V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "top": {
+        "name": "top"
+      },
+      "bottom": {
+        "name": "bottom"
+      },
+      "left": {
+        "name": "left"
+      },
+      "right": {
+        "name": "right"
+      },
+      "color": {
+        "name": "цвет"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: Film": {
+    "display_name": "LayerFilter: Film",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "center_x": {
+        "name": "center_x"
+      },
+      "center_y": {
+        "name": "center_y"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      },
+      "vignette_intensity": {
+        "name": "vignette_intensity"
+      },
+      "grain_power": {
+        "name": "интенсивность_шума"
+      },
+      "grain_scale": {
+        "name": "масштаб_шума"
+      },
+      "grain_sat": {
+        "name": "насыщенность_шума"
+      },
+      "grain_shadows": {
+        "name": "grain_shadows"
+      },
+      "grain_highs": {
+        "name": "grain_highs"
+      },
+      "blur_strength": {
+        "name": "blur_strength"
+      },
+      "blur_focus_spread": {
+        "name": "blur_focus_spread"
+      },
+      "focal_depth": {
+        "name": "focal_depth"
+      },
+      "depth_map": {
+        "name": "depth_map"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerFilter: FilmV2": {
+    "display_name": "LayerFilter: Film V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "center_x": {
+        "name": "center_x"
+      },
+      "center_y": {
+        "name": "center_y"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      },
+      "vignette_intensity": {
+        "name": "vignette_intensity"
+      },
+      "grain_method": {
+        "name": "grain_method"
+      },
+      "grain_power": {
+        "name": "интенсивность_шума"
+      },
+      "grain_scale": {
+        "name": "масштаб_шума"
+      },
+      "grain_sat": {
+        "name": "насыщенность_шума"
+      },
+      "filmgrainer_shadows": {
+        "name": "filmgrainer_shadows"
+      },
+      "filmgrainer_highs": {
+        "name": "filmgrainer_highs"
+      },
+      "blur_strength": {
+        "name": "blur_strength"
+      },
+      "blur_focus_spread": {
+        "name": "blur_focus_spread"
+      },
+      "focal_depth": {
+        "name": "focal_depth"
+      },
+      "depth_map": {
+        "name": "depth_map"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlur": {
+    "display_name": "LayerFilter: GaussianBlur",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "blur": {
+        "name": "размытие"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlurV2": {
+    "display_name": "LayerFilter: Gaussian Blur V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "blur": {
+        "name": "размытие"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: GetImageSize": {
+    "display_name": "LayerUtility: GetImageSize",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      },
+      "box": {
+        "name": "область"
+      }
+    }
+  },
+  "LayerUtility: GetMainColorsV2": {
+    "display_name": "LayerUtility: Get Main Colors V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "k_means_algorithm": {
+        "name": "k_means_algorithm"
+      },
+      "colors": {
+        "name": "colors"
+      },
+      "num_colors": {
+        "name": "num_colors"
+      },
+      "algorithm": {
+        "name": "algorithm"
+      },
+      "mix_iter": {
+        "name": "mix_iter"
+      },
+      "random_state": {
+        "name": "random_state"
+      },
+      "hex_color": {
+        "name": "hex_color"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: GetMainColors": {
+    "display_name": "LayerUtility: Get Main Colors",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "k_means_algorithm": {
+        "name": "k_means_algorithm"
+      },
+      "colors": {
+        "name": "colors"
+      },
+      "num_colors": {
+        "name": "num_colors"
+      },
+      "algorithm": {
+        "name": "algorithm"
+      },
+      "mix_iter": {
+        "name": "mix_iter"
+      },
+      "random_state": {
+        "name": "random_state"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: GradientImage": {
+    "display_name": "LayerUtility: GradientImage",
+    "inputs": {
+      "width": {
+        "name": "ширина"
+      },
+      "height": {
+        "name": "высота"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "end_color": {
+        "name": "end_color"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: GradientImage V2": {
+    "display_name": "LayerUtility: GradientImage V2",
+    "inputs": {
+      "size": {
+        "name": "размер"
+      },
+      "custom_width": {
+        "name": "пользовательская_ширина"
+      },
+      "custom_height": {
+        "name": "пользовательская_высота"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: Gradient Map": {
+    "display_name": "LayerStyle: Gradient Map",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "mid_color": {
+        "name": "mid_color"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "mid_point": {
+        "name": "mid_point"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay": {
+    "display_name": "LayerStyle: GradientOverlay",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "start_alpha": {
+        "name": "start_alpha"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "end_alpha": {
+        "name": "end_alpha"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay V2": {
+    "display_name": "LayerStyle: GradientOverlay V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "start_color": {
+        "name": "start_color"
+      },
+      "start_alpha": {
+        "name": "start_alpha"
+      },
+      "end_color": {
+        "name": "end_color"
+      },
+      "end_alpha": {
+        "name": "end_alpha"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerFilter: HalfTone": {
+    "display_name": "LayerFilter: HalfTone",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "dot_size": {
+        "name": "dot_size"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "shape": {
+        "name": "shape"
+      },
+      "dot_color": {
+        "name": "dot_color"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerFilter: HDREffects": {
+    "display_name": "LayerFilter: HDR Effects",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "hdr_intensity": {
+        "name": "hdr_intensity"
+      },
+      "shadow_intensity": {
+        "name": "shadow_intensity"
+      },
+      "highlight_intensity": {
+        "name": "highlight_intensity"
+      },
+      "gamma_intensity": {
+        "name": "gamma_intensity"
+      },
+      "contrast": {
+        "name": "контраст"
+      },
+      "enhance_color": {
+        "name": "enhance_color"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: HLFrequencyDetailRestore": {
+    "display_name": "LayerUtility: H/L Frequency Detail Restore",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "detail_image": {
+        "name": "detail_image"
+      },
+      "keep_high_freq": {
+        "name": "keep_high_freq"
+      },
+      "erase_low_freq": {
+        "name": "erase_low_freq"
+      },
+      "mask_blur": {
+        "name": "mask_blur"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ICMask": {
+    "display_name": "LayerUtility: IC Mask",
+    "inputs": {
+      "first_image": {
+        "name": "first_image"
+      },
+      "patch_mode": {
+        "name": "patch_mode"
+      },
+      "output_length": {
+        "name": "output_length"
+      },
+      "patch_color": {
+        "name": "patch_color"
+      },
+      "first_mask": {
+        "name": "first_mask"
+      },
+      "second_image": {
+        "name": "second_image"
+      },
+      "second_mask": {
+        "name": "second_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "icmask_data": {
+        "name": "icmask_data"
+      }
+    }
+  },
+  "LayerUtility: ICMaskCropBack": {
+    "display_name": "LayerUtility: IC Mask Crop Back",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "icmask_data": {
+        "name": "icmask_data"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend": {
+    "display_name": "LayerUtility: ImageBlend",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance": {
+    "display_name": "LayerUtility: ImageBlendAdvance",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "x_percent": {
+        "name": "x_percent"
+      },
+      "y_percent": {
+        "name": "y_percent"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V2": {
+    "display_name": "LayerUtility: ImageBlendAdvance V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "x_percent": {
+        "name": "x_percent"
+      },
+      "y_percent": {
+        "name": "y_percent"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V3": {
+    "display_name": "LayerUtility: ImageBlendAdvance V3",
+    "inputs": {
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "x_percent": {
+        "name": "x_percent"
+      },
+      "y_percent": {
+        "name": "y_percent"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend V2": {
+    "display_name": "LayerUtility: ImageBlend V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelMerge": {
+    "display_name": "LayerUtility: ImageChannelMerge",
+    "inputs": {
+      "channel_1": {
+        "name": "channel_1"
+      },
+      "channel_2": {
+        "name": "channel_2"
+      },
+      "channel_3": {
+        "name": "channel_3"
+      },
+      "mode": {
+        "name": "режим"
+      },
+      "channel_4": {
+        "name": "channel_4"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelSplit": {
+    "display_name": "LayerUtility: ImageChannelSplit",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mode": {
+        "name": "режим"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageCombineAlpha": {
+    "display_name": "LayerUtility: ImageCombineAlpha",
+    "inputs": {
+      "RGB_image": {
+        "name": "RGB_image"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageHub": {
+    "display_name": "LayerUtility: ImageHub",
+    "inputs": {
+      "output": {
+        "name": "output"
+      },
+      "random_output": {
+        "name": "random_output"
+      },
+      "input1_image": {
+        "name": "input1_image"
+      },
+      "input1_mask": {
+        "name": "input1_mask"
+      },
+      "input2_image": {
+        "name": "input2_image"
+      },
+      "input2_mask": {
+        "name": "input2_mask"
+      },
+      "input3_image": {
+        "name": "input3_image"
+      },
+      "input3_mask": {
+        "name": "input3_mask"
+      },
+      "input4_image": {
+        "name": "input4_image"
+      },
+      "input4_mask": {
+        "name": "input4_mask"
+      },
+      "input5_image": {
+        "name": "input5_image"
+      },
+      "input5_mask": {
+        "name": "input5_mask"
+      },
+      "input6_image": {
+        "name": "input6_image"
+      },
+      "input6_mask": {
+        "name": "input6_mask"
+      },
+      "input7_image": {
+        "name": "input7_image"
+      },
+      "input7_mask": {
+        "name": "input7_mask"
+      },
+      "input8_image": {
+        "name": "input8_image"
+      },
+      "input8_mask": {
+        "name": "input8_mask"
+      },
+      "input9_image": {
+        "name": "input9_image"
+      },
+      "input9_mask": {
+        "name": "input9_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAs": {
+    "display_name": "LayerUtility: Image Mask Scale As",
+    "inputs": {
+      "scale_as": {
+        "name": "scale_as"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAsV2": {
+    "display_name": "LayerUtility: Image Mask Scale As V2",
+    "inputs": {
+      "scale_as": {
+        "name": "scale_as"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: ImageOpacity": {
+    "display_name": "LayerUtility: ImageOpacity",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ImageReel": {
+    "display_name": "LayerUtility: Image Reel",
+    "inputs": {
+      "image1": {
+        "name": "image1"
+      },
+      "image1_text": {
+        "name": "image1_text"
+      },
+      "image2_text": {
+        "name": "image2_text"
+      },
+      "image3_text": {
+        "name": "image3_text"
+      },
+      "image4_text": {
+        "name": "image4_text"
+      },
+      "reel_height": {
+        "name": "reel_height"
+      },
+      "border": {
+        "name": "border"
+      },
+      "image2": {
+        "name": "image2"
+      },
+      "image3": {
+        "name": "image3"
+      },
+      "image4": {
+        "name": "image4"
+      },
+      "image": {
+        "name": "изображение"
+      },
+      "target_height": {
+        "name": "target_height"
+      },
+      "image_list": {
+        "name": "image_list"
+      }
+    },
+    "outputs": {
+      "reel": {
+        "name": "reel"
+      }
+    }
+  },
+  "LayerUtility: ImageReelComposit": {
+    "display_name": "LayerUtility: Image Reel Composit",
+    "inputs": {
+      "reel_1": {
+        "name": "reel_1"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "font_size": {
+        "name": "font_size"
+      },
+      "border": {
+        "name": "border"
+      },
+      "color_theme": {
+        "name": "color_theme"
+      },
+      "reel_2": {
+        "name": "reel_2"
+      },
+      "reel_3": {
+        "name": "reel_3"
+      },
+      "reel_4": {
+        "name": "reel_4"
+      },
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "image": {
+        "name": "изображение"
+      },
+      "text_image": {
+        "name": "text_image"
+      },
+      "box": {
+        "name": "область"
+      },
+      "shadow_size": {
+        "name": "shadow_size"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "reel": {
+        "name": "reel"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageRemoveAlpha": {
+    "display_name": "LayerUtility: ImageRemoveAlpha",
+    "inputs": {
+      "RGBA_image": {
+        "name": "RGBA_image"
+      },
+      "fill_background": {
+        "name": "fill_background"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio": {
+    "display_name": "LayerUtility: ImageScaleByAspectRatio",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "proportional_width": {
+        "name": "proportional_width"
+      },
+      "proportional_height": {
+        "name": "proportional_height"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "round_to_multiple": {
+        "name": "округление_до_кратного"
+      },
+      "scale_to_longest_side": {
+        "name": "scale_to_longest_side"
+      },
+      "longest_side": {
+        "name": "longest_side"
+      },
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio V2": {
+    "display_name": "LayerUtility: ImageScaleByAspectRatio V2",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "proportional_width": {
+        "name": "proportional_width"
+      },
+      "proportional_height": {
+        "name": "proportional_height"
+      },
+      "fit": {
+        "name": "fit"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "round_to_multiple": {
+        "name": "округление_до_кратного"
+      },
+      "scale_to_side": {
+        "name": "scale_to_side"
+      },
+      "scale_to_length": {
+        "name": "scale_to_length"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore": {
+    "display_name": "LayerUtility: ImageScaleRestore",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "scale_by_longest_side": {
+        "name": "scale_by_longest_side"
+      },
+      "longest_side": {
+        "name": "longest_side"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "original_size": {
+        "name": "original_size"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore V2": {
+    "display_name": "LayerUtility: ImageScaleRestore V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "scale_by": {
+        "name": "scale_by"
+      },
+      "scale_by_length": {
+        "name": "scale_by_length"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "original_size": {
+        "name": "original_size"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "box": {
+        "name": "область"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerUtility: ImageShift": {
+    "display_name": "LayerUtility: ImageShift",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "shift_x": {
+        "name": "shift_x"
+      },
+      "shift_y": {
+        "name": "shift_y"
+      },
+      "cyclic": {
+        "name": "cyclic"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "border_mask_width": {
+        "name": "border_mask_width"
+      },
+      "border_mask_blur": {
+        "name": "border_mask_blur"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: ImageTaggerSave": {
+    "display_name": "LayerUtility: Image Tagger Save",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "tag_text": {
+        "name": "tag_text"
+      },
+      "custom_path": {
+        "name": "custom_path"
+      },
+      "filename_prefix": {
+        "name": "filename_prefix"
+      },
+      "timestamp": {
+        "name": "timestamp"
+      },
+      "format": {
+        "name": "format"
+      },
+      "quality": {
+        "name": "quality"
+      },
+      "preview": {
+        "name": "preview"
+      },
+      "prompt": {
+        "name": "prompt"
+      },
+      "extra_pnginfo": {
+        "name": "extra_pnginfo"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: ImageToMask": {
+    "display_name": "LayerMask: Image To Mask",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "channel": {
+        "name": "канал"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "gray_point": {
+        "name": "серая_точка"
+      },
+      "invert_output_mask": {
+        "name": "invert_output_mask"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow": {
+    "display_name": "LayerStyle: InnerGlow",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow V2": {
+    "display_name": "LayerStyle: InnerGlow V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow": {
+    "display_name": "LayerStyle: InnerShadow",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "distance_x": {
+        "name": "расстояние_x"
+      },
+      "distance_y": {
+        "name": "расстояние_y"
+      },
+      "grow": {
+        "name": "увеличение"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "shadow_color": {
+        "name": "цвет_тени"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow V2": {
+    "display_name": "LayerStyle: InnerShadow V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "distance_x": {
+        "name": "расстояние_x"
+      },
+      "distance_y": {
+        "name": "расстояние_y"
+      },
+      "grow": {
+        "name": "увеличение"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "shadow_color": {
+        "name": "цвет_тени"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: LayerImageTransform": {
+    "display_name": "LayerUtility: LayerImageTransform",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: LayerMaskTransform": {
+    "display_name": "LayerUtility: LayerMaskTransform",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "mirror"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio"
+      },
+      "rotate": {
+        "name": "rotate"
+      },
+      "transform_method": {
+        "name": "transform_method"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: LightLeak": {
+    "display_name": "LayerFilter: LightLeak",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "light": {
+        "name": "light"
+      },
+      "corner": {
+        "name": "corner"
+      },
+      "hue": {
+        "name": "hue"
+      },
+      "saturation": {
+        "name": "насыщенность"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerMask: MaskBoxDetect": {
+    "display_name": "LayerMask: MaskBoxDetect",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "detect": {
+        "name": "обнаружение"
+      },
+      "x_adjust": {
+        "name": "x_adjust"
+      },
+      "y_adjust": {
+        "name": "y_adjust"
+      },
+      "scale_adjust": {
+        "name": "scale_adjust"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "float": {
+        "name": "число с плавающей точкой"
+      },
+      "int": {
+        "name": "целое"
+      }
+    }
+  },
+  "LayerMask: MaskByColor": {
+    "display_name": "LayerMask: Mask by Color",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "color": {
+        "name": "цвет"
+      },
+      "color_in_HEX": {
+        "name": "color_in_HEX"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeShrink": {
+    "display_name": "LayerMask: MaskEdgeShrink",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "shrink_level": {
+        "name": "shrink_level"
+      },
+      "soft": {
+        "name": "soft"
+      },
+      "edge_shrink": {
+        "name": "edge_shrink"
+      },
+      "edge_reserve": {
+        "name": "edge_reserve"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail": {
+    "display_name": "LayerMask: MaskEdgeUltraDetail",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "detail_range": {
+        "name": "detail_range"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail V2": {
+    "display_name": "LayerMask: MaskEdgeUltraDetail V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      },
+      "method": {
+        "name": "метод"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "edge_erode": {
+        "name": "edge_erode"
+      },
+      "edte_dilate": {
+        "name": "edte_dilate"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskGradient": {
+    "display_name": "LayerMask: MaskGradient",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "gradient_side": {
+        "name": "сторона_градиента"
+      },
+      "gradient_scale": {
+        "name": "масштаб_градиента"
+      },
+      "gradient_offset": {
+        "name": "смещение_градиента"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskGrain": {
+    "display_name": "LayerMask: Mask Grain",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "grain": {
+        "name": "grain"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskGrow": {
+    "display_name": "LayerMask: MaskGrow",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "grow": {
+        "name": "увеличение"
+      },
+      "blur": {
+        "name": "размытие"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskInvert": {
+    "display_name": "LayerMask: MaskInvert",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskMotionBlur": {
+    "display_name": "LayerMask: MaskMotionBlur",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "angle": {
+        "name": "угол"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: MaskPreview": {
+    "display_name": "LayerMask: MaskPreview",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: MaskStroke": {
+    "display_name": "LayerMask: MaskStroke",
+    "inputs": {
+      "mask": {
+        "name": "маска"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "размытие"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: MotionBlur": {
+    "display_name": "LayerFilter: MotionBlur",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "angle": {
+        "name": "угол"
+      },
+      "blur": {
+        "name": "размытие"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow": {
+    "display_name": "LayerStyle: OuterGlow",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow V2": {
+    "display_name": "LayerStyle: OuterGlow V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "brightness": {
+        "name": "яркость"
+      },
+      "glow_range": {
+        "name": "glow_range"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "light_color": {
+        "name": "light_color"
+      },
+      "glow_color": {
+        "name": "glow_color"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerMask: PixelSpread": {
+    "display_name": "LayerMask: PixelSpread",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: PrintInfo": {
+    "display_name": "LayerUtility: PrintInfo",
+    "inputs": {
+      "anything": {
+        "name": "что-угодно"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: PurgeVRAM": {
+    "display_name": "LayerUtility: Purge VRAM",
+    "inputs": {
+      "anything": {
+        "name": "что-угодно"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_models"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerUtility: PurgeVRAM V2": {
+    "display_name": "LayerUtility: Purge VRAM V2",
+    "inputs": {
+      "anything": {
+        "name": "что-угодно"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_models"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "любой"
+      }
+    }
+  },
+  "LayerUtility: RandomGenerator": {
+    "display_name": "LayerUtility: Random Generator",
+    "inputs": {
+      "min_value": {
+        "name": "min_value"
+      },
+      "max_value": {
+        "name": "max_value"
+      },
+      "float_decimal_places": {
+        "name": "float_decimal_places"
+      },
+      "fix_seed": {
+        "name": "fix_seed"
+      },
+      "image": {
+        "name": "изображение"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      },
+      "float": {
+        "name": "число с плавающей точкой"
+      },
+      "boolean": {
+        "name": "булевый"
+      }
+    }
+  },
+  "LayerUtility: RandomGeneratorV2": {
+    "display_name": "LayerUtility: Random Generator V2",
+    "inputs": {
+      "min_value": {
+        "name": "min_value"
+      },
+      "max_value": {
+        "name": "max_value"
+      },
+      "least": {
+        "name": "least"
+      },
+      "float_decimal_places": {
+        "name": "float_decimal_places"
+      },
+      "seed": {
+        "name": "семя"
+      },
+      "image": {
+        "name": "изображение"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "целое"
+      },
+      "float": {
+        "name": "число с плавающей точкой"
+      },
+      "boolean": {
+        "name": "булевый"
+      }
+    }
+  },
+  "LayerUtility: RestoreCropBox": {
+    "display_name": "LayerUtility: RestoreCropBox",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "croped_image": {
+        "name": "croped_image"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "crop_box": {
+        "name": "область_кадрирования"
+      },
+      "croped_mask": {
+        "name": "croped_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: RemBgUltra": {
+    "display_name": "LayerMask: RemBgUltra",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "detail_range": {
+        "name": "detail_range"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: RmBgUltra V2": {
+    "display_name": "LayerMask: RmBgUltra V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: RoundedRectangle": {
+    "display_name": "LayerUtility: RoundedRectangle",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "rounded_rect_radius": {
+        "name": "rounded_rect_radius"
+      },
+      "anti_aliasing": {
+        "name": "anti_aliasing"
+      },
+      "top": {
+        "name": "top"
+      },
+      "bottom": {
+        "name": "bottom"
+      },
+      "left": {
+        "name": "left"
+      },
+      "right": {
+        "name": "right"
+      },
+      "detect": {
+        "name": "обнаружение"
+      },
+      "obj_ext_top": {
+        "name": "obj_ext_top"
+      },
+      "obj_ext_bottom": {
+        "name": "obj_ext_bottom"
+      },
+      "obj_ext_left": {
+        "name": "obj_ext_left"
+      },
+      "obj_ext_right": {
+        "name": "obj_ext_right"
+      },
+      "object_mask": {
+        "name": "object_mask"
+      },
+      "crop_box": {
+        "name": "область_кадрирования"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: SegformerB2ClothesUltra": {
+    "display_name": "LayerMask: Segformer B2 Clothes Ultra",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "face": {
+        "name": "face"
+      },
+      "hair": {
+        "name": "hair"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "sunglass": {
+        "name": "sunglass"
+      },
+      "left_arm": {
+        "name": "left_arm"
+      },
+      "right_arm": {
+        "name": "right_arm"
+      },
+      "left_leg": {
+        "name": "left_leg"
+      },
+      "right_leg": {
+        "name": "right_leg"
+      },
+      "upper_clothes": {
+        "name": "upper_clothes"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "shoe": {
+        "name": "shoe"
+      },
+      "bag": {
+        "name": "bag"
+      },
+      "scarf": {
+        "name": "scarf"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: SegformerClothesPipelineLoader": {
+    "display_name": "LayerMask: Segformer Clothes Pipeline",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "face": {
+        "name": "face"
+      },
+      "hair": {
+        "name": "hair"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "sunglass": {
+        "name": "sunglass"
+      },
+      "left_arm": {
+        "name": "left_arm"
+      },
+      "right_arm": {
+        "name": "right_arm"
+      },
+      "left_leg": {
+        "name": "left_leg"
+      },
+      "right_leg": {
+        "name": "right_leg"
+      },
+      "left_shoe": {
+        "name": "left_shoe"
+      },
+      "right_shoe": {
+        "name": "right_shoe"
+      },
+      "upper_clothes": {
+        "name": "upper_clothes"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "bag": {
+        "name": "bag"
+      },
+      "scarf": {
+        "name": "scarf"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "segpipeline"
+      }
+    }
+  },
+  "LayerMask: SegformerFashionPipelineLoader": {
+    "display_name": "LayerMask: Segformer Fashion Pipeline",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "shirt": {
+        "name": "shirt"
+      },
+      "top": {
+        "name": "top"
+      },
+      "sweater": {
+        "name": "sweater"
+      },
+      "cardigan": {
+        "name": "cardigan"
+      },
+      "jacket": {
+        "name": "jacket"
+      },
+      "vest": {
+        "name": "vest"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "shorts": {
+        "name": "shorts"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "coat": {
+        "name": "coat"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "jumpsuit": {
+        "name": "jumpsuit"
+      },
+      "cape": {
+        "name": "cape"
+      },
+      "glasses": {
+        "name": "glasses"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "hairaccessory": {
+        "name": "hairaccessory"
+      },
+      "tie": {
+        "name": "tie"
+      },
+      "glove": {
+        "name": "glove"
+      },
+      "watch": {
+        "name": "watch"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "legwarmer": {
+        "name": "legwarmer"
+      },
+      "tights": {
+        "name": "tights"
+      },
+      "sock": {
+        "name": "sock"
+      },
+      "shoe": {
+        "name": "shoe"
+      },
+      "bagwallet": {
+        "name": "bagwallet"
+      },
+      "scarf": {
+        "name": "scarf"
+      },
+      "umbrella": {
+        "name": "umbrella"
+      },
+      "hood": {
+        "name": "hood"
+      },
+      "collar": {
+        "name": "collar"
+      },
+      "lapel": {
+        "name": "lapel"
+      },
+      "epaulette": {
+        "name": "epaulette"
+      },
+      "sleeve": {
+        "name": "sleeve"
+      },
+      "pocket": {
+        "name": "pocket"
+      },
+      "neckline": {
+        "name": "neckline"
+      },
+      "buckle": {
+        "name": "buckle"
+      },
+      "zipper": {
+        "name": "zipper"
+      },
+      "applique": {
+        "name": "applique"
+      },
+      "bead": {
+        "name": "bead"
+      },
+      "bow": {
+        "name": "bow"
+      },
+      "flower": {
+        "name": "flower"
+      },
+      "fringe": {
+        "name": "fringe"
+      },
+      "ribbon": {
+        "name": "ribbon"
+      },
+      "rivet": {
+        "name": "rivet"
+      },
+      "ruffle": {
+        "name": "ruffle"
+      },
+      "sequin": {
+        "name": "sequin"
+      },
+      "tassel": {
+        "name": "tassel"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "segpipeline"
+      }
+    }
+  },
+  "LayerMask: SegformerUltraV2": {
+    "display_name": "LayerMask: Segformer Ultra V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "segformer_pipeline": {
+        "name": "segformer_pipeline"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "черная_точка"
+      },
+      "white_point": {
+        "name": "белая_точка"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: Shadow & Highlight Mask": {
+    "display_name": "LayerMask: Shadow & Highlight Mask",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "shadow_level_offset": {
+        "name": "смещение_уровня_теней"
+      },
+      "shadow_range": {
+        "name": "диапазон_теней"
+      },
+      "highlight_level_offset": {
+        "name": "смещение_уровня_светов"
+      },
+      "highlight_range": {
+        "name": "диапазон_светов"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerMask: ShadowHighlightMaskV2": {
+    "display_name": "LayerMask: Shadow Highlight Mask V2",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "shadow_level_offset": {
+        "name": "смещение_уровня_теней"
+      },
+      "shadow_range": {
+        "name": "диапазон_теней"
+      },
+      "highlight_level_offset": {
+        "name": "смещение_уровня_светов"
+      },
+      "highlight_range": {
+        "name": "диапазон_светов"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: Sharp & Soft": {
+    "display_name": "LayerFilter: Sharp & Soft",
+    "inputs": {
+      "images": {
+        "name": "изображения"
+      },
+      "enhance": {
+        "name": "enhance"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: SimpleTextImage": {
+    "display_name": "LayerUtility: SimpleTextImage",
+    "inputs": {
+      "text": {
+        "name": "текст"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "align": {
+        "name": "align"
+      },
+      "char_per_line": {
+        "name": "char_per_line"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "font_size": {
+        "name": "font_size"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "x_offset": {
+        "name": "x_offset"
+      },
+      "y_offset": {
+        "name": "y_offset"
+      },
+      "width": {
+        "name": "ширина"
+      },
+      "height": {
+        "name": "высота"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: SkinBeauty": {
+    "display_name": "LayerFilter: SkinBeauty",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "smooth": {
+        "name": "smooth"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerFilter: SoftLight": {
+    "display_name": "LayerFilter: SoftLight",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "soft": {
+        "name": "soft"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: Stroke": {
+    "display_name": "LayerStyle: Stroke",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerStyle: Stroke V2": {
+    "display_name": "LayerStyle: Stroke V2",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "invert_mask": {
+        "name": "инвертировать_маску"
+      },
+      "blend_mode": {
+        "name": "режим_смешивания"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "размытие"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "layer_mask": {
+        "name": "маска_слоя"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: TextImage": {
+    "display_name": "LayerUtility: TextImage",
+    "inputs": {
+      "text": {
+        "name": "текст"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "spacing": {
+        "name": "spacing"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "horizontal_border": {
+        "name": "horizontal_border"
+      },
+      "vertical_border": {
+        "name": "vertical_border"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "variation_range": {
+        "name": "variation_range"
+      },
+      "variation_seed": {
+        "name": "variation_seed"
+      },
+      "layout": {
+        "name": "layout"
+      },
+      "width": {
+        "name": "ширина"
+      },
+      "height": {
+        "name": "высота"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: TextImage V2": {
+    "display_name": "LayerUtility: TextImage V2",
+    "inputs": {
+      "text": {
+        "name": "текст"
+      },
+      "font_file": {
+        "name": "font_file"
+      },
+      "spacing": {
+        "name": "spacing"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "horizontal_border": {
+        "name": "horizontal_border"
+      },
+      "vertical_border": {
+        "name": "vertical_border"
+      },
+      "scale": {
+        "name": "scale"
+      },
+      "variation_range": {
+        "name": "variation_range"
+      },
+      "variation_seed": {
+        "name": "variation_seed"
+      },
+      "layout": {
+        "name": "layout"
+      },
+      "width": {
+        "name": "ширина"
+      },
+      "height": {
+        "name": "высота"
+      },
+      "text_color": {
+        "name": "text_color"
+      },
+      "background_color": {
+        "name": "background_color"
+      },
+      "size_as": {
+        "name": "размер_по_образцу"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "mask": {
+        "name": "маска"
+      }
+    }
+  },
+  "LayerUtility: TextJoin": {
+    "display_name": "LayerUtility: TextJoin",
+    "inputs": {
+      "text_1": {
+        "name": "text_1"
+      },
+      "text_2": {
+        "name": "text_2"
+      },
+      "text_3": {
+        "name": "text_3"
+      },
+      "text_4": {
+        "name": "text_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: TextJoinV2": {
+    "display_name": "LayerUtility: TextJoinV2",
+    "inputs": {
+      "text_1": {
+        "name": "text_1"
+      },
+      "delimiter": {
+        "name": "delimiter"
+      },
+      "text_2": {
+        "name": "text_2"
+      },
+      "text_3": {
+        "name": "text_3"
+      },
+      "text_4": {
+        "name": "text_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: TextPreseter": {
+    "display_name": "LayerUtility: Text Preseter",
+    "inputs": {
+      "title": {
+        "name": "title"
+      },
+      "content": {
+        "name": "content"
+      },
+      "text_preset": {
+        "name": "text_preset"
+      }
+    },
+    "outputs": {
+      "ls_text_preset": {
+        "name": "ls_text_preset"
+      }
+    }
+  },
+  "LayerUtility: ChoiceTextPreset": {
+    "display_name": "LayerUtility: Choice Text Preset",
+    "inputs": {
+      "text_preset": {
+        "name": "text_preset"
+      },
+      "choice_title": {
+        "name": "choice_title"
+      },
+      "random_choice": {
+        "name": "random_choice"
+      },
+      "default": {
+        "name": "default"
+      },
+      "seed": {
+        "name": "семя"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerUtility: LoadVQAModel": {
+    "display_name": "LayerUtility: Load VQA Model",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "precision": {
+        "name": "precision"
+      },
+      "device": {
+        "name": "device"
+      }
+    },
+    "outputs": {
+      "vqa_model": {
+        "name": "vqa_model"
+      }
+    }
+  },
+  "LayerUtility: VQAPrompt": {
+    "display_name": "LayerUtility: VQA Prompt",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "vqa_model": {
+        "name": "vqa_model"
+      },
+      "question": {
+        "name": "question"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "строка"
+      }
+    }
+  },
+  "LayerFilter: WaterColor": {
+    "display_name": "LayerFilter: WaterColor",
+    "inputs": {
+      "image": {
+        "name": "изображение"
+      },
+      "line_density": {
+        "name": "line_density"
+      },
+      "opacity": {
+        "name": "прозрачность"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "изображение"
+      }
+    }
+  },
+  "LayerUtility: XY to Percent": {
+    "display_name": "LayerUtility: XY to Percent",
+    "inputs": {
+      "background_image": {
+        "name": "фоновое_изображение"
+      },
+      "layer_image": {
+        "name": "слоевое_изображение"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "число с плавающей точкой"
+      }
+    }
+  }
+}

@@ -1,0 +1,4790 @@
+{
+  "LayerFilter: AddGrain": {
+    "display_name": "LayerFilter: 잡음",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "grain_power": {
+        "name": "잡음 강도"
+      },
+      "grain_scale": {
+        "name": "잡음 크기"
+      },
+      "grain_sat": {
+        "name": "잡음 채도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: AnyRerouter": {
+    "display_name": "LayerUtility: Any 리라우터",
+    "inputs": {
+      "any": {
+        "name": "any"
+      }
+    },
+    "outputs": {
+      "anything": {
+        "name": "anything"
+      }
+    }
+  },
+  "LayerUtility: BatchSelector": {
+    "display_name": "LayerUtility: 배치 선택기",
+    "inputs": {
+      "select": {
+        "name": "선택"
+      },
+      "images": {
+        "name": "이미지"
+      },
+      "masks": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: BlendIf Mask": {
+    "display_name": "LayerMask: BlendIf 마스크",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_if": {
+        "name": "blend_if"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "black_range": {
+        "name": "검은색 범위"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "white_range": {
+        "name": "흰색 범위"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: ChannelShake": {
+    "display_name": "LayerFilter: 채널 오류",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "distance": {
+        "name": "거리"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "mode": {
+        "name": "모드"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: CheckMask": {
+    "display_name": "LayerUtility: 마스크 확인",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "area_percent": {
+        "name": "영역 비율"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "불"
+      }
+    }
+  },
+  "LayerUtility: CheckMaskV2": {
+    "display_name": "LayerUtility: 마스크 확인 V2",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "area_percent": {
+        "name": "영역 비율"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "불"
+      }
+    }
+  },
+  "LayerColor: ColorAdapter": {
+    "display_name": "LayerColor: 색상 적응",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "color_ref_image": {
+        "name": "색상 참조 이미지"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: AutoAdjust": {
+    "display_name": "LayerColor: 자동 색상 조정",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "strength": {
+        "name": "강도"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "contrast": {
+        "name": "대비"
+      },
+      "saturation": {
+        "name": "채도"
+      },
+      "red": {
+        "name": "빨강"
+      },
+      "green": {
+        "name": "초록"
+      },
+      "blue": {
+        "name": "파랑"
+      },
+      "balance": {
+        "name": "균형"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: AutoAdjustV2": {
+    "display_name": "LayerColor: 자동 색상 조정 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "strength": {
+        "name": "강도"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "contrast": {
+        "name": "대비"
+      },
+      "saturation": {
+        "name": "채도"
+      },
+      "red": {
+        "name": "빨강"
+      },
+      "green": {
+        "name": "초록"
+      },
+      "blue": {
+        "name": "파랑"
+      },
+      "mode": {
+        "name": "모드"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "balance": {
+        "name": "균형"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: AutoBrightness": {
+    "display_name": "LayerColor: 자동 밝기",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "strength": {
+        "name": "강도"
+      },
+      "saturation": {
+        "name": "채도"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: Brightness & Contrast": {
+    "display_name": "LayerColor: 밝기/대비",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "contrast": {
+        "name": "대비"
+      },
+      "saturation": {
+        "name": "채도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: BrightnessContrastV2": {
+    "display_name": "LayerColor: 밝기/대비 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "contrast": {
+        "name": "대비"
+      },
+      "saturation": {
+        "name": "채도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: ColorBalance": {
+    "display_name": "LayerColor: 색상 균형",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "cyan_red": {
+        "name": "청록/빨강"
+      },
+      "magenta_green": {
+        "name": "자홍/초록"
+      },
+      "yellow_blue": {
+        "name": "노랑/파랑"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: ColorTemperature": {
+    "display_name": "LayerColor: 색온도",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "temperature": {
+        "name": "온도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: Exposure": {
+    "display_name": "LayerColor: 노출",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "exposure": {
+        "name": "노출"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: Gamma": {
+    "display_name": "LayerColor: Gamma",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "gamma": {
+        "name": "gamma"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: HSV": {
+    "display_name": "LayerColor: HSV",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "H": {
+        "name": "H"
+      },
+      "S": {
+        "name": "S"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: LAB": {
+    "display_name": "LayerColor: LAB",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "L": {
+        "name": "L"
+      },
+      "A": {
+        "name": "A"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: Levels": {
+    "display_name": "LayerColor: 색 단계",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "channel": {
+        "name": "채널"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "gray_point": {
+        "name": "회색 지점"
+      },
+      "output_black_point": {
+        "name": "출력 검은색 지점"
+      },
+      "output_white_point": {
+        "name": "출력 흰색 지점"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: LUT Apply": {
+    "display_name": "LayerColor: LUT 적용",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "LUT": {
+        "name": "LUT"
+      },
+      "color_space": {
+        "name": "색 공간"
+      },
+      "strength": {
+        "name": "강도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: RGB": {
+    "display_name": "LayerColor: RGB",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "R": {
+        "name": "R"
+      },
+      "G": {
+        "name": "G"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: Color of Shadow & Highlight": {
+    "display_name": "LayerColor: 그림자 및 하이라이트 색상",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "shadow_brightness": {
+        "name": "그림자 밝기"
+      },
+      "shadow_saturation": {
+        "name": "그림자 채도"
+      },
+      "shadow_hue": {
+        "name": "그림자 색조"
+      },
+      "shadow_level_offset": {
+        "name": "그림자 단계 오프셋"
+      },
+      "shadow_range": {
+        "name": "그림자 범위"
+      },
+      "highlight_brightness": {
+        "name": "하이라이트 밝기"
+      },
+      "highlight_saturation": {
+        "name": "하이라이트 채도"
+      },
+      "highlight_hue": {
+        "name": "하이라이트 색조"
+      },
+      "highlight_level_offset": {
+        "name": "하이라이트 단계 오프셋"
+      },
+      "highlight_range": {
+        "name": "하이라이트 범위"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: ColorofShadowHighlightV2": {
+    "display_name": "LayerColor: 그림자 및 하이라이트 색상 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "shadow_brightness": {
+        "name": "그림자 밝기"
+      },
+      "shadow_saturation": {
+        "name": "그림자 채도"
+      },
+      "shadow_hue": {
+        "name": "그림자 색조"
+      },
+      "shadow_level_offset": {
+        "name": "그림자 단계 오프셋"
+      },
+      "shadow_range": {
+        "name": "그림자 범위"
+      },
+      "highlight_brightness": {
+        "name": "하이라이트 밝기"
+      },
+      "highlight_saturation": {
+        "name": "하이라이트 채도"
+      },
+      "highlight_hue": {
+        "name": "하이라이트 색조"
+      },
+      "highlight_level_offset": {
+        "name": "하이라이트 단계 오프셋"
+      },
+      "highlight_range": {
+        "name": "하이라이트 범위"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerColor: YUV": {
+    "display_name": "LayerColor: YUV",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "Y": {
+        "name": "Y"
+      },
+      "U": {
+        "name": "U"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ColorImage": {
+    "display_name": "LayerUtility: 단색 이미지",
+    "inputs": {
+      "width": {
+        "name": "너비"
+      },
+      "height": {
+        "name": "높이"
+      },
+      "color": {
+        "name": "색상"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ColorImage V2": {
+    "display_name": "LayerUtility: 단색 이미지 V2",
+    "inputs": {
+      "size": {
+        "name": "크기"
+      },
+      "custom_width": {
+        "name": "사용자 정의 너비"
+      },
+      "custom_height": {
+        "name": "사용자 정의 높이"
+      },
+      "color": {
+        "name": "색상"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerFilter: ColorMap": {
+    "display_name": "LayerFilter: 색상 열 지도",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "color_map": {
+        "name": "색상 지도"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ColorName": {
+    "display_name": "LayerUtility: 색상 이름",
+    "inputs": {
+      "color": {
+        "name": "색상"
+      },
+      "palette": {
+        "name": "팔레트"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: NameToColor": {
+    "display_name": "LayerUtility: 이름에서 색상으로",
+    "inputs": {
+      "color_name": {
+        "name": "색상 이름"
+      },
+      "palette": {
+        "name": "팔레트"
+      },
+      "in_palette_only": {
+        "name": "팔레트 내에서만"
+      },
+      "default_color": {
+        "name": "기본 색상"
+      },
+      "size": {
+        "name": "크기"
+      },
+      "custom_width": {
+        "name": "사용자 정의 너비"
+      },
+      "custom_height": {
+        "name": "사용자 정의 높이"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay V2": {
+    "display_name": "LayerStyle: 색상 오버레이 V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "color": {
+        "name": "색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay": {
+    "display_name": "LayerStyle: 색상 오버레이",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "color": {
+        "name": "색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ColorPicker": {
+    "display_name": "LayerUtility: 색상 선택기",
+    "inputs": {
+      "color": {
+        "name": "색상"
+      },
+      "mode": {
+        "name": "모드"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: GrayValue": {
+    "display_name": "LayerUtility: 회색 값",
+    "inputs": {
+      "color_value": {
+        "name": "색상 값"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: HSV Value": {
+    "display_name": "LayerUtility: HSV 값",
+    "inputs": {
+      "color_value": {
+        "name": "색상 값"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: RGB Value": {
+    "display_name": "LayerUtility: RGB 값",
+    "inputs": {
+      "color_value": {
+        "name": "색상 값"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerMask: CreateGradientMask": {
+    "display_name": "LayerMask: 그라디언트 마스크 생성",
+    "inputs": {
+      "width": {
+        "name": "너비"
+      },
+      "height": {
+        "name": "높이"
+      },
+      "gradient_side": {
+        "name": "그라디언트 방향"
+      },
+      "gradient_scale": {
+        "name": "그라디언트 크기"
+      },
+      "gradient_offset": {
+        "name": "그라디언트 오프셋"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: CropBoxResolve": {
+    "display_name": "LayerUtility: 자르기 상자 분석",
+    "inputs": {
+      "crop_box": {
+        "name": "자르기 상자"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: CropByMask": {
+    "display_name": "LayerUtility: 마스크로 자르기",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask_for_crop": {
+        "name": "자르기 마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "detect": {
+        "name": "감지"
+      },
+      "top_reserve": {
+        "name": "상단 예약"
+      },
+      "bottom_reserve": {
+        "name": "하단 예약"
+      },
+      "left_reserve": {
+        "name": "왼쪽 예약"
+      },
+      "right_reserve": {
+        "name": "오른쪽 예약"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V2": {
+    "display_name": "LayerUtility: 마스크로 자르기 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "detect": {
+        "name": "감지"
+      },
+      "top_reserve": {
+        "name": "상단 예약"
+      },
+      "bottom_reserve": {
+        "name": "하단 예약"
+      },
+      "left_reserve": {
+        "name": "왼쪽 예약"
+      },
+      "right_reserve": {
+        "name": "오른쪽 예약"
+      },
+      "round_to_multiple": {
+        "name": "배수로 반올림"
+      },
+      "crop_box": {
+        "name": "자르기 상자"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V3": {
+    "display_name": "LayerUtility: 마스크로 자르기 V3",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "detect": {
+        "name": "감지"
+      },
+      "top_reserve": {
+        "name": "상단 예약"
+      },
+      "bottom_reserve": {
+        "name": "하단 예약"
+      },
+      "left_reserve": {
+        "name": "왼쪽 예약"
+      },
+      "right_reserve": {
+        "name": "오른쪽 예약"
+      },
+      "round_to_multiple": {
+        "name": "배수로 반올림"
+      },
+      "crop_box": {
+        "name": "자르기 상자"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      }
+    }
+  },
+  "LayerUtility: Seed": {
+    "display_name": "LayerUtility: 시드",
+    "inputs": {
+      "seed": {
+        "name": "시드"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperator": {
+    "display_name": "LayerUtility: 불 연산자",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "연산자"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "불"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperatorV2": {
+    "display_name": "LayerUtility: 불 연산자 V2",
+    "inputs": {
+      "a_value": {
+        "name": "a 값"
+      },
+      "b_value": {
+        "name": "b 값"
+      },
+      "operator": {
+        "name": "연산자"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "불"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculator": {
+    "display_name": "LayerUtility: 숫자 계산기",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "연산자"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      },
+      "float": {
+        "name": "실수"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculatorV2": {
+    "display_name": "LayerUtility: 숫자 계산기 V2",
+    "inputs": {
+      "a_value": {
+        "name": "a 값"
+      },
+      "b_value": {
+        "name": "b 값"
+      },
+      "operator": {
+        "name": "연산자"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      },
+      "float": {
+        "name": "실수"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: StringCondition": {
+    "display_name": "LayerUtility: 문자열 조건",
+    "inputs": {
+      "text": {
+        "name": "텍스트"
+      },
+      "condition": {
+        "name": "조건"
+      },
+      "sub_string": {
+        "name": "부분 문자열"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "불"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: TextBox": {
+    "display_name": "LayerUtility: 텍스트 상자",
+    "inputs": {
+      "text": {
+        "name": "텍스트"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: String": {
+    "display_name": "LayerUtility: 문자열",
+    "inputs": {
+      "string": {
+        "name": "문자열"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: Integer": {
+    "display_name": "LayerUtility: 정수",
+    "inputs": {
+      "int_value": {
+        "name": "정수 값"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: Float": {
+    "display_name": "LayerUtility: 실수",
+    "inputs": {
+      "float_value": {
+        "name": "실수 값"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "실수"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: Boolean": {
+    "display_name": "LayerUtility: 불",
+    "inputs": {
+      "bool_value": {
+        "name": "불 값"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "불"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: If ": {
+    "display_name": "LayerUtility: If",
+    "inputs": {
+      "if_condition": {
+        "name": "If 조건"
+      },
+      "when_TRUE": {
+        "name": "TRUE일 때"
+      },
+      "when_FALSE": {
+        "name": "FALSE일 때"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerUtility: SwitchCase": {
+    "display_name": "LayerUtility: Switch Case",
+    "inputs": {
+      "switch_condition": {
+        "name": "Switch 조건"
+      },
+      "case_1": {
+        "name": "case_1"
+      },
+      "case_2": {
+        "name": "case_2"
+      },
+      "case_3": {
+        "name": "case_3"
+      },
+      "input_default": {
+        "name": "기본 입력"
+      },
+      "input_1": {
+        "name": "입력_1"
+      },
+      "input_2": {
+        "name": "입력_2"
+      },
+      "input_3": {
+        "name": "입력_3"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerUtility: QueueStop": {
+    "display_name": "LayerUtility: 큐 중지",
+    "inputs": {
+      "any": {
+        "name": "any"
+      },
+      "mode": {
+        "name": "모드"
+      },
+      "stop": {
+        "name": "중지"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerStyle: DropShadow": {
+    "display_name": "LayerStyle: 그림자",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "distance_x": {
+        "name": "X 거리"
+      },
+      "distance_y": {
+        "name": "Y 거리"
+      },
+      "grow": {
+        "name": "확장"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "shadow_color": {
+        "name": "그림자 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V2": {
+    "display_name": "LayerStyle: 그림자 V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "distance_x": {
+        "name": "X 거리"
+      },
+      "distance_y": {
+        "name": "Y 거리"
+      },
+      "grow": {
+        "name": "확장"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "shadow_color": {
+        "name": "그림자 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V3": {
+    "display_name": "LayerStyle: 그림자 V3",
+    "inputs": {
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "distance_x": {
+        "name": "X 거리"
+      },
+      "distance_y": {
+        "name": "Y 거리"
+      },
+      "grow": {
+        "name": "확장"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "shadow_color": {
+        "name": "그림자 색상"
+      },
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvas": {
+    "display_name": "LayerUtility: 캔버스 확장",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "top": {
+        "name": "상단"
+      },
+      "bottom": {
+        "name": "하단"
+      },
+      "left": {
+        "name": "왼쪽"
+      },
+      "right": {
+        "name": "오른쪽"
+      },
+      "color": {
+        "name": "색상"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvasV2": {
+    "display_name": "LayerUtility: 캔버스 확장 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "top": {
+        "name": "상단"
+      },
+      "bottom": {
+        "name": "하단"
+      },
+      "left": {
+        "name": "왼쪽"
+      },
+      "right": {
+        "name": "오른쪽"
+      },
+      "color": {
+        "name": "색상"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: Film": {
+    "display_name": "LayerFilter: 필름 입자",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "center_x": {
+        "name": "중심 X"
+      },
+      "center_y": {
+        "name": "중심 Y"
+      },
+      "saturation": {
+        "name": "채도"
+      },
+      "vignette_intensity": {
+        "name": "비네트 강도"
+      },
+      "grain_power": {
+        "name": "잡음 강도"
+      },
+      "grain_scale": {
+        "name": "잡음 크기"
+      },
+      "grain_sat": {
+        "name": "잡음 채도"
+      },
+      "grain_shadows": {
+        "name": "그림자 잡음"
+      },
+      "grain_highs": {
+        "name": "하이라이트 잡음"
+      },
+      "blur_strength": {
+        "name": "흐림 강도"
+      },
+      "blur_focus_spread": {
+        "name": "초점 흐림 확산"
+      },
+      "focal_depth": {
+        "name": "초점 깊이"
+      },
+      "depth_map": {
+        "name": "깊이 지도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerFilter: FilmV2": {
+    "display_name": "LayerFilter: 필름 입자 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "center_x": {
+        "name": "중심 X"
+      },
+      "center_y": {
+        "name": "중심 Y"
+      },
+      "saturation": {
+        "name": "채도"
+      },
+      "vignette_intensity": {
+        "name": "비네트 강도"
+      },
+      "grain_method": {
+        "name": "잡음 방법"
+      },
+      "grain_power": {
+        "name": "잡음 강도"
+      },
+      "grain_scale": {
+        "name": "잡음 크기"
+      },
+      "grain_sat": {
+        "name": "잡음 채도"
+      },
+      "filmgrainer_shadows": {
+        "name": "필름 그레이너 그림자"
+      },
+      "filmgrainer_highs": {
+        "name": "필름 그레이너 하이라이트"
+      },
+      "blur_strength": {
+        "name": "흐림 강도"
+      },
+      "blur_focus_spread": {
+        "name": "초점 흐림 확산"
+      },
+      "focal_depth": {
+        "name": "초점 깊이"
+      },
+      "depth_map": {
+        "name": "깊이 지도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlur": {
+    "display_name": "LayerFilter: 가우스 흐림",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "blur": {
+        "name": "흐림"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlurV2": {
+    "display_name": "LayerFilter: 가우스 흐림 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "blur": {
+        "name": "흐림"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: GetImageSize": {
+    "display_name": "LayerUtility: 이미지 크기 얻기",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      },
+      "box": {
+        "name": "상자"
+      }
+    }
+  },
+  "LayerUtility: GetMainColorsV2": {
+    "display_name": "LayerUtility: 주요 색상 얻기 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "k_means_algorithm": {
+        "name": "K-평균 알고리즘"
+      },
+      "colors": {
+        "name": "색상"
+      },
+      "num_colors": {
+        "name": "색상 수"
+      },
+      "algorithm": {
+        "name": "알고리즘"
+      },
+      "mix_iter": {
+        "name": "혼합 반복"
+      },
+      "random_state": {
+        "name": "랜덤 상태"
+      },
+      "hex_color": {
+        "name": "HEX 색상"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: GetMainColors": {
+    "display_name": "LayerUtility: 주요 색상 얻기",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "k_means_algorithm": {
+        "name": "K-평균 알고리즘"
+      },
+      "colors": {
+        "name": "색상"
+      },
+      "num_colors": {
+        "name": "색상 수"
+      },
+      "algorithm": {
+        "name": "알고리즘"
+      },
+      "mix_iter": {
+        "name": "혼합 반복"
+      },
+      "random_state": {
+        "name": "랜덤 상태"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: GradientImage": {
+    "display_name": "LayerUtility: 그라디언트 이미지",
+    "inputs": {
+      "width": {
+        "name": "너비"
+      },
+      "height": {
+        "name": "높이"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "start_color": {
+        "name": "시작 색상"
+      },
+      "end_color": {
+        "name": "끝 색상"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: GradientImage V2": {
+    "display_name": "LayerUtility: 그라디언트 이미지 V2",
+    "inputs": {
+      "size": {
+        "name": "크기"
+      },
+      "custom_width": {
+        "name": "사용자 정의 너비"
+      },
+      "custom_height": {
+        "name": "사용자 정의 높이"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "start_color": {
+        "name": "시작 색상"
+      },
+      "end_color": {
+        "name": "끝 색상"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: Gradient Map": {
+    "display_name": "LayerStyle: 그라디언트 지도",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "start_color": {
+        "name": "시작 색상"
+      },
+      "mid_color": {
+        "name": "중간 색상"
+      },
+      "end_color": {
+        "name": "끝 색상"
+      },
+      "mid_point": {
+        "name": "중간 지점"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay": {
+    "display_name": "LayerStyle: 그라디언트 오버레이",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "start_color": {
+        "name": "시작 색상"
+      },
+      "start_alpha": {
+        "name": "시작 알파"
+      },
+      "end_color": {
+        "name": "끝 색상"
+      },
+      "end_alpha": {
+        "name": "끝 알파"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay V2": {
+    "display_name": "LayerStyle: 그라디언트 오버레이 V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "start_color": {
+        "name": "시작 색상"
+      },
+      "start_alpha": {
+        "name": "시작 알파"
+      },
+      "end_color": {
+        "name": "끝 색상"
+      },
+      "end_alpha": {
+        "name": "끝 알파"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerFilter: HalfTone": {
+    "display_name": "LayerFilter: 하프톤",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "dot_size": {
+        "name": "점 크기"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "shape": {
+        "name": "모양"
+      },
+      "dot_color": {
+        "name": "점 색상"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerFilter: HDREffects": {
+    "display_name": "LayerFilter: HDR 특수 효과",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "hdr_intensity": {
+        "name": "HDR 강도"
+      },
+      "shadow_intensity": {
+        "name": "그림자 강도"
+      },
+      "highlight_intensity": {
+        "name": "하이라이트 강도"
+      },
+      "gamma_intensity": {
+        "name": "Gamma 강도"
+      },
+      "contrast": {
+        "name": "대비"
+      },
+      "enhance_color": {
+        "name": "색상 강화"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: HLFrequencyDetailRestore": {
+    "display_name": "LayerUtility: H/L 주파수 디테일 복원",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "detail_image": {
+        "name": "디테일 이미지"
+      },
+      "keep_high_freq": {
+        "name": "고주파 유지"
+      },
+      "erase_low_freq": {
+        "name": "저주파 제거"
+      },
+      "mask_blur": {
+        "name": "마스크 흐림"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ICMask": {
+    "display_name": "LayerUtility: IC 마스크",
+    "inputs": {
+      "first_image": {
+        "name": "첫 번째 이미지"
+      },
+      "patch_mode": {
+        "name": "패치 모드"
+      },
+      "output_length": {
+        "name": "출력 길이"
+      },
+      "patch_color": {
+        "name": "패치 색상"
+      },
+      "first_mask": {
+        "name": "첫 번째 마스크"
+      },
+      "second_image": {
+        "name": "두 번째 이미지"
+      },
+      "second_mask": {
+        "name": "두 번째 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "icmask_data": {
+        "name": "IC 마스크 데이터"
+      }
+    }
+  },
+  "LayerUtility: ICMaskCropBack": {
+    "display_name": "LayerUtility: IC 마스크 자르기 복원",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "icmask_data": {
+        "name": "IC 마스크 데이터"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend": {
+    "display_name": "LayerUtility: 혼합",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance": {
+    "display_name": "LayerUtility: 혼합(고급)",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "x_percent": {
+        "name": "X 비율"
+      },
+      "y_percent": {
+        "name": "Y 비율"
+      },
+      "mirror": {
+        "name": "미러"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "rotate": {
+        "name": "회전"
+      },
+      "transform_method": {
+        "name": "변환 방법"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V2": {
+    "display_name": "LayerUtility: 혼합(고급) V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "x_percent": {
+        "name": "X 비율"
+      },
+      "y_percent": {
+        "name": "Y 비율"
+      },
+      "mirror": {
+        "name": "미러"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "rotate": {
+        "name": "회전"
+      },
+      "transform_method": {
+        "name": "변환 방법"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V3": {
+    "display_name": "LayerUtility: 혼합(고급) V3",
+    "inputs": {
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "x_percent": {
+        "name": "X 비율"
+      },
+      "y_percent": {
+        "name": "Y 비율"
+      },
+      "mirror": {
+        "name": "미러"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "rotate": {
+        "name": "회전"
+      },
+      "transform_method": {
+        "name": "변환 방법"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      },
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend V2": {
+    "display_name": "LayerUtility: 혼합 V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelMerge": {
+    "display_name": "LayerUtility: 채널 병합",
+    "inputs": {
+      "channel_1": {
+        "name": "채널_1"
+      },
+      "channel_2": {
+        "name": "채널_2"
+      },
+      "channel_3": {
+        "name": "채널_3"
+      },
+      "mode": {
+        "name": "모드"
+      },
+      "channel_4": {
+        "name": "채널_4"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelSplit": {
+    "display_name": "LayerUtility: 채널 분할",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mode": {
+        "name": "모드"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageCombineAlpha": {
+    "display_name": "LayerUtility: 이미지 알파 병합",
+    "inputs": {
+      "RGB_image": {
+        "name": "RGB 이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageHub": {
+    "display_name": "LayerUtility: 이미지 허브",
+    "inputs": {
+      "output": {
+        "name": "출력"
+      },
+      "random_output": {
+        "name": "랜덤 출력"
+      },
+      "input1_image": {
+        "name": "입력1 이미지"
+      },
+      "input1_mask": {
+        "name": "입력1 마스크"
+      },
+      "input2_image": {
+        "name": "입력2 이미지"
+      },
+      "input2_mask": {
+        "name": "입력2 마스크"
+      },
+      "input3_image": {
+        "name": "입력3 이미지"
+      },
+      "input3_mask": {
+        "name": "입력3 마스크"
+      },
+      "input4_image": {
+        "name": "입력4 이미지"
+      },
+      "input4_mask": {
+        "name": "입력4 마스크"
+      },
+      "input5_image": {
+        "name": "입력5 이미지"
+      },
+      "input5_mask": {
+        "name": "입력5 마스크"
+      },
+      "input6_image": {
+        "name": "입력6 이미지"
+      },
+      "input6_mask": {
+        "name": "입력6 마스크"
+      },
+      "input7_image": {
+        "name": "입력7 이미지"
+      },
+      "input7_mask": {
+        "name": "입력7 마스크"
+      },
+      "input8_image": {
+        "name": "입력8 이미지"
+      },
+      "input8_mask": {
+        "name": "입력8 마스크"
+      },
+      "input9_image": {
+        "name": "입력9 이미지"
+      },
+      "input9_mask": {
+        "name": "입력9 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAs": {
+    "display_name": "LayerUtility: 참조 확대/축소",
+    "inputs": {
+      "scale_as": {
+        "name": "크기 기준"
+      },
+      "fit": {
+        "name": "맞춤"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAsV2": {
+    "display_name": "LayerUtility: 참조 확대/축소 V2",
+    "inputs": {
+      "scale_as": {
+        "name": "크기 기준"
+      },
+      "fit": {
+        "name": "맞춤"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: ImageOpacity": {
+    "display_name": "LayerUtility: 이미지 불투명도",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ImageReel": {
+    "display_name": "LayerUtility: 이미지 릴",
+    "inputs": {
+      "image1": {
+        "name": "이미지_1"
+      },
+      "image1_text": {
+        "name": "이미지_1 텍스트"
+      },
+      "image2_text": {
+        "name": "이미지_2 텍스트"
+      },
+      "image3_text": {
+        "name": "이미지_3 텍스트"
+      },
+      "image4_text": {
+        "name": "이미지_4 텍스트"
+      },
+      "reel_height": {
+        "name": "릴 높이"
+      },
+      "border": {
+        "name": "테두리"
+      },
+      "image2": {
+        "name": "이미지_2"
+      },
+      "image3": {
+        "name": "이미지_3"
+      },
+      "image4": {
+        "name": "이미지_4"
+      },
+      "image": {
+        "name": "이미지"
+      },
+      "target_height": {
+        "name": "목표 높이"
+      },
+      "image_list": {
+        "name": "이미지 목록"
+      }
+    },
+    "outputs": {
+      "reel": {
+        "name": "릴"
+      }
+    }
+  },
+  "LayerUtility: ImageReelComposit": {
+    "display_name": "LayerUtility: 이미지 릴 합성",
+    "inputs": {
+      "reel_1": {
+        "name": "릴_1"
+      },
+      "font_file": {
+        "name": "폰트 파일"
+      },
+      "font_size": {
+        "name": "폰트 크기"
+      },
+      "border": {
+        "name": "테두리"
+      },
+      "color_theme": {
+        "name": "색상 테마"
+      },
+      "reel_2": {
+        "name": "릴_2"
+      },
+      "reel_3": {
+        "name": "릴_3"
+      },
+      "reel_4": {
+        "name": "릴_4"
+      },
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "image": {
+        "name": "이미지"
+      },
+      "text_image": {
+        "name": "텍스트 이미지"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "shadow_size": {
+        "name": "그림자 크기"
+      },
+      "text_color": {
+        "name": "텍스트 색상"
+      },
+      "reel": {
+        "name": "릴"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageRemoveAlpha": {
+    "display_name": "LayerUtility: 이미지 알파 제거",
+    "inputs": {
+      "RGBA_image": {
+        "name": "RGBA 이미지"
+      },
+      "fill_background": {
+        "name": "배경 채우기"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio": {
+    "display_name": "LayerUtility: 가로세로 비율에 따른 확대/축소",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "proportional_width": {
+        "name": "비례 너비"
+      },
+      "proportional_height": {
+        "name": "비례 높이"
+      },
+      "fit": {
+        "name": "맞춤"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "round_to_multiple": {
+        "name": "배수로 반올림"
+      },
+      "scale_to_longest_side": {
+        "name": "가장 긴 면에 맞춤"
+      },
+      "longest_side": {
+        "name": "가장 긴 면"
+      },
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio V2": {
+    "display_name": "LayerUtility: 가로세로 비율에 따른 확대/축소 V2",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "proportional_width": {
+        "name": "비례 너비"
+      },
+      "proportional_height": {
+        "name": "비례 높이"
+      },
+      "fit": {
+        "name": "맞춤"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "round_to_multiple": {
+        "name": "배수로 반올림"
+      },
+      "scale_to_side": {
+        "name": "면에 맞춤"
+      },
+      "scale_to_length": {
+        "name": "길이에 맞춤"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore": {
+    "display_name": "LayerUtility: 확대/축소 복원",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "scale_by_longest_side": {
+        "name": "가장 긴 면에 맞춤"
+      },
+      "longest_side": {
+        "name": "가장 긴 면"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "original_size": {
+        "name": "원본 크기"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore V2": {
+    "display_name": "LayerUtility: 확대/축소 복원 V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "scale_by": {
+        "name": "기준으로 확대/축소"
+      },
+      "scale_by_length": {
+        "name": "길이에 맞춤"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "original_size": {
+        "name": "원본 크기"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "box": {
+        "name": "상자"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerUtility: ImageShift": {
+    "display_name": "LayerUtility: 이미지 이동",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "shift_x": {
+        "name": "X 이동"
+      },
+      "shift_y": {
+        "name": "Y 이동"
+      },
+      "cyclic": {
+        "name": "순환"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "border_mask_width": {
+        "name": "테두리 마스크 너비"
+      },
+      "border_mask_blur": {
+        "name": "테두리 마스크 흐림"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: ImageTaggerSave": {
+    "display_name": "LayerUtility: 이미지 태거 저장",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "tag_text": {
+        "name": "태그 텍스트"
+      },
+      "custom_path": {
+        "name": "사용자 정의 경로"
+      },
+      "filename_prefix": {
+        "name": "파일명 접두사"
+      },
+      "timestamp": {
+        "name": "타임스탬프"
+      },
+      "format": {
+        "name": "형식"
+      },
+      "quality": {
+        "name": "품질"
+      },
+      "preview": {
+        "name": "미리보기"
+      },
+      "prompt": {
+        "name": "프롬프트"
+      },
+      "extra_pnginfo": {
+        "name": "추가 PNG 정보"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: ImageToMask": {
+    "display_name": "LayerMask: 이미지를 마스크로",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "channel": {
+        "name": "채널"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "gray_point": {
+        "name": "회색 지점"
+      },
+      "invert_output_mask": {
+        "name": "출력 마스크 반전"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow": {
+    "display_name": "LayerStyle: 내부 발광",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "glow_range": {
+        "name": "발광 범위"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "light_color": {
+        "name": "빛 색상"
+      },
+      "glow_color": {
+        "name": "발광 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow V2": {
+    "display_name": "LayerStyle: 내부 발광 V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "glow_range": {
+        "name": "발광 범위"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "light_color": {
+        "name": "빛 색상"
+      },
+      "glow_color": {
+        "name": "발광 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow": {
+    "display_name": "LayerStyle: 내부 그림자",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "distance_x": {
+        "name": "X 거리"
+      },
+      "distance_y": {
+        "name": "Y 거리"
+      },
+      "grow": {
+        "name": "확장"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "shadow_color": {
+        "name": "그림자 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow V2": {
+    "display_name": "LayerStyle: 내부 그림자 V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "distance_x": {
+        "name": "X 거리"
+      },
+      "distance_y": {
+        "name": "Y 거리"
+      },
+      "grow": {
+        "name": "확장"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "shadow_color": {
+        "name": "그림자 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: LayerImageTransform": {
+    "display_name": "LayerUtility: LayerImageTransform",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "미러"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "rotate": {
+        "name": "회전"
+      },
+      "transform_method": {
+        "name": "변환 방법"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: LayerMaskTransform": {
+    "display_name": "LayerUtility: LayerMaskTransform",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "미러"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "aspect_ratio": {
+        "name": "가로세로 비율"
+      },
+      "rotate": {
+        "name": "회전"
+      },
+      "transform_method": {
+        "name": "변환 방법"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: LightLeak": {
+    "display_name": "LayerFilter: LightLeak",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "light": {
+        "name": "light"
+      },
+      "corner": {
+        "name": "corner"
+      },
+      "hue": {
+        "name": "hue"
+      },
+      "saturation": {
+        "name": "채도"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerMask: MaskBoxDetect": {
+    "display_name": "LayerMask: MaskBoxDetect",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "detect": {
+        "name": "감지"
+      },
+      "x_adjust": {
+        "name": "x_adjust"
+      },
+      "y_adjust": {
+        "name": "y_adjust"
+      },
+      "scale_adjust": {
+        "name": "scale_adjust"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "float": {
+        "name": "실수"
+      },
+      "int": {
+        "name": "정수"
+      }
+    }
+  },
+  "LayerMask: MaskByColor": {
+    "display_name": "LayerMask: Mask by Color",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "color": {
+        "name": "색상"
+      },
+      "color_in_HEX": {
+        "name": "color_in_HEX"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeShrink": {
+    "display_name": "LayerMask: MaskEdgeShrink",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "shrink_level": {
+        "name": "shrink_level"
+      },
+      "soft": {
+        "name": "soft"
+      },
+      "edge_shrink": {
+        "name": "edge_shrink"
+      },
+      "edge_reserve": {
+        "name": "edge_reserve"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail": {
+    "display_name": "LayerMask: MaskEdgeUltraDetail",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "detail_range": {
+        "name": "detail_range"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail V2": {
+    "display_name": "LayerMask: MaskEdgeUltraDetail V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      },
+      "method": {
+        "name": "방법"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "fix_gap": {
+        "name": "fix_gap"
+      },
+      "fix_threshold": {
+        "name": "fix_threshold"
+      },
+      "edge_erode": {
+        "name": "edge_erode"
+      },
+      "edte_dilate": {
+        "name": "edte_dilate"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskGradient": {
+    "display_name": "LayerMask: MaskGradient",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "gradient_side": {
+        "name": "그라디언트 방향"
+      },
+      "gradient_scale": {
+        "name": "그라디언트 크기"
+      },
+      "gradient_offset": {
+        "name": "그라디언트 오프셋"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskGrain": {
+    "display_name": "LayerMask: Mask Grain",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "grain": {
+        "name": "grain"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskGrow": {
+    "display_name": "LayerMask: MaskGrow",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "grow": {
+        "name": "확장"
+      },
+      "blur": {
+        "name": "흐림"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskInvert": {
+    "display_name": "LayerMask: MaskInvert",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskMotionBlur": {
+    "display_name": "LayerMask: MaskMotionBlur",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "angle": {
+        "name": "각도"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: MaskPreview": {
+    "display_name": "LayerMask: MaskPreview",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: MaskStroke": {
+    "display_name": "LayerMask: MaskStroke",
+    "inputs": {
+      "mask": {
+        "name": "마스크"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "흐림"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: MotionBlur": {
+    "display_name": "LayerFilter: MotionBlur",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "angle": {
+        "name": "각도"
+      },
+      "blur": {
+        "name": "흐림"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow": {
+    "display_name": "LayerStyle: OuterGlow",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "glow_range": {
+        "name": "발광 범위"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "light_color": {
+        "name": "빛 색상"
+      },
+      "glow_color": {
+        "name": "발광 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow V2": {
+    "display_name": "LayerStyle: OuterGlow V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "brightness": {
+        "name": "밝기"
+      },
+      "glow_range": {
+        "name": "발광 범위"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "light_color": {
+        "name": "빛 색상"
+      },
+      "glow_color": {
+        "name": "발광 색상"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerMask: PixelSpread": {
+    "display_name": "LayerMask: PixelSpread",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "mask_grow": {
+        "name": "mask_grow"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: PrintInfo": {
+    "display_name": "LayerUtility: PrintInfo",
+    "inputs": {
+      "anything": {
+        "name": "anything"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: PurgeVRAM": {
+    "display_name": "LayerUtility: Purge VRAM",
+    "inputs": {
+      "anything": {
+        "name": "anything"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_models"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerUtility: PurgeVRAM V2": {
+    "display_name": "LayerUtility: Purge VRAM V2",
+    "inputs": {
+      "anything": {
+        "name": "anything"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_models"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerUtility: RandomGenerator": {
+    "display_name": "LayerUtility: Random Generator",
+    "inputs": {
+      "min_value": {
+        "name": "min_value"
+      },
+      "max_value": {
+        "name": "max_value"
+      },
+      "float_decimal_places": {
+        "name": "float_decimal_places"
+      },
+      "fix_seed": {
+        "name": "fix_seed"
+      },
+      "image": {
+        "name": "이미지"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      },
+      "float": {
+        "name": "실수"
+      },
+      "boolean": {
+        "name": "불"
+      }
+    }
+  },
+  "LayerUtility: RandomGeneratorV2": {
+    "display_name": "LayerUtility: Random Generator V2",
+    "inputs": {
+      "min_value": {
+        "name": "min_value"
+      },
+      "max_value": {
+        "name": "max_value"
+      },
+      "least": {
+        "name": "least"
+      },
+      "float_decimal_places": {
+        "name": "float_decimal_places"
+      },
+      "seed": {
+        "name": "시드"
+      },
+      "image": {
+        "name": "이미지"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "정수"
+      },
+      "float": {
+        "name": "실수"
+      },
+      "boolean": {
+        "name": "불"
+      }
+    }
+  },
+  "LayerUtility: RestoreCropBox": {
+    "display_name": "LayerUtility: RestoreCropBox",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "croped_image": {
+        "name": "croped_image"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "crop_box": {
+        "name": "자르기 상자"
+      },
+      "croped_mask": {
+        "name": "croped_mask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: RemBgUltra": {
+    "display_name": "LayerMask: RemBgUltra",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "detail_range": {
+        "name": "detail_range"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: RmBgUltra V2": {
+    "display_name": "LayerMask: RmBgUltra V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: RoundedRectangle": {
+    "display_name": "LayerUtility: RoundedRectangle",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "rounded_rect_radius": {
+        "name": "rounded_rect_radius"
+      },
+      "anti_aliasing": {
+        "name": "안티앨리어싱"
+      },
+      "top": {
+        "name": "상단"
+      },
+      "bottom": {
+        "name": "하단"
+      },
+      "left": {
+        "name": "왼쪽"
+      },
+      "right": {
+        "name": "오른쪽"
+      },
+      "detect": {
+        "name": "감지"
+      },
+      "obj_ext_top": {
+        "name": "obj_ext_top"
+      },
+      "obj_ext_bottom": {
+        "name": "obj_ext_bottom"
+      },
+      "obj_ext_left": {
+        "name": "obj_ext_left"
+      },
+      "obj_ext_right": {
+        "name": "obj_ext_right"
+      },
+      "object_mask": {
+        "name": "object_mask"
+      },
+      "crop_box": {
+        "name": "자르기 상자"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: SegformerB2ClothesUltra": {
+    "display_name": "LayerMask: Segformer B2 Clothes Ultra",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "face": {
+        "name": "face"
+      },
+      "hair": {
+        "name": "hair"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "sunglass": {
+        "name": "sunglass"
+      },
+      "left_arm": {
+        "name": "left_arm"
+      },
+      "right_arm": {
+        "name": "right_arm"
+      },
+      "left_leg": {
+        "name": "left_leg"
+      },
+      "right_leg": {
+        "name": "right_leg"
+      },
+      "upper_clothes": {
+        "name": "upper_clothes"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "shoe": {
+        "name": "shoe"
+      },
+      "bag": {
+        "name": "bag"
+      },
+      "scarf": {
+        "name": "scarf"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: SegformerClothesPipelineLoader": {
+    "display_name": "LayerMask: Segformer Clothes Pipeline",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "face": {
+        "name": "face"
+      },
+      "hair": {
+        "name": "hair"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "sunglass": {
+        "name": "sunglass"
+      },
+      "left_arm": {
+        "name": "left_arm"
+      },
+      "right_arm": {
+        "name": "right_arm"
+      },
+      "left_leg": {
+        "name": "left_leg"
+      },
+      "right_leg": {
+        "name": "right_leg"
+      },
+      "left_shoe": {
+        "name": "left_shoe"
+      },
+      "right_shoe": {
+        "name": "right_shoe"
+      },
+      "upper_clothes": {
+        "name": "upper_clothes"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "bag": {
+        "name": "bag"
+      },
+      "scarf": {
+        "name": "scarf"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "segpipeline"
+      }
+    }
+  },
+  "LayerMask: SegformerFashionPipelineLoader": {
+    "display_name": "LayerMask: Segformer Fashion Pipeline",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "shirt": {
+        "name": "shirt"
+      },
+      "top": {
+        "name": "상단"
+      },
+      "sweater": {
+        "name": "sweater"
+      },
+      "cardigan": {
+        "name": "cardigan"
+      },
+      "jacket": {
+        "name": "jacket"
+      },
+      "vest": {
+        "name": "vest"
+      },
+      "pants": {
+        "name": "pants"
+      },
+      "shorts": {
+        "name": "shorts"
+      },
+      "skirt": {
+        "name": "skirt"
+      },
+      "coat": {
+        "name": "coat"
+      },
+      "dress": {
+        "name": "dress"
+      },
+      "jumpsuit": {
+        "name": "jumpsuit"
+      },
+      "cape": {
+        "name": "cape"
+      },
+      "glasses": {
+        "name": "glasses"
+      },
+      "hat": {
+        "name": "hat"
+      },
+      "hairaccessory": {
+        "name": "hairaccessory"
+      },
+      "tie": {
+        "name": "tie"
+      },
+      "glove": {
+        "name": "glove"
+      },
+      "watch": {
+        "name": "watch"
+      },
+      "belt": {
+        "name": "belt"
+      },
+      "legwarmer": {
+        "name": "legwarmer"
+      },
+      "tights": {
+        "name": "tights"
+      },
+      "sock": {
+        "name": "sock"
+      },
+      "shoe": {
+        "name": "shoe"
+      },
+      "bagwallet": {
+        "name": "bagwallet"
+      },
+      "scarf": {
+        "name": "scarf"
+      },
+      "umbrella": {
+        "name": "umbrella"
+      },
+      "hood": {
+        "name": "hood"
+      },
+      "collar": {
+        "name": "collar"
+      },
+      "lapel": {
+        "name": "lapel"
+      },
+      "epaulette": {
+        "name": "epaulette"
+      },
+      "sleeve": {
+        "name": "sleeve"
+      },
+      "pocket": {
+        "name": "pocket"
+      },
+      "neckline": {
+        "name": "neckline"
+      },
+      "buckle": {
+        "name": "buckle"
+      },
+      "zipper": {
+        "name": "zipper"
+      },
+      "applique": {
+        "name": "applique"
+      },
+      "bead": {
+        "name": "bead"
+      },
+      "bow": {
+        "name": "bow"
+      },
+      "flower": {
+        "name": "flower"
+      },
+      "fringe": {
+        "name": "fringe"
+      },
+      "ribbon": {
+        "name": "ribbon"
+      },
+      "rivet": {
+        "name": "rivet"
+      },
+      "ruffle": {
+        "name": "ruffle"
+      },
+      "sequin": {
+        "name": "sequin"
+      },
+      "tassel": {
+        "name": "tassel"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "segpipeline"
+      }
+    }
+  },
+  "LayerMask: SegformerUltraV2": {
+    "display_name": "LayerMask: Segformer Ultra V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "segformer_pipeline": {
+        "name": "segformer_pipeline"
+      },
+      "detail_method": {
+        "name": "detail_method"
+      },
+      "detail_erode": {
+        "name": "detail_erode"
+      },
+      "detail_dilate": {
+        "name": "detail_dilate"
+      },
+      "black_point": {
+        "name": "검은색 지점"
+      },
+      "white_point": {
+        "name": "흰색 지점"
+      },
+      "process_detail": {
+        "name": "process_detail"
+      },
+      "device": {
+        "name": "device"
+      },
+      "max_megapixels": {
+        "name": "max_megapixels"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: Shadow & Highlight Mask": {
+    "display_name": "LayerMask: Shadow & Highlight Mask",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "shadow_level_offset": {
+        "name": "그림자 단계 오프셋"
+      },
+      "shadow_range": {
+        "name": "그림자 범위"
+      },
+      "highlight_level_offset": {
+        "name": "하이라이트 단계 오프셋"
+      },
+      "highlight_range": {
+        "name": "하이라이트 범위"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerMask: ShadowHighlightMaskV2": {
+    "display_name": "LayerMask: Shadow Highlight Mask V2",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "shadow_level_offset": {
+        "name": "그림자 단계 오프셋"
+      },
+      "shadow_range": {
+        "name": "그림자 범위"
+      },
+      "highlight_level_offset": {
+        "name": "하이라이트 단계 오프셋"
+      },
+      "highlight_range": {
+        "name": "하이라이트 범위"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: Sharp & Soft": {
+    "display_name": "LayerFilter: Sharp & Soft",
+    "inputs": {
+      "images": {
+        "name": "이미지"
+      },
+      "enhance": {
+        "name": "enhance"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: SimpleTextImage": {
+    "display_name": "LayerUtility: SimpleTextImage",
+    "inputs": {
+      "text": {
+        "name": "텍스트"
+      },
+      "font_file": {
+        "name": "폰트 파일"
+      },
+      "align": {
+        "name": "align"
+      },
+      "char_per_line": {
+        "name": "char_per_line"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "font_size": {
+        "name": "폰트 크기"
+      },
+      "text_color": {
+        "name": "텍스트 색상"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "x_offset": {
+        "name": "x_offset"
+      },
+      "y_offset": {
+        "name": "y_offset"
+      },
+      "width": {
+        "name": "너비"
+      },
+      "height": {
+        "name": "높이"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: SkinBeauty": {
+    "display_name": "LayerFilter: SkinBeauty",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "smooth": {
+        "name": "smooth"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerFilter: SoftLight": {
+    "display_name": "LayerFilter: SoftLight",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "soft": {
+        "name": "soft"
+      },
+      "threshold": {
+        "name": "threshold"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: Stroke": {
+    "display_name": "LayerStyle: Stroke",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerStyle: Stroke V2": {
+    "display_name": "LayerStyle: Stroke V2",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "invert_mask": {
+        "name": "마스크 반전"
+      },
+      "blend_mode": {
+        "name": "혼합 모드"
+      },
+      "opacity": {
+        "name": "불투명도"
+      },
+      "stroke_grow": {
+        "name": "stroke_grow"
+      },
+      "stroke_width": {
+        "name": "stroke_width"
+      },
+      "blur": {
+        "name": "흐림"
+      },
+      "stroke_color": {
+        "name": "stroke_color"
+      },
+      "layer_mask": {
+        "name": "레이어 마스크"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: TextImage": {
+    "display_name": "LayerUtility: TextImage",
+    "inputs": {
+      "text": {
+        "name": "텍스트"
+      },
+      "font_file": {
+        "name": "폰트 파일"
+      },
+      "spacing": {
+        "name": "spacing"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "horizontal_border": {
+        "name": "horizontal_border"
+      },
+      "vertical_border": {
+        "name": "vertical_border"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "variation_range": {
+        "name": "variation_range"
+      },
+      "variation_seed": {
+        "name": "variation_seed"
+      },
+      "layout": {
+        "name": "layout"
+      },
+      "width": {
+        "name": "너비"
+      },
+      "height": {
+        "name": "높이"
+      },
+      "text_color": {
+        "name": "텍스트 색상"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: TextImage V2": {
+    "display_name": "LayerUtility: TextImage V2",
+    "inputs": {
+      "text": {
+        "name": "텍스트"
+      },
+      "font_file": {
+        "name": "폰트 파일"
+      },
+      "spacing": {
+        "name": "spacing"
+      },
+      "leading": {
+        "name": "leading"
+      },
+      "horizontal_border": {
+        "name": "horizontal_border"
+      },
+      "vertical_border": {
+        "name": "vertical_border"
+      },
+      "scale": {
+        "name": "확대/축소"
+      },
+      "variation_range": {
+        "name": "variation_range"
+      },
+      "variation_seed": {
+        "name": "variation_seed"
+      },
+      "layout": {
+        "name": "layout"
+      },
+      "width": {
+        "name": "너비"
+      },
+      "height": {
+        "name": "높이"
+      },
+      "text_color": {
+        "name": "텍스트 색상"
+      },
+      "background_color": {
+        "name": "배경 색상"
+      },
+      "size_as": {
+        "name": "크기 기준"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "mask": {
+        "name": "마스크"
+      }
+    }
+  },
+  "LayerUtility: TextJoin": {
+    "display_name": "LayerUtility: TextJoin",
+    "inputs": {
+      "text_1": {
+        "name": "text_1"
+      },
+      "text_2": {
+        "name": "text_2"
+      },
+      "text_3": {
+        "name": "text_3"
+      },
+      "text_4": {
+        "name": "text_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: TextJoinV2": {
+    "display_name": "LayerUtility: TextJoinV2",
+    "inputs": {
+      "text_1": {
+        "name": "text_1"
+      },
+      "delimiter": {
+        "name": "delimiter"
+      },
+      "text_2": {
+        "name": "text_2"
+      },
+      "text_3": {
+        "name": "text_3"
+      },
+      "text_4": {
+        "name": "text_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: TextPreseter": {
+    "display_name": "LayerUtility: Text Preseter",
+    "inputs": {
+      "title": {
+        "name": "title"
+      },
+      "content": {
+        "name": "content"
+      },
+      "text_preset": {
+        "name": "text_preset"
+      }
+    },
+    "outputs": {
+      "ls_text_preset": {
+        "name": "ls_text_preset"
+      }
+    }
+  },
+  "LayerUtility: ChoiceTextPreset": {
+    "display_name": "LayerUtility: Choice Text Preset",
+    "inputs": {
+      "text_preset": {
+        "name": "text_preset"
+      },
+      "choice_title": {
+        "name": "choice_title"
+      },
+      "random_choice": {
+        "name": "random_choice"
+      },
+      "default": {
+        "name": "default"
+      },
+      "seed": {
+        "name": "시드"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerUtility: LoadVQAModel": {
+    "display_name": "LayerUtility: Load VQA Model",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "precision": {
+        "name": "precision"
+      },
+      "device": {
+        "name": "device"
+      }
+    },
+    "outputs": {
+      "vqa_model": {
+        "name": "vqa_model"
+      }
+    }
+  },
+  "LayerUtility: VQAPrompt": {
+    "display_name": "LayerUtility: VQA Prompt",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "vqa_model": {
+        "name": "vqa_model"
+      },
+      "question": {
+        "name": "question"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "문자열"
+      }
+    }
+  },
+  "LayerFilter: WaterColor": {
+    "display_name": "LayerFilter: WaterColor",
+    "inputs": {
+      "image": {
+        "name": "이미지"
+      },
+      "line_density": {
+        "name": "line_density"
+      },
+      "opacity": {
+        "name": "불투명도"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "이미지"
+      }
+    }
+  },
+  "LayerUtility: XY to Percent": {
+    "display_name": "LayerUtility: XY to Percent",
+    "inputs": {
+      "background_image": {
+        "name": "배경 이미지"
+      },
+      "layer_image": {
+        "name": "레이어 이미지"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "실수"
+      }
+    }
+  }
+}

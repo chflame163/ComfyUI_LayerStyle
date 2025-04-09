@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Add multiple languages and increase support for 5 languages: Chinese, French, Japanese, Korean and Russian. This feature producted by [ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation), thank you to the original author.
 * Commit [HalfTone](#HalfTone) node, use for halftone processing of images.
 * Add QuarkNetdisk model download link.
 * Support numpy 2.x dependency package.

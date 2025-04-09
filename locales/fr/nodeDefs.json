@@ -1,0 +1,4790 @@
+{
+  "LayerFilter: AddGrain": {
+    "display_name": "LayerFilter: Bruit granulaire",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "grain_power": {
+        "name": "intensité_grain"
+      },
+      "grain_scale": {
+        "name": "échelle_grain"
+      },
+      "grain_sat": {
+        "name": "saturation_grain"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: AnyRerouter": {
+    "display_name": "LayerUtility: Réacheminement universel",
+    "inputs": {
+      "any": {
+        "name": "any"
+      }
+    },
+    "outputs": {
+      "anything": {
+        "name": "anything"
+      }
+    }
+  },
+  "LayerUtility: BatchSelector": {
+    "display_name": "LayerUtility: Sélecteur de lot",
+    "inputs": {
+      "select": {
+        "name": "sélectionner"
+      },
+      "images": {
+        "name": "images"
+      },
+      "masks": {
+        "name": "masques"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: BlendIf Mask": {
+    "display_name": "LayerMask: Masque BlendIf",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_if": {
+        "name": "blend_if"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "black_range": {
+        "name": "plage_noire"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "white_range": {
+        "name": "plage_blanche"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: ChannelShake": {
+    "display_name": "LayerFilter: Décalage de canaux",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "distance": {
+        "name": "distance"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "mode": {
+        "name": "mode"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: CheckMask": {
+    "display_name": "LayerUtility: Vérification de masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "area_percent": {
+        "name": "pourcentage_surface"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "booléen"
+      }
+    }
+  },
+  "LayerUtility: CheckMaskV2": {
+    "display_name": "LayerUtility: Vérification de masque V2",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "area_percent": {
+        "name": "pourcentage_surface"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "booléen"
+      }
+    }
+  },
+  "LayerColor: ColorAdapter": {
+    "display_name": "LayerColor: Adaptateur chromatique",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "color_ref_image": {
+        "name": "image_référence_couleur"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: AutoAdjust": {
+    "display_name": "LayerColor: Réglage auto",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "strength": {
+        "name": "intensité"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "contrast": {
+        "name": "contraste"
+      },
+      "saturation": {
+        "name": "saturation"
+      },
+      "red": {
+        "name": "rouge"
+      },
+      "green": {
+        "name": "vert"
+      },
+      "blue": {
+        "name": "bleu"
+      },
+      "balance": {
+        "name": "balance"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: AutoAdjustV2": {
+    "display_name": "LayerColor: Réglage auto V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "strength": {
+        "name": "intensité"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "contrast": {
+        "name": "contraste"
+      },
+      "saturation": {
+        "name": "saturation"
+      },
+      "red": {
+        "name": "rouge"
+      },
+      "green": {
+        "name": "vert"
+      },
+      "blue": {
+        "name": "bleu"
+      },
+      "mode": {
+        "name": "mode"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "balance": {
+        "name": "balance"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: AutoBrightness": {
+    "display_name": "LayerColor: Luminosité auto",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "strength": {
+        "name": "intensité"
+      },
+      "saturation": {
+        "name": "saturation"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: Brightness & Contrast": {
+    "display_name": "LayerColor: Luminosité/Contraste",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "contrast": {
+        "name": "contraste"
+      },
+      "saturation": {
+        "name": "saturation"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: BrightnessContrastV2": {
+    "display_name": "LayerColor: Luminosité/Contraste V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "contrast": {
+        "name": "contraste"
+      },
+      "saturation": {
+        "name": "saturation"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: ColorBalance": {
+    "display_name": "LayerColor: Balance des couleurs",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "cyan_red": {
+        "name": "cyan_rouge"
+      },
+      "magenta_green": {
+        "name": "magenta_vert"
+      },
+      "yellow_blue": {
+        "name": "jaune_bleu"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: ColorTemperature": {
+    "display_name": "LayerColor: Température couleur",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "temperature": {
+        "name": "température"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: Exposure": {
+    "display_name": "LayerColor: Exposition",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "exposure": {
+        "name": "exposition"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: Gamma": {
+    "display_name": "LayerColor: Gamma",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "gamma": {
+        "name": "gamma"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: HSV": {
+    "display_name": "LayerColor: HSV",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "H": {
+        "name": "H"
+      },
+      "S": {
+        "name": "S"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: LAB": {
+    "display_name": "LayerColor: LAB",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "L": {
+        "name": "L"
+      },
+      "A": {
+        "name": "A"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: Levels": {
+    "display_name": "LayerColor: Niveaux",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "channel": {
+        "name": "canal"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "gray_point": {
+        "name": "point_gris"
+      },
+      "output_black_point": {
+        "name": "point_noir_sortie"
+      },
+      "output_white_point": {
+        "name": "point_blanc_sortie"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: LUT Apply": {
+    "display_name": "LayerColor: Application LUT",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "LUT": {
+        "name": "LUT"
+      },
+      "color_space": {
+        "name": "espace_couleur"
+      },
+      "strength": {
+        "name": "intensité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: RGB": {
+    "display_name": "LayerColor: RGB",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "R": {
+        "name": "R"
+      },
+      "G": {
+        "name": "G"
+      },
+      "B": {
+        "name": "B"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: Color of Shadow & Highlight": {
+    "display_name": "LayerColor: Ombres & Reflets",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "shadow_brightness": {
+        "name": "luminosité_ombre"
+      },
+      "shadow_saturation": {
+        "name": "saturation_ombre"
+      },
+      "shadow_hue": {
+        "name": "teinte_ombre"
+      },
+      "shadow_level_offset": {
+        "name": "décalage_niveau_ombre"
+      },
+      "shadow_range": {
+        "name": "plage_ombre"
+      },
+      "highlight_brightness": {
+        "name": "luminosité_reflet"
+      },
+      "highlight_saturation": {
+        "name": "saturation_reflet"
+      },
+      "highlight_hue": {
+        "name": "teinte_reflet"
+      },
+      "highlight_level_offset": {
+        "name": "décalage_niveau_reflet"
+      },
+      "highlight_range": {
+        "name": "plage_reflet"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: ColorofShadowHighlightV2": {
+    "display_name": "LayerColor: Ombres & Reflets V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "shadow_brightness": {
+        "name": "luminosité_ombre"
+      },
+      "shadow_saturation": {
+        "name": "saturation_ombre"
+      },
+      "shadow_hue": {
+        "name": "teinte_ombre"
+      },
+      "shadow_level_offset": {
+        "name": "décalage_niveau_ombre"
+      },
+      "shadow_range": {
+        "name": "plage_ombre"
+      },
+      "highlight_brightness": {
+        "name": "luminosité_reflet"
+      },
+      "highlight_saturation": {
+        "name": "saturation_reflet"
+      },
+      "highlight_hue": {
+        "name": "teinte_reflet"
+      },
+      "highlight_level_offset": {
+        "name": "décalage_niveau_reflet"
+      },
+      "highlight_range": {
+        "name": "plage_reflet"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerColor: YUV": {
+    "display_name": "LayerColor: YUV",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "Y": {
+        "name": "Y"
+      },
+      "U": {
+        "name": "U"
+      },
+      "V": {
+        "name": "V"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ColorImage": {
+    "display_name": "LayerUtility: Image unie",
+    "inputs": {
+      "width": {
+        "name": "largeur"
+      },
+      "height": {
+        "name": "hauteur"
+      },
+      "color": {
+        "name": "couleur"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ColorImage V2": {
+    "display_name": "LayerUtility: Image unie_V2",
+    "inputs": {
+      "size": {
+        "name": "taille"
+      },
+      "custom_width": {
+        "name": "largeur_personnalisée"
+      },
+      "custom_height": {
+        "name": "hauteur_personnalisée"
+      },
+      "color": {
+        "name": "couleur"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerFilter: ColorMap": {
+    "display_name": "LayerFilter: Carte thermique colorée",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "color_map": {
+        "name": "carte_couleur"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ColorName": {
+    "display_name": "LayerUtility: Nom de couleur",
+    "inputs": {
+      "color": {
+        "name": "couleur"
+      },
+      "palette": {
+        "name": "palette"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: NameToColor": {
+    "display_name": "LayerUtility: Nom vers couleur",
+    "inputs": {
+      "color_name": {
+        "name": "nom_couleur"
+      },
+      "palette": {
+        "name": "palette"
+      },
+      "in_palette_only": {
+        "name": "dans_palette_uniquement"
+      },
+      "default_color": {
+        "name": "couleur_par_défaut"
+      },
+      "size": {
+        "name": "taille"
+      },
+      "custom_width": {
+        "name": "largeur_personnalisée"
+      },
+      "custom_height": {
+        "name": "hauteur_personnalisée"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay V2": {
+    "display_name": "LayerStyle: Superposition couleur V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "color": {
+        "name": "couleur"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: ColorOverlay": {
+    "display_name": "LayerStyle: Superposition couleur",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "color": {
+        "name": "couleur"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ColorPicker": {
+    "display_name": "LayerUtility: Sélecteur couleur",
+    "inputs": {
+      "color": {
+        "name": "couleur"
+      },
+      "mode": {
+        "name": "mode"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: GrayValue": {
+    "display_name": "LayerUtility: Valeur grise",
+    "inputs": {
+      "color_value": {
+        "name": "valeur_couleur"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: HSV Value": {
+    "display_name": "LayerUtility: Valeur HSV",
+    "inputs": {
+      "color_value": {
+        "name": "valeur_couleur"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: RGB Value": {
+    "display_name": "LayerUtility: Valeur RGB",
+    "inputs": {
+      "color_value": {
+        "name": "valeur_couleur"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerMask: CreateGradientMask": {
+    "display_name": "LayerMask: Créer masque dégradé",
+    "inputs": {
+      "width": {
+        "name": "largeur"
+      },
+      "height": {
+        "name": "hauteur"
+      },
+      "gradient_side": {
+        "name": "côté_dégradé"
+      },
+      "gradient_scale": {
+        "name": "échelle_dégradé"
+      },
+      "gradient_offset": {
+        "name": "décalage_dégradé"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: CropBoxResolve": {
+    "display_name": "LayerUtility: Analyse de recadrage",
+    "inputs": {
+      "crop_box": {
+        "name": "boîte_recadrage"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: CropByMask": {
+    "display_name": "LayerUtility: Recadrage par masque",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask_for_crop": {
+        "name": "masque_pour_recadrage"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "detect": {
+        "name": "détecter"
+      },
+      "top_reserve": {
+        "name": "réserve_haut"
+      },
+      "bottom_reserve": {
+        "name": "réserve_bas"
+      },
+      "left_reserve": {
+        "name": "réserve_gauche"
+      },
+      "right_reserve": {
+        "name": "réserve_droite"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V2": {
+    "display_name": "LayerUtility: Recadrage par masque_V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "detect": {
+        "name": "détecter"
+      },
+      "top_reserve": {
+        "name": "réserve_haut"
+      },
+      "bottom_reserve": {
+        "name": "réserve_bas"
+      },
+      "left_reserve": {
+        "name": "réserve_gauche"
+      },
+      "right_reserve": {
+        "name": "réserve_droite"
+      },
+      "round_to_multiple": {
+        "name": "arrondir_à_multiple"
+      },
+      "crop_box": {
+        "name": "boîte_recadrage"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      }
+    }
+  },
+  "LayerUtility: CropByMask V3": {
+    "display_name": "LayerUtility: Recadrage par masque_V3",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "detect": {
+        "name": "détecter"
+      },
+      "top_reserve": {
+        "name": "réserve_haut"
+      },
+      "bottom_reserve": {
+        "name": "réserve_bas"
+      },
+      "left_reserve": {
+        "name": "réserve_gauche"
+      },
+      "right_reserve": {
+        "name": "réserve_droite"
+      },
+      "round_to_multiple": {
+        "name": "arrondir_à_multiple"
+      },
+      "crop_box": {
+        "name": "boîte_recadrage"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      }
+    }
+  },
+  "LayerUtility: Seed": {
+    "display_name": "LayerUtility: Graine",
+    "inputs": {
+      "seed": {
+        "name": "graine"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperator": {
+    "display_name": "LayerUtility: Opérateur booléen",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "opérateur"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "booléen"
+      }
+    }
+  },
+  "LayerUtility: BooleanOperatorV2": {
+    "display_name": "LayerUtility: Opérateur booléen V2",
+    "inputs": {
+      "a_value": {
+        "name": "valeur_a"
+      },
+      "b_value": {
+        "name": "valeur_b"
+      },
+      "operator": {
+        "name": "opérateur"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "booléen"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculator": {
+    "display_name": "LayerUtility: Calculatrice numérique",
+    "inputs": {
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      },
+      "operator": {
+        "name": "opérateur"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      },
+      "float": {
+        "name": "float"
+      }
+    }
+  },
+  "LayerUtility: NumberCalculatorV2": {
+    "display_name": "LayerUtility: Calculatrice numérique V2",
+    "inputs": {
+      "a_value": {
+        "name": "valeur_a"
+      },
+      "b_value": {
+        "name": "valeur_b"
+      },
+      "operator": {
+        "name": "opérateur"
+      },
+      "a": {
+        "name": "a"
+      },
+      "b": {
+        "name": "b"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      },
+      "float": {
+        "name": "float"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: StringCondition": {
+    "display_name": "LayerUtility: Condition chaîne",
+    "inputs": {
+      "text": {
+        "name": "texte"
+      },
+      "condition": {
+        "name": "condition"
+      },
+      "sub_string": {
+        "name": "sous_chaîne"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "booléen"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: TextBox": {
+    "display_name": "LayerUtility: Boîte texte",
+    "inputs": {
+      "text": {
+        "name": "texte"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: String": {
+    "display_name": "LayerUtility: Chaîne",
+    "inputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: Integer": {
+    "display_name": "LayerUtility: Entier",
+    "inputs": {
+      "int_value": {
+        "name": "valeur_int"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: Float": {
+    "display_name": "LayerUtility: Flottant",
+    "inputs": {
+      "float_value": {
+        "name": "valeur_float"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "float"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: Boolean": {
+    "display_name": "LayerUtility: Booléen",
+    "inputs": {
+      "bool_value": {
+        "name": "valeur_bool"
+      }
+    },
+    "outputs": {
+      "boolean": {
+        "name": "booléen"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: If ": {
+    "display_name": "LayerUtility: Si",
+    "inputs": {
+      "if_condition": {
+        "name": "condition_si"
+      },
+      "when_TRUE": {
+        "name": "quand_VRAI"
+      },
+      "when_FALSE": {
+        "name": "quand_FAUX"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerUtility: SwitchCase": {
+    "display_name": "LayerUtility: Cas de commutation",
+    "inputs": {
+      "switch_condition": {
+        "name": "condition_commutation"
+      },
+      "case_1": {
+        "name": "cas_1"
+      },
+      "case_2": {
+        "name": "cas_2"
+      },
+      "case_3": {
+        "name": "cas_3"
+      },
+      "input_default": {
+        "name": "entrée_par_défaut"
+      },
+      "input_1": {
+        "name": "entrée_1"
+      },
+      "input_2": {
+        "name": "entrée_2"
+      },
+      "input_3": {
+        "name": "entrée_3"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerUtility: QueueStop": {
+    "display_name": "LayerUtility: Arrêt file",
+    "inputs": {
+      "any": {
+        "name": "any"
+      },
+      "mode": {
+        "name": "mode"
+      },
+      "stop": {
+        "name": "arrêt"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerStyle: DropShadow": {
+    "display_name": "LayerStyle: Ombre portée",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "distance_x": {
+        "name": "distance_x"
+      },
+      "distance_y": {
+        "name": "distance_y"
+      },
+      "grow": {
+        "name": "croissance"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "shadow_color": {
+        "name": "couleur_ombre"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V2": {
+    "display_name": "LayerStyle: Ombre portée V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "distance_x": {
+        "name": "distance_x"
+      },
+      "distance_y": {
+        "name": "distance_y"
+      },
+      "grow": {
+        "name": "croissance"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "shadow_color": {
+        "name": "couleur_ombre"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: DropShadow V3": {
+    "display_name": "LayerStyle: Ombre portée V3",
+    "inputs": {
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "distance_x": {
+        "name": "distance_x"
+      },
+      "distance_y": {
+        "name": "distance_y"
+      },
+      "grow": {
+        "name": "croissance"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "shadow_color": {
+        "name": "couleur_ombre"
+      },
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvas": {
+    "display_name": "LayerUtility: Extension de toile",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "top": {
+        "name": "haut"
+      },
+      "bottom": {
+        "name": "bas"
+      },
+      "left": {
+        "name": "gauche"
+      },
+      "right": {
+        "name": "droite"
+      },
+      "color": {
+        "name": "couleur"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ExtendCanvasV2": {
+    "display_name": "LayerUtility: Extension de toile V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "top": {
+        "name": "haut"
+      },
+      "bottom": {
+        "name": "bas"
+      },
+      "left": {
+        "name": "gauche"
+      },
+      "right": {
+        "name": "droite"
+      },
+      "color": {
+        "name": "couleur"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: Film": {
+    "display_name": "LayerFilter: Grain cinématographique",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "center_x": {
+        "name": "centre_x"
+      },
+      "center_y": {
+        "name": "centre_y"
+      },
+      "saturation": {
+        "name": "saturation"
+      },
+      "vignette_intensity": {
+        "name": "intensité_vignette"
+      },
+      "grain_power": {
+        "name": "intensité_grain"
+      },
+      "grain_scale": {
+        "name": "échelle_grain"
+      },
+      "grain_sat": {
+        "name": "saturation_grain"
+      },
+      "grain_shadows": {
+        "name": "ombres_grain"
+      },
+      "grain_highs": {
+        "name": "reflets_grain"
+      },
+      "blur_strength": {
+        "name": "intensité_flou"
+      },
+      "blur_focus_spread": {
+        "name": "dispersion_focus_flou"
+      },
+      "focal_depth": {
+        "name": "profondeur_focale"
+      },
+      "depth_map": {
+        "name": "carte_profondeur"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerFilter: FilmV2": {
+    "display_name": "LayerFilter: Grain cinématographique V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "center_x": {
+        "name": "centre_x"
+      },
+      "center_y": {
+        "name": "centre_y"
+      },
+      "saturation": {
+        "name": "saturation"
+      },
+      "vignette_intensity": {
+        "name": "intensité_vignette"
+      },
+      "grain_method": {
+        "name": "méthode_grain"
+      },
+      "grain_power": {
+        "name": "intensité_grain"
+      },
+      "grain_scale": {
+        "name": "échelle_grain"
+      },
+      "grain_sat": {
+        "name": "saturation_grain"
+      },
+      "filmgrainer_shadows": {
+        "name": "ombres_grain"
+      },
+      "filmgrainer_highs": {
+        "name": "reflets_grain"
+      },
+      "blur_strength": {
+        "name": "intensité_flou"
+      },
+      "blur_focus_spread": {
+        "name": "dispersion_focus_flou"
+      },
+      "focal_depth": {
+        "name": "profondeur_focale"
+      },
+      "depth_map": {
+        "name": "carte_profondeur"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlur": {
+    "display_name": "LayerFilter: Flou gaussien",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "blur": {
+        "name": "flou"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerFilter: GaussianBlurV2": {
+    "display_name": "LayerFilter: Flou gaussien V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "blur": {
+        "name": "flou"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: GetImageSize": {
+    "display_name": "LayerUtility: Obtenir taille image",
+    "inputs": {
+      "image": {
+        "name": "image"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      },
+      "box": {
+        "name": "boîte"
+      }
+    }
+  },
+  "LayerUtility: GetMainColorsV2": {
+    "display_name": "LayerUtility: Obtenir couleurs principales V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "k_means_algorithm": {
+        "name": "algorithme_k_moyennes"
+      },
+      "colors": {
+        "name": "couleurs"
+      },
+      "num_colors": {
+        "name": "nombre_couleurs"
+      },
+      "algorithm": {
+        "name": "algorithme"
+      },
+      "mix_iter": {
+        "name": "itérations_mélange"
+      },
+      "random_state": {
+        "name": "état_aléatoire"
+      },
+      "hex_color": {
+        "name": "couleur_hex"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: GetMainColors": {
+    "display_name": "LayerUtility: Obtenir couleurs principales",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "k_means_algorithm": {
+        "name": "algorithme_k_moyennes"
+      },
+      "colors": {
+        "name": "couleurs"
+      },
+      "num_colors": {
+        "name": "nombre_couleurs"
+      },
+      "algorithm": {
+        "name": "algorithme"
+      },
+      "mix_iter": {
+        "name": "itérations_mélange"
+      },
+      "random_state": {
+        "name": "état_aléatoire"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: GradientImage": {
+    "display_name": "LayerUtility: Dégradé",
+    "inputs": {
+      "width": {
+        "name": "largeur"
+      },
+      "height": {
+        "name": "hauteur"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "start_color": {
+        "name": "couleur_début"
+      },
+      "end_color": {
+        "name": "couleur_fin"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: GradientImage V2": {
+    "display_name": "LayerUtility: Dégradé_V2",
+    "inputs": {
+      "size": {
+        "name": "taille"
+      },
+      "custom_width": {
+        "name": "largeur_personnalisée"
+      },
+      "custom_height": {
+        "name": "hauteur_personnalisée"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "start_color": {
+        "name": "couleur_début"
+      },
+      "end_color": {
+        "name": "couleur_fin"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: Gradient Map": {
+    "display_name": "LayerStyle: Carte de dégradé",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "start_color": {
+        "name": "couleur_début"
+      },
+      "mid_color": {
+        "name": "couleur_milieu"
+      },
+      "end_color": {
+        "name": "couleur_fin"
+      },
+      "mid_point": {
+        "name": "point_milieu"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay": {
+    "display_name": "LayerStyle: Superposition dégradé",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "start_color": {
+        "name": "couleur_début"
+      },
+      "start_alpha": {
+        "name": "alpha_début"
+      },
+      "end_color": {
+        "name": "couleur_fin"
+      },
+      "end_alpha": {
+        "name": "alpha_fin"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: GradientOverlay V2": {
+    "display_name": "LayerStyle: Superposition dégradé V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "start_color": {
+        "name": "couleur_début"
+      },
+      "start_alpha": {
+        "name": "alpha_début"
+      },
+      "end_color": {
+        "name": "couleur_fin"
+      },
+      "end_alpha": {
+        "name": "alpha_fin"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerFilter: HalfTone": {
+    "display_name": "LayerFilter: Demi-teinte",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "dot_size": {
+        "name": "taille_point"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "shape": {
+        "name": "forme"
+      },
+      "dot_color": {
+        "name": "couleur_point"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerFilter: HDREffects": {
+    "display_name": "LayerFilter: Effets HDR",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "hdr_intensity": {
+        "name": "intensité_hdr"
+      },
+      "shadow_intensity": {
+        "name": "intensité_ombre"
+      },
+      "highlight_intensity": {
+        "name": "intensité_reflet"
+      },
+      "gamma_intensity": {
+        "name": "intensité_gamma"
+      },
+      "contrast": {
+        "name": "contraste"
+      },
+      "enhance_color": {
+        "name": "amélioration_couleur"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: HLFrequencyDetailRestore": {
+    "display_name": "LayerUtility: Restauration détail fréquence H/L",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "detail_image": {
+        "name": "image_détail"
+      },
+      "keep_high_freq": {
+        "name": "conserver_haute_fréquence"
+      },
+      "erase_low_freq": {
+        "name": "effacer_basse_fréquence"
+      },
+      "mask_blur": {
+        "name": "flou_masque"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ICMask": {
+    "display_name": "LayerUtility: Masque IC",
+    "inputs": {
+      "first_image": {
+        "name": "première_image"
+      },
+      "patch_mode": {
+        "name": "mode_patch"
+      },
+      "output_length": {
+        "name": "longueur_sortie"
+      },
+      "patch_color": {
+        "name": "couleur_patch"
+      },
+      "first_mask": {
+        "name": "premier_masque"
+      },
+      "second_image": {
+        "name": "deuxième_image"
+      },
+      "second_mask": {
+        "name": "deuxième_masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "icmask_data": {
+        "name": "données_icmask"
+      }
+    }
+  },
+  "LayerUtility: ICMaskCropBack": {
+    "display_name": "LayerUtility: Recadrage arrière masque IC",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "icmask_data": {
+        "name": "données_icmask"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend": {
+    "display_name": "LayerUtility: Fusion",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance": {
+    "display_name": "LayerUtility: Fusion (Avancée)",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "x_percent": {
+        "name": "pourcentage_x"
+      },
+      "y_percent": {
+        "name": "pourcentage_y"
+      },
+      "mirror": {
+        "name": "miroir"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "rotate": {
+        "name": "rotation"
+      },
+      "transform_method": {
+        "name": "méthode_transformation"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V2": {
+    "display_name": "LayerUtility: Fusion (Avancée) V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "x_percent": {
+        "name": "pourcentage_x"
+      },
+      "y_percent": {
+        "name": "pourcentage_y"
+      },
+      "mirror": {
+        "name": "miroir"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "rotate": {
+        "name": "rotation"
+      },
+      "transform_method": {
+        "name": "méthode_transformation"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ImageBlendAdvance V3": {
+    "display_name": "LayerUtility: Fusion (Avancée) V3",
+    "inputs": {
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "x_percent": {
+        "name": "pourcentage_x"
+      },
+      "y_percent": {
+        "name": "pourcentage_y"
+      },
+      "mirror": {
+        "name": "miroir"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "rotate": {
+        "name": "rotation"
+      },
+      "transform_method": {
+        "name": "méthode_transformation"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      },
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ImageBlend V2": {
+    "display_name": "LayerUtility: Fusion V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelMerge": {
+    "display_name": "LayerUtility: Fusion de canaux",
+    "inputs": {
+      "channel_1": {
+        "name": "canal_1"
+      },
+      "channel_2": {
+        "name": "canal_2"
+      },
+      "channel_3": {
+        "name": "canal_3"
+      },
+      "mode": {
+        "name": "mode"
+      },
+      "channel_4": {
+        "name": "canal_4"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageChannelSplit": {
+    "display_name": "LayerUtility: Séparation de canaux",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "mode": {
+        "name": "mode"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageCombineAlpha": {
+    "display_name": "LayerUtility: Fusion alpha",
+    "inputs": {
+      "RGB_image": {
+        "name": "image_RGB"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageHub": {
+    "display_name": "LayerUtility: Hub image",
+    "inputs": {
+      "output": {
+        "name": "sortie"
+      },
+      "random_output": {
+        "name": "sortie_aléatoire"
+      },
+      "input1_image": {
+        "name": "image_entrée1"
+      },
+      "input1_mask": {
+        "name": "masque_entrée1"
+      },
+      "input2_image": {
+        "name": "image_entrée2"
+      },
+      "input2_mask": {
+        "name": "masque_entrée2"
+      },
+      "input3_image": {
+        "name": "image_entrée3"
+      },
+      "input3_mask": {
+        "name": "masque_entrée3"
+      },
+      "input4_image": {
+        "name": "image_entrée4"
+      },
+      "input4_mask": {
+        "name": "masque_entrée4"
+      },
+      "input5_image": {
+        "name": "image_entrée5"
+      },
+      "input5_mask": {
+        "name": "masque_entrée5"
+      },
+      "input6_image": {
+        "name": "image_entrée6"
+      },
+      "input6_mask": {
+        "name": "masque_entrée6"
+      },
+      "input7_image": {
+        "name": "image_entrée7"
+      },
+      "input7_mask": {
+        "name": "masque_entrée7"
+      },
+      "input8_image": {
+        "name": "image_entrée8"
+      },
+      "input8_mask": {
+        "name": "masque_entrée8"
+      },
+      "input9_image": {
+        "name": "image_entrée9"
+      },
+      "input9_mask": {
+        "name": "masque_entrée9"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAs": {
+    "display_name": "LayerUtility: Échelle de référence",
+    "inputs": {
+      "scale_as": {
+        "name": "échelle_de_référence"
+      },
+      "fit": {
+        "name": "ajuster"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: ImageMaskScaleAsV2": {
+    "display_name": "LayerUtility: Échelle de référence V2",
+    "inputs": {
+      "scale_as": {
+        "name": "échelle_de_référence"
+      },
+      "fit": {
+        "name": "ajuster"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: ImageOpacity": {
+    "display_name": "LayerUtility: Opacité image",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ImageReel": {
+    "display_name": "LayerUtility: Bobine image",
+    "inputs": {
+      "image1": {
+        "name": "image1"
+      },
+      "image1_text": {
+        "name": "texte_image1"
+      },
+      "image2_text": {
+        "name": "texte_image2"
+      },
+      "image3_text": {
+        "name": "texte_image3"
+      },
+      "image4_text": {
+        "name": "texte_image4"
+      },
+      "reel_height": {
+        "name": "hauteur_bobine"
+      },
+      "border": {
+        "name": "bordure"
+      },
+      "image2": {
+        "name": "image2"
+      },
+      "image3": {
+        "name": "image3"
+      },
+      "image4": {
+        "name": "image4"
+      },
+      "image": {
+        "name": "image"
+      },
+      "target_height": {
+        "name": "hauteur_cible"
+      },
+      "image_list": {
+        "name": "liste_images"
+      }
+    },
+    "outputs": {
+      "reel": {
+        "name": "bobine"
+      }
+    }
+  },
+  "LayerUtility: ImageReelComposit": {
+    "display_name": "LayerUtility: Composition bobine image",
+    "inputs": {
+      "reel_1": {
+        "name": "bobine_1"
+      },
+      "font_file": {
+        "name": "fichier_police"
+      },
+      "font_size": {
+        "name": "taille_police"
+      },
+      "border": {
+        "name": "bordure"
+      },
+      "color_theme": {
+        "name": "thème_couleur"
+      },
+      "reel_2": {
+        "name": "bobine_2"
+      },
+      "reel_3": {
+        "name": "bobine_3"
+      },
+      "reel_4": {
+        "name": "bobine_4"
+      },
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "image": {
+        "name": "image"
+      },
+      "text_image": {
+        "name": "image_texte"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "shadow_size": {
+        "name": "taille_ombre"
+      },
+      "text_color": {
+        "name": "couleur_texte"
+      },
+      "reel": {
+        "name": "bobine"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageRemoveAlpha": {
+    "display_name": "LayerUtility: Suppression alpha image",
+    "inputs": {
+      "RGBA_image": {
+        "name": "image_RGBA"
+      },
+      "fill_background": {
+        "name": "remplir_arrière_plan"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio": {
+    "display_name": "LayerUtility: Mise à l'échelle proportionnelle",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "proportional_width": {
+        "name": "largeur_proportionnelle"
+      },
+      "proportional_height": {
+        "name": "hauteur_proportionnelle"
+      },
+      "fit": {
+        "name": "ajuster"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "round_to_multiple": {
+        "name": "arrondir_à_multiple"
+      },
+      "scale_to_longest_side": {
+        "name": "échelle_côté_le_plus_long"
+      },
+      "longest_side": {
+        "name": "côté_le_plus_long"
+      },
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleByAspectRatio V2": {
+    "display_name": "LayerUtility: Mise à l'échelle proportionnelle_V2",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "proportional_width": {
+        "name": "largeur_proportionnelle"
+      },
+      "proportional_height": {
+        "name": "hauteur_proportionnelle"
+      },
+      "fit": {
+        "name": "ajuster"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "round_to_multiple": {
+        "name": "arrondir_à_multiple"
+      },
+      "scale_to_side": {
+        "name": "échelle_côté"
+      },
+      "scale_to_length": {
+        "name": "échelle_longueur"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore": {
+    "display_name": "LayerUtility: Restauration d'échelle",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "scale_by_longest_side": {
+        "name": "échelle_côté_le_plus_long"
+      },
+      "longest_side": {
+        "name": "côté_le_plus_long"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "original_size": {
+        "name": "taille_originale"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: ImageScaleRestore V2": {
+    "display_name": "LayerUtility: Restauration d'échelle_V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "scale_by": {
+        "name": "échelle_par"
+      },
+      "scale_by_length": {
+        "name": "échelle_longueur"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "original_size": {
+        "name": "taille_originale"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "box": {
+        "name": "boîte"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerUtility: ImageShift": {
+    "display_name": "LayerUtility: Décalage image",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "shift_x": {
+        "name": "décalage_x"
+      },
+      "shift_y": {
+        "name": "décalage_y"
+      },
+      "cyclic": {
+        "name": "cyclique"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "border_mask_width": {
+        "name": "largeur_masque_bordure"
+      },
+      "border_mask_blur": {
+        "name": "flou_masque_bordure"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: ImageTaggerSave": {
+    "display_name": "LayerUtility: Sauvegarde taggeur image",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "tag_text": {
+        "name": "texte_tag"
+      },
+      "custom_path": {
+        "name": "chemin_personnalisé"
+      },
+      "filename_prefix": {
+        "name": "préfixe_nom_fichier"
+      },
+      "timestamp": {
+        "name": "horodatage"
+      },
+      "format": {
+        "name": "format"
+      },
+      "quality": {
+        "name": "qualité"
+      },
+      "preview": {
+        "name": "aperçu"
+      },
+      "prompt": {
+        "name": "prompt"
+      },
+      "extra_pnginfo": {
+        "name": "infos_png_supplémentaires"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: ImageToMask": {
+    "display_name": "LayerMask: Image vers masque",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "channel": {
+        "name": "canal"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "gray_point": {
+        "name": "point_gris"
+      },
+      "invert_output_mask": {
+        "name": "inverser_masque_sortie"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow": {
+    "display_name": "LayerStyle: Lueur interne",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "glow_range": {
+        "name": "plage_lueur"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "light_color": {
+        "name": "couleur_lumière"
+      },
+      "glow_color": {
+        "name": "couleur_lueur"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: InnerGlow V2": {
+    "display_name": "LayerStyle: Lueur interne V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "glow_range": {
+        "name": "plage_lueur"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "light_color": {
+        "name": "couleur_lumière"
+      },
+      "glow_color": {
+        "name": "couleur_lueur"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow": {
+    "display_name": "LayerStyle: Ombre interne",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "distance_x": {
+        "name": "distance_x"
+      },
+      "distance_y": {
+        "name": "distance_y"
+      },
+      "grow": {
+        "name": "croissance"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "shadow_color": {
+        "name": "couleur_ombre"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: InnerShadow V2": {
+    "display_name": "LayerStyle: Ombre interne V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "distance_x": {
+        "name": "distance_x"
+      },
+      "distance_y": {
+        "name": "distance_y"
+      },
+      "grow": {
+        "name": "croissance"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "shadow_color": {
+        "name": "couleur_ombre"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: LayerImageTransform": {
+    "display_name": "LayerUtility: Transformation image calque",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "miroir"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "rotate": {
+        "name": "rotation"
+      },
+      "transform_method": {
+        "name": "méthode_transformation"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: LayerMaskTransform": {
+    "display_name": "LayerUtility: Transformation masque calque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      },
+      "mirror": {
+        "name": "miroir"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "aspect_ratio": {
+        "name": "ratio_aspect"
+      },
+      "rotate": {
+        "name": "rotation"
+      },
+      "transform_method": {
+        "name": "méthode_transformation"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: LightLeak": {
+    "display_name": "LayerFilter: Fuite lumineuse",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "light": {
+        "name": "lumière"
+      },
+      "corner": {
+        "name": "coin"
+      },
+      "hue": {
+        "name": "teinte"
+      },
+      "saturation": {
+        "name": "saturation"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerMask: MaskBoxDetect": {
+    "display_name": "LayerMask: Détection boîte masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "detect": {
+        "name": "détecter"
+      },
+      "x_adjust": {
+        "name": "ajustement_x"
+      },
+      "y_adjust": {
+        "name": "ajustement_y"
+      },
+      "scale_adjust": {
+        "name": "ajustement_échelle"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "float": {
+        "name": "float"
+      },
+      "int": {
+        "name": "int"
+      }
+    }
+  },
+  "LayerMask: MaskByColor": {
+    "display_name": "LayerMask: Masque par couleur",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "color": {
+        "name": "couleur"
+      },
+      "color_in_HEX": {
+        "name": "couleur_en_HEX"
+      },
+      "threshold": {
+        "name": "seuil"
+      },
+      "fix_gap": {
+        "name": "corriger_écart"
+      },
+      "fix_threshold": {
+        "name": "corriger_seuil"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeShrink": {
+    "display_name": "LayerMask: Rétrécissement bord masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "shrink_level": {
+        "name": "niveau_rétrécissement"
+      },
+      "soft": {
+        "name": "doux"
+      },
+      "edge_shrink": {
+        "name": "rétrécissement_bord"
+      },
+      "edge_reserve": {
+        "name": "réserve_bord"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail": {
+    "display_name": "LayerMask: Détail ultra bord masque",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "mask_grow": {
+        "name": "croissance_masque"
+      },
+      "fix_gap": {
+        "name": "corriger_écart"
+      },
+      "fix_threshold": {
+        "name": "corriger_seuil"
+      },
+      "detail_range": {
+        "name": "plage_détail"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskEdgeUltraDetail V2": {
+    "display_name": "LayerMask: Détail ultra bord masque V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      },
+      "method": {
+        "name": "méthode"
+      },
+      "mask_grow": {
+        "name": "croissance_masque"
+      },
+      "fix_gap": {
+        "name": "corriger_écart"
+      },
+      "fix_threshold": {
+        "name": "corriger_seuil"
+      },
+      "edge_erode": {
+        "name": "érosion_bord"
+      },
+      "edte_dilate": {
+        "name": "dilatation_bord"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "device": {
+        "name": "périphérique"
+      },
+      "max_megapixels": {
+        "name": "mégapixels_max"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskGradient": {
+    "display_name": "LayerMask: Masque dégradé",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "gradient_side": {
+        "name": "côté_dégradé"
+      },
+      "gradient_scale": {
+        "name": "échelle_dégradé"
+      },
+      "gradient_offset": {
+        "name": "décalage_dégradé"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskGrain": {
+    "display_name": "LayerMask: Grain masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "grain": {
+        "name": "grain"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskGrow": {
+    "display_name": "LayerMask: Croissance masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "grow": {
+        "name": "croissance"
+      },
+      "blur": {
+        "name": "flou"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskInvert": {
+    "display_name": "LayerMask: Inversion masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskMotionBlur": {
+    "display_name": "LayerMask: Flou de mouvement masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "angle": {
+        "name": "angle"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: MaskPreview": {
+    "display_name": "LayerMask: Aperçu masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerMask: MaskStroke": {
+    "display_name": "LayerMask: Contour masque",
+    "inputs": {
+      "mask": {
+        "name": "masque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "stroke_grow": {
+        "name": "croissance_contour"
+      },
+      "stroke_width": {
+        "name": "largeur_contour"
+      },
+      "blur": {
+        "name": "flou"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: MotionBlur": {
+    "display_name": "LayerFilter: Flou de mouvement",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "angle": {
+        "name": "angle"
+      },
+      "blur": {
+        "name": "flou"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow": {
+    "display_name": "LayerStyle: Lueur externe",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "glow_range": {
+        "name": "plage_lueur"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "light_color": {
+        "name": "couleur_lumière"
+      },
+      "glow_color": {
+        "name": "couleur_lueur"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: OuterGlow V2": {
+    "display_name": "LayerStyle: Lueur externe V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "brightness": {
+        "name": "luminosité"
+      },
+      "glow_range": {
+        "name": "plage_lueur"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "light_color": {
+        "name": "couleur_lumière"
+      },
+      "glow_color": {
+        "name": "couleur_lueur"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerMask: PixelSpread": {
+    "display_name": "LayerMask: Diffusion pixels",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "mask_grow": {
+        "name": "croissance_masque"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: PrintInfo": {
+    "display_name": "LayerUtility: Affichage info",
+    "inputs": {
+      "anything": {
+        "name": "anything"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: PurgeVRAM": {
+    "display_name": "LayerUtility: Purge VRAM",
+    "inputs": {
+      "anything": {
+        "name": "anything"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_modèles"
+      }
+    },
+    "outputs": {}
+  },
+  "LayerUtility: PurgeVRAM V2": {
+    "display_name": "LayerUtility: Purge VRAM V2",
+    "inputs": {
+      "anything": {
+        "name": "anything"
+      },
+      "purge_cache": {
+        "name": "purge_cache"
+      },
+      "purge_models": {
+        "name": "purge_modèles"
+      }
+    },
+    "outputs": {
+      "any": {
+        "name": "any"
+      }
+    }
+  },
+  "LayerUtility: RandomGenerator": {
+    "display_name": "LayerUtility: Générateur aléatoire",
+    "inputs": {
+      "min_value": {
+        "name": "valeur_min"
+      },
+      "max_value": {
+        "name": "valeur_max"
+      },
+      "float_decimal_places": {
+        "name": "décimales_float"
+      },
+      "fix_seed": {
+        "name": "fixer_graine"
+      },
+      "image": {
+        "name": "image"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      },
+      "float": {
+        "name": "float"
+      },
+      "boolean": {
+        "name": "booléen"
+      }
+    }
+  },
+  "LayerUtility: RandomGeneratorV2": {
+    "display_name": "LayerUtility: Générateur aléatoire V2",
+    "inputs": {
+      "min_value": {
+        "name": "valeur_min"
+      },
+      "max_value": {
+        "name": "valeur_max"
+      },
+      "least": {
+        "name": "minimum"
+      },
+      "float_decimal_places": {
+        "name": "décimales_float"
+      },
+      "seed": {
+        "name": "graine"
+      },
+      "image": {
+        "name": "image"
+      }
+    },
+    "outputs": {
+      "int": {
+        "name": "int"
+      },
+      "float": {
+        "name": "float"
+      },
+      "boolean": {
+        "name": "booléen"
+      }
+    }
+  },
+  "LayerUtility: RestoreCropBox": {
+    "display_name": "LayerUtility: Restauration de recadrage",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "croped_image": {
+        "name": "image_recadrée"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "crop_box": {
+        "name": "boîte_recadrage"
+      },
+      "croped_mask": {
+        "name": "masque_recadré"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: RemBgUltra": {
+    "display_name": "LayerMask: RemBg Ultra",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "detail_range": {
+        "name": "plage_détail"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "process_detail": {
+        "name": "traitement_détail"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: RmBgUltra V2": {
+    "display_name": "LayerMask: RmBg Ultra V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "detail_method": {
+        "name": "méthode_détail"
+      },
+      "detail_erode": {
+        "name": "érosion_détail"
+      },
+      "detail_dilate": {
+        "name": "dilatation_détail"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "process_detail": {
+        "name": "traitement_détail"
+      },
+      "device": {
+        "name": "périphérique"
+      },
+      "max_megapixels": {
+        "name": "mégapixels_max"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: RoundedRectangle": {
+    "display_name": "LayerUtility: Rectangle arrondi",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "rounded_rect_radius": {
+        "name": "rayon_rectangle_arrondi"
+      },
+      "anti_aliasing": {
+        "name": "anti_crénelage"
+      },
+      "top": {
+        "name": "haut"
+      },
+      "bottom": {
+        "name": "bas"
+      },
+      "left": {
+        "name": "gauche"
+      },
+      "right": {
+        "name": "droite"
+      },
+      "detect": {
+        "name": "détecter"
+      },
+      "obj_ext_top": {
+        "name": "extension_haut_objet"
+      },
+      "obj_ext_bottom": {
+        "name": "extension_bas_objet"
+      },
+      "obj_ext_left": {
+        "name": "extension_gauche_objet"
+      },
+      "obj_ext_right": {
+        "name": "extension_droite_objet"
+      },
+      "object_mask": {
+        "name": "masque_objet"
+      },
+      "crop_box": {
+        "name": "boîte_recadrage"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: SegformerB2ClothesUltra": {
+    "display_name": "LayerMask: Segformer B2 Vêtements Ultra",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "face": {
+        "name": "visage"
+      },
+      "hair": {
+        "name": "cheveux"
+      },
+      "hat": {
+        "name": "chapeau"
+      },
+      "sunglass": {
+        "name": "lunettes_de_soleil"
+      },
+      "left_arm": {
+        "name": "bras_gauche"
+      },
+      "right_arm": {
+        "name": "bras_droit"
+      },
+      "left_leg": {
+        "name": "jambe_gauche"
+      },
+      "right_leg": {
+        "name": "jambe_droit"
+      },
+      "upper_clothes": {
+        "name": "vêtements_haut"
+      },
+      "skirt": {
+        "name": "jupe"
+      },
+      "pants": {
+        "name": "pantalon"
+      },
+      "dress": {
+        "name": "robe"
+      },
+      "belt": {
+        "name": "ceinture"
+      },
+      "shoe": {
+        "name": "chaussure"
+      },
+      "bag": {
+        "name": "sac"
+      },
+      "scarf": {
+        "name": "écharpe"
+      },
+      "detail_method": {
+        "name": "méthode_détail"
+      },
+      "detail_erode": {
+        "name": "érosion_détail"
+      },
+      "detail_dilate": {
+        "name": "dilatation_détail"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "process_detail": {
+        "name": "traitement_détail"
+      },
+      "device": {
+        "name": "périphérique"
+      },
+      "max_megapixels": {
+        "name": "mégapixels_max"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: SegformerClothesPipelineLoader": {
+    "display_name": "LayerMask: Pipeline Segformer Vêtements",
+    "inputs": {
+      "model": {
+        "name": "modèle"
+      },
+      "face": {
+        "name": "visage"
+      },
+      "hair": {
+        "name": "cheveux"
+      },
+      "hat": {
+        "name": "chapeau"
+      },
+      "sunglass": {
+        "name": "lunettes_de_soleil"
+      },
+      "left_arm": {
+        "name": "bras_gauche"
+      },
+      "right_arm": {
+        "name": "bras_droit"
+      },
+      "left_leg": {
+        "name": "jambe_gauche"
+      },
+      "right_leg": {
+        "name": "jambe_droit"
+      },
+      "left_shoe": {
+        "name": "chaussure_gauche"
+      },
+      "right_shoe": {
+        "name": "chaussure_droit"
+      },
+      "upper_clothes": {
+        "name": "vêtements_haut"
+      },
+      "skirt": {
+        "name": "jupe"
+      },
+      "pants": {
+        "name": "pantalon"
+      },
+      "dress": {
+        "name": "robe"
+      },
+      "belt": {
+        "name": "ceinture"
+      },
+      "bag": {
+        "name": "sac"
+      },
+      "scarf": {
+        "name": "écharpe"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "pipeline_seg"
+      }
+    }
+  },
+  "LayerMask: SegformerFashionPipelineLoader": {
+    "display_name": "LayerMask: Pipeline Segformer Mode",
+    "inputs": {
+      "model": {
+        "name": "modèle"
+      },
+      "shirt": {
+        "name": "chemise"
+      },
+      "top": {
+        "name": "haut"
+      },
+      "sweater": {
+        "name": "pull"
+      },
+      "cardigan": {
+        "name": "cardigan"
+      },
+      "jacket": {
+        "name": "veste"
+      },
+      "vest": {
+        "name": "gilet"
+      },
+      "pants": {
+        "name": "pantalon"
+      },
+      "shorts": {
+        "name": "short"
+      },
+      "skirt": {
+        "name": "jupe"
+      },
+      "coat": {
+        "name": "manteau"
+      },
+      "dress": {
+        "name": "robe"
+      },
+      "jumpsuit": {
+        "name": "combinaison"
+      },
+      "cape": {
+        "name": "cape"
+      },
+      "glasses": {
+        "name": "lunettes"
+      },
+      "hat": {
+        "name": "chapeau"
+      },
+      "hairaccessory": {
+        "name": "accessoire_cheveux"
+      },
+      "tie": {
+        "name": "cravate"
+      },
+      "glove": {
+        "name": "gant"
+      },
+      "watch": {
+        "name": "montre"
+      },
+      "belt": {
+        "name": "ceinture"
+      },
+      "legwarmer": {
+        "name": "jambière"
+      },
+      "tights": {
+        "name": "collant"
+      },
+      "sock": {
+        "name": "chaussette"
+      },
+      "shoe": {
+        "name": "chaussure"
+      },
+      "bagwallet": {
+        "name": "sac_portefeuille"
+      },
+      "scarf": {
+        "name": "écharpe"
+      },
+      "umbrella": {
+        "name": "parapluie"
+      },
+      "hood": {
+        "name": "capuche"
+      },
+      "collar": {
+        "name": "col"
+      },
+      "lapel": {
+        "name": "revers"
+      },
+      "epaulette": {
+        "name": "épaulette"
+      },
+      "sleeve": {
+        "name": "manche"
+      },
+      "pocket": {
+        "name": "poche"
+      },
+      "neckline": {
+        "name": "encolure"
+      },
+      "buckle": {
+        "name": "boucle"
+      },
+      "zipper": {
+        "name": "fermeture_éclair"
+      },
+      "applique": {
+        "name": "applique"
+      },
+      "bead": {
+        "name": "perle"
+      },
+      "bow": {
+        "name": "nœud"
+      },
+      "flower": {
+        "name": "fleur"
+      },
+      "fringe": {
+        "name": "frange"
+      },
+      "ribbon": {
+        "name": "ruban"
+      },
+      "rivet": {
+        "name": "rivet"
+      },
+      "ruffle": {
+        "name": "volant"
+      },
+      "sequin": {
+        "name": "paillette"
+      },
+      "tassel": {
+        "name": "gland"
+      }
+    },
+    "outputs": {
+      "segpipeline": {
+        "name": "pipeline_seg"
+      }
+    }
+  },
+  "LayerMask: SegformerUltraV2": {
+    "display_name": "LayerMask: Segformer Ultra V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "segformer_pipeline": {
+        "name": "pipeline_segformer"
+      },
+      "detail_method": {
+        "name": "méthode_détail"
+      },
+      "detail_erode": {
+        "name": "érosion_détail"
+      },
+      "detail_dilate": {
+        "name": "dilatation_détail"
+      },
+      "black_point": {
+        "name": "point_noir"
+      },
+      "white_point": {
+        "name": "point_blanc"
+      },
+      "process_detail": {
+        "name": "traitement_détail"
+      },
+      "device": {
+        "name": "périphérique"
+      },
+      "max_megapixels": {
+        "name": "mégapixels_max"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: Shadow & Highlight Mask": {
+    "display_name": "LayerMask: Masque ombres & reflets",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "shadow_level_offset": {
+        "name": "décalage_niveau_ombre"
+      },
+      "shadow_range": {
+        "name": "plage_ombre"
+      },
+      "highlight_level_offset": {
+        "name": "décalage_niveau_reflet"
+      },
+      "highlight_range": {
+        "name": "plage_reflet"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerMask: ShadowHighlightMaskV2": {
+    "display_name": "LayerMask: Masque ombres & reflets V2",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "shadow_level_offset": {
+        "name": "décalage_niveau_ombre"
+      },
+      "shadow_range": {
+        "name": "plage_ombre"
+      },
+      "highlight_level_offset": {
+        "name": "décalage_niveau_reflet"
+      },
+      "highlight_range": {
+        "name": "plage_reflet"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    },
+    "outputs": {
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: Sharp & Soft": {
+    "display_name": "LayerFilter: Netteté/Adoucissement",
+    "inputs": {
+      "images": {
+        "name": "images"
+      },
+      "enhance": {
+        "name": "améliorer"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: SimpleTextImage": {
+    "display_name": "LayerUtility: Texte-image (Basique)",
+    "inputs": {
+      "text": {
+        "name": "texte"
+      },
+      "font_file": {
+        "name": "fichier_police"
+      },
+      "align": {
+        "name": "alignement"
+      },
+      "char_per_line": {
+        "name": "caractères_par_ligne"
+      },
+      "leading": {
+        "name": "interligne"
+      },
+      "font_size": {
+        "name": "taille_police"
+      },
+      "text_color": {
+        "name": "couleur_texte"
+      },
+      "stroke_width": {
+        "name": "largeur_contour"
+      },
+      "stroke_color": {
+        "name": "couleur_contour"
+      },
+      "x_offset": {
+        "name": "décalage_x"
+      },
+      "y_offset": {
+        "name": "décalage_y"
+      },
+      "width": {
+        "name": "largeur"
+      },
+      "height": {
+        "name": "hauteur"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: SkinBeauty": {
+    "display_name": "LayerFilter: Lissage cutané",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "smooth": {
+        "name": "lissage"
+      },
+      "threshold": {
+        "name": "seuil"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerFilter: SoftLight": {
+    "display_name": "LayerFilter: Lumière douce",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "soft": {
+        "name": "doux"
+      },
+      "threshold": {
+        "name": "seuil"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: Stroke": {
+    "display_name": "LayerStyle: Contour",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "stroke_grow": {
+        "name": "croissance_contour"
+      },
+      "stroke_width": {
+        "name": "largeur_contour"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "stroke_color": {
+        "name": "couleur_contour"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerStyle: Stroke V2": {
+    "display_name": "LayerStyle: Contour V2",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "invert_mask": {
+        "name": "inverser_masque"
+      },
+      "blend_mode": {
+        "name": "mode_fusion"
+      },
+      "opacity": {
+        "name": "opacité"
+      },
+      "stroke_grow": {
+        "name": "croissance_contour"
+      },
+      "stroke_width": {
+        "name": "largeur_contour"
+      },
+      "blur": {
+        "name": "flou"
+      },
+      "stroke_color": {
+        "name": "couleur_contour"
+      },
+      "layer_mask": {
+        "name": "masque_calque"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: TextImage": {
+    "display_name": "LayerUtility: Texte-image",
+    "inputs": {
+      "text": {
+        "name": "texte"
+      },
+      "font_file": {
+        "name": "fichier_police"
+      },
+      "spacing": {
+        "name": "espacement"
+      },
+      "leading": {
+        "name": "interligne"
+      },
+      "horizontal_border": {
+        "name": "bordure_horizontale"
+      },
+      "vertical_border": {
+        "name": "bordure_verticale"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "variation_range": {
+        "name": "plage_variation"
+      },
+      "variation_seed": {
+        "name": "graine_variation"
+      },
+      "layout": {
+        "name": "disposition"
+      },
+      "width": {
+        "name": "largeur"
+      },
+      "height": {
+        "name": "hauteur"
+      },
+      "text_color": {
+        "name": "couleur_texte"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: TextImage V2": {
+    "display_name": "LayerUtility: Texte-image V2",
+    "inputs": {
+      "text": {
+        "name": "texte"
+      },
+      "font_file": {
+        "name": "fichier_police"
+      },
+      "spacing": {
+        "name": "espacement"
+      },
+      "leading": {
+        "name": "interligne"
+      },
+      "horizontal_border": {
+        "name": "bordure_horizontale"
+      },
+      "vertical_border": {
+        "name": "bordure_verticale"
+      },
+      "scale": {
+        "name": "échelle"
+      },
+      "variation_range": {
+        "name": "plage_variation"
+      },
+      "variation_seed": {
+        "name": "graine_variation"
+      },
+      "layout": {
+        "name": "disposition"
+      },
+      "width": {
+        "name": "largeur"
+      },
+      "height": {
+        "name": "hauteur"
+      },
+      "text_color": {
+        "name": "couleur_texte"
+      },
+      "background_color": {
+        "name": "couleur_arrière_plan"
+      },
+      "size_as": {
+        "name": "taille_de_référence"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "masque"
+      }
+    }
+  },
+  "LayerUtility: TextJoin": {
+    "display_name": "LayerUtility: Concaténation texte",
+    "inputs": {
+      "text_1": {
+        "name": "texte_1"
+      },
+      "text_2": {
+        "name": "texte_2"
+      },
+      "text_3": {
+        "name": "texte_3"
+      },
+      "text_4": {
+        "name": "texte_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: TextJoinV2": {
+    "display_name": "LayerUtility: Concaténation texte V2",
+    "inputs": {
+      "text_1": {
+        "name": "texte_1"
+      },
+      "delimiter": {
+        "name": "délimiteur"
+      },
+      "text_2": {
+        "name": "texte_2"
+      },
+      "text_3": {
+        "name": "texte_3"
+      },
+      "text_4": {
+        "name": "texte_4"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: TextPreseter": {
+    "display_name": "LayerUtility: Préréglage texte",
+    "inputs": {
+      "title": {
+        "name": "titre"
+      },
+      "content": {
+        "name": "contenu"
+      },
+      "text_preset": {
+        "name": "préréglage_texte"
+      }
+    },
+    "outputs": {
+      "ls_text_preset": {
+        "name": "préréglage_texte_ls"
+      }
+    }
+  },
+  "LayerUtility: ChoiceTextPreset": {
+    "display_name": "LayerUtility: Choix préréglage texte",
+    "inputs": {
+      "text_preset": {
+        "name": "préréglage_texte"
+      },
+      "choice_title": {
+        "name": "titre_choix"
+      },
+      "random_choice": {
+        "name": "choix_aléatoire"
+      },
+      "default": {
+        "name": "par_défaut"
+      },
+      "seed": {
+        "name": "graine"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerUtility: LoadVQAModel": {
+    "display_name": "LayerUtility: Charger modèle VQA",
+    "inputs": {
+      "model": {
+        "name": "modèle"
+      },
+      "precision": {
+        "name": "précision"
+      },
+      "device": {
+        "name": "périphérique"
+      }
+    },
+    "outputs": {
+      "vqa_model": {
+        "name": "modèle_vqa"
+      }
+    }
+  },
+  "LayerUtility: VQAPrompt": {
+    "display_name": "LayerUtility: Prompt VQA",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "vqa_model": {
+        "name": "modèle_vqa"
+      },
+      "question": {
+        "name": "question"
+      }
+    },
+    "outputs": {
+      "string": {
+        "name": "chaîne"
+      }
+    }
+  },
+  "LayerFilter: WaterColor": {
+    "display_name": "LayerFilter: Aquarelle",
+    "inputs": {
+      "image": {
+        "name": "image"
+      },
+      "line_density": {
+        "name": "densité_ligne"
+      },
+      "opacity": {
+        "name": "opacité"
+      }
+    },
+    "outputs": {
+      "image": {
+        "name": "image"
+      }
+    }
+  },
+  "LayerUtility: XY to Percent": {
+    "display_name": "LayerUtility: XY en pourcentage",
+    "inputs": {
+      "background_image": {
+        "name": "image_arrière_plan"
+      },
+      "layer_image": {
+        "name": "image_calque"
+      },
+      "x": {
+        "name": "x"
+      },
+      "y": {
+        "name": "y"
+      }
+    },
+    "outputs": {
+      "float": {
+        "name": "float"
+      }
+    }
+  }
+}
