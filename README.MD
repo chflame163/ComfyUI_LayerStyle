@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [SegformerUltraV3](SegformerUltraV3), [LoadSegformerModel](LoadSegformerModel), [SegformerClothesSetting](SegformerClothesSetting) and [SegformerFashionSetting](SegformerFashionSetting) nodes, Separate the loading of models and settings to save resources when using multiple nodes.
 * Add multiple languages and increase support for 5 languages: Chinese, French, Japanese, Korean and Russian. This feature producted by [ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation), thank you to the original author.
 * Commit [HalfTone](#HalfTone) node, use for halftone processing of images.
 * Add QuarkNetdisk model download link.
@@ -1980,6 +1981,31 @@ Node Options:
 * sequin: sequin switch.
 * tassel: tassel switch.
 
+
+### <a id="table1">SegformerUltraV3</a>   
+On the basis of ```SegformerUltraV2```, it has been modified to load models and settings separately, saving resources when using multiple nodes. Please note that the type set must match the model.
+
+Modified node options:  
+![image](image/segfromer_ultra_v3_node.jpg)
+* segformer_model: Segformer model input, the model is loaded by the ```LoadSegformerModel``` node.
+* segformer_setting: Segformer Label setting input.
+
+### <a id="table1">SegformerClothesSetting</a>
+![image](image/segformer_clothes_setting_node.jpg)
+Set up Segformer Clothes nodes in conjunction with ```Segformer Ultra V3```. The model option has been removed from the ```SegformerClottesPipiline``` node.  
+
+
+### <a id="table1">SegformerFashionSetting</a>
+![image](image/segformer_fashion_pipeline_node.jpg)    
+Set up Segformer Fashion nodes in conjunction with ```Segformer Ultra V3```. The model option has been removed from the ```SegformerFashionPipiline``` node.
+
+### <a id="table1">LoadSegformerModel</a>
+Model loading node compatible with ```Segformer Ultra V3```.   
+
+Node Options:  
+![image](image/load_segfromer_model_node.jpg)    
+* model_name: Model selection.
+* devicee: Load device selection.
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
 

@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [SegformerUltraV3](SegformerUltraV3), [LoadSegformerModel](LoadSegformerModel), [SegformerClothesSetting](SegformerClothesSetting) 和 [SegformerFashionSetting](SegformerFashionSetting) 节点，将模型与设置分离加载，在使用多个节点时节省资源。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。 
 * 添加 [HalfTone](#HalfTone) 节点，用于对图像进行半色调处理。
 * 增加模型下载夸克网盘链接。
@@ -1769,6 +1770,32 @@ RemBgUltra的V2升级版，增加了VITMatte边缘处理方法。
 * ruffle: 褶饰识别。
 * sequin: 亮片识别。
 * tassel: 流苏识别。
+
+
+### <a id="table1">SegformerUltraV3</a>   
+在SegformerUltraV2基础上，修改为模型与设置分离加载，在使用多个节点时节省资源。请注意设置的类型必须与模型匹配。
+
+修改的节点选项:  
+![image](image/segfromer_ultra_v3_node.jpg)
+* segformer_model: Segformer模型输入，模型由LoadSegformerModel节点加载。
+* segformer_setting: Segformer Label设置输入。
+
+### <a id="table1">SegformerClothesSetting</a>
+![image](image/segformer_clothes_setting_node.jpg)
+与 SegformerUltraV3 配套的SegformerClothes设置节点。在SegformerClothesPipiline节点基础上删除了model 选项。 
+
+
+### <a id="table1">SegformerFashionSetting</a>
+![image](image/segformer_fashion_pipeline_node.jpg)    
+与 SegformerUltraV3 配套的SegformerFashion设置节点。在SegformerFashionPipiline节点基础上删除了model 选项。
+
+### <a id="table1">LoadSegformerModel</a>
+与 SegformerUltraV3 配套的模型加载节点。    
+
+节点选项说明:  
+![image](image/load_segfromer_model_node.jpg)    
+* model_name: 模型选择。目前有三种模型可供选择segformer b2 clothes, segformer b3 clothes 和 segformer b3 fashion。
+* devicee: 加载设备选择。
 
 
 ### <a id="table1">MaskEdgeUltraDetail</a>
