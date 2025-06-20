@@ -380,6 +380,16 @@ def chop_image_v2(background_image:Image, layer_image:Image, blend_mode:str, opa
 
     return Image.fromarray(np.uint8(blended_np)).convert('RGB')
 
+def chop_image_v3(background_image:Image, layer_image:Image, blend_mode:str, opacity:int, alpha:bool) -> Image:
+
+    backdrop_prepped = np.asarray(background_image.convert('RGBA'), dtype=float)
+    source_prepped = np.asarray(layer_image.convert('RGBA'), dtype=float)
+    blended_np = BLEND_MODES[blend_mode](backdrop_prepped, source_prepped, opacity / 100)
+
+    if alpha:
+        return Image.fromarray(np.uint8(blended_np)).convert('RGBA')
+    return Image.fromarray(np.uint8(blended_np)).convert('RGB')
+
 def remove_background(image:Image, mask:Image, color:str) -> Image:
     width = image.width
     height = image.height
