@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [LoadImagesFromPath](#LoadImagesFromPath) 和 [ImageTaggerSaveV2](#ImageTaggerSaveV2) 节点，用于从文件夹加载图片列表并保存对应文件名的图片和标签。 
 * 添加 [SegformerUltraV3](SegformerUltraV3), [LoadSegformerModel](LoadSegformerModel), [SegformerClothesSetting](SegformerClothesSetting) 和 [SegformerFashionSetting](SegformerFashionSetting) 节点，将模型与设置分离加载，在使用多个节点时节省资源。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。 
 * 添加 [HalfTone](#HalfTone) 节点，用于对图像进行半色调处理。
@@ -159,6 +160,7 @@ LayerMask: SegmentAnythingUltra, LayerMask: SegmentAnythingUltra V2, LayerMask: 
 LayerUtility: UserPromptGeneratorTxt2ImgPrompt, LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference, LayerUtility: UserPromptGeneratorReplaceWord,    
 LayerUtility: AddBlindWaterMark, LayerUtility: ShowBlindWaterMark, LayerMask: YoloV8Detect
 
+* 添加 [LoadImageFromPath](LoadImageFromPath) 节点，可将一个文件夹中的图片加载为图片列表输出，支持单个文件名对应列表输出。
 * 合并[alexisrolland](https://github.com/alexisrolland) 提交的分支，添加Image Blend Advanced v3 和 Drop Shadow v3 节点，支持透明背景。
 * 添加[BenUltra](#BenUltra) 和 [LoadBenModel](#LoadBenModel)节点。这两个节点是[PramaLLC/BEN](https://huggingface.co/PramaLLC/BEN) 项目在ComfyUI中的实现。    
 从 [huggingface](https://huggingface.co/PramaLLC/BEN/tree/main) 或 [百度网盘](https://pan.baidu.com/s/17mdBxfBl_R97mtNHuiHsxQ?pwd=2jn3)下载```BEN_Base.pth``` 和 ```config.json``` 两个文件并复制到 ```ComfyUI/models/BEN```文件夹。
@@ -1555,6 +1557,28 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 
 <sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date/name_%time``` 将输出图片到```YY-mm-dd```文件夹下，以```name_HH-MM-SS```为文件名前缀。
 
+### <a id="table1">ImageTaggerSaveV2</a>  
+[ImageTaggerSave](#ImageTaggerSave) 节点的升级版，可配合[LoadImagesFromPath](#LoadImagesFromPath) 节点保存文件夹中对应图片的文本标签文件，并保持原文件名。
+
+在原节点上增加了以下选项:
+![image](image/image_tagger_save_v2_node.jpg)      
+* custom_filename: 用户自定义文件名。如果此处有输入则作为保存文件名，否则使用filename_prefix作为文件名前缀。
+* remove_custom_filename_ext: 是否移除原文件名中的扩展名。
+
+### <a id="table1">LoadImagesFromPath</a>  
+从指定的文件夹中加载图片。
+
+节点选项说明:
+![image](image/load_images_from_path_node.jpg)      
+* path: 文件夹路径。
+* image_load_cap: 输出的文件数量。默认值0表示读取文件夹中的所有图片文件。
+* select_every_nth: 每隔多少张图片加载一张图片。
+
+输出：
+* images: 输出的图片列表。
+* masks: 输出图片对应的遮罩列表。
+* file_name: 输出图片对应的文件名列表。
+* frame_count: 输出图片总数。
 
 
 # <a id="table1">LayerMask</a>

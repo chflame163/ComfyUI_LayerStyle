@@ -147,6 +147,8 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [LoadImagesFromPath](#LoadImagesFromPath) and [ImageTaggerSaveV2](#ImageTaggerSaveV2) nodes, used to load a list of images from a folder and save images and tagger text file with corresponding file names.
+* Commit [LoadImageFromPath](LoadImageFromPath) node, The images in a folder can be loaded and output as image list, also supporting output of a list corresponding to a file name.
 * Commit [SegformerUltraV3](SegformerUltraV3), [LoadSegformerModel](LoadSegformerModel), [SegformerClothesSetting](SegformerClothesSetting) and [SegformerFashionSetting](SegformerFashionSetting) nodes, Separate the loading of models and settings to save resources when using multiple nodes.
 * Add multiple languages and increase support for 5 languages: Chinese, French, Japanese, Korean and Russian. This feature producted by [ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation), thank you to the original author.
 * Commit [HalfTone](#HalfTone) node, use for halftone processing of images.
@@ -1744,6 +1746,28 @@ Node Options:
 
 <sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
 
+### <a id="table1">ImageTaggerSaveV2</a>
+The upgraded version of [ImageTaggerSave](#ImageTaggerSave) node can be used in conjunction with [LoadImagesFromPath](#LoadImagesFromPath) node to save the text label files of corresponding images in the folder, while maintaining the original file name.
+
+The following options have been added to the original node:
+![image](image/image_tagger_save_v2_node.jpg)      
+* custom_filename: User defined file name. If there is input here, use it as the save file name; otherwise, use filename_prefix as the file name prefix.
+* remove_custom_filename_ext: Whether to remove the extension from the original file name.
+
+### <a id="table1">LoadImagesFromPath</a>  
+Load images from the specified folder.
+
+Node Options:
+![image](image/load_images_from_path_node.jpg)      
+* path: Folder path.
+* image_load_cap: The number of output files. The default value of 0 means to read all image files in the folder.
+* select_every_nth: Loads one image every ```select_every_nth``` images, skipping others.
+
+Outputs:
+* images: Output image list.
+* masks: Output the mask list corresponding to the image.
+* file_name: Output a list of file names corresponding to the images.
+* frame_count: Output the total number of images.
 
 # <a id="table1">LayerMask</a>
 
