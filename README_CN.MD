@@ -128,6 +128,9 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [FluxKontextImageScale](#FluxKontextImageScale) 节点，基于官方节点修改，用于将图像大小调整为更适合FluxKontext的大小。对于非标准宽高比的图像，自动调整比例以保持所有画面信息。
+* 添加 [MaskBoxExtend](#MaskBoxExtend) 节点，用于生成遮罩BBOX扩展范围并输出为Mask。
+* 添加 [ColorNegative](#ColorNegative)节点，用于将图片颜色反转。
 * 添加 [LoadImagesFromPath](#LoadImagesFromPath) 和 [ImageTaggerSaveV2](#ImageTaggerSaveV2) 节点，用于从文件夹加载图片列表并保存对应文件名的图片和标签。 
 * 添加 [SegformerUltraV3](SegformerUltraV3), [LoadSegformerModel](LoadSegformerModel), [SegformerClothesSetting](SegformerClothesSetting) 和 [SegformerFashionSetting](SegformerFashionSetting) 节点，将模型与设置分离加载，在使用多个节点时节省资源。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。 
@@ -670,6 +673,14 @@ Color of Shadow & Highlight 节点的复制品，去掉了节点名称中的"&"�
 * S: 图像的S通道。
 * V: 图像的V通道。
 
+### <a id="table1">ColorNegative</a>
+对图像进行颜色反转，可以选择RGB反转，黑白反转，以及RGB的各通道单独反转。
+![image](image/color_negative_example.jpg)    
+
+节点选项说明:  
+![image](image/color_negative_node.jpg)    
+* negative_channel: 选择进行反转的通道。
+
 # <a id="table1">LayerUtility</a>
 ![image](image/layerutility_nodes.jpg)    
 
@@ -870,6 +881,20 @@ ImageScaleByAspectRatio的V2升级版
 * image: 图像输入。
 * icmask_data: 从ICMask输出的拼接信息。
 
+### <a id="table1">FluxKontextImageScale</a>
+基于官方节点修改，用于将图像大小调整为更适合FluxKontext的大小。对于非标准宽高比的图像，自动调整比例以保持所有画面信息。    
+下图示例对一张4K分辨率的图片使用该节点保持画面的完整信息，通过FluxKontext模型推理改变了图片背景，然后通过 [HLFrequencyDetailRestore](#HLFrequencyDetailRestore) 节点实现了4K画质的细节恢复。    
+<font size="1">*此图工作流(flux_kontext_image_scale_example.json) 在 workflow 目录中.   </font><br />
+![image](image/flux_kontext_image_scale_node_example.jpg)
+
+节点选项说明:   
+![image](image/flux_kontext_image_scale_node.jpg)    
+
+* image: 输入的图片。
+* method: 缩放的采样方法，包括lanczos、bicubic、hamming、bilinear、box和nearest。
+
+输出:
+* image: 输出图像。
 
 ### <a id="table1">VQAPrompt</a>
 使用blip-vqa模型进行视觉问答。本节点的部分代码参考自[celoron/ComfyUI-VisualQueryTemplate](https://github.com/celoron/ComfyUI-VisualQueryTemplate)，感谢原作者。    
@@ -1619,6 +1644,29 @@ mask为可选输入项，如果这里输入遮罩，将作用于输出结果。
 * height: 高度输出。
 * x: 左上角位置x坐标输出。
 * y: 左上角位置y坐标输出。
+
+### <a id="table1">MaskBoxExtend</a>
+生成遮罩BBOX扩展范围并输出为Mask，扩展范围可设置为正值或负值，正值是扩展，负值是收缩。
+![image](image/mask_box_extend_example.jpg)    
+
+节点选项说明:  
+![image](image/mask_box_extend_node.jpg)    
+* mask: 遮罩输入。
+* crop_box: MaskBoxDetect 节点输出的遮罩BBOX数据。
+* top_extend: 顶部扩展范围。100表示扩展100%的BBOX高度。
+* bottom_extend: 底部扩展范围。100表示扩展100%的BBOX高度。
+* left_extend: 左边扩展范围。100表示扩展100%的BBOX宽度。
+* right_extend: 右边扩展范围。100表示扩展100%的BBOX宽度。
+
+输出：
+* mask: BBOX扩展后的Mask。
+* x_percent: 水平位置以百分比输出。
+* y_percent: 垂直位置以百分比输出。
+* width: 宽度输出。
+* height: 高度输出。
+* x: 左上角位置x坐标输出。
+* y: 左上角位置y坐标输出。
+
 
 ## <a id="table1">Ultra</a>节点组
 ![image](image/ultra_nodes.jpg)   

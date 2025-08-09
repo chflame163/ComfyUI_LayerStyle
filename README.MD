@@ -147,6 +147,9 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [FluxKontextImageScale](#FluxKontextImageScale) node, based on official node modifications, used to resizes the image to one that is more optimal for flux kontext. For images with different aspect ratio, the scale will be adjusted appropriately to maintain all information.
+* Commit [MaskBoxExtend](#MaskBoxExtend) node, used to generate BBOX mask extension range and output as Mask.
+* Commit [ColorNegative](#ColorNegative) node, used to invert the color of image.
 * Commit [LoadImagesFromPath](#LoadImagesFromPath) and [ImageTaggerSaveV2](#ImageTaggerSaveV2) nodes, used to load a list of images from a folder and save images and tagger text file with corresponding file names.
 * Commit [LoadImageFromPath](LoadImageFromPath) node, The images in a folder can be loaded and output as image list, also supporting output of a list corresponding to a file name.
 * Commit [SegformerUltraV3](SegformerUltraV3), [LoadSegformerModel](LoadSegformerModel), [SegformerClothesSetting](SegformerClothesSetting) and [SegformerFashionSetting](SegformerFashionSetting) nodes, Separate the loading of models and settings to save resources when using multiple nodes.
@@ -744,6 +747,14 @@ Node options:
 * S: S channel.
 * V: V channel.
 
+### <a id="table1">ColorNegative</a>
+Change color to negative of image, you can choose RGB, Mono, or each channel of RGB to negative.
+![image](image/color_negative_example.jpg)    
+
+Node Options:  
+![image](image/color_negative_node.jpg)    
+* negative_channel: Select the channel for inversion.
+
 # <a id="table1">LayerUtility</a>
 
 ![image](image/layerutility_nodes.jpg)    
@@ -971,6 +982,20 @@ Node Options:
 * image: The input image.
 * icmask_data: Splicing information output from ICMask node.
 
+### <a id="table1">FluxKontextImageScale</a>
+Based on official node modifications, used to resizes the image to one that is more optimal for flux kontext. For images with different aspect ratio, the scale will be adjusted appropriately to maintain all information.
+The following example uses this node to maintain the complete information of a 4K resolution image, changes the background of the image through the FluxKontext model inference, and then achieves 4K image quality detail restoration through the [HLFrequencyDetailRestore](#HLFrequencyDetailRestore) node.
+<font size="1">*this workflow (flux_kontext_image_scale_example.json) is in the workflow directory.  </font><br /> 
+![image](image/flux_kontext_image_scale_node_example.jpg)
+
+Node Options:   
+![image](image/flux_kontext_image_scale_node.jpg)    
+
+* image: The input image.
+* method: Scaling sampling methods, including lanczos, bicubic, hamming, bilinear, box, and nearest.
+
+Outputs:
+* image: The output image.
 
 ### <a id="table1">VQAPrompt</a>
 
@@ -1805,6 +1830,28 @@ Node options:
 Output:
 
 * box_preview: Preview image of detection results. Red represents the detected result, and green represents the adjust output result.
+* x_percent: Horizontal position output in percentage.
+* y_percent: Vertical position output in percentage.
+* width: Width.
+* height: Height.
+* x: The x-coordinate of the top left corner position.
+* y: The y-coordinate of the top left corner position.
+
+### <a id="table1">MaskBoxExtend</a>
+Generate a BBOX mask to expand the range and output it as Mask. The expansion range can be set to positive or negative values, with positive values indicating expansion and negative values indicating contraction.
+![image](image/mask_box_extend_example.jpg)    
+
+Node Options:  
+![image](image/mask_box_extend_node.jpg)    
+* mask: The input mask.
+* crop_box: MaskBoxDetect node outputs mask BBOX data.
+* top_extend: Top extension range. 100 represents a 100% increase in BBOX height.
+* bottom_extend: Bottom extension range. 100 represents a 100% increase in BBOX height.
+* left_extend: Left extension range. 100 represents a 100% increase in BBOX width.
+* right_extend: Right extension range. 100 represents a 100% increase in BBOX width.
+
+Outputs:
+* mask: Mask of BBOX extension.
 * x_percent: Horizontal position output in percentage.
 * y_percent: Vertical position output in percentage.
 * width: Width.
