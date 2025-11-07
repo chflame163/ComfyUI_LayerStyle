@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [DrawRoundedRectangle](#DrawRoundedRectangle) node, used to generate rounded rectangle masks.
 * Commit [FluxKontextImageScale](#FluxKontextImageScale) node, based on official node modifications, used to resizes the image to one that is more optimal for flux kontext. For images with different aspect ratio, the scale will be adjusted appropriately to maintain all information.
 * Commit [MaskBoxExtend](#MaskBoxExtend) node, used to generate BBOX mask extension range and output as Mask.
 * Commit [ColorNegative](#ColorNegative) node, used to invert the color of image.
@@ -2273,6 +2274,20 @@ Node Options:
 
 * grain: Noise intensity.
 * invert_mask: Whether to reverse the mask.
+
+### <a id="table1">DrawRoundedRectangle</a>
+Generate rounded rectangular borders for the mask.
+
+Node Options:  
+![image](image/draw_rounded_rectangle_node.jpg)     
+
+* size_as<sup>*</sup>: Reference size. It can be an image or a mask.
+* rounded_rect_radius: Rounded rectangle radius.
+* anti_aliasing: Anti aliasing sampling multiple.
+* width: Mask width. If size_as is entered, this setting will be ignored.
+* height: Mask height. If size_as is entered, this setting will be ignored.
+
+<sup>*</sup>Only limited to input images and masks. forcing the integration of other types of inputs will result in node errors.
 
 ### <a id="table1">MaskPreview</a>
 

@@ -14,11 +14,13 @@ class LS_DrawRoundedRectangle:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "size_as": (any, {}),
                 "rounded_rect_radius": ("INT", {"default": 50, "min": 0, "max": 100, "step": 1}),
                 "anti_aliasing": ("INT", {"default": 2, "min": 0, "max": 16, "step": 1}),
+                "width": ("INT", {"default": 1024, "min": 8, "max": 1e8, "step": 1}),
+                "height": ("INT", {"default": 1024, "min": 8, "max": 1e8, "step": 1}),
             },
             "optional": {
+                "size_as": (any, {}),
             }
         }
 
@@ -27,16 +29,19 @@ class LS_DrawRoundedRectangle:
     FUNCTION = 'draw_rounded_rectangle'
     CATEGORY = '😺dzNodes/LayerMask'
 
-    def draw_rounded_rectangle(self, size_as, rounded_rect_radius, anti_aliasing):
+    def draw_rounded_rectangle(self, rounded_rect_radius, anti_aliasing, width, height, size_as=None,):
 
-        if size_as.shape[0] > 0:
-            _asimage = tensor2pil(size_as[0])
+        if size_as is None:
+            target_width, target_height = width, height
         else:
-            _asimage = tensor2pil(size_as)
-        target_width, target_height = _asimage.size
+            if size_as.shape[0] > 0:
+                _asimage = tensor2pil(size_as[0])
+            else:
+                _asimage = tensor2pil(size_as)
+            target_width, target_height = _asimage.size
 
         ret_masks = []
-        mask = Image.new("L", _asimage.size, color='black')
+        mask = Image.new("L", (target_width, target_height), color='black')
         bboxes = [(0, 0, target_width, target_height)]
         mask = draw_rounded_rectangle(mask, rounded_rect_radius, bboxes, anti_aliasing)
         ret_masks.append(pil2tensor(mask))

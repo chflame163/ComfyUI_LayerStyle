@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [DrawRoundedRectangle](#DrawRoundedRectangle) 节点， 用于生成圆角矩形遮罩。
 * 添加 [FluxKontextImageScale](#FluxKontextImageScale) 节点，基于官方节点修改，用于将图像大小调整为更适合FluxKontext的大小。对于非标准宽高比的图像，自动调整比例以保持所有画面信息。
 * 添加 [MaskBoxExtend](#MaskBoxExtend) 节点，用于生成遮罩BBOX扩展范围并输出为Mask。
 * 添加 [ColorNegative](#ColorNegative)节点，用于将图片颜色反转。
@@ -2036,6 +2037,20 @@ MaskGrow与MaskEdgeShrink效果对比
 * grain: 噪声强度。
 * invert_mask: 是否反转遮罩。
 
+### <a id="table1">DrawRoundedRectangle</a>
+为遮罩生成圆角矩形边框。
+
+节点选项说明:  
+![image](image/draw_rounded_rectangle_node.jpg)     
+
+* size_as<sup>*</sup>: 参考大小。可以是图像image，也可以是遮罩mask。
+* rounded_rect_radius: 圆角矩形半径。
+* anti_aliasing: 抗锯齿采样倍数。
+* width: 遮罩宽度。如果size_as输入，此设置将被忽略。
+* height: 遮罩高度。如果size_as输入，此设置将被忽略。
+
+<sup>*</sup>仅限输入image和mask, 如果强制接入其他类型输入，将导致节点错误。
+
 ### <a id="table1">MaskPreview</a>
 预览mask
 ![image](image/mask_invert.jpg)    
@@ -2043,6 +2058,7 @@ MaskGrow与MaskEdgeShrink效果对比
 ### <a id="table1">MaskInvert</a>
 mask反转
 ![image](image/mask_invert_node.jpg)    
+
 
 
 # <a id="table1">LayerFilter</a>
