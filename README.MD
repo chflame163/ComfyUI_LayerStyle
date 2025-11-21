@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [ImageCompositeHandleMask](#ImageCompositeHandleMask) node, used to generate local feathering masks and cropping data.
 * Commit [DrawRoundedRectangle](#DrawRoundedRectangle) node, used to generate rounded rectangle masks.
 * Commit [FluxKontextImageScale](#FluxKontextImageScale) node, based on official node modifications, used to resizes the image to one that is more optimal for flux kontext. For images with different aspect ratio, the scale will be adjusted appropriately to maintain all information.
 * Commit [MaskBoxExtend](#MaskBoxExtend) node, used to generate BBOX mask extension range and output as Mask.
@@ -787,6 +788,43 @@ Node options:
 * Sampling methods for layer enlargement and rotation, including lanczos, bicubic, hamming, bilinear, box and nearest. Different sampling methods can affect the image quality and processing time of the synthesized image.
 * anti_aliasing: Anti aliasing, ranging from 0 to 16, the larger the value, the less obvious the aliasing. An excessively high value will significantly reduce the processing speed of the node.
 * [note](#notes)
+
+### <a id="table1">ImageCompositeHandleMask</a>
+Used to generate local feathering masks and corresponding cropping data. The node provides mask output that can be used for subsequent workflows.
+![image](image/image_composite_handle_mask_example.jpg)    
+
+Node Options:   
+![image](image/image_composite_handle_mask_node.jpg)    
+* background_image: The background image.
+* layer_image: Layer image for composite.
+* layer_mask: Mask for layer_image.
+* invert_mask: Whether to reverse the mask.
+* opacity: Opacity of image composite.
+* x_percent: Horizontal position of the layer on the background image, expressed as a percentage, with 0 on the far left and 100 on the far right. It can be less than 0 or more than 100, indicating that some of the layer's content is outside the screen.
+* y_percent: Vertical position of the layer on the background image, expressed as a percentage, with 0 on the top and 100 on the bottom. For example, setting it to 50 indicates vertical center, 20 indicates upper center, and 80 indicates lower center.
+* scale: Layer magnification, 1.0 represents the original size.
+* mirror: Mirror flipping. Provide two flipping modes, horizontal flipping and vertical flipping.
+* rotate: Layer rotation degree.
+* anti_aliasing: Anti aliasing, ranging from 0 to 8, the larger the value, the less obvious the aliasing. An excessively high value will significantly reduce the processing speed of the node.
+* handle_detect: There are two methods for detecting the position of feathering masks: mask_area and layer-bbox. ```mask_area``` detects the effective area of the mask for the layer object, while ```layer-bbox``` detects the outer BBox of the layer object.
+* top_handle: The amplitude of feathering at the top side of the mask. The value is the percentage of the average edge length of the mask.
+* bottom_handle: The amplitude of feathering at the bottom side of the mask. The value is the percentage of the average edge length of the mask.
+* left_handle: The amplitude of feathering at the left side of the mask. The value is the percentage of the average edge length of the mask.
+* right_handle: The amplitude of feathering at the right side of the mask. The value is the percentage of the average edge length of the mask.
+* handle_mask_outradius: Feather mask fillet radius.
+* top_reserve: Cut the top to preserve size.
+* bottom_reserve: Cut the bottom to preserve size.
+* left_reserve: Cut the left to preserve size.
+* right_reserve: Cut the right to preserve size.
+* round_to_multiple: Round the trimming edge length multiple. For example, setting it to 8 will force the width and height to be multiples of 8.
+
+Outputs:
+* image: The composited image.
+* mask: The composited mask.
+* layer_bbox_mask: Composite object BBox mask.
+* handle_mask: The mask after feather process.
+* handle_crop_bbox: Feather mask cropping data.
+* handle_overrange: Does the feathering mask exceed the range of the background image. The output format is a string including "top", "bottom", "left", and "right".
 
 ### <a id="table1">CropByMask</a>
 
