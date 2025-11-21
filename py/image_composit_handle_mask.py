@@ -200,7 +200,7 @@ class LS_ImageCompositeHandleMask:
     RETURN_TYPES = ("IMAGE", "MASK", "MASK", "MASK", "BOX", "STRING")
     RETURN_NAMES = ("image", "mask", "layer_bbox_mask", "handle_mask", "handle_crop_box", "handle_overrange")
     FUNCTION = 'image_composite_handle_mask'
-    CATEGORY = '😺dzNodes/LayerMask'
+    CATEGORY = '😺dzNodes/LayerUtility'
 
     def image_composite_handle_mask(self, background_image, layer_image, invert_mask, opacity,
                                     x_percent, y_percent, scale, rotate, mirror, anti_aliasing,
