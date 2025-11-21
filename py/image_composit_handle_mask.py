@@ -179,7 +179,7 @@ class LS_ImageCompositeHandleMask:
                 "scale": ("FLOAT", {"default": 1.0, "min": 0.001, "max": 1e4, "step": 0.001}),
                 "rotate": ("FLOAT", {"default": 0, "min": -360, "max": 360, "step": 0.01}),
                 "mirror": (mirror_mode,),
-                "anti_aliasing": ("INT", {"default": 0, "min": 1, "max": 8, "step": 1}),
+                "anti_aliasing": ("INT", {"default": 0, "min": 0, "max": 8, "step": 1}),
                 "handle_detect": (handle_detect_list,),
                 "top_handle": ("FLOAT", {"default": 0.3, "min": 0, "max": 5, "step": 0.01}),
                 "bottom_handle": ("FLOAT", {"default": 0.3, "min": 0, "max": 5, "step": 0.01}),
