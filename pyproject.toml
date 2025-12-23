@@ -12,4 +12,4 @@ Repository = "https://github.com/chflame163/ComfyUI_LayerStyle"
 [tool.comfy]
 PublisherId = "chflame163"
 DisplayName = "ComfyUI_LayerStyle"
-Icon = ""
+Icon = "https://avatars.githubusercontent.com/u/130118553"
