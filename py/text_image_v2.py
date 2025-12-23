@@ -1,5 +1,4 @@
 import torch
-import time
 import random
 from PIL import Image, ImageFont, ImageDraw
 from .imagefunc import AnyType, log, tensor2pil, pil2tensor, image2mask, get_resource_dir, RGB2RGBA, random_numbers
@@ -18,7 +17,6 @@ class TextImage_v2:
         FONT_LIST = list(FONT_DICT.keys())
 
         layout_list = ['horizontal', 'vertical']
-        random_seed = int(time.time())
         return {
             "required": {
                 "text": ("STRING", {"multiline": True, "default": "Text"}),
@@ -29,7 +27,7 @@ class TextImage_v2:
                 "vertical_border": ("FLOAT", {"default": 5, "min": -100, "max": 100, "step": 0.1}),  # 上距离百分比
                 "scale": ("FLOAT", {"default": 80, "min": 0.1, "max": 999, "step": 0.01}),  # 整体大小与画面长宽比，横排与宽比，竖排与高比
                 "variation_range": ("INT", {"default": 0, "min": 0, "max": 100, "step": 1}), # 随机大小和位置范围
-                "variation_seed": ("INT", {"default": random_seed, "min": 0, "max": 999999999999, "step": 1}),  # 随机种子
+                "variation_seed": ("INT", {"default": 123, "min": 0, "max": 999999999999, "step": 1}),  # 随机种子
                 "layout": (layout_list,),  # 横排or竖排
                 "width": ("INT", {"default": 512, "min": 4, "max": 999999, "step": 1}),
                 "height": ("INT", {"default": 512, "min": 4, "max": 999999, "step": 1}),
