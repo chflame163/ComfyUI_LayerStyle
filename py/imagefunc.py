@@ -137,7 +137,15 @@ def tensor2np(tensor: torch.Tensor) -> List[np.ndarray]:
         return [np.clip(255.0 * t.cpu().numpy(), 0, 255).astype(np.uint8) for t in tensor]
 
 def tensor2pil(t_image: torch.Tensor)  -> Image:
-    return Image.fromarray(np.clip(255.0 * t_image.cpu().numpy().squeeze(), 0, 255).astype(np.uint8))
+    if t_image.dtype != torch.float32:
+        t_image = t_image.float()
+    return Image.fromarray(
+        np.clip(
+            255.0 * t_image.cpu().numpy().squeeze(),
+            0,
+            255
+        ).astype(np.uint8)
+    )
 
 def tensor2cv2(image:torch.Tensor) -> np.array:
     if image.dim() == 4:
