@@ -1,0 +1,462 @@
+{
+  "id": "96b44886-fe75-4481-9416-270c2786c9f6",
+  "revision": 0,
+  "last_node_id": 67,
+  "last_link_id": 139,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "LayerMask: BiRefNetUltraV2",
+      "pos": [
+        -6244.26140722801,
+        -1305.8887293975065
+      ],
+      "size": [
+        350.4371032714844,
+        246
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 137
+        },
+        {
+          "name": "birefnet_model",
+          "type": "BIREFNET_MODEL",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            128
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI_LayerStyle_Advance",
+        "ver": "86cc56bbcffd9a3e61c0dc62c2eb857344c23fce",
+        "Node name for S&R": "LayerMask: BiRefNetUltraV2"
+      },
+      "widgets_values": [
+        "VITMatte",
+        6,
+        4,
+        0.01,
+        0.99,
+        false,
+        "cuda",
+        3
+      ],
+      "color": "rgba(27, 80, 119, 0.7)"
+    },
+    {
+      "id": 3,
+      "type": "LayerMask: LoadBiRefNetModel",
+      "pos": [
+        -6669.104290696102,
+        -1286.4664307636597
+      ],
+      "size": [
+        339.0035400390625,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "birefnet_model",
+          "type": "BIREFNET_MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI_LayerStyle_Advance",
+        "ver": "86cc56bbcffd9a3e61c0dc62c2eb857344c23fce",
+        "Node name for S&R": "LayerMask: LoadBiRefNetModel"
+      },
+      "widgets_values": [
+        "BiRefNet-general-epoch_244.pth"
+      ],
+      "color": "rgba(27, 80, 119, 0.7)"
+    },
+    {
+      "id": 67,
+      "type": "LoadImageMask",
+      "pos": [
+        -6232.946914966374,
+        -963.0088384186901
+      ],
+      "size": [
+        320.9369930457269,
+        467.37438228247856
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            139
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.6.0",
+        "Node name for S&R": "LoadImageMask"
+      },
+      "widgets_values": [
+        "red_dress-trimap.jpg",
+        "alpha",
+        "image"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        -6682.935652276195,
+        -1029.8426375706215
+      ],
+      "size": [
+        348.86988455689243,
+        486.98183729382936
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            137,
+            138
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "LoadImage",
+        "image": "clipspace/clipspace-painted-masked-1767801648573.png [input]"
+      },
+      "widgets_values": [
+        "red_dress.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "LoadImage",
+      "pos": [
+        -5801.40577059604,
+        -1531.7052835495274
+      ],
+      "size": [
+        331.7844545071034,
+        426.32498476629166
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            83
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.6.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "768x1344_beach.png",
+        "image"
+      ]
+    },
+    {
+      "id": 65,
+      "type": "LayerMask: MaskEdgeUltraDetail V3",
+      "pos": [
+        -5795.902416340799,
+        -1023.1617078502339
+      ],
+      "size": [
+        341.112890625,
+        410
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 138
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 128
+        },
+        {
+          "name": "transparent_trimap",
+          "shape": 7,
+          "type": "MASK",
+          "link": 139
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            130
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "5840264d0d7cb47185acfed28c02848e94c6a894",
+        "Node name for S&R": "LayerMask: MaskEdgeUltraDetail V3"
+      },
+      "widgets_values": [
+        "VITMatte",
+        0,
+        0,
+        0.75,
+        6,
+        4,
+        260,
+        64,
+        4,
+        0.01,
+        0.99,
+        0,
+        "cuda",
+        3
+      ],
+      "color": "rgba(27, 80, 119, 0.7)"
+    },
+    {
+      "id": 49,
+      "type": "LayerUtility: ImageBlendAdvance V2",
+      "pos": [
+        -5383.052596857893,
+        -1250.0730743918964
+      ],
+      "size": [
+        341.0787109375,
+        338
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 83
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 130
+        },
+        {
+          "name": "layer_mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            119
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "5840264d0d7cb47185acfed28c02848e94c6a894",
+        "Node name for S&R": "LayerUtility: ImageBlendAdvance V2"
+      },
+      "widgets_values": [
+        false,
+        "normal",
+        100,
+        62,
+        64,
+        "None",
+        0.28,
+        1,
+        0,
+        "lanczos",
+        0
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 62,
+      "type": "PreviewImage",
+      "pos": [
+        -4983.3382193603475,
+        -1554.5231058757752
+      ],
+      "size": [
+        538.2650872904956,
+        949.0150006306046
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 119
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.6.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      2,
+      3,
+      0,
+      2,
+      1,
+      "BIREFNET_MODEL"
+    ],
+    [
+      83,
+      48,
+      0,
+      49,
+      0,
+      "IMAGE"
+    ],
+    [
+      119,
+      49,
+      0,
+      62,
+      0,
+      "IMAGE"
+    ],
+    [
+      128,
+      2,
+      1,
+      65,
+      1,
+      "MASK"
+    ],
+    [
+      130,
+      65,
+      0,
+      49,
+      1,
+      "IMAGE"
+    ],
+    [
+      137,
+      1,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      138,
+      1,
+      0,
+      65,
+      0,
+      "IMAGE"
+    ],
+    [
+      139,
+      67,
+      0,
+      65,
+      2,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7627768444385477,
+      "offset": [
+        7128.438953357998,
+        1905.1804694763355
+      ]
+    },
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.35.9",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
