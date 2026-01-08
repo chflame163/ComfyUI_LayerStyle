@@ -147,6 +147,8 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [DistortDisplace](#DistortDisplace) node,  Generate displacement deformation effects for material images.
+* Commit [MaskEdgeUltraDetailV3](#MaskEdgeUltraDetailV3)  node, By processing different partitions through inputting a trimap mask, a more refined overall mask including translucent parts is generated. 
 * Commit [ImageCompositeHandleMask](#ImageCompositeHandleMask) node, used to generate local feathering masks and cropping data.
 * Commit [DrawRoundedRectangle](#DrawRoundedRectangle) node, used to generate rounded rectangle masks.
 * Commit [FluxKontextImageScale](#FluxKontextImageScale) node, based on official node modifications, used to resizes the image to one that is more optimal for flux kontext. For images with different aspect ratio, the scale will be adjusted appropriately to maintain all information.
