@@ -128,6 +128,8 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [DistortDisplace](#DistortDisplace) 节点， 为材质图片生成置换变形效果。
+* 添加 [MaskEdgeUltraDetailV3](#MaskEdgeUltraDetailV3) 节点， 通过输入trimap遮罩对不同分区处理，生成包括更加精细半透明部分的整体遮罩。
 * 添加 [ImageCompositeHandleMask](#ImageCompositeHandleMask) 节点， 用于生成局部羽化遮罩以及对应的裁切数据。
 * 添加 [DrawRoundedRectangle](#DrawRoundedRectangle) 节点， 用于生成圆角矩形遮罩。
 * 添加 [FluxKontextImageScale](#FluxKontextImageScale) 节点，基于官方节点修改，用于将图像大小调整为更适合FluxKontext的大小。对于非标准宽高比的图像，自动调整比例以保持所有画面信息。
@@ -1933,6 +1935,18 @@ MaskEdgeUltraDetail的V2升级版，增加了VITMatte边缘处理方法，此方
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
 
+### <a id="table1">MaskEdgeUltraDetailV3</a>
+MaskEdgeUltraDetailV2的升级版，通过输入trimap遮罩对不同分区处理，生成包括更加精细半透明部分的整体遮罩。
+![image](image/mask_edge_ultra_detail_v3_example.jpg)  
+
+在MaskEdgeUltraDetailV2的基础上做了如下改变:  
+![image](image/mask_edge_ultra_detail_v3_node.jpg)    
+* transparent_trimap: 此区域范围使用不同的vitmatte参数，可生成更精细的局部遮罩。通常用于处理半透明物体或头发丝等区域。 
+* mask_edge_erode: mask遮罩部分的边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* mask_edge_dilate: mask遮罩部分的边缘向外扩张范围。数值越大，向外修复的范围越大。
+* transparent_trimap_edge_erode: transparent_trimap遮罩部分的边缘向内侵蚀范围。数值越大，向内修复的范围越大。
+* transparent_trimap_edge_dilate: transparent_trimap遮罩部分的边缘向外扩张范围。数值越大，向外修复的范围越大。
+* trimap_blur: trimap遮罩与mask遮罩融合边缘的模糊程度。
 
 ### <a id="table1">MaskByColor</a>
 根据颜色生成遮罩。
@@ -2260,6 +2274,27 @@ Film节点的升级版, 在之前基础上增加了fastgrain方法，生成噪�
 * grain_scale: 噪声的大小。
 * grain_sat: 噪声的色彩饱和度。
 
+
+### <a id="table1">DistortDisplace</a>
+为材质图片生成置换变形效果。
+![image](image/distort_displace_example.jpg)    
+
+节点选项说明:
+![image](image/distort_displace_node.jpg)    
+* image: 原始图片，材质变形基于此图片的灰度信息。
+* material_image: 材质图片。 注意此图片大小要与image一致，否则将强行转换尺寸。
+* mask: 可选遮罩输入。将输出仅包括在遮罩部分的贴图变形结果。
+* distort_strength: 变形强度。
+* smoothness: 变形的平滑度。
+* anit_aliasing: 抗锯齿。更高的数值将导致生成速度明显下降。
+* shadow_blend_mode: 暗部混合模式。
+* shadow_strength: 暗部混合强度。
+* highlight_blend_mode: 亮部混合模式。
+* highlight_strength: 亮部混合强度。
+
+输出说明：
+* image: 输出图片。
+* displaced_material: 材质图片变形结果。
 
 ## <a id="table1">节点注解</a>
 <sup>1</sup>  image、mask和background_image(如果有输入)这三项必须是相同的尺寸。    

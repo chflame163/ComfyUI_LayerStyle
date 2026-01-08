@@ -2149,6 +2149,19 @@ On the basis of MaskEdgeUltraDetail, the following changes have been made:
 * max_megapixels: Set the maximum size for VitMate operations.
 
 
+### <a id="table1">MaskEdgeUltraDetailV3</a>
+The upgraded version of MaskEdgeUltraDetailV2 to processes different partitions through inputting trimap masks, generating an overall mask that includes more refined and translucent parts.
+![image](image/mask_edge_ultra_detail_v3_example.jpg)  
+
+On the basis of MaskEdgeUltraDetailV2, the following changes have been made: 
+![image](image/mask_edge_ultra_detail_v3_node.jpg)    
+* transparent_trimap: Using different vitmatte parameters within this area can generate more refined matte mask. It is typically used to handle areas such as translucent objects or hair strands. 
+* mask_edge_erode: The edge of the mask part erodes inwardly. The larger the value, the greater the range of inward repair.
+* mask_edge_dilate: The edge of the mask expands outward. The larger the value, the greater the outward repair range.
+* transparent_trimap_edge_erode: The edge of the transparent_trimap mask erodes inwardly. The larger the value, the greater the range of inward correction.
+* transparent_trimap_edge_dilate: The edge of the transparent_trimap mask expands outward. The larger the value, the greater the outward repair range.
+* trimap_blur: The degree of blur at the edge where the trimap mask and the mask are fused.
+
 ### <a id="table1">MaskByColor</a>
 
 Generate a mask based on the selected color.
@@ -2521,6 +2534,27 @@ Node Options:
 * grain_power: Noise intensity.
 * grain_scale: Noise size.
 * grain_sat: Color saturation of noise.
+
+### <a id="table1">DistortDisplace</a>
+Generate displacement deformation effects for material images.
+![image](image/distort_displace_example.jpg)    
+
+Node Options:
+![image](image/distort_displace_node.jpg)    
+* image: The original image, with material distortion based on the grayscale information of this image.
+* material_image: Material image. The size of this image should be consistent with that of the image, otherwise it will be resized forcibly.
+* mask: Optional mask input. The output will only include the deformed result of the map in the masked part.
+* distort_strength: The strength of distortion.
+* smoothness: The smoothness of distortion.
+* anit_aliasing: The value of anti-aliasing. Higher values will result in a significant decrease in generation speed.
+* shadow_blend_mode: The shadow part blending mode.
+* shadow_strength: The shadow part blending opacity.
+* highlight_blend_mode: The highlight part blending mode.
+* highlight_strength: The highlight part blending opacity.
+
+Outputs:
+* image: The output image.
+* displaced_material: The deformation result of the material image.
 
 ## Annotation for <a id="table1">notes</a>
 

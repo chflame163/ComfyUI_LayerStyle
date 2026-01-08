@@ -1,0 +1,295 @@
+{
+  "id": "2faaee3f-fb4f-4675-bf73-0188eded5ad4",
+  "revision": 0,
+  "last_node_id": 43,
+  "last_link_id": 90,
+  "nodes": [
+    {
+      "id": 9,
+      "type": "LoadImage",
+      "pos": [
+        -6656.189793454538,
+        -1030.5373971645267
+      ],
+      "size": [
+        360.73952709359037,
+        489.6573516743524
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            43,
+            87
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.6.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "768x1344_dress.png",
+        "image"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        -6653.694433010127,
+        -1579.8143566299393
+      ],
+      "size": [
+        352.59643720054373,
+        490.82062740849506
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            88
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.6.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "plaid.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 25,
+      "type": "LayerMask: SegmentAnythingUltra V2",
+      "pos": [
+        -6120.023112208488,
+        -1027.5182287606453
+      ],
+      "size": [
+        420.491796875,
+        366
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            89
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI_LayerStyle_Advance",
+        "ver": "86cc56bbcffd9a3e61c0dc62c2eb857344c23fce",
+        "Node name for S&R": "LayerMask: SegmentAnythingUltra V2"
+      },
+      "widgets_values": [
+        "sam_vit_h (2.56GB)",
+        "GroundingDINO_SwinT_OGC (694MB)",
+        0.3,
+        "VITMatte",
+        6,
+        6,
+        0.15,
+        0.99,
+        true,
+        "dress",
+        "cuda",
+        2,
+        false
+      ],
+      "color": "rgba(27, 80, 119, 0.7)"
+    },
+    {
+      "id": 41,
+      "type": "LayerFilter: DistortDisplace",
+      "pos": [
+        -5663.784182811386,
+        -1392.847340659025
+      ],
+      "size": [
+        296.525390625,
+        242
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 87
+        },
+        {
+          "name": "material_image",
+          "type": "IMAGE",
+          "link": 88
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": 89
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            90
+          ]
+        },
+        {
+          "name": "displaced_material",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d256c3a0573d854f4eb382672397c3361cf12084",
+        "Node name for S&R": "LayerFilter: DistortDisplace"
+      },
+      "widgets_values": [
+        50,
+        8,
+        2,
+        "linear burn",
+        75,
+        "screen",
+        30
+      ],
+      "color": "rgba(34, 67, 111, 0.7)"
+    },
+    {
+      "id": 22,
+      "type": "PreviewImage",
+      "pos": [
+        -5218.693562230295,
+        -1574.0943976697952
+      ],
+      "size": [
+        602.5899407651559,
+        1000.8520524954201
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 90
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.6.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      43,
+      9,
+      0,
+      25,
+      0,
+      "IMAGE"
+    ],
+    [
+      87,
+      9,
+      0,
+      41,
+      0,
+      "IMAGE"
+    ],
+    [
+      88,
+      10,
+      0,
+      41,
+      1,
+      "IMAGE"
+    ],
+    [
+      89,
+      25,
+      1,
+      41,
+      2,
+      "MASK"
+    ],
+    [
+      90,
+      41,
+      0,
+      22,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.4305676431342591,
+      "offset": [
+        8224.326676621306,
+        2659.4485264813743
+      ]
+    },
+    "frontendVersion": "1.35.9",
+    "workflowRendererVersion": "LG",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

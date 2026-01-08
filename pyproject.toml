@@ -1,7 +1,7 @@
 [project]
 name = "comfyui_layerstyle"
 description = "A set of nodes for ComfyUI it generate image like Adobe Photoshop's Layer Style. the Drop Shadow is first completed node, and follow-up work is in progress."
-version = "2.0.33"
+version = "2.0.34"
 license = {text = "MIT License"}
 dependencies = ["numpy", "pillow", "torch", "matplotlib", "Scipy", "scikit_image", "scikit_learn", "opencv-contrib-python", "pymatting", "timm", "colour-science",  "transformers",  "blend_modes",  "huggingface_hub", "loguru"]
 
