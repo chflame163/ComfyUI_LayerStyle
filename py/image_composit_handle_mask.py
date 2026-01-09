@@ -1,41 +1,39 @@
 from .imagefunc import *
 
-def composite_layer(background_image: Image, layer_image: Image, x_center: int, y_center: int, scale: float = 1.0,
-                    rotate: float = 0, aa: int = 1, opacity: int = 100) -> list:
+def composite_layer(background_image: Image, layer_image: Image,
+                    x_percent: float, y_percent: float, scale: float = 1.0,
+                    rotate: float = 0, anti_aliasing: int = 1, opacity: int = 100) -> list:
+
     orig_layer_width, orig_layer_height = layer_image.size
-    if aa > 1:
-        w, h = layer_image.size
-        layer_image = layer_image.resize((w * aa, h * aa), Image.LANCZOS)
+    target_layer_width = int(orig_layer_width * scale)
+    target_layer_height = int(orig_layer_height * scale)
+    # scale
+    _layer = layer_image.resize((target_layer_width, target_layer_height))
+    _mask = _layer.split()[3]
+    # rotate
+    _layer, _mask, _ = image_rotate_extend_with_alpha(_layer.convert('RGB'), rotate, _mask, 'lanczos', anti_aliasing)
 
-    if scale != 1.0:
-        w, h = layer_image.size
-        layer_image = layer_image.resize((int(w * scale), int(h * scale)), Image.LANCZOS)
+    # 处理位置
+    x = int(background_image.width * x_percent / 100 - _layer.width / 2)
+    y = int(background_image.height * y_percent / 100 - _layer.height / 2)
 
-    if rotate != 0:
-        layer_image = layer_image.rotate(rotate, expand=True, resample=Image.BICUBIC)
+    # composit layer
+    _comp = copy.copy(background_image)
+    _compmask = Image.new("L", _comp.size, color='black')
+    _comp.paste(_layer, (x, y))
+    _compmask.paste(_mask, (x, y))
 
-    if aa > 1:
-        layer_image = layer_image.resize((layer_image.width // aa, layer_image.height // aa), Image.LANCZOS)
-
-    r, g, b, a = layer_image.split()
-    alpha = a.copy()
-    if 0 <= opacity < 100:
-        alpha = alpha.point(lambda i: int(i * opacity * 0.01))
-        layer_image = Image.merge("RGBA", (r, g, b, alpha))
-
-    left = int(x_center - layer_image.width / 2)
-    top = int(y_center - layer_image.height / 2)
-
-    # composite
+    # composition background
     bg = background_image.copy()
-    bg.alpha_composite(layer_image, (left, top))
+    bg.paste(_comp, mask=_compmask)
+
     # draw masks
-    whiteimage = Image.new("L", alpha.size, 'white')
-    layer_mask = Image.merge("RGBA", (whiteimage, whiteimage, whiteimage, a))
+    whiteimage = Image.new("L",  _mask.size, 'white')
+    layer_mask = Image.merge("RGBA", (whiteimage, whiteimage, whiteimage, _mask))
     mask = Image.new("RGBA", bg.size, 'black')
-    mask.alpha_composite(layer_mask, (left, top))
+    mask.alpha_composite(layer_mask, (x, y))
     bbox = Image.new("RGBA", bg.size, 'black')
-    bbox.alpha_composite(whiteimage.convert("RGBA"), (left, top))
+    bbox.alpha_composite(whiteimage.convert("RGBA"), (x, y))
 
     return [bg.convert("RGB"), mask.convert("L"), bbox.convert("L")]
 
@@ -260,11 +258,9 @@ class LS_ImageCompositeHandleMask:
                 _layer = _layer.transpose(Image.FLIP_TOP_BOTTOM)
                 _mask = _mask.transpose(Image.FLIP_TOP_BOTTOM)
 
-            x_center = int(_canvas.width * x_percent / 100)
-            y_center = int(_canvas.height * y_percent / 100)
             if anti_aliasing == 0:
                 anti_aliasing = 1
-            ret_image, ret_mask, bbox_mask = composite_layer(_canvas, _layer, x_center, y_center,
+            ret_image, ret_mask, bbox_mask = composite_layer(_canvas, _layer, x_percent, y_percent,
                                                              scale, rotate, anti_aliasing, opacity)
 
             # clac crop box
