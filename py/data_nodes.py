@@ -464,6 +464,10 @@ class QueueStopNode():
 
 
 class LS_ImageBatchToMultiList:
+
+    def __init__(self):
+        self.NODE_NAME = 'ImageBatchToList'
+
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -491,15 +495,23 @@ class LS_ImageBatchToMultiList:
         """
         B = image.shape[0]
         out = []
+        sizes = []
 
         for i in range(0, B, batch_size):
             batch = image[i:i + batch_size]
             out.append(batch)
+            sizes.append(batch.shape[0])
+
+        log(f"{self.NODE_NAME}: Convert a batch of {B} images to {sizes}.", message_type='finish')
 
         return (out,)
 
 
 class LS_MultiImageListToBatch:
+
+    def __init__(self):
+        self.NODE_NAME = 'ImageListToBatch'
+
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -524,6 +536,7 @@ class LS_MultiImageListToBatch:
         # 以第一个 batch 的第一张图作为基准尺寸
         base_h, base_w = image[0].shape[1:3]
         out = []
+        sizes =  []
 
         for batch in image:
             # batch: [B, H, W, C]
@@ -541,11 +554,13 @@ class LS_MultiImageListToBatch:
 
                 # 转回 [B, H, W, C]
                 batch = batch.permute(0, 2, 3, 1)
-
+            print(f"batch.shape={batch.shape}")
+            sizes.append(batch.shape[0])
             out.append(batch)
 
         # 沿 batch 维拼接
         out = torch.cat(out, dim=0)
+        log(f"{self.NODE_NAME}: Convert {sizes} list(s) to a batch of {out.shape[0]} images.", message_type='finish')
 
         return (out,)
 
