@@ -554,7 +554,7 @@ class LS_MultiImageListToBatch:
 
                 # 转回 [B, H, W, C]
                 batch = batch.permute(0, 2, 3, 1)
-            print(f"batch.shape={batch.shape}")
+            
             sizes.append(batch.shape[0])
             out.append(batch)
 
