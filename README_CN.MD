@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [ImageBatchToList](#ImageBatchToList) 和 [ImageListToBatch](#ImageListToBatch) 节点， 用于图片单个大批次和多个小批次互相转换，支持定义小批次数量。
 * 添加 [DistortDisplace](#DistortDisplace) 节点， 为材质图片生成置换变形效果。
 * 添加 [MaskEdgeUltraDetailV3](#MaskEdgeUltraDetailV3) 节点， 通过输入trimap遮罩对不同分区处理，生成包括更加精细半透明部分的整体遮罩。
 * 添加 [ImageCompositeHandleMask](#ImageCompositeHandleMask) 节点， 用于生成局部羽化遮罩以及对应的裁切数据。
@@ -1645,6 +1646,18 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 * masks: 输出图片对应的遮罩列表。
 * file_name: 输出图片对应的文件名列表。
 * frame_count: 输出图片总数。
+
+### <a id="table1">ImageBatchToList</a>  
+将一个图片大批次转换为若干小批次，可定义每个小批次的图片数量上限。
+
+节点选项说明:
+![image](image/image_batch_to_list(multi)_node.jpg)      
+* batch_size: 每个小批次的图片数量上限。
+
+
+### <a id="table1">ImageListToBatch</a>  
+将多个图片小批次合并为一个大批次。
+![image](image/image_batch_to_list(multi)_node.jpg)      
 
 
 # <a id="table1">LayerMask</a>
