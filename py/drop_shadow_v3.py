@@ -1,7 +1,7 @@
 import torch
 from PIL import Image
 from .imagefunc import log, tensor2pil, pil2tensor, image2mask, mask2image
-from .imagefunc import chop_image_v2, chop_mode_v2, shift_image, expand_mask
+from .imagefunc import chop_image_v3, chop_mode_v2, shift_image, expand_mask
 
 
 
@@ -41,6 +41,7 @@ class DropShadowV3:
                        background_image=None, layer_mask=None
                        ):
 
+        background_image_was_provided = background_image is not None
         # If background image is empty, create transparent background image for each layer image
         if background_image == None:
             background_image = []
@@ -94,7 +95,7 @@ class DropShadowV3:
             shadow_mask = expand_mask(image2mask(__mask), grow, blur)  #扩张，模糊
             # 合成阴影
             alpha = tensor2pil(shadow_mask).convert('L')
-            _shadow = chop_image_v2(_canvas, shadow_color, blend_mode, opacity)
+            _shadow = chop_image_v3(_canvas, shadow_color, blend_mode, opacity, not background_image_was_provided)
             _canvas.paste(_shadow, mask=alpha)
             # 合成layer
             _canvas.paste(_layer, mask=_mask)
