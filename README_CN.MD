@@ -128,6 +128,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 ## 更新说明
 <font size="4">**如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [PadImageBatch](#PadImageBatch) 和 [RestorePadImageBatch](#RestorePadImageBatch) 节点，用于扩展视频图片批次数量。
 * 添加 [ImageBatchToList](#ImageBatchToList) 和 [ImageListToBatch](#ImageListToBatch) 节点， 用于图片单个大批次和多个小批次互相转换，支持定义小批次数量。
 * 添加 [DistortDisplace](#DistortDisplace) 节点， 为材质图片生成置换变形效果。
 * 添加 [MaskEdgeUltraDetailV3](#MaskEdgeUltraDetailV3) 节点， 通过输入trimap遮罩对不同分区处理，生成包括更加精细半透明部分的整体遮罩。
@@ -1658,6 +1659,24 @@ BooleanOperator的升级版，增加了节点内数值输入，增加了大于�
 ### <a id="table1">ImageListToBatch</a>  
 将多个图片小批次合并为一个大批次。
 ![image](image/image_batch_to_list(multi)_node.jpg)      
+
+
+### <a id="table1">PadImageBatch</a>  
+扩展Image Batch到符合指定规则的帧数，例如```8n+1```。
+
+节点选项说明:
+![image](image/pad_image_batch_node.jpg)
+* multiplier: 帧数规则的乘数。例如```8n+1```中的```8```
+* remainder: 帧数规则的余数。例如```8n+1```中的```1```
+输出：
+* original_batch_length: 原始帧数。
+
+### <a id="table1">RestorePadImageBatch</a>  
+把经过扩展帧数处理后的Image Batch恢复到原始数量。
+
+节点选项说明:
+![image](image/restore_pad_image_batch_node.jpg)
+* original_batch_length: 原始帧数。
 
 
 # <a id="table1">LayerMask</a>

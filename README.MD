@@ -147,6 +147,7 @@ When this error has occurred, please check the network environment.
 
 <font size="4">**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages. </font><br />    
 
+* Commit [PadImageBatch](#PadImageBatch) and [RestorePadImageBatch](#RestorePadImageBatch) nodes, used to expand the batch size of video images.
 * Commit [ImageBatchToList](#ImageBatchToList) and [ImageListToBatch](#ImageListToBatch) nodes, Used for converting single batches of images into multiple small batches and vice versa, with option to define the maximum number of images in each small batch. 
 * Commit [DistortDisplace](#DistortDisplace) node,  Generate displacement deformation effects for material images.
 * Commit [MaskEdgeUltraDetailV3](#MaskEdgeUltraDetailV3)  node, By processing different partitions through inputting a trimap mask, a more refined overall mask including translucent parts is generated. 
@@ -1848,6 +1849,23 @@ Node Options:
 ### <a id="table1">ImageListToBatch</a>  
 Merge multiple small batches of images into one large batch.
 ![image](image/image_batch_to_list(multi)_node.jpg)      
+
+### <a id="table1">PadImageBatch</a>  
+Extend the Image Batch to the number of frames that conform to the specified rule, such as ```8n+1```.
+
+Node Options:
+![image](image/pad_image_batch_node.jpg)
+* multiplier: The multiplier for the frame number rule. For example, the "8" in "8n+1"
+* remainder: The remainder of the frame number rule. For example, the "1" in "8n+1"
+Outputs:
+* original_batch_length: Original Frames.
+
+### <a id="table1">RestorePadImageBatch</a>  
+Restore the Image Batch to its original quantity after expanding the frame count.
+
+Node Options:
+![image](image/restore_pad_image_batch_node.jpg)
+* original_batch_length: Original Frames.
 
 
 
