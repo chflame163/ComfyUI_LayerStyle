@@ -23,7 +23,9 @@ const ensureColorWidgets = (node, nodeData) => {
   for (const [name, def] of Object.entries(required)) {
     const t = def?.[0]
     if (t === 'COLOR') {
-      const hasWidget = (node.widgets || []).some((w) => w.name === name && w.type === 'COLOR')
+      // Newer frontends create their own widget (type 'color') for COLOR inputs;
+      // match by name only so we never add a duplicate alongside it.
+      const hasWidget = (node.widgets || []).some((w) => w.name === name)
       if (!hasWidget && typeof node.addCustomWidget === 'function') {
         const defaultVal = def?.[1]?.default || '#ff0000'
         node.addCustomWidget(DZWidgets.COLOR(name, defaultVal))
