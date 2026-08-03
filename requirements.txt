@@ -9,7 +9,7 @@ opencv-contrib-python
 pymatting
 timm
 colour-science
-transformers>=4.43.2
+transformers
 blend_modes
-huggingface_hub>=0.23.4
+huggingface_hub
 loguru
