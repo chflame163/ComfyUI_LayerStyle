@@ -86,8 +86,20 @@ class CropByMaskV2:
                 height = num_round_up_to_multiple(y2 - y1, multiple)
                 x1 = x1 - (width - (x2 - x1)) // 2
                 y1 = y1 - (height - (y2 - y1)) // 2
-                x2 = x1 + width
-                y2 = y1 + height
+                # keep the enlarged box inside the canvas, PIL pads an
+                # out-of-range crop box with black and silently grows the image
+                if x1 < 0:
+                    x1 = 0
+                if y1 < 0:
+                    y1 = 0
+                if x1 + width > canvas_width:
+                    x1 = max(0, canvas_width - width)
+                if y1 + height > canvas_height:
+                    y1 = max(0, canvas_height - height)
+                x2 = min(canvas_width, x1 + width)
+                y2 = min(canvas_height, y1 + height)
+                width = x2 - x1
+                height = y2 - y1
 
             log(f"{self.NODE_NAME}: Box detected. x={x1},y={y1},width={width},height={height}")
             crop_box = (x1, y1, x2, y2)
