@@ -328,25 +328,18 @@ def blend_hard_mix(background_image:Image, layer_image:Image) -> Image:
 def shift_image(image:Image, distance_x:int, distance_y:int, background_color:str='#000000', cyclic:bool=False) -> Image:
     width = image.width
     height = image.height
-    ret_image = Image.new('RGB', size=(width, height), color=background_color)
-    for x in range(width):
-        for y in range(height):
-            if cyclic:
-                    orig_x = x + distance_x
-                    if orig_x > width-1 or orig_x < 0:
-                        orig_x = abs(orig_x % width)
-                    orig_y = y + distance_y
-                    if orig_y > height-1 or orig_y < 0:
-                        orig_y = abs(orig_y % height)
-
-                    pixel = image.getpixel((orig_x, orig_y))
-                    ret_image.putpixel((x, y), pixel)
-            else:
-                if x > -distance_x and y > -distance_y:  # 防止回转
-                    if x + distance_x < width and y + distance_y < height:  # 防止越界
-                        pixel = image.getpixel((x + distance_x, y + distance_y))
-                        ret_image.putpixel((x, y), pixel)
-    return ret_image
+    ret_arr = np.asarray(Image.new('RGB', size=(width, height), color=background_color)).copy()
+    arr = np.asarray(image.convert('RGB'))
+    if cyclic:
+        ret_arr = np.roll(arr, shift=(-distance_y, -distance_x), axis=(0, 1))
+    else:
+        rows = np.arange(height) + distance_y
+        cols = np.arange(width) + distance_x
+        valid_rows = (np.arange(height) > -distance_y) & (rows >= 0) & (rows < height)
+        valid_cols = (np.arange(width) > -distance_x) & (cols >= 0) & (cols < width)
+        if valid_rows.any() and valid_cols.any():
+            ret_arr[np.ix_(valid_rows, valid_cols)] = arr[np.ix_(rows[valid_rows], cols[valid_cols])]
+    return Image.fromarray(ret_arr)
 
 def chop_image(background_image:Image, layer_image:Image, blend_mode:str, opacity:int) -> Image:
     ret_image = background_image
