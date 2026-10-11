@@ -35,10 +35,11 @@ class LS_LoadImagesFromPath:
         if os.path.isdir(path):
             input_dir = os.path.normpath(path)
             files = [
-                os.path.join(input_dir, f)
+                f
                 for f in os.listdir(input_dir)
                 if os.path.isfile(os.path.join(input_dir, f))
             ]
+            files = folder_paths.filter_files_content_types(files, ["image"])
 
             for i in range(len(files)):
 
@@ -46,7 +47,7 @@ class LS_LoadImagesFromPath:
                     continue
 
                 image_file = files[i]
-                image_path = folder_paths.get_annotated_filepath(image_file)
+                image_path = folder_paths.get_annotated_filepath(image_file, input_dir)
                 img = node_helpers.pillow(Image.open, image_path)
                 output_images = []
                 output_masks = []
