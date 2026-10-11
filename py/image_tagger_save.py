@@ -203,7 +203,13 @@ class LSImageTaggerSave_V2:
                 elif timestamp == "second":
                     file = f'{file}_{now.strftime("%Y-%m-%d_%H-%M-%S")}'
                 if batch_number:
-                    file = f'{file}_{batch_number:08}'
+                    custom_base = file
+                    suffix = batch_number
+                    file = f'{custom_base}_{suffix:08}'
+                    while os.path.isfile(os.path.join(full_output_folder, f"{file}.{format}")) or \
+                            os.path.isfile(os.path.join(full_output_folder, f"{file}.txt")):
+                        suffix += 1
+                        file = f'{custom_base}_{suffix:08}'
             elif timestamp == "millisecond":
                 file = f'{filename}_{now.strftime("%Y-%m-%d_%H-%M-%S-%f")[:-3]}'
             elif timestamp == "second":
