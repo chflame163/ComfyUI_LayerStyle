@@ -1,12 +1,23 @@
 import torch
+import re
 import textwrap
 import copy
 from PIL import Image, ImageFont, ImageDraw
 from typing import cast
 from .imagefunc import AnyType, log, get_resource_dir, tensor2pil, pil2tensor, image2mask
 
+try:
+    import khatt  # shapes Arabic and orders right-to-left text, which Pillow can't without Raqm
+except ImportError:
+    khatt = None
+
 
 any = AnyType("*")
+
+# Hebrew, Arabic, Syriac, Thaana, N'Ko and the Arabic presentation forms
+RTL_TEXT = re.compile('[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc]')
+# Arabic glyphs for fonts that have none, such as the bundled Alibaba PuHuiTi
+ARABIC_FALLBACK_FONTS = ['noto-naskh']
 
 class SimpleTextImage:
 
@@ -82,8 +93,14 @@ class SimpleTextImage:
             lines = textwrap.wrap(paragraph, width=char_per_line, expand_tabs=False,
                                   replace_whitespace=False, drop_whitespace=False)
             for line in lines:
-                width = font.getbbox(line)[2] - font.getbbox(line)[0]
-                height = font.getbbox(line)[3] - font.getbbox(line)[1]
+                shaped = khatt is not None and RTL_TEXT.search(line) is not None
+                if shaped:
+                    bbox = khatt.text_bbox(line, font=font_path, size_px=font_size,
+                                           fallback_fonts=ARABIC_FALLBACK_FONTS)
+                else:
+                    bbox = font.getbbox(line)
+                width = bbox[2] - bbox[0]
+                height = bbox[3] - bbox[1]
                 # 根据 align 参数重新计算 x 坐标
                 if align == "left":
                     x_text = x_offset
@@ -94,14 +111,27 @@ class SimpleTextImage:
                 else:
                     x_text = x_offset  # 默认为左对齐
 
-                draw.text(
-                    xy=(x_text, y_text),
-                    text=line,
-                    fill=text_color,
-                    font=font,
-                    stroke_width=stroke_width,
-                    stroke_fill=stroke_color,
-                    )
+                if shaped:
+                    khatt.draw_text(
+                        img,
+                        (x_text, y_text),
+                        line,
+                        font=font_path,
+                        size_px=font_size,
+                        fill=text_color,
+                        stroke_width=stroke_width,
+                        stroke_fill=stroke_color,
+                        fallback_fonts=ARABIC_FALLBACK_FONTS,
+                        )
+                else:
+                    draw.text(
+                        xy=(x_text, y_text),
+                        text=line,
+                        fill=text_color,
+                        font=font,
+                        stroke_width=stroke_width,
+                        stroke_fill=stroke_color,
+                        )
                 y_text += height + leading
             y_text += leading * 2
 
