@@ -2,6 +2,7 @@ import torch
 import random
 from PIL import Image, ImageFont, ImageDraw
 from .imagefunc import AnyType, log, tensor2pil, pil2tensor, image2mask, get_resource_dir, RGB2RGBA, random_numbers
+from .simple_text_image import khatt, RTL_TEXT, ARABIC_FALLBACK_FONTS
 
 
 any = AnyType("*")
@@ -126,7 +127,16 @@ class TextImage_v2:
         # draw char
         _mask = Image.new('RGB', size=(width, height), color='black')
         draw = ImageDraw.Draw(_mask)
+        right = min(width, max(line[-1].get('axis')[0] + line[-1].get('size') for line in text_table))
         for l in range(len(lines)):
+            if layout == 'horizontal' and khatt is not None and RTL_TEXT.search(lines[l]):
+                # Arabic letters join and Arabic and Hebrew run right to left, so draw the line whole,
+                # right-aligned to the text block, instead of letter by letter
+                first = text_table[l][0]
+                khatt.draw_text(_mask, (right, first.get('axis')[1]), lines[l], font=FONT_DICT.get(font_file),
+                                size_px=first.get('size'), fill='white', anchor='ra',
+                                fallback_fonts=ARABIC_FALLBACK_FONTS)
+                continue
             for c in range(len(lines[l])):
                 font_path = FONT_DICT.get(font_file)
                 font_size = text_table[l][c].get('size')

@@ -16,8 +16,8 @@ any = AnyType("*")
 
 # Hebrew, Arabic, Syriac, Thaana, N'Ko and the Arabic presentation forms
 RTL_TEXT = re.compile('[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc]')
-# Arabic glyphs for fonts that have none, such as the bundled Alibaba PuHuiTi
-ARABIC_FALLBACK_FONTS = ['noto-naskh']
+# Arabic and Hebrew glyphs for fonts that have none, such as the bundled Alibaba PuHuiTi
+ARABIC_FALLBACK_FONTS = ['noto-naskh', 'rubik']
 
 class SimpleTextImage:
 
