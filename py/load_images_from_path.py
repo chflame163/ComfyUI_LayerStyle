@@ -98,7 +98,7 @@ class LS_LoadImagesFromPath:
             return (load_images, load_masks, load_file_names, load_frame_count)
 
         else:
-            raise Exception("directory is not valid: " + directory)
+            raise Exception("directory is not valid: " + path)
 
 
 NODE_CLASS_MAPPINGS = {
