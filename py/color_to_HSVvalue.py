@@ -1,4 +1,4 @@
-from .imagefunc import AnyType, Hex_to_HSV_255level, log
+from .imagefunc import AnyType, Hex_to_HSV_255level, RGB_to_Hex, log
 
 any = AnyType("*")
 
