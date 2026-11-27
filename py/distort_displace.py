@@ -1,6 +1,7 @@
 import copy
 import torch
 import numpy as np
+from PIL import Image
 from .imagefunc import log, pil2tensor, tensor2pil, chop_image_v2, chop_mode_v2, fit_resize_image, displacement_image
 
 

@@ -70,7 +70,7 @@ class SimpleTextImage:
         ret_masks = []
         if size_as is not None:
             if size_as.dim() == 2:
-                size_as_image = torch.unsqueeze(mask, 0)
+                size_as = torch.unsqueeze(size_as, 0)
             if size_as.shape[0] > 0:
                 size_as_image = torch.unsqueeze(size_as[0], 0)
             else:
