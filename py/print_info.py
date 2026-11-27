@@ -1,3 +1,4 @@
+import json
 import torch
 from .imagefunc import log, tensor2pil
 from .imagefunc import AnyType
